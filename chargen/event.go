@@ -96,9 +96,49 @@ type ChoiceEvent struct {
 // characteristic changes, and elapsed years.
 type ConsequenceKind string
 
-// ConsequenceCharacteristicSet records a characteristic receiving its
-// initial rolled value (chart A, p. 56).
-const ConsequenceCharacteristicSet ConsequenceKind = "characteristic_set"
+// The consequence kinds the engine currently emits.
+const (
+	// ConsequenceCharacteristicSet records a characteristic receiving
+	// its initial rolled value (chart A, p. 56). Value is the new value.
+	ConsequenceCharacteristicSet ConsequenceKind = "characteristic_set"
+
+	// ConsequenceCharacteristicChange records a characteristic changing
+	// (for example table C column 1 Personal, p. 78). Delta is the
+	// change, Value the new value.
+	ConsequenceCharacteristicChange ConsequenceKind = "characteristic_change"
+
+	// ConsequenceSkillAwarded records a skill receipt. Delta is the
+	// levels received, Value the resulting level.
+	ConsequenceSkillAwarded ConsequenceKind = "skill_awarded"
+
+	// ConsequenceJobSet and ConsequenceHobbySet record the Citizen Job
+	// and Hobby determinations ("Once determined, Job and Hobby cannot
+	// be changed", chart 04 p. 78). Skill names the determined skill.
+	ConsequenceJobSet   ConsequenceKind = "job_set"
+	ConsequenceHobbySet ConsequenceKind = "hobby_set"
+
+	// ConsequenceNoAward records a table cell that awards nothing (the
+	// "No Skill" cell of table E, p. 78).
+	ConsequenceNoAward ConsequenceKind = "no_award"
+
+	// ConsequenceBenefitLost records a Major/Minor cell without the
+	// education to use it: "If the character does not have a Major/Minor
+	// this benefit is lost" (p. 78 table C note).
+	ConsequenceBenefitLost ConsequenceKind = "benefit_lost"
+
+	// ConsequenceMandatoryContinue records a Continue roll of exactly 2:
+	// "If the Continue roll is 2 exactly, the character is required to
+	// Continue in the current Career" (p. 66).
+	ConsequenceMandatoryContinue ConsequenceKind = "mandatory_continue"
+
+	// ConsequenceYearsElapsed records career time passing. Value is the
+	// years ("the 4-year Term", p. 66).
+	ConsequenceYearsElapsed ConsequenceKind = "years_elapsed"
+
+	// ConsequenceCareerEnded records the end of career resolution
+	// ("Failure ends Career Resolution", p. 66). Career names it.
+	ConsequenceCareerEnded ConsequenceKind = "career_ended"
+)
 
 // ConsequenceEvent records one effect of an earlier throw or choice. Cause
 // is the sequence number of that event. Payload fields are structured, not
@@ -108,7 +148,10 @@ type ConsequenceEvent struct {
 	Cause          int             `json:"cause"`
 	Kind           ConsequenceKind `json:"kind"`
 	Characteristic string          `json:"characteristic,omitempty"` // Str, Dex, End, Int, Edu, Soc
-	Value          int             `json:"value"`
+	Skill          string          `json:"skill,omitempty"`
+	Career         string          `json:"career,omitempty"`
+	Delta          int             `json:"delta,omitempty"`
+	Value          int             `json:"value,omitempty"`
 }
 
 // Log accumulates the generation record in event order.

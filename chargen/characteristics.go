@@ -27,7 +27,7 @@ type Characteristics struct {
 //
 // A value outside the eHex range renders as "?" — p. 22 shows the unknown
 // value convention as 77??67.
-func (c Characteristics) UPP() string {
+func (c *Characteristics) UPP() string {
 	upp := make([]byte, 0, 6)
 
 	for _, value := range []int{c.Str, c.Dex, c.End, c.Int, c.Edu, c.Soc} {
@@ -40,6 +40,51 @@ func (c Characteristics) UPP() string {
 	}
 
 	return string(upp)
+}
+
+// Value returns the named characteristic's value; ok is false for a name
+// outside the six standard abbreviations (p. 48: "A Characteristic can be
+// abbreviated with its first three letters").
+func (c *Characteristics) Value(name string) (int, bool) {
+	field := c.field(name)
+	if field == nil {
+		return 0, false
+	}
+
+	return *field, true
+}
+
+// Add applies a delta to the named characteristic, reporting the new value;
+// ok is false for an unknown name.
+func (c *Characteristics) Add(name string, delta int) (int, bool) {
+	field := c.field(name)
+	if field == nil {
+		return 0, false
+	}
+
+	*field += delta
+
+	return *field, true
+}
+
+// field maps a standard abbreviation to its field.
+func (c *Characteristics) field(name string) *int {
+	switch name {
+	case "Str":
+		return &c.Str
+	case "Dex":
+		return &c.Dex
+	case "End":
+		return &c.End
+	case "Int":
+		return &c.Int
+	case "Edu":
+		return &c.Edu
+	case "Soc":
+		return &c.Soc
+	}
+
+	return nil
 }
 
 // RollCharacteristics rolls the six standard human characteristics, emitting

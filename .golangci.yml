@@ -10,6 +10,10 @@ run:
 linters:
   default: all
   settings:
+    exhaustive:
+      # A switch with a default clause is deliberate partitioning, not an
+      # oversight — enum-family renderers split one enum across functions.
+      default-signifies-exhaustive: true
     errcheck:
       exclude-functions: # CLI diagnostics to injected writers; a failed usage/error print is not actionable
         - fmt.Fprint

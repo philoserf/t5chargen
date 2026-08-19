@@ -23,16 +23,28 @@ func golden(t *testing.T, got, file string) {
 	}
 }
 
+// generate builds a character for render tests.
+func generate(t *testing.T, opts chargen.Options) chargen.Character {
+	t.Helper()
+
+	c, err := chargen.Generate(opts)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	return c
+}
+
 func TestSheetGolden(t *testing.T) {
-	golden(t, render.Sheet(chargen.Generate(1, "")), "testdata/seed1_sheet.md")
+	golden(t, render.Sheet(generate(t, chargen.Options{Seed: 1})), "testdata/seed1_sheet.md")
 }
 
 func TestHistoryGolden(t *testing.T) {
-	golden(t, render.History(chargen.Generate(1, "")), "testdata/seed1_history.md")
+	golden(t, render.History(generate(t, chargen.Options{Seed: 1})), "testdata/seed1_history.md")
 }
 
 func TestSheetWithName(t *testing.T) {
-	sheet := render.Sheet(chargen.Generate(1, "Eneri Dinsha"))
+	sheet := render.Sheet(generate(t, chargen.Options{Seed: 1, Name: "Eneri Dinsha"}))
 
 	if !strings.Contains(sheet, "**Name**: Eneri Dinsha\n") {
 		t.Errorf("sheet missing name line:\n%s", sheet)

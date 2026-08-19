@@ -12,7 +12,9 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strings"
 
+	"github.com/philoserf/t5chargen/career"
 	"github.com/philoserf/t5chargen/chargen"
 	"github.com/philoserf/t5chargen/render"
 )
@@ -27,7 +29,7 @@ const (
 )
 
 const usage = `usage:
-  t5chargen new [--seed N] [--name X] [-o file] [--force]
+  t5chargen new --auto [--seed N] [--name X] [--career citizen] [-o file] [--force]
   t5chargen render character.json [--format md] [--history]
 `
 
@@ -76,6 +78,8 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 	flags.SetOutput(stderr)
 	seed := flags.Uint64("seed", 0, "RNG seed (default: drawn from OS entropy)")
 	name := flags.String("name", "", "character name (blank by default)")
+	careerFlag := flags.String("career", "", "force the first career")
+	auto := flags.Bool("auto", false, "apply the fixed default policy (POLICY.md) to every choice")
 	out := flags.String("o", "", "output file (default: stdout)")
 	force := flags.Bool("force", false, "overwrite an existing output file")
 
@@ -83,28 +87,23 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 		return exitUsage
 	}
 
-	// --seed 0 is a valid explicit seed; only fall back to seedFn when the
-	// flag was not given at all.
-	seedSet := false
-
-	flags.Visit(func(f *flag.Flag) {
-		if f.Name == "seed" {
-			seedSet = true
-		}
-	})
-
-	if !seedSet {
-		drawn, err := seedFn()
-		if err != nil {
-			fmt.Fprintf(stderr, "t5chargen: %v\n", err)
-
-			return exitError
-		}
-
-		*seed = drawn
+	forcedCareer, ok := validateNewFlags(*auto, *careerFlag, stderr)
+	if !ok {
+		return exitError
 	}
 
-	character := chargen.Generate(*seed, *name)
+	if err := resolveSeed(flags, seed, seedFn); err != nil {
+		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
+
+		return exitError
+	}
+
+	character, err := chargen.Generate(chargen.Options{Seed: *seed, Name: *name, Career: forcedCareer})
+	if err != nil {
+		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
+
+		return exitError
+	}
 
 	data, err := json.MarshalIndent(character, "", "  ")
 	if err != nil {
@@ -128,6 +127,71 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 	}
 
 	return exitOK
+}
+
+// validateNewFlags enforces the mode and career flags. Interactive mode is
+// the PRD's default; it lands with milestone 5. Refusing without --auto is
+// honest — silently substituting the auto policy would misrepresent who
+// decided.
+func validateNewFlags(auto bool, careerFlag string, stderr io.Writer) (string, bool) {
+	if !auto {
+		fmt.Fprintln(stderr, "t5chargen new: interactive mode is not yet implemented (milestone 5); use --auto")
+
+		return "", false
+	}
+
+	forcedCareer, err := canonicalCareer(careerFlag)
+	if err != nil {
+		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
+
+		return "", false
+	}
+
+	return forcedCareer, true
+}
+
+// resolveSeed draws a seed from seedFn when --seed was not given. --seed 0
+// is a valid explicit seed; only an absent flag falls back to seedFn.
+func resolveSeed(flags *flag.FlagSet, seed *uint64, seedFn func() (uint64, error)) error {
+	seedSet := false
+
+	flags.Visit(func(f *flag.Flag) {
+		if f.Name == "seed" {
+			seedSet = true
+		}
+	})
+
+	if seedSet {
+		return nil
+	}
+
+	drawn, err := seedFn()
+	if err != nil {
+		return err
+	}
+
+	*seed = drawn
+
+	return nil
+}
+
+// errUnknownCareer reports a --career value outside the implemented set.
+var errUnknownCareer = errors.New("unknown career")
+
+// canonicalCareer maps a case-insensitive --career value to its canonical
+// Book 1 name; empty stays empty (no forced career).
+func canonicalCareer(name string) (string, error) {
+	if name == "" {
+		return "", nil
+	}
+
+	for _, available := range career.Available() {
+		if strings.EqualFold(available, name) {
+			return available, nil
+		}
+	}
+
+	return "", fmt.Errorf("%w: %q (available: %s)", errUnknownCareer, name, strings.Join(career.Available(), ", "))
 }
 
 // writeFile writes the record to path. "Existing files are never
