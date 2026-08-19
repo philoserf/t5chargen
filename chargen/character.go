@@ -40,11 +40,11 @@ type RNG struct {
 // derived value (docs/PRD.md, JSON conventions): replay recomputes and
 // compares it.
 type Character struct {
-	SchemaVersion string   `json:"schema_version"`
-	Ruleset       string   `json:"ruleset"`
-	EngineVersion string   `json:"engine_version"`
-	PolicyVersion string   `json:"policy_version"`
-	RNG           RNG      `json:"rng"`
+	SchemaVersion string `json:"schema_version"`
+	Ruleset       string `json:"ruleset"`
+	EngineVersion string `json:"engine_version"`
+	PolicyVersion string `json:"policy_version"`
+	RNG           RNG    `json:"rng"`
 	// Errata lists applied ERRATA.md deviations. Unlike PolicyVersion
 	// (whose "none" sentinel keeps the key always present), an empty list
 	// is deliberately absent from the JSON: the PRD requires recording
