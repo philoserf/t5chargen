@@ -10,6 +10,11 @@ run:
 linters:
   default: all
   settings:
+    errcheck:
+      exclude-functions: # CLI diagnostics to injected writers; a failed usage/error print is not actionable
+        - fmt.Fprint
+        - fmt.Fprintf
+        - fmt.Fprintln
     depguard:
       rules:
         main:
