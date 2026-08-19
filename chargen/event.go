@@ -119,9 +119,55 @@ type Log struct {
 	events []Event
 }
 
-// Events returns a copy of the log in sequence order.
+// Events returns a deep copy of the log in sequence order: mutating the
+// returned events, their payloads, or their slices cannot corrupt the
+// stored record, which replay depends on.
 func (l *Log) Events() []Event {
-	return slices.Clone(l.events)
+	events := make([]Event, len(l.events))
+	for i, event := range l.events {
+		events[i] = event.clone()
+	}
+
+	return events
+}
+
+// clone deep-copies the event's payload pointer and any inner slices.
+func (e Event) clone() Event {
+	if e.Step != nil {
+		step := *e.Step
+		e.Step = &step
+	}
+
+	if e.Throw != nil {
+		throw := *e.Throw
+		throw.Dice = slices.Clone(throw.Dice)
+		throw.Mods = slices.Clone(throw.Mods)
+
+		if throw.Target != nil {
+			target := *throw.Target
+			throw.Target = &target
+		}
+
+		if throw.Success != nil {
+			success := *throw.Success
+			throw.Success = &success
+		}
+
+		e.Throw = &throw
+	}
+
+	if e.Choice != nil {
+		choice := *e.Choice
+		choice.Options = slices.Clone(choice.Options)
+		e.Choice = &choice
+	}
+
+	if e.Consequence != nil {
+		consequence := *e.Consequence
+		e.Consequence = &consequence
+	}
+
+	return e
 }
 
 // Step records entering a checklist step and returns its sequence number.
@@ -130,11 +176,12 @@ func (l *Log) Step(name, cite string) int {
 }
 
 // Roll records a plain roll — one that resolves against no target number —
-// and returns its sequence number.
+// and returns its sequence number. The faces are copied: the caller's
+// dice.Roll cannot alias the stored record.
 func (l *Log) Roll(roll dice.Roll, cite string) int {
 	return l.append(Event{Kind: EventThrow, Throw: &ThrowEvent{
 		Expr:  roll.Expr(),
-		Dice:  roll.Faces,
+		Dice:  slices.Clone(roll.Faces),
 		Mod:   roll.Mod,
 		Total: roll.Total,
 		Cite:  cite,
@@ -142,22 +189,26 @@ func (l *Log) Roll(roll dice.Roll, cite string) int {
 }
 
 // Throw records a target-number throw with its itemized target modifiers
-// and returns its sequence number.
+// and returns its sequence number. The faces and mods are copied: the
+// caller's slices cannot alias the stored record.
 func (l *Log) Throw(throw dice.Throw, mods []Mod, cite string) int {
 	return l.append(Event{Kind: EventThrow, Throw: &ThrowEvent{
 		Expr:    throw.Expr(),
-		Dice:    throw.Faces,
+		Dice:    slices.Clone(throw.Faces),
 		Mod:     throw.Mod,
 		Total:   throw.Total,
 		Target:  &throw.Target,
 		Success: &throw.Success,
-		Mods:    mods,
+		Mods:    slices.Clone(mods),
 		Cite:    cite,
 	}})
 }
 
 // Choice records a resolved choice point and returns its sequence number.
+// The options are copied: the caller's slice cannot alias the stored record.
 func (l *Log) Choice(choice ChoiceEvent) int {
+	choice.Options = slices.Clone(choice.Options)
+
 	return l.append(Event{Kind: EventChoice, Choice: &choice})
 }
 
