@@ -1,6 +1,7 @@
 package dice_test
 
 import (
+	"slices"
 	"testing"
 
 	"github.com/philoserf/t5chargen/dice"
@@ -67,7 +68,7 @@ func TestThrowFromStream(t *testing.T) {
 		throw := throwRoller.Throw(n, 10)
 		roll := rollRoller.Roll(n)
 
-		if throw.Total != roll.Total || len(throw.Faces) != n {
+		if !slices.Equal(throw.Faces, roll.Faces) || throw.Total != roll.Total {
 			t.Fatalf("Throw(%d, 10) rolled %v (total %d), want %v (total %d)",
 				n, throw.Faces, throw.Total, roll.Faces, roll.Total)
 		}
