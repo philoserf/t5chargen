@@ -1,0 +1,15 @@
+#!/bin/sh
+# Pre-push gate: run the full local gate (check + test) before any push.
+# `task` runs check (modernize + gofumpt + vet + lint) then test (race).
+# This repo has no CI — local hooks are the only automated gate.
+#
+# Bypass for an emergency push with:  git push --no-verify
+set -e
+
+if ! command -v task >/dev/null 2>&1; then
+	echo "pre-push: 'task' not found on PATH; install go-task (https://taskfile.dev) or push with --no-verify" >&2
+	exit 1
+fi
+
+echo "pre-push: running 'task' (check + test)..."
+task

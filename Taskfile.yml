@@ -1,0 +1,85 @@
+version: "3"
+
+tasks:
+  default:
+    desc: Run check + test
+    aliases: [all]
+    cmds:
+      - task: check
+      - task: test
+
+  check:
+    desc: Modernize gate + gofumpt + go vet + golangci-lint
+    cmds:
+      - task: modernize
+      - task: fmt:check
+      - task: vet
+      - task: lint
+
+  # Apply Go modernizations (min/max, range over int, new(value), etc.)
+  # and fail if the working tree is no longer clean against HEAD for *.go.
+  # This makes modernize signal mandatory rather than advisory.
+  modernize:
+    desc: Apply go fix and fail if it produced any changes
+    cmds:
+      - go fix ./...
+      - |
+        if ! git diff --quiet -- '*.go'; then
+          echo ""
+          echo "ERROR: go fix ./... produced changes. Review with 'git diff' and commit before continuing."
+          echo "(If these changes are unrelated work-in-progress, stage them and re-run.)"
+          git diff --stat -- '*.go'
+          exit 1
+        fi
+
+  fmt:check:
+    desc: Check formatting with gofumpt -extra
+    cmds:
+      - |
+        output="$(gofumpt -l -extra .)"
+        if [ -n "$output" ]; then
+          echo "$output"
+          echo "gofumpt formatting check failed: run 'task fmt' to fix." >&2
+          exit 1
+        fi
+
+  fmt:
+    desc: Format with gofumpt -extra
+    cmds:
+      - gofumpt -l -w -extra .
+
+  vet:
+    desc: Run go vet
+    cmds:
+      - go vet ./...
+
+  lint:
+    desc: Run golangci-lint
+    cmds:
+      - golangci-lint run
+
+  lint:fix:
+    desc: Run golangci-lint with auto-fix
+    cmds:
+      - golangci-lint run --fix
+
+  test:
+    desc: Run all tests with race detector
+    cmds:
+      - go test -race ./...
+
+  tidy:
+    desc: Run go mod tidy
+    cmds:
+      - go mod tidy
+
+  deps:
+    desc: Install the development toolchain from the Brewfile
+    cmds:
+      - brew bundle --file=Brewfile
+
+  hooks:
+    desc: Install git hooks (point core.hooksPath at the tracked .githooks/)
+    cmds:
+      - git config core.hooksPath .githooks
+      - echo "git hooks installed — pre-push runs 'task' (check + test)"
