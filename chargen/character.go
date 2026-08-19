@@ -45,7 +45,11 @@ type Character struct {
 	EngineVersion string   `json:"engine_version"`
 	PolicyVersion string   `json:"policy_version"`
 	RNG           RNG      `json:"rng"`
-	Errata        []string `json:"errata,omitempty"` // applied ERRATA.md deviations
+	// Errata lists applied ERRATA.md deviations. Unlike PolicyVersion
+	// (whose "none" sentinel keeps the key always present), an empty list
+	// is deliberately absent from the JSON: the PRD requires recording
+	// "any applied deviations", so absence means none were applied.
+	Errata []string `json:"errata,omitempty"`
 
 	Name            string          `json:"name,omitempty"` // blank by default (docs/PRD.md, Decisions)
 	Characteristics Characteristics `json:"characteristics"`
