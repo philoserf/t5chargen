@@ -1,0 +1,19 @@
+version: "2"
+
+# Note: gofumpt is enforced by the `task check` recipe via the gofumpt CLI,
+# not by golangci-lint's bundled gofumpt (the CLI is the single source of
+# truth for formatting); golangci-lint stays focused on lint checks.
+
+run:
+  timeout: 5m
+
+linters:
+  default: all
+  disable:
+    - exhaustruct # T5 chart data and partial struct inits in tests are intentional
+    - mnd # the codebase transcribes Book 1 charts (magic numbers by nature)
+    - goconst # domain vocabulary (career/skill names) repeated across files, not consts
+    - varnamelen # terse notation vars (C1..C6, xD) mirror the book's own notation
+    - gochecknoglobals # embedded chart data are intentional package-level vars
+    - noinlineerr # `if err := f(); err != nil` is standard Go
+    - paralleltest # ~0 benefit on fast deterministic tests; huge manual churn
