@@ -7,7 +7,7 @@ import (
 
 // Characteristics are the six standard human characteristics (docs/PRD.md
 // FR1). "Humans have the six standard characteristics: Strength, Dexterity,
-// Endurance, Intelligence, Education, and Social Standing." (Book 1 p. 122)
+// Endurance, Intelligence, Education, and Social Standing." (Book 1 p. 123)
 //
 // Values are stored numeric; the UPP hex string is derived (docs/PRD.md,
 // JSON conventions).
