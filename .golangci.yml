@@ -9,6 +9,17 @@ run:
 
 linters:
   default: all
+  settings:
+    depguard:
+      rules:
+        main:
+          allow:
+            - $gostd
+            - github.com/philoserf/t5chargen # the module's own packages
+    tagliatelle:
+      case:
+        rules:
+          json: snake # the PRD's JSON conventions use snake_case (schema_version, policy_version, ...)
   disable:
     - exhaustruct # T5 chart data and partial struct inits in tests are intentional
     - mnd # the codebase transcribes Book 1 charts (magic numbers by nature)
