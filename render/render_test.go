@@ -1,0 +1,87 @@
+package render_test
+
+import (
+	"os"
+	"strings"
+	"testing"
+
+	"github.com/philoserf/t5chargen/chargen"
+	"github.com/philoserf/t5chargen/render"
+)
+
+// golden compares got against the named testdata file.
+func golden(t *testing.T, got, file string) {
+	t.Helper()
+
+	want, err := os.ReadFile(file) //nolint:gosec // G304: fixed test-owned paths under testdata/.
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if got != string(want) {
+		t.Errorf("output differs from %s:\n%s", file, got)
+	}
+}
+
+func TestSheetGolden(t *testing.T) {
+	golden(t, render.Sheet(chargen.Generate(1, "")), "testdata/seed1_sheet.md")
+}
+
+func TestHistoryGolden(t *testing.T) {
+	golden(t, render.History(chargen.Generate(1, "")), "testdata/seed1_history.md")
+}
+
+func TestSheetWithName(t *testing.T) {
+	sheet := render.Sheet(chargen.Generate(1, "Eneri Dinsha"))
+
+	if !strings.Contains(sheet, "**Name**: Eneri Dinsha\n") {
+		t.Errorf("sheet missing name line:\n%s", sheet)
+	}
+
+	if strings.Contains(sheet, " \n") {
+		t.Error("sheet contains trailing whitespace")
+	}
+}
+
+// TestHistoryThrowLine covers the targeted-throw rendering (target, mods,
+// success) that seed-1 characteristics generation does not yet exercise.
+func TestHistoryThrowLine(t *testing.T) {
+	target := 8
+	success := true
+
+	c := chargen.Character{Events: []chargen.Event{
+		{Seq: 1, Kind: chargen.EventThrow, Throw: &chargen.ThrowEvent{
+			Expr:    "2D",
+			Dice:    []int{3, 4},
+			Total:   7,
+			Target:  &target,
+			Success: &success,
+			Mods:    []chargen.Mod{{Name: "homeworld", Value: 2}},
+			Cite:    "test cite",
+		}},
+	}}
+
+	want := "# Generation Record\n- #1 2D = 3+4 = 7 vs 8 (homeworld +2): success — test cite\n"
+	if got := render.History(c); got != want {
+		t.Errorf("History() =\n%q\nwant\n%q", got, want)
+	}
+}
+
+// TestHistoryChoiceLine covers choice rendering ahead of the first engine
+// choice point.
+func TestHistoryChoiceLine(t *testing.T) {
+	c := chargen.Character{Events: []chargen.Event{
+		{Seq: 1, Kind: chargen.EventChoice, Choice: &chargen.ChoiceEvent{
+			Decider: chargen.DeciderPolicy,
+			Prompt:  "Select career",
+			Options: []string{"Citizen", "Scout"},
+			Chosen:  0,
+			Cite:    "test cite",
+		}},
+	}}
+
+	want := "# Generation Record\n- #1 policy chose \"Citizen\" of [Citizen, Scout]: Select career — test cite\n"
+	if got := render.History(c); got != want {
+		t.Errorf("History() =\n%q\nwant\n%q", got, want)
+	}
+}
