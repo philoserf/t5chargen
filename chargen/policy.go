@@ -22,7 +22,7 @@ func (DefaultPolicy) Choose(c Choice) int {
 		}
 
 		return 0
-	case ChooseCareer, ChooseHobby:
+	case ChooseCareer, ChooseHobby, ChooseHomeworld, ChooseArt, ChooseTrade:
 		// POLICY.md: first-listed.
 		return 0
 	}

@@ -41,7 +41,17 @@ Two readings:
 2. The Job determination is itself a first receipt: award the full
    Skill-4 (or Hobby Skill-2) on top of the held level.
 
-Implemented at `chargen/citizen.go` (`firstReceiptLevels`).
+Scope (added 2026-08-20, with homeworld skills): "receipts" are career
+receipts — skills received during this career (a table C award in an
+earlier term). Levels held at career entry from chart B homeworld grants
+(p. 56) are not receipts under the Job/Hobby rule: they do not demote the
+determination, which awards its full Skill-4/Skill-2 on top of the granted
+level. The alternative (any held level demotes to +1) would make a
+homeworld grant strictly worsen the character's eventual Job skill, which
+the chart's "later receipts" language cannot mean.
+
+Implemented at `chargen/citizen.go` (`firstReceiptLevels`, against the
+career-entry baseline `entryLevels`).
 
 ### I-3: Hobby selection excludes the determined Job (p. 78)
 
@@ -59,3 +69,26 @@ Two readings:
 2. Any table E skill may be selected, including the Job's.
 
 Implemented at `chargen/citizen.go` (`determineHobby`).
+
+### I-4: One skill, several printed spellings (pp. 56, 60, 78, 132, 154)
+
+Book 1 spells two skills inconsistently across its own charts, and the
+engine merges skill awards by exact name, so one spelling must be
+canonical:
+
+- **High-G**: chart B p. 56 prints "Hi-G" (Oc row); p. 60 and chart 04
+  p. 78 print "High-G"; the Master Skill List p. 132 prints "High-G"; the
+  p. 154 description heading prints "HI-G" ("Hi-G (High-Gravity,
+  Hi-Gravity)…").
+- **Hostile Environ**: chart B p. 56 prints "Hostile Env"; chart 04 p. 78
+  prints both "Hostile Env" (table E) and "Hostile Environ" (table C); the
+  Master Skill List p. 132 prints "Hostile Environ"; the p. 154 heading is
+  "HOSTILE ENVIRONMENT".
+
+The Master Skill List (p. 132) is taken as the canonical registry:
+**High-G** and **Hostile Environ**. All data files use these spellings
+regardless of the source chart's printed form, so grants from different
+charts stack as one skill.
+
+Implemented in `world/data/homeworld_skills.json` and
+`career/data/citizen.json`.

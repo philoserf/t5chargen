@@ -1,8 +1,9 @@
 # POLICY.md — auto-mode default policy
 
-Version: **0.1.0** (`policy_version` in every character record). Changing any
+Version: **0.2.0** (`policy_version` in every character record). Changing any
 rule here is a policy version bump (docs/PRD.md, Replay and provenance
-contract).
+contract). 0.2.0 adds the homeworld-step choice points (`select_homeworld`,
+`select_art`, `select_trade`).
 
 The auto policy is total (it can decide every valid choice point),
 deterministic, and tie-breaks by first-listed order in Book 1 (docs/PRD.md,
@@ -17,8 +18,11 @@ lists them; the policy returns an index.
 | `select_controlling_characteristic` | Highest-valued available characteristic; ties break to first-listed.    | Maximizes the roll-low success chance of the term's Citizen Life (or, later, Risk/Reward) throw.                                                                                                                                                                     |
 | `select_skill_column`               | The **General** column; first-listed if a career has no General column. | The only Citizen column (chart 04 table C, p. 78) where every row yields a plain skill regardless of education (Academic rows are lost without a Major/Minor) or caste; Personal would trade skills for characteristic bumps, which is a poor default for bulk NPCs. |
 | `select_hobby`                      | First-listed table E entry (currently `ACV`).                           | Pure tie-break: the book gives no ranking for the 100+ alternatives. A smarter hobby heuristic is a future policy version.                                                                                                                                           |
+| `select_homeworld` | The assigned homeworld (the supplied `--homeworld`, or the tool-owned default, Regina). | Assignment per docs/PRD.md FR2; random chart-B selection is an interactive/milestone-5 concern. |
+| `select_art` | First-listed ("Actor"). | Tie-break rule; the book gives no ranking. |
+| `select_trade` | First-listed ("Biologics"). | Tie-break rule; the book gives no ranking. |
 
-## Known limitations (0.1.0)
+## Known limitations (0.2.0)
 
 - Every auto-generated Citizen's hobby is the first-listed table E entry
   (excluding the determined Job, per ERRATA I-3).
