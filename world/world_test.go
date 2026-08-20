@@ -7,13 +7,14 @@ import (
 	"github.com/philoserf/t5chargen/world"
 )
 
-// TestParseUWP verifies structural validation: "Invalid or partial UWPs
-// are rejected with an error, never silently repaired" (docs/PRD.md FR2).
-func TestParseUWP(t *testing.T) {
+// TestValidateUWP verifies structural validation: "Invalid or partial
+// UWPs are rejected with an error, never silently repaired" (docs/PRD.md
+// FR2).
+func TestValidateUWP(t *testing.T) {
 	valid := []string{"A788899-C", "X000000-0", "E55769C-5", "B000453-E"}
 	for _, uwp := range valid {
-		if _, err := world.ParseUWP(uwp); err != nil {
-			t.Errorf("ParseUWP(%q): %v", uwp, err)
+		if err := world.ValidateUWP(uwp); err != nil {
+			t.Errorf("ValidateUWP(%q): %v", uwp, err)
 		}
 	}
 
@@ -30,9 +31,37 @@ func TestParseUWP(t *testing.T) {
 		"a788899-C",  // lowercase starport
 	}
 	for _, uwp := range invalid {
-		if _, err := world.ParseUWP(uwp); !errors.Is(err, world.ErrInvalidUWP) {
-			t.Errorf("ParseUWP(%q) = %v, want ErrInvalidUWP", uwp, err)
+		if err := world.ValidateUWP(uwp); !errors.Is(err, world.ErrInvalidUWP) {
+			t.Errorf("ValidateUWP(%q) = %v, want ErrInvalidUWP", uwp, err)
 		}
+	}
+}
+
+// TestValidateHomeworld verifies whole-homeworld validation: bad UWPs,
+// unknown TCs, and repeated TCs are rejected ("one specified skill for
+// each Trade Classification", p. 58; docs/PRD.md FR2).
+func TestValidateHomeworld(t *testing.T) {
+	good := world.Homeworld{UWP: "A788899-C", TradeClassifications: []string{"Pa", "Ri"}}
+	if err := good.Validate(); err != nil {
+		t.Errorf("Validate() = %v", err)
+	}
+
+	tests := []struct {
+		name string
+		h    world.Homeworld
+		want error
+	}{
+		{"bad UWP", world.Homeworld{UWP: "A78899"}, world.ErrInvalidUWP},
+		{"unknown TC", world.Homeworld{UWP: "A788899-C", TradeClassifications: []string{"Qq"}}, world.ErrUnknownTC},
+		{"duplicate TC", world.Homeworld{UWP: "A788899-C", TradeClassifications: []string{"Pa", "Pa"}}, world.ErrDuplicateTC},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := tt.h.Validate(); !errors.Is(err, tt.want) {
+				t.Errorf("Validate() = %v, want %v", err, tt.want)
+			}
+		})
 	}
 }
 
@@ -101,7 +130,11 @@ func TestChoices(t *testing.T) {
 // TestDefault verifies the tool-owned default homeworld (docs/PRD.md FR2):
 // Regina, chart B row R (p. 56).
 func TestDefault(t *testing.T) {
-	d := world.Default()
+	d, err := world.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	if d.Name != "Regina" || d.UWP != "A788899-C" {
 		t.Errorf("Default() = %+v", d)
 	}

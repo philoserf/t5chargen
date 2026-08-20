@@ -160,8 +160,10 @@ type Options struct {
 	// to the Decider.
 	Career string
 
-	// Homeworld assigns the homeworld (docs/PRD.md FR2). The zero value
-	// (empty UWP) falls back to the tool-owned default, world.Default.
+	// Homeworld assigns the homeworld (docs/PRD.md FR2). Only the
+	// all-zero struct falls back to the tool-owned default,
+	// world.Default; a partially-populated homeworld is validated and
+	// rejected, never silently repaired.
 	Homeworld world.Homeworld
 
 	// Decider resolves every choice point. Required: silently
@@ -207,7 +209,12 @@ func Generate(opts Options) (Character, error) {
 
 	character.Characteristics = RollCharacteristics(roller, &log)
 
-	if err := runHomeworld(homeworldOrDefault(opts.Homeworld), &log, opts.Decider, &character); err != nil {
+	homeworld, err := homeworldOrDefault(opts.Homeworld)
+	if err != nil {
+		return Character{}, err
+	}
+
+	if err := runHomeworld(homeworld, &log, opts.Decider, &character); err != nil {
 		return Character{}, err
 	}
 

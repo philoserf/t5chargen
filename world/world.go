@@ -1,5 +1,6 @@
-// Package world holds the homeworld data the engine consumes: UWP parsing,
-// the Homeworld type, and the chart B homeworld-skills table (Book 1 p. 56;
+// Package world holds the homeworld data the engine consumes: UWP
+// validation, the Homeworld type, and the chart B homeworld-skills table
+// (Book 1 p. 56;
 // prose p. 58). Per the data/logic boundary (docs/PRD.md, Architecture
 // notes) this package is data and validation only.
 //
@@ -16,6 +17,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"slices"
 	"strings"
 	"sync"
 
@@ -24,7 +26,7 @@ import (
 
 // Homeworld identifies where a character was raised (chart B, p. 56).
 type Homeworld struct {
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"` // display name; optional for supplied worlds
 	UWP  string `json:"uwp"`
 
 	// TradeClassifications drive the homeworld skill grants (p. 58), in
@@ -33,25 +35,29 @@ type Homeworld struct {
 	TradeClassifications []string `json:"trade_classifications,omitempty"`
 }
 
-// Default is the tool-owned default homeworld (docs/PRD.md FR2): Regina,
-// the book's own worked example ("from: Regina (1910 Spinward Marches)",
-// p. 58; chart B row R, p. 56).
-func Default() Homeworld {
-	return Homeworld{
-		Name:                 "Regina",
-		UWP:                  "A788899-C",
-		TradeClassifications: []string{"Ph", "Pa", "Ri"},
+// Default is the tool-owned default homeworld, fixed in the tool's data
+// files (docs/PRD.md FR2): Regina, the book's own worked example ("from:
+// Regina (1910 Spinward Marches)", p. 58; chart B row R, p. 56). The value
+// lives in data/homeworld_skills.json per the data/logic boundary.
+func Default() (Homeworld, error) {
+	t, err := table()
+	if err != nil {
+		return Homeworld{}, err
 	}
+
+	d := t.Default
+	d.TradeClassifications = slices.Clone(d.TradeClassifications)
+
+	return d, nil
 }
 
-// Label renders the homeworld for display and choice events.
+// Label renders the homeworld for display and choice events: the name (when
+// there is one), the UWP, and the trade classifications.
 func (h Homeworld) Label() string {
-	label := h.Name
-	if label == "" {
-		label = "homeworld"
+	label := h.UWP
+	if h.Name != "" {
+		label = h.Name + " " + h.UWP
 	}
-
-	label += " " + h.UWP
 
 	if len(h.TradeClassifications) > 0 {
 		label += " (" + strings.Join(h.TradeClassifications, " ") + ")"
@@ -60,38 +66,71 @@ func (h Homeworld) Label() string {
 	return label
 }
 
+// Validate checks a homeworld is well-formed: a valid UWP and known,
+// unrepeated trade classifications. "A character receives one specified
+// skill for each Trade Classification or Remark from the homeworld."
+// (p. 58) — a world carries each TC at most once, so a repeated TC is
+// invalid input, rejected rather than silently deduplicated or
+// double-granted (docs/PRD.md FR2).
+func (h Homeworld) Validate() error {
+	if err := ValidateUWP(h.UWP); err != nil {
+		return err
+	}
+
+	seen := make(map[string]bool, len(h.TradeClassifications))
+
+	for _, tc := range h.TradeClassifications {
+		if _, err := GrantFor(tc); err != nil {
+			return err
+		}
+
+		if seen[tc] {
+			return fmt.Errorf("%w: %q", ErrDuplicateTC, tc)
+		}
+
+		seen[tc] = true
+	}
+
+	return nil
+}
+
 // ErrInvalidUWP reports a malformed UWP: "Invalid or partial UWPs are
 // rejected with an error, never silently repaired" (docs/PRD.md FR2).
 var ErrInvalidUWP = errors.New("invalid UWP")
 
+// ErrDuplicateTC reports a trade classification supplied more than once
+// for a single world (each grants "one specified skill", p. 58).
+var ErrDuplicateTC = errors.New("duplicate trade classification")
+
 // starports are the Book 1 starport classes (chart B worlds use A-E and X).
 const starports = "ABCDEX"
 
-// ParseUWP validates a UWP string structurally: a starport class, six eHex
-// digits (p. 22), a hyphen, and an eHex tech level (as in chart B's worlds,
-// for example A788899-C). Book 1 gives the format by example, so the
-// validation is structural against the eHex definition rather than
-// field-range rules. It returns the UWP unchanged on success.
-func ParseUWP(uwp string) (string, error) {
+// ValidateUWP validates a UWP string structurally: a starport class, six
+// eHex digits (p. 22), a hyphen, and an eHex tech level (as in chart B's
+// worlds, for example A788899-C). Book 1 gives the format by example, so
+// the validation is structural against the eHex definition rather than
+// field-range rules. The string is never normalized or repaired
+// (docs/PRD.md FR2).
+func ValidateUWP(uwp string) error {
 	if len(uwp) != 9 {
-		return "", fmt.Errorf("%w: %q: want 9 characters like A788899-C", ErrInvalidUWP, uwp)
+		return fmt.Errorf("%w: %q: want 9 characters like A788899-C", ErrInvalidUWP, uwp)
 	}
 
 	if !strings.ContainsRune(starports, rune(uwp[0])) {
-		return "", fmt.Errorf("%w: %q: starport must be one of A B C D E X", ErrInvalidUWP, uwp)
+		return fmt.Errorf("%w: %q: starport must be one of A B C D E X", ErrInvalidUWP, uwp)
 	}
 
 	if uwp[7] != '-' {
-		return "", fmt.Errorf("%w: %q: want '-' before the tech level", ErrInvalidUWP, uwp)
+		return fmt.Errorf("%w: %q: want '-' before the tech level", ErrInvalidUWP, uwp)
 	}
 
 	for _, i := range []int{1, 2, 3, 4, 5, 6, 8} {
 		if _, err := ehex.Decode(uwp[i]); err != nil {
-			return "", fmt.Errorf("%w: %q position %d: %w", ErrInvalidUWP, uwp, i, err)
+			return fmt.Errorf("%w: %q position %d: %w", ErrInvalidUWP, uwp, i, err)
 		}
 	}
 
-	return uwp, nil
+	return nil
 }
 
 // GrantKind discriminates what a trade classification grants (chart B,
@@ -127,10 +166,11 @@ type Grant struct {
 
 // skillsTable is the parsed chart B data.
 type skillsTable struct {
-	Cite     string   `json:"cite"`
-	OneArt   []string `json:"one_art"`
-	OneTrade []string `json:"one_trade"`
-	Skills   []Grant  `json:"skills"`
+	Cite     string    `json:"cite"`
+	Default  Homeworld `json:"default"`
+	OneArt   []string  `json:"one_art"`
+	OneTrade []string  `json:"one_trade"`
+	Skills   []Grant   `json:"skills"`
 }
 
 //go:embed data/homeworld_skills.json
@@ -171,6 +211,32 @@ func (t *skillsTable) validate() error {
 		if err := grant.validate(); err != nil {
 			return err
 		}
+	}
+
+	return t.validateDefault(seen)
+}
+
+// validateDefault checks the tool-owned default homeworld (docs/PRD.md
+// FR2): a named world, a well-formed UWP, and chart B TCs. Checked against
+// the seen set directly — Homeworld.Validate would re-enter the table
+// load.
+func (t *skillsTable) validateDefault(seen map[string]bool) error {
+	if t.Default.Name == "" {
+		return fmt.Errorf("%w: default homeworld missing a name", errBadTable)
+	}
+
+	if err := ValidateUWP(t.Default.UWP); err != nil {
+		return fmt.Errorf("%w: default homeworld: %w", errBadTable, err)
+	}
+
+	defaultSeen := map[string]bool{}
+
+	for _, tc := range t.Default.TradeClassifications {
+		if !seen[tc] || defaultSeen[tc] {
+			return fmt.Errorf("%w: default homeworld TC %q unknown or repeated", errBadTable, tc)
+		}
+
+		defaultSeen[tc] = true
 	}
 
 	return nil

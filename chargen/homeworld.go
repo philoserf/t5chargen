@@ -18,7 +18,7 @@ import (
 // default); the assignment is logged as a choice event so the skill
 // consequences have a cause and interactive selection has its seam.
 func runHomeworld(homeworld world.Homeworld, log *Log, decider Decider, character *Character) error {
-	if _, err := world.ParseUWP(homeworld.UWP); err != nil {
+	if err := homeworld.Validate(); err != nil {
 		return fmt.Errorf("homeworld: %w", err)
 	}
 
@@ -120,11 +120,19 @@ func awardSkillAndLog(name string, levels, cause int, log *Log, character *Chara
 }
 
 // homeworldOrDefault substitutes the tool-owned default homeworld
-// (docs/PRD.md FR2) when none was supplied.
-func homeworldOrDefault(homeworld world.Homeworld) world.Homeworld {
-	if homeworld.UWP == "" {
-		return world.Default()
+// (docs/PRD.md FR2) only when no homeworld at all was supplied — the
+// all-zero struct. A partially-populated homeworld (TCs or a name without
+// a UWP) falls through to validation and is rejected, never silently
+// repaired (FR2).
+func homeworldOrDefault(homeworld world.Homeworld) (world.Homeworld, error) {
+	if homeworld.UWP == "" && homeworld.Name == "" && len(homeworld.TradeClassifications) == 0 {
+		d, err := world.Default()
+		if err != nil {
+			return world.Homeworld{}, fmt.Errorf("homeworld: %w", err)
+		}
+
+		return d, nil
 	}
 
-	return homeworld
+	return homeworld, nil
 }

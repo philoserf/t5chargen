@@ -37,6 +37,13 @@ type citizenRun struct {
 	// Job or Hobby skill levels." (chart 04 p. 78)
 	postSuccesses int
 
+	// entryLevels are the skill levels held when the career began.
+	// Receipts are counted against this baseline: only skills received
+	// during the career demote a Job/Hobby determination to a later
+	// receipt — pre-career grants (homeworld, chart B) do not
+	// (interpretation I-2, ERRATA.md).
+	entryLevels map[string]int
+
 	record CareerRecord
 }
 
@@ -56,13 +63,19 @@ func runCitizen(roller *dice.Roller, log *Log, decider Decider, character *Chara
 		return fmt.Errorf("citizen career: %w", err)
 	}
 
+	entryLevels := make(map[string]int, len(character.Skills))
+	for _, skill := range character.Skills {
+		entryLevels[skill.Name] = skill.Level
+	}
+
 	run := &citizenRun{
-		def:       def,
-		roller:    roller,
-		log:       log,
-		decider:   decider,
-		character: character,
-		record:    CareerRecord{Career: "Citizen"},
+		def:         def,
+		roller:      roller,
+		log:         log,
+		decider:     decider,
+		character:   character,
+		record:      CareerRecord{Career: "Citizen"},
+		entryLevels: entryLevels,
 	}
 
 	// "Begin Citizen Life is Automatic" (chart E1 panel 04, p. 72).
@@ -272,10 +285,12 @@ func (r *citizenRun) determineHobby() error {
 
 // firstReceiptLevels applies the first-receipt rule: the stated level on
 // first receipt, Skill-1 thereafter ("with Skill-4 (later receipts are
-// Skill-1)", p. 78). A skill already held from another source (table C)
-// receives +1 — interpretation I-2, ERRATA.md.
+// Skill-1)", p. 78). A skill already received during this career (a table
+// C award) counts as held, so the determination is a later receipt: +1.
+// Pre-career levels (homeworld grants, chart B) are not career receipts
+// and do not demote the award — interpretation I-2, ERRATA.md.
 func (r *citizenRun) firstReceiptLevels(name string, firstReceipt int) int {
-	if r.character.skillLevel(name) > 0 {
+	if r.character.skillLevel(name) > r.entryLevels[name] {
 		return 1
 	}
 

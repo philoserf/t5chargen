@@ -223,6 +223,8 @@ func TestErrors(t *testing.T) {
 		{"unknown career", []string{"new", "--auto", "--seed", "1", "--career", "noble"}, exitUsage},
 		{"partial UWP", []string{"new", "--auto", "--seed", "1", "--homeworld", "A78899"}, exitUsage},
 		{"unknown TC", []string{"new", "--auto", "--seed", "1", "--homeworld", "A788899-C Qq"}, exitUsage},
+		//nolint:dupword // the repeated TC is the case under test
+		{"duplicate TC", []string{"new", "--auto", "--seed", "1", "--homeworld", "A788899-C Pa Pa"}, exitUsage},
 		{"render without file", []string{"render"}, exitUsage},
 		{"render missing file", []string{"render", "does-not-exist.json"}, exitError},
 		{"render garbage file", []string{"render", garbage}, exitError},

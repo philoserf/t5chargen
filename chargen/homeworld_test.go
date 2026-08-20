@@ -85,6 +85,26 @@ func TestHomeworldErrors(t *testing.T) {
 	if !errors.Is(err, world.ErrUnknownTC) {
 		t.Errorf("unknown TC error = %v, want ErrUnknownTC", err)
 	}
+
+	_, err = chargen.Generate(chargen.Options{
+		Seed:      1,
+		Decider:   chargen.DefaultPolicy{},
+		Homeworld: world.Homeworld{UWP: "A788899-C", TradeClassifications: []string{"Pa", "Pa"}},
+	})
+	if !errors.Is(err, world.ErrDuplicateTC) {
+		t.Errorf("duplicate TC error = %v, want ErrDuplicateTC", err)
+	}
+
+	// A partially-populated homeworld (TCs without a UWP) must be
+	// rejected, not silently replaced by the default (docs/PRD.md FR2).
+	_, err = chargen.Generate(chargen.Options{
+		Seed:      1,
+		Decider:   chargen.DefaultPolicy{},
+		Homeworld: world.Homeworld{TradeClassifications: []string{"In"}},
+	})
+	if !errors.Is(err, world.ErrInvalidUWP) {
+		t.Errorf("partial homeworld error = %v, want ErrInvalidUWP", err)
+	}
 }
 
 // TestHomeworldStreamNeutral verifies the homeworld step consumes no dice:

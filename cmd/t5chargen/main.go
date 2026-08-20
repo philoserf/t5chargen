@@ -125,7 +125,8 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 		// Bad flag values are usage errors; the engine is the single
 		// validator for careers, UWPs, and trade classifications.
 		if errors.Is(err, chargen.ErrUnknownCareer) ||
-			errors.Is(err, world.ErrInvalidUWP) || errors.Is(err, world.ErrUnknownTC) {
+			errors.Is(err, world.ErrInvalidUWP) || errors.Is(err, world.ErrUnknownTC) ||
+			errors.Is(err, world.ErrDuplicateTC) {
 			return exitUsage
 		}
 
