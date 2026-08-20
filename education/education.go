@@ -8,7 +8,9 @@
 // College/University, Service Academy, Apprenticeship, Mentoring); the
 // remaining chart C rows are transcribed but marked unimplemented, and
 // Later Education (suspending a career term for schooling, p. 59) is
-// deferred with career changes.
+// deferred with career changes. Chart C's Honors row is not a program: it
+// is the post-graduation extra roll (p. 59), modeled as a mechanic in
+// chargen — hence 17 program rows for the chart's 18.
 package education
 
 import (

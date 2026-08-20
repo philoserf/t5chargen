@@ -70,6 +70,10 @@ func educationLine(record chargen.EducationRecord) string {
 		line += " (" + record.Service + ")"
 	}
 
+	if record.Skill != "" {
+		line += ", " + record.Skill
+	}
+
 	if record.Major != "" {
 		line += ", Major " + record.Major
 	}

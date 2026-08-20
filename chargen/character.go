@@ -90,10 +90,15 @@ type Character struct {
 // FR3). A slice on the record because Later Education (p. 59) will allow
 // more than one.
 type EducationRecord struct {
-	Program   string `json:"program"`
-	Service   string `json:"service,omitempty"` // Service Academy only
-	Major     string `json:"major,omitempty"`
-	Minor     string `json:"minor,omitempty"`
+	Program string `json:"program"`
+	Service string `json:"service,omitempty"` // Service Academy only
+	Major   string `json:"major,omitempty"`
+	Minor   string `json:"minor,omitempty"`
+
+	// Skill is the Apprenticeship's chosen "Skill+4" (chart C p. 60) —
+	// distinct from Major: p. 59 scopes Major/Minor to Educational
+	// Institutions, and Apprenticeship is a Training institution.
+	Skill     string `json:"skill,omitempty"`
 	Passes    int    `json:"passes"`
 	Graduated bool   `json:"graduated"`
 	Honors    bool   `json:"honors,omitempty"`

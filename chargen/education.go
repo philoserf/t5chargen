@@ -381,13 +381,14 @@ func (r *eduRun) awardApprenticeship() error {
 		return err
 	}
 
-	r.record.Major = names[chosen]
+	r.record.Skill = names[chosen]
 	awardSkillAndLog(names[chosen], 4, seq, r.log, r.character)
 
 	return nil
 }
 
-// honors offers the optional extra roll: "success confers one level of his
+// honors offers the optional extra roll (an honors failure is not offered
+// a waiver in v1 — see the waiver doc comment): "success confers one level of his
 // Major and confers Honors status. Failure has no effect." (p. 59) Only
 // programs with a Major carry Honors.
 func (r *eduRun) honors() error {
@@ -512,6 +513,15 @@ func (r *eduRun) checkValue(name string) int {
 
 // waiver offers an Educational Waiver: "Check Soc or less (2D); Mod minus
 // number of previous waivers rolled (successful or not)" (p. 59).
+//
+// P. 59 names four waiver-able events: "Prerequisite, Application Check,
+// Pass/Fail Check, Honors". v1 offers waivers for the Application and
+// Pass/Fail checks — the two the process description integrates
+// ("Failure terminates the process (but Waiver may result in
+// reinstatement...)"). Prerequisite waivers are unreachable while
+// chooseProgram offers only qualifying programs (letting an unqualified
+// character attempt admission is an interactive-mode concern), and Honors
+// waivers are deferred with them; both land with milestone 5.
 func (r *eduRun) waiver(reason string) (bool, error) {
 	chosen, _, err := choose(r.log, r.decider, Choice{
 		ID:      ChooseWaiver,
