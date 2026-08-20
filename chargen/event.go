@@ -129,9 +129,13 @@ const (
 	// (interpretation I-1, ERRATA.md).
 	ConsequenceJobUndetermined ConsequenceKind = "job_undetermined"
 
-	// ConsequenceBenefitLost records a Major/Minor cell without the
-	// education to use it: "If the character does not have a Major/Minor
-	// this benefit is lost" (p. 78 table C note).
+	// ConsequenceBenefitLost records a benefit that could not apply: a
+	// Major/Minor cell without the education to use it ("If the character
+	// does not have a Major/Minor this benefit is lost", p. 78 table C
+	// note), or — with Characteristic set — a characteristic increase
+	// blocked by the human maximum ("Characteristics for Humans cannot
+	// exceed 15. If a benefit elevates a characteristic above 15, that
+	// benefit is lost.", p. 68).
 	ConsequenceBenefitLost ConsequenceKind = "benefit_lost"
 
 	// ConsequenceMandatoryContinue records a Continue roll of exactly 2:

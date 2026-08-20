@@ -195,6 +195,12 @@ func consequenceFlowText(c *chargen.ConsequenceEvent) string {
 	case chargen.ConsequenceJobUndetermined:
 		return "Job undetermined (No Skill); retries next success — ERRATA I-1"
 	case chargen.ConsequenceBenefitLost:
+		if c.Characteristic != "" {
+			// The p. 68 human characteristic maximum.
+			return fmt.Sprintf("benefit lost (%s at the characteristic-%d maximum)",
+				c.Characteristic, chargen.CharacteristicMax)
+		}
+
 		return "benefit lost (no Major/Minor)"
 	case chargen.ConsequenceMandatoryContinue:
 		return "mandatory continue"

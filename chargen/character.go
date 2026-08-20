@@ -108,6 +108,11 @@ type TermRecord struct {
 // (docs/PRD.md FR5, milestone 3).
 const SkillMax = 15
 
+// CharacteristicMax caps human characteristics: "Characteristics for
+// Humans cannot exceed 15. If a benefit elevates a characteristic above
+// 15, that benefit is lost" (p. 68).
+const CharacteristicMax = 15
+
 // awardSkill increases a skill by the given levels, capped at SkillMax and
 // keeping Skills sorted by name (binary find-or-insert preserves the
 // invariant without re-sorting). It returns the resulting level, then the

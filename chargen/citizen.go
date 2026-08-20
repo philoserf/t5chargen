@@ -332,15 +332,7 @@ func (r *citizenRun) awardTableC(entry career.Entry, cause int) error {
 	case career.EntrySkill:
 		r.awardAndLog(entry.Name, 1, cause)
 	case career.EntryCharacteristic:
-		value, ok := characteristicAdd(&r.character.Characteristics, entry.Name, 1)
-		if !ok {
-			return fmt.Errorf("%w: %q", errUnknownCharacteristic, entry.Name)
-		}
-
-		r.log.Consequence(ConsequenceEvent{
-			Cause: cause, Kind: ConsequenceCharacteristicChange,
-			Characteristic: entry.Name, Delta: 1, Value: value,
-		})
+		return r.awardCharacteristic(entry.Name, cause)
 	case career.EntryMajor, career.EntryMinor:
 		// "If the character does not have a Major/Minor this benefit is
 		// lost." (p. 78) Education lands with milestone 2.
@@ -354,6 +346,31 @@ func (r *citizenRun) awardTableC(entry career.Entry, cause int) error {
 		// from silently resolving to nothing (event-log-first contract).
 		return fmt.Errorf("%w: unknown cell kind %q", errNotImplemented, entry.Kind)
 	}
+
+	return nil
+}
+
+// awardCharacteristic applies a table C Personal-column +1.
+//
+// "Characteristics for Humans cannot exceed 15. If a benefit elevates a
+// characteristic above 15, that benefit is lost" (p. 68).
+func (r *citizenRun) awardCharacteristic(name string, cause int) error {
+	value, ok := characteristicValue(&r.character.Characteristics, name)
+	if !ok {
+		return fmt.Errorf("%w: %q", errUnknownCharacteristic, name)
+	}
+
+	if value+1 > CharacteristicMax {
+		r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceBenefitLost, Characteristic: name})
+
+		return nil
+	}
+
+	value, _ = characteristicAdd(&r.character.Characteristics, name, 1)
+	r.log.Consequence(ConsequenceEvent{
+		Cause: cause, Kind: ConsequenceCharacteristicChange,
+		Characteristic: name, Delta: 1, Value: value,
+	})
 
 	return nil
 }

@@ -3,6 +3,7 @@ package chargen_test
 import (
 	"errors"
 	"reflect"
+	"slices"
 	"testing"
 
 	"github.com/philoserf/t5chargen/chargen"
@@ -235,6 +236,51 @@ type badDecider struct{}
 
 func (badDecider) Choose(chargen.Choice) int { return 99 }
 func (badDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
+
+// personalDecider always selects the Personal skill column and otherwise
+// answers first-listed, to exercise characteristic increases.
+type personalDecider struct{}
+
+func (personalDecider) Choose(c chargen.Choice) int {
+	if c.ID == chargen.ChooseSkillColumn {
+		return slices.Index(c.Options, "Personal")
+	}
+
+	return 0
+}
+
+func (personalDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
+
+// TestCharacteristicMaximum verifies "Characteristics for Humans cannot
+// exceed 15. If a benefit elevates a characteristic above 15, that benefit
+// is lost." (p. 68) under a decider that always takes Personal-column
+// increases.
+func TestCharacteristicMaximum(t *testing.T) {
+	capped := false
+
+	for seed := range uint64(40) {
+		c := generate(t, chargen.Options{Seed: seed, Decider: personalDecider{}})
+
+		ch := c.Characteristics
+		for _, value := range []int{ch.Str, ch.Dex, ch.End, ch.Int, ch.Edu, ch.Soc} {
+			if value > chargen.CharacteristicMax {
+				t.Errorf("seed %d: characteristic %d exceeds %d", seed, value, chargen.CharacteristicMax)
+			}
+		}
+
+		for _, event := range c.Events {
+			if event.Kind == chargen.EventConsequence &&
+				event.Consequence.Kind == chargen.ConsequenceBenefitLost &&
+				event.Consequence.Characteristic != "" {
+				capped = true
+			}
+		}
+	}
+
+	if !capped {
+		t.Error("no seed exercised the characteristic maximum; extend the sweep")
+	}
+}
 
 // TestGenerateDeciderContract verifies the Decider requirements: nil
 // errors, an out-of-range answer errors instead of being silently
