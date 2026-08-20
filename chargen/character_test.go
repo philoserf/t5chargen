@@ -13,7 +13,7 @@ import (
 // contract: a diff here means the record format or the seeded generation
 // changed, and one of schema_version or engine_version must bump.
 func TestGenerateGoldenJSON(t *testing.T) {
-	c := chargen.Generate(1, "")
+	c := generate(t, chargen.Options{Seed: 1})
 
 	got, err := json.MarshalIndent(c, "", "  ")
 	if err != nil {
@@ -36,7 +36,7 @@ func TestGenerateGoldenJSON(t *testing.T) {
 // requires on every record (docs/PRD.md): schema_version, ruleset,
 // engine_version, policy_version, and rng.
 func TestGenerateProvenance(t *testing.T) {
-	c := chargen.Generate(42, "Eneri Dinsha")
+	c := generate(t, chargen.Options{Seed: 42, Name: "Eneri Dinsha"})
 
 	if c.SchemaVersion != chargen.SchemaVersion || c.Ruleset != chargen.Ruleset ||
 		c.EngineVersion != chargen.EngineVersion || c.PolicyVersion != chargen.PolicyVersion {
@@ -57,7 +57,7 @@ func TestGenerateProvenance(t *testing.T) {
 // are stored and recomputed on replay).
 func TestGenerateDerivedUPP(t *testing.T) {
 	for seed := range uint64(20) {
-		c := chargen.Generate(seed, "")
+		c := generate(t, chargen.Options{Seed: seed})
 
 		if c.UPP != c.Characteristics.UPP() {
 			t.Errorf("seed %d: stored UPP %q != derived %q", seed, c.UPP, c.Characteristics.UPP())

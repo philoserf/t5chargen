@@ -29,7 +29,7 @@ func fixedSeed(seed uint64) func() (uint64, error) {
 func TestNewSeedGolden(t *testing.T) {
 	var stdout, stderr bytes.Buffer
 
-	if code := run([]string{"new", "--seed", "1"}, noSeed(t), &stdout, &stderr); code != exitOK {
+	if code := run([]string{"new", "--auto", "--seed", "1"}, noSeed(t), &stdout, &stderr); code != exitOK {
 		t.Fatalf("exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -48,7 +48,7 @@ func TestNewSeedGolden(t *testing.T) {
 func TestNewSeedZero(t *testing.T) {
 	var stdout, stderr bytes.Buffer
 
-	if code := run([]string{"new", "--seed", "0"}, noSeed(t), &stdout, &stderr); code != exitOK {
+	if code := run([]string{"new", "--auto", "--seed", "0"}, noSeed(t), &stdout, &stderr); code != exitOK {
 		t.Fatalf("exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -62,7 +62,7 @@ func TestNewSeedZero(t *testing.T) {
 func TestNewDefaultSeed(t *testing.T) {
 	var stdout, stderr bytes.Buffer
 
-	if code := run([]string{"new"}, fixedSeed(7), &stdout, &stderr); code != exitOK {
+	if code := run([]string{"new", "--auto"}, fixedSeed(7), &stdout, &stderr); code != exitOK {
 		t.Fatalf("exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -75,7 +75,8 @@ func TestNewDefaultSeed(t *testing.T) {
 func TestNewName(t *testing.T) {
 	var stdout, stderr bytes.Buffer
 
-	if code := run([]string{"new", "--seed", "1", "--name", "Eneri Dinsha"}, noSeed(t), &stdout, &stderr); code != exitOK {
+	args := []string{"new", "--auto", "--seed", "1", "--name", "Eneri Dinsha"}
+	if code := run(args, noSeed(t), &stdout, &stderr); code != exitOK {
 		t.Fatalf("exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -91,7 +92,7 @@ func TestNewOutputFile(t *testing.T) {
 
 	var stdout, stderr bytes.Buffer
 
-	if code := run([]string{"new", "--seed", "1", "-o", path}, noSeed(t), &stdout, &stderr); code != exitOK {
+	if code := run([]string{"new", "--auto", "--seed", "1", "-o", path}, noSeed(t), &stdout, &stderr); code != exitOK {
 		t.Fatalf("first write: exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -101,7 +102,7 @@ func TestNewOutputFile(t *testing.T) {
 
 	stderr.Reset()
 
-	if code := run([]string{"new", "--seed", "2", "-o", path}, noSeed(t), &stdout, &stderr); code != exitError {
+	if code := run([]string{"new", "--auto", "--seed", "2", "-o", path}, noSeed(t), &stdout, &stderr); code != exitError {
 		t.Fatalf("overwrite without --force: exit %d, want %d", code, exitError)
 	}
 
@@ -109,7 +110,8 @@ func TestNewOutputFile(t *testing.T) {
 		t.Errorf("overwrite refusal does not mention --force: %s", stderr.String())
 	}
 
-	if code := run([]string{"new", "--seed", "2", "-o", path, "--force"}, noSeed(t), &stdout, &stderr); code != exitOK {
+	forceArgs := []string{"new", "--auto", "--seed", "2", "-o", path, "--force"}
+	if code := run(forceArgs, noSeed(t), &stdout, &stderr); code != exitOK {
 		t.Fatalf("overwrite with --force: exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -123,6 +125,21 @@ func TestNewOutputFile(t *testing.T) {
 	}
 }
 
+// TestNewForcedCareer verifies --career maps case-insensitively to the
+// canonical Book 1 name.
+func TestNewForcedCareer(t *testing.T) {
+	var stdout, stderr bytes.Buffer
+
+	args := []string{"new", "--auto", "--seed", "1", "--career", "citizen"}
+	if code := run(args, noSeed(t), &stdout, &stderr); code != exitOK {
+		t.Fatalf("exit %d, stderr: %s", code, stderr.String())
+	}
+
+	if !strings.Contains(stdout.String(), `"career": "Citizen"`) {
+		t.Errorf("record does not carry the forced career:\n%s", stdout.String())
+	}
+}
+
 // TestRenderGoldens verifies render reproduces the seed-1 sheet and history
 // goldens from a record written by new.
 func TestRenderGoldens(t *testing.T) {
@@ -130,7 +147,7 @@ func TestRenderGoldens(t *testing.T) {
 
 	var stdout, stderr bytes.Buffer
 
-	if code := run([]string{"new", "--seed", "1", "-o", path}, noSeed(t), &stdout, &stderr); code != exitOK {
+	if code := run([]string{"new", "--auto", "--seed", "1", "-o", path}, noSeed(t), &stdout, &stderr); code != exitOK {
 		t.Fatalf("new: exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -184,6 +201,9 @@ func TestErrors(t *testing.T) {
 		{"no arguments", nil, exitUsage},
 		{"unknown subcommand", []string{"bogus"}, exitUsage},
 		{"unknown flag", []string{"new", "--bogus"}, exitUsage},
+		{"new without --auto", []string{"new", "--seed", "1"}, exitUsage},
+		{"new stray arguments", []string{"new", "--auto", "--seed", "1", "out.json"}, exitUsage},
+		{"unknown career", []string{"new", "--auto", "--seed", "1", "--career", "noble"}, exitUsage},
 		{"render without file", []string{"render"}, exitUsage},
 		{"render missing file", []string{"render", "does-not-exist.json"}, exitError},
 		{"render garbage file", []string{"render", garbage}, exitError},

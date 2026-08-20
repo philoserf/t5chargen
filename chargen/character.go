@@ -1,6 +1,14 @@
 package chargen
 
-import "github.com/philoserf/t5chargen/dice"
+import (
+	"errors"
+	"fmt"
+	"slices"
+	"strings"
+
+	"github.com/philoserf/t5chargen/career"
+	"github.com/philoserf/t5chargen/dice"
+)
 
 // Provenance constants for the replay and provenance contract (docs/PRD.md):
 // every character record carries them so old characters stay auditable after
@@ -9,24 +17,31 @@ import "github.com/philoserf/t5chargen/dice"
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.1.0"
+	SchemaVersion = "0.2.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.1.0"
+	EngineVersion = "0.2.0"
 
-	// PolicyVersion is "none" until the auto-mode default policy lands;
-	// it then becomes the POLICY.md version (docs/PRD.md, CLI sketch).
-	PolicyVersion = "none"
+	// PolicyVersion identifies the auto-mode decision table in POLICY.md
+	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
+	PolicyVersion = "0.1.0"
 
 	// RNGAlgorithm names the recorded random stream: Go math/rand/v2 PCG,
 	// seeded as documented at dice.New. The exact string is compared on
 	// replay; changing it is a version bump.
 	RNGAlgorithm = "math/rand/v2-pcg"
 )
+
+// StartAge is the age at which career resolution begins: "he begins career
+// resolution at the start of Life Stage-3 (at age 18)" (p. 59).
+const StartAge = 18
+
+// TermYears is the length of one career term: "the 4-year Term" (p. 66).
+const TermYears = 4
 
 // RNG records the random stream a character was generated from
 // (docs/PRD.md, Replay and provenance contract).
@@ -45,39 +60,217 @@ type Character struct {
 	EngineVersion string `json:"engine_version"`
 	PolicyVersion string `json:"policy_version"`
 	RNG           RNG    `json:"rng"`
-	// Errata lists applied ERRATA.md deviations. Unlike PolicyVersion
-	// (whose "none" sentinel keeps the key always present), an empty list
-	// is deliberately absent from the JSON: the PRD requires recording
-	// "any applied deviations", so absence means none were applied.
+	// Errata lists applied ERRATA.md deviations. Unlike policy_version
+	// (always present — the POLICY.md version, or "none" when the run's
+	// choices were not governed by the default policy), an empty list is
+	// deliberately absent from the JSON: the PRD requires recording "any
+	// applied deviations", so absence means none were applied.
 	Errata []string `json:"errata,omitempty"`
 
 	Name            string          `json:"name,omitempty"` // blank by default (docs/PRD.md, Decisions)
 	Characteristics Characteristics `json:"characteristics"`
 	UPP             string          `json:"upp"`
+	Age             int             `json:"age"`
+	Skills          []Skill         `json:"skills,omitempty"`  // sorted by name for canonical JSON
+	Careers         []CareerRecord  `json:"careers,omitempty"` // in order served
 
 	Events []Event `json:"events"`
 }
 
-// Generate runs the generation procedure from a seed and returns the
-// character record. It currently covers checklist step A (chart E1, p. 72);
-// later steps are added chunk by chunk per docs/PRD.md milestone 1.
-func Generate(seed uint64, name string) Character {
-	roller := dice.New(seed)
+// Skill is one acquired skill or knowledge at its current level. The
+// Skill/Knowledge distinction sharpens with the Master Skill List
+// (docs/PRD.md FR5, milestone 3).
+type Skill struct {
+	Name  string `json:"name"`
+	Level int    `json:"level"`
+}
+
+// CareerRecord is one career's history, term by term (docs/PRD.md FR8).
+// Job and Hobby are per-career: "Once determined, Job and Hobby cannot be
+// changed" (chart 04 p. 78).
+type CareerRecord struct {
+	Career string       `json:"career"`
+	Job    string       `json:"job,omitempty"`
+	Hobby  string       `json:"hobby,omitempty"`
+	Terms  []TermRecord `json:"terms"`
+}
+
+// TermRecord is one term's outcome.
+type TermRecord struct {
+	Term                      int    `json:"term"`
+	ControllingCharacteristic string `json:"controlling_characteristic"`
+	Success                   bool   `json:"success"`   // the Risk/Reward-variant outcome (Citizen Life)
+	Continued                 bool   `json:"continued"` // the Continue roll's outcome
+}
+
+// SkillMax caps skill levels: "Skill, Knowledge, and Talent Maximums:
+// Skill-15" (p. 134). The Knowledge-6 cap lands with the Master Skill List
+// (docs/PRD.md FR5, milestone 3).
+const SkillMax = 15
+
+// CharacteristicMax caps human characteristics: "Characteristics for
+// Humans cannot exceed 15. If a benefit elevates a characteristic above
+// 15, that benefit is lost" (p. 68).
+const CharacteristicMax = 15
+
+// awardSkill increases a skill by the given levels, capped at SkillMax and
+// keeping Skills sorted by name (binary find-or-insert preserves the
+// invariant without re-sorting). It returns the resulting level, then the
+// levels actually applied.
+func (c *Character) awardSkill(name string, levels int) (int, int) {
+	i, found := slices.BinarySearchFunc(c.Skills, name, func(s Skill, target string) int {
+		return strings.Compare(s.Name, target)
+	})
+
+	if found {
+		applied := min(levels, SkillMax-c.Skills[i].Level)
+		c.Skills[i].Level += applied
+
+		return c.Skills[i].Level, applied
+	}
+
+	applied := min(levels, SkillMax)
+	c.Skills = slices.Insert(c.Skills, i, Skill{Name: name, Level: applied})
+
+	return applied, applied
+}
+
+// skillLevel reports the current level of a skill, 0 if not held.
+func (c *Character) skillLevel(name string) int {
+	i, found := slices.BinarySearchFunc(c.Skills, name, func(s Skill, target string) int {
+		return strings.Compare(s.Name, target)
+	})
+	if !found {
+		return 0
+	}
+
+	return c.Skills[i].Level
+}
+
+// Options configures one generation run.
+type Options struct {
+	Seed uint64
+	Name string
+
+	// Career forces the first career by name ("--career forces the first
+	// career only", docs/PRD.md CLI sketch). Empty leaves the selection
+	// to the Decider.
+	Career string
+
+	// Decider resolves every choice point. Required: silently
+	// substituting the default policy would misrepresent who decided —
+	// auto callers pass DefaultPolicy{} explicitly.
+	Decider Decider
+}
+
+// Generate runs the generation procedure and returns the character record.
+// It currently covers checklist steps A (Generate Characteristics) and D
+// (Select Career) plus career resolution for the implemented careers
+// (chart E1, p. 72); homeworld and education (steps B-C) land with
+// docs/PRD.md milestone 2, and aging, career changes, muster out, and fame
+// with milestone 4.
+func Generate(opts Options) (Character, error) {
+	if opts.Decider == nil {
+		return Character{}, errNoDecider
+	}
+
+	roller := dice.New(opts.Seed)
 
 	var log Log
 
-	log.Step("Generate Characteristics", "Book 1 p. 72 chart E1 step A")
-	characteristics := RollCharacteristics(roller, &log)
-
-	return Character{
-		SchemaVersion:   SchemaVersion,
-		Ruleset:         Ruleset,
-		EngineVersion:   EngineVersion,
-		PolicyVersion:   PolicyVersion,
-		RNG:             RNG{Algorithm: RNGAlgorithm, Seed: seed},
-		Name:            name,
-		Characteristics: characteristics,
-		UPP:             characteristics.UPP(),
-		Events:          log.Events(),
+	// policy_version attests which decision table governed the run's
+	// choices: the POLICY.md version only when the default policy itself
+	// decided, "none" for any other Decider.
+	policyVersion := "none"
+	if _, isDefault := opts.Decider.(DefaultPolicy); isDefault {
+		policyVersion = PolicyVersion
 	}
+
+	character := Character{
+		SchemaVersion: SchemaVersion,
+		Ruleset:       Ruleset,
+		EngineVersion: EngineVersion,
+		PolicyVersion: policyVersion,
+		RNG:           RNG{Algorithm: RNGAlgorithm, Seed: opts.Seed},
+		Name:          opts.Name,
+		Age:           StartAge,
+	}
+
+	log.Step("Generate Characteristics", "Book 1 p. 72 chart E1 step A")
+
+	character.Characteristics = RollCharacteristics(roller, &log)
+
+	if err := runCareer(opts.Career, roller, &log, opts.Decider, &character); err != nil {
+		return Character{}, err
+	}
+
+	character.UPP = character.Characteristics.UPP()
+	character.Events = log.Events()
+
+	return character, nil
+}
+
+// ErrUnknownCareer reports a forced career that is not implemented; the
+// CLI matches it to distinguish usage errors from operational ones.
+var ErrUnknownCareer = errors.New("unknown career")
+
+// errNoDecider reports a Generate call without a Decider.
+var errNoDecider = errors.New("chargen: Options.Decider is required (pass DefaultPolicy{} for auto mode)")
+
+// errBadChoice reports a Decider answer outside the presented options, or
+// a choice point with no options. No silent repair: the replay contract
+// fails at the first divergence, and a clamped answer would mask it.
+var errBadChoice = errors.New("invalid choice")
+
+// runCareer performs checklist step D (Select Career, chart E1 p. 72) and
+// resolves the selected career. Citizen is the only implemented career
+// (docs/PRD.md milestone 1); the career-name dispatch grows with
+// milestone 3.
+func runCareer(forced string, roller *dice.Roller, log *Log, decider Decider, character *Character) error {
+	options := career.Available()
+
+	if forced != "" {
+		if !slices.Contains(options, forced) {
+			return fmt.Errorf("%w: %q (available: %s)", ErrUnknownCareer, forced, strings.Join(options, ", "))
+		}
+
+		options = []string{forced}
+	}
+
+	log.Step("Select Career", "Book 1 p. 72 chart E1 step D")
+
+	if _, _, err := choose(log, decider, Choice{
+		ID:      ChooseCareer,
+		Prompt:  "Select career",
+		Options: options,
+		Cite:    "Book 1 p. 72 chart E1 step D",
+	}); err != nil {
+		return err
+	}
+
+	return runCitizen(roller, log, decider, character)
+}
+
+// choose puts a choice to the decider, validates the answer, and logs the
+// resolved choice event. It returns the chosen index and the choice
+// event's sequence number (for consequences caused by the choice).
+func choose(log *Log, decider Decider, c Choice) (int, int, error) {
+	if len(c.Options) == 0 {
+		return 0, 0, fmt.Errorf("%w: %q presented no options", errBadChoice, c.ID)
+	}
+
+	chosen := decider.Choose(c)
+	if chosen < 0 || chosen >= len(c.Options) {
+		return 0, 0, fmt.Errorf("%w: %q answer %d outside 0-%d", errBadChoice, c.ID, chosen, len(c.Options)-1)
+	}
+
+	seq := log.Choice(ChoiceEvent{
+		Decider: decider.Kind(),
+		Prompt:  c.Prompt,
+		Options: c.Options,
+		Chosen:  chosen,
+		Cite:    c.Cite,
+	})
+
+	return chosen, seq, nil
 }
