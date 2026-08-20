@@ -195,24 +195,10 @@ func (r *citizenRun) awardCitizenLife(cause int) error {
 	return nil
 }
 
-// awardAndLog awards skill levels (capped at SkillMax, p. 134) and emits
-// the matching consequence: skill_awarded, or no_award if the cap absorbed
-// the whole receipt.
+// awardAndLog awards skill levels via the career-independent
+// awardSkillAndLog.
 func (r *citizenRun) awardAndLog(name string, levels, cause int) {
-	level, applied := r.character.awardSkill(name, levels)
-	if applied == 0 {
-		r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceNoAward, Skill: name})
-
-		return
-	}
-
-	r.log.Consequence(ConsequenceEvent{
-		Cause: cause,
-		Kind:  ConsequenceSkillAwarded,
-		Skill: name,
-		Delta: applied,
-		Value: level,
-	})
+	awardSkillAndLog(name, levels, cause, r.log, r.character)
 }
 
 // determineJob rolls table E for the Job: "First Success provides a Job,

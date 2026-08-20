@@ -24,6 +24,15 @@ const (
 	// Hobby selected from Citizen Skills and Knowledges", chart 04
 	// p. 78).
 	ChooseHobby ChoiceID = "select_hobby"
+
+	// ChooseHomeworld selects the homeworld (chart E1 step B, p. 72;
+	// "determined by selection, assignment, or random rolls", p. 58).
+	ChooseHomeworld ChoiceID = "select_homeworld"
+
+	// ChooseArt and ChooseTrade resolve the chart B "One Art (Choose
+	// One)" and "The Trades (Choose One)" grants (p. 56).
+	ChooseArt   ChoiceID = "select_art"
+	ChooseTrade ChoiceID = "select_trade"
 )
 
 // Choice is one choice point presented to a Decider. Options are listed in

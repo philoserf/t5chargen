@@ -8,6 +8,7 @@ import (
 
 	"github.com/philoserf/t5chargen/career"
 	"github.com/philoserf/t5chargen/dice"
+	"github.com/philoserf/t5chargen/world"
 )
 
 // Provenance constants for the replay and provenance contract (docs/PRD.md):
@@ -17,18 +18,18 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.2.0"
+	SchemaVersion = "0.3.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.2.0"
+	EngineVersion = "0.3.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
-	PolicyVersion = "0.1.0"
+	PolicyVersion = "0.2.0"
 
 	// RNGAlgorithm names the recorded random stream: Go math/rand/v2 PCG,
 	// seeded as documented at dice.New. The exact string is compared on
@@ -70,9 +71,11 @@ type Character struct {
 	Name            string          `json:"name,omitempty"` // blank by default (docs/PRD.md, Decisions)
 	Characteristics Characteristics `json:"characteristics"`
 	UPP             string          `json:"upp"`
-	Age             int             `json:"age"`
-	Skills          []Skill         `json:"skills,omitempty"`  // sorted by name for canonical JSON
-	Careers         []CareerRecord  `json:"careers,omitempty"` // in order served
+	// Homeworld doubles as the birthworld in v1 (docs/PRD.md FR2).
+	Homeworld world.Homeworld `json:"homeworld"`
+	Age       int             `json:"age"`
+	Skills    []Skill         `json:"skills,omitempty"`  // sorted by name for canonical JSON
+	Careers   []CareerRecord  `json:"careers,omitempty"` // in order served
 
 	Events []Event `json:"events"`
 }
@@ -157,6 +160,10 @@ type Options struct {
 	// to the Decider.
 	Career string
 
+	// Homeworld assigns the homeworld (docs/PRD.md FR2). The zero value
+	// (empty UWP) falls back to the tool-owned default, world.Default.
+	Homeworld world.Homeworld
+
 	// Decider resolves every choice point. Required: silently
 	// substituting the default policy would misrepresent who decided —
 	// auto callers pass DefaultPolicy{} explicitly.
@@ -164,11 +171,11 @@ type Options struct {
 }
 
 // Generate runs the generation procedure and returns the character record.
-// It currently covers checklist steps A (Generate Characteristics) and D
-// (Select Career) plus career resolution for the implemented careers
-// (chart E1, p. 72); homeworld and education (steps B-C) land with
-// docs/PRD.md milestone 2, and aging, career changes, muster out, and fame
-// with milestone 4.
+// It currently covers checklist steps A (Generate Characteristics), B
+// (Determine A Homeworld), and D (Select Career) plus career resolution
+// for the implemented careers (chart E1, p. 72); education (step C) lands
+// with docs/PRD.md milestone 2, and aging, career changes, muster out, and
+// fame with milestone 4.
 func Generate(opts Options) (Character, error) {
 	if opts.Decider == nil {
 		return Character{}, errNoDecider
@@ -199,6 +206,10 @@ func Generate(opts Options) (Character, error) {
 	log.Step("Generate Characteristics", "Book 1 p. 72 chart E1 step A")
 
 	character.Characteristics = RollCharacteristics(roller, &log)
+
+	if err := runHomeworld(homeworldOrDefault(opts.Homeworld), &log, opts.Decider, &character); err != nil {
+		return Character{}, err
+	}
 
 	if err := runCareer(opts.Career, roller, &log, opts.Decider, &character); err != nil {
 		return Character{}, err
