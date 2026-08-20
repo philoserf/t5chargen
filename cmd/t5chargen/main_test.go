@@ -140,6 +140,23 @@ func TestNewForcedCareer(t *testing.T) {
 	}
 }
 
+// TestNewHomeworldFlag verifies --homeworld "UWP TC..." lands in the
+// record with its trade classifications.
+func TestNewHomeworldFlag(t *testing.T) {
+	var stdout, stderr bytes.Buffer
+
+	args := []string{"new", "--auto", "--seed", "1", "--homeworld", "C200423-7 Va Ni"}
+	if code := run(args, noSeed(t), &stdout, &stderr); code != exitOK {
+		t.Fatalf("exit %d, stderr: %s", code, stderr.String())
+	}
+
+	for _, want := range []string{`"uwp": "C200423-7"`, `"Va"`, `"Ni"`} {
+		if !strings.Contains(stdout.String(), want) {
+			t.Errorf("record missing %s", want)
+		}
+	}
+}
+
 // TestRenderGoldens verifies render reproduces the seed-1 sheet and history
 // goldens from a record written by new.
 func TestRenderGoldens(t *testing.T) {
@@ -204,6 +221,10 @@ func TestErrors(t *testing.T) {
 		{"new without --auto", []string{"new", "--seed", "1"}, exitUsage},
 		{"new stray arguments", []string{"new", "--auto", "--seed", "1", "out.json"}, exitUsage},
 		{"unknown career", []string{"new", "--auto", "--seed", "1", "--career", "noble"}, exitUsage},
+		{"partial UWP", []string{"new", "--auto", "--seed", "1", "--homeworld", "A78899"}, exitUsage},
+		{"unknown TC", []string{"new", "--auto", "--seed", "1", "--homeworld", "A788899-C Qq"}, exitUsage},
+		//nolint:dupword // the repeated TC is the case under test
+		{"duplicate TC", []string{"new", "--auto", "--seed", "1", "--homeworld", "A788899-C Pa Pa"}, exitUsage},
 		{"render without file", []string{"render"}, exitUsage},
 		{"render missing file", []string{"render", "does-not-exist.json"}, exitError},
 		{"render garbage file", []string{"render", garbage}, exitError},

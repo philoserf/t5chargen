@@ -29,6 +29,11 @@ func Sheet(c chargen.Character) string {
 	}
 
 	fmt.Fprintf(&b, "**UPP**: %s\n\n", c.UPP)
+
+	if c.Homeworld.UWP != "" {
+		fmt.Fprintf(&b, "**Homeworld**: %s\n\n", c.Homeworld.Label())
+	}
+
 	fmt.Fprintf(&b, "**Age**: %d\n\n", c.Age)
 
 	b.WriteString("| Str | Dex | End | Int | Edu | Soc |\n")

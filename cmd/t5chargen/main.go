@@ -17,6 +17,7 @@ import (
 	"github.com/philoserf/t5chargen/career"
 	"github.com/philoserf/t5chargen/chargen"
 	"github.com/philoserf/t5chargen/render"
+	"github.com/philoserf/t5chargen/world"
 )
 
 // Exit codes: 0 success, 1 operational error, 2 usage error (the flag
@@ -29,7 +30,7 @@ const (
 )
 
 const usage = `usage:
-  t5chargen new --auto [--seed N] [--name X] [--career citizen] [-o file] [--force]
+  t5chargen new --auto [--seed N] [--name X] [--career citizen] [--homeworld "UWP TC..."] [-o file] [--force]
   t5chargen render character.json [--format md] [--history]
 `
 
@@ -79,6 +80,9 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 	seed := flags.Uint64("seed", 0, "RNG seed (default: drawn from OS entropy)")
 	name := flags.String("name", "", "character name (blank by default)")
 	careerFlag := flags.String("career", "", "force the first career")
+	homeworldFlag := flags.String("homeworld", "",
+		`homeworld as "UWP" or "UWP TC TC..." (for example "A788899-C Ph Pa Ri"); `+
+			`skills come from the trade classifications, so a bare UWP grants none (default: Regina)`)
 	auto := flags.Bool("auto", false, "apply the fixed default policy (POLICY.md) to every choice")
 	out := flags.String("o", "", "output file (default: stdout)")
 	force := flags.Bool("force", false, "overwrite an existing output file")
@@ -109,17 +113,20 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 	}
 
 	character, err := chargen.Generate(chargen.Options{
-		Seed:    *seed,
-		Name:    *name,
-		Career:  canonicalCareer(*careerFlag),
-		Decider: chargen.DefaultPolicy{},
+		Seed:      *seed,
+		Name:      *name,
+		Career:    canonicalCareer(*careerFlag),
+		Homeworld: parseHomeworldFlag(*homeworldFlag),
+		Decider:   chargen.DefaultPolicy{},
 	})
 	if err != nil {
 		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
 
-		// An unknown --career value is a usage error; the engine is the
-		// single validator.
-		if errors.Is(err, chargen.ErrUnknownCareer) {
+		// Bad flag values are usage errors; the engine is the single
+		// validator for careers, UWPs, and trade classifications.
+		if errors.Is(err, chargen.ErrUnknownCareer) ||
+			errors.Is(err, world.ErrInvalidUWP) || errors.Is(err, world.ErrUnknownTC) ||
+			errors.Is(err, world.ErrDuplicateTC) {
 			return exitUsage
 		}
 
@@ -179,6 +186,18 @@ func resolveSeed(flags *flag.FlagSet, seed *uint64, seedFn func() (uint64, error
 	*seed = drawn
 
 	return nil
+}
+
+// parseHomeworldFlag splits a --homeworld value into a Homeworld: the
+// first field is the UWP, the rest are trade classifications. Validation
+// is the engine's; an empty flag leaves the zero value for the default.
+func parseHomeworldFlag(value string) world.Homeworld {
+	fields := strings.Fields(value)
+	if len(fields) == 0 {
+		return world.Homeworld{}
+	}
+
+	return world.Homeworld{UWP: fields[0], TradeClassifications: fields[1:]}
 }
 
 // canonicalCareer maps a case-insensitive --career value to its canonical
