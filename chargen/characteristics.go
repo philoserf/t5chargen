@@ -57,16 +57,17 @@ func characteristicValue(c *Characteristics, name string) (int, bool) {
 }
 
 // characteristicAdd applies a delta to the named characteristic, reporting
-// the new value; ok is false for an unknown name.
-func characteristicAdd(c *Characteristics, name string, delta int) (int, bool) {
+// the new value. Callers validate the name first (characteristicValue);
+// an unknown name changes nothing and reports 0.
+func characteristicAdd(c *Characteristics, name string, delta int) int {
 	field := characteristicField(c, name)
 	if field == nil {
-		return 0, false
+		return 0
 	}
 
 	*field += delta
 
-	return *field, true
+	return *field
 }
 
 // characteristicField maps a standard abbreviation to its field.

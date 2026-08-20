@@ -18,18 +18,18 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.3.0"
+	SchemaVersion = "0.4.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.3.0"
+	EngineVersion = "0.4.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
-	PolicyVersion = "0.2.0"
+	PolicyVersion = "0.3.0"
 
 	// RNGAlgorithm names the recorded random stream: Go math/rand/v2 PCG,
 	// seeded as documented at dice.New. The exact string is compared on
@@ -72,12 +72,55 @@ type Character struct {
 	Characteristics Characteristics `json:"characteristics"`
 	UPP             string          `json:"upp"`
 	// Homeworld doubles as the birthworld in v1 (docs/PRD.md FR2).
-	Homeworld world.Homeworld `json:"homeworld"`
-	Age       int             `json:"age"`
-	Skills    []Skill         `json:"skills,omitempty"`  // sorted by name for canonical JSON
-	Careers   []CareerRecord  `json:"careers,omitempty"` // in order served
+	Homeworld world.Homeworld   `json:"homeworld"`
+	Age       int               `json:"age"`
+	Education []EducationRecord `json:"education,omitempty"` // in order attended
+	Skills    []Skill           `json:"skills,omitempty"`    // sorted by name for canonical JSON
+	Careers   []CareerRecord    `json:"careers,omitempty"`   // in order served
+
+	// WaiversAttempted counts Educational Waiver rolls, successful or
+	// not, lifetime ("Mod minus number of previous waivers rolled
+	// (successful or not)", p. 59).
+	WaiversAttempted int `json:"waivers_attempted,omitempty"`
 
 	Events []Event `json:"events"`
+}
+
+// EducationRecord is one educational process (chart C p. 60; docs/PRD.md
+// FR3). A slice on the record because Later Education (p. 59) will allow
+// more than one.
+type EducationRecord struct {
+	Program   string `json:"program"`
+	Service   string `json:"service,omitempty"` // Service Academy only
+	Major     string `json:"major,omitempty"`
+	Minor     string `json:"minor,omitempty"`
+	Passes    int    `json:"passes"`
+	Graduated bool   `json:"graduated"`
+	Honors    bool   `json:"honors,omitempty"`
+	Degree    string `json:"degree,omitempty"`
+}
+
+// currentMajor and currentMinor report the character's Major and Minor:
+// "A character's current Major and Minor are the most recent ones
+// selected" (p. 59).
+func (c *Character) currentMajor() string {
+	for _, record := range slices.Backward(c.Education) {
+		if record.Major != "" {
+			return record.Major
+		}
+	}
+
+	return ""
+}
+
+func (c *Character) currentMinor() string {
+	for _, record := range slices.Backward(c.Education) {
+		if record.Minor != "" {
+			return record.Minor
+		}
+	}
+
+	return ""
 }
 
 // Skill is one acquired skill or knowledge at its current level. The
@@ -172,12 +215,11 @@ type Options struct {
 	Decider Decider
 }
 
-// Generate runs the generation procedure and returns the character record.
-// It currently covers checklist steps A (Generate Characteristics), B
-// (Determine A Homeworld), and D (Select Career) plus career resolution
-// for the implemented careers (chart E1, p. 72); education (step C) lands
-// with docs/PRD.md milestone 2, and aging, career changes, muster out, and
-// fame with milestone 4.
+// Generate runs the generation procedure and returns the character record:
+// checklist steps A (Generate Characteristics), B (Determine A Homeworld),
+// C (Education and Training), and D (Select Career) plus career resolution
+// for the implemented careers (chart E1, p. 72); aging, career changes,
+// muster out, and fame land with docs/PRD.md milestone 4.
 func Generate(opts Options) (Character, error) {
 	if opts.Decider == nil {
 		return Character{}, errNoDecider
@@ -215,6 +257,10 @@ func Generate(opts Options) (Character, error) {
 	}
 
 	if err := runHomeworld(homeworld, &log, opts.Decider, &character); err != nil {
+		return Character{}, err
+	}
+
+	if err := runEducation(roller, &log, opts.Decider, &character); err != nil {
 		return Character{}, err
 	}
 

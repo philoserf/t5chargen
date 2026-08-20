@@ -84,11 +84,49 @@ canonical:
   prints both "Hostile Env" (table E) and "Hostile Environ" (table C); the
   Master Skill List p. 132 prints "Hostile Environ"; the p. 154 heading is
   "HOSTILE ENVIRONMENT".
+- **Programmer** (added 2026-08-20, with education): chart C p. 60 prints
+  "Program" in The Trades; chart 04 p. 78 and the Master Skill List p. 132
+  print "Programmer".
 
 The Master Skill List (p. 132) is taken as the canonical registry:
-**High-G** and **Hostile Environ**. All data files use these spellings
-regardless of the source chart's printed form, so grants from different
-charts stack as one skill.
+**High-G**, **Hostile Environ**, and **Programmer**. All data files use
+these spellings regardless of the source chart's printed form, so grants
+from different charts stack as one skill.
 
-Implemented in `world/data/homeworld_skills.json` and
-`career/data/citizen.json`.
+Implemented in `world/data/homeworld_skills.json`,
+`career/data/citizen.json`, and `education/data/education.json`.
+
+### I-5: a failed education year consumes a year (pp. 59-60)
+
+"Each Success is one year" (p. 59) says what a pass costs; the chart's
+Duration says what the full program costs. Neither states whether the year
+of a failed Pass/Fail check elapses when attendance ends unwaived.
+
+Two readings:
+
+1. **The failed year elapses** — the character attended the year and
+   failed it. (Implemented; also consistent with waived reinstatement,
+   where the year passes without a skill.)
+2. Only passed (or waived) years elapse; a dropout leaves mid-year.
+
+Implemented at `chargen/education.go` (`passFailYear`).
+
+### I-6: human Tra checks use Edu at half value, rounded up (pp. 55, 60)
+
+Chart C's Apprenticeship Pass/Fail checks Tra, which v1 humans lack.
+"Training and Education can be substituted for each other at half value"
+(p. 55) supplies the substitution; no rounding rule is stated for half
+characteristics. Rounded up, extending "the practice is to always round in
+favor of the rolling player" (p. 19, half-dice) to the roll-low target.
+The alternative (round down) is a smaller target.
+
+Implemented at `chargen/education.go` (`checkValue`).
+
+### I-7: the Apprenticeship skill list is unrestricted (p. 60)
+
+Chart C's Apprenticeship provides "Skill+4 or Knowledge+4" with no source
+list (contrast Training Course's "from School=S"). Implemented as a free
+selection from the full Available Skills matrix. The alternative reading
+restricts it to the School column like Training Course.
+
+Implemented at `chargen/education.go` (`awardApprenticeship`).

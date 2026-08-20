@@ -336,8 +336,20 @@ func (r *citizenRun) awardTableC(entry career.Entry, cause int) error {
 		return r.awardCharacteristic(entry.Name, cause)
 	case career.EntryMajor, career.EntryMinor:
 		// "If the character does not have a Major/Minor this benefit is
-		// lost." (p. 78) Education lands with milestone 2.
-		r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceBenefitLost})
+		// lost." (p. 78) The current Major/Minor are the most recent ones
+		// selected (p. 59).
+		name := r.character.currentMajor()
+		if entry.Kind == career.EntryMinor {
+			name = r.character.currentMinor()
+		}
+
+		if name == "" {
+			r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceBenefitLost})
+
+			return nil
+		}
+
+		r.awardAndLog(name, 1, cause)
 	case career.EntryNone:
 		r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceNoAward})
 	case career.EntryTrade, career.EntryArt, career.EntryScience:
@@ -367,7 +379,7 @@ func (r *citizenRun) awardCharacteristic(name string, cause int) error {
 		return nil
 	}
 
-	value, _ = characteristicAdd(&r.character.Characteristics, name, 1)
+	value = characteristicAdd(&r.character.Characteristics, name, 1)
 	r.log.Consequence(ConsequenceEvent{
 		Cause: cause, Kind: ConsequenceCharacteristicChange,
 		Characteristic: name, Delta: 1, Value: value,

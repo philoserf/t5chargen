@@ -42,6 +42,10 @@ func Sheet(c chargen.Character) string {
 		c.Characteristics.Str, c.Characteristics.Dex, c.Characteristics.End,
 		c.Characteristics.Int, c.Characteristics.Edu, c.Characteristics.Soc)
 
+	for _, educationRecord := range c.Education {
+		b.WriteString(educationLine(educationRecord))
+	}
+
 	for _, careerRecord := range c.Careers {
 		b.WriteString(careerLine(careerRecord))
 	}
@@ -56,6 +60,31 @@ func Sheet(c chargen.Character) string {
 	fmt.Fprintf(&b, "Ruleset: %s\n", c.Ruleset)
 
 	return b.String()
+}
+
+// educationLine renders one educational process of the record.
+func educationLine(record chargen.EducationRecord) string {
+	line := "**Education**: " + record.Program
+
+	if record.Service != "" {
+		line += " (" + record.Service + ")"
+	}
+
+	if record.Major != "" {
+		line += ", Major " + record.Major
+	}
+
+	if record.Minor != "" {
+		line += ", Minor " + record.Minor
+	}
+
+	if record.Degree != "" {
+		line += " — " + record.Degree
+	} else if !record.Graduated {
+		line += " — did not graduate"
+	}
+
+	return line + "\n\n"
 }
 
 // careerLine renders one career of the record: name, terms served, and the
