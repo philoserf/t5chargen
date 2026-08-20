@@ -42,6 +42,53 @@ func (c Characteristics) UPP() string {
 	return string(upp)
 }
 
+// characteristicValue returns the named characteristic's value; ok is
+// false for a name outside the six standard abbreviations (p. 48: "A
+// Characteristic can be abbreviated with its first three letters").
+// Standalone functions rather than methods so Characteristics keeps a
+// uniform value-receiver method set for its read-only API.
+func characteristicValue(c *Characteristics, name string) (int, bool) {
+	field := characteristicField(c, name)
+	if field == nil {
+		return 0, false
+	}
+
+	return *field, true
+}
+
+// characteristicAdd applies a delta to the named characteristic, reporting
+// the new value; ok is false for an unknown name.
+func characteristicAdd(c *Characteristics, name string, delta int) (int, bool) {
+	field := characteristicField(c, name)
+	if field == nil {
+		return 0, false
+	}
+
+	*field += delta
+
+	return *field, true
+}
+
+// characteristicField maps a standard abbreviation to its field.
+func characteristicField(c *Characteristics, name string) *int {
+	switch name {
+	case "Str":
+		return &c.Str
+	case "Dex":
+		return &c.Dex
+	case "End":
+		return &c.End
+	case "Int":
+		return &c.Int
+	case "Edu":
+		return &c.Edu
+	case "Soc":
+		return &c.Soc
+	}
+
+	return nil
+}
+
 // RollCharacteristics rolls the six standard human characteristics, emitting
 // a throw and a consequence event for each.
 //
