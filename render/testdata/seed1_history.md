@@ -60,9 +60,9 @@ _Book 1 p. 78 chart 04_
 
 - #40 policy chose "End" of [Str, End, Int]: Select the term's controlling characteristic — Book 1 p. 65 (Risk and Reward: Select the CC)
 - #41 2D = 1+3 = 4 vs 8: success — Book 1 p. 78 chart 04 (Citizen Life vs End, no mods per p. 65)
-- #42 policy chose "ACV" of [ACV, Comms, High-G, Steward, Ordnance, Naval Arch, JOT, Rider, Sensors, Fwd Obs, Survival, Streetwise, LTA, Spines, Flapper, Seafarer, Astrogator, WMD, Leader, Tracked, Engineer, Computer, Navigation, Chef, Survey, Animals, Fluidics, Bay Wpns, Explosives, Mole, Dancer, Tactics, Launcher, Magnetics, Jump Drive, Grav, Artist, Turrets, Teamster, Photonics, Counsellor, Boat, Legged, Teacher, Designer, Vacc Suit, Submersible, Ship, Sapper, Unarmed, Artillery, Aeronautics, Wing, Driver, Exotics, Language, Craftsman, Aquanautics, Recon, Gunner, Stealth, Musician, Gravitics, BattleDress, Actor, Blades, Trainer, Strategy, Forensics, Electronics, Flyer, Zero-G, Maneuver, Biologics, Hostile Env, Pilot, Author, Liaison, Polymers, Ortillery, Power System, Rotor, Broker, Athlete, Advocate, Automotive, Life Support, Admin, Trader, Fighter, Bureaucrat, Slug Thrower, Beams, Sprays, Wheeled, Diplomat, Heavy Wpns, Fleet Tactics, Medic, Gambler, Screens, Mechanic, Programmer, Spacecraft]: Select a Hobby from Citizen Skills and Knowledges — Book 1 p. 78 chart 04 (Second Success provides a Hobby)
-  - #43 (from #41) Hobby = ACV
-  - #44 (from #41) ACV +2 = ACV-2
+- #42 policy chose "ACV" of [ACV, Comms, High-G, Steward, Ordnance, Naval Arch, JOT, Rider, Sensors, Fwd Obs, Survival, Streetwise, LTA, Spines, Flapper, Seafarer, Astrogator, WMD, Leader, Tracked, Engineer, Computer, Navigation, Chef, Survey, Animals, Fluidics, Bay Wpns, Explosives, Dancer, Tactics, Launcher, Magnetics, Jump Drive, Grav, Artist, Turrets, Teamster, Photonics, Counsellor, Boat, Legged, Teacher, Designer, Vacc Suit, Submersible, Ship, Sapper, Unarmed, Artillery, Aeronautics, Wing, Driver, Exotics, Language, Craftsman, Aquanautics, Recon, Gunner, Stealth, Musician, Gravitics, BattleDress, Actor, Blades, Trainer, Strategy, Forensics, Electronics, Flyer, Zero-G, Maneuver, Biologics, Hostile Env, Pilot, Author, Liaison, Polymers, Ortillery, Power System, Rotor, Broker, Athlete, Advocate, Automotive, Life Support, Admin, Trader, Fighter, Bureaucrat, Slug Thrower, Beams, Sprays, Wheeled, Diplomat, Heavy Wpns, Fleet Tactics, Medic, Gambler, Screens, Mechanic, Programmer, Spacecraft]: Select a Hobby from Citizen Skills and Knowledges — Book 1 p. 78 chart 04 (Second Success provides a Hobby)
+  - #43 (from #42) Hobby = ACV
+  - #44 (from #42) ACV +2 = ACV-2
 - #45 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #46 1D = 5 = 5 — Book 1 p. 78 chart 04 table C, column General
   - #47 (from #46) Bureaucrat +1 = Bureaucrat-1
@@ -373,10 +373,10 @@ _Book 1 p. 78 chart 04_
   - #296 (from #295) Mole +1 = Mole-9
 - #297 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #298 1D = 1 = 1 — Book 1 p. 78 chart 04 table C, column General
-  - #299 (from #298) no award
+  - #299 (from #298) no award (Admin at the Skill-15 cap)
 - #300 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #301 1D = 1 = 1 — Book 1 p. 78 chart 04 table C, column General
-  - #302 (from #301) no award
+  - #302 (from #301) no award (Admin at the Skill-15 cap)
 - #303 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #304 1D = 6 = 6 — Book 1 p. 78 chart 04 table C, column General
   - #305 (from #304) Trader +1 = Trader-11
@@ -423,10 +423,10 @@ _Book 1 p. 78 chart 04_
   - #338 (from #337) Trader +1 = Trader-12
 - #339 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #340 1D = 4 = 4 — Book 1 p. 78 chart 04 table C, column General
-  - #341 (from #340) no award
+  - #341 (from #340) no award (Animals at the Skill-15 cap)
 - #342 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #343 1D = 4 = 4 — Book 1 p. 78 chart 04 table C, column General
-  - #344 (from #343) no award
+  - #344 (from #343) no award (Animals at the Skill-15 cap)
 - #345 2D = 3+3 = 6 vs 10: success — Book 1 p. 78 chart 04 (Continue 10-; p. 66)
   - #346 (from #345) +4 years
 
@@ -467,7 +467,7 @@ _Book 1 p. 78 chart 04_
   - #374 (from #373) Bureaucrat +1 = Bureaucrat-9
 - #375 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #376 1D = 4 = 4 — Book 1 p. 78 chart 04 table C, column General
-  - #377 (from #376) no award
+  - #377 (from #376) no award (Animals at the Skill-15 cap)
 - #378 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #379 1D = 3 = 3 — Book 1 p. 78 chart 04 table C, column General
   - #380 (from #379) Computer +1 = Computer-9
@@ -489,10 +489,10 @@ _Book 1 p. 78 chart 04_
   - #392 (from #391) Computer +1 = Computer-11
 - #393 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #394 1D = 2 = 2 — Book 1 p. 78 chart 04 table C, column General
-  - #395 (from #394) no award
+  - #395 (from #394) no award (Broker at the Skill-15 cap)
 - #396 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #397 1D = 1 = 1 — Book 1 p. 78 chart 04 table C, column General
-  - #398 (from #397) no award
+  - #398 (from #397) no award (Admin at the Skill-15 cap)
 - #399 2D = 2+1 = 3 vs 10: success — Book 1 p. 78 chart 04 (Continue 10-; p. 66)
   - #400 (from #399) +4 years
 
@@ -508,7 +508,7 @@ _Book 1 p. 78 chart 04_
   - #407 (from #406) Computer +1 = Computer-12
 - #408 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #409 1D = 4 = 4 — Book 1 p. 78 chart 04 table C, column General
-  - #410 (from #409) no award
+  - #410 (from #409) no award (Animals at the Skill-15 cap)
 - #411 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #412 1D = 3 = 3 — Book 1 p. 78 chart 04 table C, column General
   - #413 (from #412) Computer +1 = Computer-13
@@ -530,13 +530,13 @@ _Book 1 p. 78 chart 04_
   - #425 (from #424) Computer +1 = Computer-15
 - #426 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #427 1D = 3 = 3 — Book 1 p. 78 chart 04 table C, column General
-  - #428 (from #427) no award
+  - #428 (from #427) no award (Computer at the Skill-15 cap)
 - #429 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #430 1D = 2 = 2 — Book 1 p. 78 chart 04 table C, column General
-  - #431 (from #430) no award
+  - #431 (from #430) no award (Broker at the Skill-15 cap)
 - #432 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #433 1D = 1 = 1 — Book 1 p. 78 chart 04 table C, column General
-  - #434 (from #433) no award
+  - #434 (from #433) no award (Admin at the Skill-15 cap)
 - #435 2D = 4+6 = 10 vs 10: success — Book 1 p. 78 chart 04 (Continue 10-; p. 66)
   - #436 (from #435) +4 years
 
@@ -549,13 +549,13 @@ _Book 1 p. 78 chart 04_
   - #440 (from #439) no award
 - #441 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #442 1D = 2 = 2 — Book 1 p. 78 chart 04 table C, column General
-  - #443 (from #442) no award
+  - #443 (from #442) no award (Broker at the Skill-15 cap)
 - #444 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #445 1D = 6 = 6 — Book 1 p. 78 chart 04 table C, column General
   - #446 (from #445) Trader +1 = Trader-13
 - #447 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #448 1D = 1 = 1 — Book 1 p. 78 chart 04 table C, column General
-  - #449 (from #448) no award
+  - #449 (from #448) no award (Admin at the Skill-15 cap)
 - #450 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #451 1D = 5 = 5 — Book 1 p. 78 chart 04 table C, column General
   - #452 (from #451) Bureaucrat +1 = Bureaucrat-10

@@ -117,9 +117,17 @@ const (
 	ConsequenceJobSet   ConsequenceKind = "job_set"
 	ConsequenceHobbySet ConsequenceKind = "hobby_set"
 
-	// ConsequenceNoAward records a table cell that awards nothing (the
-	// "No Skill" cell of table E, p. 78).
+	// ConsequenceNoAward records a receipt that awards nothing: a failed
+	// Citizen Life throw ("no Job or Hobby skills", p. 78), a table cell
+	// with no award, or a skill receipt fully absorbed by the Skill-15
+	// cap (p. 134) — the last carries Skill naming the capped skill.
 	ConsequenceNoAward ConsequenceKind = "no_award"
+
+	// ConsequenceJobUndetermined records a Job determination roll landing
+	// on the "No Skill" cell of table E (p. 78): the Job stays
+	// undetermined and the next Citizen Life success retries
+	// (interpretation I-1, ERRATA.md).
+	ConsequenceJobUndetermined ConsequenceKind = "job_undetermined"
 
 	// ConsequenceBenefitLost records a Major/Minor cell without the
 	// education to use it: "If the character does not have a Major/Minor

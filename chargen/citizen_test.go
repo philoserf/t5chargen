@@ -1,15 +1,21 @@
 package chargen_test
 
 import (
+	"errors"
 	"reflect"
 	"testing"
 
 	"github.com/philoserf/t5chargen/chargen"
 )
 
-// generate builds a character or fails the test.
+// generate builds a character or fails the test, defaulting to the auto
+// policy when no Decider is set.
 func generate(t *testing.T, opts chargen.Options) chargen.Character {
 	t.Helper()
+
+	if opts.Decider == nil {
+		opts.Decider = chargen.DefaultPolicy{}
+	}
 
 	c, err := chargen.Generate(opts)
 	if err != nil {
@@ -88,17 +94,19 @@ func checkTerms(t *testing.T, seed uint64, record chargen.CareerRecord) {
 	}
 }
 
-// TestCitizenJobHobbyLadder verifies the chart 04 ladder on a seed with
-// multiple successes: first success sets the Job (Skill-4), second the
-// Hobby (Skill-2, policy-selected first-listed = ACV).
+// TestCitizenJobHobbyLadder verifies the chart 04 ladder on a range of
+// seeds: the Hobby is only ever set after the Job, is never the Job
+// (ERRATA I-3), and under the policy is the first-listed table E entry
+// excluding the Job. A record with successes but no Hobby is legitimate
+// (the ERRATA I-1 No Skill retry can consume a success), so the ladder is
+// asserted on what is set, not on the success count alone.
 func TestCitizenJobHobbyLadder(t *testing.T) {
 	for seed := range uint64(60) {
 		checkLadder(t, seed, generate(t, chargen.Options{Seed: seed}).Careers[0])
 	}
 }
 
-// checkLadder asserts one record's Job/Hobby state against its success
-// count.
+// checkLadder asserts one record's Job/Hobby state.
 func checkLadder(t *testing.T, seed uint64, record chargen.CareerRecord) {
 	t.Helper()
 
@@ -110,24 +118,31 @@ func checkLadder(t *testing.T, seed uint64, record chargen.CareerRecord) {
 		}
 	}
 
-	checkLadderState(t, seed, record, successes)
-}
-
-// checkLadderState asserts the Job/Hobby fields implied by the success
-// count.
-func checkLadderState(t *testing.T, seed uint64, record chargen.CareerRecord, successes int) {
-	t.Helper()
-
-	if successes >= 2 && record.Job != "" && record.Hobby == "" {
-		t.Errorf("seed %d: %d successes with job %q but no hobby", seed, successes, record.Job)
-	}
-
-	if record.Hobby != "" && record.Hobby != "ACV" {
-		t.Errorf("seed %d: policy hobby = %q, want first-listed ACV", seed, record.Hobby)
-	}
-
 	if successes == 0 && (record.Job != "" || record.Hobby != "") {
 		t.Errorf("seed %d: no successes but job %q hobby %q", seed, record.Job, record.Hobby)
+	}
+
+	if record.Hobby != "" {
+		checkHobby(t, seed, record)
+	}
+}
+
+// checkHobby asserts a set Hobby: distinct from the Job (I-3) and the
+// policy's first-listed pick.
+func checkHobby(t *testing.T, seed uint64, record chargen.CareerRecord) {
+	t.Helper()
+
+	if record.Job == "" || record.Hobby == record.Job {
+		t.Errorf("seed %d: hobby %q with job %q", seed, record.Hobby, record.Job)
+	}
+
+	want := "ACV"
+	if record.Job == "ACV" {
+		want = "Comms" // next first-listed (A1 B1 C2) once the Job is excluded (I-3)
+	}
+
+	if record.Hobby != want {
+		t.Errorf("seed %d: policy hobby = %q, want first-listed %q", seed, record.Hobby, want)
 	}
 }
 
@@ -203,7 +218,43 @@ func TestGenerateForcedCareer(t *testing.T) {
 		t.Errorf("forced career = %+v", c.Careers)
 	}
 
-	if _, err := chargen.Generate(chargen.Options{Seed: 3, Career: "Noble"}); err == nil {
-		t.Error("unknown forced career did not error")
+	_, err := chargen.Generate(chargen.Options{Seed: 3, Career: "Noble", Decider: chargen.DefaultPolicy{}})
+	if !errors.Is(err, chargen.ErrUnknownCareer) {
+		t.Errorf("unknown forced career error = %v, want ErrUnknownCareer", err)
+	}
+}
+
+// playerDecider is a well-behaved non-policy Decider for provenance tests.
+type playerDecider struct{}
+
+func (playerDecider) Choose(chargen.Choice) int { return 0 }
+func (playerDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
+
+// badDecider always answers out of range.
+type badDecider struct{}
+
+func (badDecider) Choose(chargen.Choice) int { return 99 }
+func (badDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
+
+// TestGenerateDeciderContract verifies the Decider requirements: nil
+// errors, an out-of-range answer errors instead of being silently
+// repaired, and policy_version attests "none" for non-policy deciders.
+func TestGenerateDeciderContract(t *testing.T) {
+	if _, err := chargen.Generate(chargen.Options{Seed: 1}); err == nil {
+		t.Error("nil Decider did not error")
+	}
+
+	if _, err := chargen.Generate(chargen.Options{Seed: 1, Decider: badDecider{}}); err == nil {
+		t.Error("out-of-range Decider answer did not error")
+	}
+
+	c := generate(t, chargen.Options{Seed: 1, Decider: playerDecider{}})
+	if c.PolicyVersion != "none" {
+		t.Errorf("policy_version with player decider = %q, want %q", c.PolicyVersion, "none")
+	}
+
+	auto := generate(t, chargen.Options{Seed: 1})
+	if auto.PolicyVersion != chargen.PolicyVersion {
+		t.Errorf("policy_version with default policy = %q, want %q", auto.PolicyVersion, chargen.PolicyVersion)
 	}
 }

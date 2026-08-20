@@ -1,6 +1,8 @@
 package career_test
 
 import (
+	"fmt"
+	"strings"
 	"testing"
 
 	"github.com/philoserf/t5chargen/career"
@@ -60,6 +62,90 @@ func TestCitizenSkillColumns(t *testing.T) {
 		entry := general.Entries[i]
 		if entry.Kind != career.EntrySkill || entry.Name != want {
 			t.Errorf("General row %d = %+v, want skill %q", i+1, entry, want)
+		}
+	}
+}
+
+// TestLoadValidation verifies the loader rejects malformed-but-parseable
+// career data instead of letting it panic or corrupt deep in the engine.
+func TestLoadValidation(t *testing.T) {
+	valid := `{
+		"name": "X", "cite": "test", "continue_target": 10, "skills_per_term": 4,
+		"citizen_life_characteristics": ["Str"],
+		"skill_columns": [{"name": "C", "entries": [
+			{"kind": "skill", "name": "A"}, {"kind": "skill", "name": "B"},
+			{"kind": "skill", "name": "C"}, {"kind": "skill", "name": "D"},
+			{"kind": "skill", "name": "E"}, {"kind": "skill", "name": "F"}]}]`
+
+	table := `, "job_table": [` + jobGroup() + `,` + jobGroup() + `,` + jobGroup() + `]}`
+
+	if _, err := career.Load("valid.json", []byte(valid+table)); err != nil {
+		t.Fatalf("valid definition rejected: %v", err)
+	}
+
+	tests := []struct {
+		name string
+		data string
+	}{
+		{"zero continue target", strings.Replace(valid, `"continue_target": 10`, `"continue_target": 0`, 1) + table},
+		{"zero skills per term", strings.Replace(valid, `"skills_per_term": 4`, `"skills_per_term": 0`, 1) + table},
+		{"no characteristics", strings.Replace(valid, `["Str"]`, `[]`, 1) + table},
+		{"bad characteristic", strings.Replace(valid, `["Str"]`, `["Sta"]`, 1) + table},
+		{
+			"unknown cell kind",
+			strings.Replace(valid, `{"kind": "skill", "name": "A"}`, `{"kind": "skil", "name": "A"}`, 1) + table,
+		},
+		{"nameless skill cell", strings.Replace(valid, `{"kind": "skill", "name": "A"}`, `{"kind": "skill"}`, 1) + table},
+		{"short column", strings.Replace(valid, `{"kind": "skill", "name": "F"}`, ``, 1) + table},
+		{"misspelled No Skill", valid + strings.Replace(table, `"S11"`, `"No skill"`, 1)},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if _, err := career.Load(tt.name, []byte(tt.data)); err == nil {
+				t.Error("malformed definition accepted")
+			}
+		})
+	}
+}
+
+// jobGroup builds one syntactically valid table E group of 6x6 cells.
+func jobGroup() string {
+	rows := make([]string, 6)
+
+	for b := range 6 {
+		cells := make([]string, 6)
+		for c := range 6 {
+			cells[c] = fmt.Sprintf("%q", fmt.Sprintf("S%d%d", b+1, c+1))
+		}
+
+		rows[b] = "[" + strings.Join(cells, ",") + "]"
+	}
+
+	return "[" + strings.Join(rows, ",") + "]"
+}
+
+// TestCitizenDerivedLists verifies the precomputed column-name and
+// hobby-choice lists.
+func TestCitizenDerivedLists(t *testing.T) {
+	d, err := career.Citizen()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	names := d.SkillColumnNames()
+	if len(names) != 7 || names[0] != "Personal" || names[3] != "General" {
+		t.Errorf("SkillColumnNames() = %v", names)
+	}
+
+	hobbies := d.HobbyChoices()
+	if len(hobbies) == 0 || hobbies[0] != "ACV" {
+		t.Fatalf("HobbyChoices() head = %v", hobbies[:min(3, len(hobbies))])
+	}
+
+	for _, hobby := range hobbies {
+		if hobby == career.NoSkillCell {
+			t.Error("HobbyChoices() includes the No Skill cell")
 		}
 	}
 }

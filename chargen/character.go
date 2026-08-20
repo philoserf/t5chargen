@@ -60,10 +60,11 @@ type Character struct {
 	EngineVersion string `json:"engine_version"`
 	PolicyVersion string `json:"policy_version"`
 	RNG           RNG    `json:"rng"`
-	// Errata lists applied ERRATA.md deviations. Unlike PolicyVersion
-	// (whose "none" sentinel keeps the key always present), an empty list
-	// is deliberately absent from the JSON: the PRD requires recording
-	// "any applied deviations", so absence means none were applied.
+	// Errata lists applied ERRATA.md deviations. Unlike policy_version
+	// (always present — the POLICY.md version, or "none" when the run's
+	// choices were not governed by the default policy), an empty list is
+	// deliberately absent from the JSON: the PRD requires recording "any
+	// applied deviations", so absence means none were applied.
 	Errata []string `json:"errata,omitempty"`
 
 	Name            string          `json:"name,omitempty"` // blank by default (docs/PRD.md, Decisions)
@@ -108,34 +109,37 @@ type TermRecord struct {
 const SkillMax = 15
 
 // awardSkill increases a skill by the given levels, capped at SkillMax and
-// keeping Skills sorted by name. It returns the resulting level, then the
+// keeping Skills sorted by name (binary find-or-insert preserves the
+// invariant without re-sorting). It returns the resulting level, then the
 // levels actually applied.
 func (c *Character) awardSkill(name string, levels int) (int, int) {
-	for i := range c.Skills {
-		if c.Skills[i].Name == name {
-			applied := min(levels, SkillMax-c.Skills[i].Level)
-			c.Skills[i].Level += applied
+	i, found := slices.BinarySearchFunc(c.Skills, name, func(s Skill, target string) int {
+		return strings.Compare(s.Name, target)
+	})
 
-			return c.Skills[i].Level, applied
-		}
+	if found {
+		applied := min(levels, SkillMax-c.Skills[i].Level)
+		c.Skills[i].Level += applied
+
+		return c.Skills[i].Level, applied
 	}
 
 	applied := min(levels, SkillMax)
-	c.Skills = append(c.Skills, Skill{Name: name, Level: applied})
-	slices.SortFunc(c.Skills, func(a, b Skill) int { return strings.Compare(a.Name, b.Name) })
+	c.Skills = slices.Insert(c.Skills, i, Skill{Name: name, Level: applied})
 
 	return applied, applied
 }
 
 // skillLevel reports the current level of a skill, 0 if not held.
 func (c *Character) skillLevel(name string) int {
-	for _, skill := range c.Skills {
-		if skill.Name == name {
-			return skill.Level
-		}
+	i, found := slices.BinarySearchFunc(c.Skills, name, func(s Skill, target string) int {
+		return strings.Compare(s.Name, target)
+	})
+	if !found {
+		return 0
 	}
 
-	return 0
+	return c.Skills[i].Level
 }
 
 // Options configures one generation run.
@@ -148,7 +152,9 @@ type Options struct {
 	// to the Decider.
 	Career string
 
-	// Decider resolves every choice point; nil uses DefaultPolicy.
+	// Decider resolves every choice point. Required: silently
+	// substituting the default policy would misrepresent who decided —
+	// auto callers pass DefaultPolicy{} explicitly.
 	Decider Decider
 }
 
@@ -159,20 +165,27 @@ type Options struct {
 // docs/PRD.md milestone 2, and aging, career changes, muster out, and fame
 // with milestone 4.
 func Generate(opts Options) (Character, error) {
-	decider := opts.Decider
-	if decider == nil {
-		decider = DefaultPolicy{}
+	if opts.Decider == nil {
+		return Character{}, errNoDecider
 	}
 
 	roller := dice.New(opts.Seed)
 
 	var log Log
 
+	// policy_version attests which decision table governed the run's
+	// choices: the POLICY.md version only when the default policy itself
+	// decided, "none" for any other Decider.
+	policyVersion := "none"
+	if _, isDefault := opts.Decider.(DefaultPolicy); isDefault {
+		policyVersion = PolicyVersion
+	}
+
 	character := Character{
 		SchemaVersion: SchemaVersion,
 		Ruleset:       Ruleset,
 		EngineVersion: EngineVersion,
-		PolicyVersion: PolicyVersion,
+		PolicyVersion: policyVersion,
 		RNG:           RNG{Algorithm: RNGAlgorithm, Seed: opts.Seed},
 		Name:          opts.Name,
 		Age:           StartAge,
@@ -182,7 +195,7 @@ func Generate(opts Options) (Character, error) {
 
 	character.Characteristics = RollCharacteristics(roller, &log)
 
-	if err := runCareer(opts.Career, roller, &log, decider, &character); err != nil {
+	if err := runCareer(opts.Career, roller, &log, opts.Decider, &character); err != nil {
 		return Character{}, err
 	}
 
@@ -192,17 +205,28 @@ func Generate(opts Options) (Character, error) {
 	return character, nil
 }
 
-// errUnknownCareer reports a forced career that is not implemented.
-var errUnknownCareer = errors.New("unknown career")
+// ErrUnknownCareer reports a forced career that is not implemented; the
+// CLI matches it to distinguish usage errors from operational ones.
+var ErrUnknownCareer = errors.New("unknown career")
+
+// errNoDecider reports a Generate call without a Decider.
+var errNoDecider = errors.New("chargen: Options.Decider is required (pass DefaultPolicy{} for auto mode)")
+
+// errBadChoice reports a Decider answer outside the presented options, or
+// a choice point with no options. No silent repair: the replay contract
+// fails at the first divergence, and a clamped answer would mask it.
+var errBadChoice = errors.New("invalid choice")
 
 // runCareer performs checklist step D (Select Career, chart E1 p. 72) and
-// resolves the selected career.
+// resolves the selected career. Citizen is the only implemented career
+// (docs/PRD.md milestone 1); the career-name dispatch grows with
+// milestone 3.
 func runCareer(forced string, roller *dice.Roller, log *Log, decider Decider, character *Character) error {
 	options := career.Available()
 
 	if forced != "" {
 		if !slices.Contains(options, forced) {
-			return fmt.Errorf("%w: %q (available: %s)", errUnknownCareer, forced, strings.Join(options, ", "))
+			return fmt.Errorf("%w: %q (available: %s)", ErrUnknownCareer, forced, strings.Join(options, ", "))
 		}
 
 		options = []string{forced}
@@ -210,30 +234,32 @@ func runCareer(forced string, roller *dice.Roller, log *Log, decider Decider, ch
 
 	log.Step("Select Career", "Book 1 p. 72 chart E1 step D")
 
-	chosen := choose(log, decider, Choice{
+	if _, _, err := choose(log, decider, Choice{
 		ID:      ChooseCareer,
 		Prompt:  "Select career",
 		Options: options,
 		Cite:    "Book 1 p. 72 chart E1 step D",
-	})
-
-	// Citizen is the only implemented career (docs/PRD.md milestone 1).
-	if options[chosen] != "Citizen" {
-		return fmt.Errorf("%w: %q", errUnknownCareer, options[chosen])
+	}); err != nil {
+		return err
 	}
 
 	return runCitizen(roller, log, decider, character)
 }
 
-// choose puts a choice to the decider, clamps a misbehaving answer to the
-// first-listed option, and logs the resolved choice event.
-func choose(log *Log, decider Decider, c Choice) int {
-	chosen := decider.Choose(c)
-	if chosen < 0 || chosen >= len(c.Options) {
-		chosen = 0
+// choose puts a choice to the decider, validates the answer, and logs the
+// resolved choice event. It returns the chosen index and the choice
+// event's sequence number (for consequences caused by the choice).
+func choose(log *Log, decider Decider, c Choice) (int, int, error) {
+	if len(c.Options) == 0 {
+		return 0, 0, fmt.Errorf("%w: %q presented no options", errBadChoice, c.ID)
 	}
 
-	log.Choice(ChoiceEvent{
+	chosen := decider.Choose(c)
+	if chosen < 0 || chosen >= len(c.Options) {
+		return 0, 0, fmt.Errorf("%w: %q answer %d outside 0-%d", errBadChoice, c.ID, chosen, len(c.Options)-1)
+	}
+
+	seq := log.Choice(ChoiceEvent{
 		Decider: decider.Kind(),
 		Prompt:  c.Prompt,
 		Options: c.Options,
@@ -241,5 +267,5 @@ func choose(log *Log, decider Decider, c Choice) int {
 		Cite:    c.Cite,
 	})
 
-	return chosen
+	return chosen, seq, nil
 }

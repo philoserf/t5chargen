@@ -20,7 +20,9 @@ lists them; the policy returns an index.
 
 ## Known limitations (0.1.0)
 
-- Every auto-generated Citizen's hobby is the first-listed table E entry.
-- Careers run until the Continue roll fails; with aging deferred to
-  milestone 4, long careers produce old characters. Rule-accurate, and
-  bounded by the Skill-15 cap (p. 134).
+- Every auto-generated Citizen's hobby is the first-listed table E entry
+  (excluding the determined Job, per ERRATA I-3).
+- Careers run until the Continue roll fails — an unbounded geometric
+  process, so long careers produce old characters until milestone 4 aging
+  lands. Rule-accurate; note the Skill-15 cap (p. 134) bounds individual
+  skill levels, not career length.

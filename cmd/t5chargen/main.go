@@ -87,9 +87,19 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 		return exitUsage
 	}
 
-	forcedCareer, ok := validateNewFlags(*auto, *careerFlag, stderr)
-	if !ok {
-		return exitError
+	if flags.NArg() != 0 {
+		fmt.Fprintf(stderr, "t5chargen new: unexpected arguments %q (use -o for an output file)\n%s", flags.Args(), usage)
+
+		return exitUsage
+	}
+
+	// Interactive mode is the PRD's default; it lands with milestone 5.
+	// Refusing is honest — silently substituting the auto policy would
+	// misrepresent who decided.
+	if !*auto {
+		fmt.Fprintln(stderr, "t5chargen new: interactive mode is not yet implemented (milestone 5); use --auto")
+
+		return exitUsage
 	}
 
 	if err := resolveSeed(flags, seed, seedFn); err != nil {
@@ -98,13 +108,30 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 		return exitError
 	}
 
-	character, err := chargen.Generate(chargen.Options{Seed: *seed, Name: *name, Career: forcedCareer})
+	character, err := chargen.Generate(chargen.Options{
+		Seed:    *seed,
+		Name:    *name,
+		Career:  canonicalCareer(*careerFlag),
+		Decider: chargen.DefaultPolicy{},
+	})
 	if err != nil {
 		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
+
+		// An unknown --career value is a usage error; the engine is the
+		// single validator.
+		if errors.Is(err, chargen.ErrUnknownCareer) {
+			return exitUsage
+		}
 
 		return exitError
 	}
 
+	return emitRecord(character, *out, *force, stdout, stderr)
+}
+
+// emitRecord marshals the record and writes it to stdout or the output
+// file.
+func emitRecord(character chargen.Character, out string, force bool, stdout, stderr io.Writer) int {
 	data, err := json.MarshalIndent(character, "", "  ")
 	if err != nil {
 		fmt.Fprintf(stderr, "t5chargen: encoding character: %v\n", err)
@@ -114,10 +141,10 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 
 	data = append(data, '\n')
 
-	if *out == "" {
+	if out == "" {
 		_, err = stdout.Write(data)
 	} else {
-		err = writeFile(*out, data, *force)
+		err = writeFile(out, data, force)
 	}
 
 	if err != nil {
@@ -127,27 +154,6 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 	}
 
 	return exitOK
-}
-
-// validateNewFlags enforces the mode and career flags. Interactive mode is
-// the PRD's default; it lands with milestone 5. Refusing without --auto is
-// honest — silently substituting the auto policy would misrepresent who
-// decided.
-func validateNewFlags(auto bool, careerFlag string, stderr io.Writer) (string, bool) {
-	if !auto {
-		fmt.Fprintln(stderr, "t5chargen new: interactive mode is not yet implemented (milestone 5); use --auto")
-
-		return "", false
-	}
-
-	forcedCareer, err := canonicalCareer(careerFlag)
-	if err != nil {
-		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
-
-		return "", false
-	}
-
-	return forcedCareer, true
 }
 
 // resolveSeed draws a seed from seedFn when --seed was not given. --seed 0
@@ -175,23 +181,17 @@ func resolveSeed(flags *flag.FlagSet, seed *uint64, seedFn func() (uint64, error
 	return nil
 }
 
-// errUnknownCareer reports a --career value outside the implemented set.
-var errUnknownCareer = errors.New("unknown career")
-
 // canonicalCareer maps a case-insensitive --career value to its canonical
-// Book 1 name; empty stays empty (no forced career).
-func canonicalCareer(name string) (string, error) {
-	if name == "" {
-		return "", nil
-	}
-
+// Book 1 name; unknown names pass through unchanged for the engine — the
+// single validator — to reject.
+func canonicalCareer(name string) string {
 	for _, available := range career.Available() {
 		if strings.EqualFold(available, name) {
-			return available, nil
+			return available
 		}
 	}
 
-	return "", fmt.Errorf("%w: %q (available: %s)", errUnknownCareer, name, strings.Join(career.Available(), ", "))
+	return name
 }
 
 // writeFile writes the record to path. "Existing files are never

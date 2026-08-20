@@ -27,7 +27,7 @@ type Characteristics struct {
 //
 // A value outside the eHex range renders as "?" — p. 22 shows the unknown
 // value convention as 77??67.
-func (c *Characteristics) UPP() string {
+func (c Characteristics) UPP() string {
 	upp := make([]byte, 0, 6)
 
 	for _, value := range []int{c.Str, c.Dex, c.End, c.Int, c.Edu, c.Soc} {
@@ -42,11 +42,13 @@ func (c *Characteristics) UPP() string {
 	return string(upp)
 }
 
-// Value returns the named characteristic's value; ok is false for a name
-// outside the six standard abbreviations (p. 48: "A Characteristic can be
-// abbreviated with its first three letters").
-func (c *Characteristics) Value(name string) (int, bool) {
-	field := c.field(name)
+// characteristicValue returns the named characteristic's value; ok is
+// false for a name outside the six standard abbreviations (p. 48: "A
+// Characteristic can be abbreviated with its first three letters").
+// Standalone functions rather than methods so Characteristics keeps a
+// uniform value-receiver method set for its read-only API.
+func characteristicValue(c *Characteristics, name string) (int, bool) {
+	field := characteristicField(c, name)
 	if field == nil {
 		return 0, false
 	}
@@ -54,10 +56,10 @@ func (c *Characteristics) Value(name string) (int, bool) {
 	return *field, true
 }
 
-// Add applies a delta to the named characteristic, reporting the new value;
-// ok is false for an unknown name.
-func (c *Characteristics) Add(name string, delta int) (int, bool) {
-	field := c.field(name)
+// characteristicAdd applies a delta to the named characteristic, reporting
+// the new value; ok is false for an unknown name.
+func characteristicAdd(c *Characteristics, name string, delta int) (int, bool) {
+	field := characteristicField(c, name)
 	if field == nil {
 		return 0, false
 	}
@@ -67,8 +69,8 @@ func (c *Characteristics) Add(name string, delta int) (int, bool) {
 	return *field, true
 }
 
-// field maps a standard abbreviation to its field.
-func (c *Characteristics) field(name string) *int {
+// characteristicField maps a standard abbreviation to its field.
+func characteristicField(c *Characteristics, name string) *int {
 	switch name {
 	case "Str":
 		return &c.Str

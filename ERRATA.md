@@ -25,3 +25,37 @@ Two readings:
 2. The Job is determined as nothing, permanently, per "cannot be changed".
 
 Implemented at `chargen/citizen.go` (`determineJob`).
+
+### I-2: Job/Hobby determination landing on a skill already held (p. 78)
+
+Chart 04 says the first success "provides a Job, randomly on Citizen Skills
+and Knowledges with Skill-4 (later receipts are Skill-1)" — but not what
+happens when the determined Job (or selected Hobby) is a skill the
+character already holds from another source (a table C award in an earlier
+term).
+
+Two readings:
+
+1. **The award counts as a later receipt: +1.** (Implemented — "later
+   receipts are Skill-1" reads as receipts of a skill already held.)
+2. The Job determination is itself a first receipt: award the full
+   Skill-4 (or Hobby Skill-2) on top of the held level.
+
+Implemented at `chargen/citizen.go` (`firstReceiptLevels`).
+
+### I-3: Hobby selection excludes the determined Job (p. 78)
+
+Chart 04 has the second success provide "a Hobby selected from Citizen
+Skills and Knowledges", without saying whether the already-determined Job
+may be selected. The ladder's alternation ("successes alternate between
+Job or Hobby skill levels") implies two distinct pursuits.
+
+Two readings:
+
+1. **The Job's skill is excluded from the Hobby alternatives.**
+   (Implemented — keeps Job and Hobby distinct so the alternation is
+   meaningful; also prevents the deterministic auto policy from always
+   collapsing them when the Job roll lands the first-listed entry.)
+2. Any table E skill may be selected, including the Job's.
+
+Implemented at `chargen/citizen.go` (`determineHobby`).

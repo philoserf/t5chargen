@@ -741,7 +741,6 @@
           "Fluidics",
           "Bay Wpns",
           "Explosives",
-          "Mole",
           "Dancer",
           "Tactics",
           "Launcher",
@@ -825,7 +824,7 @@
       "seq": 43,
       "kind": "consequence",
       "consequence": {
-        "cause": 41,
+        "cause": 42,
         "kind": "hobby_set",
         "skill": "ACV"
       }
@@ -834,7 +833,7 @@
       "seq": 44,
       "kind": "consequence",
       "consequence": {
-        "cause": 41,
+        "cause": 42,
         "kind": "skill_awarded",
         "skill": "ACV",
         "delta": 2,

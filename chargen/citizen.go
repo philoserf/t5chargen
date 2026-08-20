@@ -88,7 +88,10 @@ func runCitizen(roller *dice.Roller, log *Log, decider Decider, character *Chara
 func (r *citizenRun) term(number int) (bool, error) {
 	r.log.Step("Citizen: Term "+strconv.Itoa(number), r.def.Cite)
 
-	cc := r.chooseCC()
+	cc, err := r.chooseCC()
+	if err != nil {
+		return false, err
+	}
 
 	success, err := r.citizenLife(cc)
 	if err != nil {
@@ -114,35 +117,38 @@ func (r *citizenRun) term(number int) (bool, error) {
 // picks one of these Characteristics (any one anywhere in the sequence)
 // ... This Controlling Characteristic cannot be used again until all of
 // the others in the sequence have been used" (p. 65).
-func (r *citizenRun) chooseCC() string {
+func (r *citizenRun) chooseCC() (string, error) {
 	if len(r.availableCCs) == 0 {
 		r.availableCCs = slices.Clone(r.def.CitizenLifeCharacteristics)
 	}
 
 	scores := make([]int, len(r.availableCCs))
 	for i, name := range r.availableCCs {
-		scores[i], _ = r.character.Characteristics.Value(name)
+		scores[i], _ = characteristicValue(&r.character.Characteristics, name)
 	}
 
-	chosen := choose(r.log, r.decider, Choice{
+	chosen, _, err := choose(r.log, r.decider, Choice{
 		ID:      ChooseControllingCharacteristic,
 		Prompt:  "Select the term's controlling characteristic",
 		Options: slices.Clone(r.availableCCs),
 		Scores:  scores,
 		Cite:    "Book 1 p. 65 (Risk and Reward: Select the CC)",
 	})
+	if err != nil {
+		return "", err
+	}
 
 	cc := r.availableCCs[chosen]
 	r.availableCCs = slices.Delete(r.availableCCs, chosen, chosen+1)
 
-	return cc
+	return cc, nil
 }
 
 // citizenLife rolls the term's Citizen Life throw (2D <= CC, no mods,
 // p. 65; chart 04 "Citizen Life C1 C2 C3 C4") and applies the success
 // ladder.
 func (r *citizenRun) citizenLife(cc string) (bool, error) {
-	value, ok := r.character.Characteristics.Value(cc)
+	value, ok := characteristicValue(&r.character.Characteristics, cc)
 	if !ok {
 		return false, fmt.Errorf("%w: %q", errUnknownCharacteristic, cc)
 	}
@@ -157,7 +163,9 @@ func (r *citizenRun) citizenLife(cc string) (bool, error) {
 		return false, nil
 	}
 
-	r.awardCitizenLife(seq)
+	if err := r.awardCitizenLife(seq); err != nil {
+		return false, err
+	}
 
 	return true, nil
 }
@@ -166,12 +174,12 @@ func (r *citizenRun) citizenLife(cc string) (bool, error) {
 // provides a Job ... with Skill-4 ... Second Success provides a Hobby ...
 // with Skill-2 ... In subsequent Terms, successes alternate between Job or
 // Hobby skill levels" (p. 78).
-func (r *citizenRun) awardCitizenLife(cause int) {
+func (r *citizenRun) awardCitizenLife(cause int) error {
 	switch {
 	case r.record.Job == "":
 		r.determineJob()
 	case r.record.Hobby == "":
-		r.determineHobby(cause)
+		return r.determineHobby()
 	default:
 		r.postSuccesses++
 
@@ -183,6 +191,8 @@ func (r *citizenRun) awardCitizenLife(cause int) {
 
 		r.awardAndLog(name, 1, cause)
 	}
+
+	return nil
 }
 
 // awardAndLog awards skill levels (capped at SkillMax, p. 134) and emits
@@ -233,7 +243,7 @@ func (r *citizenRun) determineJob() {
 
 	entry := r.def.JobEntry(a.Total, b.Total, c.Total)
 	if entry.Kind == career.EntryNone {
-		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceNoAward})
+		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceJobUndetermined})
 
 		return
 	}
@@ -245,48 +255,39 @@ func (r *citizenRun) determineJob() {
 
 // determineHobby selects the Hobby: "Second Success provides a Hobby
 // selected from Citizen Skills and Knowledges with Skill-2 (later receipts
-// are Skill-1)." (p. 78) The alternatives are every table E cell except
-// "No Skill", in chart order.
-func (r *citizenRun) determineHobby(cause int) {
-	options := r.hobbyOptions()
+// are Skill-1)." (p. 78) The alternatives are every table E skill in chart
+// order, excluding the already-determined Job — the ladder alternates
+// between two distinct pursuits (interpretation I-3, ERRATA.md). The
+// hobby_set consequence and its award are caused by the selecting choice
+// event (docs/PRD.md FR10).
+func (r *citizenRun) determineHobby() error {
+	options := r.def.HobbyChoices()
+	if i := slices.Index(options, r.record.Job); i >= 0 {
+		options = slices.Concat(options[:i], options[i+1:])
+	}
 
-	chosen := choose(r.log, r.decider, Choice{
+	chosen, seq, err := choose(r.log, r.decider, Choice{
 		ID:      ChooseHobby,
 		Prompt:  "Select a Hobby from Citizen Skills and Knowledges",
 		Options: options,
 		Cite:    "Book 1 p. 78 chart 04 (Second Success provides a Hobby)",
 	})
+	if err != nil {
+		return err
+	}
 
 	name := options[chosen]
 	r.record.Hobby = name
-	r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceHobbySet, Skill: name})
-	r.awardAndLog(name, r.firstReceiptLevels(name, 2), cause)
-}
+	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceHobbySet, Skill: name})
+	r.awardAndLog(name, r.firstReceiptLevels(name, 2), seq)
 
-// hobbyOptions flattens table E in chart order (A groups, then B rows,
-// then C columns), deduplicated, excluding the "No Skill" cell.
-func (r *citizenRun) hobbyOptions() []string {
-	options := make([]string, 0, 108)
-
-	for a := 1; a <= 3; a++ {
-		for b := 1; b <= 6; b++ {
-			for c := 1; c <= 6; c++ {
-				entry := r.def.JobEntry(a, b, c)
-				if entry.Kind != career.EntrySkill || slices.Contains(options, entry.Name) {
-					continue
-				}
-
-				options = append(options, entry.Name)
-			}
-		}
-	}
-
-	return options
+	return nil
 }
 
 // firstReceiptLevels applies the first-receipt rule: the stated level on
 // first receipt, Skill-1 thereafter ("with Skill-4 (later receipts are
-// Skill-1)", p. 78). A skill already held from another source receives +1.
+// Skill-1)", p. 78). A skill already held from another source (table C)
+// receives +1 — interpretation I-2, ERRATA.md.
 func (r *citizenRun) firstReceiptLevels(name string, firstReceipt int) int {
 	if r.character.skillLevel(name) > 0 {
 		return 1
@@ -300,18 +301,18 @@ func (r *citizenRun) firstReceiptLevels(name string, firstReceipt int) int {
 // The character selects a column and rolls 1D for the specific skill"
 // (p. 65).
 func (r *citizenRun) termSkills() error {
-	columns := make([]string, len(r.def.SkillColumns))
-	for i, column := range r.def.SkillColumns {
-		columns[i] = column.Name
-	}
+	columns := r.def.SkillColumnNames()
 
 	for range r.def.SkillsPerTerm {
-		chosen := choose(r.log, r.decider, Choice{
+		chosen, _, err := choose(r.log, r.decider, Choice{
 			ID:      ChooseSkillColumn,
 			Prompt:  "Select a Citizen Skills column",
 			Options: columns,
 			Cite:    "Book 1 p. 65 (the character selects a column and rolls 1D)",
 		})
+		if err != nil {
+			return err
+		}
 
 		roll := r.roller.Roll(1)
 		seq := r.log.Roll(roll, "Book 1 p. 78 chart 04 table C, column "+columns[chosen])
@@ -331,7 +332,11 @@ func (r *citizenRun) awardTableC(entry career.Entry, cause int) error {
 	case career.EntrySkill:
 		r.awardAndLog(entry.Name, 1, cause)
 	case career.EntryCharacteristic:
-		value, _ := r.character.Characteristics.Add(entry.Name, 1)
+		value, ok := characteristicAdd(&r.character.Characteristics, entry.Name, 1)
+		if !ok {
+			return fmt.Errorf("%w: %q", errUnknownCharacteristic, entry.Name)
+		}
+
 		r.log.Consequence(ConsequenceEvent{
 			Cause: cause, Kind: ConsequenceCharacteristicChange,
 			Characteristic: entry.Name, Delta: 1, Value: value,
@@ -344,6 +349,10 @@ func (r *citizenRun) awardTableC(entry career.Entry, cause int) error {
 		r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceNoAward})
 	case career.EntryTrade, career.EntryArt, career.EntryScience:
 		return fmt.Errorf("%w: %q cell", errNotImplemented, entry.Kind)
+	default:
+		// The loader validates kinds, but a default keeps an unknown kind
+		// from silently resolving to nothing (event-log-first contract).
+		return fmt.Errorf("%w: unknown cell kind %q", errNotImplemented, entry.Kind)
 	}
 
 	return nil

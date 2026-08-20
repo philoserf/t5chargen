@@ -95,20 +95,22 @@ func History(c chargen.Character) string {
 	return b.String()
 }
 
-// eventLine renders one event of the transcript.
+// eventLine renders one event of the transcript. Records come from disk
+// with minimal validation, so a kind whose payload is missing renders as a
+// marked malformed line instead of panicking.
 func eventLine(event chargen.Event) string {
-	switch event.Kind {
-	case chargen.EventStep:
+	switch {
+	case event.Kind == chargen.EventStep && event.Step != nil:
 		return fmt.Sprintf("\n## %s\n\n_%s_\n\n", event.Step.Name, event.Step.Cite)
-	case chargen.EventThrow:
+	case event.Kind == chargen.EventThrow && event.Throw != nil:
 		return throwLine(event.Seq, event.Throw)
-	case chargen.EventChoice:
+	case event.Kind == chargen.EventChoice && event.Choice != nil:
 		return choiceLine(event.Seq, event.Choice)
-	case chargen.EventConsequence:
+	case event.Kind == chargen.EventConsequence && event.Consequence != nil:
 		return consequenceLine(event.Seq, event.Consequence)
 	}
 
-	return fmt.Sprintf("- #%d (%s)\n", event.Seq, event.Kind)
+	return fmt.Sprintf("- #%d (%s) [malformed event]\n", event.Seq, event.Kind)
 }
 
 // throwLine renders a throw event: dice expression, individual dice, target
@@ -138,10 +140,16 @@ func throwLine(seq int, throw *chargen.ThrowEvent) string {
 }
 
 // choiceLine renders a choice event: who decided, the alternatives, and
-// the selection.
+// the selection. An out-of-range Chosen (corrupted or hand-edited record)
+// renders marked rather than panicking.
 func choiceLine(seq int, choice *chargen.ChoiceEvent) string {
-	return fmt.Sprintf("- #%d %s chose %q of [%s]: %s — %s\n",
-		seq, choice.Decider, choice.Options[choice.Chosen],
+	selected := fmt.Sprintf("[chosen %d out of range]", choice.Chosen)
+	if choice.Chosen >= 0 && choice.Chosen < len(choice.Options) {
+		selected = fmt.Sprintf("%q", choice.Options[choice.Chosen])
+	}
+
+	return fmt.Sprintf("- #%d %s chose %s of [%s]: %s — %s\n",
+		seq, choice.Decider, selected,
 		strings.Join(choice.Options, ", "), choice.Prompt, choice.Cite)
 }
 
@@ -153,6 +161,8 @@ func consequenceLine(seq int, consequence *chargen.ConsequenceEvent) string {
 
 // consequenceText derives the readable body of a consequence line; award
 // kinds here, career-flow kinds in consequenceFlowText.
+//
+//nolint:exhaustive // Deliberately partitioned: the default defers the flow kinds to consequenceFlowText.
 func consequenceText(c *chargen.ConsequenceEvent) string {
 	switch c.Kind {
 	case chargen.ConsequenceCharacteristicSet:
@@ -171,10 +181,19 @@ func consequenceText(c *chargen.ConsequenceEvent) string {
 }
 
 // consequenceFlowText renders the career-flow consequence kinds.
+//
+//nolint:exhaustive // Deliberately partitioned: the award kinds are handled by consequenceText.
 func consequenceFlowText(c *chargen.ConsequenceEvent) string {
 	switch c.Kind {
 	case chargen.ConsequenceNoAward:
+		if c.Skill != "" {
+			// The cap-absorption path sets Skill (p. 134 Skill-15 cap).
+			return fmt.Sprintf("no award (%s at the Skill-%d cap)", c.Skill, chargen.SkillMax)
+		}
+
 		return "no award"
+	case chargen.ConsequenceJobUndetermined:
+		return "Job undetermined (No Skill); retries next success — ERRATA I-1"
 	case chargen.ConsequenceBenefitLost:
 		return "benefit lost (no Major/Minor)"
 	case chargen.ConsequenceMandatoryContinue:
