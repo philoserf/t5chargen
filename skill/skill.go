@@ -255,9 +255,18 @@ var registry = sync.OnceValues(func() (*table, error) {
 		return nil, err
 	}
 
-	t.addSimple(f.Talents, KindTalent)
-	t.addSimple(f.Personals, KindPersonal)
-	t.addSimple(f.Intuitions, KindIntuition)
+	for _, group := range []struct {
+		names []string
+		kind  Kind
+	}{
+		{names: f.Talents, kind: KindTalent},
+		{names: f.Personals, kind: KindPersonal},
+		{names: f.Intuitions, kind: KindIntuition},
+	} {
+		if err := t.addSimple(group.names, group.kind); err != nil {
+			return nil, err
+		}
+	}
 
 	if err := t.markDefaults(f.DefaultSkills); err != nil {
 		return nil, err
@@ -334,14 +343,16 @@ func (t *table) addKnowledges(groups []knowledges) error {
 }
 
 // addSimple registers the talents, personals, and intuitions.
-func (t *table) addSimple(names []string, kind Kind) {
+func (t *table) addSimple(names []string, kind Kind) error {
 	for _, name := range names {
 		if _, dup := t.byName[name]; dup {
-			continue
+			return fmt.Errorf("%w: %s %q collides with an existing entry", errBadList, kind, name)
 		}
 
 		t.byName[name] = Entry{Name: name, Printed: name, Kind: kind}
 	}
+
+	return nil
 }
 
 // markDefaults flags the chart MS Default Skills.

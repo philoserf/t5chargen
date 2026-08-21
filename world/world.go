@@ -253,8 +253,12 @@ func (g Grant) validate() error {
 		}
 
 		// Chart B names Master Skill List entries (ERRATA.md I-9).
+		// Ambiguous names are rejected rather than merely validated: the
+		// homeworld grants award directly, with no choice point to resolve
+		// a label covering several entries the way the career charts do
+		// (ERRATA.md I-10, I-11). No chart B grant is ambiguous.
 		for _, name := range g.Skills {
-			if err := skill.Validate(name); err != nil {
+			if _, err := skill.Resolve(name); err != nil {
 				return fmt.Errorf("%w: TC %q: %w", errBadTable, g.TC, err)
 			}
 		}

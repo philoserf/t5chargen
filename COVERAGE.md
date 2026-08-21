@@ -131,7 +131,7 @@ enumerated, before it is called done.
 | Grav under three parents | p. 132 | qualified names; `resolveSkillName` | `TestQualifiedKnowledges`, `TestAmbiguousChartCellsResolveByChoice` | interpretation I-10 |
 | "Spacecraft" cell | p. 78 vs p. 132 | `labels`; `resolveSkillName` | `TestAmbiguousChartCellsResolveByChoice` | interpretation I-11 |
 | Knowledge-Knowledge-Skill progression on receipt | p. 133 | — | — | deferred (M3 follow-up: award semantics) |
-| Knowledge-6 / World-6 / Career-6 maximums | p. 134 | — | — | deferred (M3 follow-up; Skill-15 and Talent-15 caps are applied) |
+| Knowledge-6 / World-6 / Career-6 maximums | p. 134 | — | — | deferred (M3 follow-up; the Skill-15 cap is applied, Talent-15 is moot until talents are awarded) |
 | Career: <Name> and World: <Name> knowledges | p. 134 | — | — | deferred (M4: needs terms-served and residence accounting) |
 | Sciences specialization beyond level 6 | p. 134 | — | — | deferred (M4) |
 | Education provides only contained Knowledges for the ten container skills | p. 134 | `knowledge_only` rows | education matrix tests | covered (data); award semantics with the progression above |
