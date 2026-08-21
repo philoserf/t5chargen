@@ -61,6 +61,12 @@ _Verified at implementation (2026-08-20):_ the UWP alone does **not** suffice. C
 
 Characteristics stored numeric with the UPP hex string derived and stored alongside; money as integer credits; dates as Imperial calendar day/year with age in years. Skills and Knowledges are distinct entries. Derived values are stored and recomputed on replay. Full schema (with minimal and complete examples) lives in the tool repo, versioned by `schema_version`.
 
+> **Deferral note (2026-08-21):** the formal JSON Schema document is deferred until the
+> replay verifier lands (milestone 5), when the record shape stops churning career by
+> career. Until then the contract is the Go types in `chargen` plus the golden fixtures
+> in `chargen/testdata/`; `schema_version` is already stamped in every record so
+> existing records stay auditable once the schema exists.
+
 ## CLI sketch
 
 ```
