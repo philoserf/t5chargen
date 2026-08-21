@@ -6,6 +6,7 @@ import (
 	"slices"
 	"testing"
 
+	"github.com/philoserf/t5chargen/career"
 	"github.com/philoserf/t5chargen/chargen"
 )
 
@@ -146,6 +147,39 @@ func checkHobby(t *testing.T, seed uint64, record chargen.CareerRecord) {
 
 	if record.Hobby != want {
 		t.Errorf("seed %d: policy hobby = %q, want first-listed %q", seed, record.Hobby, want)
+	}
+}
+
+// TestRegistryMatchesAvailable verifies every career.Available name has
+// registered mechanics and vice versa — the milestone-3 failure mode is
+// adding data without mechanics or mechanics without data.
+func TestRegistryMatchesAvailable(t *testing.T) {
+	for _, name := range career.Available() {
+		if _, err := chargen.Generate(chargen.Options{
+			Seed: 1, Career: name, Decider: chargen.DefaultPolicy{},
+		}); err != nil {
+			t.Errorf("available career %q does not generate: %v", name, err)
+		}
+	}
+
+	registered := chargen.RegistryNames()
+
+	available := slices.Clone(career.Available())
+	slices.Sort(available)
+
+	if !slices.Equal(registered, available) {
+		t.Errorf("registry %v != career.Available %v", registered, available)
+	}
+
+	defNames, err := chargen.RegistryDefinitionNames()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for key, name := range defNames {
+		if key != name {
+			t.Errorf("registry key %q != definition name %q", key, name)
+		}
 	}
 }
 

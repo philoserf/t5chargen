@@ -1,7 +1,7 @@
 {
   "name": "Citizen",
   "cite": "Book 1 p. 78 chart 04",
-  "citizen_life_characteristics": ["Str", "Dex", "End", "Int"],
+  "controlling_characteristics": ["Str", "Dex", "End", "Int"],
   "continue_target": 10,
   "skills_per_term": 4,
   "skill_columns": [

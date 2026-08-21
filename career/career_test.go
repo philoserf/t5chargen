@@ -21,13 +21,13 @@ func TestCitizenDefinition(t *testing.T) {
 	}
 
 	wantCCs := []string{"Str", "Dex", "End", "Int"}
-	if len(d.CitizenLifeCharacteristics) != len(wantCCs) {
-		t.Fatalf("citizen life characteristics = %v", d.CitizenLifeCharacteristics)
+	if len(d.ControllingCharacteristics) != len(wantCCs) {
+		t.Fatalf("controlling characteristics = %v", d.ControllingCharacteristics)
 	}
 
 	for i, want := range wantCCs {
-		if d.CitizenLifeCharacteristics[i] != want {
-			t.Errorf("citizen life characteristic %d = %q, want %q", i, d.CitizenLifeCharacteristics[i], want)
+		if d.ControllingCharacteristics[i] != want {
+			t.Errorf("controlling characteristic %d = %q, want %q", i, d.ControllingCharacteristics[i], want)
 		}
 	}
 }
@@ -71,7 +71,7 @@ func TestCitizenSkillColumns(t *testing.T) {
 func TestLoadValidation(t *testing.T) {
 	valid := `{
 		"name": "X", "cite": "test", "continue_target": 10, "skills_per_term": 4,
-		"citizen_life_characteristics": ["Str"],
+		"controlling_characteristics": ["Str"],
 		"skill_columns": [{"name": "C", "entries": [
 			{"kind": "skill", "name": "A"}, {"kind": "skill", "name": "B"},
 			{"kind": "skill", "name": "C"}, {"kind": "skill", "name": "D"},
@@ -88,6 +88,7 @@ func TestLoadValidation(t *testing.T) {
 		data string
 	}{
 		{"zero continue target", strings.Replace(valid, `"continue_target": 10`, `"continue_target": 0`, 1) + table},
+		{"unmissable continue target", strings.Replace(valid, `"continue_target": 10`, `"continue_target": 12`, 1) + table},
 		{"zero skills per term", strings.Replace(valid, `"skills_per_term": 4`, `"skills_per_term": 0`, 1) + table},
 		{"no characteristics", strings.Replace(valid, `["Str"]`, `[]`, 1) + table},
 		{"bad characteristic", strings.Replace(valid, `["Str"]`, `["Sta"]`, 1) + table},

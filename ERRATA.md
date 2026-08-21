@@ -48,10 +48,14 @@ earlier term). Levels held at career entry from chart B homeworld grants
 determination, which awards its full Skill-4/Skill-2 on top of the granted
 level. The alternative (any held level demotes to +1) would make a
 homeworld grant strictly worsen the character's eventual Job skill, which
-the chart's "later receipts" language cannot mean.
+the chart's "later receipts" language cannot mean. Skills granted during
+career entry itself (a To Begin outcome, milestone 3) are career receipts:
+the baseline is captured before the begin seam runs, so they demote a
+later determination.
 
-Implemented at `chargen/citizen.go` (`firstReceiptLevels`, against the
-career-entry baseline `entryLevels`).
+Implemented at `chargen/careerrun.go` (`careerRun.firstReceiptLevels`,
+against the career-entry baseline `entryLevels`; career-generic since the
+runner extraction, applying to every registered career).
 
 ### I-3: Hobby selection excludes the determined Job (p. 78)
 
