@@ -32,6 +32,43 @@ func TestGenerateGoldenJSON(t *testing.T) {
 	}
 }
 
+// TestCareerGoldens pins one full character record per implemented career
+// (docs/PRD.md, Testing: golden character fixtures per career). Each
+// fixture covers a complete multi-term run of that career; a diff means
+// the career's mechanics or the record format changed.
+func TestCareerGoldens(t *testing.T) {
+	tests := []struct {
+		career string
+		seed   uint64
+		file   string
+	}{
+		{career: "Citizen", seed: 9, file: "testdata/career_citizen.json"},
+		{career: "Scout", seed: 26, file: "testdata/career_scout.json"},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.career, func(t *testing.T) {
+			c := generate(t, chargen.Options{Seed: tt.seed, Career: tt.career})
+
+			got, err := json.MarshalIndent(c, "", "  ")
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			got = append(got, '\n')
+
+			want, err := os.ReadFile(tt.file)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			if string(got) != string(want) {
+				t.Errorf("%s record differs from %s:\n%s", tt.career, tt.file, got)
+			}
+		})
+	}
+}
+
 // TestGenerateProvenance verifies the provenance header the replay contract
 // requires on every record (docs/PRD.md): schema_version, ruleset,
 // engine_version, policy_version, and rng.

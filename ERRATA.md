@@ -172,3 +172,82 @@ Under reading 1, Scout's To Begin has no retry ("Some Careers allow
 Retry", p. 65 — Scout's box lists none for Begin).
 
 Implemented at `chargen/scout.go` (`retryReward`).
+
+### I-9: Career and education chart labels vs the Master Skill List (pp. 75-88, 60 vs p. 132)
+
+The career and education charts abbreviate skill names to fit their cells,
+and chart 04 prints two different names for one skill: table C row 3-2
+reads "Navigator" while table E cell 1-4-6 reads "Navigation". Chart MS is
+the authority — "The Master Skill List shows the available skills" (p. 132)
+— and its list of Skills "is complete; there are no others available".
+
+The transcriptions therefore store Master Skill List names, not the printed
+abbreviations. Storing the printed forms would put two names for one skill
+on a character sheet, where they would neither stack nor sum.
+
+The chart label to Master Skill List mapping, with rows added as each
+career lands:
+
+| Chart label | Master Skill List | Charts |
+| --- | --- | --- |
+| BattleDress | Battle Dress | 04 table E; C Available Skills |
+| Bay Wpns | Bay Weapons | 04 table E; C |
+| Fwd Obs | Forward Observer | 04 table E; C |
+| Heavy Wpns | Heavy Weapons | 04 table E; C |
+| Jump Drive | Jump Drives | 04 table E; C |
+| Maneuver | Maneuver Drive | 04 table E; C |
+| Naval Arch | Naval Architect | 04 table E; C |
+| Navigation | Navigator | 04 table E (table C prints Navigator) |
+| Pilot-ACS | Spacecraft ACS | C |
+| Pilot-BCS | Spacecraft BCS | C |
+| Power System | Power Systems | 04 table E; C |
+| Slug Thrower | Slug Throwers | 04 table E; C |
+| Submersible | Sub | 04 table E; C |
+| Wing | Winged | 04 table E; C |
+
+Enforced at load time: `skill.Validate` rejects any name in the career,
+education, or homeworld data that is not a Master Skill List entry, so a
+future transcription cannot reintroduce a variant spelling. This supersedes
+the residual noted under I-4.
+
+Implemented at `skill/` (`skill.Resolve`), with the checks in
+`career.validateEntry`, `career.validateJobTable`, `education.validate`,
+and `world.Grant.validate`.
+
+### I-10: The three Grav knowledges (p. 132)
+
+Chart MS lists a knowledge named Grav under three different parent skills:
+Driver, Flyer, and Seafarer. They are distinct bodies of knowledge — driving
+a grav vehicle, flying one, and operating a grav seacraft — but the list
+prints the same word for all three, and the book's skill notation is bare
+("M-Drive-2", "Slug Thrower-2", p. 133-134).
+
+Stored qualified as "Driver: Grav", "Flyer: Grav", and "Seafarer: Grav",
+following the book's own convention for its Specialized knowledges
+("Career: Scout-4", "World: Egareva-6", p. 134). Storing them bare would
+stack three unrelated knowledges into one entry. Knowledges whose printed
+name has exactly one parent stay unqualified, as printed.
+
+Chart C's Available Skills matrix resolves its three Grav rows by the group
+each is listed under. Chart 04 table E prints Grav once (cell 2-1-1) while
+listing every other Driver, Flyer, and Seafarer knowledge, so its single
+cell is underdetermined; the character chooses which Grav, in Master Skill
+List order.
+
+Implemented at `skill/skill.go` (`addKnowledges`) and
+`chargen/careerrun.go` (`resolveSkillName`).
+
+### I-11: The "Spacecraft" cell (p. 78 chart 04 table E)
+
+Table E cell 3-6-6 reads "Spacecraft". Chart MS has no such entry: the
+Pilot knowledges are "Small Craft", "Spacecraft ACS", and "Spacecraft BCS"
+(p. 132). Small Craft appears separately in the matrix, so the cell covers
+the two Spacecraft knowledges.
+
+Resolved as a choice between Spacecraft ACS and Spacecraft BCS, in Master
+Skill List order. The alternative reading — a single generic Spacecraft
+knowledge outside chart MS — is rejected because the list of Skills is
+closed and the knowledge list names both hull classes explicitly.
+
+Implemented at `skill/data/master_skill_list.json` (`labels`) and
+`chargen/careerrun.go` (`resolveSkillName`).

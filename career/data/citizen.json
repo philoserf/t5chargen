@@ -1,112 +1,357 @@
 {
   "name": "Citizen",
   "cite": "Book 1 p. 78 chart 04",
-  "controlling_characteristics": ["Str", "Dex", "End", "Int"],
+  "controlling_characteristics": [
+    "Str",
+    "Dex",
+    "End",
+    "Int"
+  ],
   "continue_target": 10,
   "skills_per_term": 4,
   "skill_columns": [
     {
       "name": "Personal",
       "entries": [
-        { "kind": "characteristic", "name": "Str" },
-        { "kind": "characteristic", "name": "Dex" },
-        { "kind": "characteristic", "name": "End" },
-        { "kind": "characteristic", "name": "Int" },
-        { "kind": "characteristic", "name": "Edu" },
-        { "kind": "characteristic", "name": "Soc" }
+        {
+          "kind": "characteristic",
+          "name": "Str"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Dex"
+        },
+        {
+          "kind": "characteristic",
+          "name": "End"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Int"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Edu"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Soc"
+        }
       ]
     },
     {
       "name": "Academic",
       "entries": [
-        { "kind": "major" },
-        { "kind": "major" },
-        { "kind": "minor" },
-        { "kind": "minor" },
-        { "kind": "trade" },
-        { "kind": "trade" }
+        {
+          "kind": "major"
+        },
+        {
+          "kind": "major"
+        },
+        {
+          "kind": "minor"
+        },
+        {
+          "kind": "minor"
+        },
+        {
+          "kind": "trade"
+        },
+        {
+          "kind": "trade"
+        }
       ]
     },
     {
       "name": "Travel",
       "entries": [
-        { "kind": "skill", "name": "Seafarer" },
-        { "kind": "skill", "name": "Navigator" },
-        { "kind": "skill", "name": "Hostile Environ" },
-        { "kind": "skill", "name": "Flyer" },
-        { "kind": "skill", "name": "Driver" },
-        { "kind": "skill", "name": "Vacc Suit" }
+        {
+          "kind": "skill",
+          "name": "Seafarer"
+        },
+        {
+          "kind": "skill",
+          "name": "Navigator"
+        },
+        {
+          "kind": "skill",
+          "name": "Hostile Environ"
+        },
+        {
+          "kind": "skill",
+          "name": "Flyer"
+        },
+        {
+          "kind": "skill",
+          "name": "Driver"
+        },
+        {
+          "kind": "skill",
+          "name": "Vacc Suit"
+        }
       ]
     },
     {
       "name": "General",
       "entries": [
-        { "kind": "skill", "name": "Admin" },
-        { "kind": "skill", "name": "Broker" },
-        { "kind": "skill", "name": "Computer" },
-        { "kind": "skill", "name": "Animals" },
-        { "kind": "skill", "name": "Bureaucrat" },
-        { "kind": "skill", "name": "Trader" }
+        {
+          "kind": "skill",
+          "name": "Admin"
+        },
+        {
+          "kind": "skill",
+          "name": "Broker"
+        },
+        {
+          "kind": "skill",
+          "name": "Computer"
+        },
+        {
+          "kind": "skill",
+          "name": "Animals"
+        },
+        {
+          "kind": "skill",
+          "name": "Bureaucrat"
+        },
+        {
+          "kind": "skill",
+          "name": "Trader"
+        }
       ]
     },
     {
       "name": "Business",
       "entries": [
-        { "kind": "skill", "name": "Advocate" },
-        { "kind": "skill", "name": "Broker" },
-        { "kind": "skill", "name": "Trader" },
-        { "kind": "skill", "name": "Liaison" },
-        { "kind": "skill", "name": "Counsellor" },
-        { "kind": "skill", "name": "Teacher" }
+        {
+          "kind": "skill",
+          "name": "Advocate"
+        },
+        {
+          "kind": "skill",
+          "name": "Broker"
+        },
+        {
+          "kind": "skill",
+          "name": "Trader"
+        },
+        {
+          "kind": "skill",
+          "name": "Liaison"
+        },
+        {
+          "kind": "skill",
+          "name": "Counsellor"
+        },
+        {
+          "kind": "skill",
+          "name": "Teacher"
+        }
       ]
     },
     {
       "name": "Vocation",
       "entries": [
-        { "kind": "art" },
-        { "kind": "science" },
-        { "kind": "trade" },
-        { "kind": "skill", "name": "Driver" },
-        { "kind": "skill", "name": "Bureaucrat" },
-        { "kind": "skill", "name": "Computer" }
+        {
+          "kind": "art"
+        },
+        {
+          "kind": "science"
+        },
+        {
+          "kind": "trade"
+        },
+        {
+          "kind": "skill",
+          "name": "Driver"
+        },
+        {
+          "kind": "skill",
+          "name": "Bureaucrat"
+        },
+        {
+          "kind": "skill",
+          "name": "Computer"
+        }
       ]
     },
     {
       "name": "Avocation",
       "entries": [
-        { "kind": "art" },
-        { "kind": "science" },
-        { "kind": "skill", "name": "JOT" },
-        { "kind": "skill", "name": "Athlete" },
-        { "kind": "skill", "name": "Medic" },
-        { "kind": "trade" }
+        {
+          "kind": "art"
+        },
+        {
+          "kind": "science"
+        },
+        {
+          "kind": "skill",
+          "name": "JOT"
+        },
+        {
+          "kind": "skill",
+          "name": "Athlete"
+        },
+        {
+          "kind": "skill",
+          "name": "Medic"
+        },
+        {
+          "kind": "trade"
+        }
       ]
     }
   ],
   "job_table": [
     [
-      ["ACV", "Comms", "High-G", "Steward", "Ordnance", "Naval Arch"],
-      ["JOT", "Rider", "Sensors", "Fwd Obs", "Survival", "Streetwise"],
-      ["LTA", "Spines", "Flapper", "Seafarer", "No Skill", "Astrogator"],
-      ["WMD", "Leader", "Tracked", "Engineer", "Computer", "Navigation"],
-      ["Chef", "Survey", "Animals", "Fluidics", "Bay Wpns", "Explosives"],
-      ["Mole", "Dancer", "Tactics", "Launcher", "Magnetics", "Jump Drive"]
+      [
+        "ACV",
+        "Comms",
+        "High-G",
+        "Steward",
+        "Ordnance",
+        "Naval Architect"
+      ],
+      [
+        "JOT",
+        "Rider",
+        "Sensors",
+        "Forward Observer",
+        "Survival",
+        "Streetwise"
+      ],
+      [
+        "LTA",
+        "Spines",
+        "Flapper",
+        "Seafarer",
+        "No Skill",
+        "Astrogator"
+      ],
+      [
+        "WMD",
+        "Leader",
+        "Tracked",
+        "Engineer",
+        "Computer",
+        "Navigator"
+      ],
+      [
+        "Chef",
+        "Survey",
+        "Animals",
+        "Fluidics",
+        "Bay Weapons",
+        "Explosives"
+      ],
+      [
+        "Mole",
+        "Dancer",
+        "Tactics",
+        "Launcher",
+        "Magnetics",
+        "Jump Drives"
+      ]
     ],
     [
-      ["Grav", "Artist", "Turrets", "Teamster", "Photonics", "Counsellor"],
-      ["Boat", "Legged", "Teacher", "Designer", "Vacc Suit", "Submersible"],
-      ["Ship", "Sapper", "Unarmed", "Engineer", "Artillery", "Aeronautics"],
-      ["Wing", "Driver", "Exotics", "Language", "Craftsman", "Aquanautics"],
-      ["Recon", "Gunner", "Stealth", "Musician", "Gravitics", "BattleDress"],
-      ["Actor", "Blades", "Trainer", "Strategy", "Forensics", "Electronics"]
+      [
+        "Grav",
+        "Artist",
+        "Turrets",
+        "Teamster",
+        "Photonics",
+        "Counsellor"
+      ],
+      [
+        "Boat",
+        "Legged",
+        "Teacher",
+        "Designer",
+        "Vacc Suit",
+        "Sub"
+      ],
+      [
+        "Ship",
+        "Sapper",
+        "Unarmed",
+        "Engineer",
+        "Artillery",
+        "Aeronautics"
+      ],
+      [
+        "Winged",
+        "Driver",
+        "Exotics",
+        "Language",
+        "Craftsman",
+        "Aquanautics"
+      ],
+      [
+        "Recon",
+        "Gunner",
+        "Stealth",
+        "Musician",
+        "Gravitics",
+        "Battle Dress"
+      ],
+      [
+        "Actor",
+        "Blades",
+        "Trainer",
+        "Strategy",
+        "Forensics",
+        "Electronics"
+      ]
     ],
     [
-      ["Flyer", "Zero-G", "Animals", "Maneuver", "Biologics", "Hostile Environ"],
-      ["Pilot", "Author", "Liaison", "Polymers", "Ortillery", "Power System"],
-      ["Rotor", "Broker", "Athlete", "Advocate", "Automotive", "Life Support"],
-      ["Admin", "Trader", "Fighter", "Computer", "Bureaucrat", "Slug Thrower"],
-      ["Beams", "Sprays", "Wheeled", "Diplomat", "Heavy Wpns", "Fleet Tactics"],
-      ["Medic", "Gambler", "Screens", "Mechanic", "Programmer", "Spacecraft"]
+      [
+        "Flyer",
+        "Zero-G",
+        "Animals",
+        "Maneuver Drive",
+        "Biologics",
+        "Hostile Environ"
+      ],
+      [
+        "Pilot",
+        "Author",
+        "Liaison",
+        "Polymers",
+        "Ortillery",
+        "Power Systems"
+      ],
+      [
+        "Rotor",
+        "Broker",
+        "Athlete",
+        "Advocate",
+        "Automotive",
+        "Life Support"
+      ],
+      [
+        "Admin",
+        "Trader",
+        "Fighter",
+        "Computer",
+        "Bureaucrat",
+        "Slug Throwers"
+      ],
+      [
+        "Beams",
+        "Sprays",
+        "Wheeled",
+        "Diplomat",
+        "Heavy Weapons",
+        "Fleet Tactics"
+      ],
+      [
+        "Medic",
+        "Gambler",
+        "Screens",
+        "Mechanic",
+        "Programmer",
+        "Spacecraft"
+      ]
     ]
   ]
 }

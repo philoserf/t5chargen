@@ -1,0 +1,167 @@
+{
+  "cite": "Book 1 p. 132 chart MS (Master Skill List)",
+  "note": "The list of Skills including Personals and Intuitions is complete; there are no others available. The lists of Knowledges and Talents are advisory; many different and additional Knowledges and Talents are possible.",
+  "skills": [
+    { "name": "Admin", "group": "Skills" },
+    { "name": "Advocate", "group": "Skills" },
+    { "name": "Animals", "group": "Skills" },
+    { "name": "Athlete", "group": "Skills" },
+    { "name": "Broker", "group": "Skills" },
+    { "name": "Bureaucrat", "group": "Skills" },
+    { "name": "Comms", "group": "Skills" },
+    { "name": "Computer", "group": "Skills" },
+    { "name": "Counsellor", "group": "Skills" },
+    { "name": "Designer", "group": "Skills" },
+    { "name": "Diplomat", "group": "Skills" },
+    { "name": "Driver", "group": "Skills" },
+    { "name": "Explosives", "group": "Skills" },
+    { "name": "Fleet Tactics", "group": "Skills" },
+    { "name": "Flyer", "group": "Skills" },
+    { "name": "Forensics", "group": "Skills" },
+    { "name": "Gambler", "group": "Skills" },
+    { "name": "High-G", "group": "Skills" },
+    { "name": "Hostile Environ", "group": "Skills" },
+    { "name": "JOT", "group": "Skills" },
+    { "name": "Language", "group": "Skills" },
+    { "name": "Leader", "group": "Skills" },
+    { "name": "Liaison", "group": "Skills" },
+    { "name": "Naval Architect", "group": "Skills" },
+    { "name": "Seafarer", "group": "Skills" },
+    { "name": "Stealth", "group": "Skills" },
+    { "name": "Strategy", "group": "Skills" },
+    { "name": "Streetwise", "group": "Skills" },
+    { "name": "Survey", "group": "Skills" },
+    { "name": "Survival", "group": "Skills" },
+    { "name": "Tactics", "group": "Skills" },
+    { "name": "Teacher", "group": "Skills" },
+    { "name": "Trader", "group": "Skills" },
+    { "name": "Vacc Suit", "group": "Skills" },
+    { "name": "Zero-G", "group": "Skills" },
+
+    { "name": "Astrogator", "group": "Starship Skills" },
+    { "name": "Engineer", "group": "Starship Skills" },
+    { "name": "Gunner", "group": "Starship Skills" },
+    { "name": "Medic", "group": "Starship Skills" },
+    { "name": "Pilot", "group": "Starship Skills" },
+    { "name": "Sensors", "group": "Starship Skills" },
+    { "name": "Steward", "group": "Starship Skills" },
+
+    { "name": "Biologics", "group": "Trades" },
+    { "name": "Craftsman", "group": "Trades" },
+    { "name": "Electronics", "group": "Trades" },
+    { "name": "Fluidics", "group": "Trades" },
+    { "name": "Gravitics", "group": "Trades" },
+    { "name": "Magnetics", "group": "Trades" },
+    { "name": "Mechanic", "group": "Trades" },
+    { "name": "Photonics", "group": "Trades" },
+    { "name": "Polymers", "group": "Trades" },
+    { "name": "Programmer", "group": "Trades" },
+
+    { "name": "Actor", "group": "Arts" },
+    { "name": "Artist", "group": "Arts" },
+    { "name": "Author", "group": "Arts" },
+    { "name": "Chef", "group": "Arts" },
+    { "name": "Dancer", "group": "Arts" },
+    { "name": "Musician", "group": "Arts" },
+
+    { "name": "Fighter", "group": "Soldier Skills" },
+    { "name": "Forward Observer", "group": "Soldier Skills" },
+    { "name": "Heavy Weapons", "group": "Soldier Skills" },
+    { "name": "Navigator", "group": "Soldier Skills" },
+    { "name": "Recon", "group": "Soldier Skills" },
+    { "name": "Sapper", "group": "Soldier Skills" }
+  ],
+  "default_skills": [
+    "Actor",
+    "Artist",
+    "Athlete",
+    "Author",
+    "Comms",
+    "Computer",
+    "Driver",
+    "Fighter",
+    "Turrets",
+    "Mechanic",
+    "Steward",
+    "Vacc Suit"
+  ],
+  "talents": [
+    "Compute",
+    "Empath",
+    "Hibernate",
+    "Hypno",
+    "Intuition",
+    "Math",
+    "MemAware",
+    "Memorize",
+    "MemPercept",
+    "MemScent",
+    "MemSight",
+    "MemSound",
+    "Morph",
+    "Rage",
+    "SoundMimic"
+  ],
+  "personals": ["Carouse", "Query", "Persuade", "Command"],
+  "intuitions": ["Curiosity", "Insight", "Luck"],
+  "labels": [
+    {
+      "label": "Spacecraft",
+      "options": ["Spacecraft ACS", "Spacecraft BCS"],
+      "cite": "Book 1 p. 78 chart 04 table E cell 3-6-6; resolved per ERRATA.md I-11"
+    }
+  ],
+  "knowledges": [
+    { "parent": "Animals", "names": ["Rider", "Teamster", "Trainer"] },
+    {
+      "parent": "Driver",
+      "names": ["ACV", "Automotive", "Grav", "Legged", "Mole", "Tracked", "Wheeled"]
+    },
+    {
+      "parent": "Engineer",
+      "names": ["Jump Drives", "Life Support", "Maneuver Drive", "Power Systems"]
+    },
+    {
+      "parent": "Fighter",
+      "names": ["Battle Dress", "Beams", "Blades", "Exotics", "Slug Throwers", "Sprays", "Unarmed"]
+    },
+    {
+      "parent": "Flyer",
+      "names": ["Aeronautics", "Flapper", "Grav", "LTA", "Rotor", "Winged"]
+    },
+    {
+      "parent": "Gunner",
+      "names": ["Bay Weapons", "Ortillery", "Screens", "Spines", "Turrets"]
+    },
+    {
+      "parent": "Heavy Weapons",
+      "names": ["Artillery", "Launcher", "Ordnance", "WMD"]
+    },
+    {
+      "parent": "Pilot",
+      "names": ["Small Craft", "Spacecraft ACS", "Spacecraft BCS"]
+    },
+    {
+      "parent": "Seafarer",
+      "names": ["Aquanautics", "Grav", "Boat", "Ship", "Sub"]
+    },
+    {
+      "parent": "The Sciences",
+      "names": [
+        "Archeology",
+        "Biology",
+        "Chemistry",
+        "History",
+        "Linguistics",
+        "Philosophy",
+        "Physics",
+        "Planetology",
+        "Psionicology",
+        "Psychohistory",
+        "Psychology",
+        "Robotics",
+        "Sophontology"
+      ]
+    }
+  ]
+}

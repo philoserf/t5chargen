@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/philoserf/t5chargen/career"
+	"github.com/philoserf/t5chargen/skill"
 )
 
 // TestCitizenDefinition verifies the embedded Citizen data parses and
@@ -73,9 +74,9 @@ func TestLoadValidation(t *testing.T) {
 		"name": "X", "cite": "test", "continue_target": 10, "skills_per_term": 4,
 		"controlling_characteristics": ["Str"],
 		"skill_columns": [{"name": "C", "entries": [
-			{"kind": "skill", "name": "A"}, {"kind": "skill", "name": "B"},
-			{"kind": "skill", "name": "C"}, {"kind": "skill", "name": "D"},
-			{"kind": "skill", "name": "E"}, {"kind": "skill", "name": "F"}]}]`
+			{"kind": "skill", "name": "Admin"}, {"kind": "skill", "name": "Broker"},
+			{"kind": "skill", "name": "Comms"}, {"kind": "skill", "name": "Driver"},
+			{"kind": "skill", "name": "Leader"}, {"kind": "skill", "name": "Medic"}]}]`
 
 	table := `, "job_table": [` + jobGroup() + `,` + jobGroup() + `,` + jobGroup() + `]}`
 
@@ -94,11 +95,11 @@ func TestLoadValidation(t *testing.T) {
 		{"bad characteristic", strings.Replace(valid, `["Str"]`, `["Sta"]`, 1) + table},
 		{
 			"unknown cell kind",
-			strings.Replace(valid, `{"kind": "skill", "name": "A"}`, `{"kind": "skil", "name": "A"}`, 1) + table,
+			strings.Replace(valid, `{"kind": "skill", "name": "Admin"}`, `{"kind": "skil", "name": "Admin"}`, 1) + table,
 		},
-		{"nameless skill cell", strings.Replace(valid, `{"kind": "skill", "name": "A"}`, `{"kind": "skill"}`, 1) + table},
-		{"short column", strings.Replace(valid, `{"kind": "skill", "name": "F"}`, ``, 1) + table},
-		{"misspelled No Skill", valid + strings.Replace(table, `"S11"`, `"No skill"`, 1)},
+		{"nameless skill cell", strings.Replace(valid, `{"kind": "skill", "name": "Admin"}`, `{"kind": "skill"}`, 1) + table},
+		{"short column", strings.Replace(valid, `{"kind": "skill", "name": "Medic"}`, ``, 1) + table},
+		{"misspelled No Skill", valid + strings.Replace(table, `"Athlete"`, `"No skill"`, 1)},
 	}
 
 	for _, tt := range tests {
@@ -111,13 +112,16 @@ func TestLoadValidation(t *testing.T) {
 }
 
 // jobGroup builds one syntactically valid table E group of 6x6 cells.
+// Cells name real Master Skill List entries, which the loader now
+// validates.
 func jobGroup() string {
+	names := skill.Skills()
 	rows := make([]string, 6)
 
 	for b := range 6 {
 		cells := make([]string, 6)
 		for c := range 6 {
-			cells[c] = fmt.Sprintf("%q", fmt.Sprintf("S%d%d", b+1, c+1))
+			cells[c] = fmt.Sprintf("%q", names[(b*6+c)%len(names)])
 		}
 
 		rows[b] = "[" + strings.Join(cells, ",") + "]"

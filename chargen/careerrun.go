@@ -14,6 +14,7 @@ import (
 
 	"github.com/philoserf/t5chargen/career"
 	"github.com/philoserf/t5chargen/dice"
+	"github.com/philoserf/t5chargen/skill"
 )
 
 // errUnknownCharacteristic reports a data-file characteristic name outside
@@ -111,8 +112,8 @@ func runCareerByName(name string, roller *dice.Roller, log *Log, decider Decider
 	// is a career receipt under interpretation I-2 (ERRATA.md) and demotes
 	// a later Job/Hobby determination of the same skill to a later receipt.
 	entryLevels := make(map[string]int, len(character.Skills))
-	for _, skill := range character.Skills {
-		entryLevels[skill.Name] = skill.Level
+	for _, held := range character.Skills {
+		entryLevels[held.Name] = held.Level
 	}
 
 	run := &careerRun{
@@ -250,6 +251,31 @@ func (r *careerRun) awardAndLog(name string, levels, cause int) {
 	awardSkillAndLog(name, levels, cause, r.log, r.character)
 }
 
+// resolveSkillName maps a career chart cell to its Master Skill List name.
+// Most cells name one entry. Two chart 04 table E cells do not: "Grav" is
+// printed once although the list holds a Grav knowledge under each of
+// Driver, Flyer, and Seafarer, and "Spacecraft" covers both Spacecraft ACS
+// and Spacecraft BCS (p. 132). Those are resolved by choice, in Master
+// Skill List order (ERRATA.md I-10, I-11).
+func (r *careerRun) resolveSkillName(name string) (string, error) {
+	options := skill.Options(name)
+	if options == nil {
+		return name, nil
+	}
+
+	chosen, _, err := choose(r.log, r.decider, Choice{
+		ID:      ChooseSkill,
+		Prompt:  "Select the specific " + name + " skill",
+		Options: options,
+		Cite:    "Book 1 p. 132 chart MS (Master Skill List); " + r.def.Cite,
+	})
+	if err != nil {
+		return "", err
+	}
+
+	return options[chosen], nil
+}
+
 // termSkills rolls the per-term career skills table eligibility (for
 // Citizen, "Per Term: 4 on Table C", chart 04 table B); "For each skill,
 // roll on the Career Skills Table. The character selects a column and
@@ -288,7 +314,12 @@ func (r *careerRun) termSkills(rolls int) error {
 func (r *careerRun) awardTableC(entry career.Entry, cause int) error {
 	switch entry.Kind {
 	case career.EntrySkill:
-		r.awardAndLog(entry.Name, 1, cause)
+		name, err := r.resolveSkillName(entry.Name)
+		if err != nil {
+			return err
+		}
+
+		r.awardAndLog(name, 1, cause)
 	case career.EntryCharacteristic:
 		return r.awardCharacteristic(entry.Name, cause)
 	case career.EntryMajor, career.EntryMinor:

@@ -87,7 +87,7 @@ func TestMajors(t *testing.T) {
 		}
 	}
 
-	for _, name := range []string{"Advocate", "Medic", "Admin", "Grav", "Diplomat"} {
+	for _, name := range []string{"Advocate", "Medic", "Admin", "Driver: Grav", "Diplomat"} {
 		if contains(college, name) {
 			t.Errorf("college majors wrongly include %s", name)
 		}
@@ -105,8 +105,13 @@ func checkServiceMajors(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if occurrences(army, "Grav") != 1 {
-		t.Errorf("Grav appears %d times in army majors, want deduplicated 1", occurrences(army, "Grav"))
+	// The three chart C Grav rows are distinct knowledges of distinct
+	// parent skills, stored qualified so they cannot stack into one
+	// entry (ERRATA.md I-10).
+	for _, name := range []string{"Driver: Grav", "Flyer: Grav", "Seafarer: Grav"} {
+		if occurrences(army, name) != 1 {
+			t.Errorf("%s appears %d times in army majors, want 1", name, occurrences(army, name))
+		}
 	}
 
 	navy, err := education.Majors(education.InstitutionNavy)
@@ -114,7 +119,7 @@ func checkServiceMajors(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	for _, name := range []string{"Astrogator", "Fleet Tactics", "Pilot-ACS", "Bay Wpns"} {
+	for _, name := range []string{"Astrogator", "Fleet Tactics", "Spacecraft ACS", "Bay Weapons"} {
 		if !contains(navy, name) {
 			t.Errorf("navy majors missing %s", name)
 		}
@@ -129,13 +134,16 @@ func TestAllSkillNames(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	// 121 rows minus the two duplicate Grav listings.
-	if len(names) != 119 {
-		t.Errorf("got %d skill names, want 119", len(names))
+	// All 121 rows are distinct names: the three Grav rows carry their
+	// parent skill (ERRATA.md I-10), so nothing collapses.
+	if len(names) != 121 {
+		t.Errorf("got %d skill names, want 121", len(names))
 	}
 
-	if occurrences(names, "Grav") != 1 {
-		t.Errorf("Grav deduplication failed")
+	for _, name := range []string{"Driver: Grav", "Flyer: Grav", "Seafarer: Grav"} {
+		if occurrences(names, name) != 1 {
+			t.Errorf("%s appears %d times, want 1", name, occurrences(names, name))
+		}
 	}
 }
 

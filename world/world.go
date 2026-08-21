@@ -22,6 +22,8 @@ import (
 	"sync"
 
 	"github.com/philoserf/t5chargen/ehex"
+
+	"github.com/philoserf/t5chargen/skill"
 )
 
 // Homeworld identifies where a character was raised (chart B, p. 56).
@@ -248,6 +250,13 @@ func (g Grant) validate() error {
 	case GrantSkill:
 		if len(g.Skills) == 0 {
 			return fmt.Errorf("%w: TC %q grants skill but lists none", errBadTable, g.TC)
+		}
+
+		// Chart B names Master Skill List entries (ERRATA.md I-9).
+		for _, name := range g.Skills {
+			if err := skill.Validate(name); err != nil {
+				return fmt.Errorf("%w: TC %q: %w", errBadTable, g.TC, err)
+			}
 		}
 	case GrantNone, GrantArt, GrantTrade:
 		if len(g.Skills) != 0 {
