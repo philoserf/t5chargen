@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.4.0",
+  "schema_version": "0.5.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.4.0",
-  "policy_version": "0.3.0",
+  "engine_version": "0.5.0",
+  "policy_version": "0.4.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 1
@@ -81,6 +81,7 @@
   "careers": [
     {
       "career": "Citizen",
+      "began": true,
       "job": "Chef",
       "hobby": "ACV",
       "terms": [
@@ -723,7 +724,8 @@
         "decider": "policy",
         "prompt": "Select career",
         "options": [
-          "Citizen"
+          "Citizen",
+          "Scout"
         ],
         "chosen": 0,
         "cite": "Book 1 p. 72 chart E1 step D"

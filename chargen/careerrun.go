@@ -33,20 +33,41 @@ var errUnregisteredCareer = errors.New("career has no registered mechanics")
 // unexported and grows with the careers that need more seams (rank,
 // commission, muster out land with milestones 3-4).
 type careerMechanics interface {
-	// begin resolves career entry: automatic for Citizen, a To Begin
-	// throw with retry for most careers (chart D p. 64; p. 65).
-	begin(r *careerRun) error
+	// begin resolves career entry: automatic for Citizen (chart 04), a
+	// To Begin throw for most careers (chart D p. 64; p. 65). It reports
+	// whether the career began; a failed attempt costs a year (p. 65).
+	begin(r *careerRun) (bool, error)
 
 	// resolveTerm runs the career's Risk/Reward variant for the term
-	// (p. 65: Citizen Life for Citizens) and applies its awards,
-	// reporting the term's success.
-	resolveTerm(r *careerRun, cc string) (bool, error)
+	// (p. 65: Citizen Life for Citizens) and applies its awards.
+	resolveTerm(r *careerRun, cc string) (termOutcome, error)
+}
+
+// termOutcome is a term's Risk/Reward-variant result.
+type termOutcome struct {
+	// success is the variant's outcome (Citizen Life success, a Scout
+	// Discovery).
+	success bool
+
+	// skillRolls overrides the definition's SkillsPerTerm when non-zero
+	// (chart 05 table B splits eligibility by duty).
+	skillRolls int
+
+	// endCareer ends the career after the term completes, without a
+	// Continue roll — a disabled character "Musters Out at Term end"
+	// (chart 05 p. 79; muster out itself is milestone 4).
+	endCareer bool
+
+	// died ends the term and the career immediately: no skills, no
+	// Continue ("the Character is dead", p. 65).
+	died bool
 }
 
 // careerRegistry maps canonical career names to their definition and
 // mechanics. Its key set must match career.Available (tested).
 var careerRegistry = map[string]func() (*career.Definition, careerMechanics, error){
 	"Citizen": newCitizen,
+	"Scout":   newScout,
 }
 
 // careerRun is the shared state of one career resolution.
@@ -71,16 +92,18 @@ type careerRun struct {
 	record CareerRecord
 }
 
-// runCareerByName resolves one career through the registry.
-func runCareerByName(name string, roller *dice.Roller, log *Log, decider Decider, character *Character) error {
+// runCareerByName resolves one career through the registry, reporting
+// whether the career began (a failed To Begin leaves a began:false record
+// and the caller offers the remaining careers, p. 65).
+func runCareerByName(name string, roller *dice.Roller, log *Log, decider Decider, character *Character) (bool, error) {
 	entry, ok := careerRegistry[name]
 	if !ok {
-		return fmt.Errorf("%w: %q", errUnregisteredCareer, name)
+		return false, fmt.Errorf("%w: %q", errUnregisteredCareer, name)
 	}
 
 	def, mechanics, err := entry()
 	if err != nil {
-		return err
+		return false, err
 	}
 
 	// The baseline is captured before mechanics.begin deliberately: a
@@ -103,14 +126,23 @@ func runCareerByName(name string, roller *dice.Roller, log *Log, decider Decider
 		entryLevels: entryLevels,
 	}
 
-	if err := mechanics.begin(run); err != nil {
-		return err
+	began, err := mechanics.begin(run)
+	if err != nil {
+		return false, err
+	}
+
+	run.record.Began = began
+
+	if !began {
+		character.Careers = append(character.Careers, run.record)
+
+		return false, nil
 	}
 
 	for {
 		continued, err := run.term(len(run.record.Terms) + 1)
 		if err != nil {
-			return err
+			return false, err
 		}
 
 		if !continued {
@@ -120,7 +152,7 @@ func runCareerByName(name string, roller *dice.Roller, log *Log, decider Decider
 
 	character.Careers = append(character.Careers, run.record)
 
-	return nil
+	return true, nil
 }
 
 // term resolves one 4-year term and reports whether the career continues.
@@ -132,20 +164,34 @@ func (r *careerRun) term(number int) (bool, error) {
 		return false, err
 	}
 
-	success, err := r.mechanics.resolveTerm(r, cc)
+	outcome, err := r.mechanics.resolveTerm(r, cc)
 	if err != nil {
 		return false, err
 	}
 
-	if err := r.termSkills(); err != nil {
+	if outcome.died {
+		// "the Character is dead" (p. 65): the term ends at the injury —
+		// no skills, no Continue.
+		r.record.Terms = append(r.record.Terms, TermRecord{
+			Term: number, ControllingCharacteristic: cc,
+		})
+
+		return false, nil
+	}
+
+	if err := r.termSkills(outcome.skillRolls); err != nil {
 		return false, err
 	}
 
-	continued := r.continueRoll()
+	continued := false
+	if !outcome.endCareer {
+		continued = r.continueRoll()
+	}
+
 	r.record.Terms = append(r.record.Terms, TermRecord{
 		Term:                      number,
 		ControllingCharacteristic: cc,
-		Success:                   success,
+		Success:                   outcome.success,
 		Continued:                 continued,
 	})
 
@@ -208,10 +254,14 @@ func (r *careerRun) awardAndLog(name string, levels, cause int) {
 // Citizen, "Per Term: 4 on Table C", chart 04 table B); "For each skill,
 // roll on the Career Skills Table. The character selects a column and
 // rolls 1D for the specific skill" (p. 65).
-func (r *careerRun) termSkills() error {
+func (r *careerRun) termSkills(rolls int) error {
+	if rolls == 0 {
+		rolls = r.def.SkillsPerTerm
+	}
+
 	columns := r.def.SkillColumnNames()
 
-	for range r.def.SkillsPerTerm {
+	for range rolls {
 		chosen, _, err := choose(r.log, r.decider, Choice{
 			ID:      ChooseSkillColumn,
 			Prompt:  "Select a " + r.def.Name + " Skills column",
@@ -259,7 +309,7 @@ func (r *careerRun) awardTableC(entry career.Entry, cause int) error {
 		r.awardAndLog(name, 1, cause)
 	case career.EntryNone:
 		r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceNoAward})
-	case career.EntryTrade, career.EntryArt, career.EntryScience:
+	case career.EntryTrade, career.EntryArt, career.EntryScience, career.EntryStarship:
 		return fmt.Errorf("%w: %q cell", errNotImplemented, entry.Kind)
 	default:
 		// The loader validates kinds, but a default keeps an unknown kind
@@ -288,8 +338,17 @@ func (r *careerRun) awardCharacteristic(name string, cause int) error {
 // exactly, the character is required to Continue" (p. 66). Each term
 // elapses 4 years ("the 4-year Term", p. 66).
 func (r *careerRun) continueRoll() bool {
-	throw := r.roller.Throw(2, r.def.ContinueTarget)
-	seq := r.log.Throw(throw, nil, r.def.Cite+" (Continue "+strconv.Itoa(r.def.ContinueTarget)+"-; p. 66)")
+	target := r.def.ContinueTarget
+	label := "Continue " + strconv.Itoa(target) + "-"
+
+	if r.def.ContinueCharacteristic != "" {
+		// A characteristic Continue target (chart 05: "Continue Int").
+		target, _ = characteristicValue(&r.character.Characteristics, r.def.ContinueCharacteristic)
+		label = "Continue " + r.def.ContinueCharacteristic
+	}
+
+	throw := r.roller.Throw(2, target)
+	seq := r.log.Throw(throw, nil, r.def.Cite+" ("+label+"; p. 66)")
 
 	r.character.Age += TermYears
 	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceYearsElapsed, Value: TermYears})

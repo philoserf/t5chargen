@@ -60,6 +60,19 @@ const (
 	// ChooseSkill selects a skill from an open list (the Apprenticeship
 	// Skill+4, chart C p. 60).
 	ChooseSkill ChoiceID = "select_skill"
+
+	// ChooseDuty selects the Scout term's duty (chart 05 table B; "A
+	// Scout may avoid the Risk and Reward rolls by volunteering for
+	// Courier Duty", p. 79).
+	ChooseDuty ChoiceID = "select_duty"
+
+	// ChooseRiskMod selects Caution, Bravery, or No Mod for Risk &
+	// Reward (p. 65; chart 05 p. 79).
+	ChooseRiskMod ChoiceID = "select_risk_mod"
+
+	// ChooseRetry accepts or declines a career Retry row (chart 05
+	// "Retry R&R C5"; interpretation I-8, ERRATA.md).
+	ChooseRetry ChoiceID = "attempt_retry"
 )
 
 // Choice is one choice point presented to a Decider. Options are listed in

@@ -8,6 +8,7 @@ import (
 
 	"github.com/philoserf/t5chargen/career"
 	"github.com/philoserf/t5chargen/chargen"
+	"github.com/philoserf/t5chargen/dice"
 )
 
 // generate builds a character or fails the test, defaulting to the auto
@@ -233,6 +234,39 @@ func TestCitizenMandatoryContinue(t *testing.T) {
 
 	if !found {
 		t.Fatal("seed 3 no longer exercises mandatory continue; find and pin another seed")
+	}
+}
+
+// TestEventStreamAccounting verifies the FR10 stream invariant: every
+// face in every throw event, concatenated in event order, reproduces the
+// seeded stream exactly — no roll is consumed without being logged and
+// none is logged without being consumed.
+func TestEventStreamAccounting(t *testing.T) {
+	for _, opts := range []chargen.Options{
+		{Seed: 1},
+		{Seed: 6, Career: "Scout"},
+		{Seed: 11, Career: "Scout", Decider: braveryDecider{}},
+	} {
+		c := generate(t, opts)
+
+		roller := dice.New(opts.Seed)
+
+		position := 0
+
+		for _, event := range c.Events {
+			if event.Kind != chargen.EventThrow {
+				continue
+			}
+
+			for _, face := range event.Throw.Dice {
+				if got := roller.Roll(1).Total; got != face {
+					t.Fatalf("seed %d: event %d records face %d at stream position %d, stream has %d",
+						opts.Seed, event.Seq, face, position, got)
+				}
+
+				position++
+			}
+		}
 	}
 }
 
