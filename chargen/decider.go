@@ -33,6 +33,33 @@ const (
 	// One)" and "The Trades (Choose One)" grants (p. 56).
 	ChooseArt   ChoiceID = "select_art"
 	ChooseTrade ChoiceID = "select_trade"
+
+	// ChooseEducation selects the pre-career program, or None (chart C
+	// p. 60; "Consider acquiring an advanced education", p. 57 step C).
+	ChooseEducation ChoiceID = "select_education"
+
+	// ChooseService selects the Service Academy service (chart C p. 60).
+	ChooseService ChoiceID = "select_service"
+
+	// ChooseMajor and ChooseMinor select the education Major and Minor
+	// ("they cannot be the same", p. 59).
+	ChooseMajor ChoiceID = "select_major"
+	ChooseMinor ChoiceID = "select_minor"
+
+	// ChooseCheck selects among a check's stated characteristics ("Check
+	// one of the stated Characteristics", p. 59).
+	ChooseCheck ChoiceID = "select_check_characteristic"
+
+	// ChooseHonors accepts or declines the optional Honors roll (p. 59).
+	ChooseHonors ChoiceID = "attempt_honors"
+
+	// ChooseWaiver accepts or declines an Educational Waiver attempt
+	// (p. 59).
+	ChooseWaiver ChoiceID = "attempt_waiver"
+
+	// ChooseSkill selects a skill from an open list (the Apprenticeship
+	// Skill+4, chart C p. 60).
+	ChooseSkill ChoiceID = "select_skill"
 )
 
 // Choice is one choice point presented to a Decider. Options are listed in

@@ -1,0 +1,156 @@
+package education_test
+
+import (
+	"testing"
+
+	"github.com/philoserf/t5chargen/education"
+)
+
+// TestPrograms verifies the chart C program rows (p. 60): count, the FR3
+// implemented set, and spot-checked fields.
+func TestPrograms(t *testing.T) {
+	programs, err := education.Programs()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(programs) != 17 {
+		t.Errorf("got %d programs, want 17 chart C rows", len(programs))
+	}
+
+	implemented := map[string]bool{}
+
+	for _, p := range programs {
+		if p.Implemented {
+			implemented[p.ID] = true
+		}
+	}
+
+	want := []string{"ed5", "trade_school", "apprenticeship", "college", "university", "academy"}
+	if len(implemented) != len(want) {
+		t.Errorf("implemented = %v, want %v", implemented, want)
+	}
+
+	for _, id := range want {
+		if !implemented[id] {
+			t.Errorf("program %q not implemented", id)
+		}
+	}
+
+	checkProgramSpots(t)
+}
+
+// checkProgramSpots pins two chart C rows field by field.
+func checkProgramSpots(t *testing.T) {
+	t.Helper()
+
+	university, err := education.ProgramByID("university")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if university.Prerequisite.Value != 7 || university.Rolls != 4 ||
+		university.GraduationEdu != 9 || university.GraduationDegree != "BA" {
+		t.Errorf("university = %+v", university)
+	}
+
+	ed5, err := education.ProgramByID("ed5")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if ed5.DurationYears != 0 || ed5.GraduationEdu != 5 || len(ed5.ApplyCheck) != 0 {
+		t.Errorf("ed5 = %+v", ed5)
+	}
+}
+
+// TestMajors pins the Available Skills matrix transcription (p. 60): the
+// College column count and order head, dedup of the thrice-listed Grav,
+// and spot rows.
+func TestMajors(t *testing.T) {
+	college, err := education.Majors(education.InstitutionCollege)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(college) != 40 {
+		t.Errorf("college majors = %d, want 40", len(college))
+	}
+
+	if college[0] != "Athlete" || college[1] != "Broker" {
+		t.Errorf("college majors head = %v", college[:3])
+	}
+
+	for _, name := range []string{"Language", "Astrogator", "Actor", "Programmer", "Robotics", "Aquanautics"} {
+		if !contains(college, name) {
+			t.Errorf("college majors missing %s", name)
+		}
+	}
+
+	for _, name := range []string{"Advocate", "Medic", "Admin", "Grav", "Diplomat"} {
+		if contains(college, name) {
+			t.Errorf("college majors wrongly include %s", name)
+		}
+	}
+
+	checkServiceMajors(t)
+}
+
+// checkServiceMajors spot-checks the academy columns.
+func checkServiceMajors(t *testing.T) {
+	t.Helper()
+
+	army, err := education.Majors(education.InstitutionArmy)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if occurrences(army, "Grav") != 1 {
+		t.Errorf("Grav appears %d times in army majors, want deduplicated 1", occurrences(army, "Grav"))
+	}
+
+	navy, err := education.Majors(education.InstitutionNavy)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for _, name := range []string{"Astrogator", "Fleet Tactics", "Pilot-ACS", "Bay Wpns"} {
+		if !contains(navy, name) {
+			t.Errorf("navy majors missing %s", name)
+		}
+	}
+}
+
+// TestAllSkillNames verifies the unrestricted Apprenticeship list is the
+// deduplicated full matrix.
+func TestAllSkillNames(t *testing.T) {
+	names, err := education.AllSkillNames()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// 121 rows minus the two duplicate Grav listings.
+	if len(names) != 119 {
+		t.Errorf("got %d skill names, want 119", len(names))
+	}
+
+	if occurrences(names, "Grav") != 1 {
+		t.Errorf("Grav deduplication failed")
+	}
+}
+
+func contains(names []string, want string) bool {
+	return occurrences(names, want) > 0
+}
+
+func occurrences(names []string, want string) int {
+	count := 0
+
+	for _, name := range names {
+		if name == want {
+			count++
+		}
+	}
+
+	return count
+}

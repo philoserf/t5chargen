@@ -9,22 +9,46 @@ type DefaultPolicy struct{}
 // Choose applies the POLICY.md rule for the choice point.
 func (DefaultPolicy) Choose(c Choice) int {
 	switch c.ID {
-	case ChooseControllingCharacteristic:
-		// POLICY.md: highest-valued available characteristic; ties break
-		// to first-listed.
+	case ChooseControllingCharacteristic, ChooseCheck:
+		// POLICY.md: highest-valued characteristic; ties break to
+		// first-listed.
 		return maxScoreIndex(c)
 	case ChooseSkillColumn:
 		// POLICY.md: the General column; first-listed if absent.
-		for i, option := range c.Options {
-			if option == "General" {
-				return i
+		return indexOrFirst(c.Options, "General")
+	case ChooseEducation:
+		// POLICY.md: the college track — University, then College, then
+		// ED5; None otherwise. Service Academy is excluded (its Officer1
+		// graduation links to milestone-3 military careers).
+		for _, want := range []string{"University", "College", "ED5"} {
+			for i, option := range c.Options {
+				if option == want {
+					return i
+				}
 			}
 		}
 
+		return len(c.Options) - 1 // None, always last
+	case ChooseHonors, ChooseWaiver:
+		// POLICY.md: always attempt (index 0). Honors failure has no
+		// effect (p. 59); waiver attempts burn future waiver odds (Mod
+		// minus previous waivers) but the immediate stake outweighs it.
 		return 0
-	case ChooseCareer, ChooseHobby, ChooseHomeworld, ChooseArt, ChooseTrade:
+	case ChooseCareer, ChooseHobby, ChooseHomeworld, ChooseArt, ChooseTrade,
+		ChooseService, ChooseMajor, ChooseMinor, ChooseSkill:
 		// POLICY.md: first-listed.
 		return 0
+	}
+
+	return 0
+}
+
+// indexOrFirst returns the index of want in options, or 0.
+func indexOrFirst(options []string, want string) int {
+	for i, option := range options {
+		if option == want {
+			return i
+		}
 	}
 
 	return 0
