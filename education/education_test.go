@@ -26,7 +26,7 @@ func TestPrograms(t *testing.T) {
 		}
 	}
 
-	want := []string{"ed5", "trade_school", "apprenticeship", "mentor", "college", "university", "academy"}
+	want := []string{"ed5", "trade_school", "apprenticeship", "college", "university", "academy"}
 	if len(implemented) != len(want) {
 		t.Errorf("implemented = %v, want %v", implemented, want)
 	}

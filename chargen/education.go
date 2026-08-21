@@ -55,14 +55,17 @@ func runEducation(roller *dice.Roller, log *Log, decider Decider, character *Cha
 		record:    EducationRecord{Program: program.Name},
 	}
 
-	if err := run.selectMajors(); err != nil {
-		return err
-	}
-
 	admitted, err := run.apply()
 	if err != nil || !admitted {
 		run.finish()
 
+		return err
+	}
+
+	// Major and Minor are selected on admission: "The character attending
+	// an Educational Institution must select a Major and a Minor" (p. 59)
+	// — a refused applicant never attends and carries no Major.
+	if err := run.selectMajors(); err != nil {
 		return err
 	}
 
@@ -406,19 +409,24 @@ func (r *eduRun) honors() error {
 		return err
 	}
 
-	_, target, err := r.checkTarget([]string{r.checkName})
+	// The Honors row states its own check ("Int or Edu", chart C p. 60),
+	// so the characteristic is chosen afresh rather than reusing the
+	// program's Pass/Fail pick.
+	_, target, err := r.checkTarget([]string{"Int", "Edu"})
 	if err != nil {
 		return err
 	}
 
 	throw := r.roller.Throw(2, target)
 	seq := r.log.Throw(throw, nil, "Book 1 p. 60 chart C (Honors: Int or Edu, simul)")
-	r.lastThrowSeq = seq
 
 	if !throw.Success {
+		// "Failure has no effect." (p. 59) — the graduation consequence
+		// stays anchored to the last Pass/Fail throw, not this one.
 		return nil
 	}
 
+	r.lastThrowSeq = seq
 	r.record.Honors = true
 	awardSkillAndLog(r.record.Major, r.majorRate(r.record.Major, 1), seq, r.log, r.character)
 
@@ -447,17 +455,7 @@ func (r *eduRun) graduate() error {
 		delta = 1
 	}
 
-	if edu+delta > CharacteristicMax {
-		r.log.Consequence(ConsequenceEvent{Cause: r.gradCause(), Kind: ConsequenceBenefitLost, Characteristic: "Edu"})
-
-		return nil
-	}
-
-	value := characteristicAdd(&r.character.Characteristics, "Edu", delta)
-	r.log.Consequence(ConsequenceEvent{
-		Cause: r.gradCause(), Kind: ConsequenceCharacteristicChange,
-		Characteristic: "Edu", Delta: delta, Value: value,
-	})
+	awardCharacteristicAndLog(r.character, r.log, "Edu", delta, r.gradCause())
 
 	return nil
 }

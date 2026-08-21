@@ -363,27 +363,14 @@ func (r *citizenRun) awardTableC(entry career.Entry, cause int) error {
 	return nil
 }
 
-// awardCharacteristic applies a table C Personal-column +1.
-//
-// "Characteristics for Humans cannot exceed 15. If a benefit elevates a
-// characteristic above 15, that benefit is lost" (p. 68).
+// awardCharacteristic applies a table C Personal-column +1, subject to
+// the p. 68 maximum (awardCharacteristicAndLog).
 func (r *citizenRun) awardCharacteristic(name string, cause int) error {
-	value, ok := characteristicValue(&r.character.Characteristics, name)
-	if !ok {
+	if _, ok := characteristicValue(&r.character.Characteristics, name); !ok {
 		return fmt.Errorf("%w: %q", errUnknownCharacteristic, name)
 	}
 
-	if value+1 > CharacteristicMax {
-		r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceBenefitLost, Characteristic: name})
-
-		return nil
-	}
-
-	value = characteristicAdd(&r.character.Characteristics, name, 1)
-	r.log.Consequence(ConsequenceEvent{
-		Cause: cause, Kind: ConsequenceCharacteristicChange,
-		Characteristic: name, Delta: 1, Value: value,
-	})
+	awardCharacteristicAndLog(r.character, r.log, name, 1, cause)
 
 	return nil
 }

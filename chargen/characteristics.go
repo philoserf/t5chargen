@@ -70,6 +70,26 @@ func characteristicAdd(c *Characteristics, name string, delta int) int {
 	return *field
 }
 
+// awardCharacteristicAndLog applies a benefit delta subject to the
+// characteristic maximum, logging the change or the lost benefit:
+// "Characteristics for Humans cannot exceed 15. If a benefit elevates a
+// characteristic above 15, that benefit is lost" (p. 68). Callers
+// validate the name first (characteristicValue).
+func awardCharacteristicAndLog(character *Character, log *Log, name string, delta, cause int) {
+	value, _ := characteristicValue(&character.Characteristics, name)
+	if value+delta > CharacteristicMax {
+		log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceBenefitLost, Characteristic: name})
+
+		return
+	}
+
+	value = characteristicAdd(&character.Characteristics, name, delta)
+	log.Consequence(ConsequenceEvent{
+		Cause: cause, Kind: ConsequenceCharacteristicChange,
+		Characteristic: name, Delta: delta, Value: value,
+	})
+}
+
 // characteristicField maps a standard abbreviation to its field.
 func characteristicField(c *Characteristics, name string) *int {
 	switch name {

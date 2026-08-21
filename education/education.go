@@ -5,7 +5,10 @@
 // educational process mechanics are typed Go in the chargen package.
 //
 // v1 implements the docs/PRD.md FR3 programs (ED5, Trade School,
-// College/University, Service Academy, Apprenticeship, Mentoring); the
+// College/University, Service Academy, Apprenticeship). Mentoring is
+// transcribed but unimplemented: its "C5= Tra" prerequisite and "Tra+2"
+// award both need the non-human Training characteristic, a v1 non-goal
+// (docs/PRD.md) — it activates with non-human characteristics. The
 // remaining chart C rows are transcribed but marked unimplemented, and
 // Later Education (suspending a career term for schooling, p. 59) is
 // deferred with career changes. Chart C's Honors row is not a program: it
@@ -226,32 +229,19 @@ const (
 // deduplicated by name (Grav appears under Driver, Flyer, and Seafarer).
 // The returned slice is fresh per call.
 func Majors(inst Institution) ([]string, error) {
-	t, err := load()
-	if err != nil {
-		return nil, err
-	}
-
-	seen := map[string]bool{}
-
-	var names []string
-
-	for _, s := range t.Skills {
-		if !s.flag(inst) || seen[s.Name] {
-			continue
-		}
-
-		seen[s.Name] = true
-
-		names = append(names, s.Name)
-	}
-
-	return names, nil
+	return skillNames(func(s SkillRow) bool { return s.flag(inst) })
 }
 
 // AllSkillNames returns every matrix skill name in chart order,
 // deduplicated — the unrestricted Apprenticeship selection list
 // (interpretation I-7, ERRATA.md). The returned slice is fresh per call.
 func AllSkillNames() ([]string, error) {
+	return skillNames(func(SkillRow) bool { return true })
+}
+
+// skillNames returns the matrix names matching keep, in chart order,
+// deduplicated first-wins by name.
+func skillNames(keep func(SkillRow) bool) ([]string, error) {
 	t, err := load()
 	if err != nil {
 		return nil, err
@@ -262,7 +252,7 @@ func AllSkillNames() ([]string, error) {
 	var names []string
 
 	for _, s := range t.Skills {
-		if seen[s.Name] {
+		if !keep(s) || seen[s.Name] {
 			continue
 		}
 

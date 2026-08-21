@@ -96,6 +96,20 @@ from different charts stack as one skill.
 Implemented in `world/data/homeworld_skills.json`,
 `career/data/citizen.json`, and `education/data/education.json`.
 
+Chart C p. 60 abbreviates further; `education/data/education.json`
+normalizes nine of its printed forms to the registry spellings already in
+`career/data/citizen.json` so grants stack: Hvy Wpns → Heavy Wpns,
+Battle Dress → BattleDress, Slug Throw → Slug Thrower, J-Drives → Jump
+Drive, M-Drive → Maneuver, P-Systems → Power System, Winged → Wing,
+Sub → Submersible, Navigation → Navigator. (Chart C's "Ship" is left as
+printed: Seafarer Ship and piloted Spacecraft are distinct skills.)
+
+Known residual: for five of these the shared spelling still differs from
+the exact MSL p. 132 strings (Heavy Weapons, Slug Throwers, Jump Drives,
+Maneuver Drive, Power Systems), and `career/data/citizen.json` itself
+splits Navigator (chart C p. 78) from Navigation (job table). A
+registry-wide canonicalization is deferred to its own change.
+
 ### I-5: a failed education year consumes a year (pp. 59-60)
 
 "Each Success is one year" (p. 59) says what a pass costs; the chart's

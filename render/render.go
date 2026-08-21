@@ -82,9 +82,14 @@ func educationLine(record chargen.EducationRecord) string {
 		line += ", Minor " + record.Minor
 	}
 
-	if record.Degree != "" {
+	switch {
+	case record.Degree != "":
 		line += " — " + record.Degree
-	} else if !record.Graduated {
+	case record.Graduated && record.Honors:
+		line += " — graduated with Honors"
+	case record.Graduated:
+		line += " — graduated"
+	default:
 		line += " — did not graduate"
 	}
 
