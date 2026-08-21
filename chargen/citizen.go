@@ -1,51 +1,23 @@
 package chargen
 
-// Citizen career resolution (Book 1 chart 04, p. 78; chart E1 panel 04,
+// Citizen career mechanics (Book 1 chart 04, p. 78; chart E1 panel 04,
 // p. 72; prose pp. 65-66). "Begin Citizen Life is Automatic"; "The Citizen
 // Career uses a variant of Risk and Reward called Citizen Life. Only one
 // roll is made to determine Success or Failure. No Mods are used." (p. 65)
 //
 // Citizens have no rank ("The Citizen, Entertainer, Craftsman, Scout,
 // Agent, and Rogue careers have no rank", p. 65). Muster out, aging, and
-// career changes are deferred to docs/PRD.md milestone 4.
+// career changes are deferred to docs/PRD.md milestone 4. The generic term
+// loop, controlling-characteristic rotation, skills table, and Continue
+// throw live in careerrun.go.
 
 import (
 	"errors"
 	"fmt"
 	"slices"
-	"strconv"
 
 	"github.com/philoserf/t5chargen/career"
-	"github.com/philoserf/t5chargen/dice"
 )
-
-// citizenRun is the state of one Citizen career resolution.
-type citizenRun struct {
-	def       *career.Definition
-	roller    *dice.Roller
-	log       *Log
-	decider   Decider
-	character *Character
-
-	// availableCCs rotates the controlling characteristic: "This
-	// Controlling Characteristic cannot be used again until all of the
-	// others in the sequence have been used." (p. 65)
-	availableCCs []string
-
-	// postSuccesses counts Citizen Life successes after Job and Hobby are
-	// both determined: "In subsequent Terms, successes alternate between
-	// Job or Hobby skill levels." (chart 04 p. 78)
-	postSuccesses int
-
-	// entryLevels are the skill levels held when the career began.
-	// Receipts are counted against this baseline: only skills received
-	// during the career demote a Job/Hobby determination to a later
-	// receipt — pre-career grants (homeworld, chart B) do not
-	// (interpretation I-2, ERRATA.md).
-	entryLevels map[string]int
-
-	record CareerRecord
-}
 
 // errUnknownCharacteristic reports a data-file characteristic name outside
 // the six standard abbreviations.
@@ -55,112 +27,38 @@ var errUnknownCharacteristic = errors.New("unknown characteristic")
 // milestone (docs/PRD.md milestones 2-3).
 var errNotImplemented = errors.New("not implemented until education/skill milestones")
 
-// runCitizen resolves a full Citizen career, term by term, until the
-// Continue roll fails.
-func runCitizen(roller *dice.Roller, log *Log, decider Decider, character *Character) error {
+// citizenMechanics is the Citizen careerMechanics implementation.
+type citizenMechanics struct {
+	// postSuccesses counts Citizen Life successes after Job and Hobby are
+	// both determined: "In subsequent Terms, successes alternate between
+	// Job or Hobby skill levels." (chart 04 p. 78)
+	postSuccesses int
+}
+
+// newCitizen is the Citizen careerRegistry entry.
+//
+//nolint:ireturn // Registry constructors return the careerMechanics seam by design.
+func newCitizen() (*career.Definition, careerMechanics, error) {
 	def, err := career.Citizen()
 	if err != nil {
-		return fmt.Errorf("citizen career: %w", err)
+		return nil, nil, fmt.Errorf("citizen career: %w", err)
 	}
 
-	entryLevels := make(map[string]int, len(character.Skills))
-	for _, skill := range character.Skills {
-		entryLevels[skill.Name] = skill.Level
-	}
+	return def, &citizenMechanics{}, nil
+}
 
-	run := &citizenRun{
-		def:         def,
-		roller:      roller,
-		log:         log,
-		decider:     decider,
-		character:   character,
-		record:      CareerRecord{Career: "Citizen"},
-		entryLevels: entryLevels,
-	}
-
-	// "Begin Citizen Life is Automatic" (chart E1 panel 04, p. 72).
-	log.Step("Citizen: Begin (automatic)", "Book 1 p. 72 chart E1 panel 04")
-
-	for {
-		continued, err := run.term(len(run.record.Terms) + 1)
-		if err != nil {
-			return err
-		}
-
-		if !continued {
-			break
-		}
-	}
-
-	character.Careers = append(character.Careers, run.record)
+// begin records the automatic Begin: "Begin Citizen Life is Automatic"
+// (chart E1 panel 04, p. 72).
+func (*citizenMechanics) begin(r *careerRun) error {
+	r.log.Step("Citizen: Begin (automatic)", "Book 1 p. 72 chart E1 panel 04")
 
 	return nil
 }
 
-// term resolves one 4-year term and reports whether the career continues.
-func (r *citizenRun) term(number int) (bool, error) {
-	r.log.Step("Citizen: Term "+strconv.Itoa(number), r.def.Cite)
-
-	cc, err := r.chooseCC()
-	if err != nil {
-		return false, err
-	}
-
-	success, err := r.citizenLife(cc)
-	if err != nil {
-		return false, err
-	}
-
-	if err := r.termSkills(); err != nil {
-		return false, err
-	}
-
-	continued := r.continueRoll()
-	r.record.Terms = append(r.record.Terms, TermRecord{
-		Term:                      number,
-		ControllingCharacteristic: cc,
-		Success:                   success,
-		Continued:                 continued,
-	})
-
-	return continued, nil
-}
-
-// chooseCC selects the term's controlling characteristic: "The player
-// picks one of these Characteristics (any one anywhere in the sequence)
-// ... This Controlling Characteristic cannot be used again until all of
-// the others in the sequence have been used" (p. 65).
-func (r *citizenRun) chooseCC() (string, error) {
-	if len(r.availableCCs) == 0 {
-		r.availableCCs = slices.Clone(r.def.CitizenLifeCharacteristics)
-	}
-
-	scores := make([]int, len(r.availableCCs))
-	for i, name := range r.availableCCs {
-		scores[i], _ = characteristicValue(&r.character.Characteristics, name)
-	}
-
-	chosen, _, err := choose(r.log, r.decider, Choice{
-		ID:      ChooseControllingCharacteristic,
-		Prompt:  "Select the term's controlling characteristic",
-		Options: slices.Clone(r.availableCCs),
-		Scores:  scores,
-		Cite:    "Book 1 p. 65 (Risk and Reward: Select the CC)",
-	})
-	if err != nil {
-		return "", err
-	}
-
-	cc := r.availableCCs[chosen]
-	r.availableCCs = slices.Delete(r.availableCCs, chosen, chosen+1)
-
-	return cc, nil
-}
-
-// citizenLife rolls the term's Citizen Life throw (2D <= CC, no mods,
+// resolveTerm rolls the term's Citizen Life throw (2D <= CC, no mods,
 // p. 65; chart 04 "Citizen Life C1 C2 C3 C4") and applies the success
 // ladder.
-func (r *citizenRun) citizenLife(cc string) (bool, error) {
+func (m *citizenMechanics) resolveTerm(r *careerRun, cc string) (bool, error) {
 	value, ok := characteristicValue(&r.character.Characteristics, cc)
 	if !ok {
 		return false, fmt.Errorf("%w: %q", errUnknownCharacteristic, cc)
@@ -176,7 +74,7 @@ func (r *citizenRun) citizenLife(cc string) (bool, error) {
 		return false, nil
 	}
 
-	if err := r.awardCitizenLife(seq); err != nil {
+	if err := m.awardCitizenLife(r, seq); err != nil {
 		return false, err
 	}
 
@@ -187,18 +85,18 @@ func (r *citizenRun) citizenLife(cc string) (bool, error) {
 // provides a Job ... with Skill-4 ... Second Success provides a Hobby ...
 // with Skill-2 ... In subsequent Terms, successes alternate between Job or
 // Hobby skill levels" (p. 78).
-func (r *citizenRun) awardCitizenLife(cause int) error {
+func (m *citizenMechanics) awardCitizenLife(r *careerRun, cause int) error {
 	switch {
 	case r.record.Job == "":
-		r.determineJob()
+		m.determineJob(r)
 	case r.record.Hobby == "":
-		return r.determineHobby()
+		return m.determineHobby(r)
 	default:
-		r.postSuccesses++
+		m.postSuccesses++
 
 		// Third= Job-1, Fourth= Hobby-1, and alternating (chart 04).
 		name := r.record.Job
-		if r.postSuccesses%2 == 0 {
+		if m.postSuccesses%2 == 0 {
 			name = r.record.Hobby
 		}
 
@@ -206,12 +104,6 @@ func (r *citizenRun) awardCitizenLife(cause int) error {
 	}
 
 	return nil
-}
-
-// awardAndLog awards skill levels via the career-independent
-// awardSkillAndLog.
-func (r *citizenRun) awardAndLog(name string, levels, cause int) {
-	awardSkillAndLog(name, levels, cause, r.log, r.character)
 }
 
 // determineJob rolls table E for the Job: "First Success provides a Job,
@@ -223,7 +115,7 @@ func (r *citizenRun) awardAndLog(name string, levels, cause int) {
 //
 // If the roll lands on the "No Skill" cell, the Job remains undetermined
 // and the next success retries — an interpretation recorded in ERRATA.md.
-func (r *citizenRun) determineJob() {
+func (*citizenMechanics) determineJob(r *careerRun) {
 	const cite = "Book 1 p. 78 chart 04 table E (roll A reroll if >3, then B, then C)"
 
 	a := r.roller.Roll(1)
@@ -259,7 +151,7 @@ func (r *citizenRun) determineJob() {
 // between two distinct pursuits (interpretation I-3, ERRATA.md). The
 // hobby_set consequence and its award are caused by the selecting choice
 // event (docs/PRD.md FR10).
-func (r *citizenRun) determineHobby() error {
+func (*citizenMechanics) determineHobby(r *careerRun) error {
 	options := r.def.HobbyChoices()
 	if i := slices.Index(options, r.record.Job); i >= 0 {
 		options = slices.Concat(options[:i], options[i+1:])
@@ -281,123 +173,4 @@ func (r *citizenRun) determineHobby() error {
 	r.awardAndLog(name, r.firstReceiptLevels(name, 2), seq)
 
 	return nil
-}
-
-// firstReceiptLevels applies the first-receipt rule: the stated level on
-// first receipt, Skill-1 thereafter ("with Skill-4 (later receipts are
-// Skill-1)", p. 78). A skill already received during this career (a table
-// C award) counts as held, so the determination is a later receipt: +1.
-// Pre-career levels (homeworld grants, chart B) are not career receipts
-// and do not demote the award — interpretation I-2, ERRATA.md.
-func (r *citizenRun) firstReceiptLevels(name string, firstReceipt int) int {
-	if r.character.skillLevel(name) > r.entryLevels[name] {
-		return 1
-	}
-
-	return firstReceipt
-}
-
-// termSkills rolls the per-term table C eligibility: "Per Term: 4 on Table
-// C" (chart 04 table B); "For each skill, roll on the Career Skills Table.
-// The character selects a column and rolls 1D for the specific skill"
-// (p. 65).
-func (r *citizenRun) termSkills() error {
-	columns := r.def.SkillColumnNames()
-
-	for range r.def.SkillsPerTerm {
-		chosen, _, err := choose(r.log, r.decider, Choice{
-			ID:      ChooseSkillColumn,
-			Prompt:  "Select a Citizen Skills column",
-			Options: columns,
-			Cite:    "Book 1 p. 65 (the character selects a column and rolls 1D)",
-		})
-		if err != nil {
-			return err
-		}
-
-		roll := r.roller.Roll(1)
-		seq := r.log.Roll(roll, "Book 1 p. 78 chart 04 table C, column "+columns[chosen])
-
-		entry := r.def.SkillColumns[chosen].Entries[roll.Total-1]
-		if err := r.awardTableC(entry, seq); err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
-
-// awardTableC applies one table C cell.
-func (r *citizenRun) awardTableC(entry career.Entry, cause int) error {
-	switch entry.Kind {
-	case career.EntrySkill:
-		r.awardAndLog(entry.Name, 1, cause)
-	case career.EntryCharacteristic:
-		return r.awardCharacteristic(entry.Name, cause)
-	case career.EntryMajor, career.EntryMinor:
-		// "If the character does not have a Major/Minor this benefit is
-		// lost." (p. 78) The current Major/Minor are the most recent ones
-		// selected (p. 59).
-		name := r.character.currentMajor()
-		if entry.Kind == career.EntryMinor {
-			name = r.character.currentMinor()
-		}
-
-		if name == "" {
-			r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceBenefitLost})
-
-			return nil
-		}
-
-		r.awardAndLog(name, 1, cause)
-	case career.EntryNone:
-		r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceNoAward})
-	case career.EntryTrade, career.EntryArt, career.EntryScience:
-		return fmt.Errorf("%w: %q cell", errNotImplemented, entry.Kind)
-	default:
-		// The loader validates kinds, but a default keeps an unknown kind
-		// from silently resolving to nothing (event-log-first contract).
-		return fmt.Errorf("%w: unknown cell kind %q", errNotImplemented, entry.Kind)
-	}
-
-	return nil
-}
-
-// awardCharacteristic applies a table C Personal-column +1, subject to
-// the p. 68 maximum (awardCharacteristicAndLog).
-func (r *citizenRun) awardCharacteristic(name string, cause int) error {
-	if _, ok := characteristicValue(&r.character.Characteristics, name); !ok {
-		return fmt.Errorf("%w: %q", errUnknownCharacteristic, name)
-	}
-
-	awardCharacteristicAndLog(r.character, r.log, name, 1, cause)
-
-	return nil
-}
-
-// continueRoll rolls Continue: "Continue 10-" (chart 04); "the Character
-// must successfully roll (2D) to Continue (or less) in the career. Failure
-// ends Career Resolution. ... If the Continue roll is 2 exactly, the
-// character is required to Continue" (p. 66). Each term elapses 4 years
-// ("the 4-year Term", p. 66).
-func (r *citizenRun) continueRoll() bool {
-	throw := r.roller.Throw(2, r.def.ContinueTarget)
-	seq := r.log.Throw(throw, nil, "Book 1 p. 78 chart 04 (Continue 10-; p. 66)")
-
-	r.character.Age += TermYears
-	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceYearsElapsed, Value: TermYears})
-
-	if throw.Total == 2 {
-		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceMandatoryContinue})
-
-		return true
-	}
-
-	if !throw.Success {
-		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerEnded, Career: "Citizen"})
-
-		return false
-	}
-
-	return true
 }

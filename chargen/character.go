@@ -292,9 +292,8 @@ var errNoDecider = errors.New("chargen: Options.Decider is required (pass Defaul
 var errBadChoice = errors.New("invalid choice")
 
 // runCareer performs checklist step D (Select Career, chart E1 p. 72) and
-// resolves the selected career. Citizen is the only implemented career
-// (docs/PRD.md milestone 1); the career-name dispatch grows with
-// milestone 3.
+// resolves the selected career through the careerRegistry (careerrun.go);
+// registered careers grow with docs/PRD.md milestone 3.
 func runCareer(forced string, roller *dice.Roller, log *Log, decider Decider, character *Character) error {
 	options := career.Available()
 
@@ -308,16 +307,17 @@ func runCareer(forced string, roller *dice.Roller, log *Log, decider Decider, ch
 
 	log.Step("Select Career", "Book 1 p. 72 chart E1 step D")
 
-	if _, _, err := choose(log, decider, Choice{
+	chosen, _, err := choose(log, decider, Choice{
 		ID:      ChooseCareer,
 		Prompt:  "Select career",
 		Options: options,
 		Cite:    "Book 1 p. 72 chart E1 step D",
-	}); err != nil {
+	})
+	if err != nil {
 		return err
 	}
 
-	return runCitizen(roller, log, decider, character)
+	return runCareerByName(options[chosen], roller, log, decider, character)
 }
 
 // choose puts a choice to the decider, validates the answer, and logs the
