@@ -54,6 +54,10 @@ func Sheet(c chargen.Character) string {
 		fmt.Fprintf(&b, "**Skills**: %s\n\n", skillList(c.Skills))
 	}
 
+	if c.Fame > 0 || c.WoundBadges > 0 || c.Disabled || c.Dead {
+		b.WriteString(statusLine(c))
+	}
+
 	b.WriteString("---\n\n")
 	fmt.Fprintf(&b, "Seed %d (%s) · schema %s · engine %s · policy %s\n\n",
 		c.RNG.Seed, c.RNG.Algorithm, c.SchemaVersion, c.EngineVersion, c.PolicyVersion)
@@ -109,7 +113,38 @@ func careerLine(record chargen.CareerRecord) string {
 		line += ", Hobby " + record.Hobby
 	}
 
+	if record.Discoveries > 0 {
+		line += fmt.Sprintf(", %d Discoveries", record.Discoveries)
+	}
+
+	if !record.Began {
+		line += " — did not begin"
+	}
+
 	return line + "\n\n"
+}
+
+// statusLine renders fame, wounds, and disabled/dead status.
+func statusLine(c chargen.Character) string {
+	parts := []string{}
+
+	if c.Fame > 0 {
+		parts = append(parts, fmt.Sprintf("Fame %d", c.Fame))
+	}
+
+	if c.WoundBadges > 0 {
+		parts = append(parts, fmt.Sprintf("Wound Badges %d", c.WoundBadges))
+	}
+
+	if c.Disabled {
+		parts = append(parts, "Disabled")
+	}
+
+	if c.Dead {
+		parts = append(parts, "DEAD")
+	}
+
+	return "**Status**: " + strings.Join(parts, ", ") + "\n\n"
 }
 
 // skillList renders skills as "Admin-2, Broker-1" in the record's sorted
@@ -251,6 +286,28 @@ func consequenceFlowText(c *chargen.ConsequenceEvent) string {
 		return fmt.Sprintf("%+d years", c.Value)
 	case chargen.ConsequenceCareerEnded:
 		return "career ended (" + c.Career + ")"
+	default:
+		return consequenceInjuryText(c)
+	}
+}
+
+// consequenceInjuryText renders the injury and reward consequence kinds.
+//
+//nolint:exhaustive // Deliberately partitioned: earlier kinds are handled upstream.
+func consequenceInjuryText(c *chargen.ConsequenceEvent) string {
+	switch c.Kind {
+	case chargen.ConsequenceCareerNotBegun:
+		return "career not begun (" + c.Career + ")"
+	case chargen.ConsequenceWoundBadge:
+		return fmt.Sprintf("Wound Badge (total %d)", c.Value)
+	case chargen.ConsequenceDisabled:
+		return "disabled (" + c.Characteristic + " reduced by 4+); musters out at term end"
+	case chargen.ConsequenceDead:
+		return "DEAD (" + c.Characteristic + " reduced to zero)"
+	case chargen.ConsequenceDiscovery:
+		return fmt.Sprintf("Discovery (total %d)", c.Value)
+	case chargen.ConsequenceFameChange:
+		return fmt.Sprintf("Fame %+d = %d", c.Delta, c.Value)
 	default:
 		return string(c.Kind)
 	}

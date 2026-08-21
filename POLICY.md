@@ -1,9 +1,10 @@
 # POLICY.md — auto-mode default policy
 
-Version: **0.3.0** (`policy_version` in every character record). Changing any
+Version: **0.4.0** (`policy_version` in every character record). Changing any
 rule here is a policy version bump (docs/PRD.md, Replay and provenance
-contract). 0.2.0 added the homeworld-step choice points; 0.3.0 adds the
-education-step choice points (chart C, p. 60).
+contract). 0.2.0 added the homeworld choice points; 0.3.0 the education
+choice points; 0.4.0 the Scout career choice points (chart 05, p. 79) and
+the Exploration fallback in `select_skill_column`.
 
 The auto policy is total (it can decide every valid choice point),
 deterministic, and tie-breaks by first-listed order in Book 1 (docs/PRD.md,
@@ -16,7 +17,7 @@ lists them; the policy returns an index.
 | ----------------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `select_career`                     | First-listed available career.                                          | Tie-break rule; with a `--career` force the list holds only the forced career.                                                                                                                                                                                       |
 | `select_controlling_characteristic` | Highest-valued available characteristic; ties break to first-listed.    | Maximizes the roll-low success chance of the term's Citizen Life (or, later, Risk/Reward) throw.                                                                                                                                                                     |
-| `select_skill_column`               | The **General** column; first-listed if a career has no General column. | The only Citizen column (chart 04 table C, p. 78) where every row yields a plain skill regardless of education (Academic rows are lost without a Major/Minor) or caste; Personal would trade skills for characteristic bumps, which is a poor default for bulk NPCs. |
+| `select_skill_column`               | The first present of **General**, then **Exploration**; first-listed otherwise. | The only Citizen column (chart 04 table C, p. 78) where every row yields a plain skill regardless of education (Academic rows are lost without a Major/Minor) or caste; Personal would trade skills for characteristic bumps, which is a poor default for bulk NPCs. |
 | `select_hobby`                      | First-listed table E entry (currently `ACV`).                           | Pure tie-break: the book gives no ranking for the 100+ alternatives. A smarter hobby heuristic is a future policy version.                                                                                                                                           |
 | `select_homeworld` | The assigned homeworld (the supplied `--homeworld`, or the tool-owned default, Regina). | Assignment per docs/PRD.md FR2; random chart-B selection is an interactive/milestone-5 concern. |
 | `select_art` | First-listed ("Actor"). | Tie-break rule; the book gives no ranking. |
@@ -28,8 +29,11 @@ lists them; the policy returns an index.
 | `attempt_honors` | Always attempt. | "Failure has no effect" (p. 59) — pure upside. |
 | `attempt_waiver` | Always attempt. | The immediate stake (admission or reinstatement) outweighs the cost: each attempt worsens future waiver odds by Mod -1 (p. 59). |
 | `select_skill` | First-listed. | Tie-break rule; unreachable while the policy never picks Apprenticeship. |
+| `select_duty` | Explorer Duty. | The Scout career's point, and the larger skill eligibility (chart 05 table B: Explorer 8 vs Courier 4); Courier's safety is an interactive-play trade-off. |
+| `select_risk_mod` | No Mod. | Neutral default: Caution improves Risk but worsens Reward and vice versa (p. 65); a smarter Caution/Bravery heuristic is a future policy version. |
+| `attempt_retry` | Always attempt. | The I-8 Reward retry has no stated cost. |
 
-## Known limitations (0.3.0)
+## Known limitations (0.4.0)
 
 - Every auto-generated Citizen's hobby is the first-listed table E entry
   (excluding the determined Job, per ERRATA I-3).

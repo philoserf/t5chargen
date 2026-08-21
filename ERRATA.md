@@ -148,3 +148,27 @@ selection from the full Available Skills matrix. The alternative reading
 restricts it to the School column like Training Course.
 
 Implemented at `chargen/education.go` (`awardApprenticeship`).
+
+### I-8: Scout "Retry R&R C5" (p. 79; Archive lineage)
+
+Chart 05 box A reads: "To Begin C1 or C2 or C3 / Risk & Reward C1 C2 C3 /
+Retry R&R C5 / Continue Int". The Retry row's object is ambiguous. The
+Archive's 2008 preliminary Scout box reads "To Begin 6 / To Retry C5" —
+there, retry belonged to Begin — but the rules authority is the Book 1
+print, whose label is literally "Retry R&R".
+
+Readings:
+
+1. **A failed Reward roll may be retried once against C5** (with the same
+   opposite-sign mods). (Implemented — the literal "Retry R&R" object,
+   applied to the roll whose failure has no already-suffered consequence;
+   retrying a failed Risk would undo an injury already taken.)
+2. The To Begin throw may be retried against C5 (the Archive lineage);
+   under this reading Scout's Begin gets a second attempt and R&R none.
+3. The whole Risk & Reward cycle re-runs once with C5 as the controlling
+   characteristic.
+
+Under reading 1, Scout's To Begin has no retry ("Some Careers allow
+Retry", p. 65 — Scout's box lists none for Begin).
+
+Implemented at `chargen/scout.go` (`retryReward`).

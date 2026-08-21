@@ -150,6 +150,37 @@ const (
 	// ConsequenceCareerEnded records the end of career resolution
 	// ("Failure ends Career Resolution", p. 66). Career names it.
 	ConsequenceCareerEnded ConsequenceKind = "career_ended"
+
+	// ConsequenceCareerNotBegun records a failed To Begin: "If both Begin
+	// and Retry fail, this career may not be used. Each failed attempt
+	// ... takes one year." (p. 65) Career names it.
+	ConsequenceCareerNotBegun ConsequenceKind = "career_not_begun"
+
+	// ConsequenceWoundBadge records a Risk-failure wound: "If the
+	// Controlling Characteristic is reduced, the Character has been
+	// wounded and receives a Wound Badge." (p. 65) Value is the badge
+	// count.
+	ConsequenceWoundBadge ConsequenceKind = "wound_badge"
+
+	// ConsequenceDisabled records a 4+ reduction: "If CC is reduced by 4
+	// or more, then he is disabled. Muster Out at Term end with Double
+	// Benefits" (chart 05 p. 79; p. 65).
+	ConsequenceDisabled ConsequenceKind = "disabled"
+
+	// ConsequenceDead records a characteristic reduced to zero: "If the
+	// Controlling Characteristic is reduced to zero or less, the
+	// Character is dead" (p. 65).
+	ConsequenceDead ConsequenceKind = "dead"
+
+	// ConsequenceDiscovery records a Scout Reward success: "The Scout
+	// discovers a valuable new world or a valuable feature on a known
+	// world (a Discovery)" (chart 05 p. 79). Value is the running count.
+	ConsequenceDiscovery ConsequenceKind = "discovery"
+
+	// ConsequenceFameChange records a Fame change (chart 05: "Fame +1";
+	// the full Fame system, chart F p. 91, lands with milestone 4).
+	// Delta is the change, Value the new Fame.
+	ConsequenceFameChange ConsequenceKind = "fame_change"
 )
 
 // ConsequenceEvent records one effect of an earlier throw or choice. Cause
@@ -239,6 +270,17 @@ func (l *Log) Roll(roll dice.Roll, cite string) int {
 		Dice:  slices.Clone(roll.Faces),
 		Mod:   roll.Mod,
 		Total: roll.Total,
+		Cite:  cite,
+	}})
+}
+
+// Flux records a Flux roll ("Flux is Light Die minus Dark Die", p. 261)
+// as a throw event with both faces, and returns its sequence number.
+func (l *Log) Flux(flux dice.FluxRoll, cite string) int {
+	return l.append(Event{Kind: EventThrow, Throw: &ThrowEvent{
+		Expr:  flux.Expr(),
+		Dice:  []int{flux.First, flux.Second},
+		Total: flux.Value,
 		Cite:  cite,
 	}})
 }

@@ -18,18 +18,18 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.4.0"
+	SchemaVersion = "0.5.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.4.0"
+	EngineVersion = "0.5.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
-	PolicyVersion = "0.3.0"
+	PolicyVersion = "0.4.0"
 
 	// RNGAlgorithm names the recorded random stream: Go math/rand/v2 PCG,
 	// seeded as documented at dice.New. The exact string is compared on
@@ -82,6 +82,21 @@ type Character struct {
 	// not, lifetime ("Mod minus number of previous waivers rolled
 	// (successful or not)", p. 59).
 	WaiversAttempted int `json:"waivers_attempted,omitempty"`
+
+	// Fame is the running Fame counter (chart 05 "Fame +1"; the full
+	// Fame system, chart F p. 91, lands with milestone 4).
+	Fame int `json:"fame,omitempty"`
+
+	// WoundBadges counts Risk-failure wounds (p. 65).
+	WoundBadges int `json:"wound_badges,omitempty"`
+
+	// Disabled: a controlling characteristic was reduced by 4 or more
+	// ("he is disabled. Muster Out at Term end", chart 05 p. 79; p. 65).
+	Disabled bool `json:"disabled,omitempty"`
+
+	// Dead: a controlling characteristic was reduced to zero or less
+	// ("the Character is dead", p. 65). Generation ends at the injury.
+	Dead bool `json:"dead,omitempty"`
 
 	Events []Event `json:"events"`
 }
@@ -140,10 +155,20 @@ type Skill struct {
 // Job and Hobby are per-career: "Once determined, Job and Hobby cannot be
 // changed" (chart 04 p. 78).
 type CareerRecord struct {
-	Career string       `json:"career"`
-	Job    string       `json:"job,omitempty"`
-	Hobby  string       `json:"hobby,omitempty"`
-	Terms  []TermRecord `json:"terms"`
+	Career string `json:"career"`
+
+	// Began records the To Begin outcome; a failed Begin leaves a
+	// began:false record with no terms ("this career may not be used",
+	// p. 65).
+	Began bool `json:"began"`
+
+	Job   string `json:"job,omitempty"`
+	Hobby string `json:"hobby,omitempty"`
+
+	// Discoveries counts Scout Reward successes (chart 05, p. 79).
+	Discoveries int `json:"discoveries,omitempty"`
+
+	Terms []TermRecord `json:"terms"`
 }
 
 // TermRecord is one term's outcome.
@@ -307,17 +332,29 @@ func runCareer(forced string, roller *dice.Roller, log *Log, decider Decider, ch
 
 	log.Step("Select Career", "Book 1 p. 72 chart E1 step D")
 
-	chosen, _, err := choose(log, decider, Choice{
-		ID:      ChooseCareer,
-		Prompt:  "Select career",
-		Options: options,
-		Cite:    "Book 1 p. 72 chart E1 step D",
-	})
-	if err != nil {
-		return err
+	// A failed To Begin removes the career and offers the rest: "If both
+	// Begin and Retry fail, this career may not be used." (p. 65) Running
+	// out of options is a legal dead-end (no career), not an error.
+	for len(options) > 0 {
+		chosen, _, err := choose(log, decider, Choice{
+			ID:      ChooseCareer,
+			Prompt:  "Select career",
+			Options: options,
+			Cite:    "Book 1 p. 72 chart E1 step D",
+		})
+		if err != nil {
+			return err
+		}
+
+		began, err := runCareerByName(options[chosen], roller, log, decider, character)
+		if err != nil || began {
+			return err
+		}
+
+		options = slices.Concat(options[:chosen], options[chosen+1:])
 	}
 
-	return runCareerByName(options[chosen], roller, log, decider, character)
+	return nil
 }
 
 // choose puts a choice to the decider, validates the answer, and logs the

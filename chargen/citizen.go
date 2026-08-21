@@ -40,19 +40,19 @@ func newCitizen() (*career.Definition, careerMechanics, error) {
 
 // begin records the automatic Begin: "Begin Citizen Life is Automatic"
 // (chart E1 panel 04, p. 72).
-func (*citizenMechanics) begin(r *careerRun) error {
+func (*citizenMechanics) begin(r *careerRun) (bool, error) {
 	r.log.Step("Citizen: Begin (automatic)", "Book 1 p. 72 chart E1 panel 04")
 
-	return nil
+	return true, nil
 }
 
 // resolveTerm rolls the term's Citizen Life throw (2D <= CC, no mods,
 // p. 65; chart 04 "Citizen Life C1 C2 C3 C4") and applies the success
 // ladder.
-func (m *citizenMechanics) resolveTerm(r *careerRun, cc string) (bool, error) {
+func (m *citizenMechanics) resolveTerm(r *careerRun, cc string) (termOutcome, error) {
 	value, ok := characteristicValue(&r.character.Characteristics, cc)
 	if !ok {
-		return false, fmt.Errorf("%w: %q", errUnknownCharacteristic, cc)
+		return termOutcome{}, fmt.Errorf("%w: %q", errUnknownCharacteristic, cc)
 	}
 
 	throw := r.roller.Throw(2, value)
@@ -62,14 +62,14 @@ func (m *citizenMechanics) resolveTerm(r *careerRun, cc string) (bool, error) {
 		// "If Citizen Life Fails... no Job or Hobby skills" (p. 78).
 		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceNoAward})
 
-		return false, nil
+		return termOutcome{}, nil
 	}
 
 	if err := m.awardCitizenLife(r, seq); err != nil {
-		return false, err
+		return termOutcome{}, err
 	}
 
-	return true, nil
+	return termOutcome{success: true}, nil
 }
 
 // awardCitizenLife applies the chart 04 success ladder: "First Success
