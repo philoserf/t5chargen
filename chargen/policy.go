@@ -14,25 +14,24 @@ func (DefaultPolicy) Choose(c Choice) int {
 		// first-listed.
 		return maxScoreIndex(c)
 	case ChooseSkillColumn:
-		// POLICY.md: the General column; first-listed if absent.
-		return indexOrFirst(c.Options, "General")
+		// POLICY.md: the first present of General, then Exploration (the
+		// all-plain-skills columns of the shipped careers); first-listed
+		// otherwise.
+		return preferredIndex(c.Options, []string{"General", "Exploration"}, 0)
+	case ChooseDuty:
+		// POLICY.md: Explorer Duty — the career's point, and the larger
+		// skill eligibility (chart 05 table B).
+		return indexOrFirst(c.Options, "Explorer Duty")
+	case ChooseRiskMod:
+		// POLICY.md: No Mod.
+		return indexOrFirst(c.Options, "No Mod")
 	case ChooseEducation:
-		// POLICY.md: the college track — University, then College, then
-		// ED5; None otherwise. Service Academy is excluded (its Officer1
-		// graduation links to milestone-3 military careers).
-		for _, want := range []string{"University", "College", "ED5"} {
-			for i, option := range c.Options {
-				if option == want {
-					return i
-				}
-			}
-		}
-
-		return len(c.Options) - 1 // None, always last
-	case ChooseHonors, ChooseWaiver:
+		return chooseEducationProgram(c.Options)
+	case ChooseHonors, ChooseWaiver, ChooseRetry:
 		// POLICY.md: always attempt (index 0). Honors failure has no
 		// effect (p. 59); waiver attempts burn future waiver odds (Mod
-		// minus previous waivers) but the immediate stake outweighs it.
+		// minus previous waivers) but the immediate stake outweighs it;
+		// the I-8 Reward retry has no stated cost.
 		return 0
 	case ChooseCareer, ChooseHobby, ChooseHomeworld, ChooseArt, ChooseTrade,
 		ChooseService, ChooseMajor, ChooseMinor, ChooseSkill:
@@ -41,6 +40,28 @@ func (DefaultPolicy) Choose(c Choice) int {
 	}
 
 	return 0
+}
+
+// chooseEducationProgram applies POLICY.md's college track: University,
+// then College, then ED5; None (always last) otherwise. Service Academy is
+// excluded — its Officer1 graduation links to milestone-3 military
+// careers.
+func chooseEducationProgram(options []string) int {
+	return preferredIndex(options, []string{"University", "College", "ED5"}, len(options)-1)
+}
+
+// preferredIndex returns the index of the first present preference, or the
+// fallback index.
+func preferredIndex(options, preferences []string, fallback int) int {
+	for _, want := range preferences {
+		for i, option := range options {
+			if option == want {
+				return i
+			}
+		}
+	}
+
+	return fallback
 }
 
 // indexOrFirst returns the index of want in options, or 0.

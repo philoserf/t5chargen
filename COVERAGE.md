@@ -93,12 +93,32 @@ Book 1, Print Edition 5.1.
 | No rank                                           | p. 65                 | (nothing to do)          | —                        | covered                                                                                   |
 | Muster out row (chart 04 D)                       | pp. 67, 70–71, 78     | —                        | —                        | deferred (M4)                                                                             |
 
-## Careers 01–03, 05–13
+## Career 05 — Scout (chart 05, p. 79)
 
-All deferred (M3): Craftsman, Scholar, Entertainer, Scout, Merchant,
-Spacer, Soldier, Agent, Rogue, Noble, Marine, Functionary (charts
-pp. 75–88). Each career's section is added here with its chunk, uncommon
-branches enumerated, before it is called done.
+| Rule | Cite | Implementation | Test | Status |
+| --- | --- | --- | --- | --- |
+| To Begin C1/C2/C3; failure costs a year, career unusable | chart 05; p. 65 | `scoutMechanics.begin` | begin-failure + fallback sweeps | covered (no Begin retry under I-8 reading 1) |
+| Begin-failure fallback to remaining careers | p. 65 | `runCareer` loop | `TestScoutBeginFallback` | covered (empty options = legal no-career end) |
+| Duty choice: Courier avoids R&R; eligibility 4/8 | p. 79; chart 05 B | `resolveTerm`, `SkillEligibility` | invariants sweep | covered (policy: Explorer) |
+| Caution/Bravery/No Mod selection | p. 65; chart 05 | `chooseRiskMod` | Bravery decider tests | covered (policy: No Mod) |
+| Risk vs CC+Mods; failure injury: negative mods + Flux, no increase | chart 05 | `injury` (+`Log.Flux`) | injury sweeps | covered (Scout clamp; generic p. 65 Flux-compensation variant lands with the next R&R career) |
+| Wound Badge on reduction | p. 65 | `injury` | badge-accounting sweep | covered |
+| Disabled at 4+: term completes, no Continue, career ends | chart 05; p. 65 | `injury`, `term` | `TestScoutInjuryOutcomes` | covered (Double Benefits deferred, M4 muster out) |
+| Dead at CC ≤ 0: term and generation end at the injury | p. 65 | `injury`, `term` | `TestScoutInjuryOutcomes` | covered |
+| Reward vs CC−Mods; success = Discovery, Fame +1 | chart 05 | `reward`, `discovery` | fame==discoveries sweep | covered (Land Grant values deferred, M4) |
+| Retry R&R C5 | chart 05 | `retryReward` | policy-always path in sweeps | interpretation I-8 (three readings recorded) |
+| Continue vs Int | chart 05 | `careerRun.continueRoll` | Continue-Int cite sweep | covered |
+| Sanity −1 per two terms | chart 05 | — | — | deferred (San untracked; chart A defers it) |
+| Muster-out table D; Land Grant economics | chart 05; pp. 70–71 | — | — | deferred (M4) |
+| "Starship Skill" cells | chart 05 table C | `EntryStarship` (errors if selected) | data test | deferred (M3 MS list) |
+| No rank | p. 65 | (nothing to do) | — | covered |
+
+## Careers 01–03, 06–13
+
+All deferred (M3): Craftsman, Scholar, Entertainer, Merchant, Spacer,
+Soldier, Agent, Rogue, Noble, Marine, Functionary (charts pp. 75–88).
+Each career's section is added here with its chunk, uncommon branches
+enumerated, before it is called done.
 
 ## E1 step E — Muster Out, and later steps
 
