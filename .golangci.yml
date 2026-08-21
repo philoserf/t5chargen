@@ -27,6 +27,7 @@ linters:
           json: snake # the PRD's JSON conventions use snake_case (schema_version, policy_version, ...)
   disable:
     - exhaustruct # T5 chart data and partial struct inits in tests are intentional
+    - exhaustruct_v5 # same rationale as exhaustruct: partial event/record inits are the norm
     - mnd # the codebase transcribes Book 1 charts (magic numbers by nature)
     - goconst # domain vocabulary (career/skill names) repeated across files, not consts
     - varnamelen # terse notation vars (C1..C6, xD) mirror the book's own notation
