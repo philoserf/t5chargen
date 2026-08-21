@@ -1,9 +1,9 @@
 # POLICY.md — auto-mode default policy
 
-Version: **0.2.0** (`policy_version` in every character record). Changing any
+Version: **0.3.0** (`policy_version` in every character record). Changing any
 rule here is a policy version bump (docs/PRD.md, Replay and provenance
-contract). 0.2.0 adds the homeworld-step choice points (`select_homeworld`,
-`select_art`, `select_trade`).
+contract). 0.2.0 added the homeworld-step choice points; 0.3.0 adds the
+education-step choice points (chart C, p. 60).
 
 The auto policy is total (it can decide every valid choice point),
 deterministic, and tie-breaks by first-listed order in Book 1 (docs/PRD.md,
@@ -21,8 +21,15 @@ lists them; the policy returns an index.
 | `select_homeworld` | The assigned homeworld (the supplied `--homeworld`, or the tool-owned default, Regina). | Assignment per docs/PRD.md FR2; random chart-B selection is an interactive/milestone-5 concern. |
 | `select_art` | First-listed ("Actor"). | Tie-break rule; the book gives no ranking. |
 | `select_trade` | First-listed ("Biologics"). | Tie-break rule; the book gives no ranking. |
+| `select_education` | The college track: University, then College, then ED5; None otherwise. | Maximizes Edu gain for bulk NPCs. Service Academy is excluded because its Officer1 graduation links to milestone-3 military careers; Trade School/Apprenticeship trade Edu growth for narrow skills. |
+| `select_service` | First-listed (Army). | Tie-break rule; unreachable while the policy never picks Service Academy. |
+| `select_major` / `select_minor` | First-listed from the institution's Available Skills column (minor list excludes the major). | Tie-break rule; the book gives no ranking. |
+| `select_check_characteristic` | Highest-valued of the stated characteristics; ties break to first-listed. | Maximizes the roll-low check chance, same rule as the controlling characteristic. |
+| `attempt_honors` | Always attempt. | "Failure has no effect" (p. 59) — pure upside. |
+| `attempt_waiver` | Always attempt. | The immediate stake (admission or reinstatement) outweighs the cost: each attempt worsens future waiver odds by Mod -1 (p. 59). |
+| `select_skill` | First-listed. | Tie-break rule; unreachable while the policy never picks Apprenticeship. |
 
-## Known limitations (0.2.0)
+## Known limitations (0.3.0)
 
 - Every auto-generated Citizen's hobby is the first-listed table E entry
   (excluding the determined Job, per ERRATA I-3).

@@ -39,8 +39,10 @@ func TestCitizenInvariants(t *testing.T) {
 		}
 
 		record := c.Careers[0]
-		if want := chargen.StartAge + chargen.TermYears*len(record.Terms); c.Age != want {
-			t.Errorf("seed %d: age %d, want %d for %d terms", seed, c.Age, want, len(record.Terms))
+		// Exact age accounting (18 + education + terms) is asserted by
+		// checkEducationAge; here just the career's contribution.
+		if minimum := chargen.StartAge + chargen.TermYears*len(record.Terms); c.Age < minimum {
+			t.Errorf("seed %d: age %d below %d for %d terms", seed, c.Age, minimum, len(record.Terms))
 		}
 
 		checkSkills(t, seed, c)
@@ -178,7 +180,7 @@ func TestCitizenEventIntegrity(t *testing.T) {
 // character is required to Continue" (p. 66). The term with the mandatory
 // continue must not be the career's last.
 func TestCitizenMandatoryContinue(t *testing.T) {
-	c := generate(t, chargen.Options{Seed: 0})
+	c := generate(t, chargen.Options{Seed: 3})
 
 	found := false
 
@@ -196,7 +198,7 @@ func TestCitizenMandatoryContinue(t *testing.T) {
 	}
 
 	if !found {
-		t.Fatal("seed 0 no longer exercises mandatory continue; find and pin another seed")
+		t.Fatal("seed 3 no longer exercises mandatory continue; find and pin another seed")
 	}
 }
 

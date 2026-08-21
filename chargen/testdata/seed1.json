@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.3.0",
+  "schema_version": "0.4.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.3.0",
-  "policy_version": "0.2.0",
+  "engine_version": "0.4.0",
+  "policy_version": "0.3.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 1
@@ -12,10 +12,10 @@
     "dex": 12,
     "end": 8,
     "int": 6,
-    "edu": 6,
+    "edu": 8,
     "soc": 9
   },
-  "upp": "7C8669",
+  "upp": "7C8689",
   "homeworld": {
     "name": "Regina",
     "uwp": "A788899-C",
@@ -25,11 +25,21 @@
       "Ri"
     ]
   },
-  "age": 114,
+  "age": 30,
+  "education": [
+    {
+      "program": "College",
+      "major": "Athlete",
+      "minor": "Broker",
+      "passes": 3,
+      "graduated": true,
+      "degree": "BA"
+    }
+  ],
   "skills": [
     {
       "name": "ACV",
-      "level": 9
+      "level": 2
     },
     {
       "name": "Actor",
@@ -37,37 +47,41 @@
     },
     {
       "name": "Admin",
-      "level": 15
+      "level": 2
     },
     {
       "name": "Animals",
-      "level": 15
+      "level": 2
+    },
+    {
+      "name": "Athlete",
+      "level": 3
     },
     {
       "name": "Broker",
-      "level": 15
+      "level": 3
     },
     {
       "name": "Bureaucrat",
-      "level": 10
+      "level": 1
+    },
+    {
+      "name": "Chef",
+      "level": 4
     },
     {
       "name": "Computer",
-      "level": 15
-    },
-    {
-      "name": "Mole",
-      "level": 11
+      "level": 1
     },
     {
       "name": "Trader",
-      "level": 14
+      "level": 1
     }
   ],
   "careers": [
     {
       "career": "Citizen",
-      "job": "Mole",
+      "job": "Chef",
       "hobby": "ACV",
       "terms": [
         {
@@ -80,143 +94,12 @@
           "term": 2,
           "controlling_characteristic": "End",
           "success": true,
-          "continued": true
-        },
-        {
-          "term": 3,
-          "controlling_characteristic": "Str",
-          "success": true,
-          "continued": true
-        },
-        {
-          "term": 4,
-          "controlling_characteristic": "Int",
-          "success": true,
-          "continued": true
-        },
-        {
-          "term": 5,
-          "controlling_characteristic": "Dex",
-          "success": true,
-          "continued": true
-        },
-        {
-          "term": 6,
-          "controlling_characteristic": "End",
-          "success": false,
-          "continued": true
-        },
-        {
-          "term": 7,
-          "controlling_characteristic": "Str",
-          "success": true,
-          "continued": true
-        },
-        {
-          "term": 8,
-          "controlling_characteristic": "Int",
-          "success": true,
-          "continued": true
-        },
-        {
-          "term": 9,
-          "controlling_characteristic": "Dex",
-          "success": true,
-          "continued": true
-        },
-        {
-          "term": 10,
-          "controlling_characteristic": "End",
-          "success": false,
-          "continued": true
-        },
-        {
-          "term": 11,
-          "controlling_characteristic": "Str",
-          "success": false,
-          "continued": true
-        },
-        {
-          "term": 12,
-          "controlling_characteristic": "Int",
-          "success": false,
-          "continued": true
-        },
-        {
-          "term": 13,
-          "controlling_characteristic": "Dex",
-          "success": true,
-          "continued": true
-        },
-        {
-          "term": 14,
-          "controlling_characteristic": "End",
-          "success": true,
-          "continued": true
-        },
-        {
-          "term": 15,
-          "controlling_characteristic": "Str",
-          "success": false,
-          "continued": true
-        },
-        {
-          "term": 16,
-          "controlling_characteristic": "Int",
-          "success": true,
-          "continued": true
-        },
-        {
-          "term": 17,
-          "controlling_characteristic": "Dex",
-          "success": true,
-          "continued": true
-        },
-        {
-          "term": 18,
-          "controlling_characteristic": "End",
-          "success": true,
-          "continued": true
-        },
-        {
-          "term": 19,
-          "controlling_characteristic": "Str",
-          "success": false,
-          "continued": true
-        },
-        {
-          "term": 20,
-          "controlling_characteristic": "Int",
-          "success": false,
-          "continued": true
-        },
-        {
-          "term": 21,
-          "controlling_characteristic": "Dex",
-          "success": true,
-          "continued": true
-        },
-        {
-          "term": 22,
-          "controlling_characteristic": "End",
-          "success": true,
-          "continued": true
-        },
-        {
-          "term": 23,
-          "controlling_characteristic": "Str",
-          "success": true,
-          "continued": true
-        },
-        {
-          "term": 24,
-          "controlling_characteristic": "Int",
-          "success": false,
           "continued": false
         }
       ]
     }
   ],
+  "waivers_attempted": 1,
   "events": [
     {
       "seq": 1,
@@ -429,12 +312,412 @@
       "seq": 19,
       "kind": "step",
       "step": {
+        "name": "Education and Training",
+        "cite": "Book 1 p. 72 chart E1 step C"
+      }
+    },
+    {
+      "seq": 20,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select pre-career education",
+        "options": [
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "Service Academy",
+          "None"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 60 chart C; p. 57 step C (education is optional)"
+      }
+    },
+    {
+      "seq": 21,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the characteristic to check",
+        "options": [
+          "Int",
+          "Edu"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
+      }
+    },
+    {
+      "seq": 22,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          3
+        ],
+        "total": 6,
+        "target": 6,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (College To Apply Check Int)"
+      }
+    },
+    {
+      "seq": 23,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Major",
+        "options": [
+          "Athlete",
+          "Broker",
+          "Bureaucrat",
+          "Counsellor",
+          "Designer",
+          "Language",
+          "Teacher",
+          "Astrogator",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "Automotive",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology",
+          "Aeronautics",
+          "Aquanautics"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Major and Minor); chart C p. 60 Available Skills"
+      }
+    },
+    {
+      "seq": 24,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Minor",
+        "options": [
+          "Broker",
+          "Bureaucrat",
+          "Counsellor",
+          "Designer",
+          "Language",
+          "Teacher",
+          "Astrogator",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "Automotive",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology",
+          "Aeronautics",
+          "Aquanautics"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Major and Minor; they cannot be the same)"
+      }
+    },
+    {
+      "seq": 25,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the characteristic to check",
+        "options": [
+          "Int",
+          "Edu"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
+      }
+    },
+    {
+      "seq": 26,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          6
+        ],
+        "total": 7,
+        "target": 6,
+        "success": false,
+        "cite": "Book 1 p. 60 chart C (College Pass/Fail Check Int)"
+      }
+    },
+    {
+      "seq": 27,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 26,
+        "kind": "years_elapsed",
+        "value": 1
+      }
+    },
+    {
+      "seq": 28,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Attempt an Educational Waiver? (pass/fail failed)",
+        "options": [
+          "Attempt waiver",
+          "Accept the result"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Educational Waivers)"
+      }
+    },
+    {
+      "seq": 29,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          1
+        ],
+        "total": 2,
+        "target": 9,
+        "success": true,
+        "mods": [
+          {
+            "name": "previous waivers",
+            "value": 0
+          }
+        ],
+        "cite": "Book 1 p. 59 (Waiver: Check Soc, Mod minus previous waivers)"
+      }
+    },
+    {
+      "seq": 30,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          2
+        ],
+        "total": 5,
+        "target": 6,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (College Pass/Fail Check Int)"
+      }
+    },
+    {
+      "seq": 31,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 30,
+        "kind": "years_elapsed",
+        "value": 1
+      }
+    },
+    {
+      "seq": 32,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 30,
+        "kind": "skill_awarded",
+        "skill": "Athlete",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 33,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          4
+        ],
+        "total": 6,
+        "target": 6,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (College Pass/Fail Check Int)"
+      }
+    },
+    {
+      "seq": 34,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 33,
+        "kind": "years_elapsed",
+        "value": 1
+      }
+    },
+    {
+      "seq": 35,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 33,
+        "kind": "skill_awarded",
+        "skill": "Athlete",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 36,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 33,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 37,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          1
+        ],
+        "total": 6,
+        "target": 6,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (College Pass/Fail Check Int)"
+      }
+    },
+    {
+      "seq": 38,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 37,
+        "kind": "years_elapsed",
+        "value": 1
+      }
+    },
+    {
+      "seq": 39,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 37,
+        "kind": "skill_awarded",
+        "skill": "Athlete",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 40,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Attempt the optional Honors roll?",
+        "options": [
+          "Attempt Honors",
+          "Decline"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Honors); chart C p. 60 (Honors row)"
+      }
+    },
+    {
+      "seq": 41,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the characteristic to check",
+        "options": [
+          "Int",
+          "Edu"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
+      }
+    },
+    {
+      "seq": 42,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          5
+        ],
+        "total": 8,
+        "target": 6,
+        "success": false,
+        "cite": "Book 1 p. 60 chart C (Honors: Int or Edu, simul)"
+      }
+    },
+    {
+      "seq": 43,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 37,
+        "kind": "characteristic_change",
+        "characteristic": "Edu",
+        "delta": 2,
+        "value": 8
+      }
+    },
+    {
+      "seq": 44,
+      "kind": "step",
+      "step": {
         "name": "Select Career",
         "cite": "Book 1 p. 72 chart E1 step D"
       }
     },
     {
-      "seq": 20,
+      "seq": 45,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -447,7 +730,7 @@
       }
     },
     {
-      "seq": 21,
+      "seq": 46,
       "kind": "step",
       "step": {
         "name": "Citizen: Begin (automatic)",
@@ -455,7 +738,7 @@
       }
     },
     {
-      "seq": 22,
+      "seq": 47,
       "kind": "step",
       "step": {
         "name": "Citizen: Term 1",
@@ -463,7 +746,7 @@
       }
     },
     {
-      "seq": 23,
+      "seq": 48,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -479,22 +762,34 @@
       }
     },
     {
-      "seq": 24,
+      "seq": 49,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          3,
-          3
+          6,
+          2
         ],
-        "total": 6,
+        "total": 8,
         "target": 12,
         "success": true,
         "cite": "Book 1 p. 78 chart 04 (Citizen Life vs Dex, no mods per p. 65)"
       }
     },
     {
-      "seq": 25,
+      "seq": 50,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 78 chart 04 table E (roll A reroll if \u003e3, then B, then C)"
+      }
+    },
+    {
+      "seq": 51,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -506,19 +801,19 @@
       }
     },
     {
-      "seq": 26,
+      "seq": 52,
       "kind": "throw",
       "throw": {
         "expr": "1D",
         "dice": [
-          6
+          5
         ],
-        "total": 6,
+        "total": 5,
         "cite": "Book 1 p. 78 chart 04 table E (roll A reroll if \u003e3, then B, then C)"
       }
     },
     {
-      "seq": 27,
+      "seq": 53,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -530,27 +825,27 @@
       }
     },
     {
-      "seq": 28,
+      "seq": 54,
       "kind": "consequence",
       "consequence": {
-        "cause": 27,
+        "cause": 53,
         "kind": "job_set",
-        "skill": "Mole"
+        "skill": "Chef"
       }
     },
     {
-      "seq": 29,
+      "seq": 55,
       "kind": "consequence",
       "consequence": {
-        "cause": 27,
+        "cause": 53,
         "kind": "skill_awarded",
-        "skill": "Mole",
+        "skill": "Chef",
         "delta": 4,
         "value": 4
       }
     },
     {
-      "seq": 30,
+      "seq": 56,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -569,7 +864,7 @@
       }
     },
     {
-      "seq": 31,
+      "seq": 57,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -581,10 +876,10 @@
       }
     },
     {
-      "seq": 32,
+      "seq": 58,
       "kind": "consequence",
       "consequence": {
-        "cause": 31,
+        "cause": 57,
         "kind": "skill_awarded",
         "skill": "Admin",
         "delta": 1,
@@ -592,7 +887,7 @@
       }
     },
     {
-      "seq": 33,
+      "seq": 59,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -611,138 +906,138 @@
       }
     },
     {
-      "seq": 34,
+      "seq": 60,
       "kind": "throw",
       "throw": {
         "expr": "1D",
         "dice": [
-          3
+          1
         ],
-        "total": 3,
+        "total": 1,
         "cite": "Book 1 p. 78 chart 04 table C, column General"
       }
     },
     {
-      "seq": 35,
+      "seq": 61,
       "kind": "consequence",
       "consequence": {
-        "cause": 34,
+        "cause": 60,
         "kind": "skill_awarded",
-        "skill": "Computer",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 36,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 37,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 38,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 37,
-        "kind": "skill_awarded",
-        "skill": "Broker",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 39,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 40,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 41,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 40,
-        "kind": "skill_awarded",
-        "skill": "Broker",
+        "skill": "Admin",
         "delta": 1,
         "value": 2
       }
     },
     {
-      "seq": 42,
+      "seq": 62,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Citizen Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 63,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 78 chart 04 table C, column General"
+      }
+    },
+    {
+      "seq": 64,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 63,
+        "kind": "skill_awarded",
+        "skill": "Animals",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 65,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Citizen Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 66,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 78 chart 04 table C, column General"
+      }
+    },
+    {
+      "seq": 67,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 66,
+        "kind": "skill_awarded",
+        "skill": "Bureaucrat",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 68,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          4,
-          5
+          3,
+          2
         ],
-        "total": 9,
+        "total": 5,
         "target": 10,
         "success": true,
         "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
       }
     },
     {
-      "seq": 43,
+      "seq": 69,
       "kind": "consequence",
       "consequence": {
-        "cause": 42,
+        "cause": 68,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 44,
+      "seq": 70,
       "kind": "step",
       "step": {
         "name": "Citizen: Term 2",
@@ -750,7 +1045,7 @@
       }
     },
     {
-      "seq": 45,
+      "seq": 71,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -765,22 +1060,22 @@
       }
     },
     {
-      "seq": 46,
+      "seq": 72,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          1,
-          3
+          4,
+          2
         ],
-        "total": 4,
+        "total": 6,
         "target": 8,
         "success": true,
         "cite": "Book 1 p. 78 chart 04 (Citizen Life vs End, no mods per p. 65)"
       }
     },
     {
-      "seq": 47,
+      "seq": 73,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -809,12 +1104,12 @@
           "Engineer",
           "Computer",
           "Navigation",
-          "Chef",
           "Survey",
           "Animals",
           "Fluidics",
           "Bay Wpns",
           "Explosives",
+          "Mole",
           "Dancer",
           "Tactics",
           "Launcher",
@@ -895,19 +1190,19 @@
       }
     },
     {
-      "seq": 48,
+      "seq": 74,
       "kind": "consequence",
       "consequence": {
-        "cause": 47,
+        "cause": 73,
         "kind": "hobby_set",
         "skill": "ACV"
       }
     },
     {
-      "seq": 49,
+      "seq": 75,
       "kind": "consequence",
       "consequence": {
-        "cause": 47,
+        "cause": 73,
         "kind": "skill_awarded",
         "skill": "ACV",
         "delta": 2,
@@ -915,392 +1210,26 @@
       }
     },
     {
-      "seq": 50,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 51,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 52,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 51,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 53,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 54,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 55,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 54,
-        "kind": "skill_awarded",
-        "skill": "Trader",
-        "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 56,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 57,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 58,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 57,
-        "kind": "skill_awarded",
-        "skill": "Broker",
-        "delta": 1,
-        "value": 3
-      }
-    },
-    {
-      "seq": 59,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 60,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 61,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 60,
-        "kind": "skill_awarded",
-        "skill": "Animals",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 62,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          5
-        ],
-        "total": 6,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 63,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 62,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 64,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 3",
-        "cite": "Book 1 p. 78 chart 04"
-      }
-    },
-    {
-      "seq": 65,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Str",
-          "Int"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 66,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          1
-        ],
-        "total": 2,
-        "target": 7,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs Str, no mods per p. 65)"
-      }
-    },
-    {
-      "seq": 67,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 66,
-        "kind": "skill_awarded",
-        "skill": "Mole",
-        "delta": 1,
-        "value": 5
-      }
-    },
-    {
-      "seq": 68,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 69,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 70,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 69,
-        "kind": "skill_awarded",
-        "skill": "Admin",
-        "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 71,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 72,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 73,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 72,
-        "kind": "skill_awarded",
-        "skill": "Animals",
-        "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 74,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 75,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
       "seq": 76,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 75,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 2
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Citizen Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 77,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 78,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1312,29 +1241,45 @@
       }
     },
     {
-      "seq": 79,
+      "seq": 78,
       "kind": "consequence",
       "consequence": {
-        "cause": 78,
+        "cause": 77,
         "kind": "skill_awarded",
         "skill": "Computer",
         "delta": 1,
-        "value": 2
+        "value": 1
+      }
+    },
+    {
+      "seq": 79,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Citizen Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 80,
       "kind": "throw",
       "throw": {
-        "expr": "2D",
+        "expr": "1D",
         "dice": [
-          2,
           4
         ],
-        "total": 6,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
+        "total": 4,
+        "cite": "Book 1 p. 78 chart 04 table C, column General"
       }
     },
     {
@@ -1342,5014 +1287,125 @@
       "kind": "consequence",
       "consequence": {
         "cause": 80,
-        "kind": "years_elapsed",
-        "value": 4
+        "kind": "skill_awarded",
+        "skill": "Animals",
+        "delta": 1,
+        "value": 2
       }
     },
     {
       "seq": 82,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 4",
-        "cite": "Book 1 p. 78 chart 04"
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Citizen Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 83,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Int"
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
         ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+        "total": 2,
+        "cite": "Book 1 p. 78 chart 04 table C, column General"
       }
     },
     {
       "seq": 84,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          3
-        ],
-        "total": 5,
-        "target": 6,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs Int, no mods per p. 65)"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 83,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 2
       }
     },
     {
       "seq": 85,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 84,
-        "kind": "skill_awarded",
-        "skill": "ACV",
-        "delta": 1,
-        "value": 3
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Citizen Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 86,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
         ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+        "total": 2,
+        "cite": "Book 1 p. 78 chart 04 table C, column General"
       }
     },
     {
       "seq": 87,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 86,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 3
       }
     },
     {
       "seq": 88,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 87,
-        "kind": "skill_awarded",
-        "skill": "Animals",
-        "delta": 1,
-        "value": 3
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          6
+        ],
+        "total": 12,
+        "target": 10,
+        "success": false,
+        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
       }
     },
     {
       "seq": 89,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 88,
+        "kind": "years_elapsed",
+        "value": 4
       }
     },
     {
       "seq": 90,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 91,
       "kind": "consequence",
       "consequence": {
-        "cause": 90,
-        "kind": "skill_awarded",
-        "skill": "Broker",
-        "delta": 1,
-        "value": 4
-      }
-    },
-    {
-      "seq": 92,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 93,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 94,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 93,
-        "kind": "skill_awarded",
-        "skill": "Broker",
-        "delta": 1,
-        "value": 5
-      }
-    },
-    {
-      "seq": 95,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 96,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 97,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 96,
-        "kind": "skill_awarded",
-        "skill": "Trader",
-        "delta": 1,
-        "value": 3
-      }
-    },
-    {
-      "seq": 98,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          6,
-          3
-        ],
-        "total": 9,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 99,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 98,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 100,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 5",
-        "cite": "Book 1 p. 78 chart 04"
-      }
-    },
-    {
-      "seq": 101,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Str",
-          "Dex",
-          "End",
-          "Int"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 102,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          6
-        ],
-        "total": 10,
-        "target": 12,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs Dex, no mods per p. 65)"
-      }
-    },
-    {
-      "seq": 103,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 102,
-        "kind": "skill_awarded",
-        "skill": "Mole",
-        "delta": 1,
-        "value": 6
-      }
-    },
-    {
-      "seq": 104,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 105,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 106,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 105,
-        "kind": "skill_awarded",
-        "skill": "Computer",
-        "delta": 1,
-        "value": 3
-      }
-    },
-    {
-      "seq": 107,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 108,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 109,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 108,
-        "kind": "skill_awarded",
-        "skill": "Animals",
-        "delta": 1,
-        "value": 4
-      }
-    },
-    {
-      "seq": 110,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 111,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 112,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 111,
-        "kind": "skill_awarded",
-        "skill": "Trader",
-        "delta": 1,
-        "value": 4
-      }
-    },
-    {
-      "seq": 113,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 114,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 115,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 114,
-        "kind": "skill_awarded",
-        "skill": "Broker",
-        "delta": 1,
-        "value": 6
-      }
-    },
-    {
-      "seq": 116,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          6
-        ],
-        "total": 7,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 117,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 116,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 118,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 6",
-        "cite": "Book 1 p. 78 chart 04"
-      }
-    },
-    {
-      "seq": 119,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Str",
-          "End",
-          "Int"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 120,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          5
-        ],
-        "total": 9,
-        "target": 8,
-        "success": false,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs End, no mods per p. 65)"
-      }
-    },
-    {
-      "seq": 121,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 120,
-        "kind": "no_award"
-      }
-    },
-    {
-      "seq": 122,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 123,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 124,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 123,
-        "kind": "skill_awarded",
-        "skill": "Animals",
-        "delta": 1,
-        "value": 5
-      }
-    },
-    {
-      "seq": 125,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 126,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 127,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 126,
-        "kind": "skill_awarded",
-        "skill": "Admin",
-        "delta": 1,
-        "value": 3
-      }
-    },
-    {
-      "seq": 128,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 129,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 130,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 129,
-        "kind": "skill_awarded",
-        "skill": "Broker",
-        "delta": 1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 131,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 132,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 133,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 132,
-        "kind": "skill_awarded",
-        "skill": "Admin",
-        "delta": 1,
-        "value": 4
-      }
-    },
-    {
-      "seq": 134,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          2
-        ],
-        "total": 7,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 135,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 134,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 136,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 7",
-        "cite": "Book 1 p. 78 chart 04"
-      }
-    },
-    {
-      "seq": 137,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Str",
-          "Int"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 138,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          3
-        ],
-        "total": 7,
-        "target": 7,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs Str, no mods per p. 65)"
-      }
-    },
-    {
-      "seq": 139,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 138,
-        "kind": "skill_awarded",
-        "skill": "ACV",
-        "delta": 1,
-        "value": 4
-      }
-    },
-    {
-      "seq": 140,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 141,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 142,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 141,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 3
-      }
-    },
-    {
-      "seq": 143,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 144,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 145,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 144,
-        "kind": "skill_awarded",
-        "skill": "Animals",
-        "delta": 1,
-        "value": 6
-      }
-    },
-    {
-      "seq": 146,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 147,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 148,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 147,
-        "kind": "skill_awarded",
-        "skill": "Animals",
-        "delta": 1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 149,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 150,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 151,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 150,
-        "kind": "skill_awarded",
-        "skill": "Computer",
-        "delta": 1,
-        "value": 4
-      }
-    },
-    {
-      "seq": 152,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          6
-        ],
-        "total": 10,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 153,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 152,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 154,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 8",
-        "cite": "Book 1 p. 78 chart 04"
-      }
-    },
-    {
-      "seq": 155,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Int"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 156,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          1
-        ],
-        "total": 5,
-        "target": 6,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs Int, no mods per p. 65)"
-      }
-    },
-    {
-      "seq": 157,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 156,
-        "kind": "skill_awarded",
-        "skill": "Mole",
-        "delta": 1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 158,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 159,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 160,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 159,
-        "kind": "skill_awarded",
-        "skill": "Animals",
-        "delta": 1,
-        "value": 8
-      }
-    },
-    {
-      "seq": 161,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 162,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 163,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 162,
-        "kind": "skill_awarded",
-        "skill": "Admin",
-        "delta": 1,
-        "value": 5
-      }
-    },
-    {
-      "seq": 164,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 165,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 166,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 165,
-        "kind": "skill_awarded",
-        "skill": "Trader",
-        "delta": 1,
-        "value": 5
-      }
-    },
-    {
-      "seq": 167,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 168,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 169,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 168,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 4
-      }
-    },
-    {
-      "seq": 170,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          2
-        ],
-        "total": 3,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 171,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 170,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 172,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 9",
-        "cite": "Book 1 p. 78 chart 04"
-      }
-    },
-    {
-      "seq": 173,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Str",
-          "Dex",
-          "End",
-          "Int"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 174,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          4
-        ],
-        "total": 9,
-        "target": 12,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs Dex, no mods per p. 65)"
-      }
-    },
-    {
-      "seq": 175,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 174,
-        "kind": "skill_awarded",
-        "skill": "ACV",
-        "delta": 1,
-        "value": 5
-      }
-    },
-    {
-      "seq": 176,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 177,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 178,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 177,
-        "kind": "skill_awarded",
-        "skill": "Broker",
-        "delta": 1,
-        "value": 8
-      }
-    },
-    {
-      "seq": 179,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 180,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 181,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 180,
-        "kind": "skill_awarded",
-        "skill": "Trader",
-        "delta": 1,
-        "value": 6
-      }
-    },
-    {
-      "seq": 182,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 183,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 184,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 183,
-        "kind": "skill_awarded",
-        "skill": "Computer",
-        "delta": 1,
-        "value": 5
-      }
-    },
-    {
-      "seq": 185,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 186,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 187,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 186,
-        "kind": "skill_awarded",
-        "skill": "Trader",
-        "delta": 1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 188,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          3,
-          2
-        ],
-        "total": 5,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 189,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 188,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 190,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 10",
-        "cite": "Book 1 p. 78 chart 04"
-      }
-    },
-    {
-      "seq": 191,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Str",
-          "End",
-          "Int"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 192,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          4
-        ],
-        "total": 9,
-        "target": 8,
-        "success": false,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs End, no mods per p. 65)"
-      }
-    },
-    {
-      "seq": 193,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 192,
-        "kind": "no_award"
-      }
-    },
-    {
-      "seq": 194,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 195,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 196,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 195,
-        "kind": "skill_awarded",
-        "skill": "Admin",
-        "delta": 1,
-        "value": 6
-      }
-    },
-    {
-      "seq": 197,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 198,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 199,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 198,
-        "kind": "skill_awarded",
-        "skill": "Broker",
-        "delta": 1,
-        "value": 9
-      }
-    },
-    {
-      "seq": 200,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 201,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 202,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 201,
-        "kind": "skill_awarded",
-        "skill": "Computer",
-        "delta": 1,
-        "value": 6
-      }
-    },
-    {
-      "seq": 203,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 204,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 205,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 204,
-        "kind": "skill_awarded",
-        "skill": "Animals",
-        "delta": 1,
-        "value": 9
-      }
-    },
-    {
-      "seq": 206,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          3
-        ],
-        "total": 5,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 207,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 206,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 208,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 11",
-        "cite": "Book 1 p. 78 chart 04"
-      }
-    },
-    {
-      "seq": 209,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Str",
-          "Int"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 210,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          6
-        ],
-        "total": 8,
-        "target": 7,
-        "success": false,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs Str, no mods per p. 65)"
-      }
-    },
-    {
-      "seq": 211,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 210,
-        "kind": "no_award"
-      }
-    },
-    {
-      "seq": 212,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 213,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 214,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 213,
-        "kind": "skill_awarded",
-        "skill": "Broker",
-        "delta": 1,
-        "value": 10
-      }
-    },
-    {
-      "seq": 215,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 216,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 217,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 216,
-        "kind": "skill_awarded",
-        "skill": "Trader",
-        "delta": 1,
-        "value": 8
-      }
-    },
-    {
-      "seq": 218,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 219,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 220,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 219,
-        "kind": "skill_awarded",
-        "skill": "Admin",
-        "delta": 1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 221,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 222,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 223,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 222,
-        "kind": "skill_awarded",
-        "skill": "Admin",
-        "delta": 1,
-        "value": 8
-      }
-    },
-    {
-      "seq": 224,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          3,
-          2
-        ],
-        "total": 5,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 225,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 224,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 226,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 12",
-        "cite": "Book 1 p. 78 chart 04"
-      }
-    },
-    {
-      "seq": 227,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Int"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 228,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          6
-        ],
-        "total": 7,
-        "target": 6,
-        "success": false,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs Int, no mods per p. 65)"
-      }
-    },
-    {
-      "seq": 229,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 228,
-        "kind": "no_award"
-      }
-    },
-    {
-      "seq": 230,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 231,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 232,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 231,
-        "kind": "skill_awarded",
-        "skill": "Broker",
-        "delta": 1,
-        "value": 11
-      }
-    },
-    {
-      "seq": 233,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 234,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 235,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 234,
-        "kind": "skill_awarded",
-        "skill": "Computer",
-        "delta": 1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 236,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 237,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 238,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 237,
-        "kind": "skill_awarded",
-        "skill": "Animals",
-        "delta": 1,
-        "value": 10
-      }
-    },
-    {
-      "seq": 239,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 240,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 241,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 240,
-        "kind": "skill_awarded",
-        "skill": "Admin",
-        "delta": 1,
-        "value": 9
-      }
-    },
-    {
-      "seq": 242,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          4
-        ],
-        "total": 8,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 243,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 242,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 244,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 13",
-        "cite": "Book 1 p. 78 chart 04"
-      }
-    },
-    {
-      "seq": 245,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Str",
-          "Dex",
-          "End",
-          "Int"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 246,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          6,
-          3
-        ],
-        "total": 9,
-        "target": 12,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs Dex, no mods per p. 65)"
-      }
-    },
-    {
-      "seq": 247,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 246,
-        "kind": "skill_awarded",
-        "skill": "Mole",
-        "delta": 1,
-        "value": 8
-      }
-    },
-    {
-      "seq": 248,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 249,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 250,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 249,
-        "kind": "skill_awarded",
-        "skill": "Trader",
-        "delta": 1,
-        "value": 9
-      }
-    },
-    {
-      "seq": 251,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 252,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 253,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 252,
-        "kind": "skill_awarded",
-        "skill": "Trader",
-        "delta": 1,
-        "value": 10
-      }
-    },
-    {
-      "seq": 254,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 255,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 256,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 255,
-        "kind": "skill_awarded",
-        "skill": "Admin",
-        "delta": 1,
-        "value": 10
-      }
-    },
-    {
-      "seq": 257,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 258,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 259,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 258,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 5
-      }
-    },
-    {
-      "seq": 260,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          6,
-          3
-        ],
-        "total": 9,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 261,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 260,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 262,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 14",
-        "cite": "Book 1 p. 78 chart 04"
-      }
-    },
-    {
-      "seq": 263,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Str",
-          "End",
-          "Int"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 264,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          3,
-          1
-        ],
-        "total": 4,
-        "target": 8,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs End, no mods per p. 65)"
-      }
-    },
-    {
-      "seq": 265,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 264,
-        "kind": "skill_awarded",
-        "skill": "ACV",
-        "delta": 1,
-        "value": 6
-      }
-    },
-    {
-      "seq": 266,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 267,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 268,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 267,
-        "kind": "skill_awarded",
-        "skill": "Animals",
-        "delta": 1,
-        "value": 11
-      }
-    },
-    {
-      "seq": 269,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 270,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 271,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 270,
-        "kind": "skill_awarded",
-        "skill": "Admin",
-        "delta": 1,
-        "value": 11
-      }
-    },
-    {
-      "seq": 272,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 273,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 274,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 273,
-        "kind": "skill_awarded",
-        "skill": "Admin",
-        "delta": 1,
-        "value": 12
-      }
-    },
-    {
-      "seq": 275,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 276,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 277,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 276,
-        "kind": "skill_awarded",
-        "skill": "Trader",
-        "delta": 1,
-        "value": 11
-      }
-    },
-    {
-      "seq": 278,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          6
-        ],
-        "total": 10,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 279,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 278,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 280,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 15",
-        "cite": "Book 1 p. 78 chart 04"
-      }
-    },
-    {
-      "seq": 281,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Str",
-          "Int"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 282,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          5
-        ],
-        "total": 9,
-        "target": 7,
-        "success": false,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs Str, no mods per p. 65)"
-      }
-    },
-    {
-      "seq": 283,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 282,
-        "kind": "no_award"
-      }
-    },
-    {
-      "seq": 284,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 285,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 286,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 285,
-        "kind": "skill_awarded",
-        "skill": "Admin",
-        "delta": 1,
-        "value": 13
-      }
-    },
-    {
-      "seq": 287,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 288,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 289,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 288,
-        "kind": "skill_awarded",
-        "skill": "Admin",
-        "delta": 1,
-        "value": 14
-      }
-    },
-    {
-      "seq": 290,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 291,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 292,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 291,
-        "kind": "skill_awarded",
-        "skill": "Animals",
-        "delta": 1,
-        "value": 12
-      }
-    },
-    {
-      "seq": 293,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 294,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 295,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 294,
-        "kind": "skill_awarded",
-        "skill": "Admin",
-        "delta": 1,
-        "value": 15
-      }
-    },
-    {
-      "seq": 296,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          1
-        ],
-        "total": 3,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 297,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 296,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 298,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 16",
-        "cite": "Book 1 p. 78 chart 04"
-      }
-    },
-    {
-      "seq": 299,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Int"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 300,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          4
-        ],
-        "total": 6,
-        "target": 6,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs Int, no mods per p. 65)"
-      }
-    },
-    {
-      "seq": 301,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 300,
-        "kind": "skill_awarded",
-        "skill": "Mole",
-        "delta": 1,
-        "value": 9
-      }
-    },
-    {
-      "seq": 302,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 303,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 304,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 303,
-        "kind": "no_award",
-        "skill": "Admin"
-      }
-    },
-    {
-      "seq": 305,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 306,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 307,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 306,
-        "kind": "no_award",
-        "skill": "Admin"
-      }
-    },
-    {
-      "seq": 308,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 309,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 310,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 309,
-        "kind": "skill_awarded",
-        "skill": "Trader",
-        "delta": 1,
-        "value": 12
-      }
-    },
-    {
-      "seq": 311,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 312,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 313,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 312,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 6
-      }
-    },
-    {
-      "seq": 314,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          2
-        ],
-        "total": 4,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 315,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 314,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 316,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 17",
-        "cite": "Book 1 p. 78 chart 04"
-      }
-    },
-    {
-      "seq": 317,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Str",
-          "Dex",
-          "End",
-          "Int"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 318,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          2
-        ],
-        "total": 7,
-        "target": 12,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs Dex, no mods per p. 65)"
-      }
-    },
-    {
-      "seq": 319,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 318,
-        "kind": "skill_awarded",
-        "skill": "ACV",
-        "delta": 1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 320,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 321,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 322,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 321,
-        "kind": "skill_awarded",
-        "skill": "Animals",
-        "delta": 1,
-        "value": 13
-      }
-    },
-    {
-      "seq": 323,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 324,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 325,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 324,
-        "kind": "skill_awarded",
-        "skill": "Broker",
-        "delta": 1,
-        "value": 12
-      }
-    },
-    {
-      "seq": 326,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 327,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 328,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 327,
-        "kind": "skill_awarded",
-        "skill": "Broker",
-        "delta": 1,
-        "value": 13
-      }
-    },
-    {
-      "seq": 329,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 330,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 331,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 330,
-        "kind": "skill_awarded",
-        "skill": "Animals",
-        "delta": 1,
-        "value": 14
-      }
-    },
-    {
-      "seq": 332,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          3,
-          2
-        ],
-        "total": 5,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 333,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 332,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 334,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 18",
-        "cite": "Book 1 p. 78 chart 04"
-      }
-    },
-    {
-      "seq": 335,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Str",
-          "End",
-          "Int"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 336,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          3,
-          5
-        ],
-        "total": 8,
-        "target": 8,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs End, no mods per p. 65)"
-      }
-    },
-    {
-      "seq": 337,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 336,
-        "kind": "skill_awarded",
-        "skill": "Mole",
-        "delta": 1,
-        "value": 10
-      }
-    },
-    {
-      "seq": 338,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 339,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 340,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 339,
-        "kind": "skill_awarded",
-        "skill": "Animals",
-        "delta": 1,
-        "value": 15
-      }
-    },
-    {
-      "seq": 341,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 342,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 343,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 342,
-        "kind": "skill_awarded",
-        "skill": "Trader",
-        "delta": 1,
-        "value": 13
-      }
-    },
-    {
-      "seq": 344,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 345,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 346,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 345,
-        "kind": "no_award",
-        "skill": "Animals"
-      }
-    },
-    {
-      "seq": 347,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 348,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 349,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 348,
-        "kind": "no_award",
-        "skill": "Animals"
-      }
-    },
-    {
-      "seq": 350,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          3,
-          3
-        ],
-        "total": 6,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 351,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 350,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 352,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 19",
-        "cite": "Book 1 p. 78 chart 04"
-      }
-    },
-    {
-      "seq": 353,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Str",
-          "Int"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 354,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          6
-        ],
-        "total": 8,
-        "target": 7,
-        "success": false,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs Str, no mods per p. 65)"
-      }
-    },
-    {
-      "seq": 355,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 354,
-        "kind": "no_award"
-      }
-    },
-    {
-      "seq": 356,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 357,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 358,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 357,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 359,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 360,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 361,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 360,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 8
-      }
-    },
-    {
-      "seq": 362,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 363,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 364,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 363,
-        "kind": "skill_awarded",
-        "skill": "Broker",
-        "delta": 1,
-        "value": 14
-      }
-    },
-    {
-      "seq": 365,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 366,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 367,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 366,
-        "kind": "skill_awarded",
-        "skill": "Computer",
-        "delta": 1,
-        "value": 8
-      }
-    },
-    {
-      "seq": 368,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          2
-        ],
-        "total": 6,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 369,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 368,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 370,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 20",
-        "cite": "Book 1 p. 78 chart 04"
-      }
-    },
-    {
-      "seq": 371,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Int"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 372,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          5
-        ],
-        "total": 9,
-        "target": 6,
-        "success": false,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs Int, no mods per p. 65)"
-      }
-    },
-    {
-      "seq": 373,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 372,
-        "kind": "no_award"
-      }
-    },
-    {
-      "seq": 374,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 375,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 376,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 375,
-        "kind": "skill_awarded",
-        "skill": "Broker",
-        "delta": 1,
-        "value": 15
-      }
-    },
-    {
-      "seq": 377,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 378,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 379,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 378,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 9
-      }
-    },
-    {
-      "seq": 380,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 381,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 382,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 381,
-        "kind": "no_award",
-        "skill": "Animals"
-      }
-    },
-    {
-      "seq": 383,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 384,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 385,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 384,
-        "kind": "skill_awarded",
-        "skill": "Computer",
-        "delta": 1,
-        "value": 9
-      }
-    },
-    {
-      "seq": 386,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          6,
-          3
-        ],
-        "total": 9,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 387,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 386,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 388,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 21",
-        "cite": "Book 1 p. 78 chart 04"
-      }
-    },
-    {
-      "seq": 389,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Str",
-          "Dex",
-          "End",
-          "Int"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 390,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          2
-        ],
-        "total": 3,
-        "target": 12,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs Dex, no mods per p. 65)"
-      }
-    },
-    {
-      "seq": 391,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 390,
-        "kind": "skill_awarded",
-        "skill": "ACV",
-        "delta": 1,
-        "value": 8
-      }
-    },
-    {
-      "seq": 392,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 393,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 394,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 393,
-        "kind": "skill_awarded",
-        "skill": "Computer",
-        "delta": 1,
-        "value": 10
-      }
-    },
-    {
-      "seq": 395,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 396,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 397,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 396,
-        "kind": "skill_awarded",
-        "skill": "Computer",
-        "delta": 1,
-        "value": 11
-      }
-    },
-    {
-      "seq": 398,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 399,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 400,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 399,
-        "kind": "no_award",
-        "skill": "Broker"
-      }
-    },
-    {
-      "seq": 401,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 402,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 403,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 402,
-        "kind": "no_award",
-        "skill": "Admin"
-      }
-    },
-    {
-      "seq": 404,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          1
-        ],
-        "total": 3,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 405,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 404,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 406,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 22",
-        "cite": "Book 1 p. 78 chart 04"
-      }
-    },
-    {
-      "seq": 407,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Str",
-          "End",
-          "Int"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 408,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          3,
-          3
-        ],
-        "total": 6,
-        "target": 8,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs End, no mods per p. 65)"
-      }
-    },
-    {
-      "seq": 409,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 408,
-        "kind": "skill_awarded",
-        "skill": "Mole",
-        "delta": 1,
-        "value": 11
-      }
-    },
-    {
-      "seq": 410,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 411,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 412,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 411,
-        "kind": "skill_awarded",
-        "skill": "Computer",
-        "delta": 1,
-        "value": 12
-      }
-    },
-    {
-      "seq": 413,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 414,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 415,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 414,
-        "kind": "no_award",
-        "skill": "Animals"
-      }
-    },
-    {
-      "seq": 416,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 417,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 418,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 417,
-        "kind": "skill_awarded",
-        "skill": "Computer",
-        "delta": 1,
-        "value": 13
-      }
-    },
-    {
-      "seq": 419,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 420,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 421,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 420,
-        "kind": "skill_awarded",
-        "skill": "Computer",
-        "delta": 1,
-        "value": 14
-      }
-    },
-    {
-      "seq": 422,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          6
-        ],
-        "total": 8,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 423,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 422,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 424,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 23",
-        "cite": "Book 1 p. 78 chart 04"
-      }
-    },
-    {
-      "seq": 425,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Str",
-          "Int"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 426,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          2
-        ],
-        "total": 6,
-        "target": 7,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs Str, no mods per p. 65)"
-      }
-    },
-    {
-      "seq": 427,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 426,
-        "kind": "skill_awarded",
-        "skill": "ACV",
-        "delta": 1,
-        "value": 9
-      }
-    },
-    {
-      "seq": 428,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 429,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 430,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 429,
-        "kind": "skill_awarded",
-        "skill": "Computer",
-        "delta": 1,
-        "value": 15
-      }
-    },
-    {
-      "seq": 431,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 432,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 433,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 432,
-        "kind": "no_award",
-        "skill": "Computer"
-      }
-    },
-    {
-      "seq": 434,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 435,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 436,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 435,
-        "kind": "no_award",
-        "skill": "Broker"
-      }
-    },
-    {
-      "seq": 437,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 438,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 439,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 438,
-        "kind": "no_award",
-        "skill": "Admin"
-      }
-    },
-    {
-      "seq": 440,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          6
-        ],
-        "total": 10,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 441,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 440,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 442,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 24",
-        "cite": "Book 1 p. 78 chart 04"
-      }
-    },
-    {
-      "seq": 443,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Int"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 444,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          3,
-          6
-        ],
-        "total": 9,
-        "target": 6,
-        "success": false,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs Int, no mods per p. 65)"
-      }
-    },
-    {
-      "seq": 445,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 444,
-        "kind": "no_award"
-      }
-    },
-    {
-      "seq": 446,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 447,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 448,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 447,
-        "kind": "no_award",
-        "skill": "Broker"
-      }
-    },
-    {
-      "seq": 449,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 450,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 451,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 450,
-        "kind": "skill_awarded",
-        "skill": "Trader",
-        "delta": 1,
-        "value": 14
-      }
-    },
-    {
-      "seq": 452,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 453,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 454,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 453,
-        "kind": "no_award",
-        "skill": "Admin"
-      }
-    },
-    {
-      "seq": 455,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 456,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 78 chart 04 table C, column General"
-      }
-    },
-    {
-      "seq": 457,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 456,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 10
-      }
-    },
-    {
-      "seq": 458,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          6,
-          5
-        ],
-        "total": 11,
-        "target": 10,
-        "success": false,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 459,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 458,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 460,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 458,
+        "cause": 88,
         "kind": "career_ended",
         "career": "Citizen"
       }
