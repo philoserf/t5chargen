@@ -103,7 +103,7 @@ func educationLine(record chargen.EducationRecord) string {
 // careerLine renders one career of the record: name, terms served, and the
 // Citizen Job and Hobby when determined.
 func careerLine(record chargen.CareerRecord) string {
-	line := fmt.Sprintf("**Career**: %s (%d terms)", record.Career, len(record.Terms))
+	line := fmt.Sprintf("**Career**: %s (%s)", record.Career, plural(len(record.Terms), "term"))
 
 	if record.Job != "" {
 		line += ", Job " + record.Job
@@ -114,7 +114,7 @@ func careerLine(record chargen.CareerRecord) string {
 	}
 
 	if record.Discoveries > 0 {
-		line += fmt.Sprintf(", %d Discoveries", record.Discoveries)
+		line += ", " + plural(record.Discoveries, "Discovery")
 	}
 
 	if !record.Began {
@@ -122,6 +122,21 @@ func careerLine(record chargen.CareerRecord) string {
 	}
 
 	return line + "\n\n"
+}
+
+// plural renders "1 term" / "2 terms" / "1 Discovery" / "2 Discoveries".
+func plural(n int, noun string) string {
+	if n == 1 {
+		return "1 " + noun
+	}
+
+	if noun == "Discovery" {
+		noun = "Discoveries"
+	} else {
+		noun += "s"
+	}
+
+	return strconv.Itoa(n) + " " + noun
 }
 
 // statusLine renders fame, wounds, and disabled/dead status.
