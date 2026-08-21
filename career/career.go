@@ -66,10 +66,10 @@ type Definition struct {
 	Name string `json:"name"`
 	Cite string `json:"cite"`
 
-	// CitizenLifeCharacteristics lists the characteristics available as
-	// the Citizen Life controlling characteristic, in chart order
-	// (chart 04: "Citizen Life C1 C2 C3 C4").
-	CitizenLifeCharacteristics []string `json:"citizen_life_characteristics"`
+	// ControllingCharacteristics lists the characteristics available for
+	// the career's Risk/Reward variant, in chart order (p. 64; for
+	// Citizen, chart 04's "Citizen Life C1 C2 C3 C4").
+	ControllingCharacteristics []string `json:"controlling_characteristics"`
 
 	// ContinueTarget is the roll-low Continue target (chart 04:
 	// "Continue 10-").
@@ -142,16 +142,19 @@ var entryKinds = map[EntryKind]bool{
 // the engine can trust every definition unconditionally. All thirteen
 // milestone-3 data files go through this same gate.
 func (d *Definition) validate() error {
-	if d.Name == "" || d.ContinueTarget < 2 || d.SkillsPerTerm < 1 {
+	// ContinueTarget is a 2D roll-low target (p. 66): a target of 12 or
+	// more can never fail, so the term loop would never end. 11 is the
+	// largest target a 2D throw can miss.
+	if d.Name == "" || d.ContinueTarget < 2 || d.ContinueTarget > 11 || d.SkillsPerTerm < 1 {
 		return fmt.Errorf("%w: name %q, continue target %d, skills per term %d",
 			errBadDefinition, d.Name, d.ContinueTarget, d.SkillsPerTerm)
 	}
 
-	if len(d.CitizenLifeCharacteristics) == 0 {
+	if len(d.ControllingCharacteristics) == 0 {
 		return fmt.Errorf("%w: no controlling characteristics", errBadDefinition)
 	}
 
-	for _, name := range d.CitizenLifeCharacteristics {
+	for _, name := range d.ControllingCharacteristics {
 		if !characteristicNames[name] {
 			return fmt.Errorf("%w: unknown characteristic %q", errBadDefinition, name)
 		}

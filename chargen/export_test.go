@@ -1,0 +1,29 @@
+package chargen
+
+import (
+	"maps"
+	"slices"
+)
+
+// RegistryNames is a test bridge to the careerRegistry key set, sorted.
+func RegistryNames() []string {
+	return slices.Sorted(maps.Keys(careerRegistry))
+}
+
+// RegistryDefinitionNames is a test bridge mapping each careerRegistry key
+// to its definition's Name — dispatch keys on the registry key while every
+// user-visible label derives from Definition.Name, so the two must match.
+func RegistryDefinitionNames() (map[string]string, error) {
+	names := make(map[string]string, len(careerRegistry))
+
+	for key, entry := range careerRegistry {
+		def, _, err := entry()
+		if err != nil {
+			return nil, err
+		}
+
+		names[key] = def.Name
+	}
+
+	return names, nil
+}
