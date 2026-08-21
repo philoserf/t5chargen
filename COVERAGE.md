@@ -42,7 +42,7 @@ Book 1, Print Edition 5.1.
 | One skill at level 1 per TC                      | p. 58                     | `grantTC`                                 | homeworld tests                   | covered                                    |
 | Ri One Art / In The Trades selections            | chart B p. 56             | `grantSelection`                          | `TestHomeworldDefault`/`Supplied` | covered                                    |
 | Ds Deep Space double grant                       | chart B p. 56             | data + `grantTC`                          | `TestHomeworldSupplied`           | covered                                    |
-| UWP validation, never repaired                   | FR2                       | `world.ValidateUWP`, `Homeworld.Validate` | `TestParseUWP`, error tests       | covered                                    |
+| UWP validation, never repaired                   | FR2                       | `world.ValidateUWP`, `Homeworld.Validate` | `TestValidateUWP`, error tests    | covered                                    |
 | TCs not derivable from UWP                       | p. 58; FR2 note           | docs/PRD.md FR2                           | —                                 | covered (derivation out of pinned ruleset) |
 
 ## E1 step C — Education and Training

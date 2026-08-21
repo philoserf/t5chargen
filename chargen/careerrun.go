@@ -7,6 +7,7 @@ package chargen
 // careerMechanics interface; Citizen's live in citizen.go.
 
 import (
+	"errors"
 	"fmt"
 	"slices"
 	"strconv"
@@ -14,6 +15,19 @@ import (
 	"github.com/philoserf/t5chargen/career"
 	"github.com/philoserf/t5chargen/dice"
 )
+
+// errUnknownCharacteristic reports a data-file characteristic name outside
+// the six standard abbreviations.
+var errUnknownCharacteristic = errors.New("unknown characteristic")
+
+// errNotImplemented reports a table cell whose resolution lands in a later
+// milestone (docs/PRD.md milestones 2-3).
+var errNotImplemented = errors.New("not implemented until education/skill milestones")
+
+// errUnregisteredCareer reports a career present in career.Available but
+// missing from careerRegistry — an internal wiring bug, distinct from the
+// user-facing ErrUnknownCareer (which the CLI maps to a usage exit).
+var errUnregisteredCareer = errors.New("career has no registered mechanics")
 
 // careerMechanics is one career's exceptional mechanics. The interface is
 // unexported and grows with the careers that need more seams (rank,
@@ -61,7 +75,7 @@ type careerRun struct {
 func runCareerByName(name string, roller *dice.Roller, log *Log, decider Decider, character *Character) error {
 	entry, ok := careerRegistry[name]
 	if !ok {
-		return fmt.Errorf("%w: %q", ErrUnknownCareer, name)
+		return fmt.Errorf("%w: %q", errUnregisteredCareer, name)
 	}
 
 	def, mechanics, err := entry()
@@ -69,6 +83,10 @@ func runCareerByName(name string, roller *dice.Roller, log *Log, decider Decider
 		return err
 	}
 
+	// The baseline is captured before mechanics.begin deliberately: a
+	// skill granted during career entry (a To Begin outcome, milestone 3)
+	// is a career receipt under interpretation I-2 (ERRATA.md) and demotes
+	// a later Job/Hobby determination of the same skill to a later receipt.
 	entryLevels := make(map[string]int, len(character.Skills))
 	for _, skill := range character.Skills {
 		entryLevels[skill.Name] = skill.Level

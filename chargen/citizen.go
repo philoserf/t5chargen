@@ -12,20 +12,11 @@ package chargen
 // throw live in careerrun.go.
 
 import (
-	"errors"
 	"fmt"
 	"slices"
 
 	"github.com/philoserf/t5chargen/career"
 )
-
-// errUnknownCharacteristic reports a data-file characteristic name outside
-// the six standard abbreviations.
-var errUnknownCharacteristic = errors.New("unknown characteristic")
-
-// errNotImplemented reports a table cell whose resolution lands in a later
-// milestone (docs/PRD.md milestones 2-3).
-var errNotImplemented = errors.New("not implemented until education/skill milestones")
 
 // citizenMechanics is the Citizen careerMechanics implementation.
 type citizenMechanics struct {

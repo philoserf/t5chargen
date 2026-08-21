@@ -142,7 +142,10 @@ var entryKinds = map[EntryKind]bool{
 // the engine can trust every definition unconditionally. All thirteen
 // milestone-3 data files go through this same gate.
 func (d *Definition) validate() error {
-	if d.Name == "" || d.ContinueTarget < 2 || d.SkillsPerTerm < 1 {
+	// ContinueTarget is a 2D roll-low target (p. 66): a target of 12 or
+	// more can never fail, so the term loop would never end. 11 is the
+	// largest target a 2D throw can miss.
+	if d.Name == "" || d.ContinueTarget < 2 || d.ContinueTarget > 11 || d.SkillsPerTerm < 1 {
 		return fmt.Errorf("%w: name %q, continue target %d, skills per term %d",
 			errBadDefinition, d.Name, d.ContinueTarget, d.SkillsPerTerm)
 	}

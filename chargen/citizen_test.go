@@ -163,13 +163,23 @@ func TestRegistryMatchesAvailable(t *testing.T) {
 	}
 
 	registered := chargen.RegistryNames()
-	slices.Sort(registered)
 
 	available := slices.Clone(career.Available())
 	slices.Sort(available)
 
 	if !slices.Equal(registered, available) {
 		t.Errorf("registry %v != career.Available %v", registered, available)
+	}
+
+	defNames, err := chargen.RegistryDefinitionNames()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for key, name := range defNames {
+		if key != name {
+			t.Errorf("registry key %q != definition name %q", key, name)
+		}
 	}
 }
 
