@@ -44,6 +44,7 @@ func TestCareerGoldens(t *testing.T) {
 	}{
 		{career: "Citizen", seed: 9, file: "testdata/career_citizen.json"},
 		{career: "Scout", seed: 26, file: "testdata/career_scout.json"},
+		{career: "Merchant", seed: 17, file: "testdata/career_merchant.json"},
 	}
 
 	for _, tt := range tests {

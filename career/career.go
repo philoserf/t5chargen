@@ -100,6 +100,25 @@ type Definition struct {
 	SkillsPerTerm    int            `json:"skills_per_term"`
 	SkillEligibility map[string]int `json:"skill_eligibility,omitempty"`
 
+	// SkillsPerAdvancement is the extra table C eligibility each rank
+	// gained in the term earns (chart 06 table B: "Promotion 1").
+	SkillsPerAdvancement int `json:"skills_per_advancement,omitempty"`
+
+	// BeginTracks are the alternative entry paths where a chart offers
+	// several (chart 06: "To Begin 4th Officer Int / To Begin Spacehand
+	// Dex / To Begin Temp Auto"). Careers with a single To Begin use
+	// BeginChecks instead.
+	BeginTracks []BeginTrack `json:"begin_tracks,omitempty"`
+
+	// Ranks is the career's rank table in ascending order within each
+	// class (chart 06 Table Of Merchant Ranks); empty for the careers
+	// with no rank (p. 65).
+	Ranks []Rank `json:"ranks,omitempty"`
+
+	// Advancements are the commission and promotion rows of box A, in the
+	// order a character attempts them.
+	Advancements []Advancement `json:"advancements,omitempty"`
+
 	// SkillColumns is table C, Citizen Skills.
 	SkillColumns []Column `json:"skill_columns"`
 
@@ -111,6 +130,108 @@ type Definition struct {
 	JobTable *[3][6][6]string `json:"job_table,omitempty"`
 
 	cache derived
+}
+
+// BeginTrack is one entry path of a career that offers several, each
+// landing at its own starting rank (chart 06, p. 80).
+type BeginTrack struct {
+	Name string `json:"name"`
+
+	// Check is the characteristic the To Begin throw checks; empty is the
+	// chart's "Auto" (chart 06: "To Begin Temp Auto").
+	Check string `json:"check,omitempty"`
+
+	// Rank is the rank id entry confers.
+	Rank string `json:"rank,omitempty"`
+}
+
+// Rank is one row of a career's rank table.
+type Rank struct {
+	ID    string `json:"id"`
+	Class string `json:"class"`
+	Title string `json:"title"`
+
+	// AutoSkill is the rank's "Auto Skill" column entry (chart 06 table B:
+	// "Automatic Skills by Rank"); empty for ranks with none.
+	AutoSkill string `json:"auto_skill,omitempty"`
+}
+
+// TargetKind discriminates how an advancement's throw target is derived.
+type TargetKind string
+
+// The advancement target forms.
+const (
+	// TargetCharacteristic checks a characteristic (chart 06: "Officer
+	// Commission Int").
+	TargetCharacteristic TargetKind = "characteristic"
+
+	// TargetTermsTimesTwo is twice the terms served (chart 06: "Officer
+	// Promotion Terms x2"; interpretation I-12, ERRATA.md).
+	TargetTermsTimesTwo TargetKind = "terms_x2"
+)
+
+// Advancement is one commission or promotion row of box A.
+type Advancement struct {
+	Name string `json:"name"`
+
+	// FromClasses lists the rank classes eligible to attempt it (chart 06:
+	// "Temp may attempt Officer Commission and Rating Promotion ...
+	// Officer may attempt Officer Promotion").
+	FromClasses []string `json:"from_classes"`
+
+	// ToRank is the rank id a success confers; empty advances to the next
+	// rank of the character's current class.
+	ToRank string `json:"to_rank,omitempty"`
+
+	Target TargetKind `json:"target"`
+
+	// Check names the characteristic for TargetCharacteristic.
+	Check string `json:"check,omitempty"`
+
+	// Mod is the chart's conditional modifier (chart 06: "*Mod +3 if
+	// Int 8+").
+	Mod *AdvancementMod `json:"mod,omitempty"`
+}
+
+// AdvancementMod is a conditional throw modifier: Value applies when the
+// named characteristic is at least Min.
+type AdvancementMod struct {
+	Characteristic string `json:"characteristic"`
+	Min            int    `json:"min"`
+	Value          int    `json:"value"`
+}
+
+// RankByID returns the named rank.
+func (d *Definition) RankByID(id string) (Rank, bool) {
+	for _, rank := range d.Ranks {
+		if rank.ID == id {
+			return rank, true
+		}
+	}
+
+	return Rank{}, false
+}
+
+// NextRank returns the rank above id within its own class, reporting false
+// at the top of the ladder.
+func (d *Definition) NextRank(id string) (Rank, bool) {
+	current, ok := d.RankByID(id)
+	if !ok {
+		return Rank{}, false
+	}
+
+	seen := false
+
+	for _, rank := range d.Ranks {
+		switch {
+		case rank.ID == id:
+			seen = true
+		case seen && rank.Class == current.Class:
+			return rank, true
+		}
+	}
+
+	return Rank{}, false
 }
 
 // NoSkillCell is the exact table E sentinel spelling; the loader validates
@@ -185,7 +306,152 @@ func (d *Definition) validate() error {
 		return err
 	}
 
+	if err := d.validateRanks(); err != nil {
+		return err
+	}
+
 	return d.validateJobTable()
+}
+
+// validateRanks checks the rank table, entry tracks, and advancement rows
+// reference each other and the Master Skill List consistently.
+func (d *Definition) validateRanks() error {
+	ids := map[string]bool{}
+
+	for _, rank := range d.Ranks {
+		if rank.ID == "" || rank.Class == "" || rank.Title == "" {
+			return fmt.Errorf("%w: rank %+v: id, class, and title are required", errBadDefinition, rank)
+		}
+
+		if ids[rank.ID] {
+			return fmt.Errorf("%w: duplicate rank id %q", errBadDefinition, rank.ID)
+		}
+
+		ids[rank.ID] = true
+
+		if rank.AutoSkill == "" {
+			continue
+		}
+
+		if err := skill.Validate(rank.AutoSkill); err != nil {
+			return fmt.Errorf("%w: rank %q: %w", errBadDefinition, rank.ID, err)
+		}
+	}
+
+	classes := map[string]bool{}
+	for _, rank := range d.Ranks {
+		classes[rank.Class] = true
+	}
+
+	if err := d.validateBeginTracks(ids); err != nil {
+		return err
+	}
+
+	return d.validateAdvancements(ids, classes)
+}
+
+// validateBeginTracks checks the entry paths. A track of a career with a
+// rank table must name the rank it enters: the engine enters the rank
+// unconditionally, so an unnamed one would fail at generation time.
+func (d *Definition) validateBeginTracks(ids map[string]bool) error {
+	if len(d.BeginTracks) > 0 && len(d.BeginChecks) > 0 {
+		return fmt.Errorf("%w: begin_tracks and begin_checks are exclusive", errBadDefinition)
+	}
+
+	for _, track := range d.BeginTracks {
+		if err := validateBeginTrack(track, ids, len(d.Ranks) > 0); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+// validateBeginTrack checks one entry path.
+func validateBeginTrack(track BeginTrack, ids map[string]bool, ranked bool) error {
+	if track.Name == "" {
+		return fmt.Errorf("%w: nameless begin track", errBadDefinition)
+	}
+
+	if track.Check != "" && !characteristicNames[track.Check] {
+		return fmt.Errorf("%w: begin track %q checks unknown characteristic %q",
+			errBadDefinition, track.Name, track.Check)
+	}
+
+	if track.Rank == "" {
+		if ranked {
+			return fmt.Errorf("%w: begin track %q names no rank", errBadDefinition, track.Name)
+		}
+
+		return nil
+	}
+
+	if !ids[track.Rank] {
+		return fmt.Errorf("%w: begin track %q enters unknown rank %q", errBadDefinition, track.Name, track.Rank)
+	}
+
+	return nil
+}
+
+// validateAdvancements checks the commission and promotion rows.
+func (d *Definition) validateAdvancements(ids, classes map[string]bool) error {
+	for _, a := range d.Advancements {
+		if err := validateAdvancement(a, ids, classes); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+// validateAdvancement checks one commission or promotion row. from_classes
+// is matched against the rank table's classes: a misspelled class would
+// otherwise make the row silently unreachable rather than fail to load.
+func validateAdvancement(a Advancement, ids, classes map[string]bool) error {
+	if a.Name == "" || len(a.FromClasses) == 0 {
+		return fmt.Errorf("%w: advancement %+v: name and from_classes are required", errBadDefinition, a)
+	}
+
+	for _, class := range a.FromClasses {
+		if !classes[class] {
+			return fmt.Errorf("%w: advancement %q names unknown rank class %q", errBadDefinition, a.Name, class)
+		}
+	}
+
+	if err := validateAdvancementTarget(a); err != nil {
+		return err
+	}
+
+	if a.ToRank != "" && !ids[a.ToRank] {
+		return fmt.Errorf("%w: advancement %q targets unknown rank %q", errBadDefinition, a.Name, a.ToRank)
+	}
+
+	if a.Mod != nil && !characteristicNames[a.Mod.Characteristic] {
+		return fmt.Errorf("%w: advancement %q mod names unknown characteristic %q",
+			errBadDefinition, a.Name, a.Mod.Characteristic)
+	}
+
+	return nil
+}
+
+// validateAdvancementTarget checks the row's throw-target form.
+func validateAdvancementTarget(a Advancement) error {
+	switch a.Target {
+	case TargetCharacteristic:
+		if !characteristicNames[a.Check] {
+			return fmt.Errorf("%w: advancement %q checks unknown characteristic %q",
+				errBadDefinition, a.Name, a.Check)
+		}
+	case TargetTermsTimesTwo:
+		if a.Check != "" {
+			return fmt.Errorf("%w: advancement %q: %s target takes no check",
+				errBadDefinition, a.Name, a.Target)
+		}
+	default:
+		return fmt.Errorf("%w: advancement %q has unknown target %q", errBadDefinition, a.Name, a.Target)
+	}
+
+	return nil
 }
 
 // validateContinue enforces exactly one Continue form: a fixed target in
@@ -348,13 +614,20 @@ var citizenJSON []byte
 //go:embed data/scout.json
 var scoutJSON []byte
 
-// citizen and scout parse and validate their embedded definitions once.
+//go:embed data/merchant.json
+var merchantJSON []byte
+
+// The implemented careers parse and validate their embedded definitions
+// once.
 var (
 	citizen = sync.OnceValues(func() (*Definition, error) {
 		return load("citizen.json", citizenJSON)
 	})
 	scout = sync.OnceValues(func() (*Definition, error) {
 		return load("scout.json", scoutJSON)
+	})
+	merchant = sync.OnceValues(func() (*Definition, error) {
+		return load("merchant.json", merchantJSON)
 	})
 )
 
@@ -384,9 +657,14 @@ func Scout() (*Definition, error) {
 	return scout()
 }
 
-// Available lists the implemented careers in Book 1 chart order (chart D,
-// p. 64: Citizen is 04, Scout is 05). The default policy's first-listed
+// Merchant returns the Merchant career definition (chart 06, p. 80).
+func Merchant() (*Definition, error) {
+	return merchant()
+}
+
+// Available lists the implemented careers in Book 1 chart order (Citizen
+// is chart 04, Scout 05, Merchant 06). The default policy's first-listed
 // career selection depends on this order (POLICY.md).
 func Available() []string {
-	return []string{"Citizen", "Scout"}
+	return []string{"Citizen", "Scout", "Merchant"}
 }

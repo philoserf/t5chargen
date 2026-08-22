@@ -113,10 +113,39 @@ Book 1, Print Edition 5.1.
 | "Starship Skill" cells | chart 05 table C | `EntryStarship` (errors if selected) | data test | deferred (M3); unblocked — the MS list now supplies the seven Starship Skills |
 | No rank | p. 65 | (nothing to do) | — | covered |
 
-## Careers 01–03, 06–13
+## Career 06 — Merchant (chart 06, p. 80)
 
-All deferred (M3): Craftsman, Scholar, Entertainer, Merchant, Spacer,
-Soldier, Agent, Rogue, Noble, Marine, Functionary (charts pp. 75–88).
+| Rule | Cite | Implementation | Test | Status |
+| --- | --- | --- | --- | --- |
+| Three entry tracks; each enters its own rank | chart 06 A | `merchantMechanics.begin`, `BeginTracks` | `TestMerchantBeginTracks` | covered |
+| "To Begin Temp Auto" needs no throw | chart 06 A | `begin` | `TestMerchantTempIsAutomatic` | covered |
+| Entry failure costs a year, career not begun | chart 06 A; p. 65 | `begin` | `TestMerchantBeginFailure` | interpretation I-15 (no fall-through to Temp) |
+| Risk & Reward C1 C2 C3 C4; Caution/Bravery/No Mod | chart 06; p. 65 | `riskAndReward`, `chooseRiskMod` | golden seed 17 | covered |
+| Risk failure: injury, Wound Badge, disabled at 4+, dead at zero | chart 06; p. 65 | `careerRun.injury` (shared) | Scout injury suite | covered (Double Benefits deferred, M4) |
+| Reward success: escalating Ship Shares | chart 06 | `awardShipShares` | `TestMerchantShipShareEscalation` | covered; seventh receipt is I-14, economics deferred (M4) |
+| Officer Commission (Int) from a rating; lands at M1 | chart 06 A | `advance`, `attempt` | `TestMerchantCommission` | covered |
+| Rating Promotion (Dex, +3 if Int 8+) | chart 06 A | `advance` | `TestMerchantRatingPromotion` | covered |
+| Officer Promotion (Terms x2, +3 if Int 8+) | chart 06 A | `advancementTarget` | `TestMerchantOfficerPromotionTarget` | interpretation I-12 (completed terms) |
+| Which rows each class may attempt per term | chart 06 | `advance` (entry-class snapshot) | `TestMerchantCommission` | covered — a commissioned Temp does not also attempt Officer Promotion |
+| Top of a ladder bars the attempt | chart 06 | `eligibleForAdvancement` | `TestMerchantRanksAreCharted` | interpretation I-13 |
+| Automatic Skills by rank | chart 06 B | `enterRank` | golden seed 17 | covered (ordinary receipts, p. 66) |
+| Per Term 4 + 1 per rank gained | chart 06 B | `resolveTerm` via `termOutcome.skillRolls` | `TestMerchantAdvancementEarnsSkills` | covered |
+| Continue vs Str | chart 06 A | `careerRun.continueRoll` | golden seed 17 | covered |
+| Disability and the rest of the term | chart 06 | `term` via `endCareer` | Scout precedent | interpretation I-16 |
+| Muster-out table D; ship-share economics | chart 06 D | — | — | deferred (M4) |
+
+## Cross-cutting — throw resolution
+
+| Rule | Cite | Implementation | Test | Status |
+| --- | --- | --- | --- | --- |
+| Checks fail on the highest possible roll (2D on 12) | p. 134-135; chart 10 | `dice.Check` | `TestCheckAutomaticFailure` | interpretation I-17 — applied at every chargen throw; guarantees careers terminate |
+| "One Art" / "One Trade" / "One Science" / "Starship Skill" cells | charts 04-06 table C; p. 132 | `careerRun.awardFromGroup` | Merchant golden | covered (alternatives are the chart MS groups) |
+
+## Careers 01–05 remainder, 07–13
+
+All deferred (M3): Craftsman, Scholar, Entertainer, Spacer, Soldier,
+Agent, Rogue, Noble, Marine, Functionary (charts pp. 75–88). Functionary
+additionally needs career changes (M4): it "is never a first career".
 Each career's section is added here with its chunk, uncommon branches
 enumerated, before it is called done.
 
@@ -144,7 +173,7 @@ Batch, replay verification, interactive mode: deferred (M5).
 
 ## Cross-cutting interpretations
 
-I-1 … I-11 in ERRATA.md, each referenced from its row above. The I-4
+I-1 … I-17 in ERRATA.md, each referenced from its row above. The I-4
 skill-name residual (MSL-exact strings, the Navigator/Navigation split) is
 closed by I-9: every skill name in every embedded chart is validated
 against the Master Skill List at load time.
