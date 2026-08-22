@@ -22,6 +22,8 @@ import (
 	"errors"
 	"fmt"
 	"sync"
+
+	"github.com/philoserf/t5chargen/skill"
 )
 
 // PrereqKind discriminates chart C prerequisite forms.
@@ -162,6 +164,16 @@ func (t *tableData) validate() error {
 	for _, s := range t.Skills {
 		if s.Name == "" || s.Group == "" {
 			return fmt.Errorf("%w: skill row %+v", errBadTable, s)
+		}
+
+		// Chart C's Available Skills matrix names Master Skill List
+		// entries; the chart abbreviations are canonicalized in the
+		// transcription (ERRATA.md I-9). Unlike the career charts, every
+		// row here is unambiguous — the three Grav rows are distinguished
+		// by their parent group (ERRATA.md I-10) — so an ambiguous name
+		// is a transcription error too.
+		if _, err := skill.Resolve(s.Name); err != nil {
+			return fmt.Errorf("%w: skill row %q: %w", errBadTable, s.Name, err)
 		}
 	}
 

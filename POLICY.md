@@ -28,7 +28,7 @@ lists them; the policy returns an index.
 | `select_check_characteristic` | Highest-valued of the stated characteristics; ties break to first-listed. | Maximizes the roll-low check chance, same rule as the controlling characteristic. |
 | `attempt_honors` | Always attempt. | "Failure has no effect" (p. 59) — pure upside. |
 | `attempt_waiver` | Always attempt. | The immediate stake (admission or reinstatement) outweighs the cost: each attempt worsens future waiver odds by Mod -1 (p. 59). |
-| `select_skill` | First-listed. | Tie-break rule; unreachable while the policy never picks Apprenticeship. |
+| `select_skill` | First-listed. | Tie-break rule. Reached when a chart cell names more than one Master Skill List entry — the chart 04 table E "Grav" and "Spacecraft" cells (ERRATA.md I-10, I-11), whose options are listed in Master Skill List order — and by the Apprenticeship award, which the policy never selects. |
 | `select_duty` | Explorer Duty. | The Scout career's point, and the larger skill eligibility (chart 05 table B: Explorer 8 vs Courier 4); Courier's safety is an interactive-play trade-off. |
 | `select_risk_mod` | No Mod. | Neutral default: Caution improves Risk but worsens Reward and vice versa (p. 65); a smarter Caution/Bravery heuristic is a future policy version. |
 | `attempt_retry` | Always attempt. | The I-8 Reward retry has no stated cost. |
