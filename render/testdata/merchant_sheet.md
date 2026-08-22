@@ -1,0 +1,27 @@
+# Character Card
+
+**Name**:
+
+**UPP**: 638C53
+
+**Homeworld**: Regina A788899-C (Ph Pa Ri)
+
+**Age**: 34
+
+| Str | Dex | End | Int | Edu | Soc |
+| --- | --- | --- | --- | --- | --- |
+| 6 | 3 | 8 | 12 | 5 | 3 |
+
+**Education**: ED5 — graduated
+
+**Career**: Merchant (4 terms), Second Officer M3, 10 Ship Shares
+
+**Skills**: Actor-1, Advocate-4, Astrogator-1, Comms-3, Computer-3, Driver-2, Engineer-1, Steward-5, Trader-3
+
+**Status**: Wound Badges 1
+
+---
+
+Seed 17 (math/rand/v2-pcg) · schema 0.7.0 · engine 0.7.0 · policy 0.5.0
+
+Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

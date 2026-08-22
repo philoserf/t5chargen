@@ -5,4 +5,5 @@ package dice
 var (
 	NewFlux      = newFlux
 	ResolveThrow = resolveThrow
+	ResolveCheck = resolveCheck
 )

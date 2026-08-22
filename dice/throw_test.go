@@ -78,3 +78,38 @@ func TestThrowFromStream(t *testing.T) {
 		}
 	}
 }
+
+// TestCheckAutomaticFailure verifies the p. 134 rule: "Without regard to
+// skill levels, any of the Checks fails on the highest possible roll. 1D
+// fails on 6; 2D fails on 12; 3D fails on 18".
+func TestCheckAutomaticFailure(t *testing.T) {
+	tests := []struct {
+		name    string
+		n       int
+		faces   []int
+		target  int
+		success bool
+	}{
+		{name: "2D max fails against a reachable target", n: 2, faces: []int{6, 6}, target: 12, success: false},
+		{name: "2D max fails against an unreachable target", n: 2, faces: []int{6, 6}, target: 20, success: false},
+		{name: "2D below max succeeds", n: 2, faces: []int{6, 5}, target: 12, success: true},
+		{name: "1D max fails", n: 1, faces: []int{6}, target: 6, success: false},
+		{name: "1D below max succeeds", n: 1, faces: []int{5}, target: 6, success: true},
+		{name: "3D max fails", n: 3, faces: []int{6, 6, 6}, target: 18, success: false},
+		{name: "3D below max succeeds", n: 3, faces: []int{6, 6, 5}, target: 18, success: true},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			total := 0
+			for _, f := range tt.faces {
+				total += f
+			}
+
+			got := dice.ResolveCheck(dice.Roll{N: tt.n, Faces: tt.faces, Total: total}, tt.target)
+			if got.Success != tt.success {
+				t.Errorf("Success = %v, want %v", got.Success, tt.success)
+			}
+		})
+	}
+}

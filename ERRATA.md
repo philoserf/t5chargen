@@ -251,3 +251,118 @@ closed and the knowledge list names both hull classes explicitly.
 
 Implemented at `skill/data/master_skill_list.json` (`labels`) and
 `chargen/careerrun.go` (`resolveSkillName`).
+
+### I-12: "Terms x2" counts completed terms (p. 80 chart 06)
+
+Chart 06 box A gives the Officer Promotion target as "Terms x2". The chart
+does not say whether Terms counts terms completed or the term in progress.
+
+The p. 65 worked example is the discriminator. It resolves Continue as
+"7 +Terms (7 **+0**) = 7" in the character's first term and "7 +Terms
+(7 **+1**) = 8" in his second: Terms counts *completed* terms, and is zero
+during the first.
+
+Implemented that way, so a first-term officer's promotion target is
+0 x 2 = 0 — an automatic failure unless the chart's "+3 if Int 8+" applies,
+which yields 3. No Merchant is promoted out of their first term on the
+strength of terms alone, which reads as intended: the ladder rewards
+service length.
+
+Implemented at `chargen/merchant.go` (`advancementTarget`).
+
+### I-13: Advancement at the top of a ladder (p. 80 chart 06)
+
+Chart 06 lists ranks R X through R2 for ratings and M1 through M6 for
+officers, and prints no rule for attempting promotion at the top of either.
+
+A character at the ladder's top does not attempt the throw at all: the roll
+is not made and no die is consumed. The alternative — rolling and
+discarding a success — would consume dice from the seeded stream and make
+an unreachable promotion visible in the event log as a success with no
+consequence.
+
+An officer at M6 therefore attempts nothing; a rating at R2 may still
+attempt Officer Commission, which targets M1 explicitly rather than the
+next rank in class.
+
+Implemented at `chargen/merchant.go` (`eligibleForAdvancement`).
+
+### I-14: The seventh Ship Share receipt (p. 80 chart 06)
+
+Chart 06's Escalating Ship Shares table runs "First 1 Ship Share" through
+"Sixth 6 Ship Shares" and stops. A Merchant may serve more than six terms
+and so reach a seventh Reward success.
+
+The seventh and later receipts award six shares each — the table's last
+printed value — rather than extrapolating to seven and beyond. The table is
+printed as a closed list, and the escalation already outpaces "a typical
+merchant ship is 10 to 20 shares" by the sixth receipt.
+
+The alternative reading (continue the arithmetic progression) is defensible
+and changes only long-career outcomes; the choice is recorded here because
+the chart is silent, not because one reading is clearly right.
+
+Implemented at `chargen/merchant.go` (`awardShipShares`).
+
+### I-15: Entry-track failure (p. 80 chart 06)
+
+Chart 06 offers three entry paths — "To Begin 4th Officer Int", "To Begin
+Spacehand Dex", "To Begin Temp Auto" — and lists no Begin retry.
+
+A character attempts the one track selected. Failure costs one year ("Each
+failed attempt (both Begin or Retry) takes one year", p. 65) and the career
+is not begun, exactly as for the Scout's single To Begin.
+
+The alternative reading — that failing a checked track falls through to the
+automatic Temp berth — would make the Merchant career impossible to fail
+and so make the two checked tracks costless to attempt. That is rejected:
+p. 65 treats a failed Begin as ending the attempt at that career, and the
+chart marks only Temp as "Auto".
+
+Implemented at `chargen/merchant.go` (`begin`).
+
+### I-16: Disability and advancement (p. 80 chart 06)
+
+Chart 06 says a Merchant disabled by a Risk failure "Muster[s] Out at Term
+end with Double Benefits" but does not say whether the term's remaining
+steps still happen.
+
+The term completes except for Continue, following the Scout precedent
+(chart 05; recorded under the injury rules at p. 65): the Reward roll, the
+advancement attempts, and the term's skills all resolve, and only the
+Continue throw is skipped. A disability suffered in the field does not
+retroactively cancel the promotion earned in the same four years.
+
+Implemented at `chargen/careerrun.go` (`term`) via `termOutcome.endCareer`.
+
+### I-17: Character generation throws are Checks (p. 134; chart 10 p. 84)
+
+The career charts say "Roll for Risk against CC+ Mods" and "Continue Str"
+without stating what happens on the highest possible roll. Taken literally
+as a roll-low comparison, a target at or above the maximum roll can never
+fail — and because several careers set the Continue target from a
+characteristic that the Personal skill column raises, a character whose
+Continue characteristic reaches 12 would serve terms forever.
+
+Book 1 states the governing rule generally: "Automatic Failure. Without
+regard to skill levels, any of the Checks fails on the highest possible
+roll. 1D fails on 6; 2D fails on 12; 3D fails on 18." (p. 134, restated
+p. 135.) Chart 10 restates it beside its own starred Risk & Reward and
+Continue rows: "But, 12 is always automatic failure."
+
+Every character-generation throw is therefore resolved as a Check: To
+Begin, the career's Risk and Reward rolls, advancement attempts, Continue,
+and the education apply, pass/fail, Honors, and Waiver throws. A natural
+12 on 2D fails regardless of target.
+
+This is what guarantees a career can end, and it pairs with the rule at
+the other extreme: a Continue roll of exactly 2 is a Mandatory Continue
+(p. 66), a roll of exactly 12 an automatic failure.
+
+Chart 10's restatement is read as emphasis on the general rule rather than
+a Rogue-only special case; the alternative — applying it only where a
+chart prints it — would leave the other charts' characteristic targets
+unbounded, which no printed rule supports.
+
+Implemented at `dice/throw.go` (`Check`), applied at every chargen throw
+site.

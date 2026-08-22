@@ -230,7 +230,7 @@ func (r *eduRun) apply() (bool, error) {
 		return false, err
 	}
 
-	throw := r.roller.Throw(2, target)
+	throw := r.roller.Check(2, target)
 	seq := r.log.Throw(throw, nil, "Book 1 p. 60 chart C ("+r.program.Name+" To Apply Check "+name+")")
 
 	if throw.Success {
@@ -302,7 +302,7 @@ func (r *eduRun) passFailYear() (bool, bool, error) {
 		return false, false, err
 	}
 
-	throw := r.roller.Throw(2, target)
+	throw := r.roller.Check(2, target)
 	seq := r.log.Throw(throw, nil, "Book 1 p. 60 chart C ("+r.program.Name+" Pass/Fail Check "+r.checkName+")")
 	r.lastThrowSeq = seq
 	r.elapseYear(seq)
@@ -417,7 +417,7 @@ func (r *eduRun) honors() error {
 		return err
 	}
 
-	throw := r.roller.Throw(2, target)
+	throw := r.roller.Check(2, target)
 	seq := r.log.Throw(throw, nil, "Book 1 p. 60 chart C (Honors: Int or Edu, simul)")
 
 	if !throw.Success {
@@ -535,7 +535,7 @@ func (r *eduRun) waiver(reason string) (bool, error) {
 	r.character.WaiversAttempted++
 
 	target := r.character.Characteristics.Soc - previous
-	throw := r.roller.Throw(2, target)
+	throw := r.roller.Check(2, target)
 	r.log.Throw(throw, []Mod{{Name: "previous waivers", Value: -previous}},
 		"Book 1 p. 59 (Waiver: Check Soc, Mod minus previous waivers)")
 

@@ -17,7 +17,7 @@ func (DefaultPolicy) Choose(c Choice) int {
 		// POLICY.md: the first present of General, then Exploration (the
 		// all-plain-skills columns of the shipped careers); first-listed
 		// otherwise.
-		return preferredIndex(c.Options, []string{"General", "Exploration"}, 0)
+		return preferredIndex(c.Options, []string{"General", "Exploration", "Business"}, 0)
 	case ChooseDuty:
 		// POLICY.md: Explorer Duty — the career's point, and the larger
 		// skill eligibility (chart 05 table B).
@@ -27,11 +27,17 @@ func (DefaultPolicy) Choose(c Choice) int {
 		return indexOrFirst(c.Options, "No Mod")
 	case ChooseEducation:
 		return chooseEducationProgram(c.Options)
-	case ChooseHonors, ChooseWaiver, ChooseRetry:
+	case ChooseBeginTrack:
+		// POLICY.md: the highest berth the chart offers — first-listed,
+		// which is chart 06's "To Begin 4th Officer".
+		return 0
+	case ChooseHonors, ChooseWaiver, ChooseRetry, ChooseAdvancement:
 		// POLICY.md: always attempt (index 0). Honors failure has no
 		// effect (p. 59); waiver attempts burn future waiver odds (Mod
 		// minus previous waivers) but the immediate stake outweighs it;
-		// the I-8 Reward retry has no stated cost.
+		// the I-8 Reward retry has no stated cost; a commission or
+		// promotion attempt has no stated cost either, and rank carries
+		// skills and muster-out benefits.
 		return 0
 	case ChooseCareer, ChooseHobby, ChooseHomeworld, ChooseArt, ChooseTrade,
 		ChooseService, ChooseMajor, ChooseMinor, ChooseSkill:

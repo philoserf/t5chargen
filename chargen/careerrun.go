@@ -25,6 +25,13 @@ var errUnknownCharacteristic = errors.New("unknown characteristic")
 // milestone (docs/PRD.md milestones 2-3).
 var errNotImplemented = errors.New("not implemented until education/skill milestones")
 
+// errUnknownRank reports a rank id absent from the career's rank table.
+var errUnknownRank = errors.New("unknown rank")
+
+// errUnknownAdvancementTarget reports an advancement target form the
+// engine does not implement.
+var errUnknownAdvancementTarget = errors.New("unknown advancement target")
+
 // errUnregisteredCareer reports a career present in career.Available but
 // missing from careerRegistry — an internal wiring bug, distinct from the
 // user-facing ErrUnknownCareer (which the CLI maps to a usage exit).
@@ -67,8 +74,9 @@ type termOutcome struct {
 // careerRegistry maps canonical career names to their definition and
 // mechanics. Its key set must match career.Available (tested).
 var careerRegistry = map[string]func() (*career.Definition, careerMechanics, error){
-	"Citizen": newCitizen,
-	"Scout":   newScout,
+	"Citizen":  newCitizen,
+	"Scout":    newScout,
+	"Merchant": newMerchant,
 }
 
 // careerRun is the shared state of one career resolution.
@@ -251,6 +259,60 @@ func (r *careerRun) awardAndLog(name string, levels, cause int) {
 	awardSkillAndLog(name, levels, cause, r.log, r.character)
 }
 
+// groupCells maps the chart's open-selection cells to the Master Skill
+// List group they select from: "One Art", "One Trade", "One Science", and
+// "Starship Skill" (charts 04-06; p. 132 chart MS). Chart B's own Art and
+// Trade lists (p. 56) are the same six and ten names.
+var groupCells = map[career.EntryKind]struct {
+	prompt string
+	names  func() []string
+}{
+	career.EntryArt: {
+		prompt: "Select One Art",
+		names:  func() []string { return skill.InGroup(skill.GroupArts) },
+	},
+	career.EntryTrade: {
+		prompt: "Select One Trade",
+		names:  func() []string { return skill.InGroup(skill.GroupTrades) },
+	},
+	career.EntryScience: {
+		prompt: "Select One Science",
+		names:  func() []string { return skill.UnderParent(skill.ParentSciences) },
+	},
+	career.EntryStarship: {
+		prompt: "Select a Starship Skill",
+		names:  func() []string { return skill.InGroup(skill.GroupStarship) },
+	},
+}
+
+// awardFromGroup resolves an open-selection cell by choice and awards the
+// selected skill, caused by the selecting choice event (docs/PRD.md FR10).
+func (r *careerRun) awardFromGroup(kind career.EntryKind) error {
+	cell, ok := groupCells[kind]
+	if !ok {
+		return fmt.Errorf("%w: %q cell", errNotImplemented, kind)
+	}
+
+	options := cell.names()
+	if len(options) == 0 {
+		return fmt.Errorf("%w: %q cell has no alternatives", errNotImplemented, kind)
+	}
+
+	chosen, seq, err := choose(r.log, r.decider, Choice{
+		ID:      ChooseSkill,
+		Prompt:  cell.prompt,
+		Options: options,
+		Cite:    r.def.Cite + " table C; Book 1 p. 132 chart MS",
+	})
+	if err != nil {
+		return err
+	}
+
+	r.awardAndLog(options[chosen], 1, seq)
+
+	return nil
+}
+
 // resolveSkillName maps a career chart cell to its Master Skill List name.
 // Most cells name one entry. Two chart 04 table E cells do not: "Grav" is
 // printed once although the list holds a Grav knowledge under each of
@@ -350,7 +412,7 @@ func (r *careerRun) awardTableC(entry career.Entry, cause int) error {
 	case career.EntryNone:
 		r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceNoAward})
 	case career.EntryTrade, career.EntryArt, career.EntryScience, career.EntryStarship:
-		return fmt.Errorf("%w: %q cell", errNotImplemented, entry.Kind)
+		return r.awardFromGroup(entry.Kind)
 	default:
 		// The loader validates kinds, but a default keeps an unknown kind
 		// from silently resolving to nothing (event-log-first contract).
@@ -387,7 +449,7 @@ func (r *careerRun) continueRoll() bool {
 		label = "Continue " + r.def.ContinueCharacteristic
 	}
 
-	throw := r.roller.Throw(2, target)
+	throw := r.roller.Check(2, target)
 	seq := r.log.Throw(throw, nil, r.def.Cite+" ("+label+"; p. 66)")
 
 	r.character.Age += TermYears

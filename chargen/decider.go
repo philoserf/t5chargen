@@ -75,6 +75,16 @@ const (
 	// ChooseRetry accepts or declines a career Retry row (chart 05
 	// "Retry R&R C5"; interpretation I-8, ERRATA.md).
 	ChooseRetry ChoiceID = "attempt_retry"
+
+	// ChooseBeginTrack selects the entry path of a career offering
+	// several (chart 06: "To Begin 4th Officer / Spacehand / Temp",
+	// p. 80).
+	ChooseBeginTrack ChoiceID = "select_begin_track"
+
+	// ChooseAdvancement accepts or declines a commission or promotion
+	// attempt ("Temp may attempt Officer Commission and Rating
+	// Promotion", chart 06 p. 80).
+	ChooseAdvancement ChoiceID = "attempt_advancement"
 )
 
 // Choice is one choice point presented to a Decider. Options are listed in

@@ -56,6 +56,12 @@ func TestScoutHistoryGolden(t *testing.T) {
 	golden(t, render.History(generate(t, chargen.Options{Seed: 26, Career: "Scout"})), "testdata/scout_history.md")
 }
 
+// TestMerchantSheetGolden pins the sheet for the career with rank: the
+// rank line and Ship Shares (chart 06, p. 80).
+func TestMerchantSheetGolden(t *testing.T) {
+	golden(t, render.Sheet(generate(t, chargen.Options{Seed: 17, Career: "Merchant"})), "testdata/merchant_sheet.md")
+}
+
 func TestSheetWithName(t *testing.T) {
 	sheet := render.Sheet(generate(t, chargen.Options{Seed: 1, Name: "Eneri Dinsha"}))
 

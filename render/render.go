@@ -113,8 +113,16 @@ func careerLine(record chargen.CareerRecord) string {
 		line += ", Hobby " + record.Hobby
 	}
 
+	if record.RankTitle != "" {
+		line += ", " + record.RankTitle + " " + record.Rank
+	}
+
 	if record.Discoveries > 0 {
 		line += ", " + plural(record.Discoveries, "Discovery")
+	}
+
+	if record.ShipShares > 0 {
+		line += ", " + plural(record.ShipShares, "Ship Share")
 	}
 
 	if !record.Began {
@@ -323,6 +331,10 @@ func consequenceInjuryText(c *chargen.ConsequenceEvent) string {
 		return fmt.Sprintf("Discovery (total %d)", c.Value)
 	case chargen.ConsequenceFameChange:
 		return fmt.Sprintf("Fame %+d = %d", c.Delta, c.Value)
+	case chargen.ConsequenceRankSet:
+		return "rank " + c.Skill
+	case chargen.ConsequenceShipShares:
+		return fmt.Sprintf("%s (total %d)", plural(c.Delta, "Ship Share"), c.Value)
 	default:
 		return string(c.Kind)
 	}

@@ -50,7 +50,7 @@ func (*scoutMechanics) begin(r *careerRun) (bool, error) {
 		return false, err
 	}
 
-	throw := r.roller.Throw(2, target)
+	throw := r.roller.Check(2, target)
 	seq := r.log.Throw(throw, nil, "Book 1 p. 79 chart 05 (To Begin vs "+name+")")
 
 	if throw.Success {
@@ -101,7 +101,7 @@ func (m *scoutMechanics) riskAndReward(r *careerRun, cc string, outcome termOutc
 		return termOutcome{}, fmt.Errorf("%w: %q", errUnknownCharacteristic, cc)
 	}
 
-	risk := r.roller.Throw(2, ccValue+mod)
+	risk := r.roller.Check(2, ccValue+mod)
 	riskSeq := r.log.Throw(risk, riskMods(mod, 1), "Book 1 p. 79 chart 05 (Risk vs "+cc+"+Mods)")
 
 	if !risk.Success {
@@ -130,7 +130,7 @@ func (m *scoutMechanics) riskAndReward(r *careerRun, cc string, outcome termOutc
 // retried once against C5 ("Retry R&R C5", chart 05; interpretation I-8,
 // ERRATA.md). Success is a Discovery with Fame +1 (chart 05).
 func (m *scoutMechanics) reward(r *careerRun, cc string, ccValue, mod int) (bool, error) {
-	throw := r.roller.Throw(2, ccValue-mod)
+	throw := r.roller.Check(2, ccValue-mod)
 	seq := r.log.Throw(throw, riskMods(mod, -1), "Book 1 p. 79 chart 05 (Reward vs "+cc+"+ opposite sign Mods)")
 
 	if !throw.Success {
@@ -162,7 +162,7 @@ func (*scoutMechanics) retryReward(r *careerRun, mod int) (bool, int, error) {
 	}
 
 	value, _ := characteristicValue(&r.character.Characteristics, r.def.RetryCheck)
-	throw := r.roller.Throw(2, value-mod)
+	throw := r.roller.Check(2, value-mod)
 	seq := r.log.Throw(throw, riskMods(mod, -1),
 		"Book 1 p. 79 chart 05 (Retry R&R vs "+r.def.RetryCheck+"; interpretation I-8)")
 
