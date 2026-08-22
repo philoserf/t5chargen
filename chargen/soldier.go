@@ -136,7 +136,11 @@ func (*soldierMechanics) chooseBranch(r *careerRun) (career.Branch, error) {
 
 		options = append(options, branch.Name)
 		branches = append(branches, branch)
-		scores = append(scores, branch.Mod)
+
+		// The score pairs the Branch Mod with its DM so a policy can
+		// break ties on the DM, which decides how far the Operations
+		// roll is pushed down its table (POLICY.md).
+		scores = append(scores, branch.Mod*branchDMRange+branch.DM)
 	}
 
 	chosen, _, err := choose(r.log, r.decider, Choice{
@@ -152,6 +156,10 @@ func (*soldierMechanics) chooseBranch(r *careerRun) (career.Branch, error) {
 
 	return branches[chosen], nil
 }
+
+// branchDMRange scales the Branch Mod above every Branch DM, so a score
+// orders by Mod first and DM second.
+const branchDMRange = 100
 
 // enterBranch records the branch and awards its automatic skill: "if
 // Medical Branch= Medic-1; If Technical Branch= any Trade" (chart 08).
@@ -302,7 +310,7 @@ func (m *soldierMechanics) riskAndReward(r *careerRun, cc string, opsMod int) (t
 			Cause: riskSeq, Kind: ConsequenceServiceBadge, Career: r.def.Name, Value: r.record.ServiceBadges,
 		})
 	} else {
-		died, disabled := r.injury(cc, caution-service, riskSeq,
+		died, disabled := r.injury(cc, negativeMods(caution, m.branch.Mod, opsMod), riskSeq,
 			"Book 1 p. 82 chart 08 (Failure: reduce CC by negative Mods and Flux)")
 		if died {
 			outcome.died = true
@@ -330,6 +338,23 @@ func (m *soldierMechanics) riskAndReward(r *careerRun, cc string, opsMod int) (t
 	outcome.success = true
 
 	return outcome, m.awardMedal(r, reward.Total, rewardSeq)
+}
+
+// negativeMods sums only the Risk roll's negative modifiers, which are the
+// ones a Risk failure charges to the Controlling Characteristic: "Reduce
+// the Controlling Characteristic by all negative Mods; ignore any positive
+// Mods" (p. 65). A Cautious Mod is positive on Risk and so contributes
+// nothing; a Bravery Mod is negative and does. The Branch and Operations
+// Mods are "negative against the Risk Roll" (p. 66), so their table values
+// enter with the sign flipped.
+//
+// The p. 66 worked example is the discriminator: Eneri Dinsha fails Risk
+// with End 11, Branch Mod -2, Operations Mod -3 and Caution Mod +2, and
+// "his characteristic Endurance-11 reduces by -2 -3 to Endurance-6" — the
+// Caution +2 does not offset the -5. Summing all four first would charge
+// only -3 and, with his Flux of +4, leave him unharmed instead of wounded.
+func negativeMods(caution, branchMod, opsMod int) int {
+	return min(caution, 0) + min(-branchMod, 0) + min(-opsMod, 0)
 }
 
 // awardMedal consults the p. 70 table: "use the unmodified Reward roll to

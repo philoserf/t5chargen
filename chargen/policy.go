@@ -20,8 +20,11 @@ func (DefaultPolicy) Choose(c Choice) int {
 		// first-listed.
 		return maxScoreIndex(c)
 	case ChooseBranch:
-		// POLICY.md: the lowest Branch Mod. Branch Mods are negative
-		// against the Risk roll, so the lowest is the least injurious.
+		// POLICY.md: the lowest Branch Mod, then the lowest Branch DM.
+		// The Mod is negative against Risk, so the lowest is the least
+		// injurious; the DM pushes the Operations roll off the end of its
+		// table, collapsing the term's assignments — and with them the
+		// skill columns those assignments open.
 		return minScoreIndex(c)
 	case ChooseElevationFlux, ChooseComeback:
 		return chooseOnScore(c)

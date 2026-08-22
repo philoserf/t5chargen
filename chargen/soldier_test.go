@@ -289,3 +289,111 @@ func findMod(mods []chargen.Mod, name string) (chargen.Mod, bool) {
 
 	return chargen.Mod{}, false
 }
+
+// cautionDecider is the default policy except it always selects Caution
+// +1, the positive Risk Mod the injury rule must ignore.
+type cautionDecider struct{ chargen.DefaultPolicy }
+
+func (d cautionDecider) Choose(c chargen.Choice) int {
+	if c.ID == chargen.ChooseRiskMod {
+		if i := slices.Index(c.Options, "Caution +1"); i >= 0 {
+			return i
+		}
+	}
+
+	return d.DefaultPolicy.Choose(c)
+}
+
+func (cautionDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
+
+// TestSoldierInjuryIgnoresPositiveMods verifies p. 65: "Reduce the
+// Controlling Characteristic by all negative Mods; ignore any positive
+// Mods." The Cautious Mod is positive against Risk, so it must not offset
+// the Branch and Operations Mods, which are negative against it (p. 66).
+// The p. 66 worked example fails Risk at End 11 with Branch -2,
+// Operations -3 and Caution +2, and reduces "by -2 -3 to Endurance-6".
+func TestSoldierInjuryIgnoresPositiveMods(t *testing.T) {
+	checked := 0
+
+	for seed := range uint64(120) {
+		c, err := chargen.Generate(chargen.Options{
+			Seed: seed, Career: "Soldier", Decider: cautionDecider{},
+		})
+		if err != nil {
+			t.Fatalf("seed %d: %v", seed, err)
+		}
+
+		checked += checkSoldierInjuries(t, seed, c)
+	}
+
+	if checked == 0 {
+		t.Fatal("the sweep produced no Risk failure carrying a positive Mod; widen it")
+	}
+}
+
+// checkSoldierInjuries asserts every Risk failure in one record charges the
+// Controlling Characteristic exactly its negative Mods plus Flux, and
+// reports how many failures carried a positive Mod to be ignored.
+func checkSoldierInjuries(t *testing.T, seed uint64, c chargen.Character) int {
+	t.Helper()
+
+	checked := 0
+
+	for i, e := range c.Events {
+		if !soldierRiskFailure(e) {
+			continue
+		}
+
+		negative, positive := splitMods(e.Throw.Mods)
+		if positive == 0 {
+			continue
+		}
+
+		checked++
+
+		// The Flux is the next event; the reduction, if any, follows it.
+		flux := c.Events[i+1]
+		if flux.Kind != chargen.EventThrow || !strings.Contains(flux.Throw.Cite, "reduce CC") {
+			t.Fatalf("seed %d: event %d is not the injury Flux", seed, flux.Seq)
+		}
+
+		want := negative + flux.Throw.Total
+		if got := soldierInjuryDelta(c.Events[i+2]); got != min(want, 0) {
+			t.Errorf("seed %d: Risk failure with negative Mods %d and Flux %d changed the CC by %d, want %d",
+				seed, negative, flux.Throw.Total, got, min(want, 0))
+		}
+	}
+
+	return checked
+}
+
+// soldierRiskFailure reports a failed Soldier Risk throw.
+func soldierRiskFailure(e chargen.Event) bool {
+	return e.Kind == chargen.EventThrow && e.Throw.Success != nil && !*e.Throw.Success &&
+		strings.Contains(e.Throw.Cite, "Risk vs")
+}
+
+// splitMods totals a throw's negative and positive modifiers separately.
+func splitMods(mods []chargen.Mod) (int, int) {
+	negative, positive := 0, 0
+
+	for _, mod := range mods {
+		if mod.Value < 0 {
+			negative += mod.Value
+		} else {
+			positive += mod.Value
+		}
+	}
+
+	return negative, positive
+}
+
+// soldierInjuryDelta returns the characteristic change an injury Flux
+// caused, or 0 where the Flux left the character unharmed.
+func soldierInjuryDelta(e chargen.Event) int {
+	if e.Kind == chargen.EventConsequence && e.Consequence.Kind == chargen.ConsequenceCharacteristicChange {
+		return e.Consequence.Delta
+	}
+
+	return 0
+}

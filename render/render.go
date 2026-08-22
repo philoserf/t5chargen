@@ -128,7 +128,7 @@ func careerLine(record chargen.CareerRecord) string {
 func careerValues(record chargen.CareerRecord) string {
 	var parts []string
 
-	parts = append(parts, scholarAndNobleValues(record)...)
+	parts = append(parts, careerSpecificValues(record)...)
 
 	if record.Specialty != "" {
 		parts = append(parts, record.Specialty)
@@ -157,8 +157,10 @@ func careerValues(record chargen.CareerRecord) string {
 	return ", " + strings.Join(parts, ", ")
 }
 
-// scholarAndNobleValues renders the values those two careers track.
-func scholarAndNobleValues(record chargen.CareerRecord) []string {
+// careerSpecificValues renders the state only some careers track: the
+// Soldier's Branch and medals, the Noble's land grants and exile, the
+// Scholar's publications.
+func careerSpecificValues(record chargen.CareerRecord) []string {
 	var parts []string
 
 	if record.Branch != "" {

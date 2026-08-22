@@ -255,8 +255,10 @@ type Advancement struct {
 	MedalMods bool `json:"medal_mods,omitempty"`
 }
 
-// ArmedForces is the Branch and Operations machinery of the Spacer,
-// Soldier, and Marine charts (pp. 81, 82, 86; prose p. 66).
+// ArmedForces is the Branch and Operations machinery of the Soldier and
+// Marine charts (pp. 82, 86; prose p. 66). The Spacer's Naval Branch table
+// (p. 81) prints separate Officer and Enlisted name-and-Mod columns, which
+// this one-Mod-per-row shape cannot express; chart 07 needs it widened.
 type ArmedForces struct {
 	// BranchCheck is the characteristic checked to select rather than roll
 	// a Branch (chart 08: "Select Branch Soc").
@@ -454,7 +456,47 @@ func (d *Definition) validate() error {
 		return err
 	}
 
+	if err := d.validateArmedForces(); err != nil {
+		return err
+	}
+
 	return d.validateJobTable()
+}
+
+// validateArmedForces checks the Branch and Operations tables, so that
+// BranchAt and OperationAt can index them unconditionally: an empty table
+// would make their clamp address a slice with no rows.
+func (d *Definition) validateArmedForces() error {
+	forces := d.ArmedForces
+	if forces == nil {
+		return nil
+	}
+
+	if !characteristicNames[forces.BranchCheck] {
+		return fmt.Errorf("%w: unknown Branch check characteristic %q", errBadDefinition, forces.BranchCheck)
+	}
+
+	if len(forces.Branches) == 0 || len(forces.Operations) == 0 {
+		return fmt.Errorf("%w: armed forces need both a Branch and an Operations table", errBadDefinition)
+	}
+
+	if forces.OperationsPerTerm < 1 {
+		return fmt.Errorf("%w: %d operations per term", errBadDefinition, forces.OperationsPerTerm)
+	}
+
+	for _, branch := range forces.Branches {
+		if branch.Name == "" {
+			return fmt.Errorf("%w: a Branch row has no name", errBadDefinition)
+		}
+	}
+
+	for _, operation := range forces.Operations {
+		if operation.Name == "" {
+			return fmt.Errorf("%w: an Operations row has no name", errBadDefinition)
+		}
+	}
+
+	return nil
 }
 
 // validateRanks checks the rank table, entry tracks, and advancement rows

@@ -780,3 +780,20 @@ agree with each other, which argues for "on Promotion"; the prose is the
 general rule and argues for "at the end of each Term".
 
 Not implemented; see COVERAGE.md.
+
+### I-35: A Reward success awards only the table medal (p. 82 chart 08)
+
+Chart 08's Risk & Reward grid gives the Reward-success cell as "XS Exemplary
+Service, Medal", and the prose beside it as "Success: XS Exemplary Service
+and consult Medals table". Read as a conjunction, every Reward success would
+award an Exemplary Service *plus* whatever the Medals table returns.
+
+The Medals table itself is the discriminator: its lines 2 through 8 *are*
+"XS Exemplary Service" (p. 70), so the cell names the common case and then
+sends the reader to the table for the rest. The p. 66 worked example
+confirms it — Eneri Dinsha succeeds at Reward twice, taking line 4 (XS) in
+his first term and line 10 (MCUF) in his second, and his card reads
+"MCUF-1. XS-1.": two Reward successes, two decorations, not four.
+
+Implemented at `chargen/soldier.go` (`riskAndReward` calls `awardMedal`
+once on a Reward success).

@@ -106,6 +106,12 @@ func TestLoadValidation(t *testing.T) {
 		{"nameless skill cell", strings.Replace(valid, `{"kind": "skill", "name": "Admin"}`, `{"kind": "skill"}`, 1) + table},
 		{"short column", strings.Replace(valid, `{"kind": "skill", "name": "Medic"}`, ``, 1) + table},
 		{"misspelled No Skill", valid + strings.Replace(table, `"Athlete"`, `"No skill"`, 1)},
+		{"armed forces with a bad Branch check", valid + armedForces("branch_check", `"Sta"`) + table},
+		{"armed forces with no Branch table", valid + armedForces("branches", `[]`) + table},
+		{"armed forces with no Operations table", valid + armedForces("operations", `[]`) + table},
+		{"armed forces with no assignments per term", valid + armedForces("operations_per_term", `0`) + table},
+		{"armed forces with a nameless Branch", valid + armedForces("branches", `[{"mod": 1}]`) + table},
+		{"armed forces with a nameless Operation", valid + armedForces("operations", `[{"mod": 1}]`) + table},
 	}
 
 	for _, tt := range tests {
@@ -115,6 +121,29 @@ func TestLoadValidation(t *testing.T) {
 			}
 		})
 	}
+}
+
+// armedForces builds an otherwise valid armed_forces block with one field
+// replaced, for the loader's Branch and Operations checks.
+func armedForces(key, value string) string {
+	fields := []struct{ key, value string }{
+		{"branch_check", `"Soc"`},
+		{"branches", `[{"name": "Infantry", "mod": 1}]`},
+		{"operations", `[{"name": "Combat", "mod": 2}]`},
+		{"operations_per_term", `4`},
+	}
+
+	parts := make([]string, len(fields))
+
+	for i, field := range fields {
+		if field.key == key {
+			field.value = value
+		}
+
+		parts[i] = `"` + field.key + `": ` + field.value
+	}
+
+	return `, "armed_forces": {` + strings.Join(parts, ", ") + `}`
 }
 
 // jobGroup builds one syntactically valid table E group of 6x6 cells.

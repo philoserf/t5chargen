@@ -146,9 +146,9 @@ Book 1, Print Edition 5.1.
 | Four assignments per term; highest Mod applies | chart 08; p. 66 | `operations` | `TestSoldierOperationsPerTerm` | covered |
 | Branch and Operations Mods oppose Risk and Reward | p. 66 | `riskAndReward` | `TestSoldierBranchModsOpposeRiskAndReward` | covered |
 | Term skills restricted to Personal plus the term's assignments | p. 65 | `termOutcome.termColumns` | `TestSoldierTermSkillsFollowAssignments` | covered (commission and promotion skills exempt) |
-| Risk failure: the shared injury and Wound Badge | chart 08; p. 65 | `careerRun.injury` | golden seed 305 | covered (Double Benefits deferred, M4) |
+| Risk failure: the shared injury and Wound Badge | chart 08; p. 65 | `careerRun.injury`, `negativeMods` | golden seed 305, `TestSoldierInjuryIgnoresPositiveMods` | covered (Double Benefits deferred, M4) |
 | Risk success: Exemplary Service Badge | chart 08 | `riskAndReward` | `TestSoldierServiceBadgeCarriesNoMod` | interpretation I-32 (no promotion modifier) |
-| Reward success: the Imperial Medals table | chart 08; p. 66, 70 | `medal` package, `awardMedal` | `TestSoldierMedalsFollowTheTable`, `TestForPinsTheTable` | covered |
+| Reward success: the Imperial Medals table | chart 08; p. 66, 70 | `medal` package, `awardMedal` | `TestSoldierMedalsFollowTheTable`, `TestForPinsTheTable` | interpretation I-35 (one decoration, not table medal plus XS) |
 | Medals modify promotion; Wound Badges do not | p. 70 vs chart 08 | `medalMod` | `TestSoldierPromotionUsesMedalsNotWoundBadges` | interpretation I-31 |
 | Commission to Officer1; two rank ladders with Auto Skills | chart 08; p. 65 | `advance`, `enterRank` | golden seed 305 | covered |
 | One advancement attempt per term per entry class | chart 08 | `advance` (entry snapshot) | golden seed 305 | I-13's rule applied, chart silent |
