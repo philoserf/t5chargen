@@ -17,8 +17,10 @@ package chargen
 // not (interpretation I-31, ERRATA.md).
 //
 // Deferred: the ANM School assignment's schooling, "resolved as Education"
-// (chart 08), and the Major's Command College, both mid-career schooling
-// that lands with Later Education (docs/PRD.md milestone 4); the Reserves
+// (charts 07, 08), and the Command College a service's flag-rank footnote
+// sends its officers to (chart 07's Lt Commander, chart 08's Major), both
+// mid-career schooling that lands with Later Education (docs/PRD.md
+// milestone 4); the branch changes of interpretation I-34; the Reserves
 // (p. 66); the Service Academy's Officer1 entry linkage.
 
 import (
@@ -29,13 +31,14 @@ import (
 	"github.com/philoserf/t5chargen/medal"
 )
 
-// armedForcesMechanics is the Soldier careerMechanics implementation.
+// armedForcesMechanics is the careerMechanics implementation shared by
+// the Armed Forces careers.
 type armedForcesMechanics struct {
 	rank string
 
 	// branch is the row rolled or chosen; its officer or enlisted side is
 	// resolved against the current rank, so a commission moves a Naval
-	// rating from Crew to Line without a second roll (p. 65).
+	// rating from Crew to Line without a second roll (p. 66).
 	branch career.Branch
 }
 
@@ -99,7 +102,7 @@ func (m *armedForcesMechanics) begin(r *careerRun) (bool, error) {
 
 // selectBranch applies "Determine Branch and Mod": the character checks
 // the chart's characteristic to choose a branch and otherwise rolls one
-// (p. 65 worked example: "He must roll Soc or less to select Branch ...
+// (p. 66 worked example: "He must roll Soc or less to select Branch ...
 // and chooses Flight (otherwise a Flight School graduate does not
 // automatically receive Branch= Flight)").
 func (m *armedForcesMechanics) selectBranch(r *careerRun) error {
@@ -226,7 +229,7 @@ func (m *armedForcesMechanics) enterRank(r *careerRun, id string, cause int) err
 	})
 
 	// A commission can move the character to the branch's officer side
-	// ("for Spacers, Crew becomes Line", p. 65), so the branch follows the
+	// ("for Spacers, Crew becomes Line", p. 66), so the branch follows the
 	// rank as soon as it changes.
 	if m.branch.Name != "" {
 		name, _ := m.branchSide(r)
@@ -404,7 +407,7 @@ func negativeMods(caution, branchMod, opsMod int) int {
 func (m *armedForcesMechanics) awardMedal(r *careerRun, reward, cause int) error {
 	won, err := medal.For(reward, m.isOfficer(r))
 	if err != nil {
-		return fmt.Errorf("soldier medal: %w", err)
+		return fmt.Errorf("%s medal: %w", r.def.Name, err)
 	}
 
 	index := slices.IndexFunc(r.record.Medals, func(a Award) bool { return a.Code == won.Code })

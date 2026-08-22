@@ -257,7 +257,7 @@ Implemented at `skill/data/master_skill_list.json` (`labels`) and
 Chart 06 box A gives the Officer Promotion target as "Terms x2". The chart
 does not say whether Terms counts terms completed or the term in progress.
 
-The p. 65 worked example is the discriminator. It resolves Continue as
+The p. 66 worked example is the discriminator. It resolves Continue as
 "7 +Terms (7 **+0**) = 7" in the character's first term and "7 +Terms
 (7 **+1**) = 8" in his second: Terms counts _completed_ terms, and is zero
 during the first.
@@ -711,7 +711,7 @@ explains them as "*+Medals and WB Mods". The Imperial Medals table says the
 opposite: "Medals (but not Wound Badges) are Mods for Soldier / Spacer /
 Marine Promotion" (p. 70).
 
-The p. 70 footnote governs. The p. 65 worked example is the discriminator:
+The p. 70 footnote governs. The p. 66 worked example is the discriminator:
 Eneri Dinsha holds one Exemplary Service and one Wound Badge when his first
 promotion is computed as "Soc plus Medal Mods (10 **+1**) =11" — the XS
 contributes its +1 and the Wound Badge nothing. His second term, holding
@@ -723,7 +723,7 @@ Promotion row directly and the Enlisted Promotion row only by extension of
 the footnote's own wording, which names the promotion of all three
 services without distinguishing the ladders.
 
-Implemented at `chargen/soldier.go` (`medalMod`), and in the data as
+Implemented at `chargen/armedforces.go` (`medalMod`), and in the data as
 `medal_mods` on the two promotion rows.
 
 ### I-32: The Risk-success badge carries no promotion modifier (p. 82 chart 08)
@@ -743,7 +743,7 @@ because it would make the promotion modifier a count of unharmed terms
 rather than of decorations, and would let a character promote steadily
 while never once succeeding at Reward.
 
-Implemented at `chargen/soldier.go` (`riskAndReward`), recorded as
+Implemented at `chargen/armedforces.go` (`riskAndReward`), recorded as
 `service_badges`.
 
 ### I-33: Branch and Operations rolls that run off their tables (p. 82 chart 08)
@@ -770,10 +770,15 @@ that "A non-officer character may change (reselect or reroll) Branch at the
 end of each Term."
 
 Neither is implemented in v1: the engine sets a branch on entry and keeps
-it. The two texts disagree on when an enlisted character may change, and
-nothing else in the career turns on the difference until the branch-change
-choice exists. Recorded here so the next Armed Forces career resolves it
-rather than inheriting the omission silently.
+the row for the rest of the career. (Chart 07's Naval Branch table prints
+an Officer and an Enlisted side per row, so a Spacer's commission still
+moves him across his own row — "for Spacers, Crew becomes Line" (p. 66) —
+but the row itself never changes and he is never offered the reroll the
+same sentence allows.) The two texts disagree on when an enlisted character
+may change, and nothing else in the career turns on the difference until
+the branch-change choice exists. Spacer (chart 07) inherited the omission;
+recorded here so a later Armed Forces career resolves it rather than
+inheriting it silently again.
 
 When it lands, the charts are the narrower and more specific statement and
 agree with each other, which argues for "on Promotion"; the prose is the
@@ -795,5 +800,5 @@ confirms it — Eneri Dinsha succeeds at Reward twice, taking line 4 (XS) in
 his first term and line 10 (MCUF) in his second, and his card reads
 "MCUF-1. XS-1.": two Reward successes, two decorations, not four.
 
-Implemented at `chargen/soldier.go` (`riskAndReward` calls `awardMedal`
+Implemented at `chargen/armedforces.go` (`riskAndReward` calls `awardMedal`
 once on a Reward success).

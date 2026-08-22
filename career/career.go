@@ -255,10 +255,11 @@ type Advancement struct {
 	MedalMods bool `json:"medal_mods,omitempty"`
 }
 
-// ArmedForces is the Branch and Operations machinery of the Soldier and
-// Marine charts (pp. 82, 86; prose p. 66). The Spacer's Naval Branch table
-// (p. 81) prints separate Officer and Enlisted name-and-Mod columns, which
-// this one-Mod-per-row shape cannot express; chart 07 needs it widened.
+// ArmedForces is the Branch and Operations machinery of the Spacer,
+// Soldier, and Marine charts (pp. 81, 82, 86; prose p. 66). A row carries
+// one Mod per rank class: the Spacer's Naval Branch table (p. 81) prints
+// separate Officer and Enlisted name-and-Mod columns, and the Army table
+// prints one set that serves both (see Branch).
 type ArmedForces struct {
 	// BranchCheck is the characteristic checked to select rather than roll
 	// a Branch (chart 08: "Select Branch Soc").
@@ -288,7 +289,7 @@ type ArmedForces struct {
 // Branch is one row of a service's Branch table, indexed by the 1D roll.
 // The Naval table prints separate Officer and Enlisted names and Mods for
 // the same row (chart 07, p. 81), which is how "for Spacers, Crew becomes
-// Line" on commission (p. 65) falls out: the row is fixed and the side
+// Line" on commission (p. 66) falls out: the row is fixed and the side
 // follows the rank class. Where a chart prints one set, as the Army does,
 // the enlisted fields are empty and the officer's serve both.
 type Branch struct {
@@ -508,15 +509,50 @@ func (d *Definition) validateArmedForces() error {
 		return fmt.Errorf("%w: %d operations per term", errBadDefinition, forces.OperationsPerTerm)
 	}
 
-	for _, branch := range forces.Branches {
+	if err := validateBranches(forces.Branches); err != nil {
+		return err
+	}
+
+	return d.validateOperations(forces.Operations)
+}
+
+// validateBranches checks each Branch row names itself and, where it
+// carries an enlisted Mod, names the enlisted side that Mod belongs to.
+func validateBranches(branches []Branch) error {
+	for _, branch := range branches {
 		if branch.Name == "" {
 			return fmt.Errorf("%w: a Branch row has no name", errBadDefinition)
 		}
+
+		// An enlisted Mod without an enlisted name is silently ignored by
+		// Side, which would hand the officer's Mod to a rating.
+		if branch.EnlistedMod != 0 && branch.EnlistedName == "" {
+			return fmt.Errorf("%w: Branch %q has an enlisted Mod but no enlisted name",
+				errBadDefinition, branch.Name)
+		}
 	}
 
-	for _, operation := range forces.Operations {
+	return nil
+}
+
+// validateOperations checks each Operations row names itself and that any
+// skills-column override names a column the chart actually prints: an
+// unmatched override would silently open no column at all, costing the
+// term its skill eligibility with no error.
+func (d *Definition) validateOperations(operations []Operation) error {
+	columns := make(map[string]bool, len(d.SkillColumns))
+	for _, column := range d.SkillColumns {
+		columns[column.Name] = true
+	}
+
+	for _, operation := range operations {
 		if operation.Name == "" {
 			return fmt.Errorf("%w: an Operations row has no name", errBadDefinition)
+		}
+
+		if operation.Column != "" && !columns[operation.Column] {
+			return fmt.Errorf("%w: Operation %q names skills column %q, which the chart does not have",
+				errBadDefinition, operation.Name, operation.Column)
 		}
 	}
 

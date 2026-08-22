@@ -416,7 +416,7 @@ func (d lineBranchDecider) Choose(c chargen.Choice) int {
 
 func (lineBranchDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
-// TestSpacerCrewBecomesLine verifies p. 65: "A character who receives a
+// TestSpacerCrewBecomesLine verifies p. 66: "A character who receives a
 // Commission may roll for Branch or keep his current Branch (for Spacers,
 // Crew becomes Line)." The Naval Branch table prints the two sides of one
 // row (chart 07), so a commission moves the rating across without a new

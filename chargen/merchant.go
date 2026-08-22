@@ -352,7 +352,7 @@ func (m *merchantMechanics) advancementTarget(r *careerRun, a career.Advancement
 
 		target = value
 	case career.TargetTermsTimesTwo:
-		// "Terms x2" counts completed terms, as the p. 65 worked example
+		// "Terms x2" counts completed terms, as the p. 66 worked example
 		// counts them for Continue (interpretation I-12, ERRATA.md).
 		target = len(r.record.Terms) * 2
 	default:
