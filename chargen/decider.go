@@ -81,6 +81,19 @@ const (
 	// p. 80).
 	ChooseBeginTrack ChoiceID = "select_begin_track"
 
+	// ChooseSpecialty selects the Entertainer's art (chart 03 "Select A
+	// Specialty", p. 77).
+	ChooseSpecialty ChoiceID = "select_specialty"
+
+	// ChooseOptionalFlux accepts or declines one of the two optional Fame
+	// Flux rolls ("the first is required; the second and third are
+	// optional", chart 03).
+	ChooseOptionalFlux ChoiceID = "attempt_optional_flux"
+
+	// ChooseComeback accepts or declines an Entertainer Comeback
+	// ("Comeback is possible any number of times", chart 03).
+	ChooseComeback ChoiceID = "attempt_comeback"
+
 	// ChooseAdvancement accepts or declines a commission or promotion
 	// attempt ("Temp may attempt Officer Commission and Rating
 	// Promotion", chart 06 p. 80).

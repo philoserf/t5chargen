@@ -187,6 +187,19 @@ const (
 	// carries the rank title.
 	ConsequenceRankSet ConsequenceKind = "rank_set"
 
+	// ConsequenceTalentSet records the Entertainer's Talent, set with
+	// Fame before Begin and raised whenever Fame increases (chart 03,
+	// p. 77).
+	ConsequenceTalentSet ConsequenceKind = "talent_set"
+
+	// ConsequenceSpecialtySet records the Entertainer's chosen art
+	// (chart 03 "Select A Specialty").
+	ConsequenceSpecialtySet ConsequenceKind = "specialty_set"
+
+	// ConsequenceComeback records an Entertainer Comeback: "Reset Fame to
+	// 2D; Talent is unchanged" (chart 03).
+	ConsequenceComeback ConsequenceKind = "comeback"
+
 	// ConsequenceShipShares records a Merchant Reward award: "Every
 	// Reward gives the character Ship Shares" on the escalating scale
 	// (chart 06, p. 80).

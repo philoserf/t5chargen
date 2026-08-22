@@ -1,0 +1,93 @@
+{
+  "name": "Entertainer",
+  "cite": "Book 1 p. 77 chart 03",
+  "continue_fame": true,
+  "skills_per_term": 4,
+  "begin_tracks": [
+    { "name": "Artist", "checks": ["End", "Int"] },
+    { "name": "Actor", "checks": ["Dex", "End"] },
+    { "name": "Author", "checks": ["Int", "Edu"] },
+    { "name": "Dancer", "checks": ["Dex", "End"] },
+    { "name": "Musician", "checks": ["Dex", "End"] },
+    { "name": "Chef", "checks": ["Dex", "Int"] }
+  ],
+  "skill_columns": [
+    {
+      "name": "Personal",
+      "entries": [
+        { "kind": "characteristic", "name": "Str" },
+        { "kind": "characteristic", "name": "Dex" },
+        { "kind": "characteristic", "name": "End" },
+        { "kind": "characteristic", "name": "Int" },
+        { "kind": "characteristic", "name": "Edu" },
+        { "kind": "characteristic", "name": "Soc" }
+      ]
+    },
+    {
+      "name": "Academic",
+      "entries": [
+        { "kind": "major" },
+        { "kind": "major" },
+        { "kind": "minor" },
+        { "kind": "minor" },
+        { "kind": "trade" },
+        { "kind": "trade" }
+      ]
+    },
+    {
+      "name": "Travel",
+      "entries": [
+        { "kind": "skill", "name": "Zero-G" },
+        { "kind": "skill", "name": "Vacc Suit" },
+        { "kind": "skill", "name": "Pilot" },
+        { "kind": "skill", "name": "Astrogator" },
+        { "kind": "skill", "name": "Sensors" },
+        { "kind": "starship" }
+      ]
+    },
+    {
+      "name": "General",
+      "entries": [
+        { "kind": "skill", "name": "Survey" },
+        { "kind": "skill", "name": "Survival" },
+        { "kind": "skill", "name": "Hostile Environ" },
+        { "kind": "skill", "name": "Animals" },
+        { "kind": "skill", "name": "Bureaucrat" },
+        { "kind": "skill", "name": "Navigator" }
+      ]
+    },
+    {
+      "name": "Business",
+      "entries": [
+        { "kind": "skill", "name": "Broker" },
+        { "kind": "skill", "name": "Trader" },
+        { "kind": "skill", "name": "Advocate" },
+        { "kind": "skill", "name": "Liaison" },
+        { "kind": "skill", "name": "Diplomat" },
+        { "kind": "skill", "name": "Bureaucrat" }
+      ]
+    },
+    {
+      "name": "Vocation",
+      "entries": [
+        { "kind": "skill", "name": "Broker" },
+        { "kind": "art" },
+        { "kind": "skill", "name": "Language" },
+        { "kind": "skill", "name": "Admin" },
+        { "kind": "art" },
+        { "kind": "skill", "name": "Bureaucrat" }
+      ]
+    },
+    {
+      "name": "Avocation",
+      "entries": [
+        { "kind": "art" },
+        { "kind": "art" },
+        { "kind": "trade" },
+        { "kind": "skill", "name": "Athlete" },
+        { "kind": "skill", "name": "Medic" },
+        { "kind": "trade" }
+      ]
+    }
+  ]
+}

@@ -7,39 +7,40 @@ package chargen
 type DefaultPolicy struct{}
 
 // Choose applies the POLICY.md rule for the choice point.
+//
+//nolint:exhaustive // Deliberately partitioned: the name- and preference-based rules are in chooseNamed.
 func (DefaultPolicy) Choose(c Choice) int {
+	if index, ok := chooseNamed(c); ok {
+		return index
+	}
+
 	switch c.ID {
 	case ChooseControllingCharacteristic, ChooseCheck:
 		// POLICY.md: highest-valued characteristic; ties break to
 		// first-listed.
 		return maxScoreIndex(c)
-	case ChooseSkillColumn:
-		// POLICY.md: the first present of General, then Exploration (the
-		// all-plain-skills columns of the shipped careers); first-listed
-		// otherwise.
-		return preferredIndex(c.Options, []string{"General", "Exploration", "Business"}, 0)
-	case ChooseDuty:
-		// POLICY.md: Explorer Duty — the career's point, and the larger
-		// skill eligibility (chart 05 table B).
-		return indexOrFirst(c.Options, "Explorer Duty")
-	case ChooseRiskMod:
-		// POLICY.md: No Mod.
-		return indexOrFirst(c.Options, "No Mod")
-	case ChooseEducation:
-		return chooseEducationProgram(c.Options)
-	case ChooseBeginTrack:
-		// POLICY.md: the highest berth the chart offers — first-listed,
-		// which is chart 06's "To Begin 4th Officer".
-		return 0
-	case ChooseHonors, ChooseWaiver, ChooseRetry, ChooseAdvancement:
+	case ChooseComeback:
+		// POLICY.md: reset when Fame is below the mean of the 2D that
+		// replaces it.
+		if len(c.Scores) > 0 && c.Scores[0] < comebackThreshold {
+			return 0
+		}
+
+		return 1
+	case ChooseHonors, ChooseWaiver, ChooseRetry, ChooseAdvancement, ChooseSpecialty,
+		ChooseOptionalFlux, ChooseBeginTrack:
 		// POLICY.md: always attempt (index 0). Honors failure has no
 		// effect (p. 59); waiver attempts burn future waiver odds (Mod
 		// minus previous waivers) but the immediate stake outweighs it;
 		// the I-8 Reward retry has no stated cost; a commission or
 		// promotion attempt has no stated cost either, and rank carries
-		// skills and muster-out benefits.
+		// skills and muster-out benefits. The same index-0 answer covers
+		// the first-listed rows: chart 06's "To Begin 4th Officer" is the
+		// highest berth on offer, chart 03 ranks its specialties only by
+		// die face, and the optional Fame Flux is offered only while
+		// another roll can help.
 		return 0
-	case ChooseCareer, ChooseHobby, ChooseHomeworld, ChooseArt, ChooseTrade,
+	case ChooseHobby, ChooseHomeworld, ChooseArt, ChooseTrade,
 		ChooseService, ChooseMajor, ChooseMinor, ChooseSkill:
 		// POLICY.md: first-listed.
 		return 0
@@ -47,6 +48,43 @@ func (DefaultPolicy) Choose(c Choice) int {
 
 	return 0
 }
+
+// chooseNamed applies the POLICY.md rules that pick an option by name or
+// from a preference list, reporting whether the choice point is one of
+// them.
+//
+//nolint:exhaustive // Deliberately partitioned: the remaining rules are in Choose.
+func chooseNamed(c Choice) (int, bool) {
+	switch c.ID {
+	case ChooseSkillColumn:
+		// POLICY.md: the first present of General, then Exploration, then
+		// Business — the all-plain-skills columns of the shipped careers;
+		// first-listed otherwise.
+		return preferredIndex(c.Options, []string{"General", "Exploration", "Business"}, 0), true
+	case ChooseDuty:
+		// POLICY.md: Explorer Duty — the career's point, and the larger
+		// skill eligibility (chart 05 table B).
+		return indexOrFirst(c.Options, "Explorer Duty"), true
+	case ChooseRiskMod:
+		// POLICY.md: No Mod.
+		return indexOrFirst(c.Options, "No Mod"), true
+	case ChooseEducation:
+		return chooseEducationProgram(c.Options), true
+	case ChooseCareer:
+		// POLICY.md: Citizen by name. The alternatives are listed in
+		// chart order, so first-listed would hand the default career to
+		// whichever chart number is lowest among those implemented —
+		// changing every generated character each time an earlier chart
+		// lands.
+		return indexOrFirst(c.Options, "Citizen"), true
+	default:
+		return 0, false
+	}
+}
+
+// comebackThreshold is the Fame below which the default policy takes a
+// Comeback: the mean of the 2D that replaces it (chart 03, p. 77).
+const comebackThreshold = 7
 
 // chooseEducationProgram applies POLICY.md's college track: University,
 // then College, then ED5; None (always last) otherwise. Service Academy is

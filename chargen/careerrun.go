@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"slices"
 	"strconv"
+	"strings"
 
 	"github.com/philoserf/t5chargen/career"
 	"github.com/philoserf/t5chargen/dice"
@@ -74,9 +75,10 @@ type termOutcome struct {
 // careerRegistry maps canonical career names to their definition and
 // mechanics. Its key set must match career.Available (tested).
 var careerRegistry = map[string]func() (*career.Definition, careerMechanics, error){
-	"Citizen":  newCitizen,
-	"Scout":    newScout,
-	"Merchant": newMerchant,
+	"Citizen":     newCitizen,
+	"Entertainer": newEntertainer,
+	"Scout":       newScout,
+	"Merchant":    newMerchant,
 }
 
 // careerRun is the shared state of one career resolution.
@@ -212,6 +214,13 @@ func (r *careerRun) term(number int) (bool, error) {
 // ... This Controlling Characteristic cannot be used again until all of
 // the others in the sequence have been used" (p. 65).
 func (r *careerRun) chooseCC() (string, error) {
+	// Chart 03's "Risk & Reward Talent" names no series, so the
+	// Entertainer rotates nothing and the term has no controlling
+	// characteristic.
+	if len(r.def.ControllingCharacteristics) == 0 {
+		return "", nil
+	}
+
 	if len(r.availableCCs) == 0 {
 		r.availableCCs = slices.Clone(r.def.ControllingCharacteristics)
 	}
@@ -283,6 +292,20 @@ var groupCells = map[career.EntryKind]struct {
 		prompt: "Select a Starship Skill",
 		names:  func() []string { return skill.InGroup(skill.GroupStarship) },
 	},
+}
+
+// article returns the indefinite article for a career name, so the prompt
+// reads "an Entertainer" rather than "a Entertainer".
+func article(name string) string {
+	if name == "" {
+		return "a"
+	}
+
+	if strings.ContainsRune("AEIOU", rune(name[0])) {
+		return "an"
+	}
+
+	return "a"
 }
 
 // awardFromGroup resolves an open-selection cell by choice and awards the
@@ -361,7 +384,7 @@ func (r *careerRun) termSkills(rolls int) error {
 	for range rolls {
 		chosen, _, err := choose(r.log, r.decider, Choice{
 			ID:      ChooseSkillColumn,
-			Prompt:  "Select a " + r.def.Name + " Skills column",
+			Prompt:  "Select " + article(r.def.Name) + " " + r.def.Name + " Skills column",
 			Options: columns,
 			Cite:    "Book 1 p. 65 (the character selects a column and rolls 1D)",
 		})
@@ -443,10 +466,15 @@ func (r *careerRun) continueRoll() bool {
 	target := r.def.ContinueTarget
 	label := "Continue " + strconv.Itoa(target) + "-"
 
-	if r.def.ContinueCharacteristic != "" {
+	switch {
+	case r.def.ContinueCharacteristic != "":
 		// A characteristic Continue target (chart 05: "Continue Int").
 		target, _ = characteristicValue(&r.character.Characteristics, r.def.ContinueCharacteristic)
 		label = "Continue " + r.def.ContinueCharacteristic
+	case r.def.ContinueFame:
+		// The career's own tracked value (chart 03: "Continue Fame").
+		target = r.record.Fame
+		label = "Continue Fame"
 	}
 
 	throw := r.roller.Check(2, target)
@@ -472,8 +500,14 @@ func (r *careerRun) continueRoll() bool {
 
 // chooseCheckCharacteristic presents a check's stated characteristics
 // (score-guided, like the education checks) and returns the chosen name
-// and roll-low target.
+// and roll-low target. An empty list is a data error, not an "Auto" berth:
+// the loader permits a begin track with no checks (chart 06's "To Begin
+// Temp Auto"), so the caller must handle that case before calling here.
 func chooseCheckCharacteristic(r *careerRun, names []string) (string, int, error) {
+	if len(names) == 0 {
+		return "", 0, fmt.Errorf("%w: no characteristic stated for the check", errUnknownCharacteristic)
+	}
+
 	name := names[0]
 
 	if len(names) > 1 {
