@@ -7,6 +7,7 @@ import (
 
 	"github.com/philoserf/t5chargen/career"
 	"github.com/philoserf/t5chargen/chargen"
+	"github.com/philoserf/t5chargen/skill"
 )
 
 // agentGoldenSeed is the pinned fixture: eight terms covering eight
@@ -75,8 +76,61 @@ func TestAgentUndercoverTableIsWhole(t *testing.T) {
 
 			if row.Career == "" || row.Source == "" {
 				t.Errorf("A%d B%d = %+v, want a career and a source", a, b, row)
+
+				continue
+			}
+
+			// A source the engine cannot resolve would fail only on the
+			// terms that roll it, so it is checked for the whole table.
+			if _, err := chargen.LoadUndercoverCareer(row.Source); err != nil {
+				t.Errorf("A%d B%d source %q: %v", a, b, row.Source, err)
 			}
 		}
+	}
+}
+
+// agentVocationPolicy forces the Agent's Vocation column, whose first cell
+// is chart 09's "Any Knowledge". The default policy prefers the Mission
+// column, so no pinned seed ever reads it.
+type agentVocationPolicy struct{ chargen.DefaultPolicy }
+
+func (p agentVocationPolicy) Choose(c chargen.Choice) int {
+	if c.ID == chargen.ChooseSkillColumn {
+		if i := slices.Index(c.Options, "Vocation"); i >= 0 {
+			return i
+		}
+	}
+
+	return p.DefaultPolicy.Choose(c)
+}
+
+// TestAgentAnyKnowledgeCellResolves verifies chart 09's "Any Knowledge"
+// cell (Vocation column, p. 83) offers the Master Skill List Knowledges
+// rather than aborting generation.
+func TestAgentAnyKnowledgeCellResolves(t *testing.T) {
+	c, err := chargen.Generate(chargen.Options{Seed: 1, Career: "Agent", Decider: agentVocationPolicy{}})
+	if err != nil {
+		t.Fatalf("Vocation column: %v", err)
+	}
+
+	offered := 0
+
+	for _, e := range c.Events {
+		if e.Kind != chargen.EventChoice || e.Choice.Prompt != "Select Any Knowledge" {
+			continue
+		}
+
+		offered++
+
+		for _, option := range e.Choice.Options {
+			if entry, ok := skill.Lookup(option); !ok || entry.Kind != skill.KindKnowledge {
+				t.Errorf("event %d offers %q, which is not a Knowledge", e.Seq, option)
+			}
+		}
+	}
+
+	if offered == 0 {
+		t.Error("seed 1 never reads the Vocation column's Any Knowledge cell")
 	}
 }
 

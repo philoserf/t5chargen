@@ -330,6 +330,45 @@ var groupCells = map[career.EntryKind]struct {
 		prompt: "Select a Soldier Skill",
 		names:  func() []string { return skill.InGroup(skill.GroupSoldier) },
 	},
+
+	// Chart 09's Vocation column prints "Any Knowledge" (p. 83) and chart
+	// 13's General column "Any Skill*** ... from Citizen Life Skills and
+	// Knowledges" (p. 87); both are open selections over a whole list
+	// rather than a Master Skill List group.
+	career.EntryAnyKnowledge: {
+		prompt: "Select Any Knowledge",
+		names:  allKnowledges,
+	},
+	career.EntryAnySkill: {
+		prompt: "Select Any Skill from Citizen Life Skills and Knowledges",
+		names:  citizenLifeSkills,
+	},
+}
+
+// citizenLifeSkills is chart 13's "Any Skill*** from Citizen Life Skills
+// and Knowledges" (p. 87): every table E entry of chart 04, in chart
+// order. Chart 09's Undercover Assignment reads the same list.
+func citizenLifeSkills() []string {
+	def, err := career.Citizen()
+	if err != nil {
+		return nil
+	}
+
+	return def.HobbyChoices()
+}
+
+// allKnowledges is chart 09's "Any Knowledge" cell (p. 83): every
+// Knowledge on the Master Skill List (p. 132 chart MS), in name order.
+func allKnowledges() []string {
+	var names []string
+
+	for _, name := range skill.Names() {
+		if entry, ok := skill.Lookup(name); ok && entry.Kind == skill.KindKnowledge {
+			names = append(names, name)
+		}
+	}
+
+	return names
 }
 
 // article returns the indefinite article for a career name, so the prompt
@@ -500,6 +539,22 @@ func (r *careerRun) termSkills(rolls int, only []string) error {
 	}
 
 	return nil
+}
+
+// rollUnder rolls 1D and rerolls until the face is within limit, which is
+// how the charts read a column narrower than a die: chart 04 table E's
+// "Roll A (reroll if >3)" (p. 78) and chart 09's A and C columns (p. 83).
+// Every consumed face is logged, so the event log accounts for the
+// rerolls.
+func (r *careerRun) rollUnder(limit int, cite string) int {
+	for {
+		roll := r.roller.Roll(1)
+		r.log.Roll(roll, cite)
+
+		if roll.Total <= limit {
+			return roll.Total
+		}
+	}
 }
 
 // columnIndex returns the table C column with the given name, or -1 for

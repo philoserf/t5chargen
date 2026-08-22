@@ -206,6 +206,7 @@ below cover what is particular to chart 07.
 | "Select (not Roll) one skill from the skill tables of that Career" | chart 09 | `undercoverSkills` | `TestAgentSelectsFromTheCoverCareersTable` | interpretation I-38 |
 | The two Citizen rows roll on table E instead | chart 09 | `undercoverJobTable` | `TestAgentCitizenRowRollsTableE` | interpretation I-39 |
 | The Functionary row | chart 09; chart 13 | `functionary.json` as a reference career | `TestAgentFunctionaryRowResolves`, `TestFunctionaryIsReferenceOnly` | interpretation I-40 |
+| "Any Knowledge" (Vocation column) | chart 09 C | `groupCells`, `allKnowledges` | `TestAgentAnyKnowledgeCellResolves` | covered |
 | Risk failure: the shared injury | chart 09; p. 65 | `careerRun.injury` | golden seed 1717 | covered (Double Benefits deferred, M4) |
 | Reward success: a Commendation | chart 09 | `mission` | golden seed 1717 | covered as a count; the muster-out "+Commends" modifier is M4 |
 | Per Term 2; Undercover 1; Successful Mission 4 | chart 09 B | `resolveTerm` | golden seed 1717 | covered |

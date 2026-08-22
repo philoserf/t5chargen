@@ -42,6 +42,12 @@ func newAgent() (*career.Definition, careerMechanics, error) {
 		return nil, nil, fmt.Errorf("agent career: %w", err)
 	}
 
+	// undercover indexes the table unconditionally: chart 09 has no term
+	// without a Mission, so a definition without one is a data error.
+	if def.Undercover == nil {
+		return nil, nil, fmt.Errorf("%w: Agent has no Undercover Assignment table", errNotImplemented)
+	}
+
 	return def, &agentMechanics{}, nil
 }
 
@@ -110,8 +116,11 @@ func (m *agentMechanics) undercover(r *careerRun) error {
 
 	// "finally top row C (reroll if >3) if required": a row offering one
 	// title needs no C roll, and one offering none needs no title
-	// (interpretation I-38, ERRATA.md).
+	// (interpretation I-38, ERRATA.md). The two Citizen rows print a roll
+	// instruction where the others print titles, so they carry no cover
+	// title at all (interpretation I-39).
 	switch {
+	case row.JobTable:
 	case len(row.Titles) > 1:
 		c := r.rollUnder(len(row.Titles), table.Cite+" (roll C, reroll if >3)")
 		title = row.Titles[c-1]
@@ -131,19 +140,6 @@ func (m *agentMechanics) undercover(r *careerRun) error {
 	}
 
 	return m.undercoverSkill(r, row)
-}
-
-// rollUnder rolls 1D and rerolls until the face is within limit, which is
-// how chart 09 reads its A and C columns.
-func (r *careerRun) rollUnder(limit int, cite string) int {
-	for {
-		roll := r.roller.Roll(1)
-		r.log.Roll(roll, cite)
-
-		if roll.Total <= limit {
-			return roll.Total
-		}
-	}
 }
 
 // undercoverJobTable resolves the two Citizen rows, which say "Roll on
@@ -287,30 +283,6 @@ func undercoverCell(entry career.Entry) []string {
 		// Characteristic, Major, Minor, Capital, and No Skill cells.
 		return nil
 	}
-}
-
-// citizenLifeSkills is chart 13's "Any Skill*** from Citizen Life Skills
-// and Knowledges" (p. 87).
-func citizenLifeSkills() []string {
-	def, err := career.Citizen()
-	if err != nil {
-		return nil
-	}
-
-	return def.HobbyChoices()
-}
-
-// allKnowledges is chart 09's "Any Knowledge" cell (p. 83).
-func allKnowledges() []string {
-	var names []string
-
-	for _, name := range skill.Names() {
-		if entry, ok := skill.Lookup(name); ok && entry.Kind == skill.KindKnowledge {
-			names = append(names, name)
-		}
-	}
-
-	return names
 }
 
 // mission runs the chart 09 Risk & Reward box: the two years completing

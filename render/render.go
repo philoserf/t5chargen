@@ -472,7 +472,8 @@ func consequenceNobleText(c *chargen.ConsequenceEvent) string {
 	}
 }
 
-// consequenceArmedForcesText renders the chart 08 consequence kinds.
+// consequenceArmedForcesText renders the chart 08 Armed Forces and
+// chart 09 Agent consequence kinds.
 //
 //nolint:exhaustive // Deliberately partitioned: earlier kinds are handled upstream.
 func consequenceArmedForcesText(c *chargen.ConsequenceEvent) string {

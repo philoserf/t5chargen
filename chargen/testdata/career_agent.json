@@ -1675,7 +1675,6 @@
       "consequence": {
         "cause": 99,
         "kind": "undercover_assignment",
-        "skill": "Roll on Citizen Life Skills for Job",
         "career": "Citizen"
       }
     },
