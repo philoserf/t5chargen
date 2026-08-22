@@ -66,17 +66,17 @@ func (m *merchantMechanics) begin(r *careerRun) (bool, error) {
 
 	// "To Begin Temp Auto" (chart 06): the untrained berth needs no throw,
 	// so the selecting choice is what causes the entry (docs/PRD.md FR10).
-	if track.Check == "" {
+	if len(track.Checks) == 0 {
 		return true, m.enterRank(r, track.Rank, trackSeq)
 	}
 
-	value, ok := characteristicValue(&r.character.Characteristics, track.Check)
-	if !ok {
-		return false, fmt.Errorf("%w: %q", errUnknownCharacteristic, track.Check)
+	check, value, err := chooseCheckCharacteristic(r, track.Checks)
+	if err != nil {
+		return false, err
 	}
 
 	throw := r.roller.Check(2, value)
-	seq := r.log.Throw(throw, nil, r.def.Cite+" (To Begin "+track.Name+" vs "+track.Check+")")
+	seq := r.log.Throw(throw, nil, r.def.Cite+" (To Begin "+track.Name+" vs "+check+")")
 
 	if !throw.Success {
 		// "Each failed attempt (both Begin or Retry) takes one year" (p. 65).

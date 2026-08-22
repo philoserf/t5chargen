@@ -6,8 +6,8 @@
   "skills_per_term": 4,
   "skills_per_advancement": 1,
   "begin_tracks": [
-    { "name": "4th Officer", "check": "Int", "rank": "M1" },
-    { "name": "Spacehand", "check": "Dex", "rank": "R0" },
+    { "name": "4th Officer", "checks": ["Int"], "rank": "M1" },
+    { "name": "Spacehand", "checks": ["Dex"], "rank": "R0" },
     { "name": "Temp", "rank": "RX" }
   ],
   "ranks": [

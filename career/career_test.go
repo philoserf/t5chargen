@@ -84,6 +84,13 @@ func TestLoadValidation(t *testing.T) {
 		t.Fatalf("valid definition rejected: %v", err)
 	}
 
+	// An empty controlling-characteristic series is legal: chart 03's
+	// "Risk & Reward Talent" rotates none.
+	noCC := strings.Replace(valid, `["Str"]`, `[]`, 1) + table
+	if _, err := career.Load("no-cc.json", []byte(noCC)); err != nil {
+		t.Errorf("definition with no controlling characteristics rejected: %v", err)
+	}
+
 	tests := []struct {
 		name string
 		data string
@@ -91,7 +98,6 @@ func TestLoadValidation(t *testing.T) {
 		{"zero continue target", strings.Replace(valid, `"continue_target": 10`, `"continue_target": 0`, 1) + table},
 		{"unmissable continue target", strings.Replace(valid, `"continue_target": 10`, `"continue_target": 12`, 1) + table},
 		{"zero skills per term", strings.Replace(valid, `"skills_per_term": 4`, `"skills_per_term": 0`, 1) + table},
-		{"no characteristics", strings.Replace(valid, `["Str"]`, `[]`, 1) + table},
 		{"bad characteristic", strings.Replace(valid, `["Str"]`, `["Sta"]`, 1) + table},
 		{
 			"unknown cell kind",

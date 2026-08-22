@@ -84,14 +84,18 @@ type Definition struct {
 
 	// ControllingCharacteristics lists the characteristics available for
 	// the career's Risk/Reward variant, in chart order (p. 64; for
-	// Citizen, chart 04's "Citizen Life C1 C2 C3 C4").
-	ControllingCharacteristics []string `json:"controlling_characteristics"`
+	// Citizen, chart 04's "Citizen Life C1 C2 C3 C4"). Empty where the
+	// variant rotates none (chart 03's "Risk & Reward Talent").
+	ControllingCharacteristics []string `json:"controlling_characteristics,omitempty"`
 
-	// ContinueTarget is a fixed roll-low Continue target (chart 04:
-	// "Continue 10-"); ContinueCharacteristic names a characteristic
-	// target instead (chart 05: "Continue Int"). Exactly one is set.
+	// The Continue target takes one of three forms, exactly one of which
+	// is set: a fixed roll-low target (chart 04: "Continue 10-"), a
+	// characteristic (chart 05: "Continue Int"), or the career's own
+	// tracked value (chart 03: "Continue Fame"). The third consolidates
+	// into a kind enum when the other value-target careers land.
 	ContinueTarget         int    `json:"continue_target,omitempty"`
 	ContinueCharacteristic string `json:"continue_characteristic,omitempty"`
+	ContinueFame           bool   `json:"continue_fame,omitempty"`
 
 	// SkillsPerTerm is the table C eligibility (chart 04 table B:
 	// "Per Term: 4 on Table C"). SkillEligibility carries per-duty
@@ -137,9 +141,11 @@ type Definition struct {
 type BeginTrack struct {
 	Name string `json:"name"`
 
-	// Check is the characteristic the To Begin throw checks; empty is the
-	// chart's "Auto" (chart 06: "To Begin Temp Auto").
-	Check string `json:"check,omitempty"`
+	// Checks lists the characteristics the To Begin throw may check; the
+	// character picks one where a chart offers several (chart 03: "Begin
+	// Actor C2 or C3"). Empty is the chart's "Auto" (chart 06: "To Begin
+	// Temp Auto").
+	Checks []string `json:"checks,omitempty"`
 
 	// Rank is the rank id entry confers.
 	Rank string `json:"rank,omitempty"`
@@ -373,9 +379,11 @@ func validateBeginTrack(track BeginTrack, ids map[string]bool, ranked bool) erro
 		return fmt.Errorf("%w: nameless begin track", errBadDefinition)
 	}
 
-	if track.Check != "" && !characteristicNames[track.Check] {
-		return fmt.Errorf("%w: begin track %q checks unknown characteristic %q",
-			errBadDefinition, track.Name, track.Check)
+	for _, check := range track.Checks {
+		if !characteristicNames[check] {
+			return fmt.Errorf("%w: begin track %q checks unknown characteristic %q",
+				errBadDefinition, track.Name, check)
+		}
 	}
 
 	if track.Rank == "" {
@@ -462,8 +470,17 @@ func (d *Definition) validateContinue() error {
 	fixed := d.ContinueTarget != 0
 	characteristic := d.ContinueCharacteristic != ""
 
-	if fixed == characteristic {
-		return fmt.Errorf("%w: want exactly one of continue_target and continue_characteristic", errBadDefinition)
+	forms := 0
+
+	for _, set := range []bool{fixed, characteristic, d.ContinueFame} {
+		if set {
+			forms++
+		}
+	}
+
+	if forms != 1 {
+		return fmt.Errorf("%w: want exactly one of continue_target, continue_characteristic, and continue_fame",
+			errBadDefinition)
 	}
 
 	if fixed && (d.ContinueTarget < 2 || d.ContinueTarget > 11) {
@@ -480,10 +497,8 @@ func (d *Definition) validateContinue() error {
 // validateCharacteristicNames checks the begin/retry/controlling
 // characteristic names against the six standard abbreviations.
 func (d *Definition) validateCharacteristicNames() error {
-	if len(d.ControllingCharacteristics) == 0 {
-		return fmt.Errorf("%w: no controlling characteristics", errBadDefinition)
-	}
-
+	// Chart 03's Risk & Reward row names Talent rather than a series of
+	// characteristics, so the Entertainer rotates none.
 	names := append(append([]string{}, d.BeginChecks...), d.RetryCheck)
 	names = append(names, d.ControllingCharacteristics...)
 
@@ -617,6 +632,9 @@ var scoutJSON []byte
 //go:embed data/merchant.json
 var merchantJSON []byte
 
+//go:embed data/entertainer.json
+var entertainerJSON []byte
+
 // The implemented careers parse and validate their embedded definitions
 // once.
 var (
@@ -628,6 +646,9 @@ var (
 	})
 	merchant = sync.OnceValues(func() (*Definition, error) {
 		return load("merchant.json", merchantJSON)
+	})
+	entertainer = sync.OnceValues(func() (*Definition, error) {
+		return load("entertainer.json", entertainerJSON)
 	})
 )
 
@@ -662,9 +683,15 @@ func Merchant() (*Definition, error) {
 	return merchant()
 }
 
-// Available lists the implemented careers in Book 1 chart order (Citizen
-// is chart 04, Scout 05, Merchant 06). The default policy's first-listed
-// career selection depends on this order (POLICY.md).
+// Entertainer returns the Entertainer career definition (chart 03, p. 77).
+func Entertainer() (*Definition, error) {
+	return entertainer()
+}
+
+// Available lists the implemented careers in Book 1 chart order
+// (Entertainer is chart 03, Citizen 04, Scout 05, Merchant 06). The
+// default policy names its career rather than taking the first listed, so
+// this order is presentation only (POLICY.md).
 func Available() []string {
-	return []string{"Citizen", "Scout", "Merchant"}
+	return []string{"Entertainer", "Citizen", "Scout", "Merchant"}
 }

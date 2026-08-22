@@ -113,6 +113,25 @@ Book 1, Print Edition 5.1.
 | "Starship Skill" cells | chart 05 table C | `EntryStarship` (errors if selected) | data test | deferred (M3); unblocked — the MS list now supplies the seven Starship Skills |
 | No rank | p. 65 | (nothing to do) | — | covered |
 
+## Career 03 — Entertainer (chart 03, p. 77)
+
+| Rule | Cite | Implementation | Test | Status |
+| --- | --- | --- | --- | --- |
+| Select A Specialty (six arts) with per-specialty Begin checks | chart 03 A | `chooseSpecialty`, `BeginTracks` | `TestEntertainerSpecialties` | covered |
+| Initial Fame and Talent from one 2D, before Begin | chart 03 | `begin` | `TestEntertainerInitialFameEqualsTalent` | covered |
+| Begin failure costs a year, career not begun | chart 03 A; p. 65 | `begin` | Entertainer sweeps | covered (no Begin retry on the chart) |
+| "Risk & Reward Talent" — no Risk or Reward throw | chart 03 A; p. 66 | `resolveTerm` | `TestEntertainerNoRiskAndReward` | interpretation I-18 |
+| No controlling-characteristic series to rotate | chart 03 A | `chooseCC` | `TestEntertainerRotatesNoControllingCharacteristic` | covered |
+| Term 1 Fame = the pre-Begin 2D, no Flux | chart 03 table | `resolveTerm` | `TestEntertainerFirstTermHasNoFlux` | interpretation I-19 |
+| Required Flux plus up to two optional | chart 03 | `resolveFame` | golden seed 572 | covered (policy stops once Fame rises) |
+| Talent +1 when Fame increases | chart 03 | `resolveTerm` | `TestEntertainerTalentTracksFameIncreases` | covered |
+| Per Term 4; If Fame Increases 2 | chart 03 B | `termOutcome.skillRolls` | `TestEntertainerFameIncreaseEarnsSkills` | covered |
+| Comeback resets Fame to 2D, Talent unchanged | chart 03 | `offerComeback`, `resolveFame` | `TestEntertainerComeback` | interpretation I-20 (replaces the term's Flux; earns no Talent or extra skills) |
+| Fame may fall below zero | chart 03 | `setFame` | golden sweeps | interpretation I-21 (no floor) |
+| Continue vs Fame | chart 03 A | `continueRoll` | `TestEntertainerContinueUsesFame` | covered (I-17 guarantees termination) |
+| Fame descriptor table; stage names at Fame 10+ | chart 03 | — | — | deferred (flavor; the chart F fame system is M4) |
+| Muster-out table D, money DM +Fame/3 | chart 03 D | — | — | deferred (M4) |
+
 ## Career 06 — Merchant (chart 06, p. 80)
 
 | Rule | Cite | Implementation | Test | Status |
@@ -143,9 +162,19 @@ Book 1, Print Edition 5.1.
 
 ## Careers 01–05 remainder, 07–13
 
-All deferred (M3): Craftsman, Scholar, Entertainer, Spacer, Soldier,
-Agent, Rogue, Noble, Marine, Functionary (charts pp. 75–88). Functionary
-additionally needs career changes (M4): it "is never a first career".
+All deferred (M3): Craftsman, Scholar, Spacer, Soldier, Agent, Rogue,
+Noble, Marine, Functionary (charts pp. 75–88).
+
+Two are soft-gated on career changes (M4), not on effort: Functionary "is
+never a first career" (chart 13), and Craftsman's Begin is "Automatic* —
+*if TWO skill-6 and Craftsman-1" (chart 01), which a character leaving
+education at 18 essentially never satisfies. Their machinery is
+transcribed when career changes make them reachable. Craftsman findings
+banked from the page: the box/prose conflict between "9D < Master Points"
+and "Roll 9D for Master Points or less"; QREBS allocation and the
+Masterpiece Value table are M4 economics; and its "New Trade***" cells
+("Any Trade not already held; if all are already held, this benefit is
+lost") need a cell kind the engine does not yet have.
 Each career's section is added here with its chunk, uncommon branches
 enumerated, before it is called done.
 
@@ -173,7 +202,7 @@ Batch, replay verification, interactive mode: deferred (M5).
 
 ## Cross-cutting interpretations
 
-I-1 … I-17 in ERRATA.md, each referenced from its row above. The I-4
+I-1 … I-21 in ERRATA.md, each referenced from its row above. The I-4
 skill-name residual (MSL-exact strings, the Navigator/Navigation split) is
 closed by I-9: every skill name in every embedded chart is validated
 against the Master Skill List at load time.
