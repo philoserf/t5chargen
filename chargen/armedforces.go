@@ -59,6 +59,11 @@ func newSpacer() (*career.Definition, careerMechanics, error) {
 	return newArmedForces(career.Spacer)
 }
 
+//nolint:ireturn // The registry's function type returns the interface.
+func newMarine() (*career.Definition, careerMechanics, error) {
+	return newArmedForces(career.Marine)
+}
+
 // newArmedForces builds the shared mechanics over one service's chart.
 //
 //nolint:ireturn // The registry's function type returns the interface.
@@ -143,8 +148,9 @@ func (*armedForcesMechanics) eduDM(r *careerRun) int {
 }
 
 // chooseBranch presents the distinct branches the table offers.
-func (*armedForcesMechanics) chooseBranch(r *careerRun) (career.Branch, error) {
+func (m *armedForcesMechanics) chooseBranch(r *careerRun) (career.Branch, error) {
 	forces := r.def.ArmedForces
+	officer := m.isOfficer(r)
 
 	var (
 		options  []string
@@ -153,17 +159,23 @@ func (*armedForcesMechanics) chooseBranch(r *careerRun) (career.Branch, error) {
 	)
 
 	for _, branch := range forces.Branches {
-		if slices.Contains(options, branch.Name) {
+		// A branch is selected on entry, when every Armed Forces
+		// character is enlisted (p. 65), so the Naval table's enlisted
+		// column is the one that applies: an entering Spacer picks among
+		// Crew and Engineer, not Line and Flight (interpretation I-36,
+		// ERRATA.md).
+		name, mod := branch.Side(officer)
+		if slices.Contains(options, name) {
 			continue
 		}
 
-		options = append(options, branch.Name)
+		options = append(options, name)
 		branches = append(branches, branch)
 
 		// The score pairs the Branch Mod with its DM so a policy can
 		// break ties on the DM, which decides how far the Operations
 		// roll is pushed down its table (POLICY.md).
-		scores = append(scores, branch.Mod*branchDMRange+branch.DM)
+		scores = append(scores, mod*branchDMRange+branch.DM)
 	}
 
 	chosen, _, err := choose(r.log, r.decider, Choice{

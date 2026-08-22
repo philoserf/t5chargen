@@ -1,12 +1,11 @@
 {
-  "name": "Soldier",
-  "cite": "Book 1 p. 82 chart 08",
+  "name": "Marine",
+  "cite": "Book 1 p. 86 chart 12",
   "controlling_characteristics": [
     "Str",
-    "End",
     "Int"
   ],
-  "continue_characteristic": "End",
+  "continue_characteristic": "Str",
   "skills_per_term": 4,
   "skills_per_advancement": 1,
   "begin_checks": [
@@ -14,8 +13,8 @@
   ],
   "armed_forces": {
     "branch_check": "Soc",
-    "branch_cite": "Book 1 p. 82 chart 08 (Army Branch)",
-    "operations_cite": "Book 1 p. 82 chart 08 (Army Operations)",
+    "branch_cite": "Book 1 p. 86 chart 12 (Marine Branch)",
+    "operations_cite": "Book 1 p. 86 chart 12 (Marine Operations)",
     "edu_dm_at": 10,
     "edu_dm": 2,
     "operations_use_branch_dm": true,
@@ -24,12 +23,12 @@
       {
         "name": "Infantry",
         "mod": 1,
-        "dm": 1
+        "dm": 2
       },
       {
         "name": "Infantry",
         "mod": 1,
-        "dm": 1
+        "dm": 2
       },
       {
         "name": "Artillery",
@@ -44,10 +43,10 @@
       {
         "name": "Protected",
         "mod": 2,
-        "dm": 0
+        "dm": 1
       },
       {
-        "name": "Protected",
+        "name": "Commando",
         "mod": 2,
         "dm": 0
       },
@@ -101,42 +100,43 @@
         "mod": 2
       },
       {
-        "name": "Base",
+        "name": "Garrison",
         "mod": 0
       }
     ]
   },
   "ranks": [
     {
-      "id": "S1",
+      "id": "M1",
       "class": "enlisted",
       "title": "Private",
       "auto_skill": "Fighter"
     },
     {
-      "id": "S2",
+      "id": "M2",
       "class": "enlisted",
-      "title": "Corporal"
+      "title": "Lance Corporal"
     },
     {
-      "id": "S3",
+      "id": "M3",
       "class": "enlisted",
       "title": "Sergeant",
       "auto_skill": "Heavy Weapons"
     },
     {
-      "id": "S4",
+      "id": "M4",
       "class": "enlisted",
       "title": "Staff Sergeant",
+      "auto_skill": "Tactics"
+    },
+    {
+      "id": "M5",
+      "class": "enlisted",
+      "title": "Master Sergeant",
       "auto_skill": "Leader"
     },
     {
-      "id": "S5",
-      "class": "enlisted",
-      "title": "Master Sergeant"
-    },
-    {
-      "id": "S6",
+      "id": "M6",
       "class": "enlisted",
       "title": "Sergeant Major"
     },
@@ -159,24 +159,24 @@
     {
       "id": "O4",
       "class": "officer",
-      "title": "Major",
+      "title": "Force Commander",
       "auto_skill": "Tactics"
     },
     {
       "id": "O5",
       "class": "officer",
-      "title": "Lt Colonel"
+      "title": "Lt Coronel"
     },
     {
       "id": "O6",
       "class": "officer",
-      "title": "Colonel",
+      "title": "Coronel",
       "auto_skill": "Leader"
     },
     {
       "id": "O7",
       "class": "officer",
-      "title": "General"
+      "title": "Brigadier"
     }
   ],
   "advancements": [
@@ -195,7 +195,7 @@
         "enlisted"
       ],
       "target": "characteristic",
-      "check": "End",
+      "check": "Str",
       "medal_mods": true
     },
     {
@@ -204,7 +204,7 @@
         "officer"
       ],
       "target": "characteristic",
-      "check": "Soc",
+      "check": "Int",
       "medal_mods": true
     }
   ],
@@ -239,22 +239,24 @@
       ]
     },
     {
-      "name": "Base",
+      "name": "Garrison",
       "entries": [
         {
-          "kind": "major"
-        },
-        {
-          "kind": "major"
-        },
-        {
-          "kind": "minor"
-        },
-        {
-          "kind": "minor"
-        },
-        {
           "kind": "trade"
+        },
+        {
+          "kind": "major"
+        },
+        {
+          "kind": "minor"
+        },
+        {
+          "kind": "skill",
+          "name": "Gambler"
+        },
+        {
+          "kind": "skill",
+          "name": "Athlete"
         },
         {
           "kind": "trade"
@@ -270,15 +272,13 @@
         },
         {
           "kind": "skill",
-          "name": "Vacc Suit"
-        },
-        {
-          "kind": "skill",
           "name": "Fighter"
         },
         {
-          "kind": "skill",
-          "name": "Stealth"
+          "kind": "soldier"
+        },
+        {
+          "kind": "soldier"
         },
         {
           "kind": "skill",
@@ -295,7 +295,7 @@
       "entries": [
         {
           "kind": "skill",
-          "name": "Admin"
+          "name": "Vacc Suit"
         },
         {
           "kind": "skill",
@@ -307,15 +307,15 @@
         },
         {
           "kind": "skill",
-          "name": "Animals"
+          "name": "Stealth"
         },
         {
           "kind": "skill",
-          "name": "Liaison"
+          "name": "Leader"
         },
         {
           "kind": "skill",
-          "name": "Navigator"
+          "name": "Tactics"
         }
       ]
     },
@@ -328,11 +328,11 @@
         },
         {
           "kind": "skill",
-          "name": "Vacc Suit"
+          "name": "Fighter"
         },
         {
           "kind": "skill",
-          "name": "Driver"
+          "name": "Flyer"
         },
         {
           "kind": "skill",
@@ -340,11 +340,11 @@
         },
         {
           "kind": "skill",
-          "name": "Heavy Weapons"
+          "name": "Leader"
         },
         {
           "kind": "skill",
-          "name": "Sensors"
+          "name": "Heavy Weapons"
         }
       ]
     },
@@ -356,22 +356,23 @@
         },
         {
           "kind": "skill",
-          "name": "Liaison"
+          "name": "Survival"
         },
         {
           "kind": "skill",
           "name": "Language"
         },
         {
-          "kind": "soldier"
+          "kind": "skill",
+          "name": "Gunner"
         },
         {
           "kind": "skill",
-          "name": "Computer"
+          "name": "Leader"
         },
         {
           "kind": "skill",
-          "name": "Tactics"
+          "name": "Fighter"
         }
       ]
     },
