@@ -163,6 +163,19 @@ func careerValues(record chargen.CareerRecord) string {
 func careerSpecificValues(record chargen.CareerRecord) []string {
 	var parts []string
 
+	if record.UndercoverCareer != "" {
+		cover := "undercover as " + record.UndercoverCareer
+		if record.UndercoverTitle != "" {
+			cover += " (" + record.UndercoverTitle + ")"
+		}
+
+		parts = append(parts, cover)
+	}
+
+	if record.Commendations > 0 {
+		parts = append(parts, plural(record.Commendations, "Commendation"))
+	}
+
 	if record.Branch != "" {
 		parts = append(parts, record.Branch)
 	}
@@ -464,6 +477,14 @@ func consequenceNobleText(c *chargen.ConsequenceEvent) string {
 //nolint:exhaustive // Deliberately partitioned: earlier kinds are handled upstream.
 func consequenceArmedForcesText(c *chargen.ConsequenceEvent) string {
 	switch c.Kind {
+	case chargen.ConsequenceUndercover:
+		if c.Skill == "" {
+			return "undercover as " + c.Career
+		}
+
+		return "undercover as " + c.Career + " (" + c.Skill + ")"
+	case chargen.ConsequenceCommendation:
+		return fmt.Sprintf("Commendation (total %d)", c.Value)
 	case chargen.ConsequenceBranchSet:
 		return "Branch " + c.Skill
 	case chargen.ConsequenceOperation:

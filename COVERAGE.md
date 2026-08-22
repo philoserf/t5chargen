@@ -196,6 +196,22 @@ below cover what is particular to chart 07.
 | The Reserves; Academy Officer1 entry | p. 66; chart C | — | — | deferred (M4) |
 | Muster-out table D | chart 08 D | — | — | deferred (M4) |
 
+## Career 09 — Agent (chart 09, p. 83)
+
+| Rule | Cite | Implementation | Test | Status |
+| --- | --- | --- | --- | --- |
+| To Begin End; Risk & Reward Str/Dex/End/Int | chart 09 A | `agentMechanics.begin`, `mission` | golden seed 1717 | covered |
+| A Mission per term: two years undercover, two completing it | chart 09 | `resolveTerm` | `TestAgentUndercoverEveryTerm` | covered (the chart prints no separate Mission roll; Risk & Reward is it) |
+| Undercover Assignment: roll A, B, and C if required | chart 09 | `undercover`, `rollUnder` | `TestAgentUndercoverTableIsWhole` | covered; the "if required" reading is I-39 |
+| "Select (not Roll) one skill from the skill tables of that Career" | chart 09 | `undercoverSkills` | `TestAgentSelectsFromTheCoverCareersTable` | interpretation I-38 |
+| The two Citizen rows roll on table E instead | chart 09 | `undercoverJobTable` | `TestAgentCitizenRowRollsTableE` | interpretation I-39 |
+| The Functionary row | chart 09; chart 13 | `functionary.json` as a reference career | `TestAgentFunctionaryRowResolves`, `TestFunctionaryIsReferenceOnly` | interpretation I-40 |
+| Risk failure: the shared injury | chart 09; p. 65 | `careerRun.injury` | golden seed 1717 | covered (Double Benefits deferred, M4) |
+| Reward success: a Commendation | chart 09 | `mission` | golden seed 1717 | covered as a count; the muster-out "+Commends" modifier is M4 |
+| Per Term 2; Undercover 1; Successful Mission 4 | chart 09 B | `resolveTerm` | golden seed 1717 | covered |
+| Continue Str +Terms | chart 09 A | `continueRoll`, `ContinueModTerms` | `TestAgentContinueAddsTerms` | covered (completed terms, I-12) |
+| Muster-out table D | chart 09 D | — | — | deferred (M4) |
+
 ## Career 11 — Noble (chart 11, p. 85)
 
 | Rule | Cite | Implementation | Test | Status |
@@ -268,10 +284,12 @@ below cover what is particular to chart 07.
 
 ## Careers 01–05 remainder, 07–13
 
-All deferred (M3): Craftsman, Agent, Rogue, Functionary (charts
-pp. 75–88). The Armed Forces trio is complete; Agent (09) and Rogue (10)
-each bring their own subsystem, and Craftsman (01) and Functionary (13)
-are soft-gated on career changes (M4).
+All deferred (M3): Craftsman, Rogue, Functionary (charts pp. 75–88).
+Rogue (10) brings Schemes, Prison, and a payoff formula. Craftsman (01)
+and Functionary (13) are soft-gated on career changes (M4) — neither is
+reachable as a first career — though chart 13's skills table is now
+transcribed as a reference career for the Agent's Undercover table
+(interpretation I-40).
 
 Two are soft-gated on career changes (M4), not on effort: Functionary "is
 never a first career" (chart 13), and Craftsman's Begin is "Automatic* —

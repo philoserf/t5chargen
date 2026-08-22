@@ -99,6 +99,12 @@ func TestMarineSheetGolden(t *testing.T) {
 	golden(t, render.Sheet(generate(t, chargen.Options{Seed: 529, Career: "Marine"})), "testdata/marine_sheet.md")
 }
 
+// TestAgentSheetGolden pins the sheet for the career that goes
+// undercover in other careers (chart 09).
+func TestAgentSheetGolden(t *testing.T) {
+	golden(t, render.Sheet(generate(t, chargen.Options{Seed: 1717, Career: "Agent"})), "testdata/agent_sheet.md")
+}
+
 func TestSheetWithName(t *testing.T) {
 	sheet := render.Sheet(generate(t, chargen.Options{Seed: 1, Name: "Eneri Dinsha"}))
 

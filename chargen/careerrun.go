@@ -89,6 +89,7 @@ var careerRegistry = map[string]func() (*career.Definition, careerMechanics, err
 	"Soldier":     newSoldier,
 	"Spacer":      newSpacer,
 	"Marine":      newMarine,
+	"Agent":       newAgent,
 	"Entertainer": newEntertainer,
 	"Scout":       newScout,
 	"Merchant":    newMerchant,
@@ -640,14 +641,9 @@ func (r *careerRun) continueRoll() (bool, error) {
 		label = "Continue Fame"
 	}
 
-	var mods []Mod
-
-	if r.def.ContinueMod == career.ContinueModPublications && r.record.Publications != 0 {
-		// "Continue Edu*" with "*Mod +Pubs" (chart 02 box A).
-		target += r.record.Publications
-		mods = []Mod{{Name: "Publications", Value: r.record.Publications}}
-		label += " +Pubs"
-	}
+	bonus, mods, suffix := r.continueMod()
+	target += bonus
+	label += suffix
 
 	throw := r.roller.Check(2, target)
 	seq := r.log.Throw(throw, mods, r.def.Cite+" ("+label+"; p. 66)")
@@ -682,6 +678,31 @@ func (r *careerRun) continueRoll() (bool, error) {
 	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerEnded, Career: r.def.Name})
 
 	return false, nil
+}
+
+// continueMod applies the career-tracked value a chart adds to its
+// Continue target: chart 02's "*Mod +Pubs" and chart 09's "*Mod +Terms".
+func (r *careerRun) continueMod() (int, []Mod, string) {
+	switch r.def.ContinueMod {
+	case career.ContinueModPublications:
+		if r.record.Publications == 0 {
+			return 0, nil, ""
+		}
+
+		return r.record.Publications,
+			[]Mod{{Name: "Publications", Value: r.record.Publications}}, " +Pubs"
+	case career.ContinueModTerms:
+		// Completed terms, as the p. 66 worked example counts them
+		// (interpretation I-12).
+		terms := len(r.record.Terms)
+		if terms == 0 {
+			return 0, nil, ""
+		}
+
+		return terms, []Mod{{Name: "Terms", Value: terms}}, " +Terms"
+	default:
+		return 0, nil, ""
+	}
 }
 
 // chooseCheckCharacteristic presents a check's stated characteristics

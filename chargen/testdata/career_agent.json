@@ -1,0 +1,4656 @@
+{
+  "schema_version": "0.14.0",
+  "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
+  "engine_version": "0.14.0",
+  "policy_version": "0.10.0",
+  "rng": {
+    "algorithm": "math/rand/v2-pcg",
+    "seed": 1717
+  },
+  "characteristics": {
+    "str": 8,
+    "dex": 9,
+    "end": 8,
+    "int": 8,
+    "edu": 8,
+    "soc": 3
+  },
+  "upp": "898883",
+  "homeworld": {
+    "name": "Regina",
+    "uwp": "A788899-C",
+    "trade_classifications": [
+      "Ph",
+      "Pa",
+      "Ri"
+    ]
+  },
+  "age": 52,
+  "education": [
+    {
+      "program": "University",
+      "major": "Athlete",
+      "minor": "Broker",
+      "passes": 1,
+      "graduated": false
+    }
+  ],
+  "skills": [
+    {
+      "name": "Actor",
+      "level": 1
+    },
+    {
+      "name": "Animals",
+      "level": 7
+    },
+    {
+      "name": "Athlete",
+      "level": 1
+    },
+    {
+      "name": "Automotive",
+      "level": 1
+    },
+    {
+      "name": "Biologics",
+      "level": 7
+    },
+    {
+      "name": "Bureaucrat",
+      "level": 11
+    },
+    {
+      "name": "Hostile Environ",
+      "level": 6
+    },
+    {
+      "name": "Navigator",
+      "level": 8
+    },
+    {
+      "name": "Survey",
+      "level": 5
+    },
+    {
+      "name": "Survival",
+      "level": 7
+    },
+    {
+      "name": "Trader",
+      "level": 1
+    }
+  ],
+  "careers": [
+    {
+      "career": "Agent",
+      "began": true,
+      "undercover_career": "Merchant",
+      "undercover_title": "Freightmaster",
+      "commendations": 7,
+      "terms": [
+        {
+          "term": 1,
+          "controlling_characteristic": "Dex",
+          "success": true,
+          "continued": true
+        },
+        {
+          "term": 2,
+          "controlling_characteristic": "Str",
+          "success": false,
+          "continued": true
+        },
+        {
+          "term": 3,
+          "controlling_characteristic": "End",
+          "success": true,
+          "continued": true
+        },
+        {
+          "term": 4,
+          "controlling_characteristic": "Int",
+          "success": true,
+          "continued": true
+        },
+        {
+          "term": 5,
+          "controlling_characteristic": "Dex",
+          "success": true,
+          "continued": true
+        },
+        {
+          "term": 6,
+          "controlling_characteristic": "Str",
+          "success": true,
+          "continued": true
+        },
+        {
+          "term": 7,
+          "controlling_characteristic": "End",
+          "success": true,
+          "continued": true
+        },
+        {
+          "term": 8,
+          "controlling_characteristic": "Int",
+          "success": true,
+          "continued": false
+        }
+      ]
+    }
+  ],
+  "waivers_attempted": 1,
+  "events": [
+    {
+      "seq": 1,
+      "kind": "step",
+      "step": {
+        "name": "Generate Characteristics",
+        "cite": "Book 1 p. 72 chart E1 step A"
+      }
+    },
+    {
+      "seq": 2,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          4
+        ],
+        "total": 8,
+        "cite": "Book 1 p. 56 chart A"
+      }
+    },
+    {
+      "seq": 3,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 2,
+        "kind": "characteristic_set",
+        "characteristic": "Str",
+        "value": 8
+      }
+    },
+    {
+      "seq": 4,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          6
+        ],
+        "total": 9,
+        "cite": "Book 1 p. 56 chart A"
+      }
+    },
+    {
+      "seq": 5,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 4,
+        "kind": "characteristic_set",
+        "characteristic": "Dex",
+        "value": 9
+      }
+    },
+    {
+      "seq": 6,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          2
+        ],
+        "total": 8,
+        "cite": "Book 1 p. 56 chart A"
+      }
+    },
+    {
+      "seq": 7,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 6,
+        "kind": "characteristic_set",
+        "characteristic": "End",
+        "value": 8
+      }
+    },
+    {
+      "seq": 8,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          3
+        ],
+        "total": 8,
+        "cite": "Book 1 p. 56 chart A"
+      }
+    },
+    {
+      "seq": 9,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 8,
+        "kind": "characteristic_set",
+        "characteristic": "Int",
+        "value": 8
+      }
+    },
+    {
+      "seq": 10,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          5
+        ],
+        "total": 8,
+        "cite": "Book 1 p. 56 chart A"
+      }
+    },
+    {
+      "seq": 11,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 10,
+        "kind": "characteristic_set",
+        "characteristic": "Edu",
+        "value": 8
+      }
+    },
+    {
+      "seq": 12,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          1
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 56 chart A"
+      }
+    },
+    {
+      "seq": 13,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 12,
+        "kind": "characteristic_set",
+        "characteristic": "Soc",
+        "value": 3
+      }
+    },
+    {
+      "seq": 14,
+      "kind": "step",
+      "step": {
+        "name": "Determine A Homeworld",
+        "cite": "Book 1 p. 72 chart E1 step B"
+      }
+    },
+    {
+      "seq": 15,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a homeworld",
+        "options": [
+          "Regina A788899-C (Ph Pa Ri)"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 58 (as assigned, selected, or random); chart B p. 56"
+      }
+    },
+    {
+      "seq": 16,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 15,
+        "kind": "skill_awarded",
+        "skill": "Trader",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 17,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Choose one Art (TC Ri)",
+        "options": [
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 56 chart B (Rich)"
+      }
+    },
+    {
+      "seq": 18,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 17,
+        "kind": "skill_awarded",
+        "skill": "Actor",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 19,
+      "kind": "step",
+      "step": {
+        "name": "Education and Training",
+        "cite": "Book 1 p. 72 chart E1 step C"
+      }
+    },
+    {
+      "seq": 20,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select pre-career education",
+        "options": [
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy",
+          "None"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 60 chart C; p. 57 step C (education is optional)"
+      }
+    },
+    {
+      "seq": 21,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the characteristic to check",
+        "options": [
+          "Int",
+          "Edu"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
+      }
+    },
+    {
+      "seq": 22,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          4
+        ],
+        "total": 5,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (University To Apply Check Int)"
+      }
+    },
+    {
+      "seq": 23,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Major",
+        "options": [
+          "Athlete",
+          "Broker",
+          "Bureaucrat",
+          "Counsellor",
+          "Designer",
+          "Language",
+          "Teacher",
+          "Astrogator",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "Automotive",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology",
+          "Aeronautics",
+          "Aquanautics"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Major and Minor); chart C p. 60 Available Skills"
+      }
+    },
+    {
+      "seq": 24,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Minor",
+        "options": [
+          "Broker",
+          "Bureaucrat",
+          "Counsellor",
+          "Designer",
+          "Language",
+          "Teacher",
+          "Astrogator",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "Automotive",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology",
+          "Aeronautics",
+          "Aquanautics"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Major and Minor; they cannot be the same)"
+      }
+    },
+    {
+      "seq": 25,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the characteristic to check",
+        "options": [
+          "Int",
+          "Edu"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
+      }
+    },
+    {
+      "seq": 26,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          3
+        ],
+        "total": 6,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (University Pass/Fail Check Int)"
+      }
+    },
+    {
+      "seq": 27,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 26,
+        "kind": "years_elapsed",
+        "value": 1
+      }
+    },
+    {
+      "seq": 28,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 26,
+        "kind": "skill_awarded",
+        "skill": "Athlete",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 29,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          5
+        ],
+        "total": 9,
+        "target": 8,
+        "success": false,
+        "cite": "Book 1 p. 60 chart C (University Pass/Fail Check Int)"
+      }
+    },
+    {
+      "seq": 30,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 29,
+        "kind": "years_elapsed",
+        "value": 1
+      }
+    },
+    {
+      "seq": 31,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Attempt an Educational Waiver? (pass/fail failed)",
+        "options": [
+          "Attempt waiver",
+          "Accept the result"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Educational Waivers)"
+      }
+    },
+    {
+      "seq": 32,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          6
+        ],
+        "total": 11,
+        "target": 3,
+        "success": false,
+        "mods": [
+          {
+            "name": "previous waivers",
+            "value": 0
+          }
+        ],
+        "cite": "Book 1 p. 59 (Waiver: Check Soc, Mod minus previous waivers)"
+      }
+    },
+    {
+      "seq": 33,
+      "kind": "step",
+      "step": {
+        "name": "Select Career",
+        "cite": "Book 1 p. 72 chart E1 step D"
+      }
+    },
+    {
+      "seq": 34,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select career",
+        "options": [
+          "Agent"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 72 chart E1 step D"
+      }
+    },
+    {
+      "seq": 35,
+      "kind": "step",
+      "step": {
+        "name": "Agent: To Begin",
+        "cite": "Book 1 p. 83 chart 09"
+      }
+    },
+    {
+      "seq": 36,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          4
+        ],
+        "total": 5,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 83 chart 09 (To Begin vs End)"
+      }
+    },
+    {
+      "seq": 37,
+      "kind": "step",
+      "step": {
+        "name": "Agent: Term 1",
+        "cite": "Book 1 p. 83 chart 09"
+      }
+    },
+    {
+      "seq": 38,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": [
+          "Str",
+          "Dex",
+          "End",
+          "Int"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 39,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 40,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 41,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 42,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 43,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 44,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 45,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll B)"
+      }
+    },
+    {
+      "seq": 46,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 45,
+        "kind": "undercover_assignment",
+        "career": "Functionary"
+      }
+    },
+    {
+      "seq": 47,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a skill from the Functionary skills table",
+        "options": [
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "High-G",
+          "Vacc Suit",
+          "Driver",
+          "Flyer",
+          "Navigator",
+          "Seafarer",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology",
+          "ACV",
+          "Comms",
+          "Steward",
+          "Ordnance",
+          "Naval Architect",
+          "JOT",
+          "Rider",
+          "Sensors",
+          "Forward Observer",
+          "Survival",
+          "Streetwise",
+          "LTA",
+          "Spines",
+          "Flapper",
+          "Astrogator",
+          "WMD",
+          "Leader",
+          "Tracked",
+          "Engineer",
+          "Computer",
+          "Survey",
+          "Animals",
+          "Bay Weapons",
+          "Explosives",
+          "Mole",
+          "Tactics",
+          "Launcher",
+          "Jump Drives",
+          "Grav",
+          "Turrets",
+          "Teamster",
+          "Counsellor",
+          "Boat",
+          "Legged",
+          "Teacher",
+          "Designer",
+          "Sub",
+          "Ship",
+          "Sapper",
+          "Unarmed",
+          "Artillery",
+          "Aeronautics",
+          "Winged",
+          "Exotics",
+          "Language",
+          "Aquanautics",
+          "Recon",
+          "Gunner",
+          "Stealth",
+          "Battle Dress",
+          "Blades",
+          "Trainer",
+          "Strategy",
+          "Forensics",
+          "Zero-G",
+          "Maneuver Drive",
+          "Hostile Environ",
+          "Pilot",
+          "Liaison",
+          "Ortillery",
+          "Power Systems",
+          "Rotor",
+          "Broker",
+          "Athlete",
+          "Advocate",
+          "Automotive",
+          "Life Support",
+          "Admin",
+          "Trader",
+          "Fighter",
+          "Bureaucrat",
+          "Slug Throwers",
+          "Beams",
+          "Sprays",
+          "Wheeled",
+          "Diplomat",
+          "Heavy Weapons",
+          "Fleet Tactics",
+          "Medic",
+          "Gambler",
+          "Screens",
+          "Spacecraft"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 83 chart 09 (Select (not Roll) one skill from the skill tables of that Career)"
+      }
+    },
+    {
+      "seq": 48,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 47,
+        "kind": "skill_awarded",
+        "skill": "Biologics",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 49,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 83 chart 09"
+      }
+    },
+    {
+      "seq": 50,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          3
+        ],
+        "total": 5,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 83 chart 09 (Risk vs Dex+Mods)"
+      }
+    },
+    {
+      "seq": 51,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          3
+        ],
+        "total": 9,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 83 chart 09 (Reward vs Dex+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 52,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 51,
+        "kind": "commendation",
+        "career": "Agent",
+        "value": 1
+      }
+    },
+    {
+      "seq": 53,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 54,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 55,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 54,
+        "kind": "skill_awarded",
+        "skill": "Survival",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 56,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 57,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 58,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 57,
+        "kind": "skill_awarded",
+        "skill": "Navigator",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 59,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 60,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 61,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 60,
+        "kind": "skill_awarded",
+        "skill": "Bureaucrat",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 62,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 63,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 64,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 63,
+        "kind": "skill_awarded",
+        "skill": "Survey",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 65,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 66,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 67,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 66,
+        "kind": "skill_awarded",
+        "skill": "Navigator",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 68,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 69,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 70,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 69,
+        "kind": "skill_awarded",
+        "skill": "Navigator",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 71,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          3
+        ],
+        "total": 6,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 83 chart 09 (Continue Str; p. 66)"
+      }
+    },
+    {
+      "seq": 72,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 71,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 73,
+      "kind": "step",
+      "step": {
+        "name": "Agent: Term 2",
+        "cite": "Book 1 p. 83 chart 09"
+      }
+    },
+    {
+      "seq": 74,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": [
+          "Str",
+          "End",
+          "Int"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 75,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 76,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 77,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 78,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll B)"
+      }
+    },
+    {
+      "seq": 79,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll C, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 80,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll C, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 81,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 78,
+        "kind": "undercover_assignment",
+        "skill": "Captain",
+        "career": "Marine Officer"
+      }
+    },
+    {
+      "seq": 82,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a skill from the Marine Officer skills table",
+        "options": [
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "Gambler",
+          "Athlete",
+          "Fighter",
+          "Forward Observer",
+          "Heavy Weapons",
+          "Navigator",
+          "Recon",
+          "Sapper",
+          "Leader",
+          "Tactics",
+          "Vacc Suit",
+          "Hostile Environ",
+          "Stealth",
+          "Flyer",
+          "Survival",
+          "Language",
+          "Gunner",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology",
+          "Explosives",
+          "Medic",
+          "Seafarer"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 83 chart 09 (Select (not Roll) one skill from the skill tables of that Career)"
+      }
+    },
+    {
+      "seq": 83,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 82,
+        "kind": "skill_awarded",
+        "skill": "Biologics",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 84,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 83 chart 09"
+      }
+    },
+    {
+      "seq": 85,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          2
+        ],
+        "total": 8,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 83 chart 09 (Risk vs Str+Mods)"
+      }
+    },
+    {
+      "seq": 86,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          4
+        ],
+        "total": 9,
+        "target": 8,
+        "success": false,
+        "cite": "Book 1 p. 83 chart 09 (Reward vs Str+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 87,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 86,
+        "kind": "no_award"
+      }
+    },
+    {
+      "seq": 88,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 89,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 90,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 89,
+        "kind": "skill_awarded",
+        "skill": "Survey",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 91,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 92,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 93,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 92,
+        "kind": "skill_awarded",
+        "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 94,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          3
+        ],
+        "total": 5,
+        "target": 9,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 1
+          }
+        ],
+        "cite": "Book 1 p. 83 chart 09 (Continue Str +Terms; p. 66)"
+      }
+    },
+    {
+      "seq": 95,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 94,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 96,
+      "kind": "step",
+      "step": {
+        "name": "Agent: Term 3",
+        "cite": "Book 1 p. 83 chart 09"
+      }
+    },
+    {
+      "seq": 97,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": [
+          "End",
+          "Int"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 98,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 99,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll B)"
+      }
+    },
+    {
+      "seq": 100,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 99,
+        "kind": "undercover_assignment",
+        "skill": "Roll on Citizen Life Skills for Job",
+        "career": "Citizen"
+      }
+    },
+    {
+      "seq": 101,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 78 chart 04 table E (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 102,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 78 chart 04 table E (roll B)"
+      }
+    },
+    {
+      "seq": 103,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 78 chart 04 table E (roll C)"
+      }
+    },
+    {
+      "seq": 104,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 103,
+        "kind": "skill_awarded",
+        "skill": "Automotive",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 105,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 83 chart 09"
+      }
+    },
+    {
+      "seq": 106,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          1
+        ],
+        "total": 2,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 83 chart 09 (Risk vs End+Mods)"
+      }
+    },
+    {
+      "seq": 107,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          2
+        ],
+        "total": 7,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 83 chart 09 (Reward vs End+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 108,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 107,
+        "kind": "commendation",
+        "career": "Agent",
+        "value": 2
+      }
+    },
+    {
+      "seq": 109,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 110,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 111,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 110,
+        "kind": "skill_awarded",
+        "skill": "Bureaucrat",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 112,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 113,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 114,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 113,
+        "kind": "skill_awarded",
+        "skill": "Survival",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 115,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 116,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 117,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 116,
+        "kind": "skill_awarded",
+        "skill": "Survival",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 118,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 119,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 120,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 119,
+        "kind": "skill_awarded",
+        "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 121,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 122,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 123,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 122,
+        "kind": "skill_awarded",
+        "skill": "Bureaucrat",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 124,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 125,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 126,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 125,
+        "kind": "skill_awarded",
+        "skill": "Bureaucrat",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 127,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          4
+        ],
+        "total": 7,
+        "target": 10,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 2
+          }
+        ],
+        "cite": "Book 1 p. 83 chart 09 (Continue Str +Terms; p. 66)"
+      }
+    },
+    {
+      "seq": 128,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 127,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 129,
+      "kind": "step",
+      "step": {
+        "name": "Agent: Term 4",
+        "cite": "Book 1 p. 83 chart 09"
+      }
+    },
+    {
+      "seq": 130,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": [
+          "Int"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 131,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 132,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll B)"
+      }
+    },
+    {
+      "seq": 133,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll C, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 134,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 132,
+        "kind": "undercover_assignment",
+        "skill": "Captain",
+        "career": "Navy Officer"
+      }
+    },
+    {
+      "seq": 135,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a skill from the Navy Officer skills table",
+        "options": [
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "Fighter",
+          "Fleet Tactics",
+          "Pilot",
+          "Astrogator",
+          "Engineer",
+          "Gunner",
+          "Medic",
+          "Sensors",
+          "Steward",
+          "Computer",
+          "Strategy",
+          "Counsellor",
+          "Diplomat",
+          "Admin",
+          "Language",
+          "Liaison",
+          "Comms",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology",
+          "Athlete",
+          "Zero-G"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 83 chart 09 (Select (not Roll) one skill from the skill tables of that Career)"
+      }
+    },
+    {
+      "seq": 136,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 135,
+        "kind": "skill_awarded",
+        "skill": "Biologics",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 137,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 83 chart 09"
+      }
+    },
+    {
+      "seq": 138,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          2
+        ],
+        "total": 7,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 83 chart 09 (Risk vs Int+Mods)"
+      }
+    },
+    {
+      "seq": 139,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          4
+        ],
+        "total": 7,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 83 chart 09 (Reward vs Int+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 140,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 139,
+        "kind": "commendation",
+        "career": "Agent",
+        "value": 3
+      }
+    },
+    {
+      "seq": 141,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 142,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 143,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 142,
+        "kind": "skill_awarded",
+        "skill": "Animals",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 144,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 145,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 146,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 145,
+        "kind": "skill_awarded",
+        "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 147,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 148,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 149,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 148,
+        "kind": "skill_awarded",
+        "skill": "Animals",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 150,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 151,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 152,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 151,
+        "kind": "skill_awarded",
+        "skill": "Navigator",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 153,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 154,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 155,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 154,
+        "kind": "skill_awarded",
+        "skill": "Survival",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 156,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 157,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 158,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 157,
+        "kind": "skill_awarded",
+        "skill": "Animals",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 159,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          4
+        ],
+        "total": 7,
+        "target": 11,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 3
+          }
+        ],
+        "cite": "Book 1 p. 83 chart 09 (Continue Str +Terms; p. 66)"
+      }
+    },
+    {
+      "seq": 160,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 159,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 161,
+      "kind": "step",
+      "step": {
+        "name": "Agent: Term 5",
+        "cite": "Book 1 p. 83 chart 09"
+      }
+    },
+    {
+      "seq": 162,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": [
+          "Str",
+          "Dex",
+          "End",
+          "Int"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 163,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 164,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 165,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 166,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll B)"
+      }
+    },
+    {
+      "seq": 167,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll C, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 168,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 166,
+        "kind": "undercover_assignment",
+        "skill": "First Lieutenant",
+        "career": "Army Officer"
+      }
+    },
+    {
+      "seq": 169,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a skill from the Army Officer skills table",
+        "options": [
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "Fighter",
+          "Vacc Suit",
+          "Stealth",
+          "Leader",
+          "Tactics",
+          "Admin",
+          "Hostile Environ",
+          "Animals",
+          "Liaison",
+          "Navigator",
+          "Driver",
+          "Heavy Weapons",
+          "Sensors",
+          "Forward Observer",
+          "Recon",
+          "Sapper",
+          "Language",
+          "Computer",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology",
+          "Explosives",
+          "Medic",
+          "Seafarer"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 83 chart 09 (Select (not Roll) one skill from the skill tables of that Career)"
+      }
+    },
+    {
+      "seq": 170,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 169,
+        "kind": "skill_awarded",
+        "skill": "Biologics",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 171,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 83 chart 09"
+      }
+    },
+    {
+      "seq": 172,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          4
+        ],
+        "total": 6,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 83 chart 09 (Risk vs Dex+Mods)"
+      }
+    },
+    {
+      "seq": 173,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          3
+        ],
+        "total": 5,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 83 chart 09 (Reward vs Dex+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 174,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 173,
+        "kind": "commendation",
+        "career": "Agent",
+        "value": 4
+      }
+    },
+    {
+      "seq": 175,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 176,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 177,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 176,
+        "kind": "skill_awarded",
+        "skill": "Survival",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 178,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 179,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 180,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 179,
+        "kind": "skill_awarded",
+        "skill": "Animals",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 181,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 182,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 183,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 182,
+        "kind": "skill_awarded",
+        "skill": "Animals",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 184,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 185,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 186,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 185,
+        "kind": "skill_awarded",
+        "skill": "Bureaucrat",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 187,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 188,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 189,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 188,
+        "kind": "skill_awarded",
+        "skill": "Navigator",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 190,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 191,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 192,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 191,
+        "kind": "skill_awarded",
+        "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 193,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          4
+        ],
+        "total": 10,
+        "target": 12,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 4
+          }
+        ],
+        "cite": "Book 1 p. 83 chart 09 (Continue Str +Terms; p. 66)"
+      }
+    },
+    {
+      "seq": 194,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 193,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 195,
+      "kind": "step",
+      "step": {
+        "name": "Agent: Term 6",
+        "cite": "Book 1 p. 83 chart 09"
+      }
+    },
+    {
+      "seq": 196,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": [
+          "Str",
+          "End",
+          "Int"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 197,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 198,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 199,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 200,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 201,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 202,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll B)"
+      }
+    },
+    {
+      "seq": 203,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 202,
+        "kind": "undercover_assignment",
+        "skill": "World Discover",
+        "career": "Scout"
+      }
+    },
+    {
+      "seq": 204,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a skill from the Scout skills table",
+        "options": [
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "Comms",
+          "Language",
+          "Computer",
+          "JOT",
+          "Gunner",
+          "Astrogator",
+          "Engineer",
+          "Medic",
+          "Pilot",
+          "Sensors",
+          "Steward",
+          "Survey",
+          "Survival",
+          "Hostile Environ",
+          "Animals",
+          "Vacc Suit",
+          "Navigator",
+          "Diplomat",
+          "Trader",
+          "Teacher",
+          "Fighter",
+          "Streetwise",
+          "Flyer",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology",
+          "Seafarer",
+          "Athlete"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 83 chart 09 (Select (not Roll) one skill from the skill tables of that Career)"
+      }
+    },
+    {
+      "seq": 205,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 204,
+        "kind": "skill_awarded",
+        "skill": "Biologics",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 206,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 83 chart 09"
+      }
+    },
+    {
+      "seq": 207,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          1
+        ],
+        "total": 5,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 83 chart 09 (Risk vs Str+Mods)"
+      }
+    },
+    {
+      "seq": 208,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          1
+        ],
+        "total": 4,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 83 chart 09 (Reward vs Str+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 209,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 208,
+        "kind": "commendation",
+        "career": "Agent",
+        "value": 5
+      }
+    },
+    {
+      "seq": 210,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 211,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 212,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 211,
+        "kind": "skill_awarded",
+        "skill": "Animals",
+        "delta": 1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 213,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 214,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 215,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 214,
+        "kind": "skill_awarded",
+        "skill": "Bureaucrat",
+        "delta": 1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 216,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 217,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 218,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 217,
+        "kind": "skill_awarded",
+        "skill": "Bureaucrat",
+        "delta": 1,
+        "value": 7
+      }
+    },
+    {
+      "seq": 219,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 220,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 221,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 220,
+        "kind": "skill_awarded",
+        "skill": "Survey",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 222,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 223,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 224,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 223,
+        "kind": "skill_awarded",
+        "skill": "Navigator",
+        "delta": 1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 225,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 226,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 227,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 226,
+        "kind": "skill_awarded",
+        "skill": "Bureaucrat",
+        "delta": 1,
+        "value": 8
+      }
+    },
+    {
+      "seq": 228,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          3
+        ],
+        "total": 8,
+        "target": 13,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 5
+          }
+        ],
+        "cite": "Book 1 p. 83 chart 09 (Continue Str +Terms; p. 66)"
+      }
+    },
+    {
+      "seq": 229,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 228,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 230,
+      "kind": "step",
+      "step": {
+        "name": "Agent: Term 7",
+        "cite": "Book 1 p. 83 chart 09"
+      }
+    },
+    {
+      "seq": 231,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": [
+          "End",
+          "Int"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 232,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 233,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 234,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 235,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll B)"
+      }
+    },
+    {
+      "seq": 236,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll C, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 237,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll C, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 238,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 235,
+        "kind": "undercover_assignment",
+        "skill": "Master Chief",
+        "career": "Navy Enlisted"
+      }
+    },
+    {
+      "seq": 239,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a skill from the Navy Enlisted skills table",
+        "options": [
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "Fighter",
+          "Fleet Tactics",
+          "Pilot",
+          "Astrogator",
+          "Engineer",
+          "Gunner",
+          "Medic",
+          "Sensors",
+          "Steward",
+          "Computer",
+          "Strategy",
+          "Counsellor",
+          "Diplomat",
+          "Admin",
+          "Language",
+          "Liaison",
+          "Comms",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology",
+          "Athlete",
+          "Zero-G"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 83 chart 09 (Select (not Roll) one skill from the skill tables of that Career)"
+      }
+    },
+    {
+      "seq": 240,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 239,
+        "kind": "skill_awarded",
+        "skill": "Biologics",
+        "delta": 1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 241,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 83 chart 09"
+      }
+    },
+    {
+      "seq": 242,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          4
+        ],
+        "total": 7,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 83 chart 09 (Risk vs End+Mods)"
+      }
+    },
+    {
+      "seq": 243,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          1
+        ],
+        "total": 5,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 83 chart 09 (Reward vs End+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 244,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 243,
+        "kind": "commendation",
+        "career": "Agent",
+        "value": 6
+      }
+    },
+    {
+      "seq": 245,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 246,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 247,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 246,
+        "kind": "skill_awarded",
+        "skill": "Survival",
+        "delta": 1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 248,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 249,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 250,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 249,
+        "kind": "skill_awarded",
+        "skill": "Survival",
+        "delta": 1,
+        "value": 7
+      }
+    },
+    {
+      "seq": 251,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 252,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 253,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 252,
+        "kind": "skill_awarded",
+        "skill": "Bureaucrat",
+        "delta": 1,
+        "value": 9
+      }
+    },
+    {
+      "seq": 254,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 255,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 256,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 255,
+        "kind": "skill_awarded",
+        "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 257,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 258,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 259,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 258,
+        "kind": "skill_awarded",
+        "skill": "Bureaucrat",
+        "delta": 1,
+        "value": 10
+      }
+    },
+    {
+      "seq": 260,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 261,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 262,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 261,
+        "kind": "skill_awarded",
+        "skill": "Survey",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 263,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          6
+        ],
+        "total": 9,
+        "target": 14,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 6
+          }
+        ],
+        "cite": "Book 1 p. 83 chart 09 (Continue Str +Terms; p. 66)"
+      }
+    },
+    {
+      "seq": 264,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 263,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 265,
+      "kind": "step",
+      "step": {
+        "name": "Agent: Term 8",
+        "cite": "Book 1 p. 83 chart 09"
+      }
+    },
+    {
+      "seq": 266,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": [
+          "Int"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 267,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll A, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 268,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll B)"
+      }
+    },
+    {
+      "seq": 269,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment) (roll C, reroll if \u003e3)"
+      }
+    },
+    {
+      "seq": 270,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 268,
+        "kind": "undercover_assignment",
+        "skill": "Freightmaster",
+        "career": "Merchant"
+      }
+    },
+    {
+      "seq": 271,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a skill from the Merchant skills table",
+        "options": [
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "Astrogator",
+          "Pilot",
+          "Medic",
+          "Sensors",
+          "Steward",
+          "Gunner",
+          "Broker",
+          "Trader",
+          "Diplomat",
+          "Admin",
+          "Computer",
+          "Driver",
+          "Advocate",
+          "Comms",
+          "Language",
+          "Engineer",
+          "JOT",
+          "Vacc Suit",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 83 chart 09 (Select (not Roll) one skill from the skill tables of that Career)"
+      }
+    },
+    {
+      "seq": 272,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 271,
+        "kind": "skill_awarded",
+        "skill": "Biologics",
+        "delta": 1,
+        "value": 7
+      }
+    },
+    {
+      "seq": 273,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 83 chart 09"
+      }
+    },
+    {
+      "seq": 274,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          5
+        ],
+        "total": 8,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 83 chart 09 (Risk vs Int+Mods)"
+      }
+    },
+    {
+      "seq": 275,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          1
+        ],
+        "total": 4,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 83 chart 09 (Reward vs Int+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 276,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 275,
+        "kind": "commendation",
+        "career": "Agent",
+        "value": 7
+      }
+    },
+    {
+      "seq": 277,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 278,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 279,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 278,
+        "kind": "skill_awarded",
+        "skill": "Bureaucrat",
+        "delta": 1,
+        "value": 11
+      }
+    },
+    {
+      "seq": 280,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 281,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 282,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 281,
+        "kind": "skill_awarded",
+        "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 283,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 284,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 285,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 284,
+        "kind": "skill_awarded",
+        "skill": "Animals",
+        "delta": 1,
+        "value": 7
+      }
+    },
+    {
+      "seq": 286,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 287,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 288,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 287,
+        "kind": "skill_awarded",
+        "skill": "Navigator",
+        "delta": 1,
+        "value": 7
+      }
+    },
+    {
+      "seq": 289,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 290,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 291,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 290,
+        "kind": "skill_awarded",
+        "skill": "Survey",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 292,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Agent Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "Mission",
+          "Conflict",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 293,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 83 chart 09 table C, column Mission"
+      }
+    },
+    {
+      "seq": 294,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 293,
+        "kind": "skill_awarded",
+        "skill": "Navigator",
+        "delta": 1,
+        "value": 8
+      }
+    },
+    {
+      "seq": 295,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          6
+        ],
+        "total": 12,
+        "target": 15,
+        "success": false,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 7
+          }
+        ],
+        "cite": "Book 1 p. 83 chart 09 (Continue Str +Terms; p. 66)"
+      }
+    },
+    {
+      "seq": 296,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 295,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 297,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 295,
+        "kind": "career_ended",
+        "career": "Agent"
+      }
+    }
+  ]
+}
