@@ -187,6 +187,22 @@ const (
 	// carries the rank title.
 	ConsequenceRankSet ConsequenceKind = "rank_set"
 
+	// ConsequencePublication records a Scholar Publication success
+	// (chart 02, p. 76); an Award-Winning publication has Delta 2.
+	ConsequencePublication ConsequenceKind = "publication"
+
+	// ConsequenceTenure records the chart 02 Tenure grant.
+	ConsequenceTenure ConsequenceKind = "tenure"
+
+	// ConsequenceWaived records an adverse outcome negated by a waiver
+	// (chart 02, p. 76; p. 59).
+	ConsequenceWaived ConsequenceKind = "waived"
+
+	// ConsequenceMajorSet and ConsequenceMinorSet record the Scholar's
+	// areas where the career selects them (chart 02).
+	ConsequenceMajorSet ConsequenceKind = "major_set"
+	ConsequenceMinorSet ConsequenceKind = "minor_set"
+
 	// ConsequenceTalentSet records the Entertainer's Talent, set with
 	// Fame before Begin and raised whenever Fame increases (chart 03,
 	// p. 77).

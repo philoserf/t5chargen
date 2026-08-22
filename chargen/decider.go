@@ -81,6 +81,17 @@ const (
 	// p. 80).
 	ChooseBeginTrack ChoiceID = "select_begin_track"
 
+	// ChooseCareerWaiver accepts or declines a career waiver ("An adverse
+	// die roll or decision ... may be waived", chart 02 p. 76). Distinct
+	// from ChooseWaiver, the Educational Waiver, because the two draw on
+	// one pool but warrant different policies.
+	ChooseCareerWaiver ChoiceID = "attempt_career_waiver"
+
+	// ChooseTenure accepts or declines a Tenure application ("Scholar
+	// with Edu 10+ may apply for Tenure upon reaching Scholar3", chart 02
+	// p. 76).
+	ChooseTenure ChoiceID = "attempt_tenure"
+
 	// ChooseSpecialty selects the Entertainer's art (chart 03 "Select A
 	// Specialty", p. 77).
 	ChooseSpecialty ChoiceID = "select_specialty"
@@ -112,6 +123,13 @@ type Choice struct {
 	Options []string
 	Scores  []int
 	Cite    string
+
+	// CareerEnding marks a choice whose declined branch ends the career —
+	// a waiver on a failed Continue or To Begin (chart 02 Waivers, p. 76).
+	// It is engine-provided decision data, like Scores: not part of the
+	// printed rule and not recorded in the event log, so a policy can
+	// weigh the stake without reading the prompt text.
+	CareerEnding bool
 }
 
 // Decider resolves choice points. Interactive play and the auto-mode

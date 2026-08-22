@@ -239,7 +239,7 @@ func (r *eduRun) apply() (bool, error) {
 
 	r.elapseYear(seq)
 
-	waived, err := r.waiver("admission refused")
+	waived, err := offerWaiver(r.log, r.decider, r.roller, r.character, educationWaiver("admission refused"))
 	if err != nil {
 		return false, err
 	}
@@ -311,7 +311,7 @@ func (r *eduRun) passFailYear() (bool, bool, error) {
 		return true, false, r.awardPass(seq)
 	}
 
-	waived, err := r.waiver("pass/fail failed")
+	waived, err := offerWaiver(r.log, r.decider, r.roller, r.character, educationWaiver("pass/fail failed"))
 	if err != nil {
 		return false, false, err
 	}
@@ -507,37 +507,4 @@ func (r *eduRun) checkValue(name string) int {
 	value, _ := characteristicValue(&r.character.Characteristics, name)
 
 	return value
-}
-
-// waiver offers an Educational Waiver: "Check Soc or less (2D); Mod minus
-// number of previous waivers rolled (successful or not)" (p. 59).
-//
-// P. 59 names four waiver-able events: "Prerequisite, Application Check,
-// Pass/Fail Check, Honors". v1 offers waivers for the Application and
-// Pass/Fail checks — the two the process description integrates
-// ("Failure terminates the process (but Waiver may result in
-// reinstatement...)"). Prerequisite waivers are unreachable while
-// chooseProgram offers only qualifying programs (letting an unqualified
-// character attempt admission is an interactive-mode concern), and Honors
-// waivers are deferred with them; both land with milestone 5.
-func (r *eduRun) waiver(reason string) (bool, error) {
-	chosen, _, err := choose(r.log, r.decider, Choice{
-		ID:      ChooseWaiver,
-		Prompt:  "Attempt an Educational Waiver? (" + reason + ")",
-		Options: []string{"Attempt waiver", "Accept the result"},
-		Cite:    "Book 1 p. 59 (Educational Waivers)",
-	})
-	if err != nil || chosen == 1 {
-		return false, err
-	}
-
-	previous := r.character.WaiversAttempted
-	r.character.WaiversAttempted++
-
-	target := r.character.Characteristics.Soc - previous
-	throw := r.roller.Check(2, target)
-	r.log.Throw(throw, []Mod{{Name: "previous waivers", Value: -previous}},
-		"Book 1 p. 59 (Waiver: Check Soc, Mod minus previous waivers)")
-
-	return throw.Success, nil
 }

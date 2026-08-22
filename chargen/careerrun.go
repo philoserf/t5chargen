@@ -76,6 +76,7 @@ type termOutcome struct {
 // mechanics. Its key set must match career.Available (tested).
 var careerRegistry = map[string]func() (*career.Definition, careerMechanics, error){
 	"Citizen":     newCitizen,
+	"Scholar":     newScholar,
 	"Entertainer": newEntertainer,
 	"Scout":       newScout,
 	"Merchant":    newMerchant,
@@ -100,13 +101,20 @@ type careerRun struct {
 	// (interpretation I-2, ERRATA.md).
 	entryLevels map[string]int
 
+	// entryCause is the sequence of the career-selection choice — the
+	// cause for consequences of entering a career that needs no throw
+	// (chart 02's automatic Scholar entry; docs/PRD.md FR10).
+	entryCause int
+
 	record CareerRecord
 }
 
 // runCareerByName resolves one career through the registry, reporting
 // whether the career began (a failed To Begin leaves a began:false record
 // and the caller offers the remaining careers, p. 65).
-func runCareerByName(name string, roller *dice.Roller, log *Log, decider Decider, character *Character) (bool, error) {
+func runCareerByName(
+	name string, entryCause int, roller *dice.Roller, log *Log, decider Decider, character *Character,
+) (bool, error) {
 	entry, ok := careerRegistry[name]
 	if !ok {
 		return false, fmt.Errorf("%w: %q", errUnregisteredCareer, name)
@@ -128,6 +136,7 @@ func runCareerByName(name string, roller *dice.Roller, log *Log, decider Decider
 
 	run := &careerRun{
 		def:         def,
+		entryCause:  entryCause,
 		mechanics:   mechanics,
 		roller:      roller,
 		log:         log,
@@ -195,8 +204,12 @@ func (r *careerRun) term(number int) (bool, error) {
 	}
 
 	continued := false
+
 	if !outcome.endCareer {
-		continued = r.continueRoll()
+		continued, err = r.continueRoll()
+		if err != nil {
+			return false, err
+		}
 	}
 
 	r.record.Terms = append(r.record.Terms, TermRecord{
@@ -308,6 +321,39 @@ func article(name string) string {
 	return "a"
 }
 
+// waive offers a waiver on an adverse outcome and records the negation
+// when it succeeds (chart 02 Waivers, p. 76; the p. 59 rule).
+func (r *careerRun) waive(prompt waiverPrompt, cause int) (bool, error) {
+	waived, err := offerWaiver(r.log, r.decider, r.roller, r.character, prompt)
+	if err != nil || !waived {
+		return false, err
+	}
+
+	r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceWaived})
+
+	return true, nil
+}
+
+// major and minor report the character's current Major and Minor,
+// preferring any the career in progress selected for itself (chart 02's
+// degreeless Scholar) over the education records, since its record is not
+// on the character until the career ends.
+func (r *careerRun) major() string {
+	if r.record.Major != "" {
+		return r.record.Major
+	}
+
+	return r.character.currentMajor()
+}
+
+func (r *careerRun) minor() string {
+	if r.record.Minor != "" {
+		return r.record.Minor
+	}
+
+	return r.character.currentMinor()
+}
+
 // awardFromGroup resolves an open-selection cell by choice and awards the
 // selected skill, caused by the selecting choice event (docs/PRD.md FR10).
 func (r *careerRun) awardFromGroup(kind career.EntryKind) error {
@@ -379,10 +425,10 @@ func (r *careerRun) termSkills(rolls int) error {
 		rolls = r.def.SkillsPerTerm
 	}
 
-	columns := r.def.SkillColumnNames()
+	columns := r.skillColumnOptions()
 
 	for range rolls {
-		chosen, _, err := choose(r.log, r.decider, Choice{
+		chosen, choiceSeq, err := choose(r.log, r.decider, Choice{
 			ID:      ChooseSkillColumn,
 			Prompt:  "Select " + article(r.def.Name) + " " + r.def.Name + " Skills column",
 			Options: columns,
@@ -390,6 +436,16 @@ func (r *careerRun) termSkills(rolls int) error {
 		})
 		if err != nil {
 			return err
+		}
+
+		if chosen >= len(r.def.SkillColumns) {
+			// "A Scholar may always take a skill in his Major or Minor
+			// instead of from this table" (chart 02 table C): no 1D roll.
+			if err := r.awardMajorOrMinor(columns[chosen], choiceSeq); err != nil {
+				return err
+			}
+
+			continue
 		}
 
 		roll := r.roller.Roll(1)
@@ -400,6 +456,38 @@ func (r *careerRun) termSkills(rolls int) error {
 			return err
 		}
 	}
+
+	return nil
+}
+
+// skillColumnOptions lists the table C columns, plus the character's Major
+// and Minor where the chart allows taking one instead (chart 02 table C).
+func (r *careerRun) skillColumnOptions() []string {
+	columns := r.def.SkillColumnNames()
+	if !r.def.MajorOrMinorColumn {
+		return columns
+	}
+
+	options := slices.Clone(columns)
+
+	for _, name := range []string{r.major(), r.minor()} {
+		if name != "" {
+			options = append(options, name)
+		}
+	}
+
+	return options
+}
+
+// awardMajorOrMinor awards a level in the named Major or Minor, taken
+// instead of a table C roll. The selecting choice is the cause
+// (docs/PRD.md FR10).
+func (r *careerRun) awardMajorOrMinor(name string, cause int) error {
+	if name == "" {
+		return fmt.Errorf("%w: no Major or Minor to take", errNotImplemented)
+	}
+
+	r.awardAndLog(name, 1, cause)
 
 	return nil
 }
@@ -420,9 +508,9 @@ func (r *careerRun) awardTableC(entry career.Entry, cause int) error {
 		// "If the character does not have a Major/Minor this benefit is
 		// lost." (p. 78) The current Major/Minor are the most recent ones
 		// selected (p. 59).
-		name := r.character.currentMajor()
+		name := r.major()
 		if entry.Kind == career.EntryMinor {
-			name = r.character.currentMinor()
+			name = r.minor()
 		}
 
 		if name == "" {
@@ -462,7 +550,7 @@ func (r *careerRun) awardCharacteristic(name string, cause int) error {
 // career. Failure ends Career Resolution. ... If the Continue roll is 2
 // exactly, the character is required to Continue" (p. 66). Each term
 // elapses 4 years ("the 4-year Term", p. 66).
-func (r *careerRun) continueRoll() bool {
+func (r *careerRun) continueRoll() (bool, error) {
 	target := r.def.ContinueTarget
 	label := "Continue " + strconv.Itoa(target) + "-"
 
@@ -477,8 +565,17 @@ func (r *careerRun) continueRoll() bool {
 		label = "Continue Fame"
 	}
 
+	var mods []Mod
+
+	if r.def.ContinueMod == career.ContinueModPublications && r.record.Publications != 0 {
+		// "Continue Edu*" with "*Mod +Pubs" (chart 02 box A).
+		target += r.record.Publications
+		mods = []Mod{{Name: "Publications", Value: r.record.Publications}}
+		label += " +Pubs"
+	}
+
 	throw := r.roller.Check(2, target)
-	seq := r.log.Throw(throw, nil, r.def.Cite+" ("+label+"; p. 66)")
+	seq := r.log.Throw(throw, mods, r.def.Cite+" ("+label+"; p. 66)")
 
 	r.character.Age += TermYears
 	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceYearsElapsed, Value: TermYears})
@@ -486,16 +583,30 @@ func (r *careerRun) continueRoll() bool {
 	if throw.Total == 2 {
 		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceMandatoryContinue})
 
-		return true
+		return true, nil
 	}
 
-	if !throw.Success {
-		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerEnded, Career: r.def.Name})
-
-		return false
+	if throw.Success {
+		return true, nil
 	}
 
-	return true
+	if r.def.ContinueWaiver {
+		// "An adverse die roll or decision (in ... Continue) may be
+		// waived" (chart 02 Waivers, p. 76): the waiver negates the
+		// failure, so the career continues into the next term.
+		waived, err := r.waive(careerWaiver("Continue: the career would end", r.def.Cite, true), seq)
+		if err != nil {
+			return false, err
+		}
+
+		if waived {
+			return true, nil
+		}
+	}
+
+	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerEnded, Career: r.def.Name})
+
+	return false, nil
 }
 
 // chooseCheckCharacteristic presents a check's stated characteristics
