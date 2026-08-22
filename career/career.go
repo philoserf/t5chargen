@@ -117,6 +117,10 @@ type Definition struct {
 	ContinueCharacteristic string `json:"continue_characteristic,omitempty"`
 	ContinueFame           bool   `json:"continue_fame,omitempty"`
 
+	// ContinueCC targets the career's own controlling characteristic
+	// (chart 10: "Continue CC*"), which a Rogue chooses once and keeps.
+	ContinueCC bool `json:"continue_cc,omitempty"`
+
 	// ContinueMod adds a career-tracked value to the Continue target
 	// (chart 02: "Continue Edu*" with "*Mod +Pubs"). Unlike ContinueTarget
 	// it is not bounded to 2-11 (see validateContinue): the printed rule
@@ -131,6 +135,15 @@ type Definition struct {
 	// Continue) may be waived", p. 76). The other five belong to the
 	// career's own mechanics; Continue belongs to the generic runner.
 	ContinueWaiver bool `json:"continue_waiver,omitempty"`
+
+	// CCFixed marks a career whose controlling characteristic is chosen
+	// once rather than rotated: "A Rogue selects one Controlling
+	// Characteristic ... which is then used throughout his career (not
+	// just in the current Term)" (chart 10, p. 84).
+	CCFixed bool `json:"cc_fixed,omitempty"`
+
+	// Schemes is chart 10's Rogue Schemes table (p. 84); nil elsewhere.
+	Schemes *Schemes `json:"schemes,omitempty"`
 
 	// MajorOrMinorColumn offers the character's Major and Minor alongside
 	// the skills-table columns: "A Scholar may always take a skill in his
@@ -276,6 +289,36 @@ type Advancement struct {
 	// MedalMods adds the character's medal modifiers to the target
 	// (chart 08's "*+Medals and WB Mods"; interpretation I-31, ERRATA.md).
 	MedalMods bool `json:"medal_mods,omitempty"`
+}
+
+// Schemes is chart 10's Rogue Schemes table, indexed by a Flux roll.
+type Schemes struct {
+	Cite string      `json:"cite"`
+	Rows []SchemeRow `json:"rows"`
+}
+
+// SchemeRow is one scheme: the career it imitates and what it is worth.
+// A row pays either credits or ship shares, never both.
+type SchemeRow struct {
+	Flux   int    `json:"flux"`
+	Career string `json:"career"`
+
+	Credits    int `json:"credits,omitempty"`
+	ShipShares int `json:"ship_shares,omitempty"`
+}
+
+// SchemeAt returns the scheme for a Flux result, clamped to the printed
+// range.
+func (s *Schemes) SchemeAt(flux int) SchemeRow {
+	best := s.Rows[0]
+
+	for _, row := range s.Rows {
+		if row.Flux <= flux {
+			best = row
+		}
+	}
+
+	return best
 }
 
 // Undercover is chart 09's Agent Undercover Assignment table.
@@ -555,7 +598,40 @@ func (d *Definition) validate() error {
 		return err
 	}
 
+	if err := d.validateSchemes(); err != nil {
+		return err
+	}
+
 	return d.validateJobTable()
+}
+
+// validateSchemes checks chart 10's Rogue Schemes table, so that SchemeAt
+// can index it unconditionally: an empty table would make its clamp
+// address a slice with no rows, and out-of-order rows would make the clamp
+// return the wrong scheme.
+func (d *Definition) validateSchemes() error {
+	if d.Schemes == nil {
+		return nil
+	}
+
+	if len(d.Schemes.Rows) == 0 {
+		return fmt.Errorf("%w: %q has an empty schemes table", errBadDefinition, d.Name)
+	}
+
+	for i, row := range d.Schemes.Rows {
+		if i > 0 && row.Flux <= d.Schemes.Rows[i-1].Flux {
+			return fmt.Errorf("%w: schemes table is not in ascending Flux order at row %d",
+				errBadDefinition, i)
+		}
+
+		// "one Ship Share" or a credit Value, never both (chart 10).
+		if (row.Credits == 0) == (row.ShipShares == 0) {
+			return fmt.Errorf("%w: scheme Flux %+d pays both credits and ship shares, or neither",
+				errBadDefinition, row.Flux)
+		}
+	}
+
+	return nil
 }
 
 // validateArmedForces checks the Branch and Operations tables, so that
@@ -785,6 +861,22 @@ func countTrue(flags ...bool) int {
 	return n
 }
 
+// validateContinueForm enforces exactly one Continue form.
+func (d *Definition) validateContinueForm() error {
+	fixed := d.ContinueTarget != 0
+	characteristic := d.ContinueCharacteristic != ""
+
+	if forms := countTrue(fixed, characteristic, d.ContinueFame, d.ContinueCC); forms != 1 {
+		return fmt.Errorf("%w: want exactly one Continue form", errBadDefinition)
+	}
+
+	if d.ContinueCC && !d.CCFixed {
+		return fmt.Errorf("%w: continue_cc needs a career-long controlling characteristic", errBadDefinition)
+	}
+
+	return nil
+}
+
 // validateContinue enforces exactly one Continue form: a fixed target in
 // 2..11 (11 is the largest target a 2D roll-low throw can miss on its
 // merits, p. 66; above it the only exit left is the p. 134 automatic
@@ -793,12 +885,8 @@ func countTrue(flags ...bool) int {
 // "Continue Int"). The bound is on the fixed form only: ContinueMod and a
 // characteristic target both carry the printed rule past 12 by design.
 func (d *Definition) validateContinue() error {
-	fixed := d.ContinueTarget != 0
-	characteristic := d.ContinueCharacteristic != ""
-
-	if forms := countTrue(fixed, characteristic, d.ContinueFame); forms != 1 {
-		return fmt.Errorf("%w: want exactly one of continue_target, continue_characteristic, and continue_fame",
-			errBadDefinition)
+	if err := d.validateContinueForm(); err != nil {
+		return err
 	}
 
 	switch d.ContinueMod {
@@ -807,11 +895,11 @@ func (d *Definition) validateContinue() error {
 		return fmt.Errorf("%w: unknown continue mod %q", errBadDefinition, d.ContinueMod)
 	}
 
-	if fixed && (d.ContinueTarget < 2 || d.ContinueTarget > 11) {
+	if d.ContinueTarget != 0 && (d.ContinueTarget < 2 || d.ContinueTarget > 11) {
 		return fmt.Errorf("%w: continue target %d outside 2-11", errBadDefinition, d.ContinueTarget)
 	}
 
-	if characteristic && !characteristicNames[d.ContinueCharacteristic] {
+	if d.ContinueCharacteristic != "" && !characteristicNames[d.ContinueCharacteristic] {
 		return fmt.Errorf("%w: unknown continue characteristic %q", errBadDefinition, d.ContinueCharacteristic)
 	}
 
@@ -980,6 +1068,9 @@ var agentJSON []byte
 //go:embed data/functionary.json
 var functionaryJSON []byte
 
+//go:embed data/rogue.json
+var rogueJSON []byte
+
 // The implemented careers parse and validate their embedded definitions
 // once.
 var (
@@ -1015,6 +1106,9 @@ var (
 	})
 	functionary = sync.OnceValues(func() (*Definition, error) {
 		return load("functionary.json", functionaryJSON)
+	})
+	rogue = sync.OnceValues(func() (*Definition, error) {
+		return load("rogue.json", rogueJSON)
 	})
 )
 
@@ -1059,6 +1153,11 @@ func Scholar() (*Definition, error) {
 	return scholar()
 }
 
+// Rogue returns the Rogue career definition (chart 10, p. 84).
+func Rogue() (*Definition, error) {
+	return rogue()
+}
+
 // Agent returns the Agent career definition (chart 09, p. 83).
 func Agent() (*Definition, error) {
 	return agent()
@@ -1100,6 +1199,6 @@ func Noble() (*Definition, error) {
 func Available() []string {
 	return []string{
 		"Scholar", "Entertainer", "Citizen", "Scout", "Merchant",
-		"Spacer", "Soldier", "Agent", "Noble", "Marine",
+		"Spacer", "Soldier", "Agent", "Rogue", "Noble", "Marine",
 	}
 }

@@ -46,6 +46,12 @@ func (DefaultPolicy) Choose(c Choice) int {
 		// die face, and the optional Fame Flux is offered only while
 		// another roll can help.
 		return 0
+	case ChooseSchemeFlux:
+		// POLICY.md: as rolled (index 0). Chart 10 ranks its schemes only
+		// by Flux, and a richer scheme is not a better one: the Value
+		// multiplies a payoff the Reward roll may never earn, while the
+		// row itself changes nothing about the odds.
+		return 0
 	case ChooseHobby, ChooseHomeworld, ChooseArt, ChooseTrade,
 		ChooseService, ChooseMajor, ChooseMinor, ChooseSkill:
 		// POLICY.md: first-listed.

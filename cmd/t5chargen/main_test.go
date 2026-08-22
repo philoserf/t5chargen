@@ -220,8 +220,8 @@ func TestErrors(t *testing.T) {
 		{"unknown flag", []string{"new", "--bogus"}, exitUsage},
 		{"new without --auto", []string{"new", "--seed", "1"}, exitUsage},
 		{"new stray arguments", []string{"new", "--auto", "--seed", "1", "out.json"}, exitUsage},
-		// Rogue (chart 10) is not implemented yet; swap it as careers land.
-		{"unknown career", []string{"new", "--auto", "--seed", "1", "--career", "rogue"}, exitUsage},
+		// Craftsman (chart 01) is not reachable as a first career (M4).
+		{"unknown career", []string{"new", "--auto", "--seed", "1", "--career", "craftsman"}, exitUsage},
 		{"partial UWP", []string{"new", "--auto", "--seed", "1", "--homeworld", "A78899"}, exitUsage},
 		{"unknown TC", []string{"new", "--auto", "--seed", "1", "--homeworld", "A788899-C Qq"}, exitUsage},
 		//nolint:dupword // the repeated TC is the case under test
