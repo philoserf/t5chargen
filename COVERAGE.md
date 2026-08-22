@@ -136,6 +136,29 @@ Book 1, Print Edition 5.1.
 | Rank titles interpolate the Major ("Lecturer <of Major>") | chart 02 | plain titles stored | — | deferred (presentation; the record carries both) |
 | Muster-out table D | chart 02 D | — | — | deferred (M4) |
 
+## Career 11 — Noble (chart 11, p. 85)
+
+| Rule | Cite | Implementation | Test | Status |
+| --- | --- | --- | --- | --- |
+| To Begin automatic if Soc B+; no attempt below | chart 11 A; p. 65 | `nobleMechanics.begin` | `TestNobleRequiresSocB` | interpretation I-28 (no year lost) |
+| Rank equals Social Standing; twelve rungs, three shared | chart 11; p. 66, 68 | `Ranks` with `Soc` | `TestNobleLadder` | covered |
+| A shared Social Standing enters at the lower title | p. 68 | `nobleRankFor` | `TestNobleEntersAtLowerTitle` | interpretation I-29 |
+| Return rolled only in Exile; Intrigue only outside it | chart 11 | `resolveTerm` | `TestNobleExileGovernsWhichRollHappens` | covered |
+| Intrigue failure exiles; Return failure continues Exile | chart 11 | `rollIntrigue`, `rollReturn` | golden seed 3268 | covered |
+| Mod = −Successful Intrigues + Times Exiled, flipped for Intrigue | chart 11; p. 73 | `nobleMods` | golden seed 3268 | interpretation I-27 (three readings recorded) |
+| Elevation is Roll High against Soc | chart 11; p. 66 | `dice.High`, `elevate` | `TestNobleElevationRollsHigh`, `TestHighRollsHigh` | covered (no automatic-failure rule printed for Roll High) |
+| Elevation raises Social Standing "if any" | chart 11; p. 68 | `raiseSoc` | `TestNobleElevationRaisesSocOnlyWhereTheLadderDoes` | interpretation I-29 |
+| Land Grant per Soc increase | chart 11 | `raiseSoc` | same | covered as a count; hexes and economics deferred (M4) |
+| Once-per-career Flux on an Elevation roll | chart 11 | `offerFlux` | golden sweeps | covered (policy invokes it once Soc exceeds 2D) |
+| Per Term 4; When Elevated 2 | chart 11 B | `resolveTerm` | golden seed 3268 | covered |
+| Continue 7 | chart 11 A | `continueRoll` | golden seed 3268 | covered |
+| No Caution/Bravery selection | chart 11 | (nothing to do) | — | covered — the box defines its own Mods and omits the selection line every other R&R chart prints |
+| "Soldier Skill" cell | chart 11 C | `awardFromGroup` via `EntrySoldier` | golden sweeps | covered |
+| "Capital***" cell (World Knowledge of the Land Grant world) | chart 11 C | `EntryCapital` (errors if selected) | data test | deferred (M4: needs the Land Grant worlds) |
+| Base Fame = 1.5 x Soc | chart 11 | — | — | deferred (M4 chart F; nothing in-career consumes it, and the rounding of an odd Soc is unstated) |
+| Muster-out Proxy column | chart 11 D | — | — | deferred (M4) — a third benefits column no other chart has |
+| "A Noble may not pursue another career after this one" | chart 11; p. 66 | — | — | deferred (M4 career changes) |
+
 ## Career 03 — Entertainer (chart 03, p. 77)
 
 | Rule | Cite | Implementation | Test | Status |
@@ -185,8 +208,8 @@ Book 1, Print Edition 5.1.
 
 ## Careers 01–05 remainder, 07–13
 
-All deferred (M3): Craftsman, Spacer, Soldier, Agent, Rogue, Noble,
-Marine, Functionary (charts pp. 75–88).
+All deferred (M3): Craftsman, Spacer, Soldier, Agent, Rogue, Marine,
+Functionary (charts pp. 75–88).
 
 Two are soft-gated on career changes (M4), not on effort: Functionary "is
 never a first career" (chart 13), and Craftsman's Begin is "Automatic* —
@@ -225,7 +248,7 @@ Batch, replay verification, interactive mode: deferred (M5).
 
 ## Cross-cutting interpretations
 
-I-1 … I-26 in ERRATA.md, each referenced from its row above. The I-4
+I-1 … I-29 in ERRATA.md, each referenced from its row above. The I-4
 skill-name residual (MSL-exact strings, the Navigator/Navigation split) is
 closed by I-9: every skill name in every embedded chart is validated
 against the Master Skill List at load time.

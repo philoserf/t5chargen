@@ -77,6 +77,7 @@ type termOutcome struct {
 var careerRegistry = map[string]func() (*career.Definition, careerMechanics, error){
 	"Citizen":     newCitizen,
 	"Scholar":     newScholar,
+	"Noble":       newNoble,
 	"Entertainer": newEntertainer,
 	"Scout":       newScout,
 	"Merchant":    newMerchant,
@@ -305,6 +306,10 @@ var groupCells = map[career.EntryKind]struct {
 		prompt: "Select a Starship Skill",
 		names:  func() []string { return skill.InGroup(skill.GroupStarship) },
 	},
+	career.EntrySoldier: {
+		prompt: "Select a Soldier Skill",
+		names:  func() []string { return skill.InGroup(skill.GroupSoldier) },
+	},
 }
 
 // article returns the indefinite article for a career name, so the prompt
@@ -352,6 +357,19 @@ func (r *careerRun) minor() string {
 	}
 
 	return r.character.currentMinor()
+}
+
+// awardOpenCell resolves the cells that select from a Master Skill List
+// group, and rejects the ones still waiting on later milestones.
+func (r *careerRun) awardOpenCell(kind career.EntryKind) error {
+	if kind == career.EntryCapital {
+		// "Capital*** = World Knowledge (of world of highest held noble
+		// Land Grant)" (chart 11 p. 85): the Land Grant worlds land with
+		// muster out (docs/PRD.md milestone 4).
+		return fmt.Errorf("%w: Capital cell needs the Land Grant worlds", errNotImplemented)
+	}
+
+	return r.awardFromGroup(kind)
 }
 
 // awardFromGroup resolves an open-selection cell by choice and awards the
@@ -493,6 +511,8 @@ func (r *careerRun) awardMajorOrMinor(name string, cause int) error {
 }
 
 // awardTableC applies one career skills table cell.
+//
+//nolint:exhaustive // Deliberately partitioned: the open-selection kinds are handled by awardOpenCell.
 func (r *careerRun) awardTableC(entry career.Entry, cause int) error {
 	switch entry.Kind {
 	case career.EntrySkill:
@@ -522,12 +542,11 @@ func (r *careerRun) awardTableC(entry career.Entry, cause int) error {
 		r.awardAndLog(name, 1, cause)
 	case career.EntryNone:
 		r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceNoAward})
-	case career.EntryTrade, career.EntryArt, career.EntryScience, career.EntryStarship:
-		return r.awardFromGroup(entry.Kind)
 	default:
-		// The loader validates kinds, but a default keeps an unknown kind
-		// from silently resolving to nothing (event-log-first contract).
-		return fmt.Errorf("%w: unknown cell kind %q", errNotImplemented, entry.Kind)
+		// The remaining kinds select from a Master Skill List group, or
+		// wait on a later milestone; an unknown kind is rejected there
+		// rather than silently resolving to nothing.
+		return r.awardOpenCell(entry.Kind)
 	}
 
 	return nil

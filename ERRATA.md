@@ -573,3 +573,84 @@ re-applied: "automatically Scholar1 to Begin" is scoped to Begin, so a
 late-blooming Amateur is not retroactively made a Lecturer.
 
 Implemented at `chargen/scholar.go` (`mayPromote`, `mayApplyForTenure`).
+
+### I-27: The Noble Return and Intrigue modifiers (p. 85 chart 11)
+
+Chart 11's Return & Intrigue box prints its rolls in two columns — "Roll
+R&R CC +Mods" under Return, "Roll R&R CC +(opposite sign) Mods" under
+Intrigue — and beneath them, one under each column, "Mod= -Successful
+Intrigues." and "Mod= +Times Exiled." Whether those are two per-column
+modifiers or one combined Mod is not stated.
+
+The p. 73 Career Resolution checklist is the discriminator. It compresses
+the same career to:
+
+> NOBLE / To Begin is Automatic if Soc B+ / **Roll Return&Intrigue vs C2 C3
+> C4 C5** / Mod minus Intrigues / Mod + Exiles / Determine Skill
+> eligibility; take Skills / Roll 7 to Continue
+
+Both modifier lines sit under a single roll line, so they are one combined
+Mod. Implemented as Mod = −Successful Intrigues + Times Exiled, applied to
+Return as printed and to Intrigue with the opposite sign:
+
+- Return = CC − Successful Intrigues + Times Exiled
+- Intrigue = CC + Successful Intrigues − Times Exiled
+
+which reads sensibly in both directions: a practised schemer intrigues
+more easily and is granted return less readily, and a repeatedly exiled
+noble is weakened at both.
+
+Readings not taken:
+
+1. Per-column modifiers with the opposite-sign instruction honoured:
+   Return = CC − Intrigues, Intrigue = CC − Exiled.
+2. Per-column modifiers with the instruction ignored: Return = CC −
+   Intrigues, Intrigue = CC + Exiled. Rejected as semantically backwards —
+   repeated exile would make further intrigue easier.
+
+The Archive's preliminary Nobles sheet also lists both modifier lines
+together under one "Return and Intrigue" row (locate-only; Book 1
+governs).
+
+Only one of the two rolls happens in a term, so the opposite-sign
+scaffolding protects no in-term tradeoff here — which is why the box reads
+ambiguously.
+
+Implemented at `chargen/noble.go` (`nobleMods`).
+
+### I-28: An unmet Noble prerequisite is not a failed attempt (p. 85 chart 11)
+
+Chart 11 gives "To Begin Automatic* ... *if Soc B+" and prints no To Begin
+throw. A character below Social Standing B therefore makes no attempt.
+
+Implemented as no throw, no year, and a career_not_begun consequence. P. 65
+charges a year for a *failed attempt* — "Each failed attempt (both Begin or
+Retry) takes one year" — and distinguishes attempts from prerequisites:
+"Pre-Requisites. Some Careers have requirements before a character may
+attempt to Begin." An unqualified character never attempts, so nothing
+elapses.
+
+Implemented at `chargen/noble.go` (`begin`).
+
+### I-29: A shared Social Standing enters at the lower title (p. 85 chart 11; p. 68)
+
+"Nobles begin with rank equal to their Social Standing" (p. 66), but three
+Social Standings carry two titles each: Soc 12 is Baronet and Baron, 14 is
+Viscount and Count, 15 is Duke twice.
+
+A character beginning at such a value enters at the lower rung. P. 68 is
+explicit for the first of them: "A character elevated to Soc = c (lower
+case) is **initially** a Baronet. The next increase in Soc remains C (now
+upper case) but the title increases to Baron." A character arriving at that
+Social Standing has reached it, however it happened, so the initial title
+is the one it confers.
+
+This is what chart 11's Elevation clause allows for — "the next higher
+Noble rank and its increase in Social Standing (**if any**)" — and the
+title-only steps award no Land Grant, since the chart ties grants to "each
+increase in Soc".
+
+At the p. 68 characteristic maximum the title still advances while the
+Social Standing does not, and again no Land Grant follows.
+
+Implemented at `chargen/noble.go` (`nobleRankFor`, `raiseSoc`).

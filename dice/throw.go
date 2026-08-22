@@ -67,6 +67,32 @@ func maxRoll(roll Roll) int {
 	return roll.N*6 + roll.Mod
 }
 
+// High rolls n dice against target as a Roll High throw: the result
+// succeeds when the total is equal to or greater than the target, the
+// reverse of the ordinary roll-low comparison.
+//
+// "Nobles use a special procedure. Elevation is Roll High (roll Soc or
+// greater to be Elevated to the next higher Noble rank)" (p. 66; chart 11
+// p. 85). mod adjusts the roll rather than the target — chart 11 invokes
+// Flux as "a Mod on Elevation roll".
+//
+// The p. 134 automatic-failure rule is deliberately not applied: it is
+// stated for Checks, whose highest roll is their worst result, and Book 1
+// prints no failure rule for a Roll High, whose highest roll is its best.
+func (r *Roller) High(n, target, mod int) Throw {
+	roll := r.Roll(n)
+	roll.Mod = mod
+	roll.Total += mod
+
+	return Throw{
+		Roll:               roll,
+		Target:             target,
+		Success:            roll.Total >= target,
+		SpectacularSuccess: countFace(roll.Faces, 1) >= 3,
+		SpectacularFailure: countFace(roll.Faces, 6) >= 3,
+	}
+}
+
 // resolveThrow applies the p. 120/122 comparison and the p. 127 spectacular
 // detection to an already-rolled Roll. Pure arithmetic, split from the
 // stream for exhaustive testing.

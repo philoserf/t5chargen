@@ -289,7 +289,8 @@ func TestGenerateForcedCareer(t *testing.T) {
 		t.Errorf("forced career = %+v", c.Careers)
 	}
 
-	_, err := chargen.Generate(chargen.Options{Seed: 3, Career: "Noble", Decider: chargen.DefaultPolicy{}})
+	// Marine (chart 12) is not implemented yet; swap it as careers land.
+	_, err := chargen.Generate(chargen.Options{Seed: 3, Career: "Marine", Decider: chargen.DefaultPolicy{}})
 	if !errors.Is(err, chargen.ErrUnknownCareer) {
 		t.Errorf("unknown forced career error = %v, want ErrUnknownCareer", err)
 	}

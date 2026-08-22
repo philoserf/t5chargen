@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.9.0",
+  "schema_version": "0.10.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.9.0",
-  "policy_version": "0.7.0",
+  "engine_version": "0.10.0",
+  "policy_version": "0.8.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 26

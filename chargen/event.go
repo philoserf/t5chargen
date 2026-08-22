@@ -187,6 +187,21 @@ const (
 	// carries the rank title.
 	ConsequenceRankSet ConsequenceKind = "rank_set"
 
+	// ConsequenceExiled and ConsequenceReturned record the Noble's exile
+	// state (chart 11, p. 85).
+	ConsequenceExiled   ConsequenceKind = "exiled"
+	ConsequenceReturned ConsequenceKind = "returned_from_exile"
+
+	// ConsequenceIntrigue records a successful Intrigue, which earns an
+	// Elevation attempt (chart 11).
+	ConsequenceIntrigue ConsequenceKind = "intrigue"
+
+	// ConsequenceElevated records an Elevation to the next Noble rank
+	// (chart 11); ConsequenceLandGrant records the Land Grant a Soc
+	// increase awards.
+	ConsequenceElevated  ConsequenceKind = "elevated"
+	ConsequenceLandGrant ConsequenceKind = "land_grant"
+
 	// ConsequencePublication records a Scholar Publication success
 	// (chart 02, p. 76); an Award-Winning publication has Delta 2.
 	ConsequencePublication ConsequenceKind = "publication"
