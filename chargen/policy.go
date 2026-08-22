@@ -104,7 +104,7 @@ func chooseOnScore(c Choice) int {
 
 	take := c.Scores[0] < comebackThreshold
 	if c.ID == ChooseElevationFlux {
-		take = c.Scores[0] > maxTwoDice
+		take = c.Scores[0] >= maxTwoDice
 	}
 
 	if take {
@@ -114,8 +114,10 @@ func chooseOnScore(c Choice) int {
 	return 1
 }
 
-// maxTwoDice is the highest total a 2D Roll High can reach unaided; above
-// it an Elevation needs the once-per-career Flux (chart 11, p. 85).
+// maxTwoDice is the highest total a 2D Roll High can reach unaided. At or
+// above it an Elevation needs the maximum roll or is outright impossible,
+// which is where the once-per-career Flux is worth spending (chart 11,
+// p. 85).
 const maxTwoDice = 12
 
 // comebackThreshold is the Fame below which the default policy takes a

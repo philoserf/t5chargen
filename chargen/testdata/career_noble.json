@@ -5,17 +5,17 @@
   "policy_version": "0.8.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
-    "seed": 3268
+    "seed": 2978
   },
   "characteristics": {
-    "str": 8,
-    "dex": 6,
-    "end": 11,
-    "int": 5,
-    "edu": 9,
+    "str": 9,
+    "dex": 9,
+    "end": 10,
+    "int": 7,
+    "edu": 5,
     "soc": 12
   },
-  "upp": "86B59C",
+  "upp": "99A75C",
   "homeworld": {
     "name": "Regina",
     "uwp": "A788899-C",
@@ -25,16 +25,12 @@
       "Ri"
     ]
   },
-  "age": 54,
+  "age": 34,
   "education": [
     {
-      "program": "University",
-      "major": "Athlete",
-      "minor": "Broker",
-      "passes": 4,
-      "graduated": true,
-      "honors": true,
-      "degree": "Honors BA"
+      "program": "ED5",
+      "passes": 1,
+      "graduated": true
     }
   ],
   "skills": [
@@ -44,27 +40,19 @@
     },
     {
       "name": "Advocate",
-      "level": 4
-    },
-    {
-      "name": "Athlete",
-      "level": 5
-    },
-    {
-      "name": "Broker",
-      "level": 2
+      "level": 3
     },
     {
       "name": "Bureaucrat",
-      "level": 9
+      "level": 3
     },
     {
       "name": "Counsellor",
-      "level": 5
+      "level": 1
     },
     {
       "name": "Leader",
-      "level": 14
+      "level": 9
     },
     {
       "name": "Liaison",
@@ -81,7 +69,8 @@
       "began": true,
       "rank": "C",
       "rank_title": "Baron",
-      "successful_intrigues": 8,
+      "times_exiled": 1,
+      "successful_intrigues": 2,
       "land_grants": 1,
       "terms": [
         {
@@ -92,43 +81,19 @@
         },
         {
           "term": 2,
-          "controlling_characteristic": "Edu",
-          "success": true,
+          "controlling_characteristic": "Dex",
+          "success": false,
           "continued": true
         },
         {
           "term": 3,
-          "controlling_characteristic": "Dex",
+          "controlling_characteristic": "Int",
           "success": true,
           "continued": true
         },
         {
           "term": 4,
-          "controlling_characteristic": "Int",
-          "success": true,
-          "continued": true
-        },
-        {
-          "term": 5,
-          "controlling_characteristic": "End",
-          "success": true,
-          "continued": true
-        },
-        {
-          "term": 6,
           "controlling_characteristic": "Edu",
-          "success": true,
-          "continued": true
-        },
-        {
-          "term": 7,
-          "controlling_characteristic": "Dex",
-          "success": true,
-          "continued": true
-        },
-        {
-          "term": 8,
-          "controlling_characteristic": "Int",
           "success": true,
           "continued": false
         }
@@ -150,10 +115,10 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          4,
+          5,
           4
         ],
-        "total": 8,
+        "total": 9,
         "cite": "Book 1 p. 56 chart A"
       }
     },
@@ -164,7 +129,7 @@
         "cause": 2,
         "kind": "characteristic_set",
         "characteristic": "Str",
-        "value": 8
+        "value": 9
       }
     },
     {
@@ -173,10 +138,10 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          1,
-          5
+          3,
+          6
         ],
-        "total": 6,
+        "total": 9,
         "cite": "Book 1 p. 56 chart A"
       }
     },
@@ -187,7 +152,7 @@
         "cause": 4,
         "kind": "characteristic_set",
         "characteristic": "Dex",
-        "value": 6
+        "value": 9
       }
     },
     {
@@ -197,9 +162,9 @@
         "expr": "2D",
         "dice": [
           6,
-          5
+          4
         ],
-        "total": 11,
+        "total": 10,
         "cite": "Book 1 p. 56 chart A"
       }
     },
@@ -210,7 +175,7 @@
         "cause": 6,
         "kind": "characteristic_set",
         "characteristic": "End",
-        "value": 11
+        "value": 10
       }
     },
     {
@@ -219,10 +184,10 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          2,
-          3
+          1,
+          6
         ],
-        "total": 5,
+        "total": 7,
         "cite": "Book 1 p. 56 chart A"
       }
     },
@@ -233,7 +198,7 @@
         "cause": 8,
         "kind": "characteristic_set",
         "characteristic": "Int",
-        "value": 5
+        "value": 7
       }
     },
     {
@@ -242,10 +207,10 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          4,
+          1,
           3
         ],
-        "total": 7,
+        "total": 4,
         "cite": "Book 1 p. 56 chart A"
       }
     },
@@ -256,7 +221,7 @@
         "cause": 10,
         "kind": "characteristic_set",
         "characteristic": "Edu",
-        "value": 7
+        "value": 4
       }
     },
     {
@@ -265,8 +230,8 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          5,
-          6
+          6,
+          5
         ],
         "total": 11,
         "cite": "Book 1 p. 56 chart A"
@@ -358,392 +323,42 @@
         "decider": "policy",
         "prompt": "Select pre-career education",
         "options": [
-          "Trade School",
+          "ED5",
           "Apprenticeship",
-          "College",
-          "University",
-          "Service Academy",
           "None"
         ],
-        "chosen": 3,
+        "chosen": 0,
         "cite": "Book 1 p. 60 chart C; p. 57 step C (education is optional)"
       }
     },
     {
       "seq": 21,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the characteristic to check",
-        "options": [
-          "Int",
-          "Edu"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
-      }
-    },
-    {
-      "seq": 22,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
           1,
-          3
-        ],
-        "total": 4,
-        "target": 7,
-        "success": true,
-        "cite": "Book 1 p. 60 chart C (University To Apply Check Edu)"
-      }
-    },
-    {
-      "seq": 23,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Major",
-        "options": [
-          "Athlete",
-          "Broker",
-          "Bureaucrat",
-          "Counsellor",
-          "Designer",
-          "Language",
-          "Teacher",
-          "Astrogator",
-          "Actor",
-          "Artist",
-          "Author",
-          "Chef",
-          "Dancer",
-          "Musician",
-          "Biologics",
-          "Craftsman",
-          "Electronics",
-          "Fluidics",
-          "Gravitics",
-          "Magnetics",
-          "Mechanic",
-          "Photonics",
-          "Polymers",
-          "Programmer",
-          "Automotive",
-          "Archeology",
-          "Biology",
-          "Chemistry",
-          "History",
-          "Linguistics",
-          "Philosophy",
-          "Physics",
-          "Planetology",
-          "Psionicology",
-          "Psychohistory",
-          "Psychology",
-          "Robotics",
-          "Sophontology",
-          "Aeronautics",
-          "Aquanautics"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 59 (Major and Minor); chart C p. 60 Available Skills"
-      }
-    },
-    {
-      "seq": 24,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Minor",
-        "options": [
-          "Broker",
-          "Bureaucrat",
-          "Counsellor",
-          "Designer",
-          "Language",
-          "Teacher",
-          "Astrogator",
-          "Actor",
-          "Artist",
-          "Author",
-          "Chef",
-          "Dancer",
-          "Musician",
-          "Biologics",
-          "Craftsman",
-          "Electronics",
-          "Fluidics",
-          "Gravitics",
-          "Magnetics",
-          "Mechanic",
-          "Photonics",
-          "Polymers",
-          "Programmer",
-          "Automotive",
-          "Archeology",
-          "Biology",
-          "Chemistry",
-          "History",
-          "Linguistics",
-          "Philosophy",
-          "Physics",
-          "Planetology",
-          "Psionicology",
-          "Psychohistory",
-          "Psychology",
-          "Robotics",
-          "Sophontology",
-          "Aeronautics",
-          "Aquanautics"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 59 (Major and Minor; they cannot be the same)"
-      }
-    },
-    {
-      "seq": 25,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the characteristic to check",
-        "options": [
-          "Int",
-          "Edu"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
-      }
-    },
-    {
-      "seq": 26,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          3
-        ],
-        "total": 7,
-        "target": 7,
-        "success": true,
-        "cite": "Book 1 p. 60 chart C (University Pass/Fail Check Edu)"
-      }
-    },
-    {
-      "seq": 27,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 26,
-        "kind": "years_elapsed",
-        "value": 1
-      }
-    },
-    {
-      "seq": 28,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 26,
-        "kind": "skill_awarded",
-        "skill": "Athlete",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 29,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          3
+          4
         ],
         "total": 5,
         "target": 7,
         "success": true,
-        "cite": "Book 1 p. 60 chart C (University Pass/Fail Check Edu)"
+        "cite": "Book 1 p. 60 chart C (ED5 Pass/Fail Check Int)"
       }
     },
     {
-      "seq": 30,
+      "seq": 22,
       "kind": "consequence",
       "consequence": {
-        "cause": 29,
-        "kind": "years_elapsed",
-        "value": 1
-      }
-    },
-    {
-      "seq": 31,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 29,
-        "kind": "skill_awarded",
-        "skill": "Athlete",
-        "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 32,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 29,
-        "kind": "skill_awarded",
-        "skill": "Broker",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 33,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          6
-        ],
-        "total": 7,
-        "target": 7,
-        "success": true,
-        "cite": "Book 1 p. 60 chart C (University Pass/Fail Check Edu)"
-      }
-    },
-    {
-      "seq": 34,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 33,
-        "kind": "years_elapsed",
-        "value": 1
-      }
-    },
-    {
-      "seq": 35,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 33,
-        "kind": "skill_awarded",
-        "skill": "Athlete",
-        "delta": 1,
-        "value": 3
-      }
-    },
-    {
-      "seq": 36,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          2
-        ],
-        "total": 6,
-        "target": 7,
-        "success": true,
-        "cite": "Book 1 p. 60 chart C (University Pass/Fail Check Edu)"
-      }
-    },
-    {
-      "seq": 37,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 36,
-        "kind": "years_elapsed",
-        "value": 1
-      }
-    },
-    {
-      "seq": 38,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 36,
-        "kind": "skill_awarded",
-        "skill": "Athlete",
-        "delta": 1,
-        "value": 4
-      }
-    },
-    {
-      "seq": 39,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 36,
-        "kind": "skill_awarded",
-        "skill": "Broker",
-        "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 40,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Attempt the optional Honors roll?",
-        "options": [
-          "Attempt Honors",
-          "Decline"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 59 (Honors); chart C p. 60 (Honors row)"
-      }
-    },
-    {
-      "seq": 41,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the characteristic to check",
-        "options": [
-          "Int",
-          "Edu"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
-      }
-    },
-    {
-      "seq": 42,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          6,
-          1
-        ],
-        "total": 7,
-        "target": 7,
-        "success": true,
-        "cite": "Book 1 p. 60 chart C (Honors: Int or Edu, simul)"
-      }
-    },
-    {
-      "seq": 43,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 42,
-        "kind": "skill_awarded",
-        "skill": "Athlete",
+        "cause": 21,
+        "kind": "characteristic_change",
+        "characteristic": "Edu",
         "delta": 1,
         "value": 5
       }
     },
     {
-      "seq": 44,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 42,
-        "kind": "characteristic_change",
-        "characteristic": "Edu",
-        "delta": 2,
-        "value": 9
-      }
-    },
-    {
-      "seq": 45,
+      "seq": 23,
       "kind": "step",
       "step": {
         "name": "Select Career",
@@ -751,7 +366,7 @@
       }
     },
     {
-      "seq": 46,
+      "seq": 24,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -764,7 +379,7 @@
       }
     },
     {
-      "seq": 47,
+      "seq": 25,
       "kind": "step",
       "step": {
         "name": "Noble: To Begin",
@@ -772,17 +387,17 @@
       }
     },
     {
-      "seq": 48,
+      "seq": 26,
       "kind": "consequence",
       "consequence": {
-        "cause": 46,
+        "cause": 24,
         "kind": "rank_set",
         "skill": "Knight",
         "career": "Noble"
       }
     },
     {
-      "seq": 49,
+      "seq": 27,
       "kind": "step",
       "step": {
         "name": "Noble: Term 1",
@@ -790,7 +405,7 @@
       }
     },
     {
-      "seq": 50,
+      "seq": 28,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -806,31 +421,32 @@
       }
     },
     {
-      "seq": 51,
+      "seq": 29,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          4,
-          4
+          3,
+          3
         ],
-        "total": 8,
-        "target": 11,
+        "total": 6,
+        "target": 10,
         "success": true,
         "cite": "Book 1 p. 85 chart 11 (Intrigue vs End+ opposite sign Mods; roll only if not in Exile)"
       }
     },
     {
-      "seq": 52,
+      "seq": 30,
       "kind": "consequence",
       "consequence": {
-        "cause": 51,
+        "cause": 29,
         "kind": "intrigue",
+        "career": "Noble",
         "value": 1
       }
     },
     {
-      "seq": 53,
+      "seq": 31,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -844,22 +460,62 @@
       }
     },
     {
-      "seq": 54,
+      "seq": 32,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          1,
-          4
+          6,
+          5
         ],
-        "total": 5,
+        "total": 11,
         "target": 11,
-        "success": false,
+        "success": true,
         "cite": "Book 1 p. 85 chart 11 (Elevation: Roll High, Soc or greater)"
       }
     },
     {
-      "seq": 55,
+      "seq": 33,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 32,
+        "kind": "rank_set",
+        "skill": "Baronet",
+        "career": "Noble"
+      }
+    },
+    {
+      "seq": 34,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 32,
+        "kind": "characteristic_change",
+        "characteristic": "Soc",
+        "delta": 1,
+        "value": 12
+      }
+    },
+    {
+      "seq": 35,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 32,
+        "kind": "land_grant",
+        "career": "Noble",
+        "value": 1
+      }
+    },
+    {
+      "seq": 36,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 32,
+        "kind": "elevated",
+        "career": "Noble"
+      }
+    },
+    {
+      "seq": 37,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -878,7 +534,91 @@
       }
     },
     {
-      "seq": 56,
+      "seq": 38,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 85 chart 11 table C, column General"
+      }
+    },
+    {
+      "seq": 39,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 38,
+        "kind": "skill_awarded",
+        "skill": "Leader",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 40,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Noble Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Political",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 41,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 85 chart 11 table C, column General"
+      }
+    },
+    {
+      "seq": 42,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 41,
+        "kind": "skill_awarded",
+        "skill": "Leader",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 43,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Noble Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Political",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 44,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -890,10 +630,10 @@
       }
     },
     {
-      "seq": 57,
+      "seq": 45,
       "kind": "consequence",
       "consequence": {
-        "cause": 56,
+        "cause": 44,
         "kind": "skill_awarded",
         "skill": "Counsellor",
         "delta": 1,
@@ -901,7 +641,7 @@
       }
     },
     {
-      "seq": 58,
+      "seq": 46,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -920,7 +660,49 @@
       }
     },
     {
-      "seq": 59,
+      "seq": 47,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 85 chart 11 table C, column General"
+      }
+    },
+    {
+      "seq": 48,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 47,
+        "kind": "skill_awarded",
+        "skill": "Leader",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 49,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Noble Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Political",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 50,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -932,13 +714,133 @@
       }
     },
     {
+      "seq": 51,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 50,
+        "kind": "skill_awarded",
+        "skill": "Liaison",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 52,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Noble Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Political",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 53,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 85 chart 11 table C, column General"
+      }
+    },
+    {
+      "seq": 54,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 53,
+        "kind": "skill_awarded",
+        "skill": "Advocate",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 55,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          6
+        ],
+        "total": 7,
+        "target": 7,
+        "success": true,
+        "cite": "Book 1 p. 85 chart 11 (Continue 7-; p. 66)"
+      }
+    },
+    {
+      "seq": 56,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 55,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 57,
+      "kind": "step",
+      "step": {
+        "name": "Noble: Term 2",
+        "cite": "Book 1 p. 85 chart 11"
+      }
+    },
+    {
+      "seq": 58,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": [
+          "Dex",
+          "Int",
+          "Edu"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 59,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          6
+        ],
+        "total": 12,
+        "target": 10,
+        "success": false,
+        "mods": [
+          {
+            "name": "successful Intrigues",
+            "value": 1
+          }
+        ],
+        "cite": "Book 1 p. 85 chart 11 (Intrigue vs Dex+ opposite sign Mods; roll only if not in Exile)"
+      }
+    },
+    {
       "seq": 60,
       "kind": "consequence",
       "consequence": {
         "cause": 59,
-        "kind": "skill_awarded",
-        "skill": "Liaison",
-        "delta": 1,
+        "kind": "exiled",
+        "career": "Noble",
         "value": 1
       }
     },
@@ -967,9 +869,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          3
+          1
         ],
-        "total": 3,
+        "total": 1,
         "cite": "Book 1 p. 85 chart 11 table C, column General"
       }
     },
@@ -979,9 +881,9 @@
       "consequence": {
         "cause": 62,
         "kind": "skill_awarded",
-        "skill": "Bureaucrat",
+        "skill": "Advocate",
         "delta": 1,
-        "value": 1
+        "value": 2
       }
     },
     {
@@ -1009,9 +911,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          1
+          6
         ],
-        "total": 1,
+        "total": 6,
         "cite": "Book 1 p. 85 chart 11 table C, column General"
       }
     },
@@ -1021,119 +923,13 @@
       "consequence": {
         "cause": 65,
         "kind": "skill_awarded",
-        "skill": "Advocate",
+        "skill": "Leader",
         "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 67,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          1
-        ],
-        "total": 3,
-        "target": 7,
-        "success": true,
-        "cite": "Book 1 p. 85 chart 11 (Continue 7-; p. 66)"
-      }
-    },
-    {
-      "seq": 68,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 67,
-        "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 69,
-      "kind": "step",
-      "step": {
-        "name": "Noble: Term 2",
-        "cite": "Book 1 p. 85 chart 11"
-      }
-    },
-    {
-      "seq": 70,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Dex",
-          "Int",
-          "Edu"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 71,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          2
-        ],
-        "total": 3,
-        "target": 10,
-        "success": true,
-        "mods": [
-          {
-            "name": "successful Intrigues",
-            "value": 1
-          }
-        ],
-        "cite": "Book 1 p. 85 chart 11 (Intrigue vs Edu+ opposite sign Mods; roll only if not in Exile)"
-      }
-    },
-    {
-      "seq": 72,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 71,
-        "kind": "intrigue",
-        "value": 2
-      }
-    },
-    {
-      "seq": 73,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Invoke the once-per-career Flux on this Elevation roll?",
-        "options": [
-          "Invoke Flux",
-          "Save it"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 85 chart 11 (Once in the Noble Career, invoke Flux as a Mod on Elevation)"
-      }
-    },
-    {
-      "seq": 74,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          3,
-          3
-        ],
-        "total": 6,
-        "target": 11,
-        "success": false,
-        "cite": "Book 1 p. 85 chart 11 (Elevation: Roll High, Soc or greater)"
-      }
-    },
-    {
-      "seq": 75,
+      "seq": 67,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1152,91 +948,7 @@
       }
     },
     {
-      "seq": 76,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 77,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 76,
-        "kind": "skill_awarded",
-        "skill": "Leader",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 78,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 79,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 80,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 79,
-        "kind": "skill_awarded",
-        "skill": "Counsellor",
-        "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 81,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 82,
+      "seq": 68,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1248,204 +960,18 @@
       }
     },
     {
-      "seq": 83,
+      "seq": 69,
       "kind": "consequence",
       "consequence": {
-        "cause": 82,
+        "cause": 68,
         "kind": "skill_awarded",
         "skill": "Advocate",
         "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 84,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 85,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 86,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 85,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 87,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          6
-        ],
-        "total": 7,
-        "target": 7,
-        "success": true,
-        "cite": "Book 1 p. 85 chart 11 (Continue 7-; p. 66)"
-      }
-    },
-    {
-      "seq": 88,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 87,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 89,
-      "kind": "step",
-      "step": {
-        "name": "Noble: Term 3",
-        "cite": "Book 1 p. 85 chart 11"
-      }
-    },
-    {
-      "seq": 90,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Dex",
-          "Int"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 91,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          3
-        ],
-        "total": 7,
-        "target": 8,
-        "success": true,
-        "mods": [
-          {
-            "name": "successful Intrigues",
-            "value": 2
-          }
-        ],
-        "cite": "Book 1 p. 85 chart 11 (Intrigue vs Dex+ opposite sign Mods; roll only if not in Exile)"
-      }
-    },
-    {
-      "seq": 92,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 91,
-        "kind": "intrigue",
         "value": 3
       }
     },
     {
-      "seq": 93,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Invoke the once-per-career Flux on this Elevation roll?",
-        "options": [
-          "Invoke Flux",
-          "Save it"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 85 chart 11 (Once in the Noble Career, invoke Flux as a Mod on Elevation)"
-      }
-    },
-    {
-      "seq": 94,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          6,
-          5
-        ],
-        "total": 11,
-        "target": 11,
-        "success": true,
-        "cite": "Book 1 p. 85 chart 11 (Elevation: Roll High, Soc or greater)"
-      }
-    },
-    {
-      "seq": 95,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 94,
-        "kind": "rank_set",
-        "skill": "Baronet",
-        "career": "Noble"
-      }
-    },
-    {
-      "seq": 96,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 94,
-        "kind": "characteristic_change",
-        "characteristic": "Soc",
-        "delta": 1,
-        "value": 12
-      }
-    },
-    {
-      "seq": 97,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 94,
-        "kind": "land_grant",
-        "value": 1
-      }
-    },
-    {
-      "seq": 98,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 94,
-        "kind": "elevated",
-        "career": "Noble"
-      }
-    },
-    {
-      "seq": 99,
+      "seq": 70,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1464,7 +990,7 @@
       }
     },
     {
-      "seq": 100,
+      "seq": 71,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1476,14 +1002,404 @@
       }
     },
     {
-      "seq": 101,
+      "seq": 72,
       "kind": "consequence",
       "consequence": {
-        "cause": 100,
+        "cause": 71,
         "kind": "skill_awarded",
         "skill": "Leader",
         "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 73,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          3
+        ],
+        "total": 7,
+        "target": 7,
+        "success": true,
+        "cite": "Book 1 p. 85 chart 11 (Continue 7-; p. 66)"
+      }
+    },
+    {
+      "seq": 74,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 73,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 75,
+      "kind": "step",
+      "step": {
+        "name": "Noble: Term 3",
+        "cite": "Book 1 p. 85 chart 11"
+      }
+    },
+    {
+      "seq": 76,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": [
+          "Int",
+          "Edu"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 77,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          1
+        ],
+        "total": 7,
+        "target": 7,
+        "success": true,
+        "mods": [
+          {
+            "name": "successful Intrigues",
+            "value": -1
+          },
+          {
+            "name": "times Exiled",
+            "value": 1
+          }
+        ],
+        "cite": "Book 1 p. 85 chart 11 (Return vs Int+Mods; roll only if in Exile)"
+      }
+    },
+    {
+      "seq": 78,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 77,
+        "kind": "returned_from_exile",
+        "career": "Noble"
+      }
+    },
+    {
+      "seq": 79,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Noble Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Political",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 80,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 85 chart 11 table C, column General"
+      }
+    },
+    {
+      "seq": 81,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 80,
+        "kind": "skill_awarded",
+        "skill": "Leader",
+        "delta": 1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 82,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Noble Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Political",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 83,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 85 chart 11 table C, column General"
+      }
+    },
+    {
+      "seq": 84,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 83,
+        "kind": "skill_awarded",
+        "skill": "Leader",
+        "delta": 1,
+        "value": 7
+      }
+    },
+    {
+      "seq": 85,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Noble Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Political",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 86,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 85 chart 11 table C, column General"
+      }
+    },
+    {
+      "seq": 87,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 86,
+        "kind": "skill_awarded",
+        "skill": "Leader",
+        "delta": 1,
+        "value": 8
+      }
+    },
+    {
+      "seq": 88,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Noble Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Political",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 89,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 85 chart 11 table C, column General"
+      }
+    },
+    {
+      "seq": 90,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 89,
+        "kind": "skill_awarded",
+        "skill": "Liaison",
+        "delta": 1,
         "value": 2
+      }
+    },
+    {
+      "seq": 91,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          4
+        ],
+        "total": 5,
+        "target": 7,
+        "success": true,
+        "cite": "Book 1 p. 85 chart 11 (Continue 7-; p. 66)"
+      }
+    },
+    {
+      "seq": 92,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 91,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 93,
+      "kind": "step",
+      "step": {
+        "name": "Noble: Term 4",
+        "cite": "Book 1 p. 85 chart 11"
+      }
+    },
+    {
+      "seq": 94,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": [
+          "Edu"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 95,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          2
+        ],
+        "total": 5,
+        "target": 5,
+        "success": true,
+        "mods": [
+          {
+            "name": "successful Intrigues",
+            "value": 1
+          },
+          {
+            "name": "times Exiled",
+            "value": -1
+          }
+        ],
+        "cite": "Book 1 p. 85 chart 11 (Intrigue vs Edu+ opposite sign Mods; roll only if not in Exile)"
+      }
+    },
+    {
+      "seq": 96,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 95,
+        "kind": "intrigue",
+        "career": "Noble",
+        "value": 2
+      }
+    },
+    {
+      "seq": 97,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Invoke the once-per-career Flux on this Elevation roll?",
+        "options": [
+          "Invoke Flux",
+          "Save it"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 85 chart 11 (Once in the Noble Career, invoke Flux as a Mod on Elevation)"
+      }
+    },
+    {
+      "seq": 98,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          3,
+          1
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 85 chart 11 (Elevation Flux)"
+      }
+    },
+    {
+      "seq": 99,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D+2",
+        "dice": [
+          6,
+          4
+        ],
+        "mod": 2,
+        "total": 12,
+        "target": 12,
+        "success": true,
+        "cite": "Book 1 p. 85 chart 11 (Elevation: Roll High, Soc or greater)"
+      }
+    },
+    {
+      "seq": 100,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 99,
+        "kind": "rank_set",
+        "skill": "Baron",
+        "career": "Noble"
+      }
+    },
+    {
+      "seq": 101,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 99,
+        "kind": "elevated",
+        "career": "Noble"
       }
     },
     {
@@ -1525,7 +1441,7 @@
         "kind": "skill_awarded",
         "skill": "Bureaucrat",
         "delta": 1,
-        "value": 3
+        "value": 1
       }
     },
     {
@@ -1567,7 +1483,7 @@
         "kind": "skill_awarded",
         "skill": "Bureaucrat",
         "delta": 1,
-        "value": 4
+        "value": 2
       }
     },
     {
@@ -1595,9 +1511,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          1
+          4
         ],
-        "total": 1,
+        "total": 4,
         "cite": "Book 1 p. 85 chart 11 table C, column General"
       }
     },
@@ -1607,7 +1523,7 @@
       "consequence": {
         "cause": 109,
         "kind": "skill_awarded",
-        "skill": "Advocate",
+        "skill": "Liaison",
         "delta": 1,
         "value": 3
       }
@@ -1637,9 +1553,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          6
+          4
         ],
-        "total": 6,
+        "total": 4,
         "cite": "Book 1 p. 85 chart 11 table C, column General"
       }
     },
@@ -1649,9 +1565,9 @@
       "consequence": {
         "cause": 112,
         "kind": "skill_awarded",
-        "skill": "Leader",
+        "skill": "Liaison",
         "delta": 1,
-        "value": 3
+        "value": 4
       }
     },
     {
@@ -1693,1507 +1609,80 @@
         "kind": "skill_awarded",
         "skill": "Bureaucrat",
         "delta": 1,
-        "value": 5
+        "value": 3
       }
     },
     {
       "seq": 117,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          3,
-          1
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Noble Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Political",
+          "Vocation",
+          "Technical"
         ],
-        "total": 4,
-        "target": 7,
-        "success": true,
-        "cite": "Book 1 p. 85 chart 11 (Continue 7-; p. 66)"
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 118,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 117,
-        "kind": "years_elapsed",
-        "value": 4
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 85 chart 11 table C, column General"
       }
     },
     {
       "seq": 119,
-      "kind": "step",
-      "step": {
-        "name": "Noble: Term 4",
-        "cite": "Book 1 p. 85 chart 11"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 118,
+        "kind": "skill_awarded",
+        "skill": "Leader",
+        "delta": 1,
+        "value": 9
       }
     },
     {
       "seq": 120,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Int"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 121,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          1,
-          3
+          5,
+          4
         ],
-        "total": 4,
-        "target": 8,
-        "success": true,
-        "mods": [
-          {
-            "name": "successful Intrigues",
-            "value": 3
-          }
-        ],
-        "cite": "Book 1 p. 85 chart 11 (Intrigue vs Int+ opposite sign Mods; roll only if not in Exile)"
+        "total": 9,
+        "target": 7,
+        "success": false,
+        "cite": "Book 1 p. 85 chart 11 (Continue 7-; p. 66)"
+      }
+    },
+    {
+      "seq": 121,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 120,
+        "kind": "years_elapsed",
+        "value": 4
       }
     },
     {
       "seq": 122,
       "kind": "consequence",
       "consequence": {
-        "cause": 121,
-        "kind": "intrigue",
-        "value": 4
-      }
-    },
-    {
-      "seq": 123,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Invoke the once-per-career Flux on this Elevation roll?",
-        "options": [
-          "Invoke Flux",
-          "Save it"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 85 chart 11 (Once in the Noble Career, invoke Flux as a Mod on Elevation)"
-      }
-    },
-    {
-      "seq": 124,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          3
-        ],
-        "total": 7,
-        "target": 12,
-        "success": false,
-        "cite": "Book 1 p. 85 chart 11 (Elevation: Roll High, Soc or greater)"
-      }
-    },
-    {
-      "seq": 125,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 126,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 127,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 126,
-        "kind": "skill_awarded",
-        "skill": "Leader",
-        "delta": 1,
-        "value": 4
-      }
-    },
-    {
-      "seq": 128,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 129,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 130,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 129,
-        "kind": "skill_awarded",
-        "skill": "Leader",
-        "delta": 1,
-        "value": 5
-      }
-    },
-    {
-      "seq": 131,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 132,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 133,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 132,
-        "kind": "skill_awarded",
-        "skill": "Leader",
-        "delta": 1,
-        "value": 6
-      }
-    },
-    {
-      "seq": 134,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 135,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 136,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 135,
-        "kind": "skill_awarded",
-        "skill": "Liaison",
-        "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 137,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          5
-        ],
-        "total": 6,
-        "target": 7,
-        "success": true,
-        "cite": "Book 1 p. 85 chart 11 (Continue 7-; p. 66)"
-      }
-    },
-    {
-      "seq": 138,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 137,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 139,
-      "kind": "step",
-      "step": {
-        "name": "Noble: Term 5",
-        "cite": "Book 1 p. 85 chart 11"
-      }
-    },
-    {
-      "seq": 140,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Dex",
-          "End",
-          "Int",
-          "Edu"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 141,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          1
-        ],
-        "total": 6,
-        "target": 15,
-        "success": true,
-        "mods": [
-          {
-            "name": "successful Intrigues",
-            "value": 4
-          }
-        ],
-        "cite": "Book 1 p. 85 chart 11 (Intrigue vs End+ opposite sign Mods; roll only if not in Exile)"
-      }
-    },
-    {
-      "seq": 142,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 141,
-        "kind": "intrigue",
-        "value": 5
-      }
-    },
-    {
-      "seq": 143,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Invoke the once-per-career Flux on this Elevation roll?",
-        "options": [
-          "Invoke Flux",
-          "Save it"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 85 chart 11 (Once in the Noble Career, invoke Flux as a Mod on Elevation)"
-      }
-    },
-    {
-      "seq": 144,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          4
-        ],
-        "total": 9,
-        "target": 12,
-        "success": false,
-        "cite": "Book 1 p. 85 chart 11 (Elevation: Roll High, Soc or greater)"
-      }
-    },
-    {
-      "seq": 145,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 146,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 147,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 146,
-        "kind": "skill_awarded",
-        "skill": "Leader",
-        "delta": 1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 148,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 149,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 150,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 149,
-        "kind": "skill_awarded",
-        "skill": "Advocate",
-        "delta": 1,
-        "value": 4
-      }
-    },
-    {
-      "seq": 151,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 152,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 153,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 152,
-        "kind": "skill_awarded",
-        "skill": "Counsellor",
-        "delta": 1,
-        "value": 3
-      }
-    },
-    {
-      "seq": 154,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 155,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 156,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 155,
-        "kind": "skill_awarded",
-        "skill": "Leader",
-        "delta": 1,
-        "value": 8
-      }
-    },
-    {
-      "seq": 157,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          2
-        ],
-        "total": 3,
-        "target": 7,
-        "success": true,
-        "cite": "Book 1 p. 85 chart 11 (Continue 7-; p. 66)"
-      }
-    },
-    {
-      "seq": 158,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 157,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 159,
-      "kind": "step",
-      "step": {
-        "name": "Noble: Term 6",
-        "cite": "Book 1 p. 85 chart 11"
-      }
-    },
-    {
-      "seq": 160,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Dex",
-          "Int",
-          "Edu"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 161,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          5
-        ],
-        "total": 9,
-        "target": 14,
-        "success": true,
-        "mods": [
-          {
-            "name": "successful Intrigues",
-            "value": 5
-          }
-        ],
-        "cite": "Book 1 p. 85 chart 11 (Intrigue vs Edu+ opposite sign Mods; roll only if not in Exile)"
-      }
-    },
-    {
-      "seq": 162,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 161,
-        "kind": "intrigue",
-        "value": 6
-      }
-    },
-    {
-      "seq": 163,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Invoke the once-per-career Flux on this Elevation roll?",
-        "options": [
-          "Invoke Flux",
-          "Save it"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 85 chart 11 (Once in the Noble Career, invoke Flux as a Mod on Elevation)"
-      }
-    },
-    {
-      "seq": 164,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          6,
-          6
-        ],
-        "total": 12,
-        "target": 12,
-        "success": true,
-        "cite": "Book 1 p. 85 chart 11 (Elevation: Roll High, Soc or greater)"
-      }
-    },
-    {
-      "seq": 165,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 164,
-        "kind": "rank_set",
-        "skill": "Baron",
-        "career": "Noble"
-      }
-    },
-    {
-      "seq": 166,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 164,
-        "kind": "elevated",
-        "career": "Noble"
-      }
-    },
-    {
-      "seq": 167,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 168,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 169,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 168,
-        "kind": "skill_awarded",
-        "skill": "Leader",
-        "delta": 1,
-        "value": 9
-      }
-    },
-    {
-      "seq": 170,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 171,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 172,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 171,
-        "kind": "skill_awarded",
-        "skill": "Leader",
-        "delta": 1,
-        "value": 10
-      }
-    },
-    {
-      "seq": 173,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 174,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 175,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 174,
-        "kind": "skill_awarded",
-        "skill": "Liaison",
-        "delta": 1,
-        "value": 3
-      }
-    },
-    {
-      "seq": 176,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 177,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 178,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 177,
-        "kind": "skill_awarded",
-        "skill": "Counsellor",
-        "delta": 1,
-        "value": 4
-      }
-    },
-    {
-      "seq": 179,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 180,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 181,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 180,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 6
-      }
-    },
-    {
-      "seq": 182,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 183,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 184,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 183,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 185,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          2
-        ],
-        "total": 6,
-        "target": 7,
-        "success": true,
-        "cite": "Book 1 p. 85 chart 11 (Continue 7-; p. 66)"
-      }
-    },
-    {
-      "seq": 186,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 185,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 187,
-      "kind": "step",
-      "step": {
-        "name": "Noble: Term 7",
-        "cite": "Book 1 p. 85 chart 11"
-      }
-    },
-    {
-      "seq": 188,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Dex",
-          "Int"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 189,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          1
-        ],
-        "total": 2,
-        "target": 12,
-        "success": true,
-        "mods": [
-          {
-            "name": "successful Intrigues",
-            "value": 6
-          }
-        ],
-        "cite": "Book 1 p. 85 chart 11 (Intrigue vs Dex+ opposite sign Mods; roll only if not in Exile)"
-      }
-    },
-    {
-      "seq": 190,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 189,
-        "kind": "intrigue",
-        "value": 7
-      }
-    },
-    {
-      "seq": 191,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Invoke the once-per-career Flux on this Elevation roll?",
-        "options": [
-          "Invoke Flux",
-          "Save it"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 85 chart 11 (Once in the Noble Career, invoke Flux as a Mod on Elevation)"
-      }
-    },
-    {
-      "seq": 192,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          5
-        ],
-        "total": 7,
-        "target": 12,
-        "success": false,
-        "cite": "Book 1 p. 85 chart 11 (Elevation: Roll High, Soc or greater)"
-      }
-    },
-    {
-      "seq": 193,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 194,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 195,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 194,
-        "kind": "skill_awarded",
-        "skill": "Leader",
-        "delta": 1,
-        "value": 11
-      }
-    },
-    {
-      "seq": 196,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 197,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 198,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 197,
-        "kind": "skill_awarded",
-        "skill": "Leader",
-        "delta": 1,
-        "value": 12
-      }
-    },
-    {
-      "seq": 199,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 200,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 201,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 200,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 8
-      }
-    },
-    {
-      "seq": 202,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 203,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 204,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 203,
-        "kind": "skill_awarded",
-        "skill": "Leader",
-        "delta": 1,
-        "value": 13
-      }
-    },
-    {
-      "seq": 205,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          3,
-          3
-        ],
-        "total": 6,
-        "target": 7,
-        "success": true,
-        "cite": "Book 1 p. 85 chart 11 (Continue 7-; p. 66)"
-      }
-    },
-    {
-      "seq": 206,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 205,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 207,
-      "kind": "step",
-      "step": {
-        "name": "Noble: Term 8",
-        "cite": "Book 1 p. 85 chart 11"
-      }
-    },
-    {
-      "seq": 208,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Int"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 209,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          2
-        ],
-        "total": 6,
-        "target": 12,
-        "success": true,
-        "mods": [
-          {
-            "name": "successful Intrigues",
-            "value": 7
-          }
-        ],
-        "cite": "Book 1 p. 85 chart 11 (Intrigue vs Int+ opposite sign Mods; roll only if not in Exile)"
-      }
-    },
-    {
-      "seq": 210,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 209,
-        "kind": "intrigue",
-        "value": 8
-      }
-    },
-    {
-      "seq": 211,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Invoke the once-per-career Flux on this Elevation roll?",
-        "options": [
-          "Invoke Flux",
-          "Save it"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 85 chart 11 (Once in the Noble Career, invoke Flux as a Mod on Elevation)"
-      }
-    },
-    {
-      "seq": 212,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          3,
-          6
-        ],
-        "total": 9,
-        "target": 12,
-        "success": false,
-        "cite": "Book 1 p. 85 chart 11 (Elevation: Roll High, Soc or greater)"
-      }
-    },
-    {
-      "seq": 213,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 214,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 215,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 214,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 9
-      }
-    },
-    {
-      "seq": 216,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 217,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 218,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 217,
-        "kind": "skill_awarded",
-        "skill": "Counsellor",
-        "delta": 1,
-        "value": 5
-      }
-    },
-    {
-      "seq": 219,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 220,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 221,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 220,
-        "kind": "skill_awarded",
-        "skill": "Liaison",
-        "delta": 1,
-        "value": 4
-      }
-    },
-    {
-      "seq": 222,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Noble Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Political",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 223,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 85 chart 11 table C, column General"
-      }
-    },
-    {
-      "seq": 224,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 223,
-        "kind": "skill_awarded",
-        "skill": "Leader",
-        "delta": 1,
-        "value": 14
-      }
-    },
-    {
-      "seq": 225,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          3,
-          6
-        ],
-        "total": 9,
-        "target": 7,
-        "success": false,
-        "cite": "Book 1 p. 85 chart 11 (Continue 7-; p. 66)"
-      }
-    },
-    {
-      "seq": 226,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 225,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 227,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 225,
+        "cause": 120,
         "kind": "career_ended",
         "career": "Noble"
       }

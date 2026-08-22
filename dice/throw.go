@@ -72,24 +72,30 @@ func maxRoll(roll Roll) int {
 // reverse of the ordinary roll-low comparison.
 //
 // "Nobles use a special procedure. Elevation is Roll High (roll Soc or
-// greater to be Elevated to the next higher Noble rank)" (p. 66; chart 11
+// greater to be Elevated to the next higher Noble rank)" (p. 65; chart 11
 // p. 85). mod adjusts the roll rather than the target — chart 11 invokes
 // Flux as "a Mod on Elevation roll".
 //
 // The p. 134 automatic-failure rule is deliberately not applied: it is
 // stated for Checks, whose highest roll is their worst result, and Book 1
 // prints no failure rule for a Roll High, whose highest roll is its best.
+//
+// The p. 127 spectacular flags are left unset for the same reason. "Three
+// Ones ... is a Spectacular Success" and "Three Sixes ... is a Spectacular
+// Failure" read the dice the way a roll-low Throw does; on a Roll High
+// three ones is the worst possible roll and three sixes the best, and
+// Book 1 prints no spectacular rule for a Roll High. Reporting the roll-low
+// flags here would invert them; inventing reversed ones would be an
+// uncited rule.
 func (r *Roller) High(n, target, mod int) Throw {
 	roll := r.Roll(n)
 	roll.Mod = mod
 	roll.Total += mod
 
 	return Throw{
-		Roll:               roll,
-		Target:             target,
-		Success:            roll.Total >= target,
-		SpectacularSuccess: countFace(roll.Faces, 1) >= 3,
-		SpectacularFailure: countFace(roll.Faces, 6) >= 3,
+		Roll:    roll,
+		Target:  target,
+		Success: roll.Total >= target,
 	}
 }
 

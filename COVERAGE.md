@@ -141,20 +141,20 @@ Book 1, Print Edition 5.1.
 | Rule | Cite | Implementation | Test | Status |
 | --- | --- | --- | --- | --- |
 | To Begin automatic if Soc B+; no attempt below | chart 11 A; p. 65 | `nobleMechanics.begin` | `TestNobleRequiresSocB` | interpretation I-28 (no year lost) |
-| Rank equals Social Standing; twelve rungs, three shared | chart 11; p. 66, 68 | `Ranks` with `Soc` | `TestNobleLadder` | covered |
-| A shared Social Standing enters at the lower title | p. 68 | `nobleRankFor` | `TestNobleEntersAtLowerTitle` | interpretation I-29 |
+| Rank equals Social Standing; twelve rungs, three shared | chart 11; p. 65, 51 | `Ranks` with `Soc` | `TestNobleLadder` | covered |
+| A shared Social Standing enters at the lower title | p. 51 | `nobleRankFor` | `TestNobleEntersAtLowerTitle` | interpretation I-29 |
 | Return rolled only in Exile; Intrigue only outside it | chart 11 | `resolveTerm` | `TestNobleExileGovernsWhichRollHappens` | covered |
 | Intrigue failure exiles; Return failure continues Exile | chart 11 | `rollIntrigue`, `rollReturn` | golden seed 3268 | covered |
 | Mod = −Successful Intrigues + Times Exiled, flipped for Intrigue | chart 11; p. 73 | `nobleMods` | golden seed 3268 | interpretation I-27 (three readings recorded) |
-| Elevation is Roll High against Soc | chart 11; p. 66 | `dice.High`, `elevate` | `TestNobleElevationRollsHigh`, `TestHighRollsHigh` | covered (no automatic-failure rule printed for Roll High) |
-| Elevation raises Social Standing "if any" | chart 11; p. 68 | `raiseSoc` | `TestNobleElevationRaisesSocOnlyWhereTheLadderDoes` | interpretation I-29 |
-| Land Grant per Soc increase | chart 11 | `raiseSoc` | same | covered as a count; hexes and economics deferred (M4) |
+| Elevation is Roll High against Soc | chart 11; p. 65 | `dice.High`, `elevate` | `TestNobleElevationRollsHigh`, `TestHighRollsHigh` | covered (no automatic-failure rule printed for Roll High) |
+| Elevation raises Social Standing "if any" | chart 11; p. 51 | `raiseSoc` | `TestNobleElevationRaisesSocOnlyWhereTheLadderDoes` | interpretation I-29 |
+| Land Grant per Soc increase | chart 11 | `raiseSoc`, `characteristicRaised` | `TestNobleLandGrantPerSocIncrease` | covered as a count for every in-career Soc increase; conflicts with the rank table's "Each noble title confers a Land Grant" — interpretation I-30; hexes and economics deferred (M4) |
 | Once-per-career Flux on an Elevation roll | chart 11 | `offerFlux` | golden sweeps | covered (policy invokes it once Soc exceeds 2D) |
 | Per Term 4; When Elevated 2 | chart 11 B | `resolveTerm` | golden seed 3268 | covered |
 | Continue 7 | chart 11 A | `continueRoll` | golden seed 3268 | covered |
 | No Caution/Bravery selection | chart 11 | (nothing to do) | — | covered — the box defines its own Mods and omits the selection line every other R&R chart prints |
 | "Soldier Skill" cell | chart 11 C | `awardFromGroup` via `EntrySoldier` | golden sweeps | covered |
-| "Capital***" cell (World Knowledge of the Land Grant world) | chart 11 C | `EntryCapital` (errors if selected) | data test | deferred (M4: needs the Land Grant worlds) |
+| "Capital***" cell (World Knowledge of the Land Grant world) | chart 11 C | `EntryCapital` (errors if selected) | — | deferred (M4: needs the Land Grant worlds) |
 | Base Fame = 1.5 x Soc | chart 11 | — | — | deferred (M4 chart F; nothing in-career consumes it, and the rounding of an odd Soc is unstated) |
 | Muster-out Proxy column | chart 11 D | — | — | deferred (M4) — a third benefits column no other chart has |
 | "A Noble may not pursue another career after this one" | chart 11; p. 66 | — | — | deferred (M4 career changes) |
@@ -248,7 +248,7 @@ Batch, replay verification, interactive mode: deferred (M5).
 
 ## Cross-cutting interpretations
 
-I-1 … I-29 in ERRATA.md, each referenced from its row above. The I-4
+I-1 … I-30 in ERRATA.md, each referenced from its row above. The I-4
 skill-name residual (MSL-exact strings, the Navigator/Navigation split) is
 closed by I-9: every skill name in every embedded chart is validated
 against the Master Skill List at load time.

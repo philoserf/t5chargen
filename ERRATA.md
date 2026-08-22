@@ -589,16 +589,29 @@ the same career to:
 > C4 C5** / Mod minus Intrigues / Mod + Exiles / Determine Skill
 > eligibility; take Skills / Roll 7 to Continue
 
-Both modifier lines sit under a single roll line, so they are one combined
-Mod. Implemented as Mod = −Successful Intrigues + Times Exiled, applied to
+Both modifier lines sit under a single roll line, so they are read as one
+combined Mod. The evidence is suggestive rather than decisive: that line
+names both rolls at once ("Return&Intrigue"), so a reader could equally
+take the two Mod lines as one apiece. It is the best textual signal
+available, and it is weighed against the escalation noted below. Implemented as Mod = −Successful Intrigues + Times Exiled, applied to
 Return as printed and to Intrigue with the opposite sign:
 
 - Return = CC − Successful Intrigues + Times Exiled
 - Intrigue = CC + Successful Intrigues − Times Exiled
 
 which reads sensibly in both directions: a practised schemer intrigues
-more easily and is granted return less readily, and a repeatedly exiled
-noble is weakened at both.
+more easily and is granted return less readily, while exile cuts the other
+way — each banishment makes the next Return easier to be granted and
+further Intrigue harder to work. (Both rolls are roll-low Checks, so a
+higher target is the easier one.)
+
+The reading compounds: Successful Intrigues are never spent, so the
+Intrigue target climbs by one per success. A long Noble career reaches a
+target above 12, where only the p. 134 automatic failure can stop it (the
+pinned seed 3268 is at End+4 = 15 by its fifth term), and an exiled veteran
+schemer faces a correspondingly sunken Return. Reading 1 below has no such
+escalation; it is recorded here as the cost of the reading taken, not as a
+reason to revisit it without a rules ruling.
 
 Readings not taken:
 
@@ -632,13 +645,13 @@ elapses.
 
 Implemented at `chargen/noble.go` (`begin`).
 
-### I-29: A shared Social Standing enters at the lower title (p. 85 chart 11; p. 68)
+### I-29: A shared Social Standing enters at the lower title (p. 85 chart 11; p. 51)
 
-"Nobles begin with rank equal to their Social Standing" (p. 66), but three
+"Nobles begin with rank equal to their Social Standing" (p. 65), but three
 Social Standings carry two titles each: Soc 12 is Baronet and Baron, 14 is
 Viscount and Count, 15 is Duke twice.
 
-A character beginning at such a value enters at the lower rung. P. 68 is
+A character beginning at such a value enters at the lower rung. P. 51 is
 explicit for the first of them: "A character elevated to Soc = c (lower
 case) is **initially** a Baronet. The next increase in Soc remains C (now
 upper case) but the title increases to Baron." A character arriving at that
@@ -647,10 +660,46 @@ is the one it confers.
 
 This is what chart 11's Elevation clause allows for — "the next higher
 Noble rank and its increase in Social Standing (**if any**)" — and the
-title-only steps award no Land Grant, since the chart ties grants to "each
-increase in Soc".
+title-only steps award no Land Grant under the box A rule the
+implementation follows (see I-30 for the rank table's conflicting note).
 
 At the p. 68 characteristic maximum the title still advances while the
 Social Standing does not, and again no Land Grant follows.
 
 Implemented at `chargen/noble.go` (`nobleRankFor`, `raiseSoc`).
+
+### I-30: Land Grants follow Soc increases, not titles (p. 85 chart 11)
+
+Chart 11 states the Land Grant rule twice, and the two statements disagree.
+Box A: "Land Grants. Each increase in Soc during CharGen awards a Land
+Grant." The note under the Noble Rank and Land Grants table: "Nobles
+receive Land Grants associated with their fiefs. **Each noble title confers
+a Land Grant.**"
+
+They agree everywhere except the three rungs that share a Social Standing
+(I-29). Baronet to Baron is a new title with no Soc increase: by box A no
+grant, by the table note a grant. The same holds for Viscount to Count and
+Duke to Duke, and for a title-only step taken at the p. 68 characteristic
+maximum.
+
+Box A governs here. It is the career box's own rule, phrased as a CharGen
+procedure ("during CharGen") in the register the rest of box A uses, while
+the table note sits in the descriptive paragraph about fiefs and hex
+income, which is the muster-out material deferred to milestone 4. Reading
+box A as the procedure and the note as the setting description keeps one
+rule in force during generation.
+
+Taken literally, box A also awards a Land Grant for *any* in-career Soc
+increase, not only Elevation's: chart 11 table C column 1 line 6 is "C6
++1", which raises a Noble's Soc during the career. That grant is awarded.
+Soc increases before the career — homeworld skills, education — are not,
+since the character was not yet a Noble and had no fief to be granted.
+
+A Soc increase from table C does **not** move the character along the rank
+ladder: "Nobles begin with rank equal to their Social Standing" (p. 65)
+scopes the rank/Soc equality to career entry, and chart 11 gives Elevation
+as the only route between rungs. A Noble may therefore hold Soc 13 as a
+Knight, which is a consequence of the printed rules rather than a
+deviation.
+
+Implemented at `chargen/noble.go` (`raiseSoc`, `characteristicRaised`).

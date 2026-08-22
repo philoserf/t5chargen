@@ -8,11 +8,12 @@ import (
 	"github.com/philoserf/t5chargen/chargen"
 )
 
-// The pinned Noble fixtures, found offline: seed 3268 climbs from Knight
-// through both an elevation that raises Social Standing and the
-// title-only step above it; seed 1060 is exiled.
+// The pinned Noble fixtures, found offline: seed 2978 climbs through both
+// an elevation that raises Social Standing and the title-only step above
+// it, invokes the once-per-career Flux, and is exiled once; seed 1060 is
+// exiled too, and pins the Return path on its own.
 const (
-	nobleGoldenSeed = 3268
+	nobleGoldenSeed = 2978
 	nobleExileSeed  = 1060
 )
 
@@ -209,7 +210,7 @@ func TestNobleElevationRollsHigh(t *testing.T) {
 	checked := 0
 
 	for _, e := range c.Events {
-		if e.Kind != chargen.EventThrow || !strings.Contains(e.Throw.Cite, "Elevation") {
+		if e.Kind != chargen.EventThrow || !strings.Contains(e.Throw.Cite, "Elevation: Roll High") {
 			continue
 		}
 
@@ -279,4 +280,85 @@ func nobleEventKind(e chargen.Event) string {
 	default:
 		return ""
 	}
+}
+
+// personalColumnPolicy is the default policy with one override: it always
+// takes chart 11 table C column 1 (Personal), whose line 6 is "C6 +1". The
+// default policy prefers the General column, so the Soc-raising cell is
+// unreachable without this.
+type personalColumnPolicy struct{ chargen.DefaultPolicy }
+
+func (p personalColumnPolicy) Choose(c chargen.Choice) int {
+	if c.ID == chargen.ChooseSkillColumn {
+		for i, option := range c.Options {
+			if option == "Personal" {
+				return i
+			}
+		}
+	}
+
+	return p.DefaultPolicy.Choose(c)
+}
+
+// TestNobleLandGrantPerSocIncrease verifies chart 11's "Land Grants. Each
+// increase in Soc during CharGen awards a Land Grant": a Soc increase from
+// table C earns one just as Elevation's does (interpretation I-30).
+func TestNobleLandGrantPerSocIncrease(t *testing.T) {
+	checked := 0
+
+	for seed := uint64(1); seed <= 200; seed++ {
+		c, err := chargen.Generate(chargen.Options{
+			Seed: seed, Career: "Noble", Decider: personalColumnPolicy{},
+		})
+		if err != nil {
+			t.Fatalf("seed %d: %v", seed, err)
+		}
+
+		if len(c.Careers) == 0 || !c.Careers[0].Began {
+			continue
+		}
+
+		raises, grants := countSocRaisesAndGrants(c)
+		if raises == 0 {
+			continue
+		}
+
+		checked++
+
+		if grants != raises {
+			t.Errorf("seed %d: %d Soc increases awarded %d Land Grants; chart 11 awards one each",
+				seed, raises, grants)
+		}
+
+		if c.Careers[0].LandGrants != grants {
+			t.Errorf("seed %d: record LandGrants = %d, want %d", seed, c.Careers[0].LandGrants, grants)
+		}
+	}
+
+	if checked == 0 {
+		t.Fatal("no seed in 1..200 raised a Noble's Soc from table C")
+	}
+}
+
+// countSocRaisesAndGrants counts the Soc increases and the Land Grant
+// consequences in a generation record.
+func countSocRaisesAndGrants(c chargen.Character) (int, int) {
+	raises, grants := 0, 0
+
+	for _, e := range c.Events {
+		if e.Kind != chargen.EventConsequence {
+			continue
+		}
+
+		if e.Consequence.Kind == chargen.ConsequenceCharacteristicChange &&
+			e.Consequence.Characteristic == "Soc" && e.Consequence.Delta > 0 {
+			raises++
+		}
+
+		if e.Consequence.Kind == chargen.ConsequenceLandGrant {
+			grants++
+		}
+	}
+
+	return raises, grants
 }

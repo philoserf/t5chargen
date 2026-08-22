@@ -190,10 +190,10 @@ type Rank struct {
 
 	// Soc is the Social Standing a rank carries, where the ladder is keyed
 	// to it ("Nobles begin with rank equal to their Social Standing",
-	// p. 66). Consecutive rows may share one value: "A character elevated
+	// p. 65). Consecutive rows may share one value: "A character elevated
 	// to Soc = c (lower case) is initially a Baronet. The next increase in
 	// Soc remains C (now upper case) but the title increases to Baron"
-	// (p. 68), which is why chart 11 elevates to "the next higher Noble
+	// (p. 51), which is why chart 11 elevates to "the next higher Noble
 	// rank and its increase in Social Standing (if any)".
 	Soc int `json:"soc,omitempty"`
 }
@@ -770,10 +770,9 @@ func Noble() (*Definition, error) {
 }
 
 // Available lists the implemented careers in Book 1 chart order (Scholar
-// is chart 02, Entertainer 03, Citizen 04, Scout 05, Merchant 06, Noble
-// 11). The
-// default policy names its career rather than taking the first listed, so
-// this order is presentation only (POLICY.md).
+// is chart 02, Entertainer 03, Citizen 04, Scout 05, Merchant 06, Noble 11).
+// The default policy names its career rather than taking the first listed,
+// so this order is presentation only (POLICY.md).
 func Available() []string {
 	return []string{"Scholar", "Entertainer", "Citizen", "Scout", "Merchant", "Noble"}
 }

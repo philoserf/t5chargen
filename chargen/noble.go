@@ -1,6 +1,6 @@
 package chargen
 
-// Noble career mechanics (Book 1 chart 11, p. 85; prose pp. 66, 68).
+// Noble career mechanics (Book 1 chart 11, p. 85; prose pp. 51, 65).
 // "To Begin Automatic* (*if Soc B+) / Return & Intrigue C2 C3 C4 C5 /
 // Elevation By Intrigue / Continue 7" (chart 11 box A).
 //
@@ -10,12 +10,12 @@ package chargen
 // the character; a failed Return continues the exile. A successful
 // Intrigue earns an Elevation attempt, which is a Roll High: "roll Soc or
 // greater to be Elevated to the next higher Noble rank and its increase in
-// Social Standing (if any)" (p. 66).
+// Social Standing (if any)" (p. 65).
 //
 // Rank is the Noble ladder itself: "Nobles begin with rank equal to their
-// Social Standing" (p. 66). Consecutive rungs may share a Social Standing
+// Social Standing" (p. 65). Consecutive rungs may share a Social Standing
 // — a character elevated to Soc c is a Baronet, and the next elevation
-// keeps Soc 12 while the title becomes Baron (p. 68) — which is what the
+// keeps Soc 12 while the title becomes Baron (p. 51) — which is what the
 // chart's "(if any)" allows for.
 //
 // Deferred: Land Grant hexes and their economics, and the muster-out
@@ -70,7 +70,7 @@ func (m *nobleMechanics) begin(r *careerRun) (bool, error) {
 		return false, nil
 	}
 
-	// "Nobles begin with rank equal to their Social Standing" (p. 66), at
+	// "Nobles begin with rank equal to their Social Standing" (p. 65), at
 	// the first rung carrying it — a character beginning at Soc 12 is a
 	// Baronet, the title the chart calls the initial one.
 	m.rank = nobleRankFor(r.def, soc)
@@ -82,7 +82,7 @@ func (m *nobleMechanics) begin(r *careerRun) (bool, error) {
 // nobleRankFor returns the index of the first ladder rung carrying soc, or
 // the top rung when soc exceeds the ladder. The first is deliberate: "A
 // character elevated to Soc = c (lower case) is initially a Baronet"
-// (p. 68), so a Social Standing shared by two rungs enters at the lower
+// (p. 51), so a Social Standing shared by two rungs enters at the lower
 // title (interpretation I-29, ERRATA.md).
 func nobleRankFor(def *career.Definition, soc int) int {
 	best := 0
@@ -220,7 +220,7 @@ func (*nobleMechanics) rollIntrigue(r *careerRun, cc string, value int) bool {
 
 	r.record.SuccessfulIntrigues++
 	r.log.Consequence(ConsequenceEvent{
-		Cause: seq, Kind: ConsequenceIntrigue, Value: r.record.SuccessfulIntrigues,
+		Cause: seq, Kind: ConsequenceIntrigue, Career: r.def.Name, Value: r.record.SuccessfulIntrigues,
 	})
 
 	return true
@@ -228,7 +228,7 @@ func (*nobleMechanics) rollIntrigue(r *careerRun, cc string, value int) bool {
 
 // elevate attempts the Elevation: "Roll Soc or greater (no Mods but
 // possibly Flux) to rise to the next higher Noble rank and its increase in
-// Social Standing (if any)." (chart 11) This is a Roll High (p. 66).
+// Social Standing (if any)." (chart 11) This is a Roll High (p. 65).
 func (m *nobleMechanics) elevate(r *careerRun) (bool, error) {
 	if m.rank >= len(r.def.Ranks)-1 {
 		// The top of the ladder: nothing to rise to.
@@ -275,10 +275,31 @@ func (m *nobleMechanics) raiseSoc(r *careerRun, cause int) {
 		return
 	}
 
+	m.grantLand(r, cause)
+}
+
+// characteristicRaised is the careerRun's notification that a table C
+// characteristic award landed. Chart 11 ties the Land Grant to the Social
+// Standing and not to the title: "Land Grants. Each increase in Soc during
+// CharGen awards a Land Grant." Column 1 line 6 ("C6 +1") raises a Noble's
+// Soc mid-career, and that increase is awarded like Elevation's
+// (interpretation I-30, ERRATA.md, which records the rank table's
+// conflicting "Each noble title confers a Land Grant").
+func (m *nobleMechanics) characteristicRaised(r *careerRun, name string, cause int) {
+	if name != "Soc" {
+		return
+	}
+
+	m.grantLand(r, cause)
+}
+
+// grantLand records one Land Grant. The hexes and their economics land
+// with muster out (docs/PRD.md milestone 4).
+func (*nobleMechanics) grantLand(r *careerRun, cause int) {
 	r.record.LandGrants++
 
 	r.log.Consequence(ConsequenceEvent{
-		Cause: cause, Kind: ConsequenceLandGrant, Value: r.record.LandGrants,
+		Cause: cause, Kind: ConsequenceLandGrant, Career: r.def.Name, Value: r.record.LandGrants,
 	})
 }
 
