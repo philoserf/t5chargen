@@ -113,6 +113,14 @@ func careerLine(record chargen.CareerRecord) string {
 		line += ", Hobby " + record.Hobby
 	}
 
+	if record.Specialty != "" {
+		line += ", " + record.Specialty
+	}
+
+	if record.Talent > 0 {
+		line += fmt.Sprintf(", Talent %d", record.Talent)
+	}
+
 	if record.RankTitle != "" {
 		line += ", " + record.RankTitle + " " + record.Rank
 	}
@@ -335,6 +343,23 @@ func consequenceInjuryText(c *chargen.ConsequenceEvent) string {
 		return "rank " + c.Skill
 	case chargen.ConsequenceShipShares:
 		return fmt.Sprintf("%s (total %d)", plural(c.Delta, "Ship Share"), c.Value)
+	default:
+		return consequenceCareerValueText(c)
+	}
+}
+
+// consequenceCareerValueText renders the consequence kinds for the values a
+// career tracks of its own (chart 03's Fame and Talent, p. 77).
+//
+//nolint:exhaustive // Deliberately partitioned: earlier kinds are handled upstream.
+func consequenceCareerValueText(c *chargen.ConsequenceEvent) string {
+	switch c.Kind {
+	case chargen.ConsequenceSpecialtySet:
+		return "specialty " + c.Skill
+	case chargen.ConsequenceTalentSet:
+		return fmt.Sprintf("Talent = %d", c.Value)
+	case chargen.ConsequenceComeback:
+		return fmt.Sprintf("Comeback (Fame reset to %d)", c.Value)
 	default:
 		return string(c.Kind)
 	}

@@ -1,125 +1,321 @@
 {
   "name": "Merchant",
   "cite": "Book 1 p. 80 chart 06",
-  "controlling_characteristics": ["Str", "Dex", "End", "Int"],
+  "controlling_characteristics": [
+    "Str",
+    "Dex",
+    "End",
+    "Int"
+  ],
   "continue_characteristic": "Str",
   "skills_per_term": 4,
   "skills_per_advancement": 1,
   "begin_tracks": [
-    { "name": "4th Officer", "check": "Int", "rank": "M1" },
-    { "name": "Spacehand", "check": "Dex", "rank": "R0" },
-    { "name": "Temp", "rank": "RX" }
+    {
+      "name": "4th Officer",
+      "rank": "M1",
+      "checks": [
+        "Int"
+      ]
+    },
+    {
+      "name": "Spacehand",
+      "rank": "R0",
+      "checks": [
+        "Dex"
+      ]
+    },
+    {
+      "name": "Temp",
+      "rank": "RX"
+    }
   ],
   "ranks": [
-    { "id": "RX", "class": "rating", "title": "Temp" },
-    { "id": "R0", "class": "rating", "title": "Spacehand" },
-    { "id": "R1", "class": "rating", "title": "Steward Apprentice", "auto_skill": "Steward" },
-    { "id": "R2", "class": "rating", "title": "Drive Helper", "auto_skill": "Engineer" },
-    { "id": "M1", "class": "officer", "title": "Fourth Officer", "auto_skill": "Steward" },
-    { "id": "M2", "class": "officer", "title": "Third Officer", "auto_skill": "Engineer" },
-    { "id": "M3", "class": "officer", "title": "Second Officer", "auto_skill": "Astrogator" },
-    { "id": "M4", "class": "officer", "title": "First Officer", "auto_skill": "Pilot" },
-    { "id": "M5", "class": "officer", "title": "Captain" },
-    { "id": "M6", "class": "officer", "title": "Senior Captain" }
+    {
+      "id": "RX",
+      "class": "rating",
+      "title": "Temp"
+    },
+    {
+      "id": "R0",
+      "class": "rating",
+      "title": "Spacehand"
+    },
+    {
+      "id": "R1",
+      "class": "rating",
+      "title": "Steward Apprentice",
+      "auto_skill": "Steward"
+    },
+    {
+      "id": "R2",
+      "class": "rating",
+      "title": "Drive Helper",
+      "auto_skill": "Engineer"
+    },
+    {
+      "id": "M1",
+      "class": "officer",
+      "title": "Fourth Officer",
+      "auto_skill": "Steward"
+    },
+    {
+      "id": "M2",
+      "class": "officer",
+      "title": "Third Officer",
+      "auto_skill": "Engineer"
+    },
+    {
+      "id": "M3",
+      "class": "officer",
+      "title": "Second Officer",
+      "auto_skill": "Astrogator"
+    },
+    {
+      "id": "M4",
+      "class": "officer",
+      "title": "First Officer",
+      "auto_skill": "Pilot"
+    },
+    {
+      "id": "M5",
+      "class": "officer",
+      "title": "Captain"
+    },
+    {
+      "id": "M6",
+      "class": "officer",
+      "title": "Senior Captain"
+    }
   ],
   "advancements": [
     {
       "name": "Officer Commission",
-      "from_classes": ["rating"],
+      "from_classes": [
+        "rating"
+      ],
       "to_rank": "M1",
       "target": "characteristic",
       "check": "Int"
     },
     {
       "name": "Rating Promotion",
-      "from_classes": ["rating"],
+      "from_classes": [
+        "rating"
+      ],
       "target": "characteristic",
       "check": "Dex",
-      "mod": { "characteristic": "Int", "min": 8, "value": 3 }
+      "mod": {
+        "characteristic": "Int",
+        "min": 8,
+        "value": 3
+      }
     },
     {
       "name": "Officer Promotion",
-      "from_classes": ["officer"],
+      "from_classes": [
+        "officer"
+      ],
       "target": "terms_x2",
-      "mod": { "characteristic": "Int", "min": 8, "value": 3 }
+      "mod": {
+        "characteristic": "Int",
+        "min": 8,
+        "value": 3
+      }
     }
   ],
   "skill_columns": [
     {
       "name": "Personal",
       "entries": [
-        { "kind": "characteristic", "name": "Str" },
-        { "kind": "characteristic", "name": "Dex" },
-        { "kind": "characteristic", "name": "End" },
-        { "kind": "characteristic", "name": "Int" },
-        { "kind": "characteristic", "name": "Edu" },
-        { "kind": "characteristic", "name": "Soc" }
+        {
+          "kind": "characteristic",
+          "name": "Str"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Dex"
+        },
+        {
+          "kind": "characteristic",
+          "name": "End"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Int"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Edu"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Soc"
+        }
       ]
     },
     {
       "name": "Academic",
       "entries": [
-        { "kind": "major" },
-        { "kind": "major" },
-        { "kind": "minor" },
-        { "kind": "minor" },
-        { "kind": "trade" },
-        { "kind": "trade" }
+        {
+          "kind": "major"
+        },
+        {
+          "kind": "major"
+        },
+        {
+          "kind": "minor"
+        },
+        {
+          "kind": "minor"
+        },
+        {
+          "kind": "trade"
+        },
+        {
+          "kind": "trade"
+        }
       ]
     },
     {
       "name": "Space Travel",
       "entries": [
-        { "kind": "skill", "name": "Astrogator" },
-        { "kind": "skill", "name": "Pilot" },
-        { "kind": "skill", "name": "Medic" },
-        { "kind": "skill", "name": "Sensors" },
-        { "kind": "skill", "name": "Steward" },
-        { "kind": "skill", "name": "Gunner" }
+        {
+          "kind": "skill",
+          "name": "Astrogator"
+        },
+        {
+          "kind": "skill",
+          "name": "Pilot"
+        },
+        {
+          "kind": "skill",
+          "name": "Medic"
+        },
+        {
+          "kind": "skill",
+          "name": "Sensors"
+        },
+        {
+          "kind": "skill",
+          "name": "Steward"
+        },
+        {
+          "kind": "skill",
+          "name": "Gunner"
+        }
       ]
     },
     {
       "name": "Trade",
       "entries": [
-        { "kind": "skill", "name": "Broker" },
-        { "kind": "skill", "name": "Trader" },
-        { "kind": "skill", "name": "Diplomat" },
-        { "kind": "skill", "name": "Admin" },
-        { "kind": "skill", "name": "Steward" },
-        { "kind": "skill", "name": "Trader" }
+        {
+          "kind": "skill",
+          "name": "Broker"
+        },
+        {
+          "kind": "skill",
+          "name": "Trader"
+        },
+        {
+          "kind": "skill",
+          "name": "Diplomat"
+        },
+        {
+          "kind": "skill",
+          "name": "Admin"
+        },
+        {
+          "kind": "skill",
+          "name": "Steward"
+        },
+        {
+          "kind": "skill",
+          "name": "Trader"
+        }
       ]
     },
     {
       "name": "Business",
       "entries": [
-        { "kind": "skill", "name": "Computer" },
-        { "kind": "skill", "name": "Trader" },
-        { "kind": "skill", "name": "Driver" },
-        { "kind": "skill", "name": "Advocate" },
-        { "kind": "skill", "name": "Steward" },
-        { "kind": "skill", "name": "Comms" }
+        {
+          "kind": "skill",
+          "name": "Computer"
+        },
+        {
+          "kind": "skill",
+          "name": "Trader"
+        },
+        {
+          "kind": "skill",
+          "name": "Driver"
+        },
+        {
+          "kind": "skill",
+          "name": "Advocate"
+        },
+        {
+          "kind": "skill",
+          "name": "Steward"
+        },
+        {
+          "kind": "skill",
+          "name": "Comms"
+        }
       ]
     },
     {
       "name": "Vocation",
       "entries": [
-        { "kind": "skill", "name": "Broker" },
-        { "kind": "skill", "name": "Admin" },
-        { "kind": "skill", "name": "Language" },
-        { "kind": "starship" },
-        { "kind": "skill", "name": "JOT" },
-        { "kind": "skill", "name": "Vacc Suit" }
+        {
+          "kind": "skill",
+          "name": "Broker"
+        },
+        {
+          "kind": "skill",
+          "name": "Admin"
+        },
+        {
+          "kind": "skill",
+          "name": "Language"
+        },
+        {
+          "kind": "starship"
+        },
+        {
+          "kind": "skill",
+          "name": "JOT"
+        },
+        {
+          "kind": "skill",
+          "name": "Vacc Suit"
+        }
       ]
     },
     {
       "name": "Technical",
       "entries": [
-        { "kind": "art" },
-        { "kind": "science" },
-        { "kind": "skill", "name": "Computer" },
-        { "kind": "skill", "name": "Comms" },
-        { "kind": "skill", "name": "Medic" },
-        { "kind": "trade" }
+        {
+          "kind": "art"
+        },
+        {
+          "kind": "science"
+        },
+        {
+          "kind": "skill",
+          "name": "Computer"
+        },
+        {
+          "kind": "skill",
+          "name": "Comms"
+        },
+        {
+          "kind": "skill",
+          "name": "Medic"
+        },
+        {
+          "kind": "trade"
+        }
       ]
     }
   ]

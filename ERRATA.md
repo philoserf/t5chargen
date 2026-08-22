@@ -366,3 +366,86 @@ unbounded, which no printed rule supports.
 
 Implemented at `dice/throw.go` (`Check`), applied at every chargen throw
 site.
+
+### I-18: The Entertainer rolls no Risk and Reward (p. 77 chart 03; p. 66)
+
+Chart 03 box A reads "Risk & Reward Talent", but the page prints no Risk or
+Reward outcome box — unlike charts 05, 06, 08, 10 and 13, each of which
+tabulates what failure and success produce. Taken alone, the row invites
+the reading that the Entertainer runs the generic p. 65 cycle against
+Talent, whose Risk failure would reduce Talent, award a Wound Badge, and
+kill the character at Talent zero.
+
+Book 1's career prose settles it. Immediately before the generic Risk and
+Reward sequence, it enumerates the careers that replace it:
+
+> The Citizen Career uses a variant of Risk and Reward called Citizen Life.
+> Only one roll is made to determine Success or Failure. No Mods are used.
+> The Functionary Career uses a variant of Risk and Reward called Office
+> Politics. Separate successive rolls are made for Risk and Reward. No Mods
+> are used. **The Entertainer Career focuses on Fame and resolves the
+> current level of Fame for the character.** The Craftsman Career focuses
+> on the creation of Masterpieces and their attendant impact on personal
+> success. (p. 66)
+
+The Entertainer's variant is therefore the Fame resolution itself: the
+required Flux and its two optional companions. "Risk & Reward Talent" names
+Talent as the value governing that variant, in the slot where other charts
+name a series of characteristics.
+
+Implemented with no Risk or Reward throw, and with the term's outcome being
+whether Fame increased — which is what table B keys its extra skills to
+("If Fame Increases 2 and Talent+1"). Consistent with chart 01, which says
+of the Craftsman in the same breath: "He does not roll Risk and Reward."
+
+The Archive's preliminary Entertainer also prints no Risk and Reward box
+(locate-only; Book 1 governs).
+
+Implemented at `chargen/entertainer.go`.
+
+### I-19: The Entertainer's first term rolls no Fame Flux (p. 77 chart 03)
+
+The prose says "At the start of each Term, events in the Entertainer's
+career may change Fame. Roll Flux up to three times (the first is
+required...)". The Entertainer Fame And Talent table says otherwise for the
+first term: its Term 1 row is "Fame =2D, Talent = Talent", while Terms 2
+through 6 each read "Fame +F +F* +F*".
+
+The table governs, being the specific rule. The 2D rolled before Begin
+("Before Begin ... roll initial Fame and Talent") is the first term's Fame,
+so the first term has no Flux, cannot increase Fame, and cannot earn the
+"If Fame Increases" extra skills or Talent.
+
+Implemented at `chargen/entertainer.go` (`resolveTerm`).
+
+### I-20: A Comeback replaces the term's Flux progression (p. 77 chart 03)
+
+The chart gives the Comeback as "Reset Fame to 2D; Talent is unchanged.
+Comeback is possible any number of times" without saying when in the term
+it happens or how it interacts with that term's Flux rolls.
+
+Implemented as a term-start alternative: a Comeback replaces the term's
+"+F +F* +F*" progression rather than preceding it. The Fame table gives one
+Fame determination per term, and a reset followed by Flux would apply two.
+A Comeback that lands above the previous Fame still counts as an increase
+for table B, since the term ended with Fame higher than it started.
+
+The alternative reading — reset, then roll the term's Flux as usual — is
+defensible and strictly more generous; it is recorded here because the
+chart is silent.
+
+Implemented at `chargen/entertainer.go` (`offerComeback`).
+
+### I-21: Fame is not floored at zero (p. 77 chart 03)
+
+Flux is 1D-1D, so a term can reduce Fame, and the chart prints no minimum.
+Its Fame descriptor table starts at 0 ("Unknown") and gives no descriptor
+below it.
+
+Fame is left unfloored. A career whose Fame falls to zero or below ends at
+the next Continue throw, which targets Fame — an unknown Entertainer is out
+of work, which is the outcome the chart's own Continue row produces. Adding
+a floor at zero would instead keep such a character eligible to continue on
+a natural 2.
+
+Implemented at `chargen/entertainer.go` (`setFame`).

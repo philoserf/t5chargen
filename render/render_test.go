@@ -62,6 +62,13 @@ func TestMerchantSheetGolden(t *testing.T) {
 	golden(t, render.Sheet(generate(t, chargen.Options{Seed: 17, Career: "Merchant"})), "testdata/merchant_sheet.md")
 }
 
+// TestEntertainerSheetGolden pins the sheet for the career with no rank
+// but its own tracked values: specialty, Talent, and Fame (chart 03).
+func TestEntertainerSheetGolden(t *testing.T) {
+	golden(t, render.Sheet(generate(t, chargen.Options{Seed: 60, Career: "Entertainer"})),
+		"testdata/entertainer_sheet.md")
+}
+
 func TestSheetWithName(t *testing.T) {
 	sheet := render.Sheet(generate(t, chargen.Options{Seed: 1, Name: "Eneri Dinsha"}))
 
