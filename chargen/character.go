@@ -18,18 +18,18 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.9.0"
+	SchemaVersion = "0.10.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.9.0"
+	EngineVersion = "0.10.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
-	PolicyVersion = "0.7.0"
+	PolicyVersion = "0.8.0"
 
 	// RNGAlgorithm names the recorded random stream: Go math/rand/v2 PCG,
 	// seeded as documented at dice.New. The exact string is compared on
@@ -188,6 +188,19 @@ type CareerRecord struct {
 	// with no rank (p. 65).
 	Rank      string `json:"rank,omitempty"`
 	RankTitle string `json:"rank_title,omitempty"`
+
+	// Exiled, TimesExiled, and SuccessfulIntrigues are the Noble's state
+	// (chart 11, p. 85): "Exile is a banishment to the edges of the empire
+	// orchestrated by political enemies." The two counters modify the
+	// Return and Intrigue rolls.
+	Exiled              bool `json:"exiled,omitempty"`
+	TimesExiled         int  `json:"times_exiled,omitempty"`
+	SuccessfulIntrigues int  `json:"successful_intrigues,omitempty"`
+
+	// LandGrants counts the Noble's Soc increases: "Each increase in Soc
+	// during CharGen awards a Land Grant" (chart 11). The hexes and their
+	// economics land with muster out (docs/PRD.md milestone 4).
+	LandGrants int `json:"land_grants,omitempty"`
 
 	// Major and Minor are the Scholar's areas: "Every Scholar has a Major
 	// and a Minor" (chart 02, p. 76). A Scholar arriving without a degree

@@ -113,3 +113,36 @@ func TestCheckAutomaticFailure(t *testing.T) {
 		})
 	}
 }
+
+// TestHighRollsHigh verifies the p. 66 Roll High procedure: "roll Soc or
+// greater to be Elevated". Success is total >= target, and the modifier
+// adjusts the roll.
+func TestHighRollsHigh(t *testing.T) {
+	r := dice.New(1)
+
+	// Seed 1's first 2D is 6+1 = 7 (pinned by TestGoldenFaces).
+	got := r.High(2, 7, 0)
+	if !got.Success {
+		t.Errorf("7 against a target of 7 failed; Roll High succeeds on equal or greater")
+	}
+
+	if got.Total != 7 {
+		t.Errorf("total = %d, want 7", got.Total)
+	}
+
+	r = dice.New(1)
+	if got := r.High(2, 8, 0); got.Success {
+		t.Error("7 against a target of 8 succeeded")
+	}
+
+	r = dice.New(1)
+
+	got = r.High(2, 8, 1)
+	if !got.Success {
+		t.Error("7 with a +1 mod against a target of 8 failed; the mod adjusts the roll")
+	}
+
+	if got.Total != 8 || got.Mod != 1 {
+		t.Errorf("total = %d, mod = %d, want 8 and 1", got.Total, got.Mod)
+	}
+}

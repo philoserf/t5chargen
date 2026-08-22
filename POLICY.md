@@ -1,6 +1,6 @@
 # POLICY.md — auto-mode default policy
 
-Version: **0.7.0** (`policy_version` in every character record). Changing any
+Version: **0.8.0** (`policy_version` in every character record). Changing any
 rule here is a policy version bump (docs/PRD.md, Replay and provenance
 contract). 0.2.0 added the homeworld choice points; 0.3.0 the education
 choice points; 0.4.0 the Scout career choice points (chart 05, p. 79) and
@@ -12,7 +12,8 @@ the Business fallback in `select_skill_column`, and the routing of the
 (`select_specialty`, `attempt_optional_flux`, `attempt_comeback`; chart 03,
 p. 77) and named Citizen as the default career in `select_career` in place
 of first-listed; 0.7.0 the Scholar career choice points
-(`attempt_tenure`, `attempt_career_waiver`; chart 02, p. 76).
+(`attempt_tenure`, `attempt_career_waiver`; chart 02, p. 76); 0.8.0 the
+Noble Elevation Flux (`invoke_elevation_flux`; chart 11, p. 85).
 
 The auto policy is total (it can decide every valid choice point),
 deterministic, and tie-breaks by first-listed order in Book 1 (docs/PRD.md,
@@ -36,6 +37,7 @@ lists them; the policy returns an index.
 | `select_check_characteristic`       | Highest-valued of the stated characteristics; ties break to first-listed.                          | Maximizes the roll-low check chance, same rule as the controlling characteristic.                                                                                                                                                                                                                                                                                                                                                      |
 | `attempt_honors`                    | Always attempt.                                                                                    | "Failure has no effect" (p. 59) — pure upside.                                                                                                                                                                                                                                                                                                                                                                                         |
 | `attempt_waiver`                    | Always attempt.                                                                                    | The immediate stake (admission or reinstatement) outweighs the cost: each attempt worsens future waiver odds by Mod -1 (p. 59).                                                                                                                                                                                                                                                                                                        |
+| `invoke_elevation_flux`             | Invoke once the unaided 2D needs its maximum (Soc **12 or above**).                                | Elevation is a Roll High against Soc and the Flux is once per career (chart 11). At Soc 12 an unaided roll succeeds only on a natural 12 (1 in 36), and the Flux raises that several-fold; above 12 it is the only chance at all. Holding it for a higher Social Standing is worse in expectation, since reaching one requires first winning the roll the Flux would have helped.                                                       |
 | `attempt_tenure`                    | Always apply.                                                                                      | Tenure is the only route past Scholar3 (chart 02) and the chart states no cost for applying or failing.                                                                                                                                                                                                                                                                                                                               |
 | `attempt_career_waiver`             | Waive only a **career-ending** outcome (a failed Continue or To Begin).                            | Chart 02 allows waivers on six events, but every waiver — successful or not — makes the next one harder, and the pool is shared with education (I-22). Spending one on a rejected publication buys a single term's benefit at a permanent cost; spending one on a failed Continue buys the rest of the career. The Educational Waiver row is unchanged: education offers only two, both process-ending.                                 |
 | `select_specialty`                  | First-listed.                                                                                      | Pure tie-break: chart 03 ranks its six specialties only by die face, and the choice sets only which characteristics the Begin check may use.                                                                                                                                                                                                                                                                                           |

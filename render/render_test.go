@@ -75,6 +75,12 @@ func TestScholarSheetGolden(t *testing.T) {
 	golden(t, render.Sheet(generate(t, chargen.Options{Seed: 23, Career: "Scholar"})), "testdata/scholar_sheet.md")
 }
 
+// TestNobleSheetGolden pins the sheet for the career whose rank is its
+// Social Standing, with Land Grants (chart 11).
+func TestNobleSheetGolden(t *testing.T) {
+	golden(t, render.Sheet(generate(t, chargen.Options{Seed: 2978, Career: "Noble"})), "testdata/noble_sheet.md")
+}
+
 func TestSheetWithName(t *testing.T) {
 	sheet := render.Sheet(generate(t, chargen.Options{Seed: 1, Name: "Eneri Dinsha"}))
 
