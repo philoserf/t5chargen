@@ -1,0 +1,403 @@
+{
+  "name": "Agent",
+  "cite": "Book 1 p. 83 chart 09",
+  "controlling_characteristics": [
+    "Str",
+    "Dex",
+    "End",
+    "Int"
+  ],
+  "continue_characteristic": "Str",
+  "continue_mod": "terms",
+  "skills_per_term": 2,
+  "begin_checks": [
+    "End"
+  ],
+  "undercover": {
+    "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment)",
+    "rows": [
+      {
+        "a": 1,
+        "b": 1,
+        "career": "Army Enlisted",
+        "source": "Soldier",
+        "titles": [
+          "Private",
+          "Corporal",
+          "Sergeant"
+        ]
+      },
+      {
+        "a": 1,
+        "b": 2,
+        "career": "Army Officer",
+        "source": "Soldier",
+        "titles": [
+          "First Lieutenant",
+          "Captain",
+          "Major"
+        ]
+      },
+      {
+        "a": 1,
+        "b": 3,
+        "career": "Marine Enlisted",
+        "source": "Marine",
+        "titles": [
+          "Corporal",
+          "Sergeant",
+          "Master Sergeant"
+        ]
+      },
+      {
+        "a": 1,
+        "b": 4,
+        "career": "Marine Officer",
+        "source": "Marine",
+        "titles": [
+          "Captain",
+          "Force Commander",
+          "Coronel"
+        ]
+      },
+      {
+        "a": 1,
+        "b": 5,
+        "career": "Navy Enlisted",
+        "source": "Spacer",
+        "titles": [
+          "Able Spacer",
+          "Petty Officer First",
+          "Master Chief"
+        ]
+      },
+      {
+        "a": 1,
+        "b": 6,
+        "career": "Navy Officer",
+        "source": "Spacer",
+        "titles": [
+          "Lieutenant",
+          "Commander",
+          "Captain"
+        ]
+      },
+      {
+        "a": 2,
+        "b": 1,
+        "career": "Scholar",
+        "source": "Scholar",
+        "titles": [
+          "Amateur",
+          "Lecturer",
+          "Instructor"
+        ]
+      },
+      {
+        "a": 2,
+        "b": 2,
+        "career": "Scholar",
+        "source": "Scholar",
+        "titles": [
+          "Asst Professor",
+          "Professor",
+          "Dist Professor"
+        ]
+      },
+      {
+        "a": 2,
+        "b": 3,
+        "career": "Entertainer",
+        "source": "Entertainer",
+        "titles": [
+          "Musician",
+          "Actor",
+          "Dancer"
+        ]
+      },
+      {
+        "a": 2,
+        "b": 4,
+        "career": "Entertainer",
+        "source": "Entertainer",
+        "titles": [
+          "Artist",
+          "Author",
+          "Chef"
+        ]
+      },
+      {
+        "a": 2,
+        "b": 5,
+        "career": "Citizen",
+        "source": "Citizen",
+        "titles": [
+          "Roll on Citizen Life Skills for Job"
+        ],
+        "job_table": true
+      },
+      {
+        "a": 2,
+        "b": 6,
+        "career": "Citizen",
+        "source": "Citizen",
+        "titles": [
+          "Roll on Citizen Life Skills for Hobby"
+        ],
+        "job_table": true
+      },
+      {
+        "a": 3,
+        "b": 1,
+        "career": "Merchant",
+        "source": "Merchant",
+        "titles": [
+          "Engineer",
+          "Astrogator",
+          "Steward"
+        ]
+      },
+      {
+        "a": 3,
+        "b": 2,
+        "career": "Merchant",
+        "source": "Merchant",
+        "titles": [
+          "Pilor",
+          "Freightmaster",
+          "Counsellor"
+        ]
+      },
+      {
+        "a": 3,
+        "b": 3,
+        "career": "Scout",
+        "source": "Scout",
+        "titles": [
+          "Courier",
+          "Courier",
+          "Courier"
+        ]
+      },
+      {
+        "a": 3,
+        "b": 4,
+        "career": "Scout",
+        "source": "Scout",
+        "titles": [
+          "World Discover"
+        ]
+      },
+      {
+        "a": 3,
+        "b": 5,
+        "career": "Noble",
+        "source": "Noble",
+        "titles": [
+          "Knight",
+          "Baron",
+          "Marquis"
+        ]
+      },
+      {
+        "a": 3,
+        "b": 6,
+        "career": "Functionary",
+        "source": "Functionary",
+        "titles": []
+      }
+    ]
+  },
+  "skill_columns": [
+    {
+      "name": "Personal",
+      "entries": [
+        {
+          "kind": "characteristic",
+          "name": "Str"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Dex"
+        },
+        {
+          "kind": "characteristic",
+          "name": "End"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Int"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Edu"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Soc"
+        }
+      ]
+    },
+    {
+      "name": "Academic",
+      "entries": [
+        {
+          "kind": "major"
+        },
+        {
+          "kind": "major"
+        },
+        {
+          "kind": "minor"
+        },
+        {
+          "kind": "minor"
+        },
+        {
+          "kind": "trade"
+        },
+        {
+          "kind": "trade"
+        }
+      ]
+    },
+    {
+      "name": "Travel",
+      "entries": [
+        {
+          "kind": "skill",
+          "name": "Zero-G"
+        },
+        {
+          "kind": "skill",
+          "name": "Vacc Suit"
+        },
+        {
+          "kind": "skill",
+          "name": "Pilot"
+        },
+        {
+          "kind": "starship"
+        },
+        {
+          "kind": "skill",
+          "name": "Gunner"
+        },
+        {
+          "kind": "skill",
+          "name": "Sensors"
+        }
+      ]
+    },
+    {
+      "name": "Mission",
+      "entries": [
+        {
+          "kind": "skill",
+          "name": "Survey"
+        },
+        {
+          "kind": "skill",
+          "name": "Survival"
+        },
+        {
+          "kind": "skill",
+          "name": "Hostile Environ"
+        },
+        {
+          "kind": "skill",
+          "name": "Animals"
+        },
+        {
+          "kind": "skill",
+          "name": "Bureaucrat"
+        },
+        {
+          "kind": "skill",
+          "name": "Navigator"
+        }
+      ]
+    },
+    {
+      "name": "Conflict",
+      "entries": [
+        {
+          "kind": "skill",
+          "name": "Fighter"
+        },
+        {
+          "kind": "soldier"
+        },
+        {
+          "kind": "skill",
+          "name": "Flyer"
+        },
+        {
+          "kind": "skill",
+          "name": "Stealth"
+        },
+        {
+          "kind": "skill",
+          "name": "Gunner"
+        },
+        {
+          "kind": "skill",
+          "name": "Streetwise"
+        }
+      ]
+    },
+    {
+      "name": "Vocation",
+      "entries": [
+        {
+          "kind": "any_knowledge"
+        },
+        {
+          "kind": "skill",
+          "name": "Admin"
+        },
+        {
+          "kind": "skill",
+          "name": "Language"
+        },
+        {
+          "kind": "starship"
+        },
+        {
+          "kind": "skill",
+          "name": "Forensics"
+        },
+        {
+          "kind": "skill",
+          "name": "Comms"
+        }
+      ]
+    },
+    {
+      "name": "Avocation",
+      "entries": [
+        {
+          "kind": "art"
+        },
+        {
+          "kind": "science"
+        },
+        {
+          "kind": "skill",
+          "name": "Athlete"
+        },
+        {
+          "kind": "skill",
+          "name": "Medic"
+        },
+        {
+          "kind": "skill",
+          "name": "Seafarer"
+        },
+        {
+          "kind": "trade"
+        }
+      ]
+    }
+  ]
+}

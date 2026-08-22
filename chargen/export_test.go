@@ -3,6 +3,8 @@ package chargen
 import (
 	"maps"
 	"slices"
+
+	"github.com/philoserf/t5chargen/career"
 )
 
 // RegistryNames is a test bridge to the careerRegistry key set, sorted.
@@ -26,4 +28,11 @@ func RegistryDefinitionNames() (map[string]string, error) {
 	}
 
 	return names, nil
+}
+
+// LoadUndercoverCareer is a test bridge to the Agent's cover-career
+// resolution, so the transcribed Undercover table can be checked against
+// the careers the engine can actually read.
+func LoadUndercoverCareer(source string) (*career.Definition, error) {
+	return loadUndercoverCareer(source)
 }

@@ -1,0 +1,196 @@
+{
+  "name": "Functionary",
+  "cite": "Book 1 p. 87 chart 13",
+  "reference": true,
+  "skill_columns": [
+    {
+      "name": "Personal",
+      "entries": [
+        {
+          "kind": "characteristic",
+          "name": "Str"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Dex"
+        },
+        {
+          "kind": "characteristic",
+          "name": "End"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Int"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Edu"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Soc"
+        }
+      ]
+    },
+    {
+      "name": "Academic",
+      "entries": [
+        {
+          "kind": "major"
+        },
+        {
+          "kind": "major"
+        },
+        {
+          "kind": "minor"
+        },
+        {
+          "kind": "minor"
+        },
+        {
+          "kind": "trade"
+        },
+        {
+          "kind": "trade"
+        }
+      ]
+    },
+    {
+      "name": "World Travel",
+      "entries": [
+        {
+          "kind": "skill",
+          "name": "High-G"
+        },
+        {
+          "kind": "skill",
+          "name": "Vacc Suit"
+        },
+        {
+          "kind": "skill",
+          "name": "Driver"
+        },
+        {
+          "kind": "skill",
+          "name": "Flyer"
+        },
+        {
+          "kind": "skill",
+          "name": "Navigator"
+        },
+        {
+          "kind": "skill",
+          "name": "Seafarer"
+        }
+      ]
+    },
+    {
+      "name": "General",
+      "entries": [
+        {
+          "kind": "trade"
+        },
+        {
+          "kind": "art"
+        },
+        {
+          "kind": "science"
+        },
+        {
+          "kind": "any_skill"
+        },
+        {
+          "kind": "skill",
+          "name": "Bureaucrat"
+        },
+        {
+          "kind": "skill",
+          "name": "Leader"
+        }
+      ]
+    },
+    {
+      "name": "Business",
+      "entries": [
+        {
+          "kind": "skill",
+          "name": "Advocate"
+        },
+        {
+          "kind": "skill",
+          "name": "Broker"
+        },
+        {
+          "kind": "skill",
+          "name": "Trader"
+        },
+        {
+          "kind": "skill",
+          "name": "Teacher"
+        },
+        {
+          "kind": "trade"
+        },
+        {
+          "kind": "skill",
+          "name": "Driver"
+        }
+      ]
+    },
+    {
+      "name": "Vocation",
+      "entries": [
+        {
+          "kind": "skill",
+          "name": "Advocate"
+        },
+        {
+          "kind": "skill",
+          "name": "Comms"
+        },
+        {
+          "kind": "skill",
+          "name": "Language"
+        },
+        {
+          "kind": "skill",
+          "name": "Admin"
+        },
+        {
+          "kind": "skill",
+          "name": "Bureaucrat"
+        },
+        {
+          "kind": "skill",
+          "name": "Comms"
+        }
+      ]
+    },
+    {
+      "name": "Avocation",
+      "entries": [
+        {
+          "kind": "art"
+        },
+        {
+          "kind": "science"
+        },
+        {
+          "kind": "skill",
+          "name": "Athlete"
+        },
+        {
+          "kind": "skill",
+          "name": "Designer"
+        },
+        {
+          "kind": "skill",
+          "name": "Seafarer"
+        },
+        {
+          "kind": "trade"
+        }
+      ]
+    }
+  ]
+}
