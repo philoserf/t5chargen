@@ -150,6 +150,12 @@ type Definition struct {
 	// order a character attempts them.
 	Advancements []Advancement `json:"advancements,omitempty"`
 
+	// ArmedForces carries the Branch and Operations tables the Spacer,
+	// Soldier, and Marine careers share ("The Armed Forces are Spacers,
+	// Soldiers, and Marines, with background information as Branch and
+	// Assignment", p. 66); nil for every other career.
+	ArmedForces *ArmedForces `json:"armed_forces,omitempty"`
+
 	// SkillColumns is table C, Citizen Skills.
 	SkillColumns []Column `json:"skill_columns"`
 
@@ -243,6 +249,93 @@ type Advancement struct {
 	// Mod is the chart's conditional modifier (chart 06: "*Mod +3 if
 	// Int 8+").
 	Mod *AdvancementMod `json:"mod,omitempty"`
+
+	// MedalMods adds the character's medal modifiers to the target
+	// (chart 08's "*+Medals and WB Mods"; interpretation I-31, ERRATA.md).
+	MedalMods bool `json:"medal_mods,omitempty"`
+}
+
+// ArmedForces is the Branch and Operations machinery of the Soldier and
+// Marine charts (pp. 82, 86; prose p. 66). The Spacer's Naval Branch table
+// (p. 81) prints separate Officer and Enlisted name-and-Mod columns, which
+// this one-Mod-per-row shape cannot express; chart 07 needs it widened.
+type ArmedForces struct {
+	// BranchCheck is the characteristic checked to select rather than roll
+	// a Branch (chart 08: "Select Branch Soc").
+	BranchCheck string `json:"branch_check"`
+
+	BranchCite     string `json:"branch_cite"`
+	OperationsCite string `json:"operations_cite"`
+
+	// EduDM is added to the Branch and Operations rolls at EduDMAt and
+	// above ("DM +2 if Edu 10+").
+	EduDMAt int `json:"edu_dm_at"`
+	EduDM   int `json:"edu_dm"`
+
+	// OperationsUseBranchDM adds the Branch's DM to the Operations roll
+	// (chart 08: "1D+Branch DM plus +2 if Edu 10+").
+	OperationsUseBranchDM bool `json:"operations_use_branch_dm,omitempty"`
+
+	// OperationsPerTerm is the number of assignments a term draws: "Roll
+	// for Assignment four times per Term (for four annual assignments)."
+	// (p. 66)
+	OperationsPerTerm int `json:"operations_per_term"`
+
+	Branches   []Branch    `json:"branches"`
+	Operations []Operation `json:"operations"`
+}
+
+// Branch is one row of a service's Branch table, indexed by the 1D roll.
+type Branch struct {
+	Name string `json:"name"`
+
+	// Mod is the Branch Mod applied to Risk and Reward; DM is the Branch
+	// DM added to the Operations roll.
+	Mod int `json:"mod"`
+	DM  int `json:"dm"`
+
+	// AutoSkill and AutoTrade are the branch's automatic skills:
+	// "if Medical Branch= Medic-1; If Technical Branch= any Trade."
+	// (chart 08)
+	AutoSkill string `json:"auto_skill,omitempty"`
+	AutoTrade bool   `json:"auto_trade,omitempty"`
+}
+
+// Operation is one row of a service's Operations table.
+type Operation struct {
+	Name string `json:"name"`
+	Mod  int    `json:"mod"`
+
+	// Implemented is false for the ANM School assignment, whose schooling
+	// is "resolved as Education" (chart 08) and lands with Later Education
+	// (docs/PRD.md milestone 4). The assignment still happens and still
+	// contributes its Mod.
+	Implemented *bool `json:"implemented,omitempty"`
+}
+
+// BranchAt returns the Branch for a 1D roll plus modifiers, clamped to the
+// table (interpretation I-33, ERRATA.md).
+func (a *ArmedForces) BranchAt(roll int) Branch {
+	return a.Branches[clampIndex(roll, len(a.Branches))]
+}
+
+// OperationAt returns the Operation for a modified roll, clamped to the
+// table.
+func (a *ArmedForces) OperationAt(roll int) Operation {
+	return a.Operations[clampIndex(roll, len(a.Operations))]
+}
+
+// clampIndex maps a 1-based roll onto a table, clamping both ends.
+func clampIndex(roll, size int) int {
+	if roll < 1 {
+		return 0
+	}
+
+	if roll > size {
+		return size - 1
+	}
+
+	return roll - 1
 }
 
 // AdvancementMod is a conditional throw modifier: Value applies when the
@@ -363,7 +456,47 @@ func (d *Definition) validate() error {
 		return err
 	}
 
+	if err := d.validateArmedForces(); err != nil {
+		return err
+	}
+
 	return d.validateJobTable()
+}
+
+// validateArmedForces checks the Branch and Operations tables, so that
+// BranchAt and OperationAt can index them unconditionally: an empty table
+// would make their clamp address a slice with no rows.
+func (d *Definition) validateArmedForces() error {
+	forces := d.ArmedForces
+	if forces == nil {
+		return nil
+	}
+
+	if !characteristicNames[forces.BranchCheck] {
+		return fmt.Errorf("%w: unknown Branch check characteristic %q", errBadDefinition, forces.BranchCheck)
+	}
+
+	if len(forces.Branches) == 0 || len(forces.Operations) == 0 {
+		return fmt.Errorf("%w: armed forces need both a Branch and an Operations table", errBadDefinition)
+	}
+
+	if forces.OperationsPerTerm < 1 {
+		return fmt.Errorf("%w: %d operations per term", errBadDefinition, forces.OperationsPerTerm)
+	}
+
+	for _, branch := range forces.Branches {
+		if branch.Name == "" {
+			return fmt.Errorf("%w: a Branch row has no name", errBadDefinition)
+		}
+	}
+
+	for _, operation := range forces.Operations {
+		if operation.Name == "" {
+			return fmt.Errorf("%w: an Operations row has no name", errBadDefinition)
+		}
+	}
+
+	return nil
 }
 
 // validateRanks checks the rank table, entry tracks, and advancement rows
@@ -700,6 +833,9 @@ var scholarJSON []byte
 //go:embed data/noble.json
 var nobleJSON []byte
 
+//go:embed data/soldier.json
+var soldierJSON []byte
+
 // The implemented careers parse and validate their embedded definitions
 // once.
 var (
@@ -720,6 +856,9 @@ var (
 	})
 	noble = sync.OnceValues(func() (*Definition, error) {
 		return load("noble.json", nobleJSON)
+	})
+	soldier = sync.OnceValues(func() (*Definition, error) {
+		return load("soldier.json", soldierJSON)
 	})
 )
 
@@ -764,6 +903,11 @@ func Scholar() (*Definition, error) {
 	return scholar()
 }
 
+// Soldier returns the Soldier career definition (chart 08, p. 82).
+func Soldier() (*Definition, error) {
+	return soldier()
+}
+
 // Noble returns the Noble career definition (chart 11, p. 85).
 func Noble() (*Definition, error) {
 	return noble()
@@ -774,5 +918,5 @@ func Noble() (*Definition, error) {
 // The default policy names its career rather than taking the first listed,
 // so this order is presentation only (POLICY.md).
 func Available() []string {
-	return []string{"Scholar", "Entertainer", "Citizen", "Scout", "Merchant", "Noble"}
+	return []string{"Scholar", "Entertainer", "Citizen", "Scout", "Merchant", "Soldier", "Noble"}
 }

@@ -67,6 +67,14 @@ type termOutcome struct {
 	// (chart 05 p. 79; muster out itself is milestone 4).
 	endCareer bool
 
+	// termColumns restricts the term's skill rolls to named columns, for
+	// the Armed Forces: "Term skills (but not commission, promotion, or
+	// other skill eligibilities) may be taken on a column of the Skills
+	// table corresponding to an Operations result received in the Term"
+	// (p. 65). bonusRolls are the unrestricted eligibilities.
+	termColumns []string
+	bonusRolls  int
+
 	// died ends the term and the career immediately: no skills, no
 	// Continue ("the Character is dead", p. 65).
 	died bool
@@ -78,6 +86,7 @@ var careerRegistry = map[string]func() (*career.Definition, careerMechanics, err
 	"Citizen":     newCitizen,
 	"Scholar":     newScholar,
 	"Noble":       newNoble,
+	"Soldier":     newSoldier,
 	"Entertainer": newEntertainer,
 	"Scout":       newScout,
 	"Merchant":    newMerchant,
@@ -200,8 +209,16 @@ func (r *careerRun) term(number int) (bool, error) {
 		return false, nil
 	}
 
-	if err := r.termSkills(outcome.skillRolls); err != nil {
+	if err := r.termSkills(outcome.skillRolls, outcome.termColumns); err != nil {
 		return false, err
+	}
+
+	if outcome.bonusRolls > 0 {
+		// Commission and promotion eligibilities are not restricted to
+		// the term's assignments (p. 65).
+		if err := r.termSkills(outcome.bonusRolls, nil); err != nil {
+			return false, err
+		}
 	}
 
 	continued := false
@@ -438,12 +455,15 @@ func (r *careerRun) resolveSkillName(name string, exclude ...string) (string, er
 // Citizen, "Per Term: 4 on Table C", chart 04 table B); "For each skill,
 // roll on the Career Skills Table. The character selects a column and
 // rolls 1D for the specific skill" (p. 65).
-func (r *careerRun) termSkills(rolls int) error {
+func (r *careerRun) termSkills(rolls int, only []string) error {
 	if rolls == 0 {
 		rolls = r.def.SkillsPerTerm
 	}
 
 	columns := r.skillColumnOptions()
+	if len(only) > 0 {
+		columns = only
+	}
 
 	for range rolls {
 		chosen, choiceSeq, err := choose(r.log, r.decider, Choice{
@@ -456,7 +476,8 @@ func (r *careerRun) termSkills(rolls int) error {
 			return err
 		}
 
-		if chosen >= len(r.def.SkillColumns) {
+		index := r.columnIndex(columns[chosen])
+		if index < 0 {
 			// "A Scholar may always take a skill in his Major or Minor
 			// instead of from this table" (chart 02 table C): no 1D roll.
 			if err := r.awardMajorOrMinor(columns[chosen], choiceSeq); err != nil {
@@ -469,13 +490,25 @@ func (r *careerRun) termSkills(rolls int) error {
 		roll := r.roller.Roll(1)
 		seq := r.log.Roll(roll, r.def.Cite+" table C, column "+columns[chosen])
 
-		entry := r.def.SkillColumns[chosen].Entries[roll.Total-1]
+		entry := r.def.SkillColumns[index].Entries[roll.Total-1]
 		if err := r.awardTableC(entry, seq); err != nil {
 			return err
 		}
 	}
 
 	return nil
+}
+
+// columnIndex returns the table C column with the given name, or -1 for
+// the Major and Minor options appended alongside them.
+func (r *careerRun) columnIndex(name string) int {
+	for i, column := range r.def.SkillColumns {
+		if column.Name == name {
+			return i
+		}
+	}
+
+	return -1
 }
 
 // skillColumnOptions lists the table C columns, plus the character's Major

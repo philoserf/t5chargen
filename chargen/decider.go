@@ -81,6 +81,11 @@ const (
 	// p. 80).
 	ChooseBeginTrack ChoiceID = "select_begin_track"
 
+	// ChooseBranch selects the Armed Forces branch where the character
+	// passes the chart's Branch check ("Select Branch Soc", chart 08
+	// p. 82); a failed check rolls one instead.
+	ChooseBranch ChoiceID = "select_branch"
+
 	// ChooseElevationFlux accepts or declines the Noble's one-shot Flux on
 	// an Elevation roll ("Once in the Noble Career after a successful
 	// Intrigue, invoke Flux as a Mod on Elevation roll", chart 11 p. 85).

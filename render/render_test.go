@@ -81,6 +81,12 @@ func TestNobleSheetGolden(t *testing.T) {
 	golden(t, render.Sheet(generate(t, chargen.Options{Seed: 2978, Career: "Noble"})), "testdata/noble_sheet.md")
 }
 
+// TestSoldierSheetGolden pins the sheet for the first Armed Forces
+// career: branch and medals (chart 08).
+func TestSoldierSheetGolden(t *testing.T) {
+	golden(t, render.Sheet(generate(t, chargen.Options{Seed: 305, Career: "Soldier"})), "testdata/soldier_sheet.md")
+}
+
 func TestSheetWithName(t *testing.T) {
 	sheet := render.Sheet(generate(t, chargen.Options{Seed: 1, Name: "Eneri Dinsha"}))
 
