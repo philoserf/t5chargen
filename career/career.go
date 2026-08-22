@@ -598,7 +598,40 @@ func (d *Definition) validate() error {
 		return err
 	}
 
+	if err := d.validateSchemes(); err != nil {
+		return err
+	}
+
 	return d.validateJobTable()
+}
+
+// validateSchemes checks chart 10's Rogue Schemes table, so that SchemeAt
+// can index it unconditionally: an empty table would make its clamp
+// address a slice with no rows, and out-of-order rows would make the clamp
+// return the wrong scheme.
+func (d *Definition) validateSchemes() error {
+	if d.Schemes == nil {
+		return nil
+	}
+
+	if len(d.Schemes.Rows) == 0 {
+		return fmt.Errorf("%w: %q has an empty schemes table", errBadDefinition, d.Name)
+	}
+
+	for i, row := range d.Schemes.Rows {
+		if i > 0 && row.Flux <= d.Schemes.Rows[i-1].Flux {
+			return fmt.Errorf("%w: schemes table is not in ascending Flux order at row %d",
+				errBadDefinition, i)
+		}
+
+		// "one Ship Share" or a credit Value, never both (chart 10).
+		if (row.Credits == 0) == (row.ShipShares == 0) {
+			return fmt.Errorf("%w: scheme Flux %+d pays both credits and ship shares, or neither",
+				errBadDefinition, row.Flux)
+		}
+	}
+
+	return nil
 }
 
 // validateArmedForces checks the Branch and Operations tables, so that

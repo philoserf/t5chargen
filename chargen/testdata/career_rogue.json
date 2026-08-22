@@ -1319,7 +1319,7 @@
         "success": false,
         "mods": [
           {
-            "name": "Caution/Bravery and Terms",
+            "name": "Terms",
             "value": 2
           }
         ],
@@ -1363,7 +1363,7 @@
         "success": true,
         "mods": [
           {
-            "name": "Caution/Bravery and Terms",
+            "name": "Terms",
             "value": -2
           }
         ],
@@ -1763,7 +1763,7 @@
         "success": true,
         "mods": [
           {
-            "name": "Caution/Bravery and Terms",
+            "name": "Terms",
             "value": 3
           }
         ],
@@ -1784,7 +1784,7 @@
         "success": false,
         "mods": [
           {
-            "name": "Caution/Bravery and Terms",
+            "name": "Terms",
             "value": -3
           }
         ],
@@ -2047,7 +2047,7 @@
         "success": true,
         "mods": [
           {
-            "name": "Caution/Bravery and Terms",
+            "name": "Terms",
             "value": 4
           }
         ],
@@ -2068,7 +2068,7 @@
         "success": false,
         "mods": [
           {
-            "name": "Caution/Bravery and Terms",
+            "name": "Terms",
             "value": -4
           }
         ],
@@ -2331,7 +2331,7 @@
         "success": true,
         "mods": [
           {
-            "name": "Caution/Bravery and Terms",
+            "name": "Terms",
             "value": 5
           }
         ],
@@ -2352,7 +2352,7 @@
         "success": true,
         "mods": [
           {
-            "name": "Caution/Bravery and Terms",
+            "name": "Terms",
             "value": -5
           }
         ],
@@ -2745,7 +2745,7 @@
         "success": true,
         "mods": [
           {
-            "name": "Caution/Bravery and Terms",
+            "name": "Terms",
             "value": 6
           }
         ],
@@ -2766,7 +2766,7 @@
         "success": false,
         "mods": [
           {
-            "name": "Caution/Bravery and Terms",
+            "name": "Terms",
             "value": -6
           }
         ],
@@ -3029,7 +3029,7 @@
         "success": true,
         "mods": [
           {
-            "name": "Caution/Bravery and Terms",
+            "name": "Terms",
             "value": 7
           }
         ],
@@ -3050,7 +3050,7 @@
         "success": true,
         "mods": [
           {
-            "name": "Caution/Bravery and Terms",
+            "name": "Terms",
             "value": -7
           }
         ],

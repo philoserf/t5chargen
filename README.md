@@ -19,12 +19,12 @@ What works today:
   classifications, and pre-career education (ED5, Trade School,
   Apprenticeship, College, University, Service Academy).
 - The **Citizen**, **Scholar**, **Entertainer**, **Scout**, **Merchant**,
-  **Noble**, and the Armed Forces (**Spacer**, **Soldier**, **Marine**)
-  **Agent**, and **Rogue** careers end-to-end: controlling characteristics, per-term
-  skills, Risk & Reward, injury and death, rank with commission,
+  **Noble**, **Agent**, **Rogue**, and the Armed Forces (**Spacer**,
+  **Soldier**, **Marine**) careers end-to-end: controlling characteristics,
+  per-term skills, Risk & Reward, injury and death, rank with commission,
   promotion and tenure, the Entertainer's Fame and Talent, the Scholar's
-  publications and waivers, the Noble's exile and elevation, continuation
-  checks.
+  publications and waivers, the Noble's exile and elevation, the Rogue's
+  schemes, prison, and payoffs, continuation checks.
 - A deterministic engine: one seeded RNG stream, every choice through the
   `Decider` interface, a fixed auto-mode policy ([POLICY.md](POLICY.md)), and
   an event log recording every throw, choice, and consequence with page

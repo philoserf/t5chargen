@@ -53,8 +53,15 @@ func newRogue() (*career.Definition, careerMechanics, error) {
 		return nil, nil, fmt.Errorf("rogue career: %w", err)
 	}
 
-	if def.Schemes == nil || len(def.Schemes.Rows) == 0 {
+	if def.Schemes == nil {
 		return nil, nil, fmt.Errorf("%w: rogue career has no schemes table", errNotImplemented)
+	}
+
+	// prisonTerm takes the first two columns unconditionally: "Prison
+	// Skills from the Rogue Skills table column 1 or 2 only" (chart 10 B).
+	if len(def.SkillColumns) < roguePrisonColumns {
+		return nil, nil, fmt.Errorf("%w: rogue career has fewer than %d skill columns",
+			errNotImplemented, roguePrisonColumns)
 	}
 
 	return def, &rogueMechanics{}, nil
@@ -130,13 +137,16 @@ func (m *rogueMechanics) schemeTerm(r *careerRun, cc string) (termOutcome, error
 		return outcome, err
 	}
 
-	mod, err := chooseRiskMod(r, r.def.Cite)
+	caution, err := chooseRiskMod(r, r.def.Cite)
 	if err != nil {
 		return outcome, err
 	}
 
-	// "Select Caution, Bravery, or No Mod and Mod+Terms" (chart 10).
-	mod += len(r.record.Terms)
+	// "Select Caution, Bravery, or No Mod and Mod+Terms" (chart 10). The
+	// Caution/Bravery selection is kept apart from the Terms mod: only the
+	// negative ones sentence a caught Rogue (see imprison).
+	terms := len(r.record.Terms)
+	mod := caution + terms
 
 	value, ok := characteristicValue(&r.character.Characteristics, cc)
 	if !ok {
@@ -146,16 +156,17 @@ func (m *rogueMechanics) schemeTerm(r *careerRun, cc string) (termOutcome, error
 	caught := false
 
 	risk := r.roller.Check(2, value+mod)
-	riskSeq := r.log.Throw(risk, rogueMods(mod, 1), r.def.Cite+" (Risk vs "+cc+"+Mods)")
+	riskSeq := r.log.Throw(risk, rogueMods(caution, terms, 1), r.def.Cite+" (Risk vs "+cc+"+Mods)")
 
 	if !risk.Success {
 		caught = true
 
-		m.imprison(r, mod, riskSeq)
+		m.imprison(r, caution, riskSeq)
 	}
 
 	reward := r.roller.Check(2, value-mod)
-	rewardSeq := r.log.Throw(reward, rogueMods(mod, -1), r.def.Cite+" (Reward vs "+cc+"+ opposite sign Mods)")
+	rewardSeq := r.log.Throw(reward, rogueMods(caution, terms, -1),
+		r.def.Cite+" (Reward vs "+cc+"+ opposite sign Mods)")
 
 	outcome.skillRolls = r.def.SkillsPerTerm + rogueFailedScheme
 
@@ -173,14 +184,16 @@ func (m *rogueMechanics) schemeTerm(r *careerRun, cc string) (termOutcome, error
 	return outcome, nil
 }
 
-// rogueMods itemizes the Caution or Bravery mod together with the Terms
-// mod chart 10 adds to both rolls.
-func rogueMods(mod, sign int) []Mod {
-	if mod == 0 {
-		return nil
+// rogueMods itemizes the two modifiers chart 10 adds to both rolls
+// separately, so the log records the Caution or Bravery the character
+// selected even where the Terms mod cancels it (docs/PRD.md FR10).
+func rogueMods(caution, terms, sign int) []Mod {
+	mods := riskMods(caution, sign)
+	if terms != 0 {
+		mods = append(mods, Mod{Name: "Terms", Value: terms * sign})
 	}
 
-	return []Mod{{Name: "Caution/Bravery and Terms", Value: mod * sign}}
+	return mods
 }
 
 // scheme rolls the term's Scheme and offers the chart's adjustment: "Flux
@@ -215,11 +228,17 @@ func (*rogueMechanics) scheme(r *careerRun) (career.SchemeRow, error) {
 // imprison applies a Risk failure: "Prison for (sum of negative Mods +
 // Flux) years at the start of the next Term (may be zero; maximum 4).
 // Fame +1 (actually Infamy)" (chart 10).
-func (*rogueMechanics) imprison(r *careerRun, mod, cause int) {
+//
+// caution is the Caution/Bravery selection alone, not the total Risk mod:
+// "Reduce the Controlling Characteristic by all negative Mods; ignore any
+// positive Mods" (p. 65), so chart 10's positive "+Terms" mod may not net
+// against a negative Bravery mod before the sum is taken — the same rule
+// negativeMods applies to the Armed Forces Branch and Operations mods.
+func (*rogueMechanics) imprison(r *careerRun, caution, cause int) {
 	flux := r.roller.Flux()
 	r.log.Flux(flux, r.def.Cite+" (Prison for the sum of negative Mods and Flux)")
 
-	years := min(max(-(min(mod, 0)+flux.Value), 0), roguePrisonMaxYears)
+	years := min(max(-(min(caution, 0)+flux.Value), 0), roguePrisonMaxYears)
 	r.record.PrisonYears = years
 
 	r.character.Fame++
