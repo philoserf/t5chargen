@@ -67,7 +67,7 @@ func chooseNamed(c Choice) (int, bool) {
 		// Business — the all-plain-skills columns of the shipped careers;
 		// first-listed otherwise.
 		return preferredIndex(c.Options,
-			[]string{"General", "Exploration", "Business", "Combat", "Peace Keeper", "Mission"}, 0), true
+			[]string{"General", "Exploration", "Business", "Combat", "Peacekeeper", "Mission"}, 0), true
 	case ChooseDuty:
 		// POLICY.md: Explorer Duty — the career's point, and the larger
 		// skill eligibility (chart 05 table B).

@@ -899,6 +899,9 @@ var soldierJSON []byte
 //go:embed data/spacer.json
 var spacerJSON []byte
 
+//go:embed data/marine.json
+var marineJSON []byte
+
 // The implemented careers parse and validate their embedded definitions
 // once.
 var (
@@ -925,6 +928,9 @@ var (
 	})
 	spacer = sync.OnceValues(func() (*Definition, error) {
 		return load("spacer.json", spacerJSON)
+	})
+	marine = sync.OnceValues(func() (*Definition, error) {
+		return load("marine.json", marineJSON)
 	})
 )
 
@@ -969,6 +975,11 @@ func Scholar() (*Definition, error) {
 	return scholar()
 }
 
+// Marine returns the Marine career definition (chart 12, p. 86).
+func Marine() (*Definition, error) {
+	return marine()
+}
+
 // Spacer returns the Spacer career definition (chart 07, p. 81).
 func Spacer() (*Definition, error) {
 	return spacer()
@@ -989,5 +1000,5 @@ func Noble() (*Definition, error) {
 // The default policy names its career rather than taking the first listed,
 // so this order is presentation only (POLICY.md).
 func Available() []string {
-	return []string{"Scholar", "Entertainer", "Citizen", "Scout", "Merchant", "Spacer", "Soldier", "Noble"}
+	return []string{"Scholar", "Entertainer", "Citizen", "Scout", "Merchant", "Spacer", "Soldier", "Noble", "Marine"}
 }

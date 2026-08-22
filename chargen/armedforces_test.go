@@ -94,7 +94,7 @@ func TestSoldierTermSkillsFollowAssignments(t *testing.T) {
 		case "term":
 			allowed = append(allowed[:0], "Personal")
 		case "operation":
-			allowed = append(allowed, e.Consequence.Skill)
+			allowed = append(allowed, operationColumn(def, e.Consequence.Skill))
 		case "restricted-columns":
 			checked++
 
@@ -109,6 +109,25 @@ func TestSoldierTermSkillsFollowAssignments(t *testing.T) {
 	if checked == 0 {
 		t.Fatal("the pinned seed records no skill-column choice")
 	}
+}
+
+// operationColumn returns the skills column an assignment opens, which is
+// the operation's own name unless the chart names a different one (chart
+// 08's "Peace Keeper" opens the "Peacekeeper" column).
+func operationColumn(def *career.Definition, operation string) string {
+	for _, row := range def.ArmedForces.Operations {
+		if row.Name != operation {
+			continue
+		}
+
+		if row.Column != "" {
+			return row.Column
+		}
+
+		return row.Name
+	}
+
+	return operation
 }
 
 // soldierSkillEvent classifies the events the column restriction turns
@@ -474,4 +493,51 @@ func firstBranchSet(c chargen.Character) string {
 	}
 
 	return ""
+}
+
+// TestMarineIsDataOnly verifies that the third Armed Forces career adds
+// no mechanics: it runs the shared procedure over chart 12's data, and
+// differs from its siblings only in what the chart prints.
+func TestMarineIsDataOnly(t *testing.T) {
+	marine := loadService(t, career.Marine)
+	soldier := loadService(t, career.Soldier)
+	spacer := loadService(t, career.Spacer)
+
+	// Chart 12's DM By Branch differs from chart 08's: the Marine's
+	// Commando carries the +0 the Soldier's Protected does.
+	assertBranch(t, "Marine", marine.ArmedForces.Branches[5], "Commando", 0)
+	assertBranch(t, "Soldier", soldier.ArmedForces.Branches[4], "Protected", 0)
+
+	// Both ground services take the Branch DM on Operations; the Navy
+	// prints only "DM +2 if Edu 10+".
+	for _, service := range []*career.Definition{marine, soldier} {
+		if !service.ArmedForces.OperationsUseBranchDM {
+			t.Errorf("%s should take the Branch DM on Operations", service.Name)
+		}
+	}
+
+	if spacer.ArmedForces.OperationsUseBranchDM {
+		t.Error("chart 07 prints only \"DM +2 if Edu 10+\" on Naval Operations")
+	}
+}
+
+// loadService loads one Armed Forces career definition.
+func loadService(t *testing.T, load func() (*career.Definition, error)) *career.Definition {
+	t.Helper()
+
+	def, err := load()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	return def
+}
+
+// assertBranch checks one Branch row's name and DM.
+func assertBranch(t *testing.T, service string, got career.Branch, name string, dm int) {
+	t.Helper()
+
+	if got.Name != name || got.DM != dm {
+		t.Errorf("%s branch = %q with DM %d, want %q with DM %d", service, got.Name, got.DM, name, dm)
+	}
 }

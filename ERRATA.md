@@ -802,3 +802,43 @@ his first term and line 10 (MCUF) in his second, and his card reads
 
 Implemented at `chargen/armedforces.go` (`riskAndReward` calls `awardMedal`
 once on a Reward success).
+
+### I-36: A branch is selected on the side the character will serve (p. 81 chart 07; p. 66)
+
+The Naval Branch table prints two sides for each row — row 3 is Line for
+an officer and Engineer for a rating, at Mods 1 and 0 (chart 07, p. 81).
+A branch is determined on entry, and "Armed Forces characters begin with
+enlisted rank" (p. 65), so at that moment every character is enlisted.
+
+The selection therefore offers the enlisted side: an entering Spacer picks
+among Crew, Engineer, Gunnery, Technical, and Medical, and the Mod he
+weighs is the one his own Risk roll will carry.
+
+Offering the officer side instead has two visible costs. The event log
+records a character choosing "Line" and then serving as "Crew". And
+because the alternatives are deduplicated by name, chart 07's row 3 —
+officer Line, enlisted Engineer at Mod 0 — collapses into row 1 and
+becomes unreachable by selection, leaving it available only to a character
+who rolls a 3.
+
+The rows themselves are unaffected: a commission moves the character
+across the row he already holds, which is what "for Spacers, Crew becomes
+Line" (p. 66) describes. What p. 66 also allows — "may roll for Branch or
+keep his current Branch" — is the reroll deferred under I-34.
+
+Implemented at `chargen/armedforces.go` (`chooseBranch`).
+
+### I-37: The Peacekeeper column and the Peace Keeper assignment (pp. 82, 86)
+
+Charts 08 and 12 print the skills column as "Peacekeeper" and the
+Operations row as "Peace Keeper". Both are transcribed as printed, and the
+operation names the column it opens.
+
+This matters because the p. 65 restriction matches assignments to columns
+by name: transcribing the column as "Peace Keeper" to make the two agree
+would have been a silent edit of the chart, and transcribing them
+faithfully without the mapping would have left the column unreachable and
+the term quietly short of eligibility.
+
+Implemented at `career/data/soldier.json` and `marine.json`
+(`operations[].column`), enforced by the loader.
