@@ -93,6 +93,12 @@ func TestSpacerSheetGolden(t *testing.T) {
 	golden(t, render.Sheet(generate(t, chargen.Options{Seed: 659, Career: "Spacer"})), "testdata/spacer_sheet.md")
 }
 
+// TestMarineSheetGolden pins the sheet for the third Armed Forces career
+// (chart 12), which is chart data over the shared mechanics.
+func TestMarineSheetGolden(t *testing.T) {
+	golden(t, render.Sheet(generate(t, chargen.Options{Seed: 529, Career: "Marine"})), "testdata/marine_sheet.md")
+}
+
 func TestSheetWithName(t *testing.T) {
 	sheet := render.Sheet(generate(t, chargen.Options{Seed: 1, Name: "Eneri Dinsha"}))
 

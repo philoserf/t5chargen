@@ -802,3 +802,60 @@ his first term and line 10 (MCUF) in his second, and his card reads
 
 Implemented at `chargen/armedforces.go` (`riskAndReward` calls `awardMedal`
 once on a Reward success).
+
+### I-36: A branch is selected on the side the character will serve (p. 81 chart 07; p. 66)
+
+The Naval Branch table prints two sides for each row — row 3 is Line for
+an officer and Engineer for a rating, at Mods 1 and 0 (chart 07, p. 81).
+A branch is determined on entry, and "Armed Forces characters begin with
+enlisted rank" (p. 65), so at that moment every character is enlisted.
+
+The selection therefore offers the enlisted side: an entering Spacer picks
+among Crew, Engineer, Gunnery, Technical, and Medical, and the Mod he
+weighs is the one his own Risk roll will carry.
+
+Offering the officer side instead has a visible cost: the event log
+records a character choosing "Line" and then serving as "Crew".
+
+Either side deduplicates. The chart prints eight rows and fewer distinct
+names, so a name has to bind to one row, and the rows it does not bind to
+stay reachable only by the roll. On the officer side, rows 2 and 3 (both
+Line) collapse into row 1; on the enlisted side, rows 2 (Crew), 4
+(Engineer), and 6 (Gunnery) collapse into rows 1, 3, and 5. Neither scheme
+escapes that, so which row a name binds to is a decision, not a by-product:
+
+**A name binds to the row that reads the same on both sides.** Enlisted
+Engineer appears on row 3, whose officer side is Line, and on row 4, whose
+officer side is Engineer; the name binds to row 4. Enlisted Gunnery
+appears on rows 5 (officer Gunnery) and 6 (officer Flight); it binds to
+row 5. A character who selects a branch and then keeps it — p. 66 lets a
+commissioned character "roll for Branch or keep his current Branch" — is
+therefore still in the branch he selected, at the Mod he weighed on entry.
+Binding to the mixed row instead would quietly move a rating who chose
+Engineer at Mod 0 into Line at Mod 1: a Mod he never chose, and, under the
+`select_branch` policy, the opposite of the one he was picked for. Crew is
+the exception the chart forces — no row reads Crew on both sides, so it
+binds to row 1 and a commission does turn Crew into Line, which is exactly
+the case p. 66 names.
+
+The rows themselves are unaffected: a commission moves the character
+across the row he already holds, which is what "for Spacers, Crew becomes
+Line" (p. 66) describes. The other half of that sentence — the option to
+reroll Branch rather than keep it — is deferred under I-34.
+
+Implemented at `chargen/armedforces.go` (`chooseBranch`, `sameOnBothSides`).
+
+### I-37: The Peacekeeper column and the Peace Keeper assignment (pp. 82, 86)
+
+Charts 08 and 12 print the skills column as "Peacekeeper" and the
+Operations row as "Peace Keeper". Both are transcribed as printed, and the
+operation names the column it opens.
+
+This matters because the p. 65 restriction matches assignments to columns
+by name: transcribing the column as "Peace Keeper" to make the two agree
+would have been a silent edit of the chart, and transcribing them
+faithfully without the mapping would have left the column unreachable and
+the term quietly short of eligibility.
+
+Implemented at `career/data/soldier.json` and `marine.json`
+(`operations[].column`), enforced by the loader.
