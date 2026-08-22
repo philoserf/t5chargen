@@ -90,6 +90,7 @@ var careerRegistry = map[string]func() (*career.Definition, careerMechanics, err
 	"Spacer":      newSpacer,
 	"Marine":      newMarine,
 	"Agent":       newAgent,
+	"Rogue":       newRogue,
 	"Entertainer": newEntertainer,
 	"Scout":       newScout,
 	"Merchant":    newMerchant,
@@ -248,6 +249,14 @@ func (r *careerRun) term(number int) (bool, error) {
 // ... This Controlling Characteristic cannot be used again until all of
 // the others in the sequence have been used" (p. 65).
 func (r *careerRun) chooseCC() (string, error) {
+	// "A Rogue selects one Controlling Characteristic ... which is then
+	// used throughout his career (not just in the current Term)"
+	// (chart 10, p. 84): chosen once, then reused without a further
+	// choice event.
+	if r.def.CCFixed && r.record.ControllingCharacteristic != "" {
+		return r.record.ControllingCharacteristic, nil
+	}
+
 	// Chart 03's "Risk & Reward Talent" names no series, so the
 	// Entertainer rotates nothing and the term has no controlling
 	// characteristic.
@@ -276,6 +285,13 @@ func (r *careerRun) chooseCC() (string, error) {
 	}
 
 	cc := r.availableCCs[chosen]
+
+	if r.def.CCFixed {
+		r.record.ControllingCharacteristic = cc
+
+		return cc, nil
+	}
+
 	r.availableCCs = slices.Delete(r.availableCCs, chosen, chosen+1)
 
 	return cc, nil
@@ -694,6 +710,11 @@ func (r *careerRun) continueRoll() (bool, error) {
 		// The career's own tracked value (chart 03: "Continue Fame").
 		target = r.record.Fame
 		label = "Continue Fame"
+	case r.def.ContinueCC:
+		// The career-long controlling characteristic (chart 10:
+		// "Continue CC*").
+		target, _ = characteristicValue(&r.character.Characteristics, r.record.ControllingCharacteristic)
+		label = "Continue " + r.record.ControllingCharacteristic
 	}
 
 	bonus, mods, suffix := r.continueMod()

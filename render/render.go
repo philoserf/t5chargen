@@ -157,11 +157,33 @@ func careerValues(record chargen.CareerRecord) string {
 	return ", " + strings.Join(parts, ", ")
 }
 
+// rogueValues renders what chart 10 tracks: the Rogue's scheme, his
+// takings, and any sentence still owed.
+func rogueValues(record chargen.CareerRecord) []string {
+	var parts []string
+
+	if record.Scheme != "" {
+		parts = append(parts, "scheming as "+record.Scheme)
+	}
+
+	if record.SchemePayoff > 0 {
+		parts = append(parts, fmt.Sprintf("Cr%d in payoffs", record.SchemePayoff))
+	}
+
+	if record.PrisonYears > 0 {
+		parts = append(parts, plural(record.PrisonYears, "year")+" owed in prison")
+	}
+
+	return parts
+}
+
 // careerSpecificValues renders the state only some careers track: the
 // Soldier's Branch and medals, the Noble's land grants and exile, the
-// Scholar's publications.
+// Scholar's publications, the Rogue's schemes.
 func careerSpecificValues(record chargen.CareerRecord) []string {
 	var parts []string
+
+	parts = append(parts, rogueValues(record)...)
 
 	if record.UndercoverCareer != "" {
 		cover := "undercover as " + record.UndercoverCareer
@@ -494,6 +516,24 @@ func consequenceArmedForcesText(c *chargen.ConsequenceEvent) string {
 		return fmt.Sprintf("%s (total %d)", c.Skill, c.Value)
 	case chargen.ConsequenceServiceBadge:
 		return fmt.Sprintf("Exemplary Service Badge (total %d)", c.Value)
+	default:
+		return consequenceRogueText(c)
+	}
+}
+
+// consequenceRogueText renders the chart 10 consequence kinds.
+//
+//nolint:exhaustive // Deliberately partitioned: earlier kinds are handled upstream.
+func consequenceRogueText(c *chargen.ConsequenceEvent) string {
+	switch c.Kind {
+	case chargen.ConsequenceScheme:
+		return fmt.Sprintf("Scheme: %s (Flux %+d)", c.Skill, c.Value)
+	case chargen.ConsequenceSentenced:
+		return "sentenced to " + plural(c.Value, "year") + " in prison"
+	case chargen.ConsequenceImprisoned:
+		return "in prison, serving " + plural(c.Value, "year")
+	case chargen.ConsequencePayoff:
+		return fmt.Sprintf("Payoff %s: Cr%d (total Cr%d)", c.Skill, c.Delta, c.Value)
 	default:
 		return string(c.Kind)
 	}

@@ -81,6 +81,10 @@ const (
 	// p. 80).
 	ChooseBeginTrack ChoiceID = "select_begin_track"
 
+	// ChooseSchemeFlux accepts or adjusts the Rogue's Scheme roll: "Flux
+	// may be modified (after roll) plus or minus 1" (chart 10, p. 84).
+	ChooseSchemeFlux ChoiceID = "adjust_scheme_flux"
+
 	// ChooseBranch selects the Armed Forces branch where the character
 	// passes the chart's Branch check ("Select Branch Soc", chart 08
 	// p. 82); a failed check rolls one instead.

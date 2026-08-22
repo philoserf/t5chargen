@@ -66,18 +66,18 @@ Book 1, Print Edition 5.1.
 
 ## E1 step D — Careers (generic)
 
-| Rule                                                  | Cite                      | Implementation               | Test                                                | Status                                  |
-| ----------------------------------------------------- | ------------------------- | ---------------------------- | --------------------------------------------------- | --------------------------------------- |
-| Career selection; forced first career                 | chart D p. 64; CLI sketch | `runCareer`, registry        | `TestRegistryMatchesAvailable`, forced-career tests | covered for Citizen                     |
-| CC rotation (no reuse until all used)                 | pp. 64–65                 | `careerRun.chooseCC`         | rotation-window sweep                               | covered                                 |
-| Per-term skills table (column choice + 1D)            | p. 65                     | `careerRun.termSkills`       | goldens, sweeps                                     | covered                                 |
+| Rule                                                  | Cite                      | Implementation               | Test                                                | Status                                                                                 |
+| ----------------------------------------------------- | ------------------------- | ---------------------------- | --------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Career selection; forced first career                 | chart D p. 64; CLI sketch | `runCareer`, registry        | `TestRegistryMatchesAvailable`, forced-career tests | covered for Citizen                                                                    |
+| CC rotation (no reuse until all used)                 | pp. 64–65                 | `careerRun.chooseCC`         | rotation-window sweep                               | covered                                                                                |
+| Per-term skills table (column choice + 1D)            | p. 65                     | `careerRun.termSkills`       | goldens, sweeps                                     | covered                                                                                |
 | Trade/Art/Science cells                               | p. 78 table C             | error (`errNotImplemented`)  | direct data test                                    | deferred (M3); unblocked — the MS list supplies the 10 Trades, 6 Arts, and 13 Sciences |
-| Continue roll; mandatory on exactly 2                 | p. 66                     | `careerRun.continueRoll`     | pinned seed 3                                       | covered                                 |
-| 4-year terms; age accounting                          | p. 66; p. 59 (age 18)     | `continueRoll`, `StartAge`   | `checkEducationAge`                                 | covered                                 |
-| Generic Risk/Reward (Caution/Bravery, injury, reward) | pp. 64–65                 | —                            | —                                                   | deferred (M3, first non-Citizen career) |
-| To Begin throws with retry                            | pp. 64–65                 | `careerMechanics.begin` seam | —                                                   | deferred (M3; Citizen is automatic)     |
-| Rank / Commission / Promotion                         | p. 65                     | —                            | —                                                   | deferred (M3 military/Merchant/Scholar) |
-| Career changes                                        | p. 66                     | —                            | —                                                   | deferred (M4)                           |
+| Continue roll; mandatory on exactly 2                 | p. 66                     | `careerRun.continueRoll`     | pinned seed 3                                       | covered                                                                                |
+| 4-year terms; age accounting                          | p. 66; p. 59 (age 18)     | `continueRoll`, `StartAge`   | `checkEducationAge`                                 | covered                                                                                |
+| Generic Risk/Reward (Caution/Bravery, injury, reward) | pp. 64–65                 | —                            | —                                                   | deferred (M3, first non-Citizen career)                                                |
+| To Begin throws with retry                            | pp. 64–65                 | `careerMechanics.begin` seam | —                                                   | deferred (M3; Citizen is automatic)                                                    |
+| Rank / Commission / Promotion                         | p. 65                     | —                            | —                                                   | deferred (M3 military/Merchant/Scholar)                                                |
+| Career changes                                        | p. 66                     | —                            | —                                                   | deferred (M4)                                                                          |
 
 ## Career 04 — Citizen (chart 04, p. 78)
 
@@ -95,46 +95,46 @@ Book 1, Print Edition 5.1.
 
 ## Career 05 — Scout (chart 05, p. 79)
 
-| Rule | Cite | Implementation | Test | Status |
-| --- | --- | --- | --- | --- |
-| To Begin C1/C2/C3; failure costs a year, career unusable | chart 05; p. 65 | `scoutMechanics.begin` | begin-failure + fallback sweeps | covered (no Begin retry under I-8 reading 1) |
-| Begin-failure fallback to remaining careers | p. 65 | `runCareer` loop | `TestScoutBeginFallback` | covered (empty options = legal no-career end) |
-| Duty choice: Courier avoids R&R; eligibility 4/8 | p. 79; chart 05 B | `resolveTerm`, `SkillEligibility` | invariants sweep | covered (policy: Explorer) |
-| Caution/Bravery/No Mod selection | p. 65; chart 05 | `chooseRiskMod` | Bravery decider tests | covered (policy: No Mod) |
-| Risk vs CC+Mods; failure injury: negative mods + Flux, no increase | chart 05 | `injury` (+`Log.Flux`) | injury sweeps | covered (Scout clamp; generic p. 65 Flux-compensation variant lands with the next R&R career) |
-| Wound Badge on reduction | p. 65 | `injury` | badge-accounting sweep | covered |
-| Disabled at 4+: term completes, no Continue, career ends | chart 05; p. 65 | `injury`, `term` | `TestScoutInjuryOutcomes` | covered (Double Benefits deferred, M4 muster out) |
-| Dead at CC ≤ 0: term and generation end at the injury | p. 65 | `injury`, `term` | `TestScoutInjuryOutcomes` | covered |
-| Reward vs CC−Mods; success = Discovery, Fame +1 | chart 05 | `reward`, `discovery` | fame==discoveries sweep | covered (Land Grant values deferred, M4) |
-| Retry R&R C5 | chart 05 | `retryReward` | policy-always path in sweeps | interpretation I-8 (three readings recorded) |
-| Continue vs Int | chart 05 | `careerRun.continueRoll` | Continue-Int cite sweep | covered |
-| Sanity −1 per two terms | chart 05 | — | — | deferred (San untracked; chart A defers it) |
-| Muster-out table D; Land Grant economics | chart 05; pp. 70–71 | — | — | deferred (M4) |
-| "Starship Skill" cells | chart 05 table C | `EntryStarship` (errors if selected) | data test | deferred (M3); unblocked — the MS list now supplies the seven Starship Skills |
-| No rank | p. 65 | (nothing to do) | — | covered |
+| Rule                                                               | Cite                | Implementation                       | Test                            | Status                                                                                        |
+| ------------------------------------------------------------------ | ------------------- | ------------------------------------ | ------------------------------- | --------------------------------------------------------------------------------------------- |
+| To Begin C1/C2/C3; failure costs a year, career unusable           | chart 05; p. 65     | `scoutMechanics.begin`               | begin-failure + fallback sweeps | covered (no Begin retry under I-8 reading 1)                                                  |
+| Begin-failure fallback to remaining careers                        | p. 65               | `runCareer` loop                     | `TestScoutBeginFallback`        | covered (empty options = legal no-career end)                                                 |
+| Duty choice: Courier avoids R&R; eligibility 4/8                   | p. 79; chart 05 B   | `resolveTerm`, `SkillEligibility`    | invariants sweep                | covered (policy: Explorer)                                                                    |
+| Caution/Bravery/No Mod selection                                   | p. 65; chart 05     | `chooseRiskMod`                      | Bravery decider tests           | covered (policy: No Mod)                                                                      |
+| Risk vs CC+Mods; failure injury: negative mods + Flux, no increase | chart 05            | `injury` (+`Log.Flux`)               | injury sweeps                   | covered (Scout clamp; generic p. 65 Flux-compensation variant lands with the next R&R career) |
+| Wound Badge on reduction                                           | p. 65               | `injury`                             | badge-accounting sweep          | covered                                                                                       |
+| Disabled at 4+: term completes, no Continue, career ends           | chart 05; p. 65     | `injury`, `term`                     | `TestScoutInjuryOutcomes`       | covered (Double Benefits deferred, M4 muster out)                                             |
+| Dead at CC ≤ 0: term and generation end at the injury              | p. 65               | `injury`, `term`                     | `TestScoutInjuryOutcomes`       | covered                                                                                       |
+| Reward vs CC−Mods; success = Discovery, Fame +1                    | chart 05            | `reward`, `discovery`                | fame==discoveries sweep         | covered (Land Grant values deferred, M4)                                                      |
+| Retry R&R C5                                                       | chart 05            | `retryReward`                        | policy-always path in sweeps    | interpretation I-8 (three readings recorded)                                                  |
+| Continue vs Int                                                    | chart 05            | `careerRun.continueRoll`             | Continue-Int cite sweep         | covered                                                                                       |
+| Sanity −1 per two terms                                            | chart 05            | —                                    | —                               | deferred (San untracked; chart A defers it)                                                   |
+| Muster-out table D; Land Grant economics                           | chart 05; pp. 70–71 | —                                    | —                               | deferred (M4)                                                                                 |
+| "Starship Skill" cells                                             | chart 05 table C    | `EntryStarship` (errors if selected) | data test                       | deferred (M3); unblocked — the MS list now supplies the seven Starship Skills                 |
+| No rank                                                            | p. 65               | (nothing to do)                      | —                               | covered                                                                                       |
 
 ## Career 02 — Scholar (chart 02, p. 76)
 
-| Rule | Cite | Implementation | Test | Status |
-| --- | --- | --- | --- | --- |
-| Edu 8+ begins automatically at Scholar1 | chart 02 A; rank table | `scholarMechanics.begin` | `TestScholarEduGatesEntry` | covered |
-| Edu 7- rolls To Begin vs Edu, enters Amateur | chart 02 A; rank table | `begin` | `TestScholarEduGatesEntry` | covered |
-| Every Scholar has a Major and a Minor | chart 02 | `selectAreas` | `TestScholarDegreelessSelectsAreas` | interpretation I-23 |
-| Research vs CC+Mods; failure is the shared injury | chart 02 | `researchAndPublication`, `careerRun.injury` | golden seed 23 | covered (Double Benefits deferred, M4) |
-| "Research Success Major +2" | chart 02 B | `researchAndPublication` | golden seed 23 | interpretation I-24 (two levels) |
-| Publication vs CC−Mods, only if Research completed | chart 02 | `publish` | `TestScholarPublications` | covered |
-| Award-Winning publication counts as TWO | chart 02 | `publish` | `TestScholarPublications` | interpretation I-25 (raw characteristic) |
-| Promotion vs Int +Pubs, Edu 8+ only | chart 02 A | `promote`, `mayPromote` | `TestScholarEduGatesEntry` | covered; gates read current Edu (I-26) |
-| Tenure vs Pubs x3, Edu 10+ at Scholar3 | chart 02 A | `applyForTenure` | `TestScholarTenureGatesPromotion` | covered |
-| No promotion beyond Scholar3 without Tenure | chart 02 | `mayPromote` | `TestScholarTenureGatesPromotion` | covered |
-| One advancement attempt per term (promotion or Tenure) | chart 02 | `advance` (entry-state snapshot) | golden seed 23 | I-13's rule applied |
-| Per Term 4; Promoted 1 | chart 02 B | `resolveTerm` | golden seed 23 | covered |
-| May take a skill in the Major or Minor instead | chart 02 C | `skillColumnOptions`, `awardMajorOrMinor` | golden seed 23 | covered (offered as extra columns) |
-| Continue vs Edu +Pubs | chart 02 A | `continueRoll`, `ContinueMod` | `TestScholarContinueAddsPublications` | covered |
-| Waivers on six adverse events, one shared pool | chart 02; p. 59 | `careerRun.waive`, `offerWaiver`; Continue in `continueRoll` | `TestScholarWaiverPolicy`, `TestScholarContinueWaiver` | interpretation I-22 |
-| Non-Traditional Scholar (C5=Tra); C5=Ins excluded | chart 02 | — | — | deferred (non-human; v1 is human-only) |
-| Rank titles interpolate the Major ("Lecturer <of Major>") | chart 02 | plain titles stored | — | deferred (presentation; the record carries both) |
-| Muster-out table D | chart 02 D | — | — | deferred (M4) |
+| Rule                                                      | Cite                   | Implementation                                               | Test                                                   | Status                                           |
+| --------------------------------------------------------- | ---------------------- | ------------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------ |
+| Edu 8+ begins automatically at Scholar1                   | chart 02 A; rank table | `scholarMechanics.begin`                                     | `TestScholarEduGatesEntry`                             | covered                                          |
+| Edu 7- rolls To Begin vs Edu, enters Amateur              | chart 02 A; rank table | `begin`                                                      | `TestScholarEduGatesEntry`                             | covered                                          |
+| Every Scholar has a Major and a Minor                     | chart 02               | `selectAreas`                                                | `TestScholarDegreelessSelectsAreas`                    | interpretation I-23                              |
+| Research vs CC+Mods; failure is the shared injury         | chart 02               | `researchAndPublication`, `careerRun.injury`                 | golden seed 23                                         | covered (Double Benefits deferred, M4)           |
+| "Research Success Major +2"                               | chart 02 B             | `researchAndPublication`                                     | golden seed 23                                         | interpretation I-24 (two levels)                 |
+| Publication vs CC−Mods, only if Research completed        | chart 02               | `publish`                                                    | `TestScholarPublications`                              | covered                                          |
+| Award-Winning publication counts as TWO                   | chart 02               | `publish`                                                    | `TestScholarPublications`                              | interpretation I-25 (raw characteristic)         |
+| Promotion vs Int +Pubs, Edu 8+ only                       | chart 02 A             | `promote`, `mayPromote`                                      | `TestScholarEduGatesEntry`                             | covered; gates read current Edu (I-26)           |
+| Tenure vs Pubs x3, Edu 10+ at Scholar3                    | chart 02 A             | `applyForTenure`                                             | `TestScholarTenureGatesPromotion`                      | covered                                          |
+| No promotion beyond Scholar3 without Tenure               | chart 02               | `mayPromote`                                                 | `TestScholarTenureGatesPromotion`                      | covered                                          |
+| One advancement attempt per term (promotion or Tenure)    | chart 02               | `advance` (entry-state snapshot)                             | golden seed 23                                         | I-13's rule applied                              |
+| Per Term 4; Promoted 1                                    | chart 02 B             | `resolveTerm`                                                | golden seed 23                                         | covered                                          |
+| May take a skill in the Major or Minor instead            | chart 02 C             | `skillColumnOptions`, `awardMajorOrMinor`                    | golden seed 23                                         | covered (offered as extra columns)               |
+| Continue vs Edu +Pubs                                     | chart 02 A             | `continueRoll`, `ContinueMod`                                | `TestScholarContinueAddsPublications`                  | covered                                          |
+| Waivers on six adverse events, one shared pool            | chart 02; p. 59        | `careerRun.waive`, `offerWaiver`; Continue in `continueRoll` | `TestScholarWaiverPolicy`, `TestScholarContinueWaiver` | interpretation I-22                              |
+| Non-Traditional Scholar (C5=Tra); C5=Ins excluded         | chart 02               | —                                                            | —                                                      | deferred (non-human; v1 is human-only)           |
+| Rank titles interpolate the Major ("Lecturer <of Major>") | chart 02               | plain titles stored                                          | —                                                      | deferred (presentation; the record carries both) |
+| Muster-out table D                                        | chart 02 D             | —                                                            | —                                                      | deferred (M4)                                    |
 
 ## Career 12 — Marine (chart 12, p. 86)
 
@@ -142,14 +142,14 @@ The third Armed Forces career, and chart data alone: it adds no mechanics
 to `chargen/armedforces.go`. Soldier's section applies unchanged, together
 with interpretations I-31 through I-37.
 
-| Rule | Cite | Implementation | Test | Status |
-| --- | --- | --- | --- | --- |
-| To Begin Str; Risk & Reward Str/Int; Continue Str | chart 12 A | shared mechanics over chart 12 data | golden seed 529 | covered |
-| Marine Branch, with Commando in place of a second Protected | chart 12 | data | `TestMarineIsDataOnly` | covered |
-| Marine Operations DM By Branch differs from the Army's | chart 12 vs 08 | data | `TestMarineIsDataOnly` | covered — Commando +0 where the Soldier's Protected is |
-| Garrison assignment and its column | chart 12 | `Operation.Column` default | golden seed 529 | covered |
-| Officer Promotion Int; Enlisted Promotion Str | chart 12 A | data | golden seed 529 | covered — the same rows under different checks |
-| Muster-out table D | chart 12 D | — | — | deferred (M4) |
+| Rule                                                        | Cite           | Implementation                      | Test                   | Status                                                 |
+| ----------------------------------------------------------- | -------------- | ----------------------------------- | ---------------------- | ------------------------------------------------------ |
+| To Begin Str; Risk & Reward Str/Int; Continue Str           | chart 12 A     | shared mechanics over chart 12 data | golden seed 529        | covered                                                |
+| Marine Branch, with Commando in place of a second Protected | chart 12       | data                                | `TestMarineIsDataOnly` | covered                                                |
+| Marine Operations DM By Branch differs from the Army's      | chart 12 vs 08 | data                                | `TestMarineIsDataOnly` | covered — Commando +0 where the Soldier's Protected is |
+| Garrison assignment and its column                          | chart 12       | `Operation.Column` default          | golden seed 529        | covered                                                |
+| Officer Promotion Int; Enlisted Promotion Str               | chart 12 A     | data                                | golden seed 529        | covered — the same rows under different checks         |
+| Muster-out table D                                          | chart 12 D     | —                                   | —                      | deferred (M4)                                          |
 
 ## Career 07 — Spacer (chart 07, p. 81)
 
@@ -159,147 +159,161 @@ columns, and interpretations I-31 through I-35 — because the mechanics are
 now shared (`chargen/armedforces.go`); only the chart data differs. Rows
 below cover what is particular to chart 07.
 
-| Rule | Cite | Implementation | Test | Status |
-| --- | --- | --- | --- | --- |
-| To Begin Int; Select Branch Soc; Continue Str | chart 07 A | shared mechanics over chart 07 data | golden seed 659 | covered |
-| Naval Branch prints Officer and Enlisted sides per row | chart 07 | `career.Branch.Side` | `TestSpacerCrewBecomesLine` | covered |
-| A branch is selected on the enlisted side, since entry is enlisted | chart 07; p. 65 | `chooseBranch` | golden seed 659 | interpretation I-36 |
-| A selected name binds to the row that reads the same on both sides | chart 07; p. 66 | `sameOnBothSides` | `TestSpacerBranchNameBindsStableRow` | interpretation I-36 — keeping the branch on commission keeps its Mod |
-| "for Spacers, Crew becomes Line" on commission | p. 66 | `enterRank` refreshes the branch | `TestSpacerCrewBecomesLine` | covered — the row is fixed, the side follows the rank |
-| Naval Operations takes no Branch DM | chart 07 vs 08 | `operations_use_branch_dm` absent | data | covered (chart 07 prints only "DM +2 if Edu 10+") |
-| Patrol and Strike both open the Patrol/Strike column | chart 07 C | `Operation.Column` | golden seed 659 | covered |
-| Rating Promotion (chart 07) vs Enlisted Promotion (chart 08) | charts 07, 08 | data only | golden seed 659 | covered — the same row under two names |
-| Muster-out table D | chart 07 D | — | — | deferred (M4) |
+| Rule                                                               | Cite            | Implementation                      | Test                                 | Status                                                               |
+| ------------------------------------------------------------------ | --------------- | ----------------------------------- | ------------------------------------ | -------------------------------------------------------------------- |
+| To Begin Int; Select Branch Soc; Continue Str                      | chart 07 A      | shared mechanics over chart 07 data | golden seed 659                      | covered                                                              |
+| Naval Branch prints Officer and Enlisted sides per row             | chart 07        | `career.Branch.Side`                | `TestSpacerCrewBecomesLine`          | covered                                                              |
+| A branch is selected on the enlisted side, since entry is enlisted | chart 07; p. 65 | `chooseBranch`                      | golden seed 659                      | interpretation I-36                                                  |
+| A selected name binds to the row that reads the same on both sides | chart 07; p. 66 | `sameOnBothSides`                   | `TestSpacerBranchNameBindsStableRow` | interpretation I-36 — keeping the branch on commission keeps its Mod |
+| "for Spacers, Crew becomes Line" on commission                     | p. 66           | `enterRank` refreshes the branch    | `TestSpacerCrewBecomesLine`          | covered — the row is fixed, the side follows the rank                |
+| Naval Operations takes no Branch DM                                | chart 07 vs 08  | `operations_use_branch_dm` absent   | data                                 | covered (chart 07 prints only "DM +2 if Edu 10+")                    |
+| Patrol and Strike both open the Patrol/Strike column               | chart 07 C      | `Operation.Column`                  | golden seed 659                      | covered                                                              |
+| Rating Promotion (chart 07) vs Enlisted Promotion (chart 08)       | charts 07, 08   | data only                           | golden seed 659                      | covered — the same row under two names                               |
+| Muster-out table D                                                 | chart 07 D      | —                                   | —                                    | deferred (M4)                                                        |
 
 ## Career 08 — Soldier (chart 08, p. 82)
 
-| Rule | Cite | Implementation | Test | Status |
-| --- | --- | --- | --- | --- |
-| To Begin Str; enters at the service's enlisted rank | chart 08 A; p. 65 | `soldierMechanics.begin` | `TestSoldierBeginsEnlisted` | covered |
-| Select Branch on a Soc check, else roll one | chart 08; p. 65 | `selectBranch` | golden seed 305 | covered |
-| Branch automatic skills (Medical, Technical) | chart 08 | `enterBranch` | golden sweeps | covered |
-| Four assignments per term; highest Mod applies | chart 08; p. 66 | `operations` | `TestSoldierOperationsPerTerm` | covered |
-| Branch and Operations Mods oppose Risk and Reward | p. 66 | `riskAndReward` | `TestSoldierBranchModsOpposeRiskAndReward` | covered |
-| Term skills restricted to Personal plus the term's assignments | p. 65 | `termOutcome.termColumns` | `TestSoldierTermSkillsFollowAssignments` | covered (commission and promotion skills exempt) |
-| Risk failure: the shared injury and Wound Badge | chart 08; p. 65 | `careerRun.injury`, `negativeMods` | golden seed 305, `TestSoldierInjuryIgnoresPositiveMods` | covered (Double Benefits deferred, M4) |
-| Risk success: Exemplary Service Badge | chart 08 | `riskAndReward` | `TestSoldierServiceBadgeCarriesNoMod` | interpretation I-32 (no promotion modifier) |
-| Reward success: the Imperial Medals table | chart 08; p. 66, 70 | `medal` package, `awardMedal` | `TestSoldierMedalsFollowTheTable`, `TestForPinsTheTable` | interpretation I-35 (one decoration, not table medal plus XS) |
-| Medals modify promotion; Wound Badges do not | p. 70 vs chart 08 | `medalMod` | `TestSoldierPromotionUsesMedalsNotWoundBadges` | interpretation I-31 |
-| Commission to Officer1; two rank ladders with Auto Skills | chart 08; p. 65 | `advance`, `enterRank` | golden seed 305 | covered |
-| One advancement attempt per term per entry class | chart 08 | `advance` (entry snapshot) | golden seed 305 | I-13's rule applied, chart silent |
-| Per Term 4; Commission 1; Promotion 1 | chart 08 B | `resolveTerm` | golden seed 305 | covered |
-| Continue End | chart 08 A | `continueRoll` | golden seed 305 | covered |
-| Rolls past the end of the Branch/Operations tables | chart 08 | `BranchAt`, `OperationAt` | golden sweeps | interpretation I-33 |
-| Branch changes on promotion or at term end | chart 08 vs p. 66 | — | — | deferred, conflict recorded (I-34) |
-| ANM School assignment resolved as Education | chart 08 | assignment happens, Mod 0 | — | deferred (M4 Later Education) |
-| Command College for a Major continuing | chart 08 | — | — | deferred (M4 Later Education) |
-| The Reserves; Academy Officer1 entry | p. 66; chart C | — | — | deferred (M4) |
-| Muster-out table D | chart 08 D | — | — | deferred (M4) |
+| Rule                                                           | Cite                | Implementation                     | Test                                                     | Status                                                        |
+| -------------------------------------------------------------- | ------------------- | ---------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------- |
+| To Begin Str; enters at the service's enlisted rank            | chart 08 A; p. 65   | `soldierMechanics.begin`           | `TestSoldierBeginsEnlisted`                              | covered                                                       |
+| Select Branch on a Soc check, else roll one                    | chart 08; p. 65     | `selectBranch`                     | golden seed 305                                          | covered                                                       |
+| Branch automatic skills (Medical, Technical)                   | chart 08            | `enterBranch`                      | golden sweeps                                            | covered                                                       |
+| Four assignments per term; highest Mod applies                 | chart 08; p. 66     | `operations`                       | `TestSoldierOperationsPerTerm`                           | covered                                                       |
+| Branch and Operations Mods oppose Risk and Reward              | p. 66               | `riskAndReward`                    | `TestSoldierBranchModsOpposeRiskAndReward`               | covered                                                       |
+| Term skills restricted to Personal plus the term's assignments | p. 65               | `termOutcome.termColumns`          | `TestSoldierTermSkillsFollowAssignments`                 | covered (commission and promotion skills exempt)              |
+| Risk failure: the shared injury and Wound Badge                | chart 08; p. 65     | `careerRun.injury`, `negativeMods` | golden seed 305, `TestSoldierInjuryIgnoresPositiveMods`  | covered (Double Benefits deferred, M4)                        |
+| Risk success: Exemplary Service Badge                          | chart 08            | `riskAndReward`                    | `TestSoldierServiceBadgeCarriesNoMod`                    | interpretation I-32 (no promotion modifier)                   |
+| Reward success: the Imperial Medals table                      | chart 08; p. 66, 70 | `medal` package, `awardMedal`      | `TestSoldierMedalsFollowTheTable`, `TestForPinsTheTable` | interpretation I-35 (one decoration, not table medal plus XS) |
+| Medals modify promotion; Wound Badges do not                   | p. 70 vs chart 08   | `medalMod`                         | `TestSoldierPromotionUsesMedalsNotWoundBadges`           | interpretation I-31                                           |
+| Commission to Officer1; two rank ladders with Auto Skills      | chart 08; p. 65     | `advance`, `enterRank`             | golden seed 305                                          | covered                                                       |
+| One advancement attempt per term per entry class               | chart 08            | `advance` (entry snapshot)         | golden seed 305                                          | I-13's rule applied, chart silent                             |
+| Per Term 4; Commission 1; Promotion 1                          | chart 08 B          | `resolveTerm`                      | golden seed 305                                          | covered                                                       |
+| Continue End                                                   | chart 08 A          | `continueRoll`                     | golden seed 305                                          | covered                                                       |
+| Rolls past the end of the Branch/Operations tables             | chart 08            | `BranchAt`, `OperationAt`          | golden sweeps                                            | interpretation I-33                                           |
+| Branch changes on promotion or at term end                     | chart 08 vs p. 66   | —                                  | —                                                        | deferred, conflict recorded (I-34)                            |
+| ANM School assignment resolved as Education                    | chart 08            | assignment happens, Mod 0          | —                                                        | deferred (M4 Later Education)                                 |
+| Command College for a Major continuing                         | chart 08            | —                                  | —                                                        | deferred (M4 Later Education)                                 |
+| The Reserves; Academy Officer1 entry                           | p. 66; chart C      | —                                  | —                                                        | deferred (M4)                                                 |
+| Muster-out table D                                             | chart 08 D          | —                                  | —                                                        | deferred (M4)                                                 |
 
 ## Career 09 — Agent (chart 09, p. 83)
 
-| Rule | Cite | Implementation | Test | Status |
-| --- | --- | --- | --- | --- |
-| To Begin End; Risk & Reward Str/Dex/End/Int | chart 09 A | `agentMechanics.begin`, `mission` | golden seed 1717 | covered |
-| A Mission per term: two years undercover, two completing it | chart 09 | `resolveTerm` | `TestAgentUndercoverEveryTerm` | covered (the chart prints no separate Mission roll; Risk & Reward is it) |
-| Undercover Assignment: roll A, B, and C if required | chart 09 | `undercover`, `rollUnder` | `TestAgentUndercoverTableIsWhole` | covered; the "if required" reading is I-39 |
-| "Select (not Roll) one skill from the skill tables of that Career" | chart 09 | `undercoverSkills` | `TestAgentSelectsFromTheCoverCareersTable` | interpretation I-38 |
-| The two Citizen rows roll on table E instead | chart 09 | `undercoverJobTable` | `TestAgentCitizenRowRollsTableE` | interpretation I-39 |
-| The Functionary row | chart 09; chart 13 | `functionary.json` as a reference career | `TestAgentFunctionaryRowResolves`, `TestFunctionaryIsReferenceOnly` | interpretation I-40 |
-| "Any Knowledge" (Vocation column) | chart 09 C | `groupCells`, `allKnowledges` | `TestAgentAnyKnowledgeCellResolves` | covered |
-| Risk failure: the shared injury | chart 09; p. 65 | `careerRun.injury` | golden seed 1717 | covered (Double Benefits deferred, M4) |
-| Reward success: a Commendation | chart 09 | `mission` | golden seed 1717 | covered as a count; the muster-out "+Commends" modifier is M4 |
-| Per Term 2; Undercover 1; Successful Mission 4 | chart 09 B | `resolveTerm` | golden seed 1717 | covered |
-| Continue Str +Terms | chart 09 A | `continueRoll`, `ContinueModTerms` | `TestAgentContinueAddsTerms` | covered (completed terms, I-12) |
-| Muster-out table D | chart 09 D | — | — | deferred (M4) |
+| Rule                                                               | Cite               | Implementation                           | Test                                                                | Status                                                                   |
+| ------------------------------------------------------------------ | ------------------ | ---------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| To Begin End; Risk & Reward Str/Dex/End/Int                        | chart 09 A         | `agentMechanics.begin`, `mission`        | golden seed 1717                                                    | covered                                                                  |
+| A Mission per term: two years undercover, two completing it        | chart 09           | `resolveTerm`                            | `TestAgentUndercoverEveryTerm`                                      | covered (the chart prints no separate Mission roll; Risk & Reward is it) |
+| Undercover Assignment: roll A, B, and C if required                | chart 09           | `undercover`, `rollUnder`                | `TestAgentUndercoverTableIsWhole`                                   | covered; the "if required" reading is I-39                               |
+| "Select (not Roll) one skill from the skill tables of that Career" | chart 09           | `undercoverSkills`                       | `TestAgentSelectsFromTheCoverCareersTable`                          | interpretation I-38                                                      |
+| The two Citizen rows roll on table E instead                       | chart 09           | `undercoverJobTable`                     | `TestAgentCitizenRowRollsTableE`                                    | interpretation I-39                                                      |
+| The Functionary row                                                | chart 09; chart 13 | `functionary.json` as a reference career | `TestAgentFunctionaryRowResolves`, `TestFunctionaryIsReferenceOnly` | interpretation I-40                                                      |
+| "Any Knowledge" (Vocation column)                                  | chart 09 C         | `groupCells`, `allKnowledges`            | `TestAgentAnyKnowledgeCellResolves`                                 | covered                                                                  |
+| Risk failure: the shared injury                                    | chart 09; p. 65    | `careerRun.injury`                       | golden seed 1717                                                    | covered (Double Benefits deferred, M4)                                   |
+| Reward success: a Commendation                                     | chart 09           | `mission`                                | golden seed 1717                                                    | covered as a count; the muster-out "+Commends" modifier is M4            |
+| Per Term 2; Undercover 1; Successful Mission 4                     | chart 09 B         | `resolveTerm`                            | golden seed 1717                                                    | covered                                                                  |
+| Continue Str +Terms                                                | chart 09 A         | `continueRoll`, `ContinueModTerms`       | `TestAgentContinueAddsTerms`                                        | covered (completed terms, I-12)                                          |
+| Muster-out table D                                                 | chart 09 D         | —                                        | —                                                                   | deferred (M4)                                                            |
+
+## Career 10 — Rogue (chart 10, p. 84)
+
+| Rule                                                          | Cite       | Implementation                   | Test                                             | Status                                                      |
+| ------------------------------------------------------------- | ---------- | -------------------------------- | ------------------------------------------------ | ----------------------------------------------------------- |
+| One controlling characteristic for the whole career           | chart 10   | `cc_fixed`, `careerRun.chooseCC` | `TestRogueKeepsOneControllingCharacteristic`     | covered                                                     |
+| To Begin against that characteristic, chosen first            | chart 10 A | `rogueMechanics.begin`           | golden seed 39                                   | interpretation I-42                                         |
+| A Scheme each term, rolled on Flux                            | chart 10   | `scheme`                         | `TestRogueSchemeTable`                           | covered                                                     |
+| "Flux may be modified (after roll) plus or minus 1"           | chart 10   | `ChooseSchemeFlux`               | golden seed 39                                   | covered (policy takes it as rolled)                         |
+| Risk failure imprisons; no injury, no Wound Badge             | chart 10   | `imprison`                       | `TestRogueRiskFailureImprisonsRatherThanInjures` | interpretation I-41                                         |
+| Prison term: two skills, columns 1-2 only, no Scheme          | chart 10 B | `prisonTerm`                     | `TestRoguePrisonTermTakesOnlyPrisonSkills`       | interpretation I-43                                         |
+| Fame +1 on a Risk failure, "actually Infamy"                  | chart 10   | `imprison`                       | golden seed 39                                   | covered as Fame; the chart F system is M4                   |
+| Payoff = V x (1+CC-R+Mods), halved if caught                  | chart 10   | `payoff`                         | `TestRoguePayoffFormula`                         | interpretation I-44                                         |
+| Ship Share schemes (Scout, Merchant rows)                     | chart 10   | `payoff`                         | `TestRogueSchemeTable`                           | covered as a count                                          |
+| Per Term 2; Failed Scheme 1; Successful Scheme 4; In Prison 2 | chart 10 B | `schemeTerm`, `prisonTerm`       | golden seed 39                                   | covered                                                     |
+| Continue CC +Terms; "12 is always automatic failure"          | chart 10 A | `continueRoll`, `dice.Check`     | golden seed 39                                   | covered (I-17 already applies the rule engine-wide)         |
+| "A Rogue may select ... any previous career" for the Scheme   | chart 10   | —                                | —                                                | deferred (M4 career changes; no previous career exists yet) |
+| Spending the Payoff; muster-out table D                       | chart 10 D | —                                | —                                                | deferred (M4)                                               |
 
 ## Career 11 — Noble (chart 11, p. 85)
 
-| Rule | Cite | Implementation | Test | Status |
-| --- | --- | --- | --- | --- |
-| To Begin automatic if Soc B+; no attempt below | chart 11 A; p. 65 | `nobleMechanics.begin` | `TestNobleRequiresSocB` | interpretation I-28 (no year lost) |
-| Rank equals Social Standing; twelve rungs, three shared | chart 11; p. 65, 51 | `Ranks` with `Soc` | `TestNobleLadder` | covered |
-| A shared Social Standing enters at the lower title | p. 51 | `nobleRankFor` | `TestNobleEntersAtLowerTitle` | interpretation I-29 |
-| Return rolled only in Exile; Intrigue only outside it | chart 11 | `resolveTerm` | `TestNobleExileGovernsWhichRollHappens` | covered |
-| Intrigue failure exiles; Return failure continues Exile | chart 11 | `rollIntrigue`, `rollReturn` | golden seed 3268 | covered |
-| Mod = −Successful Intrigues + Times Exiled, flipped for Intrigue | chart 11; p. 73 | `nobleMods` | golden seed 3268 | interpretation I-27 (three readings recorded) |
-| Elevation is Roll High against Soc | chart 11; p. 65 | `dice.High`, `elevate` | `TestNobleElevationRollsHigh`, `TestHighRollsHigh` | covered (no automatic-failure rule printed for Roll High) |
-| Elevation raises Social Standing "if any" | chart 11; p. 51 | `raiseSoc` | `TestNobleElevationRaisesSocOnlyWhereTheLadderDoes` | interpretation I-29 |
-| Land Grant per Soc increase | chart 11 | `raiseSoc`, `characteristicRaised` | `TestNobleLandGrantPerSocIncrease` | covered as a count for every in-career Soc increase; conflicts with the rank table's "Each noble title confers a Land Grant" — interpretation I-30; hexes and economics deferred (M4) |
-| Once-per-career Flux on an Elevation roll | chart 11 | `offerFlux` | golden sweeps | covered (policy invokes it once Soc exceeds 2D) |
-| Per Term 4; When Elevated 2 | chart 11 B | `resolveTerm` | golden seed 3268 | covered |
-| Continue 7 | chart 11 A | `continueRoll` | golden seed 3268 | covered |
-| No Caution/Bravery selection | chart 11 | (nothing to do) | — | covered — the box defines its own Mods and omits the selection line every other R&R chart prints |
-| "Soldier Skill" cell | chart 11 C | `awardFromGroup` via `EntrySoldier` | golden sweeps | covered |
-| "Capital***" cell (World Knowledge of the Land Grant world) | chart 11 C | `EntryCapital` (errors if selected) | — | deferred (M4: needs the Land Grant worlds) |
-| Base Fame = 1.5 x Soc | chart 11 | — | — | deferred (M4 chart F; nothing in-career consumes it, and the rounding of an odd Soc is unstated) |
-| Muster-out Proxy column | chart 11 D | — | — | deferred (M4) — a third benefits column no other chart has |
-| "A Noble may not pursue another career after this one" | chart 11; p. 66 | — | — | deferred (M4 career changes) |
+| Rule                                                             | Cite                | Implementation                      | Test                                                | Status                                                                                                                                                                                |
+| ---------------------------------------------------------------- | ------------------- | ----------------------------------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| To Begin automatic if Soc B+; no attempt below                   | chart 11 A; p. 65   | `nobleMechanics.begin`              | `TestNobleRequiresSocB`                             | interpretation I-28 (no year lost)                                                                                                                                                    |
+| Rank equals Social Standing; twelve rungs, three shared          | chart 11; p. 65, 51 | `Ranks` with `Soc`                  | `TestNobleLadder`                                   | covered                                                                                                                                                                               |
+| A shared Social Standing enters at the lower title               | p. 51               | `nobleRankFor`                      | `TestNobleEntersAtLowerTitle`                       | interpretation I-29                                                                                                                                                                   |
+| Return rolled only in Exile; Intrigue only outside it            | chart 11            | `resolveTerm`                       | `TestNobleExileGovernsWhichRollHappens`             | covered                                                                                                                                                                               |
+| Intrigue failure exiles; Return failure continues Exile          | chart 11            | `rollIntrigue`, `rollReturn`        | golden seed 3268                                    | covered                                                                                                                                                                               |
+| Mod = −Successful Intrigues + Times Exiled, flipped for Intrigue | chart 11; p. 73     | `nobleMods`                         | golden seed 3268                                    | interpretation I-27 (three readings recorded)                                                                                                                                         |
+| Elevation is Roll High against Soc                               | chart 11; p. 65     | `dice.High`, `elevate`              | `TestNobleElevationRollsHigh`, `TestHighRollsHigh`  | covered (no automatic-failure rule printed for Roll High)                                                                                                                             |
+| Elevation raises Social Standing "if any"                        | chart 11; p. 51     | `raiseSoc`                          | `TestNobleElevationRaisesSocOnlyWhereTheLadderDoes` | interpretation I-29                                                                                                                                                                   |
+| Land Grant per Soc increase                                      | chart 11            | `raiseSoc`, `characteristicRaised`  | `TestNobleLandGrantPerSocIncrease`                  | covered as a count for every in-career Soc increase; conflicts with the rank table's "Each noble title confers a Land Grant" — interpretation I-30; hexes and economics deferred (M4) |
+| Once-per-career Flux on an Elevation roll                        | chart 11            | `offerFlux`                         | golden sweeps                                       | covered (policy invokes it once Soc exceeds 2D)                                                                                                                                       |
+| Per Term 4; When Elevated 2                                      | chart 11 B          | `resolveTerm`                       | golden seed 3268                                    | covered                                                                                                                                                                               |
+| Continue 7                                                       | chart 11 A          | `continueRoll`                      | golden seed 3268                                    | covered                                                                                                                                                                               |
+| No Caution/Bravery selection                                     | chart 11            | (nothing to do)                     | —                                                   | covered — the box defines its own Mods and omits the selection line every other R&R chart prints                                                                                      |
+| "Soldier Skill" cell                                             | chart 11 C          | `awardFromGroup` via `EntrySoldier` | golden sweeps                                       | covered                                                                                                                                                                               |
+| "Capital***" cell (World Knowledge of the Land Grant world)      | chart 11 C          | `EntryCapital` (errors if selected) | —                                                   | deferred (M4: needs the Land Grant worlds)                                                                                                                                            |
+| Base Fame = 1.5 x Soc                                            | chart 11            | —                                   | —                                                   | deferred (M4 chart F; nothing in-career consumes it, and the rounding of an odd Soc is unstated)                                                                                      |
+| Muster-out Proxy column                                          | chart 11 D          | —                                   | —                                                   | deferred (M4) — a third benefits column no other chart has                                                                                                                            |
+| "A Noble may not pursue another career after this one"           | chart 11; p. 66     | —                                   | —                                                   | deferred (M4 career changes)                                                                                                                                                          |
 
 ## Career 03 — Entertainer (chart 03, p. 77)
 
-| Rule | Cite | Implementation | Test | Status |
-| --- | --- | --- | --- | --- |
-| Select A Specialty (six arts) with per-specialty Begin checks | chart 03 A | `chooseSpecialty`, `BeginTracks` | `TestEntertainerSpecialties` | covered |
-| Initial Fame and Talent from one 2D, before Begin | chart 03 | `begin` | `TestEntertainerInitialFameEqualsTalent` | covered |
-| Begin failure costs a year, career not begun | chart 03 A; p. 65 | `begin` | Entertainer sweeps | covered (no Begin retry on the chart) |
-| "Risk & Reward Talent" — no Risk or Reward throw | chart 03 A; p. 66 | `resolveTerm` | `TestEntertainerNoRiskAndReward` | interpretation I-18 |
-| No controlling-characteristic series to rotate | chart 03 A | `chooseCC` | `TestEntertainerRotatesNoControllingCharacteristic` | covered |
-| Term 1 Fame = the pre-Begin 2D, no Flux | chart 03 table | `resolveTerm` | `TestEntertainerFirstTermHasNoFlux` | interpretation I-19 |
-| Required Flux plus up to two optional | chart 03 | `resolveFame` | golden seed 572 | covered (policy stops once Fame rises) |
-| Talent +1 when Fame increases | chart 03 | `resolveTerm` | `TestEntertainerTalentTracksFameIncreases` | covered |
-| Per Term 4; If Fame Increases 2 | chart 03 B | `termOutcome.skillRolls` | `TestEntertainerFameIncreaseEarnsSkills` | covered |
-| Comeback resets Fame to 2D, Talent unchanged | chart 03 | `offerComeback`, `resolveFame` | `TestEntertainerComeback` | interpretation I-20 (replaces the term's Flux; earns no Talent or extra skills) |
-| Fame may fall below zero | chart 03 | `setFame` | golden sweeps | interpretation I-21 (no floor) |
-| Continue vs Fame | chart 03 A | `continueRoll` | `TestEntertainerContinueUsesFame` | covered (I-17 guarantees termination) |
-| Fame descriptor table; stage names at Fame 10+ | chart 03 | — | — | deferred (flavor; the chart F fame system is M4) |
-| Muster-out table D, money DM +Fame/3 | chart 03 D | — | — | deferred (M4) |
+| Rule                                                          | Cite              | Implementation                   | Test                                                | Status                                                                          |
+| ------------------------------------------------------------- | ----------------- | -------------------------------- | --------------------------------------------------- | ------------------------------------------------------------------------------- |
+| Select A Specialty (six arts) with per-specialty Begin checks | chart 03 A        | `chooseSpecialty`, `BeginTracks` | `TestEntertainerSpecialties`                        | covered                                                                         |
+| Initial Fame and Talent from one 2D, before Begin             | chart 03          | `begin`                          | `TestEntertainerInitialFameEqualsTalent`            | covered                                                                         |
+| Begin failure costs a year, career not begun                  | chart 03 A; p. 65 | `begin`                          | Entertainer sweeps                                  | covered (no Begin retry on the chart)                                           |
+| "Risk & Reward Talent" — no Risk or Reward throw              | chart 03 A; p. 66 | `resolveTerm`                    | `TestEntertainerNoRiskAndReward`                    | interpretation I-18                                                             |
+| No controlling-characteristic series to rotate                | chart 03 A        | `chooseCC`                       | `TestEntertainerRotatesNoControllingCharacteristic` | covered                                                                         |
+| Term 1 Fame = the pre-Begin 2D, no Flux                       | chart 03 table    | `resolveTerm`                    | `TestEntertainerFirstTermHasNoFlux`                 | interpretation I-19                                                             |
+| Required Flux plus up to two optional                         | chart 03          | `resolveFame`                    | golden seed 572                                     | covered (policy stops once Fame rises)                                          |
+| Talent +1 when Fame increases                                 | chart 03          | `resolveTerm`                    | `TestEntertainerTalentTracksFameIncreases`          | covered                                                                         |
+| Per Term 4; If Fame Increases 2                               | chart 03 B        | `termOutcome.skillRolls`         | `TestEntertainerFameIncreaseEarnsSkills`            | covered                                                                         |
+| Comeback resets Fame to 2D, Talent unchanged                  | chart 03          | `offerComeback`, `resolveFame`   | `TestEntertainerComeback`                           | interpretation I-20 (replaces the term's Flux; earns no Talent or extra skills) |
+| Fame may fall below zero                                      | chart 03          | `setFame`                        | golden sweeps                                       | interpretation I-21 (no floor)                                                  |
+| Continue vs Fame                                              | chart 03 A        | `continueRoll`                   | `TestEntertainerContinueUsesFame`                   | covered (I-17 guarantees termination)                                           |
+| Fame descriptor table; stage names at Fame 10+                | chart 03          | —                                | —                                                   | deferred (flavor; the chart F fame system is M4)                                |
+| Muster-out table D, money DM +Fame/3                          | chart 03 D        | —                                | —                                                   | deferred (M4)                                                                   |
 
 ## Career 06 — Merchant (chart 06, p. 80)
 
-| Rule | Cite | Implementation | Test | Status |
-| --- | --- | --- | --- | --- |
-| Three entry tracks; each enters its own rank | chart 06 A | `merchantMechanics.begin`, `BeginTracks` | `TestMerchantBeginTracks` | covered |
-| "To Begin Temp Auto" needs no throw | chart 06 A | `begin` | `TestMerchantTempIsAutomatic` | covered |
-| Entry failure costs a year, career not begun | chart 06 A; p. 65 | `begin` | `TestMerchantBeginFailure` | interpretation I-15 (no fall-through to Temp) |
-| Risk & Reward C1 C2 C3 C4; Caution/Bravery/No Mod | chart 06; p. 65 | `riskAndReward`, `chooseRiskMod` | golden seed 17 | covered |
-| Risk failure: injury, Wound Badge, disabled at 4+, dead at zero | chart 06; p. 65 | `careerRun.injury` (shared) | Scout injury suite | covered (Double Benefits deferred, M4) |
-| Reward success: escalating Ship Shares | chart 06 | `awardShipShares` | `TestMerchantShipShareEscalation` | covered; seventh receipt is I-14, economics deferred (M4) |
-| Officer Commission (Int) from a rating; lands at M1 | chart 06 A | `advance`, `attempt` | `TestMerchantCommission` | covered |
-| Rating Promotion (Dex, +3 if Int 8+) | chart 06 A | `advance` | `TestMerchantRatingPromotion` | covered |
-| Officer Promotion (Terms x2, +3 if Int 8+) | chart 06 A | `advancementTarget` | `TestMerchantOfficerPromotionTarget` | interpretation I-12 (completed terms) |
-| Which rows each class may attempt per term | chart 06 | `advance` (entry-class snapshot) | `TestMerchantCommission` | covered — a commissioned Temp does not also attempt Officer Promotion |
-| Top of a ladder bars the attempt | chart 06 | `eligibleForAdvancement` | `TestMerchantRanksAreCharted` | interpretation I-13 |
-| Automatic Skills by rank | chart 06 B | `enterRank` | golden seed 17 | covered (ordinary receipts, p. 66) |
-| Per Term 4 + 1 per rank gained | chart 06 B | `resolveTerm` via `termOutcome.skillRolls` | `TestMerchantAdvancementEarnsSkills` | covered |
-| Continue vs Str | chart 06 A | `careerRun.continueRoll` | golden seed 17 | covered |
-| Disability and the rest of the term | chart 06 | `term` via `endCareer` | Scout precedent | interpretation I-16 |
-| Muster-out table D; ship-share economics | chart 06 D | — | — | deferred (M4) |
+| Rule                                                            | Cite              | Implementation                             | Test                                 | Status                                                                |
+| --------------------------------------------------------------- | ----------------- | ------------------------------------------ | ------------------------------------ | --------------------------------------------------------------------- |
+| Three entry tracks; each enters its own rank                    | chart 06 A        | `merchantMechanics.begin`, `BeginTracks`   | `TestMerchantBeginTracks`            | covered                                                               |
+| "To Begin Temp Auto" needs no throw                             | chart 06 A        | `begin`                                    | `TestMerchantTempIsAutomatic`        | covered                                                               |
+| Entry failure costs a year, career not begun                    | chart 06 A; p. 65 | `begin`                                    | `TestMerchantBeginFailure`           | interpretation I-15 (no fall-through to Temp)                         |
+| Risk & Reward C1 C2 C3 C4; Caution/Bravery/No Mod               | chart 06; p. 65   | `riskAndReward`, `chooseRiskMod`           | golden seed 17                       | covered                                                               |
+| Risk failure: injury, Wound Badge, disabled at 4+, dead at zero | chart 06; p. 65   | `careerRun.injury` (shared)                | Scout injury suite                   | covered (Double Benefits deferred, M4)                                |
+| Reward success: escalating Ship Shares                          | chart 06          | `awardShipShares`                          | `TestMerchantShipShareEscalation`    | covered; seventh receipt is I-14, economics deferred (M4)             |
+| Officer Commission (Int) from a rating; lands at M1             | chart 06 A        | `advance`, `attempt`                       | `TestMerchantCommission`             | covered                                                               |
+| Rating Promotion (Dex, +3 if Int 8+)                            | chart 06 A        | `advance`                                  | `TestMerchantRatingPromotion`        | covered                                                               |
+| Officer Promotion (Terms x2, +3 if Int 8+)                      | chart 06 A        | `advancementTarget`                        | `TestMerchantOfficerPromotionTarget` | interpretation I-12 (completed terms)                                 |
+| Which rows each class may attempt per term                      | chart 06          | `advance` (entry-class snapshot)           | `TestMerchantCommission`             | covered — a commissioned Temp does not also attempt Officer Promotion |
+| Top of a ladder bars the attempt                                | chart 06          | `eligibleForAdvancement`                   | `TestMerchantRanksAreCharted`        | interpretation I-13                                                   |
+| Automatic Skills by rank                                        | chart 06 B        | `enterRank`                                | golden seed 17                       | covered (ordinary receipts, p. 66)                                    |
+| Per Term 4 + 1 per rank gained                                  | chart 06 B        | `resolveTerm` via `termOutcome.skillRolls` | `TestMerchantAdvancementEarnsSkills` | covered                                                               |
+| Continue vs Str                                                 | chart 06 A        | `careerRun.continueRoll`                   | golden seed 17                       | covered                                                               |
+| Disability and the rest of the term                             | chart 06          | `term` via `endCareer`                     | Scout precedent                      | interpretation I-16                                                   |
+| Muster-out table D; ship-share economics                        | chart 06 D        | —                                          | —                                    | deferred (M4)                                                         |
 
 ## Cross-cutting — throw resolution
 
-| Rule | Cite | Implementation | Test | Status |
-| --- | --- | --- | --- | --- |
-| Checks fail on the highest possible roll (2D on 12) | p. 134-135; chart 10 | `dice.Check` | `TestCheckAutomaticFailure` | interpretation I-17 — applied at every chargen throw; guarantees careers terminate |
-| "One Art" / "One Trade" / "One Science" / "Starship Skill" cells | charts 04-06 table C; p. 132 | `careerRun.awardFromGroup` | Merchant golden | covered (alternatives are the chart MS groups) |
+| Rule                                                             | Cite                         | Implementation             | Test                        | Status                                                                             |
+| ---------------------------------------------------------------- | ---------------------------- | -------------------------- | --------------------------- | ---------------------------------------------------------------------------------- |
+| Checks fail on the highest possible roll (2D on 12)              | p. 134-135; chart 10         | `dice.Check`               | `TestCheckAutomaticFailure` | interpretation I-17 — applied at every chargen throw; guarantees careers terminate |
+| "One Art" / "One Trade" / "One Science" / "Starship Skill" cells | charts 04-06 table C; p. 132 | `careerRun.awardFromGroup` | Merchant golden             | covered (alternatives are the chart MS groups)                                     |
 
-## Careers 01–05 remainder, 07–13
+## Careers 01 and 13 — Craftsman and Functionary
 
-All deferred (M3): Craftsman, Rogue, Functionary (charts pp. 75–88).
-Rogue (10) brings Schemes, Prison, and a payoff formula. Craftsman (01)
-and Functionary (13) are soft-gated on career changes (M4) — neither is
-reachable as a first career — though chart 13's skills table is now
-transcribed as a reference career for the Agent's Undercover table
-(interpretation I-40).
-
-Two are soft-gated on career changes (M4), not on effort: Functionary "is
-never a first career" (chart 13), and Craftsman's Begin is "Automatic* —
-*if TWO skill-6 and Craftsman-1" (chart 01), which a character leaving
-education at 18 essentially never satisfies. Their machinery is
-transcribed when career changes make them reachable. Craftsman findings
+Every career reachable as a first career is implemented. The two that
+remain are soft-gated on career changes (M4), not on effort: Functionary
+"is never a first career" (chart 13), and Craftsman's Begin is
+"Automatic\* — \*if TWO skill-6 and Craftsman-1" (chart 01), which a
+character leaving education at 18 essentially never satisfies. Their
+machinery is transcribed when career changes make them reachable, though
+chart 13's skills table is already transcribed as a reference career for
+the Agent's Undercover table (interpretation I-40). Craftsman findings
 banked from the page: the box/prose conflict between "9D < Master Points"
 and "Roll 9D for Master Points or less"; QREBS allocation and the
-Masterpiece Value table are M4 economics; and its "New Trade***" cells
+Masterpiece Value table are M4 economics; and its "New Trade\*\*\*" cells
 ("Any Trade not already held; if all are already held, this benefit is
 lost") need a cell kind the engine does not yet have.
 Each career's section is added here with its chunk, uncommon branches
@@ -307,19 +321,19 @@ enumerated, before it is called done.
 
 ## Master Skill List (chart MS, p. 132)
 
-| Rule | Cite | Implementation | Test | Status |
-| --- | --- | --- | --- | --- |
-| The 64 skills; list is closed ("no others available") | p. 132 | `skill/data/master_skill_list.json` | `TestListLoads`, `TestSkillGroups` | covered (count checked against the printed 64) |
-| Knowledges by parent skill; Talents, Personals, Intuitions | p. 132 | same | `TestLookupKinds` | covered (Knowledges/Talents advisory per the page note) |
-| Default Skills (usable at level-0 by any character) | p. 132; p. 133 | `Entry.Default` | `TestDefaultSkills` | transcribed; the level-0 default rule itself is deferred (task resolution, out of chargen scope) |
-| Chart labels resolve to list names | p. 132 vs charts | `skill.Resolve` + loader checks | `TestResolveCanonical`, `TestAwardedSkillsAreCanonical` | interpretation I-9 |
-| Grav under three parents | p. 132 | qualified names; `resolveSkillName` | `TestQualifiedKnowledges`, `TestAmbiguousChartCellsResolveByChoice` | interpretation I-10 |
-| "Spacecraft" cell | p. 78 vs p. 132 | `labels`; `resolveSkillName` | `TestAmbiguousChartCellsResolveByChoice` | interpretation I-11 |
-| Knowledge-Knowledge-Skill progression on receipt | p. 133 | — | — | deferred (M3 follow-up: award semantics) |
-| Knowledge-6 / World-6 / Career-6 maximums | p. 134 | — | — | deferred (M3 follow-up; the Skill-15 cap is applied, Talent-15 is moot until talents are awarded) |
-| Career: <Name> and World: <Name> knowledges | p. 134 | — | — | deferred (M4: needs terms-served and residence accounting) |
-| Sciences specialization beyond level 6 | p. 134 | — | — | deferred (M4) |
-| Education provides only contained Knowledges for the ten container skills | p. 134 | `knowledge_only` rows | education matrix tests | covered (data); award semantics with the progression above |
+| Rule                                                                      | Cite             | Implementation                      | Test                                                                | Status                                                                                            |
+| ------------------------------------------------------------------------- | ---------------- | ----------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| The 64 skills; list is closed ("no others available")                     | p. 132           | `skill/data/master_skill_list.json` | `TestListLoads`, `TestSkillGroups`                                  | covered (count checked against the printed 64)                                                    |
+| Knowledges by parent skill; Talents, Personals, Intuitions                | p. 132           | same                                | `TestLookupKinds`                                                   | covered (Knowledges/Talents advisory per the page note)                                           |
+| Default Skills (usable at level-0 by any character)                       | p. 132; p. 133   | `Entry.Default`                     | `TestDefaultSkills`                                                 | transcribed; the level-0 default rule itself is deferred (task resolution, out of chargen scope)  |
+| Chart labels resolve to list names                                        | p. 132 vs charts | `skill.Resolve` + loader checks     | `TestResolveCanonical`, `TestAwardedSkillsAreCanonical`             | interpretation I-9                                                                                |
+| Grav under three parents                                                  | p. 132           | qualified names; `resolveSkillName` | `TestQualifiedKnowledges`, `TestAmbiguousChartCellsResolveByChoice` | interpretation I-10                                                                               |
+| "Spacecraft" cell                                                         | p. 78 vs p. 132  | `labels`; `resolveSkillName`        | `TestAmbiguousChartCellsResolveByChoice`                            | interpretation I-11                                                                               |
+| Knowledge-Knowledge-Skill progression on receipt                          | p. 133           | —                                   | —                                                                   | deferred (M3 follow-up: award semantics)                                                          |
+| Knowledge-6 / World-6 / Career-6 maximums                                 | p. 134           | —                                   | —                                                                   | deferred (M3 follow-up; the Skill-15 cap is applied, Talent-15 is moot until talents are awarded) |
+| Career: <Name> and World: <Name> knowledges                               | p. 134           | —                                   | —                                                                   | deferred (M4: needs terms-served and residence accounting)                                        |
+| Sciences specialization beyond level 6                                    | p. 134           | —                                   | —                                                                   | deferred (M4)                                                                                     |
+| Education provides only contained Knowledges for the ten container skills | p. 134           | `knowledge_only` rows               | education matrix tests                                              | covered (data); award semantics with the progression above                                        |
 
 ## M1 — Muster Out (chart M1, p. 70)
 

@@ -926,3 +926,79 @@ Politics", a form the engine has no target for, and nothing about the
 Agent's use of the chart needs it.
 
 Implemented at `career/data/functionary.json` (`reference: true`).
+
+### I-41: A Rogue's Risk failure imprisons rather than injures (p. 84 chart 10)
+
+Every other Risk & Reward chart prints the same Risk-failure text —
+"Reduce CC by negative Mods and Flux ... If reduced by 4 or more, then he
+is disabled." Chart 10 prints something else entirely: "Prison for (sum of
+negative Mods + Flux) years at the start of the next Term (may be zero;
+maximum 4). Fame +1 (actually Infamy). Payoff (if any) is halved", and its
+Risk success reads "Unharmed" rather than the usual badge.
+
+A Rogue therefore takes no characteristic reduction, no Wound Badge, and
+cannot be disabled or killed by his own career. The consequence of being
+caught is a sentence, not a wound.
+
+The Flux the sentence names is its own roll: chart 10's Risk failure has
+no injury to compute, so the Flux belongs to the sentence. Years are the
+negative of the sum, floored at zero and capped at the printed maximum of
+four — which is what "may be zero" allows for, a Flux positive enough to
+offset the negative Mods leaving the Rogue at liberty.
+
+Implemented at `chargen/rogue.go` (`imprison`).
+
+### I-42: The Rogue's controlling characteristic is chosen before To Begin (p. 84 chart 10)
+
+Chart 10 gives "To Begin CC", and separately "A Rogue selects one
+Controlling Characteristic (C1 C2 C3 C4 C5 C6) which is then used
+throughout his career (not just in the current Term)." The To Begin check
+therefore has no target until the selection is made, so the selection
+comes first and the check tests it.
+
+The choice is presented once. Later terms reuse it with no further choice
+event, and it is also the Continue target — chart 10's "Continue CC*".
+
+Implemented at `chargen/rogue.go` (`begin`) and `careerRun.chooseCC` via
+the `cc_fixed` flag.
+
+### I-43: One term serves a prison sentence (p. 84 chart 10)
+
+A sentence is "Prison for ... years at the start of the next Term (may be
+zero; maximum 4)", and a term is four years. A sentence of one to four
+years is served by one term, which is spent entirely in prison: the Rogue
+masterminds no Scheme and rolls no Risk or Reward, and takes the two
+Prison Skills table B allows, "from the Rogue Skills table column 1 or 2
+only ... (not Term or Scheme Skills)".
+
+The alternative — serving a one-year sentence and then scheming for the
+remaining three years of the same term — is rejected because the chart
+prints one Scheme per Term and one skills allowance per Term, with no way
+to apportion either across a partial year.
+
+The Continue throw still happens at the end of a prison term. Nothing
+suspends it, and a Rogue may leave the career from prison.
+
+Implemented at `chargen/rogue.go` (`prisonTerm`).
+
+### I-44: The Payoff formula (p. 84 chart 10)
+
+Chart 10 gives "Payoff= V x (1+CC-R+Mods)", where "V= Value of Scheme,
+CC= Controlling Characteristic, R= Reward Die Roll, Mods= Mods for
+Reward".
+
+Read as: V is the scheme row's printed value, CC the characteristic's
+current value, R the raw total of the Reward throw, and Mods the
+Reward-side modifiers with the sign they were applied — the opposite of
+the Risk side, as the chart's own "Roll R&R CC +(opposite sign) Mods"
+instructs.
+
+A multiplier at or below zero pays nothing rather than costing the Rogue
+money: "No Reward" is what the chart prints for a failure, so a success
+cannot be worse than one.
+
+"Payoff (if any) is halved" where the Risk also failed, by integer
+division. The two Ship Share rows multiply and halve their shares the same
+way, since the chart gives them as Values like any other.
+
+Implemented at `chargen/rogue.go` (`payoff`).
