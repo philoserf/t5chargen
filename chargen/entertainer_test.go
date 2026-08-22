@@ -11,9 +11,10 @@ import (
 
 // entertainerRun generates an Entertainer and returns the character and
 // its career record.
-// entertainerGoldenSeed is the pinned fixture: five terms exercising two
-// Comebacks and four Fame increases (chargen/testdata/career_entertainer.json).
-const entertainerGoldenSeed = 60
+// entertainerGoldenSeed is the pinned fixture: seven terms exercising two
+// Comebacks and three Fame increases
+// (chargen/testdata/career_entertainer.json).
+const entertainerGoldenSeed = 572
 
 func entertainerRun(t *testing.T) (chargen.Character, chargen.CareerRecord) {
 	t.Helper()
@@ -302,4 +303,52 @@ func TestEntertainerFameIncreaseEarnsSkills(t *testing.T) {
 		t.Errorf("skill-column rolls = %d, want %d (%d terms x 4 + %d Fame increases x 2)",
 			columns, want, len(record.Terms), increases)
 	}
+}
+
+// TestEntertainerComebackEarnsNoTalent verifies chart 03's "Talent is
+// unchanged": a Comeback that lands above the Fame it replaced still earns
+// neither the Talent nor the two extra skills a Fame increase carries
+// (interpretation I-20, ERRATA.md).
+func TestEntertainerComebackEarnsNoTalent(t *testing.T) {
+	c, _ := entertainerRun(t)
+
+	rebounds := 0
+
+	for i, e := range c.Events {
+		if e.Kind != chargen.EventConsequence || e.Consequence.Kind != chargen.ConsequenceComeback {
+			continue
+		}
+
+		// The Fame change that follows carries the delta against the Fame
+		// the Comeback replaced.
+		reset := c.Events[i+1]
+		if reset.Consequence.Delta > 0 {
+			rebounds++
+		}
+
+		if seq := talentBeforeContinue(c.Events[i+1:]); seq != 0 {
+			t.Errorf("event %d raises Talent in a Comeback term; the chart leaves Talent unchanged", seq)
+		}
+	}
+
+	if rebounds == 0 {
+		t.Fatal("the pinned seed records no Comeback that landed above the Fame it replaced")
+	}
+}
+
+// talentBeforeContinue reports the sequence of the first Talent
+// consequence in the rest of the term, or zero if the term's Continue
+// throw comes first.
+func talentBeforeContinue(events []chargen.Event) int {
+	for _, e := range events {
+		if e.Kind == chargen.EventThrow && strings.Contains(e.Throw.Cite, "Continue Fame") {
+			return 0
+		}
+
+		if e.Kind == chargen.EventConsequence && e.Consequence.Kind == chargen.ConsequenceTalentSet {
+			return e.Seq
+		}
+	}
+
+	return 0
 }

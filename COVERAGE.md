@@ -123,10 +123,10 @@ Book 1, Print Edition 5.1.
 | "Risk & Reward Talent" — no Risk or Reward throw | chart 03 A; p. 66 | `resolveTerm` | `TestEntertainerNoRiskAndReward` | interpretation I-18 |
 | No controlling-characteristic series to rotate | chart 03 A | `chooseCC` | `TestEntertainerRotatesNoControllingCharacteristic` | covered |
 | Term 1 Fame = the pre-Begin 2D, no Flux | chart 03 table | `resolveTerm` | `TestEntertainerFirstTermHasNoFlux` | interpretation I-19 |
-| Required Flux plus up to two optional | chart 03 | `resolveFame` | golden seed 60 | covered (policy stops once Fame rises) |
+| Required Flux plus up to two optional | chart 03 | `resolveFame` | golden seed 572 | covered (policy stops once Fame rises) |
 | Talent +1 when Fame increases | chart 03 | `resolveTerm` | `TestEntertainerTalentTracksFameIncreases` | covered |
 | Per Term 4; If Fame Increases 2 | chart 03 B | `termOutcome.skillRolls` | `TestEntertainerFameIncreaseEarnsSkills` | covered |
-| Comeback resets Fame to 2D, Talent unchanged | chart 03 | `offerComeback` | `TestEntertainerComeback` | interpretation I-20 (replaces the term's Flux) |
+| Comeback resets Fame to 2D, Talent unchanged | chart 03 | `offerComeback`, `resolveFame` | `TestEntertainerComeback` | interpretation I-20 (replaces the term's Flux; earns no Talent or extra skills) |
 | Fame may fall below zero | chart 03 | `setFame` | golden sweeps | interpretation I-21 (no floor) |
 | Continue vs Fame | chart 03 A | `continueRoll` | `TestEntertainerContinueUsesFame` | covered (I-17 guarantees termination) |
 | Fame descriptor table; stage names at Fame 10+ | chart 03 | — | — | deferred (flavor; the chart F fame system is M4) |

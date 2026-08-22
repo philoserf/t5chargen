@@ -500,8 +500,14 @@ func (r *careerRun) continueRoll() bool {
 
 // chooseCheckCharacteristic presents a check's stated characteristics
 // (score-guided, like the education checks) and returns the chosen name
-// and roll-low target.
+// and roll-low target. An empty list is a data error, not an "Auto" berth:
+// the loader permits a begin track with no checks (chart 06's "To Begin
+// Temp Auto"), so the caller must handle that case before calling here.
 func chooseCheckCharacteristic(r *careerRun, names []string) (string, int, error) {
+	if len(names) == 0 {
+		return "", 0, fmt.Errorf("%w: no characteristic stated for the check", errUnknownCharacteristic)
+	}
+
 	name := names[0]
 
 	if len(names) > 1 {

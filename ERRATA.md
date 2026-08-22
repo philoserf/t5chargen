@@ -188,22 +188,22 @@ on a character sheet, where they would neither stack nor sum.
 The chart label to Master Skill List mapping, with rows added as each
 career lands:
 
-| Chart label | Master Skill List | Charts |
-| --- | --- | --- |
-| BattleDress | Battle Dress | 04 table E; C Available Skills |
-| Bay Wpns | Bay Weapons | 04 table E; C |
-| Fwd Obs | Forward Observer | 04 table E; C |
-| Heavy Wpns | Heavy Weapons | 04 table E; C |
-| Jump Drive | Jump Drives | 04 table E; C |
-| Maneuver | Maneuver Drive | 04 table E; C |
-| Naval Arch | Naval Architect | 04 table E; C |
-| Navigation | Navigator | 04 table E (table C prints Navigator) |
-| Pilot-ACS | Spacecraft ACS | C |
-| Pilot-BCS | Spacecraft BCS | C |
-| Power System | Power Systems | 04 table E; C |
-| Slug Thrower | Slug Throwers | 04 table E; C |
-| Submersible | Sub | 04 table E; C |
-| Wing | Winged | 04 table E; C |
+| Chart label  | Master Skill List | Charts                                               |
+| ------------ | ----------------- | ---------------------------------------------------- |
+| BattleDress  | Battle Dress      | 04 table E; C Available Skills                       |
+| Bay Wpns     | Bay Weapons       | 04 table E; C                                        |
+| Fwd Obs      | Forward Observer  | 04 table E; C                                        |
+| Heavy Wpns   | Heavy Weapons     | 04 table E; C                                        |
+| Jump Drive   | Jump Drives       | 04 table E; C                                        |
+| Maneuver     | Maneuver Drive    | 04 table E; C                                        |
+| Naval Arch   | Naval Architect   | 04 table E; C                                        |
+| Navigation   | Navigator         | 03 table C; 04 table E (04 table C prints Navigator) |
+| Pilot-ACS    | Spacecraft ACS    | C                                                    |
+| Pilot-BCS    | Spacecraft BCS    | C                                                    |
+| Power System | Power Systems     | 04 table E; C                                        |
+| Slug Thrower | Slug Throwers     | 04 table E; C                                        |
+| Submersible  | Sub               | 04 table E; C                                        |
+| Wing         | Winged            | 04 table E; C                                        |
 
 Enforced at load time: `skill.Validate` rejects any name in the career,
 education, or homeworld data that is not a Master Skill List entry, so a
@@ -259,7 +259,7 @@ does not say whether Terms counts terms completed or the term in progress.
 
 The p. 65 worked example is the discriminator. It resolves Continue as
 "7 +Terms (7 **+0**) = 7" in the character's first term and "7 +Terms
-(7 **+1**) = 8" in his second: Terms counts *completed* terms, and is zero
+(7 **+1**) = 8" in his second: Terms counts _completed_ terms, and is zero
 during the first.
 
 Implemented that way, so a first-term officer's promotion target is
@@ -418,23 +418,38 @@ so the first term has no Flux, cannot increase Fame, and cannot earn the
 
 Implemented at `chargen/entertainer.go` (`resolveTerm`).
 
-### I-20: A Comeback replaces the term's Flux progression (p. 77 chart 03)
+### I-20: A Comeback replaces the term and earns no Talent (p. 77 chart 03)
 
 The chart gives the Comeback as "Reset Fame to 2D; Talent is unchanged.
-Comeback is possible any number of times" without saying when in the term
-it happens or how it interacts with that term's Flux rolls.
+Comeback is possible any number of times", without saying when in the term
+it happens, how it interacts with that term's Flux rolls, or whether a
+Comeback that lands above the previous Fame is a Fame increase for table B
+("If Fame Increases 2 and Talent+1").
 
-Implemented as a term-start alternative: a Comeback replaces the term's
-"+F +F* +F*" progression rather than preceding it. The Fame table gives one
-Fame determination per term, and a reset followed by Flux would apply two.
-A Comeback that lands above the previous Fame still counts as an increase
-for table B, since the term ended with Fame higher than it started.
+Two decisions, both from the printed clause:
 
-The alternative reading — reset, then roll the term's Flux as usual — is
-defensible and strictly more generous; it is recorded here because the
-chart is silent.
+1. **A Comeback replaces the term's "+F +F* +F*" progression** rather than
+   preceding it. The Fame table gives one Fame determination per term; a
+   reset followed by the term's Flux would apply two.
+2. **A Comeback term earns neither the Talent nor the two extra skills**,
+   even when the 2D lands above the Fame it replaced. "Talent is unchanged"
+   is read as governing the Comeback outcome, not merely as a note that the
+   reset does not also re-roll Talent the way the pre-Begin 2D set both.
+   Table B pairs its two extra skills with that same Talent+1, so denying
+   one denies both. The Fame table reaches an increase through "+F +F* +F*";
+   a reset is a different path.
 
-Implemented at `chargen/entertainer.go` (`offerComeback`).
+The alternative reading of the clause — that it scopes only the reset,
+leaving a lucky Comeback to count as an increase — is defensible in
+isolation, but it makes the Comeback strictly better than the Flux
+progression it replaces: a character sitting at low Fame could reset every
+term and harvest Talent and skills from the rebound, which the explicit
+"Talent is unchanged" reads as written to prevent.
+
+Revisiting either decision changes generated characters and is an engine
+version bump.
+
+Implemented at `chargen/entertainer.go` (`offerComeback`, `resolveFame`).
 
 ### I-21: Fame is not floored at zero (p. 77 chart 03)
 
@@ -447,10 +462,13 @@ zero: `statusLine` prints the Fame line only when Fame is positive, so an
 Entertainer whose reputation has collapsed shows no Fame rather than a
 negative one. The generation record keeps the exact value.
 
-A career whose Fame falls to zero or below ends at
-the next Continue throw, which targets Fame — an unknown Entertainer is out
-of work, which is the outcome the chart's own Continue row produces. Adding
-a floor at zero would instead keep such a character eligible to continue on
-a natural 2.
+A career whose Fame falls to zero or below fails every subsequent Continue
+throw, which targets Fame — an unknown Entertainer is out of work, which is
+the outcome the chart's own Continue row produces. The single exception is
+the p. 66 Mandatory Continue: a natural 2 requires the character to
+continue whatever the target, and `continueRoll` applies that before the
+roll-low comparison. A floor at zero would not change this — 2D never
+rolls below 2, so targets of 0 and -3 fail identically — so the floor is
+omitted as unsupported rather than as load-bearing.
 
 Implemented at `chargen/entertainer.go` (`setFame`).

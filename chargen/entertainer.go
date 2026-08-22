@@ -185,7 +185,12 @@ func (m *entertainerMechanics) resolveFame(r *careerRun) (bool, int, error) {
 	}
 
 	if comeback {
-		return m.fame > before, seq, nil
+		// "Comeback: Reset Fame to 2D; Talent is unchanged." (chart 03)
+		// A Comeback that lands above the old Fame is still not a Fame
+		// increase for table B: the chart denies the Talent the increase
+		// would carry, and table B pairs that Talent with its two extra
+		// skills (interpretation I-20, ERRATA.md).
+		return false, seq, nil
 	}
 
 	flux := r.roller.Flux()
@@ -195,8 +200,10 @@ func (m *entertainerMechanics) resolveFame(r *careerRun) (bool, int, error) {
 	for attempt := range entertainerOptionalFlux {
 		if m.fame > before {
 			// The optional rolls are the character's to take; once Fame
-			// has risen, another Flux can only put the increase — and the
-			// Talent it earns — back at risk (POLICY.md).
+			// has risen, another Flux would put the increase — and the
+			// Talent it earns — back at risk. Below the starting Fame
+			// they remain a gamble, not free upside: Flux is 1D-1D, so a
+			// further roll can also sink Fame lower still (POLICY.md).
 			break
 		}
 
@@ -223,7 +230,9 @@ const entertainerOptionalFlux = 2
 
 // offerComeback offers the Comeback: "Reset Fame to 2D; Talent is
 // unchanged. Comeback is possible any number of times." (chart 03) It
-// replaces the term's Flux progression (interpretation I-20, ERRATA.md).
+// replaces the term's Flux progression, and the term earns neither the
+// Talent nor the extra skills a Fame increase would (interpretation I-20,
+// ERRATA.md).
 func (m *entertainerMechanics) offerComeback(r *careerRun) (bool, int, error) {
 	chosen, choiceSeq, err := choose(r.log, r.decider, Choice{
 		ID:      ChooseComeback,
