@@ -176,6 +176,7 @@ const (
 	GroupArts      = "Arts"
 	GroupTrades    = "Trades"
 	GroupStarship  = "Starship Skills"
+	GroupSoldier   = "Soldier Skills"
 	ParentSciences = "The Sciences"
 )
 

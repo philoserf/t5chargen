@@ -81,6 +81,11 @@ const (
 	// p. 80).
 	ChooseBeginTrack ChoiceID = "select_begin_track"
 
+	// ChooseElevationFlux accepts or declines the Noble's one-shot Flux on
+	// an Elevation roll ("Once in the Noble Career after a successful
+	// Intrigue, invoke Flux as a Mod on Elevation roll", chart 11 p. 85).
+	ChooseElevationFlux ChoiceID = "invoke_elevation_flux"
+
 	// ChooseCareerWaiver accepts or declines a career waiver ("An adverse
 	// die roll or decision ... may be waived", chart 02 p. 76). Distinct
 	// from ChooseWaiver, the Educational Waiver, because the two draw on

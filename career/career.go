@@ -47,9 +47,16 @@ const (
 	EntryScience EntryKind = "science"
 
 	// EntryStarship is the "Starship Skill" cell (chart 05 table C,
-	// p. 79) — a follow-on selection deferred with the Master Skill List
-	// (docs/PRD.md milestone 3).
+	// p. 79); EntrySoldier is the "Soldier Skill" cell (chart 11 table C,
+	// p. 85). Both select from a Master Skill List group.
 	EntryStarship EntryKind = "starship"
+	EntrySoldier  EntryKind = "soldier"
+
+	// EntryCapital is chart 11's "Capital***" cell: "World Knowledge (of
+	// world of highest held noble Land Grant)" (p. 85), which needs the
+	// Land Grant worlds that land with muster out (docs/PRD.md
+	// milestone 4).
+	EntryCapital EntryKind = "capital"
 
 	// EntryNone is the "No Skill" cell of table E (p. 78).
 	EntryNone EntryKind = "none"
@@ -180,6 +187,15 @@ type Rank struct {
 	// AutoSkill is the rank's "Auto Skill" column entry (chart 06 table B:
 	// "Automatic Skills by Rank"); empty for ranks with none.
 	AutoSkill string `json:"auto_skill,omitempty"`
+
+	// Soc is the Social Standing a rank carries, where the ladder is keyed
+	// to it ("Nobles begin with rank equal to their Social Standing",
+	// p. 65). Consecutive rows may share one value: "A character elevated
+	// to Soc = c (lower case) is initially a Baronet. The next increase in
+	// Soc remains C (now upper case) but the title increases to Baron"
+	// (p. 51), which is why chart 11 elevates to "the next higher Noble
+	// rank and its increase in Social Standing (if any)".
+	Soc int `json:"soc,omitempty"`
 }
 
 // ContinueModKind names a career-tracked value added to the Continue
@@ -319,7 +335,8 @@ var characteristicNames = map[string]bool{
 // entryKinds are the cell kinds a career data file may use.
 var entryKinds = map[EntryKind]bool{
 	EntrySkill: true, EntryCharacteristic: true, EntryMajor: true, EntryMinor: true,
-	EntryTrade: true, EntryArt: true, EntryScience: true, EntryStarship: true, EntryNone: true,
+	EntryTrade: true, EntryArt: true, EntryScience: true, EntryStarship: true,
+	EntrySoldier: true, EntryCapital: true, EntryNone: true,
 }
 
 // validate rejects malformed-but-parseable career data at load time, so
@@ -680,6 +697,9 @@ var entertainerJSON []byte
 //go:embed data/scholar.json
 var scholarJSON []byte
 
+//go:embed data/noble.json
+var nobleJSON []byte
+
 // The implemented careers parse and validate their embedded definitions
 // once.
 var (
@@ -697,6 +717,9 @@ var (
 	})
 	scholar = sync.OnceValues(func() (*Definition, error) {
 		return load("scholar.json", scholarJSON)
+	})
+	noble = sync.OnceValues(func() (*Definition, error) {
+		return load("noble.json", nobleJSON)
 	})
 )
 
@@ -741,10 +764,15 @@ func Scholar() (*Definition, error) {
 	return scholar()
 }
 
+// Noble returns the Noble career definition (chart 11, p. 85).
+func Noble() (*Definition, error) {
+	return noble()
+}
+
 // Available lists the implemented careers in Book 1 chart order (Scholar
-// is chart 02, Entertainer 03, Citizen 04, Scout 05, Merchant 06). The
-// default policy names its career rather than taking the first listed, so
-// this order is presentation only (POLICY.md).
+// is chart 02, Entertainer 03, Citizen 04, Scout 05, Merchant 06, Noble 11).
+// The default policy names its career rather than taking the first listed,
+// so this order is presentation only (POLICY.md).
 func Available() []string {
-	return []string{"Scholar", "Entertainer", "Citizen", "Scout", "Merchant"}
+	return []string{"Scholar", "Entertainer", "Citizen", "Scout", "Merchant", "Noble"}
 }

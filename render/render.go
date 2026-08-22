@@ -128,13 +128,7 @@ func careerLine(record chargen.CareerRecord) string {
 func careerValues(record chargen.CareerRecord) string {
 	var parts []string
 
-	if record.Publications > 0 {
-		parts = append(parts, plural(record.Publications, "Publication"))
-	}
-
-	if record.Tenured {
-		parts = append(parts, "Tenured")
-	}
+	parts = append(parts, scholarAndNobleValues(record)...)
 
 	if record.Specialty != "" {
 		parts = append(parts, record.Specialty)
@@ -161,6 +155,29 @@ func careerValues(record chargen.CareerRecord) string {
 	}
 
 	return ", " + strings.Join(parts, ", ")
+}
+
+// scholarAndNobleValues renders the values those two careers track.
+func scholarAndNobleValues(record chargen.CareerRecord) []string {
+	var parts []string
+
+	if record.LandGrants > 0 {
+		parts = append(parts, plural(record.LandGrants, "Land Grant"))
+	}
+
+	if record.Exiled {
+		parts = append(parts, "in Exile")
+	}
+
+	if record.Publications > 0 {
+		parts = append(parts, plural(record.Publications, "Publication"))
+	}
+
+	if record.Tenured {
+		parts = append(parts, "Tenured")
+	}
+
+	return parts
 }
 
 // plural renders "1 term" / "2 terms" / "1 Discovery" / "2 Discoveries".
@@ -407,6 +424,26 @@ func consequenceScholarText(c *chargen.ConsequenceEvent) string {
 		return "Major = " + c.Skill
 	case chargen.ConsequenceMinorSet:
 		return "Minor = " + c.Skill
+	default:
+		return consequenceNobleText(c)
+	}
+}
+
+// consequenceNobleText renders the chart 11 consequence kinds.
+//
+//nolint:exhaustive // Deliberately partitioned: earlier kinds are handled upstream.
+func consequenceNobleText(c *chargen.ConsequenceEvent) string {
+	switch c.Kind {
+	case chargen.ConsequenceExiled:
+		return fmt.Sprintf("Exiled (total %d)", c.Value)
+	case chargen.ConsequenceReturned:
+		return "returned from Exile"
+	case chargen.ConsequenceIntrigue:
+		return fmt.Sprintf("successful Intrigue (total %d)", c.Value)
+	case chargen.ConsequenceElevated:
+		return "Elevated"
+	case chargen.ConsequenceLandGrant:
+		return fmt.Sprintf("Land Grant (total %d)", c.Value)
 	default:
 		return string(c.Kind)
 	}

@@ -19,14 +19,8 @@ func (DefaultPolicy) Choose(c Choice) int {
 		// POLICY.md: highest-valued characteristic; ties break to
 		// first-listed.
 		return maxScoreIndex(c)
-	case ChooseComeback:
-		// POLICY.md: reset when Fame is below the mean of the 2D that
-		// replaces it.
-		if len(c.Scores) > 0 && c.Scores[0] < comebackThreshold {
-			return 0
-		}
-
-		return 1
+	case ChooseElevationFlux, ChooseComeback:
+		return chooseOnScore(c)
 	case ChooseCareerWaiver:
 		// POLICY.md: waive only a career-ending outcome. Waivers share one
 		// decaying pool with education (I-22), so spending one on a
@@ -98,6 +92,33 @@ func declineUnlessCareerEnding(c Choice) int {
 
 	return 1
 }
+
+// chooseOnScore applies the POLICY.md rules that turn on the engine's
+// decision aid: the Noble invokes its once-per-career Elevation Flux only
+// once the bare 2D can no longer reach Soc, and the Entertainer takes a
+// Comeback only below the mean of the 2D that replaces Fame.
+func chooseOnScore(c Choice) int {
+	if len(c.Scores) == 0 {
+		return 1
+	}
+
+	take := c.Scores[0] < comebackThreshold
+	if c.ID == ChooseElevationFlux {
+		take = c.Scores[0] >= maxTwoDice
+	}
+
+	if take {
+		return 0
+	}
+
+	return 1
+}
+
+// maxTwoDice is the highest total a 2D Roll High can reach unaided. At or
+// above it an Elevation needs the maximum roll or is outright impossible,
+// which is where the once-per-career Flux is worth spending (chart 11,
+// p. 85).
+const maxTwoDice = 12
 
 // comebackThreshold is the Fame below which the default policy takes a
 // Comeback: the mean of the 2D that replaces it (chart 03, p. 77).
