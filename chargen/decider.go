@@ -123,6 +123,13 @@ type Choice struct {
 	Options []string
 	Scores  []int
 	Cite    string
+
+	// CareerEnding marks a choice whose declined branch ends the career —
+	// a waiver on a failed Continue or To Begin (chart 02 Waivers, p. 76).
+	// It is engine-provided decision data, like Scores: not part of the
+	// printed rule and not recorded in the event log, so a policy can
+	// weigh the stake without reading the prompt text.
+	CareerEnding bool
 }
 
 // Decider resolves choice points. Interactive play and the auto-mode

@@ -1,6 +1,7 @@
 package chargen_test
 
 import (
+	"slices"
 	"strings"
 	"testing"
 
@@ -92,7 +93,7 @@ func TestScholarEduGatesEntry(t *testing.T) {
 // and a Minor. If no degree ... then select any Skill or Knowledge from
 // the Skills List" (chart 02; interpretation I-23).
 func TestScholarDegreelessSelectsAreas(t *testing.T) {
-	c, record := scholarRun(t, scholarAmateurSeed)
+	_, record := scholarRun(t, scholarAmateurSeed)
 
 	if record.Major == "" || record.Minor == "" {
 		t.Fatalf("degreeless Scholar has Major %q and Minor %q; the chart gives every Scholar both",
@@ -109,8 +110,6 @@ func TestScholarDegreelessSelectsAreas(t *testing.T) {
 		t.Errorf("degreed Scholar selected Major %q and Minor %q; the degree supplies them",
 			degreed.Major, degreed.Minor)
 	}
-
-	_ = c
 }
 
 // TestScholarPublications verifies the Publication rules: a success adds
@@ -234,6 +233,63 @@ func TestScholarContinueAddsPublications(t *testing.T) {
 	}
 }
 
+// TestScholarContinueWaiver verifies the sixth event chart 02's Waivers
+// box names: "An adverse die roll or decision (in ... Continue) may be
+// waived" (p. 76). A waived Continue failure carries the career into the
+// next term instead of ending it (interpretation I-22).
+func TestScholarContinueWaiver(t *testing.T) {
+	const continueWaiverSeed = 1
+
+	c, err := chargen.Generate(chargen.Options{
+		Seed: continueWaiverSeed, Career: "Scholar", Decider: chargen.DefaultPolicy{},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if waived := waivedContinues(t, c); waived == 0 {
+		t.Fatal("seed 1 no longer waives a failed Continue; the chart 02 Continue waiver is untested")
+	}
+
+	// The waiver negates the failure: the career did not end there.
+	record := c.Careers[len(c.Careers)-1]
+	if len(record.Terms) < 2 {
+		t.Errorf("career ran %d terms; a waived Continue continues it", len(record.Terms))
+	}
+}
+
+// waivedContinues counts the waivers caused by a failed Continue throw,
+// reporting any that negated a throw which had not failed.
+func waivedContinues(t *testing.T, c chargen.Character) int {
+	t.Helper()
+
+	bySeq := make(map[int]chargen.Event, len(c.Events))
+	for _, e := range c.Events {
+		bySeq[e.Seq] = e
+	}
+
+	waived := 0
+
+	for _, e := range c.Events {
+		if e.Kind != chargen.EventConsequence || e.Consequence.Kind != chargen.ConsequenceWaived {
+			continue
+		}
+
+		cause, ok := bySeq[e.Consequence.Cause]
+		if !ok || cause.Kind != chargen.EventThrow || !strings.Contains(cause.Throw.Cite, "Continue") {
+			continue
+		}
+
+		if cause.Throw.Success == nil || *cause.Throw.Success {
+			t.Errorf("event %d waives a Continue throw that did not fail", e.Seq)
+		}
+
+		waived++
+	}
+
+	return waived
+}
+
 // TestScholarWaiverPolicy verifies POLICY.md's career-waiver rule: the
 // auto policy spends a waiver only where the un-waived outcome would end
 // the career, since waivers share one decaying pool with education (I-22).
@@ -263,6 +319,111 @@ func TestScholarWaiverPolicy(t *testing.T) {
 	}
 
 	if attempts == 0 {
-		t.Skip("the pinned seed never reaches a career-ending waiver")
+		t.Fatal("the pinned seed no longer reaches a career-ending waiver; the rule is untested")
 	}
+}
+
+// cautiousWaiverDecider takes a large Caution Mod and accepts every
+// waiver, reaching the case the auto policy cannot: a Publication
+// rejected on its own roll but rescued by a Waiver, whose roll can still
+// sit inside the Award-Winning margin because Caution raises the
+// characteristic above the target.
+type cautiousWaiverDecider struct{ chargen.DefaultPolicy }
+
+func (d cautiousWaiverDecider) Choose(c chargen.Choice) int {
+	if c.ID == chargen.ChooseCareerWaiver {
+		return 0
+	}
+
+	if c.ID == chargen.ChooseRiskMod {
+		if i := slices.Index(c.Options, cautionMod); i >= 0 {
+			return i
+		}
+	}
+
+	return d.DefaultPolicy.Choose(c)
+}
+
+// cautionMod is the Caution the fixture selects; cautionValue is its
+// numeric value, which raises the Risk target and lowers the Reward one.
+const (
+	cautionMod   = "Caution +6"
+	cautionValue = 6
+)
+
+func (cautiousWaiverDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
+
+// TestScholarWaivedPublicationIsNotAwardWinning verifies that the
+// Award-Winning margin is read off a roll that carried the Publication on
+// its own: "If Publication Roll is 4 less than Characteristic, it is
+// <Award-Winning>" describes a successful publication, not a rejection
+// rescued by a Waiver (interpretation I-25, ERRATA.md).
+func TestScholarWaivedPublicationIsNotAwardWinning(t *testing.T) {
+	c, err := chargen.Generate(chargen.Options{
+		Seed: 12, Career: "Scholar", Decider: cautiousWaiverDecider{},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	waived := false
+
+	for i, e := range c.Events {
+		if !rejectedInsideAwardMargin(e) {
+			continue
+		}
+
+		// Any publication recorded before the next Research or Publication
+		// throw came from a Waiver, and must count as one. (The waiver's
+		// own throw sits between them.)
+		delta, ok := publicationAfter(c.Events[i+1:])
+		if !ok {
+			continue
+		}
+
+		waived = true
+
+		if delta != 1 {
+			t.Errorf("a waived rejection inside the Award-Winning margin counted as %d, want 1", delta)
+		}
+	}
+
+	if !waived {
+		t.Fatal("seed 12 records no waived Publication inside the Award-Winning margin; the fixture is stale")
+	}
+}
+
+// rejectedInsideAwardMargin reports a Publication throw that failed on its
+// own yet landed within four of the characteristic, which Caution makes
+// possible by lowering the target below the characteristic.
+func rejectedInsideAwardMargin(e chargen.Event) bool {
+	if e.Kind != chargen.EventThrow || !strings.Contains(e.Throw.Cite, "Publication vs") {
+		return false
+	}
+
+	if e.Throw.Success == nil || *e.Throw.Success || e.Throw.Target == nil {
+		return false
+	}
+
+	characteristic := *e.Throw.Target + cautionValue
+
+	return e.Throw.Total <= characteristic-4
+}
+
+// publicationAfter returns the delta of the next publication recorded
+// before the term's next Research or Publication throw.
+func publicationAfter(events []chargen.Event) (int, bool) {
+	for _, e := range events {
+		if e.Kind == chargen.EventThrow &&
+			(strings.Contains(e.Throw.Cite, "Publication vs") ||
+				strings.Contains(e.Throw.Cite, "Research vs")) {
+			return 0, false
+		}
+
+		if e.Kind == chargen.EventConsequence && e.Consequence.Kind == chargen.ConsequencePublication {
+			return e.Consequence.Delta, true
+		}
+	}
+
+	return 0, false
 }

@@ -131,7 +131,7 @@ Book 1, Print Edition 5.1.
 | Per Term 4; Promoted 1 | chart 02 B | `resolveTerm` | golden seed 23 | covered |
 | May take a skill in the Major or Minor instead | chart 02 C | `skillColumnOptions`, `awardMajorOrMinor` | golden seed 23 | covered (offered as extra columns) |
 | Continue vs Edu +Pubs | chart 02 A | `continueRoll`, `ContinueMod` | `TestScholarContinueAddsPublications` | covered |
-| Waivers on six adverse events, one shared pool | chart 02; p. 59 | `careerRun.waive`, `offerWaiver` | `TestScholarWaiverPolicy` | interpretation I-22 |
+| Waivers on six adverse events, one shared pool | chart 02; p. 59 | `careerRun.waive`, `offerWaiver`; Continue in `continueRoll` | `TestScholarWaiverPolicy`, `TestScholarContinueWaiver` | interpretation I-22 |
 | Non-Traditional Scholar (C5=Tra); C5=Ins excluded | chart 02 | — | — | deferred (non-human; v1 is human-only) |
 | Rank titles interpolate the Major ("Lecturer <of Major>") | chart 02 | plain titles stored | — | deferred (presentation; the record carries both) |
 | Muster-out table D | chart 02 D | — | — | deferred (M4) |

@@ -204,8 +204,12 @@ func (r *careerRun) term(number int) (bool, error) {
 	}
 
 	continued := false
+
 	if !outcome.endCareer {
-		continued = r.continueRoll()
+		continued, err = r.continueRoll()
+		if err != nil {
+			return false, err
+		}
 	}
 
 	r.record.Terms = append(r.record.Terms, TermRecord{
@@ -546,7 +550,7 @@ func (r *careerRun) awardCharacteristic(name string, cause int) error {
 // career. Failure ends Career Resolution. ... If the Continue roll is 2
 // exactly, the character is required to Continue" (p. 66). Each term
 // elapses 4 years ("the 4-year Term", p. 66).
-func (r *careerRun) continueRoll() bool {
+func (r *careerRun) continueRoll() (bool, error) {
 	target := r.def.ContinueTarget
 	label := "Continue " + strconv.Itoa(target) + "-"
 
@@ -579,16 +583,30 @@ func (r *careerRun) continueRoll() bool {
 	if throw.Total == 2 {
 		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceMandatoryContinue})
 
-		return true
+		return true, nil
 	}
 
-	if !throw.Success {
-		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerEnded, Career: r.def.Name})
-
-		return false
+	if throw.Success {
+		return true, nil
 	}
 
-	return true
+	if r.def.ContinueWaiver {
+		// "An adverse die roll or decision (in ... Continue) may be
+		// waived" (chart 02 Waivers, p. 76): the waiver negates the
+		// failure, so the career continues into the next term.
+		waived, err := r.waive(careerWaiver("Continue: the career would end", r.def.Cite, true), seq)
+		if err != nil {
+			return false, err
+		}
+
+		if waived {
+			return true, nil
+		}
+	}
+
+	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerEnded, Career: r.def.Name})
+
+	return false, nil
 }
 
 // chooseCheckCharacteristic presents a check's stated characteristics

@@ -87,7 +87,9 @@ func (m *scholarMechanics) begin(r *careerRun) (bool, error) {
 	// what causes it (docs/PRD.md FR10).
 	if r.character.Characteristics.Edu >= scholarPromoteEdu {
 		// "A character with Edu 8+ is automatically Scholar1 to Begin."
-		m.setRank(r, scholarLecturer, r.entryCause)
+		if err := m.setRank(r, scholarLecturer, r.entryCause); err != nil {
+			return false, err
+		}
 
 		return true, m.selectAreas(r)
 	}
@@ -100,7 +102,9 @@ func (m *scholarMechanics) begin(r *careerRun) (bool, error) {
 		return false, err
 	}
 
-	m.setRank(r, scholarAmateur, cause)
+	if err := m.setRank(r, scholarAmateur, cause); err != nil {
+		return false, err
+	}
 
 	return true, m.selectAreas(r)
 }
@@ -112,7 +116,7 @@ func (*scholarMechanics) resolveBeginThrow(r *careerRun, success bool, cause int
 		return true, nil
 	}
 
-	waived, err := r.waive(scholarWaiver("Position: To Begin failed"), cause)
+	waived, err := r.waive(scholarWaiver("Position: To Begin failed", true), cause)
 	if err != nil || waived {
 		return waived, err
 	}
@@ -125,11 +129,13 @@ func (*scholarMechanics) resolveBeginThrow(r *careerRun, success bool, cause int
 	return false, nil
 }
 
-// setRank records a rank from the chart 02 table.
-func (m *scholarMechanics) setRank(r *careerRun, id string, cause int) {
+// setRank records a rank from the chart 02 table. An id absent from the
+// table is a data error, not a rankless Scholar: the constants above are
+// the only coupling between this file and scholar.json.
+func (m *scholarMechanics) setRank(r *careerRun, id string, cause int) error {
 	rank, ok := r.def.RankByID(id)
 	if !ok {
-		return
+		return fmt.Errorf("%w: %q", errUnknownRank, id)
 	}
 
 	m.rank = rank.ID
@@ -139,6 +145,8 @@ func (m *scholarMechanics) setRank(r *careerRun, id string, cause int) {
 	r.log.Consequence(ConsequenceEvent{
 		Cause: cause, Kind: ConsequenceRankSet, Career: r.def.Name, Skill: rank.Title,
 	})
+
+	return nil
 }
 
 // selectAreas gives a Scholar without a degree a Major and a Minor: "Every
@@ -237,7 +245,7 @@ func (m *scholarMechanics) researchAndPublication(r *careerRun, cc string) (term
 	completed := research.Success
 
 	if !completed {
-		waived, err := r.waive(scholarWaiver("Research: incomplete with injury"), seq)
+		waived, err := r.waive(scholarWaiver("Research: incomplete with injury", false), seq)
 		if err != nil {
 			return outcome, err
 		}
@@ -280,7 +288,7 @@ func (m *scholarMechanics) publish(r *careerRun, cc string, value, mod int) erro
 	published := throw.Success
 
 	if !published {
-		waived, err := r.waive(scholarWaiver("Publication: rejected"), seq)
+		waived, err := r.waive(scholarWaiver("Publication: rejected", false), seq)
 		if err != nil {
 			return err
 		}
@@ -296,8 +304,13 @@ func (m *scholarMechanics) publish(r *careerRun, cc string, value, mod int) erro
 
 	// "If Publication Roll is 4 less than Characteristic, it is
 	// <Award-Winning> and counts as TWO." (chart 02; interpretation I-25.)
+	// The margin is read off a roll that carried the Publication on its
+	// own: a Caution Mod of +5 or more puts the target below
+	// Characteristic-4, so a rejected roll rescued by a Waiver can sit
+	// inside the margin while having failed. A waived rejection is a plain
+	// Publication (I-25).
 	count := 1
-	if throw.Total <= value-scholarAwardMargin {
+	if throw.Success && throw.Total <= value-scholarAwardMargin {
 		count = 2
 	}
 
@@ -375,15 +388,18 @@ func (m *scholarMechanics) applyForTenure(r *careerRun) error {
 		return err
 	}
 
+	// The whole target is the tracked value, so there is no modifier to
+	// itemize (as with the Fame Continue target); the cite carries the
+	// derivation and the recorded target carries the count.
 	target := m.publications * scholarTenureFactor
 	throw := r.roller.Check(2, target)
-	seq := r.log.Throw(throw, []Mod{{Name: "Publications x3", Value: target}},
+	seq := r.log.Throw(throw, nil,
 		r.def.Cite+" (Tenure vs Publications x"+strconv.Itoa(scholarTenureFactor)+")")
 
 	granted := throw.Success
 
 	if !granted {
-		waived, err := r.waive(scholarWaiver("Tenure: refused"), seq)
+		waived, err := r.waive(scholarWaiver("Tenure: refused", false), seq)
 		if err != nil {
 			return err
 		}
@@ -418,7 +434,7 @@ func (m *scholarMechanics) promote(r *careerRun) (bool, error) {
 	promoted := throw.Success
 
 	if !promoted {
-		waived, err := r.waive(scholarWaiver("Promotion: refused"), seq)
+		waived, err := r.waive(scholarWaiver("Promotion: refused", false), seq)
 		if err != nil {
 			return false, err
 		}
@@ -435,16 +451,16 @@ func (m *scholarMechanics) promote(r *careerRun) (bool, error) {
 		return false, nil
 	}
 
-	m.setRank(r, next.ID, seq)
+	if err := m.setRank(r, next.ID, seq); err != nil {
+		return false, err
+	}
 
 	return true, nil
 }
 
-// scholarWaiver names a chart 02 waiver-able event.
-func scholarWaiver(reason string) waiverPrompt {
-	return waiverPrompt{
-		id:     ChooseCareerWaiver,
-		prompt: "Attempt a Waiver? (" + reason + ")",
-		cite:   "Book 1 p. 76 chart 02 (Waivers: Check Soc, Mod minus previous waivers)",
-	}
+// scholarWaiver names a chart 02 waiver-able event. The Continue waiver —
+// the sixth event the box lists — is offered by the generic runner, gated
+// on the definition's ContinueWaiver (careerrun.go).
+func scholarWaiver(reason string, careerEnding bool) waiverPrompt {
+	return careerWaiver(reason, "Book 1 p. 76 chart 02", careerEnding)
 }

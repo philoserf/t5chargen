@@ -1,7 +1,5 @@
 package chargen
 
-import "strings"
-
 // DefaultPolicy is the fixed auto-mode decision table, version
 // PolicyVersion; the rules and their rationale live in POLICY.md
 // (docs/PRD.md, CLI sketch: the policy is total, deterministic, and
@@ -90,12 +88,12 @@ func chooseNamed(c Choice) (int, bool) {
 }
 
 // declineUnlessCareerEnding applies POLICY.md's waiver rule: attempt only
-// where the un-waived outcome ends the career.
+// where the un-waived outcome ends the career. The stake is carried on the
+// Choice rather than inferred from its prompt, so rewording a reason
+// cannot silently change generated characters.
 func declineUnlessCareerEnding(c Choice) int {
-	for _, ending := range []string{"Continue", "To Begin"} {
-		if strings.Contains(c.Prompt, ending) {
-			return 0
-		}
+	if c.CareerEnding {
+		return 0
 	}
 
 	return 1

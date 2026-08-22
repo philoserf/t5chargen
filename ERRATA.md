@@ -493,7 +493,14 @@ not support.
 A waiver negates the adverse outcome; it does not re-roll it. That is the
 existing reading of the education waiver, kept here.
 
-Implemented at `chargen/waiver.go` (`offerWaiver`), counting
+All six named events are offered. Five belong to the Scholar's own
+mechanics; Continue belongs to the generic term loop, which offers it
+where the definition sets `continue_waiver` (chart 02 is the only chart
+printing the Waivers box in v1). A waived Continue failure carries the
+career into the next term.
+
+Implemented at `chargen/waiver.go` (`offerWaiver`, `careerWaiver`),
+`chargen/careerrun.go` (`continueRoll`), counting
 `Character.WaiversAttempted`.
 
 ### I-23: Every Scholar has a Major and a Minor (p. 76 chart 02)
@@ -543,6 +550,12 @@ two publications.
 
 The alternative — measuring against the modified target — would let a
 Bravery mod manufacture awards, which the printed word does not support.
+
+The margin is read off a roll that carried the Publication on its own. A
+Caution Mod of +5 or more puts the Publication target below
+Characteristic − 4, so a *rejected* roll can sit inside the margin; a
+rejection rescued by a Waiver is a plain Publication, since the chart
+qualifies the award by the Publication Roll and that roll did not publish.
 
 Implemented at `chargen/scholar.go` (`publish`).
 

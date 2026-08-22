@@ -1729,12 +1729,6 @@
         "total": 3,
         "target": 15,
         "success": true,
-        "mods": [
-          {
-            "name": "Publications x3",
-            "value": 15
-          }
-        ],
         "cite": "Book 1 p. 76 chart 02 (Tenure vs Publications x3)"
       }
     },
