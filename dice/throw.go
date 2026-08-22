@@ -35,6 +35,38 @@ func (r *Roller) Throw(n, target int) Throw {
 	return resolveThrow(r.Roll(n), target)
 }
 
+// Check rolls n dice against target as a Check: a Throw plus the
+// automatic-failure rule. "Automatic Failure. Without regard to skill
+// levels, any of the Checks fails on the highest possible roll. 1D fails
+// on 6; 2D fails on 12; 3D fails on 18." (p. 134)
+//
+// Character generation resolves its throws as Checks (chart 10 restates
+// the rule beside its starred Risk & Reward and Continue rows: "But, 12 is
+// always automatic failure"). This is what guarantees a career can end:
+// a Continue target at or above the maximum roll would otherwise never
+// fail.
+func (r *Roller) Check(n, target int) Throw {
+	return resolveCheck(r.Roll(n), target)
+}
+
+// resolveCheck applies the p. 134 automatic-failure rule on top of the
+// plain comparison. Pure arithmetic, split from the stream for exhaustive
+// testing.
+func resolveCheck(roll Roll, target int) Throw {
+	throw := resolveThrow(roll, target)
+	if roll.Total >= maxRoll(roll) {
+		throw.Success = false
+	}
+
+	return throw
+}
+
+// maxRoll is the highest possible total for the dice rolled: all sixes,
+// plus the roll's fixed modifier.
+func maxRoll(roll Roll) int {
+	return roll.N*6 + roll.Mod
+}
+
 // resolveThrow applies the p. 120/122 comparison and the p. 127 spectacular
 // detection to an already-rolled Roll. Pure arithmetic, split from the
 // stream for exhaustive testing.

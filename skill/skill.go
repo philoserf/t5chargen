@@ -170,6 +170,46 @@ func Skills() []string {
 	return append([]string(nil), r.skills...)
 }
 
+// The chart MS group headings career charts refer to by name: the "One
+// Art", "One Trade", "One Science", and "Starship Skill" cells.
+const (
+	GroupArts      = "Arts"
+	GroupTrades    = "Trades"
+	GroupStarship  = "Starship Skills"
+	ParentSciences = "The Sciences"
+)
+
+// InGroup returns the canonical names listed under a chart MS skill
+// heading, in list order.
+func InGroup(group string) []string {
+	r, err := registry()
+	if err != nil {
+		return nil
+	}
+
+	var out []string
+
+	for _, name := range r.skills {
+		if r.byName[name].Group == group {
+			out = append(out, name)
+		}
+	}
+
+	return out
+}
+
+// UnderParent returns the canonical names of the knowledges listed under a
+// parent skill, in list order — including "The Sciences", the chart MS
+// heading that groups the science knowledges without being a skill itself.
+func UnderParent(parent string) []string {
+	r, err := registry()
+	if err != nil {
+		return nil
+	}
+
+	return append([]string(nil), r.byParent[parent]...)
+}
+
 // Names returns every canonical name in the list, sorted.
 func Names() []string {
 	r, err := registry()
@@ -232,6 +272,7 @@ type label struct {
 type table struct {
 	byName    map[string]Entry
 	ambiguous map[string][]string
+	byParent  map[string][]string
 	skills    []string
 	cite      string
 }
@@ -246,6 +287,7 @@ var registry = sync.OnceValues(func() (*table, error) {
 	t := &table{
 		byName:    make(map[string]Entry),
 		ambiguous: make(map[string][]string),
+		byParent:  make(map[string][]string),
 		cite:      f.Cite,
 	}
 
@@ -338,6 +380,7 @@ func (t *table) addKnowledges(groups []knowledges) error {
 			}
 
 			t.byName[entry.Name] = entry
+			t.byParent[group.Parent] = append(t.byParent[group.Parent], entry.Name)
 		}
 	}
 

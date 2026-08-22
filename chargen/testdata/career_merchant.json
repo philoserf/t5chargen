@@ -1,0 +1,1911 @@
+{
+  "schema_version": "0.7.0",
+  "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
+  "engine_version": "0.7.0",
+  "policy_version": "0.5.0",
+  "rng": {
+    "algorithm": "math/rand/v2-pcg",
+    "seed": 17
+  },
+  "characteristics": {
+    "str": 6,
+    "dex": 3,
+    "end": 8,
+    "int": 12,
+    "edu": 5,
+    "soc": 3
+  },
+  "upp": "638C53",
+  "homeworld": {
+    "name": "Regina",
+    "uwp": "A788899-C",
+    "trade_classifications": [
+      "Ph",
+      "Pa",
+      "Ri"
+    ]
+  },
+  "age": 34,
+  "education": [
+    {
+      "program": "ED5",
+      "passes": 1,
+      "graduated": true
+    }
+  ],
+  "skills": [
+    {
+      "name": "Actor",
+      "level": 1
+    },
+    {
+      "name": "Advocate",
+      "level": 4
+    },
+    {
+      "name": "Astrogator",
+      "level": 1
+    },
+    {
+      "name": "Comms",
+      "level": 3
+    },
+    {
+      "name": "Computer",
+      "level": 3
+    },
+    {
+      "name": "Driver",
+      "level": 2
+    },
+    {
+      "name": "Engineer",
+      "level": 1
+    },
+    {
+      "name": "Steward",
+      "level": 5
+    },
+    {
+      "name": "Trader",
+      "level": 3
+    }
+  ],
+  "careers": [
+    {
+      "career": "Merchant",
+      "began": true,
+      "rank": "M3",
+      "rank_title": "Second Officer",
+      "ship_shares": 10,
+      "terms": [
+        {
+          "term": 1,
+          "controlling_characteristic": "Int",
+          "success": true,
+          "continued": true
+        },
+        {
+          "term": 2,
+          "controlling_characteristic": "End",
+          "success": true,
+          "continued": true
+        },
+        {
+          "term": 3,
+          "controlling_characteristic": "Str",
+          "success": true,
+          "continued": true
+        },
+        {
+          "term": 4,
+          "controlling_characteristic": "Dex",
+          "success": true,
+          "continued": false
+        }
+      ]
+    }
+  ],
+  "wound_badges": 1,
+  "events": [
+    {
+      "seq": 1,
+      "kind": "step",
+      "step": {
+        "name": "Generate Characteristics",
+        "cite": "Book 1 p. 72 chart E1 step A"
+      }
+    },
+    {
+      "seq": 2,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          3
+        ],
+        "total": 7,
+        "cite": "Book 1 p. 56 chart A"
+      }
+    },
+    {
+      "seq": 3,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 2,
+        "kind": "characteristic_set",
+        "characteristic": "Str",
+        "value": 7
+      }
+    },
+    {
+      "seq": 4,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          1
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 56 chart A"
+      }
+    },
+    {
+      "seq": 5,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 4,
+        "kind": "characteristic_set",
+        "characteristic": "Dex",
+        "value": 3
+      }
+    },
+    {
+      "seq": 6,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          5
+        ],
+        "total": 8,
+        "cite": "Book 1 p. 56 chart A"
+      }
+    },
+    {
+      "seq": 7,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 6,
+        "kind": "characteristic_set",
+        "characteristic": "End",
+        "value": 8
+      }
+    },
+    {
+      "seq": 8,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          6
+        ],
+        "total": 12,
+        "cite": "Book 1 p. 56 chart A"
+      }
+    },
+    {
+      "seq": 9,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 8,
+        "kind": "characteristic_set",
+        "characteristic": "Int",
+        "value": 12
+      }
+    },
+    {
+      "seq": 10,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          2
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 56 chart A"
+      }
+    },
+    {
+      "seq": 11,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 10,
+        "kind": "characteristic_set",
+        "characteristic": "Edu",
+        "value": 4
+      }
+    },
+    {
+      "seq": 12,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          1
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 56 chart A"
+      }
+    },
+    {
+      "seq": 13,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 12,
+        "kind": "characteristic_set",
+        "characteristic": "Soc",
+        "value": 3
+      }
+    },
+    {
+      "seq": 14,
+      "kind": "step",
+      "step": {
+        "name": "Determine A Homeworld",
+        "cite": "Book 1 p. 72 chart E1 step B"
+      }
+    },
+    {
+      "seq": 15,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a homeworld",
+        "options": [
+          "Regina A788899-C (Ph Pa Ri)"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 58 (as assigned, selected, or random); chart B p. 56"
+      }
+    },
+    {
+      "seq": 16,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 15,
+        "kind": "skill_awarded",
+        "skill": "Trader",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 17,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Choose one Art (TC Ri)",
+        "options": [
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 56 chart B (Rich)"
+      }
+    },
+    {
+      "seq": 18,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 17,
+        "kind": "skill_awarded",
+        "skill": "Actor",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 19,
+      "kind": "step",
+      "step": {
+        "name": "Education and Training",
+        "cite": "Book 1 p. 72 chart E1 step C"
+      }
+    },
+    {
+      "seq": 20,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select pre-career education",
+        "options": [
+          "ED5",
+          "Apprenticeship",
+          "None"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 60 chart C; p. 57 step C (education is optional)"
+      }
+    },
+    {
+      "seq": 21,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          5
+        ],
+        "total": 8,
+        "target": 12,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (ED5 Pass/Fail Check Int)"
+      }
+    },
+    {
+      "seq": 22,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 21,
+        "kind": "characteristic_change",
+        "characteristic": "Edu",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 23,
+      "kind": "step",
+      "step": {
+        "name": "Select Career",
+        "cite": "Book 1 p. 72 chart E1 step D"
+      }
+    },
+    {
+      "seq": 24,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select career",
+        "options": [
+          "Merchant"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 72 chart E1 step D"
+      }
+    },
+    {
+      "seq": 25,
+      "kind": "step",
+      "step": {
+        "name": "Merchant: To Begin",
+        "cite": "Book 1 p. 80 chart 06"
+      }
+    },
+    {
+      "seq": 26,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the Merchant berth to begin in",
+        "options": [
+          "4th Officer",
+          "Spacehand",
+          "Temp"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 80 chart 06 (To Begin 4th Officer / Spacehand / Temp)"
+      }
+    },
+    {
+      "seq": 27,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          2
+        ],
+        "total": 6,
+        "target": 12,
+        "success": true,
+        "cite": "Book 1 p. 80 chart 06 (To Begin 4th Officer vs Int)"
+      }
+    },
+    {
+      "seq": 28,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 27,
+        "kind": "rank_set",
+        "skill": "Fourth Officer",
+        "career": "Merchant"
+      }
+    },
+    {
+      "seq": 29,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 27,
+        "kind": "skill_awarded",
+        "skill": "Steward",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 30,
+      "kind": "step",
+      "step": {
+        "name": "Merchant: Term 1",
+        "cite": "Book 1 p. 80 chart 06"
+      }
+    },
+    {
+      "seq": 31,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": [
+          "Str",
+          "Dex",
+          "End",
+          "Int"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 32,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); chart 06 p. 80"
+      }
+    },
+    {
+      "seq": 33,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          5
+        ],
+        "total": 10,
+        "target": 12,
+        "success": true,
+        "cite": "Book 1 p. 80 chart 06 (Risk vs Int+Mods)"
+      }
+    },
+    {
+      "seq": 34,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          6
+        ],
+        "total": 11,
+        "target": 12,
+        "success": true,
+        "cite": "Book 1 p. 80 chart 06 (Reward vs Int+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 35,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 34,
+        "kind": "ship_shares",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 36,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Attempt Officer Promotion?",
+        "options": [
+          "Attempt Officer Promotion",
+          "Decline"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 80 chart 06 (Officer Promotion)"
+      }
+    },
+    {
+      "seq": 37,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          5
+        ],
+        "total": 6,
+        "target": 3,
+        "success": false,
+        "mods": [
+          {
+            "name": "Int 8+",
+            "value": 3
+          }
+        ],
+        "cite": "Book 1 p. 80 chart 06 (Officer Promotion)"
+      }
+    },
+    {
+      "seq": 38,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Merchant Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Space Travel",
+          "Trade",
+          "Business",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 39,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 80 chart 06 table C, column Business"
+      }
+    },
+    {
+      "seq": 40,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 39,
+        "kind": "skill_awarded",
+        "skill": "Steward",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 41,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Merchant Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Space Travel",
+          "Trade",
+          "Business",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 42,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 80 chart 06 table C, column Business"
+      }
+    },
+    {
+      "seq": 43,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 42,
+        "kind": "skill_awarded",
+        "skill": "Computer",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 44,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Merchant Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Space Travel",
+          "Trade",
+          "Business",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 45,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 80 chart 06 table C, column Business"
+      }
+    },
+    {
+      "seq": 46,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 45,
+        "kind": "skill_awarded",
+        "skill": "Comms",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 47,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Merchant Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Space Travel",
+          "Trade",
+          "Business",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 48,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 80 chart 06 table C, column Business"
+      }
+    },
+    {
+      "seq": 49,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 48,
+        "kind": "skill_awarded",
+        "skill": "Advocate",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 50,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          5
+        ],
+        "total": 6,
+        "target": 7,
+        "success": true,
+        "cite": "Book 1 p. 80 chart 06 (Continue Str; p. 66)"
+      }
+    },
+    {
+      "seq": 51,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 50,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 52,
+      "kind": "step",
+      "step": {
+        "name": "Merchant: Term 2",
+        "cite": "Book 1 p. 80 chart 06"
+      }
+    },
+    {
+      "seq": 53,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": [
+          "Str",
+          "Dex",
+          "End"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 54,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); chart 06 p. 80"
+      }
+    },
+    {
+      "seq": 55,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          5
+        ],
+        "total": 7,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 80 chart 06 (Risk vs End+Mods)"
+      }
+    },
+    {
+      "seq": 56,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          4
+        ],
+        "total": 7,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 80 chart 06 (Reward vs End+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 57,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 56,
+        "kind": "ship_shares",
+        "delta": 2,
+        "value": 3
+      }
+    },
+    {
+      "seq": 58,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Attempt Officer Promotion?",
+        "options": [
+          "Attempt Officer Promotion",
+          "Decline"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 80 chart 06 (Officer Promotion)"
+      }
+    },
+    {
+      "seq": 59,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          4
+        ],
+        "total": 8,
+        "target": 5,
+        "success": false,
+        "mods": [
+          {
+            "name": "Int 8+",
+            "value": 3
+          }
+        ],
+        "cite": "Book 1 p. 80 chart 06 (Officer Promotion)"
+      }
+    },
+    {
+      "seq": 60,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Merchant Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Space Travel",
+          "Trade",
+          "Business",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 61,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 80 chart 06 table C, column Business"
+      }
+    },
+    {
+      "seq": 62,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 61,
+        "kind": "skill_awarded",
+        "skill": "Advocate",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 63,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Merchant Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Space Travel",
+          "Trade",
+          "Business",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 64,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 80 chart 06 table C, column Business"
+      }
+    },
+    {
+      "seq": 65,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 64,
+        "kind": "skill_awarded",
+        "skill": "Steward",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 66,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Merchant Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Space Travel",
+          "Trade",
+          "Business",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 67,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 80 chart 06 table C, column Business"
+      }
+    },
+    {
+      "seq": 68,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 67,
+        "kind": "skill_awarded",
+        "skill": "Steward",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 69,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Merchant Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Space Travel",
+          "Trade",
+          "Business",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 70,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 80 chart 06 table C, column Business"
+      }
+    },
+    {
+      "seq": 71,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 70,
+        "kind": "skill_awarded",
+        "skill": "Steward",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 72,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          6
+        ],
+        "total": 7,
+        "target": 7,
+        "success": true,
+        "cite": "Book 1 p. 80 chart 06 (Continue Str; p. 66)"
+      }
+    },
+    {
+      "seq": 73,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 72,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 74,
+      "kind": "step",
+      "step": {
+        "name": "Merchant: Term 3",
+        "cite": "Book 1 p. 80 chart 06"
+      }
+    },
+    {
+      "seq": 75,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": [
+          "Str",
+          "Dex"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 76,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); chart 06 p. 80"
+      }
+    },
+    {
+      "seq": 77,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          4
+        ],
+        "total": 9,
+        "target": 7,
+        "success": false,
+        "cite": "Book 1 p. 80 chart 06 (Risk vs Str+Mods)"
+      }
+    },
+    {
+      "seq": 78,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          2,
+          3
+        ],
+        "total": -1,
+        "cite": "Book 1 p. 80 chart 06 (Risk Failure: reduce CC by negative Mods and Flux)"
+      }
+    },
+    {
+      "seq": 79,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 77,
+        "kind": "characteristic_change",
+        "characteristic": "Str",
+        "delta": -1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 80,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 77,
+        "kind": "wound_badge",
+        "value": 1
+      }
+    },
+    {
+      "seq": 81,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          2
+        ],
+        "total": 5,
+        "target": 7,
+        "success": true,
+        "cite": "Book 1 p. 80 chart 06 (Reward vs Str+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 82,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 81,
+        "kind": "ship_shares",
+        "delta": 3,
+        "value": 6
+      }
+    },
+    {
+      "seq": 83,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Attempt Officer Promotion?",
+        "options": [
+          "Attempt Officer Promotion",
+          "Decline"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 80 chart 06 (Officer Promotion)"
+      }
+    },
+    {
+      "seq": 84,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          2
+        ],
+        "total": 6,
+        "target": 7,
+        "success": true,
+        "mods": [
+          {
+            "name": "Int 8+",
+            "value": 3
+          }
+        ],
+        "cite": "Book 1 p. 80 chart 06 (Officer Promotion)"
+      }
+    },
+    {
+      "seq": 85,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 84,
+        "kind": "rank_set",
+        "skill": "Third Officer",
+        "career": "Merchant"
+      }
+    },
+    {
+      "seq": 86,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 84,
+        "kind": "skill_awarded",
+        "skill": "Engineer",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 87,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Merchant Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Space Travel",
+          "Trade",
+          "Business",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 88,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 80 chart 06 table C, column Business"
+      }
+    },
+    {
+      "seq": 89,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 88,
+        "kind": "skill_awarded",
+        "skill": "Driver",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 90,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Merchant Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Space Travel",
+          "Trade",
+          "Business",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 91,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 80 chart 06 table C, column Business"
+      }
+    },
+    {
+      "seq": 92,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 91,
+        "kind": "skill_awarded",
+        "skill": "Comms",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 93,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Merchant Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Space Travel",
+          "Trade",
+          "Business",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 94,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 80 chart 06 table C, column Business"
+      }
+    },
+    {
+      "seq": 95,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 94,
+        "kind": "skill_awarded",
+        "skill": "Trader",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 96,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Merchant Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Space Travel",
+          "Trade",
+          "Business",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 97,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 80 chart 06 table C, column Business"
+      }
+    },
+    {
+      "seq": 98,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 97,
+        "kind": "skill_awarded",
+        "skill": "Driver",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 99,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Merchant Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Space Travel",
+          "Trade",
+          "Business",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 100,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 80 chart 06 table C, column Business"
+      }
+    },
+    {
+      "seq": 101,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 100,
+        "kind": "skill_awarded",
+        "skill": "Comms",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 102,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          5
+        ],
+        "total": 6,
+        "target": 6,
+        "success": true,
+        "cite": "Book 1 p. 80 chart 06 (Continue Str; p. 66)"
+      }
+    },
+    {
+      "seq": 103,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 102,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 104,
+      "kind": "step",
+      "step": {
+        "name": "Merchant: Term 4",
+        "cite": "Book 1 p. 80 chart 06"
+      }
+    },
+    {
+      "seq": 105,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": [
+          "Dex"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 106,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); chart 06 p. 80"
+      }
+    },
+    {
+      "seq": 107,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          4
+        ],
+        "total": 5,
+        "target": 3,
+        "success": false,
+        "cite": "Book 1 p. 80 chart 06 (Risk vs Dex+Mods)"
+      }
+    },
+    {
+      "seq": 108,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          1,
+          1
+        ],
+        "total": 0,
+        "cite": "Book 1 p. 80 chart 06 (Risk Failure: reduce CC by negative Mods and Flux)"
+      }
+    },
+    {
+      "seq": 109,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          1
+        ],
+        "total": 3,
+        "target": 3,
+        "success": true,
+        "cite": "Book 1 p. 80 chart 06 (Reward vs Dex+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 110,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 109,
+        "kind": "ship_shares",
+        "delta": 4,
+        "value": 10
+      }
+    },
+    {
+      "seq": 111,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Attempt Officer Promotion?",
+        "options": [
+          "Attempt Officer Promotion",
+          "Decline"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 80 chart 06 (Officer Promotion)"
+      }
+    },
+    {
+      "seq": 112,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          4
+        ],
+        "total": 5,
+        "target": 9,
+        "success": true,
+        "mods": [
+          {
+            "name": "Int 8+",
+            "value": 3
+          }
+        ],
+        "cite": "Book 1 p. 80 chart 06 (Officer Promotion)"
+      }
+    },
+    {
+      "seq": 113,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 112,
+        "kind": "rank_set",
+        "skill": "Second Officer",
+        "career": "Merchant"
+      }
+    },
+    {
+      "seq": 114,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 112,
+        "kind": "skill_awarded",
+        "skill": "Astrogator",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 115,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Merchant Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Space Travel",
+          "Trade",
+          "Business",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 116,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 80 chart 06 table C, column Business"
+      }
+    },
+    {
+      "seq": 117,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 116,
+        "kind": "skill_awarded",
+        "skill": "Advocate",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 118,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Merchant Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Space Travel",
+          "Trade",
+          "Business",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 119,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 80 chart 06 table C, column Business"
+      }
+    },
+    {
+      "seq": 120,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 119,
+        "kind": "skill_awarded",
+        "skill": "Computer",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 121,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Merchant Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Space Travel",
+          "Trade",
+          "Business",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 122,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 80 chart 06 table C, column Business"
+      }
+    },
+    {
+      "seq": 123,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 122,
+        "kind": "skill_awarded",
+        "skill": "Trader",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 124,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Merchant Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Space Travel",
+          "Trade",
+          "Business",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 125,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 80 chart 06 table C, column Business"
+      }
+    },
+    {
+      "seq": 126,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 125,
+        "kind": "skill_awarded",
+        "skill": "Computer",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 127,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Merchant Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Space Travel",
+          "Trade",
+          "Business",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 128,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 80 chart 06 table C, column Business"
+      }
+    },
+    {
+      "seq": 129,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 128,
+        "kind": "skill_awarded",
+        "skill": "Advocate",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 130,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          6
+        ],
+        "total": 8,
+        "target": 6,
+        "success": false,
+        "cite": "Book 1 p. 80 chart 06 (Continue Str; p. 66)"
+      }
+    },
+    {
+      "seq": 131,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 130,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 132,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 130,
+        "kind": "career_ended",
+        "career": "Merchant"
+      }
+    }
+  ]
+}

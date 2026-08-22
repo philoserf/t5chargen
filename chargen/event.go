@@ -181,6 +181,16 @@ const (
 	// the full Fame system, chart F p. 91, lands with milestone 4).
 	// Delta is the change, Value the new Fame.
 	ConsequenceFameChange ConsequenceKind = "fame_change"
+
+	// ConsequenceRankSet records entry to a rank, on beginning a career
+	// or on advancement (chart 06 Table Of Merchant Ranks, p. 80). Skill
+	// carries the rank title.
+	ConsequenceRankSet ConsequenceKind = "rank_set"
+
+	// ConsequenceShipShares records a Merchant Reward award: "Every
+	// Reward gives the character Ship Shares" on the escalating scale
+	// (chart 06, p. 80).
+	ConsequenceShipShares ConsequenceKind = "ship_shares"
 )
 
 // ConsequenceEvent records one effect of an earlier throw or choice. Cause

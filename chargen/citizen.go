@@ -55,7 +55,7 @@ func (m *citizenMechanics) resolveTerm(r *careerRun, cc string) (termOutcome, er
 		return termOutcome{}, fmt.Errorf("%w: %q", errUnknownCharacteristic, cc)
 	}
 
-	throw := r.roller.Throw(2, value)
+	throw := r.roller.Check(2, value)
 	seq := r.log.Throw(throw, nil, "Book 1 p. 78 chart 04 (Citizen Life vs "+cc+", no mods per p. 65)")
 
 	if !throw.Success {
