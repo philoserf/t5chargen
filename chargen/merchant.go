@@ -59,14 +59,15 @@ func newMerchant() (*career.Definition, careerMechanics, error) {
 func (m *merchantMechanics) begin(r *careerRun) (bool, error) {
 	r.log.Step("Merchant: To Begin", r.def.Cite)
 
-	track, err := m.chooseTrack(r)
+	track, trackSeq, err := m.chooseTrack(r)
 	if err != nil {
 		return false, err
 	}
 
-	// "To Begin Temp Auto" (chart 06): the untrained berth needs no throw.
+	// "To Begin Temp Auto" (chart 06): the untrained berth needs no throw,
+	// so the selecting choice is what causes the entry (docs/PRD.md FR10).
 	if track.Check == "" {
-		return true, m.enterRank(r, track.Rank, 0)
+		return true, m.enterRank(r, track.Rank, trackSeq)
 	}
 
 	value, ok := characteristicValue(&r.character.Characteristics, track.Check)
@@ -89,24 +90,26 @@ func (m *merchantMechanics) begin(r *careerRun) (bool, error) {
 	return true, m.enterRank(r, track.Rank, seq)
 }
 
-// chooseTrack selects among the chart's entry paths.
-func (*merchantMechanics) chooseTrack(r *careerRun) (career.BeginTrack, error) {
+// chooseTrack selects among the chart's entry paths, reporting the
+// selecting choice's event sequence so the automatic berth's consequences
+// can name their cause.
+func (*merchantMechanics) chooseTrack(r *careerRun) (career.BeginTrack, int, error) {
 	options := make([]string, len(r.def.BeginTracks))
 	for i, track := range r.def.BeginTracks {
 		options[i] = track.Name
 	}
 
-	chosen, _, err := choose(r.log, r.decider, Choice{
+	chosen, seq, err := choose(r.log, r.decider, Choice{
 		ID:      ChooseBeginTrack,
 		Prompt:  "Select the Merchant berth to begin in",
 		Options: options,
 		Cite:    r.def.Cite + " (To Begin 4th Officer / Spacehand / Temp)",
 	})
 	if err != nil {
-		return career.BeginTrack{}, err
+		return career.BeginTrack{}, 0, err
 	}
 
-	return r.def.BeginTracks[chosen], nil
+	return r.def.BeginTracks[chosen], seq, nil
 }
 
 // enterRank records a rank and awards its Auto Skill (chart 06 table B:

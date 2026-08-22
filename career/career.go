@@ -338,41 +338,28 @@ func (d *Definition) validateRanks() error {
 		}
 	}
 
+	classes := map[string]bool{}
+	for _, rank := range d.Ranks {
+		classes[rank.Class] = true
+	}
+
 	if err := d.validateBeginTracks(ids); err != nil {
 		return err
 	}
 
-	return d.validateAdvancements(ids)
+	return d.validateAdvancements(ids, classes)
 }
 
-// validateBeginTracks checks the entry paths.
+// validateBeginTracks checks the entry paths. A track of a career with a
+// rank table must name the rank it enters: the engine enters the rank
+// unconditionally, so an unnamed one would fail at generation time.
 func (d *Definition) validateBeginTracks(ids map[string]bool) error {
 	if len(d.BeginTracks) > 0 && len(d.BeginChecks) > 0 {
 		return fmt.Errorf("%w: begin_tracks and begin_checks are exclusive", errBadDefinition)
 	}
 
 	for _, track := range d.BeginTracks {
-		if track.Name == "" {
-			return fmt.Errorf("%w: nameless begin track", errBadDefinition)
-		}
-
-		if track.Check != "" && !characteristicNames[track.Check] {
-			return fmt.Errorf("%w: begin track %q checks unknown characteristic %q",
-				errBadDefinition, track.Name, track.Check)
-		}
-
-		if track.Rank != "" && !ids[track.Rank] {
-			return fmt.Errorf("%w: begin track %q enters unknown rank %q", errBadDefinition, track.Name, track.Rank)
-		}
-	}
-
-	return nil
-}
-
-// validateAdvancements checks the commission and promotion rows.
-func (d *Definition) validateAdvancements(ids map[string]bool) error {
-	for _, a := range d.Advancements {
-		if err := validateAdvancement(a, ids); err != nil {
+		if err := validateBeginTrack(track, ids, len(d.Ranks) > 0); err != nil {
 			return err
 		}
 	}
@@ -380,10 +367,55 @@ func (d *Definition) validateAdvancements(ids map[string]bool) error {
 	return nil
 }
 
-// validateAdvancement checks one commission or promotion row.
-func validateAdvancement(a Advancement, ids map[string]bool) error {
+// validateBeginTrack checks one entry path.
+func validateBeginTrack(track BeginTrack, ids map[string]bool, ranked bool) error {
+	if track.Name == "" {
+		return fmt.Errorf("%w: nameless begin track", errBadDefinition)
+	}
+
+	if track.Check != "" && !characteristicNames[track.Check] {
+		return fmt.Errorf("%w: begin track %q checks unknown characteristic %q",
+			errBadDefinition, track.Name, track.Check)
+	}
+
+	if track.Rank == "" {
+		if ranked {
+			return fmt.Errorf("%w: begin track %q names no rank", errBadDefinition, track.Name)
+		}
+
+		return nil
+	}
+
+	if !ids[track.Rank] {
+		return fmt.Errorf("%w: begin track %q enters unknown rank %q", errBadDefinition, track.Name, track.Rank)
+	}
+
+	return nil
+}
+
+// validateAdvancements checks the commission and promotion rows.
+func (d *Definition) validateAdvancements(ids, classes map[string]bool) error {
+	for _, a := range d.Advancements {
+		if err := validateAdvancement(a, ids, classes); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+// validateAdvancement checks one commission or promotion row. from_classes
+// is matched against the rank table's classes: a misspelled class would
+// otherwise make the row silently unreachable rather than fail to load.
+func validateAdvancement(a Advancement, ids, classes map[string]bool) error {
 	if a.Name == "" || len(a.FromClasses) == 0 {
 		return fmt.Errorf("%w: advancement %+v: name and from_classes are required", errBadDefinition, a)
+	}
+
+	for _, class := range a.FromClasses {
+		if !classes[class] {
+			return fmt.Errorf("%w: advancement %q names unknown rank class %q", errBadDefinition, a.Name, class)
+		}
 	}
 
 	if err := validateAdvancementTarget(a); err != nil {

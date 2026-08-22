@@ -121,6 +121,42 @@ func TestMerchantTempIsAutomatic(t *testing.T) {
 	}
 }
 
+// TestMerchantEventIntegrity verifies every Merchant consequence references
+// an earlier throw or choice event (docs/PRD.md FR10) on every entry track —
+// the automatic Temp berth makes no throw, so its rank_set must name the
+// selecting choice as its cause.
+func TestMerchantEventIntegrity(t *testing.T) {
+	for _, track := range []string{"4th Officer", "Spacehand", "Temp"} {
+		t.Run(track, func(t *testing.T) {
+			for seed := uint64(1); seed <= 12; seed++ {
+				c, _ := merchantRun(t, seed, trackDecider{track: track})
+
+				kinds := map[int]chargen.EventKind{}
+				for _, event := range c.Events {
+					kinds[event.Seq] = event.Kind
+				}
+
+				for _, event := range c.Events {
+					if event.Kind != chargen.EventConsequence {
+						continue
+					}
+
+					cause := event.Consequence.Cause
+					if cause <= 0 || cause >= event.Seq {
+						t.Fatalf("seed %d: event %d (%s): cause %d is not an earlier event",
+							seed, event.Seq, event.Consequence.Kind, cause)
+					}
+
+					if k := kinds[cause]; k != chargen.EventThrow && k != chargen.EventChoice {
+						t.Fatalf("seed %d: event %d (%s): cause %d is a %q, want throw or choice",
+							seed, event.Seq, event.Consequence.Kind, cause, k)
+					}
+				}
+			}
+		})
+	}
+}
+
 // TestMerchantCommission verifies the row a rating may attempt — "Temp may
 // attempt Officer Commission ... within the same Term" (chart 06) — and
 // that a commission lands on the officer ladder at M1, the rank the chart
