@@ -417,15 +417,19 @@ func soldierInjuryDelta(e chargen.Event) int {
 	return 0
 }
 
-// lineBranchDecider takes the Naval Line branch, whose enlisted side is
-// Crew, and otherwise defers to the auto policy. It reaches the case the
-// policy cannot: the policy takes the lowest Branch Mod, and Line's is
-// not it.
-type lineBranchDecider struct{ chargen.DefaultPolicy }
+// branchDecider takes the named Branch option and otherwise defers to the
+// auto policy. A branch is selected on the enlisted side (interpretation
+// I-36), so the names it asks for are enlisted ones; it reaches the rows
+// the policy cannot, which takes the lowest Branch Mod.
+type branchDecider struct {
+	chargen.DefaultPolicy
 
-func (d lineBranchDecider) Choose(c chargen.Choice) int {
+	name string
+}
+
+func (d branchDecider) Choose(c chargen.Choice) int {
 	if c.ID == chargen.ChooseBranch {
-		if i := slices.Index(c.Options, "Line"); i >= 0 {
+		if i := slices.Index(c.Options, d.name); i >= 0 {
 			return i
 		}
 	}
@@ -433,7 +437,7 @@ func (d lineBranchDecider) Choose(c chargen.Choice) int {
 	return d.DefaultPolicy.Choose(c)
 }
 
-func (lineBranchDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
+func (branchDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestSpacerCrewBecomesLine verifies p. 66: "A character who receives a
 // Commission may roll for Branch or keep his current Branch (for Spacers,
@@ -441,47 +445,61 @@ func (lineBranchDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlay
 // row (chart 07), so a commission moves the rating across without a new
 // roll.
 func TestSpacerCrewBecomesLine(t *testing.T) {
+	if branch, ok := commissionedBranch(t, "Crew"); ok && branch != "Line" {
+		t.Errorf("commissioned Spacer who selected Crew serves in %q, want Line", branch)
+	}
+}
+
+// TestSpacerBranchNameBindsStableRow verifies interpretation I-36's
+// binding rule. Chart 07 prints enlisted Engineer twice — row 3, whose
+// officer side is Line at Mod 1, and row 4, whose officer side is Engineer
+// at Mod 0 — and the name binds to row 4. A rating who selects Engineer
+// and then "keep[s] his current Branch" (p. 66) is therefore still an
+// Engineer once commissioned, at the Mod he weighed on entry, rather than
+// crossing into Line.
+func TestSpacerBranchNameBindsStableRow(t *testing.T) {
+	if branch, ok := commissionedBranch(t, "Engineer"); ok && branch != "Engineer" {
+		t.Errorf("commissioned Spacer who selected Engineer serves in %q, want Engineer", branch)
+	}
+}
+
+// commissionedBranch generates Spacers until one selects the named branch
+// as a rating and is then commissioned, and reports the branch he serves
+// in. A branch is rolled instead whenever the Soc check fails, so no seed
+// is guaranteed to reach the case; the sweep reports that rather than
+// asserting on a run it never made.
+func commissionedBranch(t *testing.T, selected string) (string, bool) {
+	t.Helper()
+
 	for seed := uint64(1); seed <= 200; seed++ {
 		c, err := chargen.Generate(chargen.Options{
-			Seed: seed, Career: "Spacer", Decider: lineBranchDecider{},
+			Seed: seed, Career: "Spacer", Decider: branchDecider{name: selected},
 		})
 		if err != nil {
 			t.Fatalf("seed %d: %v", seed, err)
 		}
 
 		record := c.Careers[len(c.Careers)-1]
-		if !record.Began {
+		if !record.Began || firstBranchSet(c) != selected || !reachedEnsign(c) {
 			continue
 		}
 
-		entry := firstBranchSet(c)
-		if entry == "" {
-			continue
-		}
-
-		if entry != "Crew" {
-			// The Soc check failed and a branch was rolled instead.
-			continue
-		}
-
-		// An enlisted Spacer in the Line row serves as Crew; once
-		// commissioned the same row reads Line.
-		if !slices.ContainsFunc(c.Events, func(e chargen.Event) bool {
-			return e.Kind == chargen.EventConsequence &&
-				e.Consequence.Kind == chargen.ConsequenceRankSet &&
-				e.Consequence.Skill == "Ensign"
-		}) {
-			continue
-		}
-
-		if record.Branch != "Line" {
-			t.Fatalf("seed %d: commissioned Spacer serves in %q, want Line", seed, record.Branch)
-		}
-
-		return
+		return record.Branch, true
 	}
 
-	t.Skip("no seed in 1..200 chose Line as a rating and was then commissioned")
+	t.Skipf("no seed in 1..200 selected %s as a rating and was then commissioned", selected)
+
+	return "", false
+}
+
+// reachedEnsign reports whether the character was commissioned into the
+// Naval officer ladder (chart 07's O1).
+func reachedEnsign(c chargen.Character) bool {
+	return slices.ContainsFunc(c.Events, func(e chargen.Event) bool {
+		return e.Kind == chargen.EventConsequence &&
+			e.Consequence.Kind == chargen.ConsequenceRankSet &&
+			e.Consequence.Skill == "Ensign"
+	})
 }
 
 // firstBranchSet returns the branch the character entered.

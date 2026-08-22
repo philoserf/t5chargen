@@ -164,6 +164,7 @@ below cover what is particular to chart 07.
 | To Begin Int; Select Branch Soc; Continue Str | chart 07 A | shared mechanics over chart 07 data | golden seed 659 | covered |
 | Naval Branch prints Officer and Enlisted sides per row | chart 07 | `career.Branch.Side` | `TestSpacerCrewBecomesLine` | covered |
 | A branch is selected on the enlisted side, since entry is enlisted | chart 07; p. 65 | `chooseBranch` | golden seed 659 | interpretation I-36 |
+| A selected name binds to the row that reads the same on both sides | chart 07; p. 66 | `sameOnBothSides` | `TestSpacerBranchNameBindsStableRow` | interpretation I-36 — keeping the branch on commission keeps its Mod |
 | "for Spacers, Crew becomes Line" on commission | p. 66 | `enterRank` refreshes the branch | `TestSpacerCrewBecomesLine` | covered — the row is fixed, the side follows the rank |
 | Naval Operations takes no Branch DM | chart 07 vs 08 | `operations_use_branch_dm` absent | data | covered (chart 07 prints only "DM +2 if Edu 10+") |
 | Patrol and Strike both open the Patrol/Strike column | chart 07 C | `Operation.Column` | golden seed 659 | covered |

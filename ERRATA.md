@@ -814,19 +814,36 @@ The selection therefore offers the enlisted side: an entering Spacer picks
 among Crew, Engineer, Gunnery, Technical, and Medical, and the Mod he
 weighs is the one his own Risk roll will carry.
 
-Offering the officer side instead has two visible costs. The event log
-records a character choosing "Line" and then serving as "Crew". And
-because the alternatives are deduplicated by name, chart 07's row 3 —
-officer Line, enlisted Engineer at Mod 0 — collapses into row 1 and
-becomes unreachable by selection, leaving it available only to a character
-who rolls a 3.
+Offering the officer side instead has a visible cost: the event log
+records a character choosing "Line" and then serving as "Crew".
+
+Either side deduplicates. The chart prints eight rows and fewer distinct
+names, so a name has to bind to one row, and the rows it does not bind to
+stay reachable only by the roll. On the officer side, rows 2 and 3 (both
+Line) collapse into row 1; on the enlisted side, rows 2 (Crew), 4
+(Engineer), and 6 (Gunnery) collapse into rows 1, 3, and 5. Neither scheme
+escapes that, so which row a name binds to is a decision, not a by-product:
+
+**A name binds to the row that reads the same on both sides.** Enlisted
+Engineer appears on row 3, whose officer side is Line, and on row 4, whose
+officer side is Engineer; the name binds to row 4. Enlisted Gunnery
+appears on rows 5 (officer Gunnery) and 6 (officer Flight); it binds to
+row 5. A character who selects a branch and then keeps it — p. 66 lets a
+commissioned character "roll for Branch or keep his current Branch" — is
+therefore still in the branch he selected, at the Mod he weighed on entry.
+Binding to the mixed row instead would quietly move a rating who chose
+Engineer at Mod 0 into Line at Mod 1: a Mod he never chose, and, under the
+`select_branch` policy, the opposite of the one he was picked for. Crew is
+the exception the chart forces — no row reads Crew on both sides, so it
+binds to row 1 and a commission does turn Crew into Line, which is exactly
+the case p. 66 names.
 
 The rows themselves are unaffected: a commission moves the character
 across the row he already holds, which is what "for Spacers, Crew becomes
-Line" (p. 66) describes. What p. 66 also allows — "may roll for Branch or
-keep his current Branch" — is the reroll deferred under I-34.
+Line" (p. 66) describes. The other half of that sentence — the option to
+reroll Branch rather than keep it — is deferred under I-34.
 
-Implemented at `chargen/armedforces.go` (`chooseBranch`).
+Implemented at `chargen/armedforces.go` (`chooseBranch`, `sameOnBothSides`).
 
 ### I-37: The Peacekeeper column and the Peace Keeper assignment (pp. 82, 86)
 

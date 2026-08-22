@@ -47,7 +47,8 @@ func (m *armedForcesMechanics) branchSide(r *careerRun) (string, int) {
 	return m.branch.Side(m.isOfficer(r))
 }
 
-// newSoldier and newSpacer are the Armed Forces careerRegistry entries.
+// newSoldier, newSpacer, and newMarine are the Armed Forces
+// careerRegistry entries.
 //
 //nolint:ireturn // The registry's function type returns the interface.
 func newSoldier() (*career.Definition, careerMechanics, error) {
@@ -165,17 +166,32 @@ func (m *armedForcesMechanics) chooseBranch(r *careerRun) (career.Branch, error)
 		// Crew and Engineer, not Line and Flight (interpretation I-36,
 		// ERRATA.md).
 		name, mod := branch.Side(officer)
-		if slices.Contains(options, name) {
+
+		// The score pairs the Branch Mod with its DM so a policy can
+		// break ties on the DM, which decides how far the Operations
+		// roll is pushed down its table (POLICY.md).
+		score := mod*branchDMRange + branch.DM
+
+		if at := slices.Index(options, name); at >= 0 {
+			// Several rows can print the same name on the side being
+			// selected and differ on the other: chart 07 prints enlisted
+			// Engineer on row 3 (officer Line) and row 4 (officer
+			// Engineer). A name binds to the row that reads the same on
+			// both sides, so a character who "may roll for Branch or keep
+			// his current Branch" (p. 66) keeps the branch he selected
+			// instead of crossing into another one on commission
+			// (interpretation I-36, ERRATA.md).
+			if sameOnBothSides(branch) && !sameOnBothSides(branches[at]) {
+				branches[at] = branch
+				scores[at] = score
+			}
+
 			continue
 		}
 
 		options = append(options, name)
 		branches = append(branches, branch)
-
-		// The score pairs the Branch Mod with its DM so a policy can
-		// break ties on the DM, which decides how far the Operations
-		// roll is pushed down its table (POLICY.md).
-		scores = append(scores, mod*branchDMRange+branch.DM)
+		scores = append(scores, score)
 	}
 
 	chosen, _, err := choose(r.log, r.decider, Choice{
@@ -195,6 +211,17 @@ func (m *armedForcesMechanics) chooseBranch(r *careerRun) (career.Branch, error)
 // branchDMRange scales the Branch Mod above every Branch DM, so a score
 // orders by Mod first and DM second.
 const branchDMRange = 100
+
+// sameOnBothSides reports whether a Branch row reads the same name for an
+// officer and for an enlisted character, which is every row of a chart
+// that prints one set (chart 08, chart 12) and the rows chart 07 prints
+// identically on both sides.
+func sameOnBothSides(b career.Branch) bool {
+	officerName, _ := b.Side(true)
+	enlistedName, _ := b.Side(false)
+
+	return officerName == enlistedName
+}
 
 // enterBranch records the branch and awards its automatic skill: "if
 // Medical Branch= Medic-1; If Technical Branch= any Trade" (chart 08).

@@ -2,23 +2,23 @@
 
 **Name**:
 
-**UPP**: 678C79
+**UPP**: 998C7B
 
 **Homeworld**: Regina A788899-C (Ph Pa Ri)
 
-**Age**: 42
+**Age**: 38
 
 | Str | Dex | End | Int | Edu | Soc |
 | --- | --- | --- | --- | --- | --- |
-| 6 | 7 | 8 | 12 | 7 | 9 |
+| 9 | 9 | 8 | 12 | 7 | 11 |
 
 **Education**: ED5 — graduated
 
-**Career**: Spacer (6 terms), Line, MCG-1, XS-2, MCUF-2, SEH-1, Lieutenant O3
+**Career**: Spacer (5 terms), Engineer, MCG-1, XS-1, MCUF-2, SEH-1, Lt Commander O4
 
-**Skills**: Actor-1, Admin-5, Astrogator-6, Comms-2, Diplomat-4, Engineer-1, Fighter-1, Liaison-3, Trader-1
+**Skills**: Actor-1, Admin-3, Astrogator-5, Comms-1, Diplomat-3, Engineer-1, Fighter-1, Liaison-1, Pilot-1, Trader-1
 
-**Status**: Wound Badges 2
+**Status**: Wound Badges 1
 
 ---
 
