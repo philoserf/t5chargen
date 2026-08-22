@@ -18,18 +18,18 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.10.0"
+	SchemaVersion = "0.11.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.10.0"
+	EngineVersion = "0.11.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
-	PolicyVersion = "0.8.0"
+	PolicyVersion = "0.9.0"
 
 	// RNGAlgorithm names the recorded random stream: Go math/rand/v2 PCG,
 	// seeded as documented at dice.New. The exact string is compared on
@@ -189,6 +189,15 @@ type CareerRecord struct {
 	Rank      string `json:"rank,omitempty"`
 	RankTitle string `json:"rank_title,omitempty"`
 
+	// Branch is the Armed Forces branch served in (chart 08, p. 82);
+	// Medals are the decorations earned, in the card's own notation
+	// ("MCUF-1. XS-1.", p. 65); ServiceBadges counts the Risk-success
+	// Exemplary Service Badges, which carry no promotion modifier
+	// (interpretation I-32, ERRATA.md).
+	Branch        string  `json:"branch,omitempty"`
+	Medals        []Award `json:"medals,omitempty"`
+	ServiceBadges int     `json:"service_badges,omitempty"`
+
 	// Exiled, TimesExiled, and SuccessfulIntrigues are the Noble's state
 	// (chart 11, p. 85): "Exile is a banishment to the edges of the empire
 	// orchestrated by political enemies." The two counters modify the
@@ -232,6 +241,15 @@ type CareerRecord struct {
 	ShipShares int `json:"ship_shares,omitempty"`
 
 	Terms []TermRecord `json:"terms"`
+}
+
+// Award is one decoration and how many times it was earned, in the
+// character card's notation (p. 65: "MCUF-1. XS-1. WB-1.").
+type Award struct {
+	Code  string `json:"code"`
+	Name  string `json:"name,omitempty"`
+	Count int    `json:"count"`
+	Mod   int    `json:"mod,omitempty"`
 }
 
 // TermRecord is one term's outcome.

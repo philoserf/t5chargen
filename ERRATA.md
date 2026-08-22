@@ -703,3 +703,97 @@ Knight, which is a consequence of the printed rules rather than a
 deviation.
 
 Implemented at `chargen/noble.go` (`raiseSoc`, `characteristicRaised`).
+
+### I-31: Wound Badges do not modify promotion (p. 82 chart 08; p. 70)
+
+Chart 08 stars its Officer Promotion and Enlisted Promotion rows and
+explains them as "*+Medals and WB Mods". The Imperial Medals table says the
+opposite: "Medals (but not Wound Badges) are Mods for Soldier / Spacer /
+Marine Promotion" (p. 70).
+
+The p. 70 footnote governs. The p. 65 worked example is the discriminator:
+Eneri Dinsha holds one Exemplary Service and one Wound Badge when his first
+promotion is computed as "Soc plus Medal Mods (10 **+1**) =11" — the XS
+contributes its +1 and the Wound Badge nothing. His second term, holding
+one XS, one MCUF and still one Wound Badge, reads "(10 +1+2)": again the
+two medals only.
+
+Residual: the worked example is an officer, so it discriminates the Officer
+Promotion row directly and the Enlisted Promotion row only by extension of
+the footnote's own wording, which names the promotion of all three
+services without distinguishing the ladders.
+
+Implemented at `chargen/soldier.go` (`medalMod`), and in the data as
+`medal_mods` on the two promotion rows.
+
+### I-32: The Risk-success badge carries no promotion modifier (p. 82 chart 08)
+
+Chart 08's Risk row awards on success an "XS Exemplary Service Badge", the
+same code the Imperial Medals table gives for a Reward roll of 2 through 8.
+Read literally, every unharmed term would also add +1 to later promotions.
+
+The Medals table is indexed by "Rew= Successful unmodified **Reward** Roll"
+and has no row for a Risk result, so a Risk success awards a decoration
+outside the table. It is counted on the record and carries no modifier.
+The p. 66 Marine example agrees in spirit, awarding a *Campaign Ribbon* on
+its Risk success rather than a table medal.
+
+The alternative — treating the badge as a table XS worth +1 — is rejected
+because it would make the promotion modifier a count of unharmed terms
+rather than of decorations, and would let a character promote steadily
+while never once succeeding at Reward.
+
+Implemented at `chargen/soldier.go` (`riskAndReward`), recorded as
+`service_badges`.
+
+### I-33: Branch and Operations rolls that run off their tables (p. 82 chart 08)
+
+Chart 08 rolls 1D on an eight-row Branch table with "DM +2 if Edu 10+", and
+1D on a nine-row Operations table with "1D+Branch DM plus +2 if Edu 10+".
+The Technical branch's DM of +6 with the education modifier reaches 14
+against nine rows.
+
+A roll past the end of either table reads its last row; a roll below the
+start reads its first. The tables are printed as complete lists with no
+wrap or reroll instruction, and the modifiers are plainly meant to push a
+character toward the later rows — for Operations, toward Base and its Mod
+of zero, which is the quiet posting a highly educated technician would
+draw.
+
+Implemented at `career/career.go` (`BranchAt`, `OperationAt`).
+
+### I-34: Branch changes (p. 82 chart 08; p. 66)
+
+Chart 08 says "Officers may not change Branch; Enlisted may select new
+Branch on Promotion", and chart 07 repeats it. The p. 66 prose says instead
+that "A non-officer character may change (reselect or reroll) Branch at the
+end of each Term."
+
+Neither is implemented in v1: the engine sets a branch on entry and keeps
+it. The two texts disagree on when an enlisted character may change, and
+nothing else in the career turns on the difference until the branch-change
+choice exists. Recorded here so the next Armed Forces career resolves it
+rather than inheriting the omission silently.
+
+When it lands, the charts are the narrower and more specific statement and
+agree with each other, which argues for "on Promotion"; the prose is the
+general rule and argues for "at the end of each Term".
+
+Not implemented; see COVERAGE.md.
+
+### I-35: A Reward success awards only the table medal (p. 82 chart 08)
+
+Chart 08's Risk & Reward grid gives the Reward-success cell as "XS Exemplary
+Service, Medal", and the prose beside it as "Success: XS Exemplary Service
+and consult Medals table". Read as a conjunction, every Reward success would
+award an Exemplary Service *plus* whatever the Medals table returns.
+
+The Medals table itself is the discriminator: its lines 2 through 8 *are*
+"XS Exemplary Service" (p. 70), so the cell names the common case and then
+sends the reader to the table for the rest. The p. 66 worked example
+confirms it — Eneri Dinsha succeeds at Reward twice, taking line 4 (XS) in
+his first term and line 10 (MCUF) in his second, and his card reads
+"MCUF-1. XS-1.": two Reward successes, two decorations, not four.
+
+Implemented at `chargen/soldier.go` (`riskAndReward` calls `awardMedal`
+once on a Reward success).

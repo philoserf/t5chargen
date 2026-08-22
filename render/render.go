@@ -128,7 +128,7 @@ func careerLine(record chargen.CareerRecord) string {
 func careerValues(record chargen.CareerRecord) string {
 	var parts []string
 
-	parts = append(parts, scholarAndNobleValues(record)...)
+	parts = append(parts, careerSpecificValues(record)...)
 
 	if record.Specialty != "" {
 		parts = append(parts, record.Specialty)
@@ -157,9 +157,19 @@ func careerValues(record chargen.CareerRecord) string {
 	return ", " + strings.Join(parts, ", ")
 }
 
-// scholarAndNobleValues renders the values those two careers track.
-func scholarAndNobleValues(record chargen.CareerRecord) []string {
+// careerSpecificValues renders the state only some careers track: the
+// Soldier's Branch and medals, the Noble's land grants and exile, the
+// Scholar's publications.
+func careerSpecificValues(record chargen.CareerRecord) []string {
 	var parts []string
+
+	if record.Branch != "" {
+		parts = append(parts, record.Branch)
+	}
+
+	for _, award := range record.Medals {
+		parts = append(parts, fmt.Sprintf("%s-%d", award.Code, award.Count))
+	}
 
 	if record.LandGrants > 0 {
 		parts = append(parts, plural(record.LandGrants, "Land Grant"))
@@ -444,6 +454,24 @@ func consequenceNobleText(c *chargen.ConsequenceEvent) string {
 		return "Elevated"
 	case chargen.ConsequenceLandGrant:
 		return fmt.Sprintf("Land Grant (total %d)", c.Value)
+	default:
+		return consequenceArmedForcesText(c)
+	}
+}
+
+// consequenceArmedForcesText renders the chart 08 consequence kinds.
+//
+//nolint:exhaustive // Deliberately partitioned: earlier kinds are handled upstream.
+func consequenceArmedForcesText(c *chargen.ConsequenceEvent) string {
+	switch c.Kind {
+	case chargen.ConsequenceBranchSet:
+		return "Branch " + c.Skill
+	case chargen.ConsequenceOperation:
+		return fmt.Sprintf("assignment %s (Mod %d)", c.Skill, c.Value)
+	case chargen.ConsequenceMedal:
+		return fmt.Sprintf("%s (total %d)", c.Skill, c.Value)
+	case chargen.ConsequenceServiceBadge:
+		return fmt.Sprintf("Exemplary Service Badge (total %d)", c.Value)
 	default:
 		return string(c.Kind)
 	}
