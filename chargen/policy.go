@@ -39,7 +39,14 @@ func (DefaultPolicy) Choose(c Choice) int {
 		// promotion attempt has no stated cost either, and rank carries
 		// skills and muster-out benefits.
 		return 0
-	case ChooseCareer, ChooseHobby, ChooseHomeworld, ChooseArt, ChooseTrade,
+	case ChooseCareer:
+		// POLICY.md: Citizen by name. The alternatives are listed in
+		// chart order, so first-listed would hand the default career to
+		// whichever chart number is lowest among those implemented —
+		// changing every generated character each time an earlier chart
+		// lands.
+		return indexOrFirst(c.Options, "Citizen")
+	case ChooseHobby, ChooseHomeworld, ChooseArt, ChooseTrade,
 		ChooseService, ChooseMajor, ChooseMinor, ChooseSkill:
 		// POLICY.md: first-listed.
 		return 0
