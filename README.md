@@ -10,7 +10,8 @@ Go module: `github.com/philoserf/t5chargen`. Standard library only.
 
 The spec is [docs/PRD.md](docs/PRD.md). Milestones 1 (foundations) and 2
 (pre-career: homeworld skills, education) are complete; milestone 3 (careers)
-is in progress with 10 of 13 careers playable.
+is in progress with 11 of 13 careers playable — every career reachable
+as a first career.
 
 What works today:
 
@@ -19,7 +20,7 @@ What works today:
   Apprenticeship, College, University, Service Academy).
 - The **Citizen**, **Scholar**, **Entertainer**, **Scout**, **Merchant**,
   **Noble**, and the Armed Forces (**Spacer**, **Soldier**, **Marine**)
-  and **Agent** careers end-to-end: controlling characteristics, per-term
+  **Agent**, and **Rogue** careers end-to-end: controlling characteristics, per-term
   skills, Risk & Reward, injury and death, rank with commission,
   promotion and tenure, the Entertainer's Fame and Talent, the Scholar's
   publications and waivers, the Noble's exile and elevation, continuation
@@ -32,7 +33,8 @@ What works today:
   schema/engine/policy versions, ruleset), rendered as a Markdown character
   sheet or a generation-record transcript.
 
-Not yet implemented: the other 3 careers, aging, career changes, muster out
+Not yet implemented: Craftsman and Functionary (neither reachable as a
+first career, both gated on career changes), aging, career changes, muster out
 and benefits, fame processing, interactive mode, batch generation, and the
 replay verifier. [COVERAGE.md](COVERAGE.md) maps every implemented rule to its
 page cite and lists the deferrals; [ERRATA.md](ERRATA.md) records deliberate
@@ -47,7 +49,7 @@ t5chargen render char.json --history          # generation-record transcript
 ```
 
 `new` requires `--auto` (interactive mode is planned). Optional flags:
-`--name`, `--career citizen|scholar|entertainer|scout|merchant|spacer|soldier|noble|marine|agent`, `--homeworld "UWP TC TC..."` (for example
+`--name`, `--career citizen|scholar|entertainer|scout|merchant|spacer|soldier|noble|marine|agent|rogue`, `--homeworld "UWP TC TC..."` (for example
 `"A788899-C Ph Pa Ri"`; defaults to Regina), `--force`. Omitting `--seed`
 draws one from OS entropy; the seed is recorded, so any record can be
 regenerated exactly.

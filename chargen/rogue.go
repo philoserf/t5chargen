@@ -1,0 +1,272 @@
+package chargen
+
+// Rogue career mechanics (Book 1 chart 10, p. 84; prose pp. 64-66).
+// "To Begin CC / Risk & Reward CC* / Continue CC*" with "*Mod +Terms. But,
+// 12 is always automatic failure." (chart 10 box A)
+//
+// "A Rogue selects one Controlling Characteristic (C1 C2 C3 C4 C5 C6)
+// which is then used throughout his career (not just in the current
+// Term)." Every other career rotates its controlling characteristic; the
+// Rogue picks once, and that pick is also his To Begin and Continue
+// target.
+//
+// "A Rogue focuses on a Scheme: a plan to amass at the expense of others.
+// In each Term, the Rogue masterminds a Scheme (from the Rogue Schemes
+// table) and consults Risk & Reward."
+//
+// A failed Risk sends him to prison rather than the infirmary: chart 10's
+// Risk row prints no characteristic reduction, so a Rogue takes no wound
+// badge and cannot die at his own trade (interpretation I-41, ERRATA.md).
+//
+// Deferred: spending the Payoff, and the muster-out table D (docs/PRD.md
+// milestone 4); selecting a previous career as the Scheme, which needs
+// career changes (milestone 4).
+
+import (
+	"fmt"
+	"strconv"
+
+	"github.com/philoserf/t5chargen/career"
+)
+
+// The chart 10 eligibilities and limits.
+const (
+	rogueFailedScheme     = 1
+	rogueSuccessfulScheme = 4
+	roguePrisonSkills     = 2
+	roguePrisonMaxYears   = 4
+
+	// roguePrisonColumns is the chart's restriction: "In Prison: Prison
+	// Skills from the Rogue Skills table column 1 or 2 only".
+	roguePrisonColumns = 2
+)
+
+// rogueMechanics is the Rogue careerMechanics implementation.
+type rogueMechanics struct{}
+
+// newRogue is the Rogue careerRegistry entry.
+//
+//nolint:ireturn // The registry's function type returns the interface.
+func newRogue() (*career.Definition, careerMechanics, error) {
+	def, err := career.Rogue()
+	if err != nil {
+		return nil, nil, fmt.Errorf("rogue career: %w", err)
+	}
+
+	if def.Schemes == nil || len(def.Schemes.Rows) == 0 {
+		return nil, nil, fmt.Errorf("%w: rogue career has no schemes table", errNotImplemented)
+	}
+
+	return def, &rogueMechanics{}, nil
+}
+
+// begin selects the career-long controlling characteristic and rolls To
+// Begin against it. The selection comes first because the check targets it
+// (chart 10 box A; interpretation I-42, ERRATA.md).
+func (*rogueMechanics) begin(r *careerRun) (bool, error) {
+	r.log.Step("Rogue: To Begin", r.def.Cite)
+
+	cc, err := r.chooseCC()
+	if err != nil {
+		return false, err
+	}
+
+	value, ok := characteristicValue(&r.character.Characteristics, cc)
+	if !ok {
+		return false, fmt.Errorf("%w: %q", errUnknownCharacteristic, cc)
+	}
+
+	throw := r.roller.Check(2, value)
+	seq := r.log.Throw(throw, nil, r.def.Cite+" (To Begin vs "+cc+")")
+
+	if throw.Success {
+		return true, nil
+	}
+
+	r.character.Age++
+	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceYearsElapsed, Value: 1})
+	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerNotBegun, Career: r.def.Name})
+
+	return false, nil
+}
+
+// resolveTerm runs a prison term where one is owed, and otherwise the
+// term's Scheme.
+func (m *rogueMechanics) resolveTerm(r *careerRun, cc string) (termOutcome, error) {
+	if r.record.PrisonYears > 0 {
+		return m.prisonTerm(r), nil
+	}
+
+	return m.schemeTerm(r, cc)
+}
+
+// prisonTerm serves a sentence: "In Prison: Prison Skills from the Rogue
+// Skills table column 1 or 2 only. Receives ONLY Prison Skills (not Term
+// or Scheme Skills)." (chart 10 table B) One term serves any sentence, the
+// chart's maximum being four years (interpretation I-43, ERRATA.md).
+func (*rogueMechanics) prisonTerm(r *careerRun) termOutcome {
+	served := r.record.PrisonYears
+	r.record.PrisonYears = 0
+
+	seq := r.log.Step("Rogue: In Prison", r.def.Cite)
+	r.log.Consequence(ConsequenceEvent{
+		Cause: seq, Kind: ConsequenceImprisoned, Career: r.def.Name, Value: served,
+	})
+
+	columns := make([]string, 0, roguePrisonColumns)
+	for _, column := range r.def.SkillColumns[:roguePrisonColumns] {
+		columns = append(columns, column.Name)
+	}
+
+	return termOutcome{skillRolls: roguePrisonSkills, termColumns: columns}
+}
+
+// schemeTerm masterminds a Scheme and consults Risk & Reward.
+func (m *rogueMechanics) schemeTerm(r *careerRun, cc string) (termOutcome, error) {
+	var outcome termOutcome
+
+	scheme, err := m.scheme(r)
+	if err != nil {
+		return outcome, err
+	}
+
+	mod, err := chooseRiskMod(r, r.def.Cite)
+	if err != nil {
+		return outcome, err
+	}
+
+	// "Select Caution, Bravery, or No Mod and Mod+Terms" (chart 10).
+	mod += len(r.record.Terms)
+
+	value, ok := characteristicValue(&r.character.Characteristics, cc)
+	if !ok {
+		return outcome, fmt.Errorf("%w: %q", errUnknownCharacteristic, cc)
+	}
+
+	caught := false
+
+	risk := r.roller.Check(2, value+mod)
+	riskSeq := r.log.Throw(risk, rogueMods(mod, 1), r.def.Cite+" (Risk vs "+cc+"+Mods)")
+
+	if !risk.Success {
+		caught = true
+
+		m.imprison(r, mod, riskSeq)
+	}
+
+	reward := r.roller.Check(2, value-mod)
+	rewardSeq := r.log.Throw(reward, rogueMods(mod, -1), r.def.Cite+" (Reward vs "+cc+"+ opposite sign Mods)")
+
+	outcome.skillRolls = r.def.SkillsPerTerm + rogueFailedScheme
+
+	if !reward.Success {
+		r.log.Consequence(ConsequenceEvent{Cause: rewardSeq, Kind: ConsequenceNoAward})
+
+		return outcome, nil
+	}
+
+	outcome.success = true
+	outcome.skillRolls = r.def.SkillsPerTerm + rogueSuccessfulScheme
+
+	m.payoff(r, scheme, value, reward.Total, -mod, caught, rewardSeq)
+
+	return outcome, nil
+}
+
+// rogueMods itemizes the Caution or Bravery mod together with the Terms
+// mod chart 10 adds to both rolls.
+func rogueMods(mod, sign int) []Mod {
+	if mod == 0 {
+		return nil
+	}
+
+	return []Mod{{Name: "Caution/Bravery and Terms", Value: mod * sign}}
+}
+
+// scheme rolls the term's Scheme and offers the chart's adjustment: "Flux
+// may be modified (after roll) plus or minus 1" (chart 10).
+func (*rogueMechanics) scheme(r *careerRun) (career.SchemeRow, error) {
+	flux := r.roller.Flux()
+	seq := r.log.Flux(flux, r.def.Schemes.Cite)
+
+	chosen, _, err := choose(r.log, r.decider, Choice{
+		ID:      ChooseSchemeFlux,
+		Prompt:  "Modify the Scheme Flux?",
+		Options: []string{"As rolled", "Minus 1", "Plus 1"},
+		Scores:  []int{flux.Value, flux.Value - 1, flux.Value + 1},
+		Cite:    r.def.Schemes.Cite + " (Flux may be modified (after roll) plus or minus 1)",
+	})
+	if err != nil {
+		return career.SchemeRow{}, err
+	}
+
+	value := []int{flux.Value, flux.Value - 1, flux.Value + 1}[chosen]
+
+	scheme := r.def.Schemes.SchemeAt(value)
+	r.record.Scheme = scheme.Career
+
+	r.log.Consequence(ConsequenceEvent{
+		Cause: seq, Kind: ConsequenceScheme, Career: r.def.Name, Skill: scheme.Career, Value: value,
+	})
+
+	return scheme, nil
+}
+
+// imprison applies a Risk failure: "Prison for (sum of negative Mods +
+// Flux) years at the start of the next Term (may be zero; maximum 4).
+// Fame +1 (actually Infamy)" (chart 10).
+func (*rogueMechanics) imprison(r *careerRun, mod, cause int) {
+	flux := r.roller.Flux()
+	r.log.Flux(flux, r.def.Cite+" (Prison for the sum of negative Mods and Flux)")
+
+	years := min(max(-(min(mod, 0)+flux.Value), 0), roguePrisonMaxYears)
+	r.record.PrisonYears = years
+
+	r.character.Fame++
+	r.log.Consequence(ConsequenceEvent{
+		Cause: cause, Kind: ConsequenceFameChange, Delta: 1, Value: r.character.Fame,
+	})
+
+	if years == 0 {
+		return
+	}
+
+	r.log.Consequence(ConsequenceEvent{
+		Cause: cause, Kind: ConsequenceSentenced, Career: r.def.Name, Value: years,
+	})
+}
+
+// payoff applies a Reward success: "Payoff= V x (1+CC-R+Mods)", halved
+// where the Risk also failed (chart 10; interpretation I-44, ERRATA.md).
+func (*rogueMechanics) payoff(
+	r *careerRun, scheme career.SchemeRow, cc, reward, mods int, caught bool, cause int,
+) {
+	multiplier := max(1+cc-reward+mods, 0)
+
+	switch {
+	case scheme.ShipShares > 0:
+		shares := scheme.ShipShares * multiplier
+		if caught {
+			shares /= 2
+		}
+
+		r.record.ShipShares += shares
+
+		r.log.Consequence(ConsequenceEvent{
+			Cause: cause, Kind: ConsequenceShipShares, Delta: shares, Value: r.record.ShipShares,
+		})
+	default:
+		payoff := scheme.Credits * multiplier
+		if caught {
+			payoff /= 2
+		}
+
+		r.record.SchemePayoff += payoff
+
+		r.log.Consequence(ConsequenceEvent{
+			Cause: cause, Kind: ConsequencePayoff, Career: r.def.Name,
+			Delta: payoff, Value: r.record.SchemePayoff,
+			Skill: "x" + strconv.Itoa(multiplier),
+		})
+	}
+}

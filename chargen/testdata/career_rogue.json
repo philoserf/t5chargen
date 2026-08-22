@@ -5,17 +5,17 @@
   "policy_version": "0.11.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
-    "seed": 26
+    "seed": 39
   },
   "characteristics": {
-    "str": 6,
-    "dex": 3,
-    "end": 7,
-    "int": 10,
-    "edu": 10,
-    "soc": 5
+    "str": 4,
+    "dex": 5,
+    "end": 6,
+    "int": 12,
+    "edu": 8,
+    "soc": 12
   },
-  "upp": "637AA5",
+  "upp": "456C8C",
   "homeworld": {
     "name": "Regina",
     "uwp": "A788899-C",
@@ -25,10 +25,10 @@
       "Ri"
     ]
   },
-  "age": 38,
+  "age": 54,
   "education": [
     {
-      "program": "University",
+      "program": "College",
       "major": "Athlete",
       "minor": "Broker",
       "passes": 4,
@@ -43,77 +43,94 @@
       "level": 1
     },
     {
-      "name": "Animals",
-      "level": 5
-    },
-    {
       "name": "Athlete",
       "level": 5
     },
     {
       "name": "Broker",
+      "level": 12
+    },
+    {
+      "name": "Computer",
+      "level": 9
+    },
+    {
+      "name": "Fighter",
       "level": 2
     },
     {
-      "name": "Hostile Environ",
-      "level": 8
-    },
-    {
-      "name": "Navigator",
+      "name": "JOT",
       "level": 3
     },
     {
-      "name": "Survey",
-      "level": 3
-    },
-    {
-      "name": "Survival",
-      "level": 3
+      "name": "Teacher",
+      "level": 5
     },
     {
       "name": "Trader",
-      "level": 1
-    },
-    {
-      "name": "Vacc Suit",
-      "level": 10
+      "level": 2
     }
   ],
   "careers": [
     {
-      "career": "Scout",
+      "career": "Rogue",
       "began": true,
-      "discoveries": 4,
+      "controlling_characteristic": "Int",
+      "scheme": "Soldier",
+      "scheme_payoff": 300000,
       "terms": [
         {
           "term": 1,
-          "controlling_characteristic": "Str",
-          "success": true,
+          "controlling_characteristic": "Int",
+          "success": false,
           "continued": true
         },
         {
           "term": 2,
-          "controlling_characteristic": "End",
-          "success": true,
+          "controlling_characteristic": "Int",
+          "success": false,
           "continued": true
         },
         {
           "term": 3,
-          "controlling_characteristic": "Dex",
+          "controlling_characteristic": "Int",
           "success": true,
           "continued": true
         },
         {
           "term": 4,
-          "controlling_characteristic": "End",
+          "controlling_characteristic": "Int",
+          "success": false,
+          "continued": true
+        },
+        {
+          "term": 5,
+          "controlling_characteristic": "Int",
+          "success": false,
+          "continued": true
+        },
+        {
+          "term": 6,
+          "controlling_characteristic": "Int",
+          "success": true,
+          "continued": true
+        },
+        {
+          "term": 7,
+          "controlling_characteristic": "Int",
+          "success": false,
+          "continued": true
+        },
+        {
+          "term": 8,
+          "controlling_characteristic": "Int",
           "success": true,
           "continued": false
         }
       ]
     }
   ],
-  "fame": 4,
-  "wound_badges": 2,
+  "fame": 2,
   "events": [
     {
       "seq": 1,
@@ -130,9 +147,9 @@
         "expr": "2D",
         "dice": [
           2,
-          6
+          2
         ],
-        "total": 8,
+        "total": 4,
         "cite": "Book 1 p. 56 chart A"
       }
     },
@@ -143,7 +160,7 @@
         "cause": 2,
         "kind": "characteristic_set",
         "characteristic": "Str",
-        "value": 8
+        "value": 4
       }
     },
     {
@@ -153,9 +170,9 @@
         "expr": "2D",
         "dice": [
           2,
-          3
+          2
         ],
-        "total": 5,
+        "total": 4,
         "cite": "Book 1 p. 56 chart A"
       }
     },
@@ -166,80 +183,11 @@
         "cause": 4,
         "kind": "characteristic_set",
         "characteristic": "Dex",
-        "value": 5
+        "value": 4
       }
     },
     {
       "seq": 6,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          2
-        ],
-        "total": 7,
-        "cite": "Book 1 p. 56 chart A"
-      }
-    },
-    {
-      "seq": 7,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 6,
-        "kind": "characteristic_set",
-        "characteristic": "End",
-        "value": 7
-      }
-    },
-    {
-      "seq": 8,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          6,
-          4
-        ],
-        "total": 10,
-        "cite": "Book 1 p. 56 chart A"
-      }
-    },
-    {
-      "seq": 9,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 8,
-        "kind": "characteristic_set",
-        "characteristic": "Int",
-        "value": 10
-      }
-    },
-    {
-      "seq": 10,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          4
-        ],
-        "total": 9,
-        "cite": "Book 1 p. 56 chart A"
-      }
-    },
-    {
-      "seq": 11,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 10,
-        "kind": "characteristic_set",
-        "characteristic": "Edu",
-        "value": 9
-      }
-    },
-    {
-      "seq": 12,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -252,13 +200,82 @@
       }
     },
     {
+      "seq": 7,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 6,
+        "kind": "characteristic_set",
+        "characteristic": "End",
+        "value": 5
+      }
+    },
+    {
+      "seq": 8,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          6
+        ],
+        "total": 12,
+        "cite": "Book 1 p. 56 chart A"
+      }
+    },
+    {
+      "seq": 9,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 8,
+        "kind": "characteristic_set",
+        "characteristic": "Int",
+        "value": 12
+      }
+    },
+    {
+      "seq": 10,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          1
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 56 chart A"
+      }
+    },
+    {
+      "seq": 11,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 10,
+        "kind": "characteristic_set",
+        "characteristic": "Edu",
+        "value": 6
+      }
+    },
+    {
+      "seq": 12,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          6
+        ],
+        "total": 12,
+        "cite": "Book 1 p. 56 chart A"
+      }
+    },
+    {
       "seq": 13,
       "kind": "consequence",
       "consequence": {
         "cause": 12,
         "kind": "characteristic_set",
         "characteristic": "Soc",
-        "value": 5
+        "value": 12
       }
     },
     {
@@ -340,11 +357,10 @@
           "Trade School",
           "Apprenticeship",
           "College",
-          "University",
           "Service Academy",
           "None"
         ],
-        "chosen": 3,
+        "chosen": 2,
         "cite": "Book 1 p. 60 chart C; p. 57 step C (education is optional)"
       }
     },
@@ -368,13 +384,13 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          5,
+          1,
           5
         ],
-        "total": 10,
-        "target": 10,
+        "total": 6,
+        "target": 12,
         "success": true,
-        "cite": "Book 1 p. 60 chart C (University To Apply Check Int)"
+        "cite": "Book 1 p. 60 chart C (College To Apply Check Int)"
       }
     },
     {
@@ -500,13 +516,13 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          5,
-          1
+          6,
+          5
         ],
-        "total": 6,
-        "target": 10,
+        "total": 11,
+        "target": 12,
         "success": true,
-        "cite": "Book 1 p. 60 chart C (University Pass/Fail Check Int)"
+        "cite": "Book 1 p. 60 chart C (College Pass/Fail Check Int)"
       }
     },
     {
@@ -535,13 +551,13 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          5,
-          1
+          2,
+          5
         ],
-        "total": 6,
-        "target": 10,
+        "total": 7,
+        "target": 12,
         "success": true,
-        "cite": "Book 1 p. 60 chart C (University Pass/Fail Check Int)"
+        "cite": "Book 1 p. 60 chart C (College Pass/Fail Check Int)"
       }
     },
     {
@@ -581,13 +597,13 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          1,
-          4
+          2,
+          1
         ],
-        "total": 5,
-        "target": 10,
+        "total": 3,
+        "target": 12,
         "success": true,
-        "cite": "Book 1 p. 60 chart C (University Pass/Fail Check Int)"
+        "cite": "Book 1 p. 60 chart C (College Pass/Fail Check Int)"
       }
     },
     {
@@ -616,13 +632,13 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          4,
-          2
+          6,
+          4
         ],
-        "total": 6,
-        "target": 10,
+        "total": 10,
+        "target": 12,
         "success": true,
-        "cite": "Book 1 p. 60 chart C (University Pass/Fail Check Int)"
+        "cite": "Book 1 p. 60 chart C (College Pass/Fail Check Int)"
       }
     },
     {
@@ -690,11 +706,11 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          1,
+          3,
           5
         ],
-        "total": 6,
-        "target": 10,
+        "total": 8,
+        "target": 12,
         "success": true,
         "cite": "Book 1 p. 60 chart C (Honors: Int or Edu, simul)"
       }
@@ -717,8 +733,8 @@
         "cause": 42,
         "kind": "characteristic_change",
         "characteristic": "Edu",
-        "delta": 1,
-        "value": 10
+        "delta": 2,
+        "value": 8
       }
     },
     {
@@ -736,7 +752,7 @@
         "decider": "policy",
         "prompt": "Select career",
         "options": [
-          "Scout"
+          "Rogue"
         ],
         "chosen": 0,
         "cite": "Book 1 p. 72 chart E1 step D"
@@ -746,8 +762,8 @@
       "seq": 47,
       "kind": "step",
       "step": {
-        "name": "Scout: To Begin",
-        "cite": "Book 1 p. 79 chart 05 (To Begin C1 or C2 or C3)"
+        "name": "Rogue: To Begin",
+        "cite": "Book 1 p. 84 chart 10"
       }
     },
     {
@@ -755,14 +771,17 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select the characteristic to check",
+        "prompt": "Select the term's controlling characteristic",
         "options": [
           "Str",
           "Dex",
-          "End"
+          "End",
+          "Int",
+          "Edu",
+          "Soc"
         ],
-        "chosen": 0,
-        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
       }
     },
     {
@@ -771,36 +790,34 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          2,
+          6,
           3
         ],
-        "total": 5,
-        "target": 8,
+        "total": 9,
+        "target": 12,
         "success": true,
-        "cite": "Book 1 p. 79 chart 05 (To Begin vs Str)"
+        "cite": "Book 1 p. 84 chart 10 (To Begin vs Int)"
       }
     },
     {
       "seq": 50,
       "kind": "step",
       "step": {
-        "name": "Scout: Term 1",
-        "cite": "Book 1 p. 79 chart 05"
+        "name": "Rogue: Term 1",
+        "cite": "Book 1 p. 84 chart 10"
       }
     },
     {
       "seq": 51,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Str",
-          "Dex",
-          "End"
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          1,
+          6
         ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+        "total": -5,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)"
       }
     },
     {
@@ -808,17 +825,29 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select the term's duty",
+        "prompt": "Modify the Scheme Flux?",
         "options": [
-          "Courier Duty",
-          "Explorer Duty"
+          "As rolled",
+          "Minus 1",
+          "Plus 1"
         ],
-        "chosen": 1,
-        "cite": "Book 1 p. 79 (Courier Duty avoids Risk and Reward; chart 05 table B)"
+        "chosen": 0,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes) (Flux may be modified (after roll) plus or minus 1)"
       }
     },
     {
       "seq": 53,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 51,
+        "kind": "scheme",
+        "skill": "Scholar",
+        "career": "Rogue",
+        "value": -5
+      }
+    },
+    {
+      "seq": 54,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -845,89 +874,78 @@
           "Bravery -9"
         ],
         "chosen": 0,
-        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); chart 05 p. 79"
-      }
-    },
-    {
-      "seq": 54,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          5
-        ],
-        "total": 9,
-        "target": 8,
-        "success": false,
-        "cite": "Book 1 p. 79 chart 05 (Risk vs Str+Mods)"
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 84 chart 10"
       }
     },
     {
       "seq": 55,
       "kind": "throw",
       "throw": {
-        "expr": "Flux",
+        "expr": "2D",
         "dice": [
-          2,
-          4
+          6,
+          6
         ],
-        "total": -2,
-        "cite": "Book 1 p. 79 chart 05 (Risk Failure: reduce CC by negative Mods and Flux)"
+        "total": 12,
+        "target": 12,
+        "success": false,
+        "cite": "Book 1 p. 84 chart 10 (Risk vs Int+Mods)"
       }
     },
     {
       "seq": 56,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 54,
-        "kind": "characteristic_change",
-        "characteristic": "Str",
-        "delta": -2,
-        "value": 6
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          2,
+          6
+        ],
+        "total": -4,
+        "cite": "Book 1 p. 84 chart 10 (Prison for the sum of negative Mods and Flux)"
       }
     },
     {
       "seq": 57,
       "kind": "consequence",
       "consequence": {
-        "cause": 54,
-        "kind": "wound_badge",
+        "cause": 55,
+        "kind": "fame_change",
+        "delta": 1,
         "value": 1
       }
     },
     {
       "seq": 58,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          3
-        ],
-        "total": 5,
-        "target": 8,
-        "success": true,
-        "cite": "Book 1 p. 79 chart 05 (Reward vs Str+ opposite sign Mods)"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 55,
+        "kind": "sentenced",
+        "career": "Rogue",
+        "value": 4
       }
     },
     {
       "seq": 59,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 58,
-        "kind": "discovery",
-        "value": 1
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          6
+        ],
+        "total": 12,
+        "target": 12,
+        "success": false,
+        "cite": "Book 1 p. 84 chart 10 (Reward vs Int+ opposite sign Mods)"
       }
     },
     {
       "seq": 60,
       "kind": "consequence",
       "consequence": {
-        "cause": 58,
-        "kind": "fame_change",
-        "delta": 1,
-        "value": 1
+        "cause": 59,
+        "kind": "no_award"
       }
     },
     {
@@ -935,17 +953,17 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Scout Skills column",
+        "prompt": "Select a Rogue Skills column",
         "options": [
           "Personal",
           "Academic",
-          "Courier",
-          "Exploration",
+          "World Travel",
+          "Space Travel",
           "Business",
           "Vocation",
           "Avocation"
         ],
-        "chosen": 3,
+        "chosen": 4,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
@@ -955,10 +973,10 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          5
+          3
         ],
-        "total": 5,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+        "total": 3,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
     {
@@ -967,7 +985,7 @@
       "consequence": {
         "cause": 62,
         "kind": "skill_awarded",
-        "skill": "Vacc Suit",
+        "skill": "Computer",
         "delta": 1,
         "value": 1
       }
@@ -977,17 +995,17 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Scout Skills column",
+        "prompt": "Select a Rogue Skills column",
         "options": [
           "Personal",
           "Academic",
-          "Courier",
-          "Exploration",
+          "World Travel",
+          "Space Travel",
           "Business",
           "Vocation",
           "Avocation"
         ],
-        "chosen": 3,
+        "chosen": 4,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
@@ -997,10 +1015,10 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          4
+          6
         ],
-        "total": 4,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+        "total": 6,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
     {
@@ -1009,7 +1027,7 @@
       "consequence": {
         "cause": 65,
         "kind": "skill_awarded",
-        "skill": "Animals",
+        "skill": "Fighter",
         "delta": 1,
         "value": 1
       }
@@ -1019,17 +1037,17 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Scout Skills column",
+        "prompt": "Select a Rogue Skills column",
         "options": [
           "Personal",
           "Academic",
-          "Courier",
-          "Exploration",
+          "World Travel",
+          "Space Travel",
           "Business",
           "Vocation",
           "Avocation"
         ],
-        "chosen": 3,
+        "chosen": 4,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
@@ -1039,10 +1057,10 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          5
+          2
         ],
-        "total": 5,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+        "total": 2,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
     {
@@ -1051,200 +1069,77 @@
       "consequence": {
         "cause": 68,
         "kind": "skill_awarded",
-        "skill": "Vacc Suit",
-        "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 70,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scout Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Courier",
-          "Exploration",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 71,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
-      }
-    },
-    {
-      "seq": 72,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 71,
-        "kind": "skill_awarded",
-        "skill": "Survival",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 73,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scout Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Courier",
-          "Exploration",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 74,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
-      }
-    },
-    {
-      "seq": 75,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 74,
-        "kind": "skill_awarded",
-        "skill": "Animals",
-        "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 76,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scout Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Courier",
-          "Exploration",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 77,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
-      }
-    },
-    {
-      "seq": 78,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 77,
-        "kind": "skill_awarded",
-        "skill": "Navigator",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 79,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scout Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Courier",
-          "Exploration",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 80,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
-      }
-    },
-    {
-      "seq": 81,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 80,
-        "kind": "skill_awarded",
-        "skill": "Animals",
+        "skill": "Broker",
         "delta": 1,
         "value": 3
       }
     },
     {
-      "seq": 82,
+      "seq": 70,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          1
+        ],
+        "total": 3,
+        "target": 12,
+        "success": true,
+        "cite": "Book 1 p. 84 chart 10 (Continue Int; p. 66)"
+      }
+    },
+    {
+      "seq": 71,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 70,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 72,
+      "kind": "step",
+      "step": {
+        "name": "Rogue: Term 2",
+        "cite": "Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 73,
+      "kind": "step",
+      "step": {
+        "name": "Rogue: In Prison",
+        "cite": "Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 74,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 73,
+        "kind": "imprisoned",
+        "career": "Rogue",
+        "value": 4
+      }
+    },
+    {
+      "seq": 75,
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Scout Skills column",
+        "prompt": "Select a Rogue Skills column",
         "options": [
           "Personal",
-          "Academic",
-          "Courier",
-          "Exploration",
-          "Business",
-          "Vocation",
-          "Avocation"
+          "Academic"
         ],
-        "chosen": 3,
+        "chosen": 0,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
-      "seq": 83,
+      "seq": 76,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1252,82 +1147,135 @@
           3
         ],
         "total": 3,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+        "cite": "Book 1 p. 84 chart 10 table C, column Personal"
       }
     },
     {
-      "seq": 84,
+      "seq": 77,
       "kind": "consequence",
       "consequence": {
-        "cause": 83,
-        "kind": "skill_awarded",
-        "skill": "Hostile Environ",
+        "cause": 76,
+        "kind": "characteristic_change",
+        "characteristic": "End",
         "delta": 1,
-        "value": 1
+        "value": 6
       }
     },
     {
-      "seq": 85,
+      "seq": 78,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 79,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 84 chart 10 table C, column Personal"
+      }
+    },
+    {
+      "seq": 80,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 79,
+        "kind": "characteristic_change",
+        "characteristic": "Dex",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 81,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          1,
-          5
+          6,
+          1
         ],
-        "total": 6,
-        "target": 10,
+        "total": 7,
+        "target": 13,
         "success": true,
-        "cite": "Book 1 p. 79 chart 05 (Continue Int; p. 66)"
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 1
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Continue Int +Terms; p. 66)"
+      }
+    },
+    {
+      "seq": 82,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 81,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 83,
+      "kind": "step",
+      "step": {
+        "name": "Rogue: Term 3",
+        "cite": "Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 84,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          1,
+          1
+        ],
+        "total": 0,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)"
+      }
+    },
+    {
+      "seq": 85,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Modify the Scheme Flux?",
+        "options": [
+          "As rolled",
+          "Minus 1",
+          "Plus 1"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes) (Flux may be modified (after roll) plus or minus 1)"
       }
     },
     {
       "seq": 86,
       "kind": "consequence",
       "consequence": {
-        "cause": 85,
-        "kind": "years_elapsed",
-        "value": 4
+        "cause": 84,
+        "kind": "scheme",
+        "skill": "Spacer",
+        "career": "Rogue"
       }
     },
     {
       "seq": 87,
-      "kind": "step",
-      "step": {
-        "name": "Scout: Term 2",
-        "cite": "Book 1 p. 79 chart 05"
-      }
-    },
-    {
-      "seq": 88,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Dex",
-          "End"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 89,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's duty",
-        "options": [
-          "Courier Duty",
-          "Explorer Duty"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 79 (Courier Duty avoids Risk and Reward; chart 05 table B)"
-      }
-    },
-    {
-      "seq": 90,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1354,7 +1302,51 @@
           "Bravery -9"
         ],
         "chosen": 0,
-        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); chart 05 p. 79"
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 88,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          6
+        ],
+        "total": 12,
+        "target": 14,
+        "success": false,
+        "mods": [
+          {
+            "name": "Caution/Bravery and Terms",
+            "value": 2
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Risk vs Int+Mods)"
+      }
+    },
+    {
+      "seq": 89,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          4,
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 84 chart 10 (Prison for the sum of negative Mods and Flux)"
+      }
+    },
+    {
+      "seq": 90,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 88,
+        "kind": "fame_change",
+        "delta": 1,
+        "value": 2
       }
     },
     {
@@ -1363,70 +1355,54 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          1,
-          1
+          4,
+          5
         ],
-        "total": 2,
-        "target": 7,
+        "total": 9,
+        "target": 10,
         "success": true,
-        "cite": "Book 1 p. 79 chart 05 (Risk vs End+Mods)"
+        "mods": [
+          {
+            "name": "Caution/Bravery and Terms",
+            "value": -2
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Reward vs Int+ opposite sign Mods)"
       }
     },
     {
       "seq": 92,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          3
-        ],
-        "total": 5,
-        "target": 7,
-        "success": true,
-        "cite": "Book 1 p. 79 chart 05 (Reward vs End+ opposite sign Mods)"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 91,
+        "kind": "payoff",
+        "skill": "x2",
+        "career": "Rogue",
+        "delta": 100000,
+        "value": 100000
       }
     },
     {
       "seq": 93,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 92,
-        "kind": "discovery",
-        "value": 2
-      }
-    },
-    {
-      "seq": 94,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 92,
-        "kind": "fame_change",
-        "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 95,
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Scout Skills column",
+        "prompt": "Select a Rogue Skills column",
         "options": [
           "Personal",
           "Academic",
-          "Courier",
-          "Exploration",
+          "World Travel",
+          "Space Travel",
           "Business",
           "Vocation",
           "Avocation"
         ],
-        "chosen": 3,
+        "chosen": 4,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
-      "seq": 96,
+      "seq": 94,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1434,167 +1410,83 @@
           3
         ],
         "total": 3,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
     {
-      "seq": 97,
+      "seq": 95,
       "kind": "consequence",
       "consequence": {
-        "cause": 96,
+        "cause": 94,
         "kind": "skill_awarded",
-        "skill": "Hostile Environ",
+        "skill": "Computer",
         "delta": 1,
         "value": 2
       }
     },
     {
+      "seq": 96,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 97,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
       "seq": 98,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scout Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Courier",
-          "Exploration",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 99,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
-      }
-    },
-    {
-      "seq": 100,
       "kind": "consequence",
       "consequence": {
-        "cause": 99,
+        "cause": 97,
         "kind": "skill_awarded",
-        "skill": "Survey",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 101,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scout Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Courier",
-          "Exploration",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 102,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
-      }
-    },
-    {
-      "seq": 103,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 102,
-        "kind": "skill_awarded",
-        "skill": "Vacc Suit",
-        "delta": 1,
-        "value": 3
-      }
-    },
-    {
-      "seq": 104,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scout Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Courier",
-          "Exploration",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 105,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
-      }
-    },
-    {
-      "seq": 106,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 105,
-        "kind": "skill_awarded",
-        "skill": "Vacc Suit",
+        "skill": "Broker",
         "delta": 1,
         "value": 4
       }
     },
     {
-      "seq": 107,
+      "seq": 99,
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Scout Skills column",
+        "prompt": "Select a Rogue Skills column",
         "options": [
           "Personal",
           "Academic",
-          "Courier",
-          "Exploration",
+          "World Travel",
+          "Space Travel",
           "Business",
           "Vocation",
           "Avocation"
         ],
-        "chosen": 3,
+        "chosen": 4,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
-      "seq": 108,
+      "seq": 100,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1602,49 +1494,165 @@
           3
         ],
         "total": 3,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
     {
-      "seq": 109,
+      "seq": 101,
       "kind": "consequence",
       "consequence": {
-        "cause": 108,
+        "cause": 100,
         "kind": "skill_awarded",
-        "skill": "Hostile Environ",
+        "skill": "Computer",
         "delta": 1,
         "value": 3
       }
     },
     {
-      "seq": 110,
+      "seq": 102,
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Scout Skills column",
+        "prompt": "Select a Rogue Skills column",
         "options": [
           "Personal",
           "Academic",
-          "Courier",
-          "Exploration",
+          "World Travel",
+          "Space Travel",
           "Business",
           "Vocation",
           "Avocation"
         ],
-        "chosen": 3,
+        "chosen": 4,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 103,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 104,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 103,
+        "kind": "skill_awarded",
+        "skill": "Teacher",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 105,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 106,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 107,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 106,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 108,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 109,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 110,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 109,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 6
       }
     },
     {
       "seq": 111,
       "kind": "throw",
       "throw": {
-        "expr": "1D",
+        "expr": "2D",
         "dice": [
-          5
+          1,
+          1
         ],
-        "total": 5,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+        "total": 2,
+        "target": 14,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 2
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Continue Int +Terms; p. 66)"
       }
     },
     {
@@ -1652,52 +1660,37 @@
       "kind": "consequence",
       "consequence": {
         "cause": 111,
-        "kind": "skill_awarded",
-        "skill": "Vacc Suit",
-        "delta": 1,
-        "value": 5
+        "kind": "years_elapsed",
+        "value": 4
       }
     },
     {
       "seq": 113,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scout Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Courier",
-          "Exploration",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 111,
+        "kind": "mandatory_continue"
       }
     },
     {
       "seq": 114,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      "kind": "step",
+      "step": {
+        "name": "Rogue: Term 4",
+        "cite": "Book 1 p. 84 chart 10"
       }
     },
     {
       "seq": 115,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 114,
-        "kind": "skill_awarded",
-        "skill": "Hostile Environ",
-        "delta": 1,
-        "value": 4
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          2,
+          2
+        ],
+        "total": 0,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)"
       }
     },
     {
@@ -1705,104 +1698,28 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Scout Skills column",
+        "prompt": "Modify the Scheme Flux?",
         "options": [
-          "Personal",
-          "Academic",
-          "Courier",
-          "Exploration",
-          "Business",
-          "Vocation",
-          "Avocation"
+          "As rolled",
+          "Minus 1",
+          "Plus 1"
         ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+        "chosen": 0,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes) (Flux may be modified (after roll) plus or minus 1)"
       }
     },
     {
       "seq": 117,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 115,
+        "kind": "scheme",
+        "skill": "Spacer",
+        "career": "Rogue"
       }
     },
     {
       "seq": 118,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 117,
-        "kind": "skill_awarded",
-        "skill": "Hostile Environ",
-        "delta": 1,
-        "value": 5
-      }
-    },
-    {
-      "seq": 119,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          1
-        ],
-        "total": 3,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 79 chart 05 (Continue Int; p. 66)"
-      }
-    },
-    {
-      "seq": 120,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 119,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 121,
-      "kind": "step",
-      "step": {
-        "name": "Scout: Term 3",
-        "cite": "Book 1 p. 79 chart 05"
-      }
-    },
-    {
-      "seq": 122,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Dex"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 123,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's duty",
-        "options": [
-          "Courier Duty",
-          "Explorer Duty"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 79 (Courier Duty avoids Risk and Reward; chart 05 table B)"
-      }
-    },
-    {
-      "seq": 124,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1829,70 +1746,172 @@
           "Bravery -9"
         ],
         "chosen": 0,
-        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); chart 05 p. 79"
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 84 chart 10"
       }
     },
     {
-      "seq": 125,
+      "seq": 119,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          2,
-          5
+          6,
+          1
         ],
         "total": 7,
-        "target": 5,
+        "target": 15,
+        "success": true,
+        "mods": [
+          {
+            "name": "Caution/Bravery and Terms",
+            "value": 3
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Risk vs Int+Mods)"
+      }
+    },
+    {
+      "seq": 120,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          5
+        ],
+        "total": 11,
+        "target": 9,
         "success": false,
-        "cite": "Book 1 p. 79 chart 05 (Risk vs Dex+Mods)"
+        "mods": [
+          {
+            "name": "Caution/Bravery and Terms",
+            "value": -3
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Reward vs Int+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 121,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 120,
+        "kind": "no_award"
+      }
+    },
+    {
+      "seq": 122,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 123,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 124,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 123,
+        "kind": "skill_awarded",
+        "skill": "Computer",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 125,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 126,
       "kind": "throw",
       "throw": {
-        "expr": "Flux",
+        "expr": "1D",
         "dice": [
-          3,
-          5
+          4
         ],
-        "total": -2,
-        "cite": "Book 1 p. 79 chart 05 (Risk Failure: reduce CC by negative Mods and Flux)"
+        "total": 4,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
     {
       "seq": 127,
       "kind": "consequence",
       "consequence": {
-        "cause": 125,
-        "kind": "characteristic_change",
-        "characteristic": "Dex",
-        "delta": -2,
-        "value": 3
+        "cause": 126,
+        "kind": "skill_awarded",
+        "skill": "JOT",
+        "delta": 1,
+        "value": 1
       }
     },
     {
       "seq": 128,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 125,
-        "kind": "wound_badge",
-        "value": 2
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 129,
       "kind": "throw",
       "throw": {
-        "expr": "2D",
+        "expr": "1D",
         "dice": [
-          2,
-          2
+          3
         ],
-        "total": 4,
-        "target": 5,
-        "success": true,
-        "cite": "Book 1 p. 79 chart 05 (Reward vs Dex+ opposite sign Mods)"
+        "total": 3,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
     {
@@ -1900,60 +1919,61 @@
       "kind": "consequence",
       "consequence": {
         "cause": 129,
-        "kind": "discovery",
-        "value": 3
+        "kind": "skill_awarded",
+        "skill": "Computer",
+        "delta": 1,
+        "value": 5
       }
     },
     {
       "seq": 131,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 129,
-        "kind": "fame_change",
-        "delta": 1,
-        "value": 3
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          4
+        ],
+        "total": 9,
+        "target": 15,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 3
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Continue Int +Terms; p. 66)"
       }
     },
     {
       "seq": 132,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scout Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Courier",
-          "Exploration",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 131,
+        "kind": "years_elapsed",
+        "value": 4
       }
     },
     {
       "seq": 133,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      "kind": "step",
+      "step": {
+        "name": "Rogue: Term 5",
+        "cite": "Book 1 p. 84 chart 10"
       }
     },
     {
       "seq": 134,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 133,
-        "kind": "skill_awarded",
-        "skill": "Navigator",
-        "delta": 1,
-        "value": 2
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          2,
+          4
+        ],
+        "total": -2,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)"
       }
     },
     {
@@ -1961,72 +1981,98 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Scout Skills column",
+        "prompt": "Modify the Scheme Flux?",
         "options": [
-          "Personal",
-          "Academic",
-          "Courier",
-          "Exploration",
-          "Business",
-          "Vocation",
-          "Avocation"
+          "As rolled",
+          "Minus 1",
+          "Plus 1"
         ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+        "chosen": 0,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes) (Flux may be modified (after roll) plus or minus 1)"
       }
     },
     {
       "seq": 136,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 134,
+        "kind": "scheme",
+        "skill": "Scout",
+        "career": "Rogue",
+        "value": -2
       }
     },
     {
       "seq": 137,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 136,
-        "kind": "skill_awarded",
-        "skill": "Animals",
-        "delta": 1,
-        "value": 4
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 84 chart 10"
       }
     },
     {
       "seq": 138,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scout Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Courier",
-          "Exploration",
-          "Business",
-          "Vocation",
-          "Avocation"
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          3
         ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+        "total": 5,
+        "target": 16,
+        "success": true,
+        "mods": [
+          {
+            "name": "Caution/Bravery and Terms",
+            "value": 4
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Risk vs Int+Mods)"
       }
     },
     {
       "seq": 139,
       "kind": "throw",
       "throw": {
-        "expr": "1D",
+        "expr": "2D",
         "dice": [
+          5,
           4
         ],
-        "total": 4,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+        "total": 9,
+        "target": 8,
+        "success": false,
+        "mods": [
+          {
+            "name": "Caution/Bravery and Terms",
+            "value": -4
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Reward vs Int+ opposite sign Mods)"
       }
     },
     {
@@ -2034,10 +2080,7 @@
       "kind": "consequence",
       "consequence": {
         "cause": 139,
-        "kind": "skill_awarded",
-        "skill": "Animals",
-        "delta": 1,
-        "value": 5
+        "kind": "no_award"
       }
     },
     {
@@ -2045,17 +2088,17 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Scout Skills column",
+        "prompt": "Select a Rogue Skills column",
         "options": [
           "Personal",
           "Academic",
-          "Courier",
-          "Exploration",
+          "World Travel",
+          "Space Travel",
           "Business",
           "Vocation",
           "Avocation"
         ],
-        "chosen": 3,
+        "chosen": 4,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
@@ -2068,7 +2111,7 @@
           5
         ],
         "total": 5,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
     {
@@ -2077,9 +2120,9 @@
       "consequence": {
         "cause": 142,
         "kind": "skill_awarded",
-        "skill": "Vacc Suit",
+        "skill": "Teacher",
         "delta": 1,
-        "value": 6
+        "value": 2
       }
     },
     {
@@ -2087,17 +2130,17 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Scout Skills column",
+        "prompt": "Select a Rogue Skills column",
         "options": [
           "Personal",
           "Academic",
-          "Courier",
-          "Exploration",
+          "World Travel",
+          "Space Travel",
           "Business",
           "Vocation",
           "Avocation"
         ],
-        "chosen": 3,
+        "chosen": 4,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
@@ -2110,7 +2153,7 @@
           2
         ],
         "total": 2,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
     {
@@ -2119,9 +2162,9 @@
       "consequence": {
         "cause": 145,
         "kind": "skill_awarded",
-        "skill": "Survival",
+        "skill": "Broker",
         "delta": 1,
-        "value": 2
+        "value": 7
       }
     },
     {
@@ -2129,17 +2172,17 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Scout Skills column",
+        "prompt": "Select a Rogue Skills column",
         "options": [
           "Personal",
           "Academic",
-          "Courier",
-          "Exploration",
+          "World Travel",
+          "Space Travel",
           "Business",
           "Vocation",
           "Avocation"
         ],
-        "chosen": 3,
+        "chosen": 4,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
@@ -2149,10 +2192,10 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          2
+          4
         ],
-        "total": 2,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+        "total": 4,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
     {
@@ -2161,158 +2204,90 @@
       "consequence": {
         "cause": 148,
         "kind": "skill_awarded",
-        "skill": "Survival",
-        "delta": 1,
-        "value": 3
-      }
-    },
-    {
-      "seq": 150,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scout Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Courier",
-          "Exploration",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 151,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
-      }
-    },
-    {
-      "seq": 152,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 151,
-        "kind": "skill_awarded",
-        "skill": "Survey",
+        "skill": "JOT",
         "delta": 1,
         "value": 2
       }
     },
     {
-      "seq": 153,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scout Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Courier",
-          "Exploration",
-          "Business",
-          "Vocation",
-          "Avocation"
+      "seq": 150,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          2
         ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+        "total": 8,
+        "target": 16,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 4
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Continue Int +Terms; p. 66)"
+      }
+    },
+    {
+      "seq": 151,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 150,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 152,
+      "kind": "step",
+      "step": {
+        "name": "Rogue: Term 6",
+        "cite": "Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 153,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          3,
+          6
+        ],
+        "total": -3,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)"
       }
     },
     {
       "seq": 154,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Modify the Scheme Flux?",
+        "options": [
+          "As rolled",
+          "Minus 1",
+          "Plus 1"
         ],
-        "total": 5,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+        "chosen": 0,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes) (Flux may be modified (after roll) plus or minus 1)"
       }
     },
     {
       "seq": 155,
       "kind": "consequence",
       "consequence": {
-        "cause": 154,
-        "kind": "skill_awarded",
-        "skill": "Vacc Suit",
-        "delta": 1,
-        "value": 7
+        "cause": 153,
+        "kind": "scheme",
+        "skill": "Citizen",
+        "career": "Rogue",
+        "value": -3
       }
     },
     {
       "seq": 156,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          3
-        ],
-        "total": 7,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 79 chart 05 (Continue Int; p. 66)"
-      }
-    },
-    {
-      "seq": 157,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 156,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 158,
-      "kind": "step",
-      "step": {
-        "name": "Scout: Term 4",
-        "cite": "Book 1 p. 79 chart 05"
-      }
-    },
-    {
-      "seq": 159,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Str",
-          "Dex",
-          "End"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 160,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's duty",
-        "options": [
-          "Courier Duty",
-          "Explorer Duty"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 79 (Courier Duty avoids Risk and Reward; chart 05 table B)"
-      }
-    },
-    {
-      "seq": 161,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2339,402 +2314,84 @@
           "Bravery -9"
         ],
         "chosen": 0,
-        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); chart 05 p. 79"
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 84 chart 10"
       }
     },
     {
-      "seq": 162,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          3
-        ],
-        "total": 4,
-        "target": 7,
-        "success": true,
-        "cite": "Book 1 p. 79 chart 05 (Risk vs End+Mods)"
-      }
-    },
-    {
-      "seq": 163,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          5
-        ],
-        "total": 10,
-        "target": 7,
-        "success": false,
-        "cite": "Book 1 p. 79 chart 05 (Reward vs End+ opposite sign Mods)"
-      }
-    },
-    {
-      "seq": 164,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Retry the Reward against Edu?",
-        "options": [
-          "Retry",
-          "Accept the failure"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 79 chart 05 (Retry R\u0026R C5); interpretation I-8, ERRATA.md"
-      }
-    },
-    {
-      "seq": 165,
+      "seq": 157,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
           3,
-          6
+          4
         ],
-        "total": 9,
-        "target": 10,
+        "total": 7,
+        "target": 17,
         "success": true,
-        "cite": "Book 1 p. 79 chart 05 (Retry R\u0026R vs Edu; interpretation I-8)"
-      }
-    },
-    {
-      "seq": 166,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 165,
-        "kind": "discovery",
-        "value": 4
-      }
-    },
-    {
-      "seq": 167,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 165,
-        "kind": "fame_change",
-        "delta": 1,
-        "value": 4
-      }
-    },
-    {
-      "seq": 168,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scout Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Courier",
-          "Exploration",
-          "Business",
-          "Vocation",
-          "Avocation"
+        "mods": [
+          {
+            "name": "Caution/Bravery and Terms",
+            "value": 5
+          }
         ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+        "cite": "Book 1 p. 84 chart 10 (Risk vs Int+Mods)"
       }
     },
     {
-      "seq": 169,
+      "seq": 158,
       "kind": "throw",
       "throw": {
-        "expr": "1D",
+        "expr": "2D",
         "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
-      }
-    },
-    {
-      "seq": 170,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 169,
-        "kind": "skill_awarded",
-        "skill": "Navigator",
-        "delta": 1,
-        "value": 3
-      }
-    },
-    {
-      "seq": 171,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scout Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Courier",
-          "Exploration",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 172,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
+          3,
+          2
         ],
         "total": 5,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+        "target": 7,
+        "success": true,
+        "mods": [
+          {
+            "name": "Caution/Bravery and Terms",
+            "value": -5
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Reward vs Int+ opposite sign Mods)"
       }
     },
     {
-      "seq": 173,
+      "seq": 159,
       "kind": "consequence",
       "consequence": {
-        "cause": 172,
-        "kind": "skill_awarded",
-        "skill": "Vacc Suit",
-        "delta": 1,
-        "value": 8
+        "cause": 158,
+        "kind": "payoff",
+        "skill": "x3",
+        "career": "Rogue",
+        "delta": 150000,
+        "value": 250000
       }
     },
     {
-      "seq": 174,
+      "seq": 160,
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Scout Skills column",
+        "prompt": "Select a Rogue Skills column",
         "options": [
           "Personal",
           "Academic",
-          "Courier",
-          "Exploration",
+          "World Travel",
+          "Space Travel",
           "Business",
           "Vocation",
           "Avocation"
         ],
-        "chosen": 3,
+        "chosen": 4,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
-      "seq": 175,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
-      }
-    },
-    {
-      "seq": 176,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 175,
-        "kind": "skill_awarded",
-        "skill": "Vacc Suit",
-        "delta": 1,
-        "value": 9
-      }
-    },
-    {
-      "seq": 177,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scout Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Courier",
-          "Exploration",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 178,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
-      }
-    },
-    {
-      "seq": 179,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 178,
-        "kind": "skill_awarded",
-        "skill": "Hostile Environ",
-        "delta": 1,
-        "value": 6
-      }
-    },
-    {
-      "seq": 180,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scout Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Courier",
-          "Exploration",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 181,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
-      }
-    },
-    {
-      "seq": 182,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 181,
-        "kind": "skill_awarded",
-        "skill": "Vacc Suit",
-        "delta": 1,
-        "value": 10
-      }
-    },
-    {
-      "seq": 183,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scout Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Courier",
-          "Exploration",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 184,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
-      }
-    },
-    {
-      "seq": 185,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 184,
-        "kind": "skill_awarded",
-        "skill": "Hostile Environ",
-        "delta": 1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 186,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scout Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Courier",
-          "Exploration",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 187,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
-      }
-    },
-    {
-      "seq": 188,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 187,
-        "kind": "skill_awarded",
-        "skill": "Hostile Environ",
-        "delta": 1,
-        "value": 8
-      }
-    },
-    {
-      "seq": 189,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scout Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Courier",
-          "Exploration",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 190,
+      "seq": 161,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2742,22 +2399,930 @@
           1
         ],
         "total": 1,
-        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
     {
-      "seq": 191,
+      "seq": 162,
       "kind": "consequence",
       "consequence": {
-        "cause": 190,
+        "cause": 161,
         "kind": "skill_awarded",
-        "skill": "Survey",
+        "skill": "Trader",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 163,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 164,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 165,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 164,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 8
+      }
+    },
+    {
+      "seq": 166,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 167,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 168,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 167,
+        "kind": "skill_awarded",
+        "skill": "Teacher",
         "delta": 1,
         "value": 3
       }
     },
     {
+      "seq": 169,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 170,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 171,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 170,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 172,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 173,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 174,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 173,
+        "kind": "skill_awarded",
+        "skill": "Teacher",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 175,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 176,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 177,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 176,
+        "kind": "skill_awarded",
+        "skill": "Teacher",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 178,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          3
+        ],
+        "total": 8,
+        "target": 17,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 5
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Continue Int +Terms; p. 66)"
+      }
+    },
+    {
+      "seq": 179,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 178,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 180,
+      "kind": "step",
+      "step": {
+        "name": "Rogue: Term 7",
+        "cite": "Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 181,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          2,
+          5
+        ],
+        "total": -3,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)"
+      }
+    },
+    {
+      "seq": 182,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Modify the Scheme Flux?",
+        "options": [
+          "As rolled",
+          "Minus 1",
+          "Plus 1"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes) (Flux may be modified (after roll) plus or minus 1)"
+      }
+    },
+    {
+      "seq": 183,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 181,
+        "kind": "scheme",
+        "skill": "Citizen",
+        "career": "Rogue",
+        "value": -3
+      }
+    },
+    {
+      "seq": 184,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 185,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          6
+        ],
+        "total": 7,
+        "target": 18,
+        "success": true,
+        "mods": [
+          {
+            "name": "Caution/Bravery and Terms",
+            "value": 6
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Risk vs Int+Mods)"
+      }
+    },
+    {
+      "seq": 186,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          2
+        ],
+        "total": 8,
+        "target": 6,
+        "success": false,
+        "mods": [
+          {
+            "name": "Caution/Bravery and Terms",
+            "value": -6
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Reward vs Int+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 187,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 186,
+        "kind": "no_award"
+      }
+    },
+    {
+      "seq": 188,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 189,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 190,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 189,
+        "kind": "skill_awarded",
+        "skill": "Computer",
+        "delta": 1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 191,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
       "seq": 192,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 193,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 192,
+        "kind": "skill_awarded",
+        "skill": "JOT",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 194,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 195,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 196,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 195,
+        "kind": "skill_awarded",
+        "skill": "Computer",
+        "delta": 1,
+        "value": 7
+      }
+    },
+    {
+      "seq": 197,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          4
+        ],
+        "total": 9,
+        "target": 18,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 6
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Continue Int +Terms; p. 66)"
+      }
+    },
+    {
+      "seq": 198,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 197,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 199,
+      "kind": "step",
+      "step": {
+        "name": "Rogue: Term 8",
+        "cite": "Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 200,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          3,
+          2
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)"
+      }
+    },
+    {
+      "seq": 201,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Modify the Scheme Flux?",
+        "options": [
+          "As rolled",
+          "Minus 1",
+          "Plus 1"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes) (Flux may be modified (after roll) plus or minus 1)"
+      }
+    },
+    {
+      "seq": 202,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 200,
+        "kind": "scheme",
+        "skill": "Soldier",
+        "career": "Rogue",
+        "value": 1
+      }
+    },
+    {
+      "seq": 203,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 204,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          6
+        ],
+        "total": 7,
+        "target": 19,
+        "success": true,
+        "mods": [
+          {
+            "name": "Caution/Bravery and Terms",
+            "value": 7
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Risk vs Int+Mods)"
+      }
+    },
+    {
+      "seq": 205,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          3
+        ],
+        "total": 5,
+        "target": 5,
+        "success": true,
+        "mods": [
+          {
+            "name": "Caution/Bravery and Terms",
+            "value": -7
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Reward vs Int+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 206,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 205,
+        "kind": "payoff",
+        "skill": "x1",
+        "career": "Rogue",
+        "delta": 50000,
+        "value": 300000
+      }
+    },
+    {
+      "seq": 207,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 208,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 209,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 208,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 9
+      }
+    },
+    {
+      "seq": 210,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 211,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 212,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 211,
+        "kind": "skill_awarded",
+        "skill": "Computer",
+        "delta": 1,
+        "value": 8
+      }
+    },
+    {
+      "seq": 213,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 214,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 215,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 214,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 10
+      }
+    },
+    {
+      "seq": 216,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 217,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 218,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 217,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 11
+      }
+    },
+    {
+      "seq": 219,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 220,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 221,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 220,
+        "kind": "skill_awarded",
+        "skill": "Computer",
+        "delta": 1,
+        "value": 9
+      }
+    },
+    {
+      "seq": 222,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 223,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 224,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 223,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 12
+      }
+    },
+    {
+      "seq": 225,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2766,27 +3331,33 @@
           6
         ],
         "total": 12,
-        "target": 10,
+        "target": 19,
         "success": false,
-        "cite": "Book 1 p. 79 chart 05 (Continue Int; p. 66)"
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 7
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Continue Int +Terms; p. 66)"
       }
     },
     {
-      "seq": 193,
+      "seq": 226,
       "kind": "consequence",
       "consequence": {
-        "cause": 192,
+        "cause": 225,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 194,
+      "seq": 227,
       "kind": "consequence",
       "consequence": {
-        "cause": 192,
+        "cause": 225,
         "kind": "career_ended",
-        "career": "Scout"
+        "career": "Rogue"
       }
     }
   ]

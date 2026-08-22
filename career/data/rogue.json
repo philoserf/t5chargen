@@ -1,0 +1,280 @@
+{
+  "name": "Rogue",
+  "cite": "Book 1 p. 84 chart 10",
+  "controlling_characteristics": [
+    "Str",
+    "Dex",
+    "End",
+    "Int",
+    "Edu",
+    "Soc"
+  ],
+  "cc_fixed": true,
+  "continue_cc": true,
+  "continue_mod": "terms",
+  "skills_per_term": 2,
+  "schemes": {
+    "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)",
+    "rows": [
+      {
+        "flux": -6,
+        "career": "Craftsman",
+        "credits": 200000
+      },
+      {
+        "flux": -5,
+        "career": "Scholar",
+        "credits": 100000
+      },
+      {
+        "flux": -4,
+        "career": "Entertainer",
+        "credits": 300000
+      },
+      {
+        "flux": -3,
+        "career": "Citizen",
+        "credits": 50000
+      },
+      {
+        "flux": -2,
+        "career": "Scout",
+        "ship_shares": 1
+      },
+      {
+        "flux": -1,
+        "career": "Merchant",
+        "ship_shares": 1
+      },
+      {
+        "flux": 0,
+        "career": "Spacer",
+        "credits": 100000
+      },
+      {
+        "flux": 1,
+        "career": "Soldier",
+        "credits": 50000
+      },
+      {
+        "flux": 2,
+        "career": "Agent",
+        "credits": 100000
+      },
+      {
+        "flux": 3,
+        "career": "Rogue",
+        "credits": 100000
+      },
+      {
+        "flux": 4,
+        "career": "Noble",
+        "credits": 500000
+      },
+      {
+        "flux": 5,
+        "career": "Marine",
+        "credits": 50000
+      },
+      {
+        "flux": 6,
+        "career": "Functionary",
+        "credits": 100000
+      }
+    ]
+  },
+  "skill_columns": [
+    {
+      "name": "Personal",
+      "entries": [
+        {
+          "kind": "characteristic",
+          "name": "Str"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Dex"
+        },
+        {
+          "kind": "characteristic",
+          "name": "End"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Int"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Edu"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Soc"
+        }
+      ]
+    },
+    {
+      "name": "Academic",
+      "entries": [
+        {
+          "kind": "science"
+        },
+        {
+          "kind": "major"
+        },
+        {
+          "kind": "minor"
+        },
+        {
+          "kind": "art"
+        },
+        {
+          "kind": "trade"
+        },
+        {
+          "kind": "skill",
+          "name": "Gambler"
+        }
+      ]
+    },
+    {
+      "name": "World Travel",
+      "entries": [
+        {
+          "kind": "skill",
+          "name": "Driver"
+        },
+        {
+          "kind": "skill",
+          "name": "Flyer"
+        },
+        {
+          "kind": "skill",
+          "name": "Hostile Environ"
+        },
+        {
+          "kind": "skill",
+          "name": "High-G"
+        },
+        {
+          "kind": "skill",
+          "name": "Vacc Suit"
+        },
+        {
+          "kind": "skill",
+          "name": "Navigator"
+        }
+      ]
+    },
+    {
+      "name": "Space Travel",
+      "entries": [
+        {
+          "kind": "starship"
+        },
+        {
+          "kind": "skill",
+          "name": "Pilot"
+        },
+        {
+          "kind": "skill",
+          "name": "Engineer"
+        },
+        {
+          "kind": "skill",
+          "name": "Zero-G"
+        },
+        {
+          "kind": "skill",
+          "name": "Vacc Suit"
+        },
+        {
+          "kind": "skill",
+          "name": "Astrogator"
+        }
+      ]
+    },
+    {
+      "name": "Business",
+      "entries": [
+        {
+          "kind": "skill",
+          "name": "Trader"
+        },
+        {
+          "kind": "skill",
+          "name": "Broker"
+        },
+        {
+          "kind": "skill",
+          "name": "Computer"
+        },
+        {
+          "kind": "skill",
+          "name": "JOT"
+        },
+        {
+          "kind": "skill",
+          "name": "Teacher"
+        },
+        {
+          "kind": "skill",
+          "name": "Fighter"
+        }
+      ]
+    },
+    {
+      "name": "Vocation",
+      "entries": [
+        {
+          "kind": "skill",
+          "name": "Advocate"
+        },
+        {
+          "kind": "skill",
+          "name": "Counsellor"
+        },
+        {
+          "kind": "skill",
+          "name": "Language"
+        },
+        {
+          "kind": "skill",
+          "name": "Leader"
+        },
+        {
+          "kind": "skill",
+          "name": "Streetwise"
+        },
+        {
+          "kind": "skill",
+          "name": "Comms"
+        }
+      ]
+    },
+    {
+      "name": "Avocation",
+      "entries": [
+        {
+          "kind": "art"
+        },
+        {
+          "kind": "science"
+        },
+        {
+          "kind": "skill",
+          "name": "Athlete"
+        },
+        {
+          "kind": "soldier"
+        },
+        {
+          "kind": "starship"
+        },
+        {
+          "kind": "trade"
+        }
+      ]
+    }
+  ]
+}

@@ -213,6 +213,24 @@ below cover what is particular to chart 07.
 | Continue Str +Terms | chart 09 A | `continueRoll`, `ContinueModTerms` | `TestAgentContinueAddsTerms` | covered (completed terms, I-12) |
 | Muster-out table D | chart 09 D | — | — | deferred (M4) |
 
+## Career 10 — Rogue (chart 10, p. 84)
+
+| Rule | Cite | Implementation | Test | Status |
+| --- | --- | --- | --- | --- |
+| One controlling characteristic for the whole career | chart 10 | `cc_fixed`, `careerRun.chooseCC` | `TestRogueKeepsOneControllingCharacteristic` | covered |
+| To Begin against that characteristic, chosen first | chart 10 A | `rogueMechanics.begin` | golden seed 39 | interpretation I-42 |
+| A Scheme each term, rolled on Flux | chart 10 | `scheme` | `TestRogueSchemeTable` | covered |
+| "Flux may be modified (after roll) plus or minus 1" | chart 10 | `ChooseSchemeFlux` | golden seed 39 | covered (policy takes it as rolled) |
+| Risk failure imprisons; no injury, no Wound Badge | chart 10 | `imprison` | `TestRogueRiskFailureImprisonsRatherThanInjures` | interpretation I-41 |
+| Prison term: two skills, columns 1-2 only, no Scheme | chart 10 B | `prisonTerm` | `TestRoguePrisonTermTakesOnlyPrisonSkills` | interpretation I-43 |
+| Fame +1 on a Risk failure, "actually Infamy" | chart 10 | `imprison` | golden seed 39 | covered as Fame; the chart F system is M4 |
+| Payoff = V x (1+CC-R+Mods), halved if caught | chart 10 | `payoff` | `TestRoguePayoffFormula` | interpretation I-44 |
+| Ship Share schemes (Scout, Merchant rows) | chart 10 | `payoff` | `TestRogueSchemeTable` | covered as a count |
+| Per Term 2; Failed Scheme 1; Successful Scheme 4; In Prison 2 | chart 10 B | `schemeTerm`, `prisonTerm` | golden seed 39 | covered |
+| Continue CC +Terms; "12 is always automatic failure" | chart 10 A | `continueRoll`, `dice.Check` | golden seed 39 | covered (I-17 already applies the rule engine-wide) |
+| "A Rogue may select ... any previous career" for the Scheme | chart 10 | — | — | deferred (M4 career changes; no previous career exists yet) |
+| Spending the Payoff; muster-out table D | chart 10 D | — | — | deferred (M4) |
+
 ## Career 11 — Noble (chart 11, p. 85)
 
 | Rule | Cite | Implementation | Test | Status |
@@ -285,12 +303,13 @@ below cover what is particular to chart 07.
 
 ## Careers 01–05 remainder, 07–13
 
-All deferred (M3): Craftsman, Rogue, Functionary (charts pp. 75–88).
-Rogue (10) brings Schemes, Prison, and a payoff formula. Craftsman (01)
-and Functionary (13) are soft-gated on career changes (M4) — neither is
-reachable as a first career — though chart 13's skills table is now
-transcribed as a reference career for the Agent's Undercover table
-(interpretation I-40).
+Every career reachable as a first career is implemented. The two that
+remain are soft-gated on career changes (M4), neither being reachable
+from a standing start: Craftsman (01), whose Begin needs "TWO skill-6 and
+Craftsman-1", and Functionary (13), which "is never a first career" —
+though chart 13's skills table is transcribed as a reference career for
+the Agent's Undercover table (interpretation I-40), and chart 01's
+findings are banked above.
 
 Two are soft-gated on career changes (M4), not on effort: Functionary "is
 never a first career" (chart 13), and Craftsman's Begin is "Automatic* —

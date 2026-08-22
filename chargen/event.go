@@ -187,6 +187,15 @@ const (
 	// carries the rank title.
 	ConsequenceRankSet ConsequenceKind = "rank_set"
 
+	// ConsequenceScheme records the Rogue's plan for the term,
+	// ConsequenceSentenced a prison sentence owed, ConsequenceImprisoned
+	// a term spent serving one, and ConsequencePayoff a scheme's takings
+	// (chart 10, p. 84).
+	ConsequenceScheme     ConsequenceKind = "scheme"
+	ConsequenceSentenced  ConsequenceKind = "sentenced"
+	ConsequenceImprisoned ConsequenceKind = "imprisoned"
+	ConsequencePayoff     ConsequenceKind = "payoff"
+
 	// ConsequenceUndercover records an Agent's cover identity for the
 	// term, and ConsequenceCommendation a Reward success (chart 09,
 	// p. 83).
