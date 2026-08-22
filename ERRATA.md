@@ -442,7 +442,12 @@ Flux is 1D-1D, so a term can reduce Fame, and the chart prints no minimum.
 Its Fame descriptor table starts at 0 ("Unknown") and gives no descriptor
 below it.
 
-Fame is left unfloored. A career whose Fame falls to zero or below ends at
+Fame is left unfloored, and the character sheet omits a Fame at or below
+zero: `statusLine` prints the Fame line only when Fame is positive, so an
+Entertainer whose reputation has collapsed shows no Fame rather than a
+negative one. The generation record keeps the exact value.
+
+A career whose Fame falls to zero or below ends at
 the next Continue throw, which targets Fame — an unknown Entertainer is out
 of work, which is the outcome the chart's own Continue row produces. Adding
 a floor at zero would instead keep such a character eligible to continue on
