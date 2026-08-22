@@ -79,7 +79,7 @@ func (m *citizenMechanics) resolveTerm(r *careerRun, cc string) (termOutcome, er
 func (m *citizenMechanics) awardCitizenLife(r *careerRun, cause int) error {
 	switch {
 	case r.record.Job == "":
-		m.determineJob(r)
+		return m.determineJob(r)
 	case r.record.Hobby == "":
 		return m.determineHobby(r)
 	default:
@@ -106,7 +106,7 @@ func (m *citizenMechanics) awardCitizenLife(r *careerRun, cause int) error {
 //
 // If the roll lands on the "No Skill" cell, the Job remains undetermined
 // and the next success retries — an interpretation recorded in ERRATA.md.
-func (*citizenMechanics) determineJob(r *careerRun) {
+func (*citizenMechanics) determineJob(r *careerRun) error {
 	const cite = "Book 1 p. 78 chart 04 table E (roll A reroll if >3, then B, then C)"
 
 	a := r.roller.Roll(1)
@@ -127,12 +127,19 @@ func (*citizenMechanics) determineJob(r *careerRun) {
 	if entry.Kind == career.EntryNone {
 		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceJobUndetermined})
 
-		return
+		return nil
 	}
 
-	r.record.Job = entry.Name
-	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceJobSet, Skill: entry.Name})
-	r.awardAndLog(entry.Name, r.firstReceiptLevels(entry.Name, 4), seq)
+	name, err := r.resolveSkillName(entry.Name)
+	if err != nil {
+		return err
+	}
+
+	r.record.Job = name
+	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceJobSet, Skill: name})
+	r.awardAndLog(name, r.firstReceiptLevels(name, 4), seq)
+
+	return nil
 }
 
 // determineHobby selects the Hobby: "Second Success provides a Hobby
@@ -158,7 +165,15 @@ func (*citizenMechanics) determineHobby(r *careerRun) error {
 		return err
 	}
 
-	name := options[chosen]
+	// The Job is excluded again here: table E prints the ambiguous "Grav"
+	// and "Spacecraft" labels, so removing the Job by name above cannot
+	// reach a Job that was itself resolved from one of them (ERRATA.md
+	// I-3, I-10, I-11).
+	name, err := r.resolveSkillName(options[chosen], r.record.Job)
+	if err != nil {
+		return err
+	}
+
 	r.record.Hobby = name
 	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceHobbySet, Skill: name})
 	r.awardAndLog(name, r.firstReceiptLevels(name, 2), seq)

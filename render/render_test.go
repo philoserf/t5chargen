@@ -45,6 +45,17 @@ func TestHistoryGolden(t *testing.T) {
 	golden(t, render.History(generate(t, chargen.Options{Seed: 1})), "testdata/seed1_history.md")
 }
 
+// TestScoutGoldens pin the Scout sheet and transcript: the career whose
+// record exercises the status line (Fame, Wound Badges), Discoveries, and
+// the injury consequences.
+func TestScoutSheetGolden(t *testing.T) {
+	golden(t, render.Sheet(generate(t, chargen.Options{Seed: 26, Career: "Scout"})), "testdata/scout_sheet.md")
+}
+
+func TestScoutHistoryGolden(t *testing.T) {
+	golden(t, render.History(generate(t, chargen.Options{Seed: 26, Career: "Scout"})), "testdata/scout_history.md")
+}
+
 func TestSheetWithName(t *testing.T) {
 	sheet := render.Sheet(generate(t, chargen.Options{Seed: 1, Name: "Eneri Dinsha"}))
 

@@ -15,6 +15,8 @@ import (
 	"fmt"
 	"strings"
 	"sync"
+
+	"github.com/philoserf/t5chargen/skill"
 )
 
 // EntryKind discriminates what a career skills-table cell awards.
@@ -263,6 +265,15 @@ func validateEntry(column string, entry Entry) error {
 		return fmt.Errorf("%w: column %q has unknown characteristic %q", errBadDefinition, column, entry.Name)
 	}
 
+	// Skill cells name Master Skill List entries: the chart abbreviations
+	// are canonicalized in the transcription (ERRATA.md I-9), so a name
+	// that does not resolve is a transcription error.
+	if entry.Kind == EntrySkill {
+		if err := skill.Validate(entry.Name); err != nil {
+			return fmt.Errorf("%w: column %q: %w", errBadDefinition, column, err)
+		}
+	}
+
 	return nil
 }
 
@@ -283,6 +294,14 @@ func (d *Definition) validateJobTable() error {
 				if cell != NoSkillCell && strings.EqualFold(cell, NoSkillCell) {
 					return fmt.Errorf("%w: job table cell %q at A%d B%d C%d: want exactly %q",
 						errBadDefinition, cell, a+1, b+1, c+1, NoSkillCell)
+				}
+
+				if cell == NoSkillCell {
+					continue
+				}
+
+				if err := skill.Validate(cell); err != nil {
+					return fmt.Errorf("%w: job table cell at A%d B%d C%d: %w", errBadDefinition, a+1, b+1, c+1, err)
 				}
 			}
 		}

@@ -5,10 +5,15 @@
       "id": "ed5",
       "name": "ED5",
       "group": "basic",
-      "prerequisite": { "kind": "edu_max", "value": 4 },
+      "prerequisite": {
+        "kind": "edu_max",
+        "value": 4
+      },
       "apply_check": [],
       "duration_years": 0,
-      "pass_check": ["Int"],
+      "pass_check": [
+        "Int"
+      ],
       "rolls": 1,
       "graduation_edu": 5,
       "implemented": true
@@ -17,10 +22,18 @@
       "id": "trade_school",
       "name": "Trade School",
       "group": "basic",
-      "prerequisite": { "kind": "edu_min", "value": 5 },
-      "apply_check": ["Int"],
+      "prerequisite": {
+        "kind": "edu_min",
+        "value": 5
+      },
+      "apply_check": [
+        "Int"
+      ],
       "duration_years": 1,
-      "pass_check": ["Int", "Edu"],
+      "pass_check": [
+        "Int",
+        "Edu"
+      ],
       "rolls": 1,
       "majors_from": "school",
       "implemented": true
@@ -29,10 +42,14 @@
       "id": "apprenticeship",
       "name": "Apprenticeship",
       "group": "basic",
-      "prerequisite": { "kind": "none" },
+      "prerequisite": {
+        "kind": "none"
+      },
       "apply_check": [],
       "duration_years": 0,
-      "pass_check": ["Tra"],
+      "pass_check": [
+        "Tra"
+      ],
       "rolls": 1,
       "implemented": true
     },
@@ -40,10 +57,17 @@
       "id": "mentor",
       "name": "Mentor",
       "group": "basic",
-      "prerequisite": { "kind": "c5_is_tra" },
-      "apply_check": ["Int"],
+      "prerequisite": {
+        "kind": "c5_is_tra"
+      },
+      "apply_check": [
+        "Int"
+      ],
       "duration_years": 1,
-      "pass_check": ["Int", "Tra"],
+      "pass_check": [
+        "Int",
+        "Tra"
+      ],
       "rolls": 1,
       "implemented": false
     },
@@ -51,10 +75,17 @@
       "id": "training_course",
       "name": "Training Course",
       "group": "basic",
-      "prerequisite": { "kind": "tra_min", "value": 5 },
-      "apply_check": ["Int"],
+      "prerequisite": {
+        "kind": "tra_min",
+        "value": 5
+      },
+      "apply_check": [
+        "Int"
+      ],
       "duration_years": 1,
-      "pass_check": ["Tra"],
+      "pass_check": [
+        "Tra"
+      ],
       "rolls": 1,
       "majors_from": "school",
       "implemented": false
@@ -63,10 +94,19 @@
       "id": "college",
       "name": "College",
       "group": "higher",
-      "prerequisite": { "kind": "edu_min", "value": 5 },
-      "apply_check": ["Int", "Edu"],
+      "prerequisite": {
+        "kind": "edu_min",
+        "value": 5
+      },
+      "apply_check": [
+        "Int",
+        "Edu"
+      ],
       "duration_years": 4,
-      "pass_check": ["Int", "Edu"],
+      "pass_check": [
+        "Int",
+        "Edu"
+      ],
       "rolls": 4,
       "graduation_edu": 8,
       "graduation_degree": "BA",
@@ -77,10 +117,19 @@
       "id": "university",
       "name": "University",
       "group": "higher",
-      "prerequisite": { "kind": "edu_min", "value": 7 },
-      "apply_check": ["Int", "Edu"],
+      "prerequisite": {
+        "kind": "edu_min",
+        "value": 7
+      },
+      "apply_check": [
+        "Int",
+        "Edu"
+      ],
       "duration_years": 4,
-      "pass_check": ["Int", "Edu"],
+      "pass_check": [
+        "Int",
+        "Edu"
+      ],
       "rolls": 4,
       "graduation_edu": 9,
       "graduation_degree": "BA",
@@ -91,10 +140,19 @@
       "id": "academy",
       "name": "Service Academy",
       "group": "higher",
-      "prerequisite": { "kind": "edu_min", "value": 6 },
-      "apply_check": ["Int", "Edu"],
+      "prerequisite": {
+        "kind": "edu_min",
+        "value": 6
+      },
+      "apply_check": [
+        "Int",
+        "Edu"
+      ],
       "duration_years": 4,
-      "pass_check": ["Int", "Edu"],
+      "pass_check": [
+        "Int",
+        "Edu"
+      ],
       "rolls": 4,
       "graduation_edu": 8,
       "graduation_degree": "BA Officer1",
@@ -105,10 +163,19 @@
       "id": "masters",
       "name": "Masters",
       "group": "higher",
-      "prerequisite": { "kind": "degree", "value_name": "BA" },
-      "apply_check": ["Int", "Edu"],
+      "prerequisite": {
+        "kind": "degree",
+        "value_name": "BA"
+      },
+      "apply_check": [
+        "Int",
+        "Edu"
+      ],
       "duration_years": 2,
-      "pass_check": ["Int", "Edu"],
+      "pass_check": [
+        "Int",
+        "Edu"
+      ],
       "rolls": 2,
       "graduation_edu": 9,
       "graduation_degree": "MA",
@@ -119,10 +186,19 @@
       "id": "professors",
       "name": "Professors",
       "group": "higher",
-      "prerequisite": { "kind": "degree", "value_name": "MA" },
-      "apply_check": ["Int", "Edu"],
+      "prerequisite": {
+        "kind": "degree",
+        "value_name": "MA"
+      },
+      "apply_check": [
+        "Int",
+        "Edu"
+      ],
       "duration_years": 2,
-      "pass_check": ["Int", "Edu"],
+      "pass_check": [
+        "Int",
+        "Edu"
+      ],
       "rolls": 2,
       "graduation_edu": 12,
       "graduation_degree": "Professor",
@@ -133,10 +209,19 @@
       "id": "medical_school",
       "name": "Medical School",
       "group": "higher",
-      "prerequisite": { "kind": "degree", "value_name": "Honors BA" },
-      "apply_check": ["Int", "Edu"],
+      "prerequisite": {
+        "kind": "degree",
+        "value_name": "Honors BA"
+      },
+      "apply_check": [
+        "Int",
+        "Edu"
+      ],
       "duration_years": 4,
-      "pass_check": ["Int", "Edu"],
+      "pass_check": [
+        "Int",
+        "Edu"
+      ],
       "rolls": 4,
       "graduation_edu": 10,
       "graduation_degree": "Doctor",
@@ -146,10 +231,19 @@
       "id": "law_school",
       "name": "Law School",
       "group": "higher",
-      "prerequisite": { "kind": "degree", "value_name": "Honors BA" },
-      "apply_check": ["Int", "Edu"],
+      "prerequisite": {
+        "kind": "degree",
+        "value_name": "Honors BA"
+      },
+      "apply_check": [
+        "Int",
+        "Edu"
+      ],
       "duration_years": 2,
-      "pass_check": ["Int", "Edu"],
+      "pass_check": [
+        "Int",
+        "Edu"
+      ],
       "rolls": 2,
       "graduation_edu": 10,
       "graduation_degree": "Attorney",
@@ -159,10 +253,15 @@
       "id": "anm_school",
       "name": "ANM School",
       "group": "military",
-      "prerequisite": { "kind": "assigned" },
+      "prerequisite": {
+        "kind": "assigned"
+      },
       "apply_check": [],
       "duration_years": 1,
-      "pass_check": ["Dex", "End"],
+      "pass_check": [
+        "Dex",
+        "End"
+      ],
       "rolls": 1,
       "implemented": false
     },
@@ -170,10 +269,15 @@
       "id": "otc",
       "name": "OTC",
       "group": "military",
-      "prerequisite": { "kind": "volunteer" },
+      "prerequisite": {
+        "kind": "volunteer"
+      },
       "apply_check": [],
       "duration_years": 0,
-      "pass_check": ["Int", "Edu"],
+      "pass_check": [
+        "Int",
+        "Edu"
+      ],
       "rolls": 1,
       "graduation_degree": "Army Officer1",
       "implemented": false
@@ -182,10 +286,15 @@
       "id": "notc",
       "name": "NOTC",
       "group": "military",
-      "prerequisite": { "kind": "volunteer" },
+      "prerequisite": {
+        "kind": "volunteer"
+      },
       "apply_check": [],
       "duration_years": 0,
-      "pass_check": ["Int", "Edu"],
+      "pass_check": [
+        "Int",
+        "Edu"
+      ],
       "rolls": 1,
       "graduation_degree": "Navy Officer1",
       "implemented": false
@@ -194,10 +303,15 @@
       "id": "flight_school",
       "name": "Flight School",
       "group": "military",
-      "prerequisite": { "kind": "degree", "value_name": "Honors BA" },
+      "prerequisite": {
+        "kind": "degree",
+        "value_name": "Honors BA"
+      },
       "apply_check": [],
       "duration_years": 1,
-      "pass_check": ["Dex"],
+      "pass_check": [
+        "Dex"
+      ],
       "rolls": 1,
       "graduation_degree": "Flight Branch",
       "implemented": false
@@ -206,135 +320,730 @@
       "id": "command_college",
       "name": "Command College",
       "group": "military",
-      "prerequisite": { "kind": "assigned" },
-      "apply_check": ["Int", "Edu"],
+      "prerequisite": {
+        "kind": "assigned"
+      },
+      "apply_check": [
+        "Int",
+        "Edu"
+      ],
       "duration_years": 1,
-      "pass_check": ["Int", "Edu"],
+      "pass_check": [
+        "Int",
+        "Edu"
+      ],
       "rolls": 1,
       "implemented": false
     }
   ],
   "skills": [
-    { "name": "Admin", "group": "base", "school": true },
-    { "name": "Advocate", "group": "base", "law": true },
-    { "name": "Animals", "group": "base", "knowledge_only": true },
-    { "name": "Athlete", "group": "base", "college": true },
-    { "name": "Broker", "group": "base", "college": true },
-    { "name": "Bureaucrat", "group": "base", "college": true },
-    { "name": "Comms", "group": "base", "school": true },
-    { "name": "Computer", "group": "base", "school": true },
-    { "name": "Counsellor", "group": "base", "college": true },
-    { "name": "Designer", "group": "base", "college": true },
-    { "name": "Diplomat", "group": "base", "law": true },
-    { "name": "Driver", "group": "base", "knowledge_only": true },
-    { "name": "Explosives", "group": "base", "school": true },
-    { "name": "Fleet Tactics", "group": "base", "navy": true },
-    { "name": "Flyer", "group": "base", "knowledge_only": true },
-    { "name": "Forensics", "group": "base", "medical": true },
-    { "name": "Gambler", "group": "base" },
-    { "name": "High-G", "group": "base", "school": true },
-    { "name": "Hostile Environ", "group": "base", "school": true },
-    { "name": "JOT", "group": "base" },
-    { "name": "Language", "group": "base", "college": true, "army": true, "navy": true, "marine": true, "school": true },
-    { "name": "Leader", "group": "base", "navy": true, "marine": true },
-    { "name": "Liaison", "group": "base", "navy": true, "marine": true },
-    { "name": "Naval Arch", "group": "base", "navy": true },
-    { "name": "Seafarer", "group": "base", "knowledge_only": true },
-    { "name": "Stealth", "group": "base" },
-    { "name": "Strategy", "group": "base", "navy": true, "marine": true },
-    { "name": "Streetwise", "group": "base" },
-    { "name": "Survey", "group": "base", "school": true },
-    { "name": "Survival", "group": "base", "school": true },
-    { "name": "Tactics", "group": "base", "navy": true, "marine": true, "school": true },
-    { "name": "Teacher", "group": "base", "college": true },
-    { "name": "Trader", "group": "base", "school": true },
-    { "name": "Vacc Suit", "group": "base", "school": true },
-    { "name": "Zero-G", "group": "base", "school": true },
-    { "name": "Astrogator", "group": "ship", "college": true, "navy": true },
-    { "name": "Engineer", "group": "ship", "knowledge_only": true },
-    { "name": "Gunner", "group": "ship", "knowledge_only": true, "navy": true },
-    { "name": "Medic", "group": "ship", "medical": true, "navy": true, "marine": true, "school": true },
-    { "name": "Pilot", "group": "ship", "knowledge_only": true },
-    { "name": "Sensors", "group": "ship", "navy": true, "school": true },
-    { "name": "Steward", "group": "ship", "navy": true, "school": true },
-    { "name": "Fighter", "group": "soldier", "knowledge_only": true, "marine": true },
-    { "name": "Fwd Obs", "group": "soldier", "marine": true, "school": true },
-    { "name": "Heavy Wpns", "group": "soldier", "knowledge_only": true, "marine": true },
-    { "name": "Navigator", "group": "soldier", "marine": true, "school": true },
-    { "name": "Recon", "group": "soldier", "marine": true, "school": true },
-    { "name": "Sapper", "group": "soldier", "marine": true, "school": true },
-    { "name": "Actor", "group": "arts", "college": true, "school": true },
-    { "name": "Artist", "group": "arts", "college": true, "school": true },
-    { "name": "Author", "group": "arts", "college": true, "school": true },
-    { "name": "Chef", "group": "arts", "college": true, "school": true },
-    { "name": "Dancer", "group": "arts", "college": true, "school": true },
-    { "name": "Musician", "group": "arts", "college": true, "school": true },
-    { "name": "Biologics", "group": "trades", "college": true, "school": true },
-    { "name": "Craftsman", "group": "trades", "college": true, "school": true },
-    { "name": "Electronics", "group": "trades", "college": true, "school": true },
-    { "name": "Fluidics", "group": "trades", "college": true, "school": true },
-    { "name": "Gravitics", "group": "trades", "college": true, "school": true },
-    { "name": "Magnetics", "group": "trades", "college": true, "school": true },
-    { "name": "Mechanic", "group": "trades", "college": true, "school": true },
-    { "name": "Photonics", "group": "trades", "college": true, "school": true },
-    { "name": "Polymers", "group": "trades", "college": true, "school": true },
-    { "name": "Programmer", "group": "trades", "college": true, "school": true },
-    { "name": "ACV", "group": "driver", "army": true, "school": true },
-    { "name": "Automotive", "group": "driver", "college": true, "army": true, "school": true },
-    { "name": "Grav", "group": "driver", "army": true, "navy": true, "marine": true, "school": true },
-    { "name": "Legged", "group": "driver", "army": true, "school": true },
-    { "name": "Mole", "group": "driver", "army": true, "school": true },
-    { "name": "Tracked", "group": "driver", "army": true, "marine": true, "school": true },
-    { "name": "Wheeled", "group": "driver", "army": true, "navy": true, "marine": true, "school": true },
-    { "name": "BattleDress", "group": "fighter", "army": true, "navy": true, "marine": true },
-    { "name": "Beams", "group": "fighter", "army": true, "marine": true },
-    { "name": "Blades", "group": "fighter", "army": true, "marine": true, "school": true },
-    { "name": "Exotics", "group": "fighter", "army": true, "marine": true },
-    { "name": "Slug Thrower", "group": "fighter", "army": true, "navy": true, "marine": true, "school": true },
-    { "name": "Sprays", "group": "fighter", "army": true, "marine": true },
-    { "name": "Unarmed", "group": "fighter", "army": true, "marine": true, "school": true },
-    { "name": "Jump Drive", "group": "engineer", "navy": true, "school": true },
-    { "name": "Life Support", "group": "engineer", "army": true, "navy": true, "school": true },
-    { "name": "Maneuver", "group": "engineer", "navy": true, "school": true },
-    { "name": "Power System", "group": "engineer", "army": true, "navy": true, "marine": true, "school": true },
-    { "name": "Archeology", "group": "sciences", "college": true },
-    { "name": "Biology", "group": "sciences", "college": true },
-    { "name": "Chemistry", "group": "sciences", "college": true },
-    { "name": "History", "group": "sciences", "college": true },
-    { "name": "Linguistics", "group": "sciences", "college": true, "school": true },
-    { "name": "Philosophy", "group": "sciences", "college": true },
-    { "name": "Physics", "group": "sciences", "college": true },
-    { "name": "Planetology", "group": "sciences", "college": true },
-    { "name": "Psionicology", "group": "sciences", "college": true },
-    { "name": "Psychohistory", "group": "sciences", "college": true },
-    { "name": "Psychology", "group": "sciences", "college": true },
-    { "name": "Robotics", "group": "sciences", "college": true, "army": true, "navy": true, "marine": true, "school": true },
-    { "name": "Sophontology", "group": "sciences", "college": true },
-    { "name": "Aeronautics", "group": "flyer", "college": true, "army": true, "navy": true, "school": true },
-    { "name": "Flapper", "group": "flyer", "army": true, "school": true },
-    { "name": "Grav", "group": "flyer", "army": true, "navy": true, "marine": true, "school": true },
-    { "name": "LTA", "group": "flyer", "army": true, "school": true },
-    { "name": "Rotor", "group": "flyer", "army": true, "school": true },
-    { "name": "Wing", "group": "flyer", "army": true, "navy": true, "school": true },
-    { "name": "Bay Wpns", "group": "gunner", "navy": true },
-    { "name": "Ortillery", "group": "gunner", "navy": true },
-    { "name": "Screens", "group": "gunner", "army": true, "navy": true },
-    { "name": "Spines", "group": "gunner", "navy": true },
-    { "name": "Turrets", "group": "gunner", "navy": true, "marine": true },
-    { "name": "Small Craft", "group": "pilot", "army": true, "marine": true, "school": true },
-    { "name": "Pilot-ACS", "group": "pilot", "navy": true },
-    { "name": "Pilot-BCS", "group": "pilot", "navy": true },
-    { "name": "Rider", "group": "animals", "army": true, "school": true },
-    { "name": "Teamster", "group": "animals", "army": true, "school": true },
-    { "name": "Trainer", "group": "animals", "army": true, "navy": true, "marine": true, "school": true },
-    { "name": "Aquanautics", "group": "seafarer", "college": true, "school": true },
-    { "name": "Grav", "group": "seafarer", "army": true, "navy": true, "marine": true, "school": true },
-    { "name": "Boat", "group": "seafarer", "marine": true, "school": true },
-    { "name": "Ship", "group": "seafarer", "marine": true, "school": true },
-    { "name": "Submersible", "group": "seafarer", "marine": true, "school": true },
-    { "name": "Artillery", "group": "hvy_wpns", "army": true, "marine": true },
-    { "name": "Launcher", "group": "hvy_wpns", "army": true, "marine": true },
-    { "name": "Ordnance", "group": "hvy_wpns", "army": true, "marine": true },
-    { "name": "WMD", "group": "hvy_wpns", "army": true, "navy": true, "marine": true }
+    {
+      "name": "Admin",
+      "group": "base",
+      "school": true
+    },
+    {
+      "name": "Advocate",
+      "group": "base",
+      "law": true
+    },
+    {
+      "name": "Animals",
+      "group": "base",
+      "knowledge_only": true
+    },
+    {
+      "name": "Athlete",
+      "group": "base",
+      "college": true
+    },
+    {
+      "name": "Broker",
+      "group": "base",
+      "college": true
+    },
+    {
+      "name": "Bureaucrat",
+      "group": "base",
+      "college": true
+    },
+    {
+      "name": "Comms",
+      "group": "base",
+      "school": true
+    },
+    {
+      "name": "Computer",
+      "group": "base",
+      "school": true
+    },
+    {
+      "name": "Counsellor",
+      "group": "base",
+      "college": true
+    },
+    {
+      "name": "Designer",
+      "group": "base",
+      "college": true
+    },
+    {
+      "name": "Diplomat",
+      "group": "base",
+      "law": true
+    },
+    {
+      "name": "Driver",
+      "group": "base",
+      "knowledge_only": true
+    },
+    {
+      "name": "Explosives",
+      "group": "base",
+      "school": true
+    },
+    {
+      "name": "Fleet Tactics",
+      "group": "base",
+      "navy": true
+    },
+    {
+      "name": "Flyer",
+      "group": "base",
+      "knowledge_only": true
+    },
+    {
+      "name": "Forensics",
+      "group": "base",
+      "medical": true
+    },
+    {
+      "name": "Gambler",
+      "group": "base"
+    },
+    {
+      "name": "High-G",
+      "group": "base",
+      "school": true
+    },
+    {
+      "name": "Hostile Environ",
+      "group": "base",
+      "school": true
+    },
+    {
+      "name": "JOT",
+      "group": "base"
+    },
+    {
+      "name": "Language",
+      "group": "base",
+      "college": true,
+      "army": true,
+      "navy": true,
+      "marine": true,
+      "school": true
+    },
+    {
+      "name": "Leader",
+      "group": "base",
+      "navy": true,
+      "marine": true
+    },
+    {
+      "name": "Liaison",
+      "group": "base",
+      "navy": true,
+      "marine": true
+    },
+    {
+      "name": "Naval Architect",
+      "group": "base",
+      "navy": true
+    },
+    {
+      "name": "Seafarer",
+      "group": "base",
+      "knowledge_only": true
+    },
+    {
+      "name": "Stealth",
+      "group": "base"
+    },
+    {
+      "name": "Strategy",
+      "group": "base",
+      "navy": true,
+      "marine": true
+    },
+    {
+      "name": "Streetwise",
+      "group": "base"
+    },
+    {
+      "name": "Survey",
+      "group": "base",
+      "school": true
+    },
+    {
+      "name": "Survival",
+      "group": "base",
+      "school": true
+    },
+    {
+      "name": "Tactics",
+      "group": "base",
+      "navy": true,
+      "marine": true,
+      "school": true
+    },
+    {
+      "name": "Teacher",
+      "group": "base",
+      "college": true
+    },
+    {
+      "name": "Trader",
+      "group": "base",
+      "school": true
+    },
+    {
+      "name": "Vacc Suit",
+      "group": "base",
+      "school": true
+    },
+    {
+      "name": "Zero-G",
+      "group": "base",
+      "school": true
+    },
+    {
+      "name": "Astrogator",
+      "group": "ship",
+      "college": true,
+      "navy": true
+    },
+    {
+      "name": "Engineer",
+      "group": "ship",
+      "knowledge_only": true
+    },
+    {
+      "name": "Gunner",
+      "group": "ship",
+      "knowledge_only": true,
+      "navy": true
+    },
+    {
+      "name": "Medic",
+      "group": "ship",
+      "medical": true,
+      "navy": true,
+      "marine": true,
+      "school": true
+    },
+    {
+      "name": "Pilot",
+      "group": "ship",
+      "knowledge_only": true
+    },
+    {
+      "name": "Sensors",
+      "group": "ship",
+      "navy": true,
+      "school": true
+    },
+    {
+      "name": "Steward",
+      "group": "ship",
+      "navy": true,
+      "school": true
+    },
+    {
+      "name": "Fighter",
+      "group": "soldier",
+      "knowledge_only": true,
+      "marine": true
+    },
+    {
+      "name": "Forward Observer",
+      "group": "soldier",
+      "marine": true,
+      "school": true
+    },
+    {
+      "name": "Heavy Weapons",
+      "group": "soldier",
+      "knowledge_only": true,
+      "marine": true
+    },
+    {
+      "name": "Navigator",
+      "group": "soldier",
+      "marine": true,
+      "school": true
+    },
+    {
+      "name": "Recon",
+      "group": "soldier",
+      "marine": true,
+      "school": true
+    },
+    {
+      "name": "Sapper",
+      "group": "soldier",
+      "marine": true,
+      "school": true
+    },
+    {
+      "name": "Actor",
+      "group": "arts",
+      "college": true,
+      "school": true
+    },
+    {
+      "name": "Artist",
+      "group": "arts",
+      "college": true,
+      "school": true
+    },
+    {
+      "name": "Author",
+      "group": "arts",
+      "college": true,
+      "school": true
+    },
+    {
+      "name": "Chef",
+      "group": "arts",
+      "college": true,
+      "school": true
+    },
+    {
+      "name": "Dancer",
+      "group": "arts",
+      "college": true,
+      "school": true
+    },
+    {
+      "name": "Musician",
+      "group": "arts",
+      "college": true,
+      "school": true
+    },
+    {
+      "name": "Biologics",
+      "group": "trades",
+      "college": true,
+      "school": true
+    },
+    {
+      "name": "Craftsman",
+      "group": "trades",
+      "college": true,
+      "school": true
+    },
+    {
+      "name": "Electronics",
+      "group": "trades",
+      "college": true,
+      "school": true
+    },
+    {
+      "name": "Fluidics",
+      "group": "trades",
+      "college": true,
+      "school": true
+    },
+    {
+      "name": "Gravitics",
+      "group": "trades",
+      "college": true,
+      "school": true
+    },
+    {
+      "name": "Magnetics",
+      "group": "trades",
+      "college": true,
+      "school": true
+    },
+    {
+      "name": "Mechanic",
+      "group": "trades",
+      "college": true,
+      "school": true
+    },
+    {
+      "name": "Photonics",
+      "group": "trades",
+      "college": true,
+      "school": true
+    },
+    {
+      "name": "Polymers",
+      "group": "trades",
+      "college": true,
+      "school": true
+    },
+    {
+      "name": "Programmer",
+      "group": "trades",
+      "college": true,
+      "school": true
+    },
+    {
+      "name": "ACV",
+      "group": "driver",
+      "army": true,
+      "school": true
+    },
+    {
+      "name": "Automotive",
+      "group": "driver",
+      "college": true,
+      "army": true,
+      "school": true
+    },
+    {
+      "name": "Driver: Grav",
+      "group": "driver",
+      "army": true,
+      "navy": true,
+      "marine": true,
+      "school": true
+    },
+    {
+      "name": "Legged",
+      "group": "driver",
+      "army": true,
+      "school": true
+    },
+    {
+      "name": "Mole",
+      "group": "driver",
+      "army": true,
+      "school": true
+    },
+    {
+      "name": "Tracked",
+      "group": "driver",
+      "army": true,
+      "marine": true,
+      "school": true
+    },
+    {
+      "name": "Wheeled",
+      "group": "driver",
+      "army": true,
+      "navy": true,
+      "marine": true,
+      "school": true
+    },
+    {
+      "name": "Battle Dress",
+      "group": "fighter",
+      "army": true,
+      "navy": true,
+      "marine": true
+    },
+    {
+      "name": "Beams",
+      "group": "fighter",
+      "army": true,
+      "marine": true
+    },
+    {
+      "name": "Blades",
+      "group": "fighter",
+      "army": true,
+      "marine": true,
+      "school": true
+    },
+    {
+      "name": "Exotics",
+      "group": "fighter",
+      "army": true,
+      "marine": true
+    },
+    {
+      "name": "Slug Throwers",
+      "group": "fighter",
+      "army": true,
+      "navy": true,
+      "marine": true,
+      "school": true
+    },
+    {
+      "name": "Sprays",
+      "group": "fighter",
+      "army": true,
+      "marine": true
+    },
+    {
+      "name": "Unarmed",
+      "group": "fighter",
+      "army": true,
+      "marine": true,
+      "school": true
+    },
+    {
+      "name": "Jump Drives",
+      "group": "engineer",
+      "navy": true,
+      "school": true
+    },
+    {
+      "name": "Life Support",
+      "group": "engineer",
+      "army": true,
+      "navy": true,
+      "school": true
+    },
+    {
+      "name": "Maneuver Drive",
+      "group": "engineer",
+      "navy": true,
+      "school": true
+    },
+    {
+      "name": "Power Systems",
+      "group": "engineer",
+      "army": true,
+      "navy": true,
+      "marine": true,
+      "school": true
+    },
+    {
+      "name": "Archeology",
+      "group": "sciences",
+      "college": true
+    },
+    {
+      "name": "Biology",
+      "group": "sciences",
+      "college": true
+    },
+    {
+      "name": "Chemistry",
+      "group": "sciences",
+      "college": true
+    },
+    {
+      "name": "History",
+      "group": "sciences",
+      "college": true
+    },
+    {
+      "name": "Linguistics",
+      "group": "sciences",
+      "college": true,
+      "school": true
+    },
+    {
+      "name": "Philosophy",
+      "group": "sciences",
+      "college": true
+    },
+    {
+      "name": "Physics",
+      "group": "sciences",
+      "college": true
+    },
+    {
+      "name": "Planetology",
+      "group": "sciences",
+      "college": true
+    },
+    {
+      "name": "Psionicology",
+      "group": "sciences",
+      "college": true
+    },
+    {
+      "name": "Psychohistory",
+      "group": "sciences",
+      "college": true
+    },
+    {
+      "name": "Psychology",
+      "group": "sciences",
+      "college": true
+    },
+    {
+      "name": "Robotics",
+      "group": "sciences",
+      "college": true,
+      "army": true,
+      "navy": true,
+      "marine": true,
+      "school": true
+    },
+    {
+      "name": "Sophontology",
+      "group": "sciences",
+      "college": true
+    },
+    {
+      "name": "Aeronautics",
+      "group": "flyer",
+      "college": true,
+      "army": true,
+      "navy": true,
+      "school": true
+    },
+    {
+      "name": "Flapper",
+      "group": "flyer",
+      "army": true,
+      "school": true
+    },
+    {
+      "name": "Flyer: Grav",
+      "group": "flyer",
+      "army": true,
+      "navy": true,
+      "marine": true,
+      "school": true
+    },
+    {
+      "name": "LTA",
+      "group": "flyer",
+      "army": true,
+      "school": true
+    },
+    {
+      "name": "Rotor",
+      "group": "flyer",
+      "army": true,
+      "school": true
+    },
+    {
+      "name": "Winged",
+      "group": "flyer",
+      "army": true,
+      "navy": true,
+      "school": true
+    },
+    {
+      "name": "Bay Weapons",
+      "group": "gunner",
+      "navy": true
+    },
+    {
+      "name": "Ortillery",
+      "group": "gunner",
+      "navy": true
+    },
+    {
+      "name": "Screens",
+      "group": "gunner",
+      "army": true,
+      "navy": true
+    },
+    {
+      "name": "Spines",
+      "group": "gunner",
+      "navy": true
+    },
+    {
+      "name": "Turrets",
+      "group": "gunner",
+      "navy": true,
+      "marine": true
+    },
+    {
+      "name": "Small Craft",
+      "group": "pilot",
+      "army": true,
+      "marine": true,
+      "school": true
+    },
+    {
+      "name": "Spacecraft ACS",
+      "group": "pilot",
+      "navy": true
+    },
+    {
+      "name": "Spacecraft BCS",
+      "group": "pilot",
+      "navy": true
+    },
+    {
+      "name": "Rider",
+      "group": "animals",
+      "army": true,
+      "school": true
+    },
+    {
+      "name": "Teamster",
+      "group": "animals",
+      "army": true,
+      "school": true
+    },
+    {
+      "name": "Trainer",
+      "group": "animals",
+      "army": true,
+      "navy": true,
+      "marine": true,
+      "school": true
+    },
+    {
+      "name": "Aquanautics",
+      "group": "seafarer",
+      "college": true,
+      "school": true
+    },
+    {
+      "name": "Seafarer: Grav",
+      "group": "seafarer",
+      "army": true,
+      "navy": true,
+      "marine": true,
+      "school": true
+    },
+    {
+      "name": "Boat",
+      "group": "seafarer",
+      "marine": true,
+      "school": true
+    },
+    {
+      "name": "Ship",
+      "group": "seafarer",
+      "marine": true,
+      "school": true
+    },
+    {
+      "name": "Sub",
+      "group": "seafarer",
+      "marine": true,
+      "school": true
+    },
+    {
+      "name": "Artillery",
+      "group": "hvy_wpns",
+      "army": true,
+      "marine": true
+    },
+    {
+      "name": "Launcher",
+      "group": "hvy_wpns",
+      "army": true,
+      "marine": true
+    },
+    {
+      "name": "Ordnance",
+      "group": "hvy_wpns",
+      "army": true,
+      "marine": true
+    },
+    {
+      "name": "WMD",
+      "group": "hvy_wpns",
+      "army": true,
+      "navy": true,
+      "marine": true
+    }
   ]
 }

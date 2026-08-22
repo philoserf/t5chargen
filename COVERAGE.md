@@ -71,7 +71,7 @@ Book 1, Print Edition 5.1.
 | Career selection; forced first career                 | chart D p. 64; CLI sketch | `runCareer`, registry        | `TestRegistryMatchesAvailable`, forced-career tests | covered for Citizen                     |
 | CC rotation (no reuse until all used)                 | pp. 64–65                 | `careerRun.chooseCC`         | rotation-window sweep                               | covered                                 |
 | Per-term skills table (column choice + 1D)            | p. 65                     | `careerRun.termSkills`       | goldens, sweeps                                     | covered                                 |
-| Trade/Art/Science cells                               | p. 78 table C             | error (`errNotImplemented`)  | direct data test                                    | deferred (M3, with MS list)             |
+| Trade/Art/Science cells                               | p. 78 table C             | error (`errNotImplemented`)  | direct data test                                    | deferred (M3); unblocked — the MS list supplies the 10 Trades, 6 Arts, and 13 Sciences |
 | Continue roll; mandatory on exactly 2                 | p. 66                     | `careerRun.continueRoll`     | pinned seed 3                                       | covered                                 |
 | 4-year terms; age accounting                          | p. 66; p. 59 (age 18)     | `continueRoll`, `StartAge`   | `checkEducationAge`                                 | covered                                 |
 | Generic Risk/Reward (Caution/Bravery, injury, reward) | pp. 64–65                 | —                            | —                                                   | deferred (M3, first non-Citizen career) |
@@ -110,7 +110,7 @@ Book 1, Print Edition 5.1.
 | Continue vs Int | chart 05 | `careerRun.continueRoll` | Continue-Int cite sweep | covered |
 | Sanity −1 per two terms | chart 05 | — | — | deferred (San untracked; chart A defers it) |
 | Muster-out table D; Land Grant economics | chart 05; pp. 70–71 | — | — | deferred (M4) |
-| "Starship Skill" cells | chart 05 table C | `EntryStarship` (errors if selected) | data test | deferred (M3 MS list) |
+| "Starship Skill" cells | chart 05 table C | `EntryStarship` (errors if selected) | data test | deferred (M3); unblocked — the MS list now supplies the seven Starship Skills |
 | No rank | p. 65 | (nothing to do) | — | covered |
 
 ## Careers 01–03, 06–13
@@ -120,6 +120,22 @@ Soldier, Agent, Rogue, Noble, Marine, Functionary (charts pp. 75–88).
 Each career's section is added here with its chunk, uncommon branches
 enumerated, before it is called done.
 
+## Master Skill List (chart MS, p. 132)
+
+| Rule | Cite | Implementation | Test | Status |
+| --- | --- | --- | --- | --- |
+| The 64 skills; list is closed ("no others available") | p. 132 | `skill/data/master_skill_list.json` | `TestListLoads`, `TestSkillGroups` | covered (count checked against the printed 64) |
+| Knowledges by parent skill; Talents, Personals, Intuitions | p. 132 | same | `TestLookupKinds` | covered (Knowledges/Talents advisory per the page note) |
+| Default Skills (usable at level-0 by any character) | p. 132; p. 133 | `Entry.Default` | `TestDefaultSkills` | transcribed; the level-0 default rule itself is deferred (task resolution, out of chargen scope) |
+| Chart labels resolve to list names | p. 132 vs charts | `skill.Resolve` + loader checks | `TestResolveCanonical`, `TestAwardedSkillsAreCanonical` | interpretation I-9 |
+| Grav under three parents | p. 132 | qualified names; `resolveSkillName` | `TestQualifiedKnowledges`, `TestAmbiguousChartCellsResolveByChoice` | interpretation I-10 |
+| "Spacecraft" cell | p. 78 vs p. 132 | `labels`; `resolveSkillName` | `TestAmbiguousChartCellsResolveByChoice` | interpretation I-11 |
+| Knowledge-Knowledge-Skill progression on receipt | p. 133 | — | — | deferred (M3 follow-up: award semantics) |
+| Knowledge-6 / World-6 / Career-6 maximums | p. 134 | — | — | deferred (M3 follow-up; the Skill-15 cap is applied, Talent-15 is moot until talents are awarded) |
+| Career: <Name> and World: <Name> knowledges | p. 134 | — | — | deferred (M4: needs terms-served and residence accounting) |
+| Sciences specialization beyond level 6 | p. 134 | — | — | deferred (M4) |
+| Education provides only contained Knowledges for the ten container skills | p. 134 | `knowledge_only` rows | education matrix tests | covered (data); award semantics with the progression above |
+
 ## E1 step E — Muster Out, and later steps
 
 Muster out (pp. 67, 70–71), aging (chart A p. 89; FR6), fame (chart F
@@ -128,7 +144,7 @@ Batch, replay verification, interactive mode: deferred (M5).
 
 ## Cross-cutting interpretations
 
-I-1 … I-7 in ERRATA.md, each referenced from its row above. Skill-name
-canonicalization (I-4) carries a known residual: MSL-exact strings for
-five shared names and the citizen Navigator/Navigation split, deferred to
-a registry-wide canonicalization with the M3 Master Skill List work.
+I-1 … I-11 in ERRATA.md, each referenced from its row above. The I-4
+skill-name residual (MSL-exact strings, the Navigator/Navigation split) is
+closed by I-9: every skill name in every embedded chart is validated
+against the Master Skill List at load time.

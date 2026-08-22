@@ -22,6 +22,7 @@ import (
 	"sync"
 
 	"github.com/philoserf/t5chargen/ehex"
+	"github.com/philoserf/t5chargen/skill"
 )
 
 // Homeworld identifies where a character was raised (chart B, p. 56).
@@ -248,6 +249,17 @@ func (g Grant) validate() error {
 	case GrantSkill:
 		if len(g.Skills) == 0 {
 			return fmt.Errorf("%w: TC %q grants skill but lists none", errBadTable, g.TC)
+		}
+
+		// Chart B names Master Skill List entries (ERRATA.md I-9).
+		// Ambiguous names are rejected rather than merely validated: the
+		// homeworld grants award directly, with no choice point to resolve
+		// a label covering several entries the way the career charts do
+		// (ERRATA.md I-10, I-11). No chart B grant is ambiguous.
+		for _, name := range g.Skills {
+			if _, err := skill.Resolve(name); err != nil {
+				return fmt.Errorf("%w: TC %q: %w", errBadTable, g.TC, err)
+			}
 		}
 	case GrantNone, GrantArt, GrantTrade:
 		if len(g.Skills) != 0 {
