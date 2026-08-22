@@ -257,11 +257,20 @@ func (r *careerRun) awardAndLog(name string, levels, cause int) {
 // Driver, Flyer, and Seafarer, and "Spacecraft" covers both Spacecraft ACS
 // and Spacecraft BCS (p. 132). Those are resolved by choice, in Master
 // Skill List order (ERRATA.md I-10, I-11).
-func (r *careerRun) resolveSkillName(name string) (string, error) {
+//
+// exclude names entries the caller has already spent — the Citizen Hobby
+// must differ from the Job (interpretation I-3), and the chart prints the
+// label, not the resolved name, so the exclusion can only be applied here.
+// A label always covers at least two entries, so at least one survives.
+func (r *careerRun) resolveSkillName(name string, exclude ...string) (string, error) {
 	options := skill.Options(name)
 	if options == nil {
 		return name, nil
 	}
+
+	options = slices.DeleteFunc(options, func(option string) bool {
+		return slices.Contains(exclude, option)
+	})
 
 	chosen, _, err := choose(r.log, r.decider, Choice{
 		ID:      ChooseSkill,

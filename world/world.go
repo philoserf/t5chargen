@@ -22,7 +22,6 @@ import (
 	"sync"
 
 	"github.com/philoserf/t5chargen/ehex"
-
 	"github.com/philoserf/t5chargen/skill"
 )
 

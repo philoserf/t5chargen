@@ -97,6 +97,79 @@ func TestAmbiguousChartCellsResolveByChoice(t *testing.T) {
 	}
 }
 
+// hobbyLabelDecider takes an ambiguous table E label as the Hobby whenever
+// one is offered, and otherwise defers to the auto policy so the rest of
+// the run matches the pinned seeds. It reaches the case the policy cannot:
+// a Hobby label that resolves onto the Job.
+type hobbyLabelDecider struct{ chargen.DefaultPolicy }
+
+func (d hobbyLabelDecider) Choose(c chargen.Choice) int {
+	if c.ID == chargen.ChooseHobby {
+		for _, label := range []string{"Spacecraft", "Grav"} {
+			if i := slices.Index(c.Options, label); i >= 0 {
+				return i
+			}
+		}
+	}
+
+	return d.DefaultPolicy.Choose(c)
+}
+
+func (hobbyLabelDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
+
+// TestHobbyNeverResolvesOntoTheJob verifies that the Hobby stays a
+// different pursuit from the Job (interpretation I-3, ERRATA.md) even when
+// both come from an ambiguous chart 04 table E label. Table E prints
+// "Spacecraft" and "Grav", so excluding the Job by its resolved Master
+// Skill List name cannot remove the label from the Hobby list; the
+// exclusion is applied again when the label is resolved.
+func TestHobbyNeverResolvesOntoTheJob(t *testing.T) {
+	for seed := uint64(1); seed <= 400; seed++ {
+		c, err := chargen.Generate(chargen.Options{
+			Seed:    seed,
+			Career:  "Citizen",
+			Decider: hobbyLabelDecider{},
+		})
+		if err != nil {
+			t.Fatalf("seed %d: %v", seed, err)
+		}
+
+		for _, record := range c.Careers {
+			if record.Job == "" || record.Hobby == "" {
+				continue
+			}
+
+			if record.Job == record.Hobby {
+				t.Errorf("seed %d: Job and Hobby are both %q", seed, record.Job)
+			}
+
+			if _, ok := skill.Lookup(record.Hobby); !ok {
+				t.Errorf("seed %d: Hobby %q is not a Master Skill List entry", seed, record.Hobby)
+			}
+		}
+	}
+}
+
+// TestHobbyLabelExcludesTheJob pins the exclusion on seed 165, whose
+// Citizen Job comes from the table E "Spacecraft" cell: taking the same
+// label as the Hobby must offer only the entry the Job did not take.
+func TestHobbyLabelExcludesTheJob(t *testing.T) {
+	c := generate(t, chargen.Options{Seed: 165, Career: "Citizen", Decider: hobbyLabelDecider{}})
+
+	if got := c.Careers[0].Job; got != "Spacecraft ACS" {
+		t.Fatalf("Job = %q, want Spacecraft ACS", got)
+	}
+
+	found := findLastChoice(c, "Select the specific Spacecraft skill")
+	if found == nil {
+		t.Fatal("no Spacecraft resolution recorded for the Hobby")
+	}
+
+	if !slices.Equal(found.Options, []string{"Spacecraft BCS"}) {
+		t.Errorf("Hobby options = %v, want the Job excluded", found.Options)
+	}
+}
+
 // findChoice returns the first choice event with the given prompt.
 func findChoice(c chargen.Character, prompt string) *chargen.ChoiceEvent {
 	for _, e := range c.Events {
@@ -106,4 +179,17 @@ func findChoice(c chargen.Character, prompt string) *chargen.ChoiceEvent {
 	}
 
 	return nil
+}
+
+// findLastChoice returns the last choice event with the given prompt.
+func findLastChoice(c chargen.Character, prompt string) *chargen.ChoiceEvent {
+	var found *chargen.ChoiceEvent
+
+	for _, e := range c.Events {
+		if e.Kind == chargen.EventChoice && e.Choice.Prompt == prompt {
+			found = e.Choice
+		}
+	}
+
+	return found
 }

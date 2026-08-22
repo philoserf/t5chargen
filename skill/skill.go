@@ -19,7 +19,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"sort"
+	"slices"
 	"strings"
 	"sync"
 )
@@ -122,8 +122,10 @@ func Resolve(name string) (string, error) {
 		return name, nil
 	}
 
+	// The alternatives are copied: the registry is shared by every caller
+	// and the slice reaches the event log verbatim.
 	if options, ok := r.ambiguous[name]; ok {
-		return "", &AmbiguousError{Name: name, Options: options}
+		return "", &AmbiguousError{Name: name, Options: slices.Clone(options)}
 	}
 
 	return "", fmt.Errorf("%w: %q", ErrUnknownSkill, name)
@@ -180,7 +182,7 @@ func Names() []string {
 		out = append(out, name)
 	}
 
-	sort.Strings(out)
+	slices.Sort(out)
 
 	return out
 }
@@ -345,6 +347,10 @@ func (t *table) addKnowledges(groups []knowledges) error {
 // addSimple registers the talents, personals, and intuitions.
 func (t *table) addSimple(names []string, kind Kind) error {
 	for _, name := range names {
+		if name == "" {
+			return fmt.Errorf("%w: nameless %s entry", errBadList, kind)
+		}
+
 		if _, dup := t.byName[name]; dup {
 			return fmt.Errorf("%w: %s %q collides with an existing entry", errBadList, kind, name)
 		}
@@ -379,6 +385,14 @@ func (t *table) addLabels(labels []label) error {
 
 		if _, taken := t.byName[l.Label]; taken {
 			return fmt.Errorf("%w: label %q is already a canonical name", errBadList, l.Label)
+		}
+
+		// addLabels runs after addKnowledges, so this catches both a
+		// duplicate label row and a label colliding with a knowledge name
+		// shared by several parents — either would silently replace the
+		// alternatives the engine offers.
+		if _, taken := t.ambiguous[l.Label]; taken {
+			return fmt.Errorf("%w: label %q already has alternatives", errBadList, l.Label)
 		}
 
 		for _, option := range l.Options {

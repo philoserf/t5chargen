@@ -57,8 +57,10 @@ const (
 	// (p. 59).
 	ChooseWaiver ChoiceID = "attempt_waiver"
 
-	// ChooseSkill selects a skill from an open list (the Apprenticeship
-	// Skill+4, chart C p. 60).
+	// ChooseSkill selects a skill from an open list: the Apprenticeship
+	// Skill+4 (chart C p. 60), and the Master Skill List entries a single
+	// chart cell covers (chart 04 table E "Grav" and "Spacecraft";
+	// ERRATA.md I-10, I-11).
 	ChooseSkill ChoiceID = "select_skill"
 
 	// ChooseDuty selects the Scout term's duty (chart 05 table B; "A

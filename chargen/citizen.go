@@ -165,7 +165,11 @@ func (*citizenMechanics) determineHobby(r *careerRun) error {
 		return err
 	}
 
-	name, err := r.resolveSkillName(options[chosen])
+	// The Job is excluded again here: table E prints the ambiguous "Grav"
+	// and "Spacecraft" labels, so removing the Job by name above cannot
+	// reach a Job that was itself resolved from one of them (ERRATA.md
+	// I-3, I-10, I-11).
+	name, err := r.resolveSkillName(options[chosen], r.record.Job)
 	if err != nil {
 		return err
 	}
