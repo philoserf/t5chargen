@@ -286,6 +286,11 @@ type ArmedForces struct {
 }
 
 // Branch is one row of a service's Branch table, indexed by the 1D roll.
+// The Naval table prints separate Officer and Enlisted names and Mods for
+// the same row (chart 07, p. 81), which is how "for Spacers, Crew becomes
+// Line" on commission (p. 65) falls out: the row is fixed and the side
+// follows the rank class. Where a chart prints one set, as the Army does,
+// the enlisted fields are empty and the officer's serve both.
 type Branch struct {
 	Name string `json:"name"`
 
@@ -294,17 +299,36 @@ type Branch struct {
 	Mod int `json:"mod"`
 	DM  int `json:"dm"`
 
+	// EnlistedName and EnlistedMod are the row's enlisted side where the
+	// chart prints one.
+	EnlistedName string `json:"enlisted_name,omitempty"`
+	EnlistedMod  int    `json:"enlisted_mod,omitempty"`
+
 	// AutoSkill and AutoTrade are the branch's automatic skills:
-	// "if Medical Branch= Medic-1; If Technical Branch= any Trade."
-	// (chart 08)
+	// "if Medical Branch= Medic-1; If Technical Branch= any Trade"
+	// (chart 08).
 	AutoSkill string `json:"auto_skill,omitempty"`
 	AutoTrade bool   `json:"auto_trade,omitempty"`
+}
+
+// Side returns the branch name and Mod for a rank class.
+func (b Branch) Side(officer bool) (string, int) {
+	if officer || b.EnlistedName == "" {
+		return b.Name, b.Mod
+	}
+
+	return b.EnlistedName, b.EnlistedMod
 }
 
 // Operation is one row of a service's Operations table.
 type Operation struct {
 	Name string `json:"name"`
 	Mod  int    `json:"mod"`
+
+	// Column names the skills-table column the assignment opens where it
+	// differs from the operation's own name (chart 07's Patrol and Strike
+	// both open "Patrol/Strike"); empty means the name itself.
+	Column string `json:"column,omitempty"`
 
 	// Implemented is false for the ANM School assignment, whose schooling
 	// is "resolved as Education" (chart 08) and lands with Later Education
@@ -836,6 +860,9 @@ var nobleJSON []byte
 //go:embed data/soldier.json
 var soldierJSON []byte
 
+//go:embed data/spacer.json
+var spacerJSON []byte
+
 // The implemented careers parse and validate their embedded definitions
 // once.
 var (
@@ -859,6 +886,9 @@ var (
 	})
 	soldier = sync.OnceValues(func() (*Definition, error) {
 		return load("soldier.json", soldierJSON)
+	})
+	spacer = sync.OnceValues(func() (*Definition, error) {
+		return load("spacer.json", spacerJSON)
 	})
 )
 
@@ -903,6 +933,11 @@ func Scholar() (*Definition, error) {
 	return scholar()
 }
 
+// Spacer returns the Spacer career definition (chart 07, p. 81).
+func Spacer() (*Definition, error) {
+	return spacer()
+}
+
 // Soldier returns the Soldier career definition (chart 08, p. 82).
 func Soldier() (*Definition, error) {
 	return soldier()
@@ -918,5 +953,5 @@ func Noble() (*Definition, error) {
 // The default policy names its career rather than taking the first listed,
 // so this order is presentation only (POLICY.md).
 func Available() []string {
-	return []string{"Scholar", "Entertainer", "Citizen", "Scout", "Merchant", "Soldier", "Noble"}
+	return []string{"Scholar", "Entertainer", "Citizen", "Scout", "Merchant", "Spacer", "Soldier", "Noble"}
 }

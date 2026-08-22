@@ -1,0 +1,400 @@
+{
+  "name": "Spacer",
+  "cite": "Book 1 p. 81 chart 07",
+  "controlling_characteristics": [
+    "Str",
+    "Dex",
+    "Int"
+  ],
+  "continue_characteristic": "Str",
+  "skills_per_term": 4,
+  "skills_per_advancement": 1,
+  "begin_checks": [
+    "Int"
+  ],
+  "armed_forces": {
+    "branch_check": "Soc",
+    "branch_cite": "Book 1 p. 81 chart 07 (Naval Branch)",
+    "operations_cite": "Book 1 p. 81 chart 07 (Naval Operations)",
+    "edu_dm_at": 10,
+    "edu_dm": 2,
+    "operations_per_term": 4,
+    "branches": [
+      {
+        "name": "Line",
+        "mod": 1,
+        "enlisted_name": "Crew",
+        "enlisted_mod": 1
+      },
+      {
+        "name": "Line",
+        "mod": 1,
+        "enlisted_name": "Crew",
+        "enlisted_mod": 1
+      },
+      {
+        "name": "Line",
+        "mod": 1,
+        "enlisted_name": "Engineer",
+        "enlisted_mod": 0
+      },
+      {
+        "name": "Engineer",
+        "mod": 0
+      },
+      {
+        "name": "Gunnery",
+        "mod": 1
+      },
+      {
+        "name": "Flight",
+        "mod": 2,
+        "enlisted_name": "Gunnery",
+        "enlisted_mod": 1
+      },
+      {
+        "name": "Technical",
+        "mod": 0,
+        "auto_trade": true
+      },
+      {
+        "name": "Medical",
+        "mod": 0,
+        "auto_skill": "Medic"
+      }
+    ],
+    "operations": [
+      {
+        "name": "Battle",
+        "mod": 2
+      },
+      {
+        "name": "Strike",
+        "mod": 2,
+        "column": "Patrol/Strike"
+      },
+      {
+        "name": "Siege",
+        "mod": 0
+      },
+      {
+        "name": "Patrol",
+        "mod": 1,
+        "column": "Patrol/Strike"
+      },
+      {
+        "name": "Mission",
+        "mod": 3
+      },
+      {
+        "name": "ANM School",
+        "mod": 0,
+        "implemented": false
+      },
+      {
+        "name": "Shore Duty",
+        "mod": 0
+      },
+      {
+        "name": "Shore Duty",
+        "mod": 0
+      }
+    ]
+  },
+  "ranks": [
+    {
+      "id": "R1",
+      "class": "enlisted",
+      "title": "Spacehand",
+      "auto_skill": "Fighter"
+    },
+    {
+      "id": "R2",
+      "class": "enlisted",
+      "title": "Able Spacer"
+    },
+    {
+      "id": "R3",
+      "class": "enlisted",
+      "title": "Petty Officer Second"
+    },
+    {
+      "id": "R4",
+      "class": "enlisted",
+      "title": "Petty Officer First",
+      "auto_skill": "Gunner"
+    },
+    {
+      "id": "R5",
+      "class": "enlisted",
+      "title": "Chief Petty Officer",
+      "auto_skill": "Sensors"
+    },
+    {
+      "id": "R6",
+      "class": "enlisted",
+      "title": "Master Chief Petty Officer"
+    },
+    {
+      "id": "O1",
+      "class": "officer",
+      "title": "Ensign",
+      "auto_skill": "Astrogator"
+    },
+    {
+      "id": "O2",
+      "class": "officer",
+      "title": "Sublieutenant"
+    },
+    {
+      "id": "O3",
+      "class": "officer",
+      "title": "Lieutenant",
+      "auto_skill": "Engineer"
+    },
+    {
+      "id": "O4",
+      "class": "officer",
+      "title": "Lt Commander",
+      "auto_skill": "Pilot"
+    },
+    {
+      "id": "O5",
+      "class": "officer",
+      "title": "Commander"
+    },
+    {
+      "id": "O6",
+      "class": "officer",
+      "title": "Captain",
+      "auto_skill": "Leader"
+    },
+    {
+      "id": "O7",
+      "class": "officer",
+      "title": "Admiral"
+    }
+  ],
+  "advancements": [
+    {
+      "name": "Officer Commission",
+      "from_classes": [
+        "enlisted"
+      ],
+      "to_rank": "O1",
+      "target": "characteristic",
+      "check": "Dex"
+    },
+    {
+      "name": "Rating Promotion",
+      "from_classes": [
+        "enlisted"
+      ],
+      "target": "characteristic",
+      "check": "Dex",
+      "medal_mods": true
+    },
+    {
+      "name": "Officer Promotion",
+      "from_classes": [
+        "officer"
+      ],
+      "target": "characteristic",
+      "check": "Soc",
+      "medal_mods": true
+    }
+  ],
+  "skill_columns": [
+    {
+      "name": "Personal",
+      "entries": [
+        {
+          "kind": "characteristic",
+          "name": "Str"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Dex"
+        },
+        {
+          "kind": "characteristic",
+          "name": "End"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Int"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Edu"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Soc"
+        }
+      ]
+    },
+    {
+      "name": "Shore Duty",
+      "entries": [
+        {
+          "kind": "major"
+        },
+        {
+          "kind": "major"
+        },
+        {
+          "kind": "minor"
+        },
+        {
+          "kind": "minor"
+        },
+        {
+          "kind": "trade"
+        },
+        {
+          "kind": "trade"
+        }
+      ]
+    },
+    {
+      "name": "Battle",
+      "entries": [
+        {
+          "kind": "skill",
+          "name": "Fighter"
+        },
+        {
+          "kind": "skill",
+          "name": "Fleet Tactics"
+        },
+        {
+          "kind": "skill",
+          "name": "Pilot"
+        },
+        {
+          "kind": "starship"
+        },
+        {
+          "kind": "skill",
+          "name": "Gunner"
+        },
+        {
+          "kind": "skill",
+          "name": "Sensors"
+        }
+      ]
+    },
+    {
+      "name": "Patrol/Strike",
+      "entries": [
+        {
+          "kind": "skill",
+          "name": "Astrogator"
+        },
+        {
+          "kind": "skill",
+          "name": "Fleet Tactics"
+        },
+        {
+          "kind": "skill",
+          "name": "Computer"
+        },
+        {
+          "kind": "starship"
+        },
+        {
+          "kind": "skill",
+          "name": "Gunner"
+        },
+        {
+          "kind": "skill",
+          "name": "Sensors"
+        }
+      ]
+    },
+    {
+      "name": "Siege",
+      "entries": [
+        {
+          "kind": "skill",
+          "name": "Computer"
+        },
+        {
+          "kind": "skill",
+          "name": "Strategy"
+        },
+        {
+          "kind": "skill",
+          "name": "Counsellor"
+        },
+        {
+          "kind": "skill",
+          "name": "Gunner"
+        },
+        {
+          "kind": "skill",
+          "name": "Gunner"
+        },
+        {
+          "kind": "skill",
+          "name": "Sensors"
+        }
+      ]
+    },
+    {
+      "name": "Mission",
+      "entries": [
+        {
+          "kind": "skill",
+          "name": "Diplomat"
+        },
+        {
+          "kind": "skill",
+          "name": "Admin"
+        },
+        {
+          "kind": "skill",
+          "name": "Language"
+        },
+        {
+          "kind": "starship"
+        },
+        {
+          "kind": "skill",
+          "name": "Liaison"
+        },
+        {
+          "kind": "skill",
+          "name": "Comms"
+        }
+      ]
+    },
+    {
+      "name": "Technical",
+      "entries": [
+        {
+          "kind": "art"
+        },
+        {
+          "kind": "science"
+        },
+        {
+          "kind": "skill",
+          "name": "Athlete"
+        },
+        {
+          "kind": "skill",
+          "name": "Medic"
+        },
+        {
+          "kind": "skill",
+          "name": "Zero-G"
+        },
+        {
+          "kind": "trade"
+        }
+      ]
+    }
+  ]
+}
