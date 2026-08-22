@@ -136,6 +136,21 @@ Book 1, Print Edition 5.1.
 | Rank titles interpolate the Major ("Lecturer <of Major>") | chart 02 | plain titles stored | — | deferred (presentation; the record carries both) |
 | Muster-out table D | chart 02 D | — | — | deferred (M4) |
 
+## Career 12 — Marine (chart 12, p. 86)
+
+The third Armed Forces career, and chart data alone: it adds no mechanics
+to `chargen/armedforces.go`. Soldier's section applies unchanged, together
+with interpretations I-31 through I-37.
+
+| Rule | Cite | Implementation | Test | Status |
+| --- | --- | --- | --- | --- |
+| To Begin Str; Risk & Reward Str/Int; Continue Str | chart 12 A | shared mechanics over chart 12 data | golden seed 529 | covered |
+| Marine Branch, with Commando in place of a second Protected | chart 12 | data | `TestMarineIsDataOnly` | covered |
+| Marine Operations DM By Branch differs from the Army's | chart 12 vs 08 | data | `TestMarineIsDataOnly` | covered — Commando +0 where the Soldier's Protected is |
+| Garrison assignment and its column | chart 12 | `Operation.Column` default | golden seed 529 | covered |
+| Officer Promotion Int; Enlisted Promotion Str | chart 12 A | data | golden seed 529 | covered — the same rows under different checks |
+| Muster-out table D | chart 12 D | — | — | deferred (M4) |
+
 ## Career 07 — Spacer (chart 07, p. 81)
 
 The second Armed Forces career. Everything Soldier's section records
@@ -148,6 +163,8 @@ below cover what is particular to chart 07.
 | --- | --- | --- | --- | --- |
 | To Begin Int; Select Branch Soc; Continue Str | chart 07 A | shared mechanics over chart 07 data | golden seed 659 | covered |
 | Naval Branch prints Officer and Enlisted sides per row | chart 07 | `career.Branch.Side` | `TestSpacerCrewBecomesLine` | covered |
+| A branch is selected on the enlisted side, since entry is enlisted | chart 07; p. 65 | `chooseBranch` | golden seed 659 | interpretation I-36 |
+| A selected name binds to the row that reads the same on both sides | chart 07; p. 66 | `sameOnBothSides` | `TestSpacerBranchNameBindsStableRow` | interpretation I-36 — keeping the branch on commission keeps its Mod |
 | "for Spacers, Crew becomes Line" on commission | p. 66 | `enterRank` refreshes the branch | `TestSpacerCrewBecomesLine` | covered — the row is fixed, the side follows the rank |
 | Naval Operations takes no Branch DM | chart 07 vs 08 | `operations_use_branch_dm` absent | data | covered (chart 07 prints only "DM +2 if Edu 10+") |
 | Patrol and Strike both open the Patrol/Strike column | chart 07 C | `Operation.Column` | golden seed 659 | covered |
@@ -251,9 +268,10 @@ below cover what is particular to chart 07.
 
 ## Careers 01–05 remainder, 07–13
 
-All deferred (M3): Craftsman, Agent, Rogue, Marine, Functionary (charts
-pp. 75–88). Marine (12) is the third Armed Forces career and should be
-chart data alone over the shared mechanics, as Spacer was.
+All deferred (M3): Craftsman, Agent, Rogue, Functionary (charts
+pp. 75–88). The Armed Forces trio is complete; Agent (09) and Rogue (10)
+each bring their own subsystem, and Craftsman (01) and Functionary (13)
+are soft-gated on career changes (M4).
 
 Two are soft-gated on career changes (M4), not on effort: Functionary "is
 never a first career" (chart 13), and Craftsman's Begin is "Automatic* —
