@@ -109,13 +109,7 @@ func (m *citizenMechanics) awardCitizenLife(r *careerRun, cause int) error {
 func (*citizenMechanics) determineJob(r *careerRun) error {
 	const cite = "Book 1 p. 78 chart 04 table E (roll A reroll if >3, then B, then C)"
 
-	a := r.roller.Roll(1)
-	r.log.Roll(a, cite)
-
-	for a.Total > 3 {
-		a = r.roller.Roll(1)
-		r.log.Roll(a, cite)
-	}
+	a := r.rollUnder(3, cite)
 
 	b := r.roller.Roll(1)
 	r.log.Roll(b, cite)
@@ -123,7 +117,7 @@ func (*citizenMechanics) determineJob(r *careerRun) error {
 	c := r.roller.Roll(1)
 	seq := r.log.Roll(c, cite)
 
-	entry := r.def.JobEntry(a.Total, b.Total, c.Total)
+	entry := r.def.JobEntry(a, b.Total, c.Total)
 	if entry.Kind == career.EntryNone {
 		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceJobUndetermined})
 

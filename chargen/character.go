@@ -18,14 +18,14 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.13.0"
+	SchemaVersion = "0.14.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.13.0"
+	EngineVersion = "0.14.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
@@ -188,6 +188,13 @@ type CareerRecord struct {
 	// with no rank (p. 65).
 	Rank      string `json:"rank,omitempty"`
 	RankTitle string `json:"rank_title,omitempty"`
+
+	// UndercoverCareer and UndercoverTitle are the Agent's current cover
+	// identity (chart 09, p. 83); Commendations counts his Reward
+	// successes.
+	UndercoverCareer string `json:"undercover_career,omitempty"`
+	UndercoverTitle  string `json:"undercover_title,omitempty"`
+	Commendations    int    `json:"commendations,omitempty"`
 
 	// Branch is the Armed Forces branch served in (chart 08, p. 82);
 	// Medals are the decorations earned, in the card's own notation

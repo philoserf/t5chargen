@@ -52,6 +52,12 @@ const (
 	EntryStarship EntryKind = "starship"
 	EntrySoldier  EntryKind = "soldier"
 
+	// EntryAnySkill is chart 13's "Any Skill***" cell: "from Citizen Life
+	// Skills and Knowledges" (p. 87). EntryAnyKnowledge is chart 09's
+	// "Any Knowledge" cell (p. 83).
+	EntryAnySkill     EntryKind = "any_skill"
+	EntryAnyKnowledge EntryKind = "any_knowledge"
+
 	// EntryCapital is chart 11's "Capital***" cell: "World Knowledge (of
 	// world of highest held noble Land Grant)" (p. 85), which needs the
 	// Land Grant worlds that land with muster out (docs/PRD.md
@@ -79,6 +85,13 @@ type Column struct {
 type Definition struct {
 	Name string `json:"name"`
 	Cite string `json:"cite"`
+
+	// Reference marks a career transcribed for another career to read
+	// rather than to play: chart 09's Undercover Assignment sends an Agent
+	// into careers the engine does not yet run, and needs their skill
+	// tables. A reference career is absent from Available and from the
+	// mechanics registry, and its box A fields are not required.
+	Reference bool `json:"reference,omitempty"`
 
 	// BeginChecks lists the characteristics the To Begin throw may check
 	// (chart 05: "To Begin C1 or C2 or C3"); empty means Begin is
@@ -150,6 +163,12 @@ type Definition struct {
 	// order a character attempts them.
 	Advancements []Advancement `json:"advancements,omitempty"`
 
+	// Undercover is chart 09's Agent Undercover Assignment table (p. 83),
+	// which sends the Agent into another career for two years and lets him
+	// "Select (not Roll) one skill from the skill tables of that Career";
+	// nil for every other career.
+	Undercover *Undercover `json:"undercover,omitempty"`
+
 	// ArmedForces carries the Branch and Operations tables the Spacer,
 	// Soldier, and Marine careers share ("The Armed Forces are Spacers,
 	// Soldiers, and Marines, with background information as Branch and
@@ -212,6 +231,10 @@ type ContinueModKind string
 const (
 	// ContinueModPublications is chart 02's "*Mod +Pubs".
 	ContinueModPublications ContinueModKind = "publications"
+
+	// ContinueModTerms is chart 09's "*Mod +Terms" (p. 83), counted as
+	// completed terms (interpretation I-12).
+	ContinueModTerms ContinueModKind = "terms"
 )
 
 // TargetKind discriminates how an advancement's throw target is derived.
@@ -253,6 +276,42 @@ type Advancement struct {
 	// MedalMods adds the character's medal modifiers to the target
 	// (chart 08's "*+Medals and WB Mods"; interpretation I-31, ERRATA.md).
 	MedalMods bool `json:"medal_mods,omitempty"`
+}
+
+// Undercover is chart 09's Agent Undercover Assignment table.
+type Undercover struct {
+	Cite string          `json:"cite"`
+	Rows []UndercoverRow `json:"rows"`
+}
+
+// UndercoverRow is one assignment: the cover career and the titles its C
+// column offers. Titles are transcribed as printed, including chart 09's
+// "Pilor" and "World Discover".
+type UndercoverRow struct {
+	A int `json:"a"`
+	B int `json:"b"`
+
+	// Career is the label chart 09 prints; Source names the career
+	// definition whose skills table it refers to.
+	Career string `json:"career"`
+	Source string `json:"source"`
+
+	Titles []string `json:"titles"`
+
+	// JobTable marks the two Citizen rows, which say "Roll on Citizen Life
+	// Skills" — chart 04's table E — rather than offering a selection.
+	JobTable bool `json:"job_table,omitempty"`
+}
+
+// UndercoverAt returns the assignment for die faces a and b.
+func (u *Undercover) UndercoverAt(a, b int) (UndercoverRow, bool) {
+	for _, row := range u.Rows {
+		if row.A == a && row.B == b {
+			return row, true
+		}
+	}
+
+	return UndercoverRow{}, false
 }
 
 // ArmedForces is the Branch and Operations machinery of the Spacer,
@@ -454,15 +513,26 @@ var characteristicNames = map[string]bool{
 var entryKinds = map[EntryKind]bool{
 	EntrySkill: true, EntryCharacteristic: true, EntryMajor: true, EntryMinor: true,
 	EntryTrade: true, EntryArt: true, EntryScience: true, EntryStarship: true,
-	EntrySoldier: true, EntryCapital: true, EntryNone: true,
+	EntrySoldier: true, EntryCapital: true, EntryAnySkill: true,
+	EntryAnyKnowledge: true, EntryNone: true,
 }
 
 // validate rejects malformed-but-parseable career data at load time, so
 // the engine can trust every definition unconditionally. All thirteen
 // milestone-3 data files go through this same gate.
 func (d *Definition) validate() error {
-	if d.Name == "" || d.SkillsPerTerm < 1 {
-		return fmt.Errorf("%w: name %q, skills per term %d", errBadDefinition, d.Name, d.SkillsPerTerm)
+	if d.Name == "" {
+		return fmt.Errorf("%w: nameless career", errBadDefinition)
+	}
+
+	if d.Reference {
+		// A reference career carries only the tables another career
+		// reads; it is never run, so it has no Continue or eligibility.
+		return d.validateColumns()
+	}
+
+	if d.SkillsPerTerm < 1 {
+		return fmt.Errorf("%w: %q has %d skills per term", errBadDefinition, d.Name, d.SkillsPerTerm)
 	}
 
 	if err := d.validateContinue(); err != nil {
@@ -731,7 +801,9 @@ func (d *Definition) validateContinue() error {
 			errBadDefinition)
 	}
 
-	if d.ContinueMod != "" && d.ContinueMod != ContinueModPublications {
+	switch d.ContinueMod {
+	case "", ContinueModPublications, ContinueModTerms:
+	default:
 		return fmt.Errorf("%w: unknown continue mod %q", errBadDefinition, d.ContinueMod)
 	}
 
@@ -902,6 +974,12 @@ var spacerJSON []byte
 //go:embed data/marine.json
 var marineJSON []byte
 
+//go:embed data/agent.json
+var agentJSON []byte
+
+//go:embed data/functionary.json
+var functionaryJSON []byte
+
 // The implemented careers parse and validate their embedded definitions
 // once.
 var (
@@ -931,6 +1009,12 @@ var (
 	})
 	marine = sync.OnceValues(func() (*Definition, error) {
 		return load("marine.json", marineJSON)
+	})
+	agent = sync.OnceValues(func() (*Definition, error) {
+		return load("agent.json", agentJSON)
+	})
+	functionary = sync.OnceValues(func() (*Definition, error) {
+		return load("functionary.json", functionaryJSON)
 	})
 )
 
@@ -975,6 +1059,20 @@ func Scholar() (*Definition, error) {
 	return scholar()
 }
 
+// Agent returns the Agent career definition (chart 09, p. 83).
+func Agent() (*Definition, error) {
+	return agent()
+}
+
+// Functionary returns the Functionary chart data (chart 13, p. 87). It is
+// a reference career: chart 09's Undercover Assignment sends an Agent into
+// it, so its skills table is transcribed, but the career itself is not
+// playable until career changes land (docs/PRD.md milestone 4) — chart 13
+// says it "is never a first career".
+func Functionary() (*Definition, error) {
+	return functionary()
+}
+
 // Marine returns the Marine career definition (chart 12, p. 86).
 func Marine() (*Definition, error) {
 	return marine()
@@ -1000,5 +1098,8 @@ func Noble() (*Definition, error) {
 // The default policy names its career rather than taking the first listed,
 // so this order is presentation only (POLICY.md).
 func Available() []string {
-	return []string{"Scholar", "Entertainer", "Citizen", "Scout", "Merchant", "Spacer", "Soldier", "Noble", "Marine"}
+	return []string{
+		"Scholar", "Entertainer", "Citizen", "Scout", "Merchant",
+		"Spacer", "Soldier", "Agent", "Noble", "Marine",
+	}
 }

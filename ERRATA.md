@@ -859,3 +859,70 @@ the term quietly short of eligibility.
 
 Implemented at `career/data/soldier.json` and `marine.json`
 (`operations[].column`), enforced by the loader.
+
+### I-38: What an Agent may select from a cover career's table (p. 83 chart 09)
+
+Chart 09 sends an Agent undercover and says: "Select (not Roll) one skill
+from the skill tables of that Career." Table C of a career is not a list of
+skills, though — its cells also raise characteristics, name the character's
+Major and Minor, and stand in for whole Master Skill List groups.
+
+The alternatives offered are that career's table C flattened in chart
+order, without repeats, and read as follows:
+
+- Plain skill cells are offered as printed.
+- Group cells — One Art, One Trade, One Science, Starship Skill, Soldier
+  Skill — expand to their Master Skill List members. "Select (not Roll)"
+  replaces the 1D that would otherwise have chosen the cell, and the same
+  parenthetical replaces the follow-on selection the group cell would have
+  triggered.
+- Characteristic cells are excluded: they are not skills, and an Agent
+  gathering information undercover is not living the cover career's life.
+- Major and Minor cells are excluded: they name the *Agent's* areas, not
+  the cover career's, so they offer nothing the cover identity teaches.
+- Chart 13's "Any Skill*** from Citizen Life Skills and Knowledges" and
+  chart 09's own "Any Knowledge" expand to those lists.
+
+The skill is awarded at one level through the ordinary award path. The
+Agent does not enter the cover career: no rank, no automatic skills, and no
+first-receipt accounting against it.
+
+Implemented at `chargen/agent.go` (`undercoverSkills`).
+
+### I-39: The Citizen rows roll rather than select (p. 83 chart 09)
+
+Two rows of the Undercover Assignment table print, in place of titles,
+"Roll on Citizen Life Skills for Job" and "... for Hobby". These name
+chart 04's table E and the roll that reads it, not the Agent's own Job and
+Hobby fields, which stay empty: the Agent is undercover, not a Citizen.
+
+The rolled skill is awarded at one level. Chart 04 would award a Job at
+Skill-4 and a Hobby at Skill-2, but those are a Citizen's own first
+receipts; chart 09's table B allows the Agent "Undercover 1". A "No Skill"
+cell awards nothing, as it does for a Citizen.
+
+The chart's own C column is not rolled for these rows, which is the
+"if required" of "finally top row C (reroll if >3) if required": a row
+offering one entry needs no C roll, and the Functionary row, which offers
+none, needs no title at all.
+
+Implemented at `chargen/agent.go` (`undercover`, `undercoverJobTable`).
+
+### I-40: Functionary is transcribed as a reference career (p. 87 chart 13)
+
+The Undercover Assignment table's last row sends an Agent undercover as a
+Functionary, whose career chart 13 says "is never a first career" — so the
+engine cannot run it until career changes land (docs/PRD.md milestone 4),
+and one assignment in eighteen had nowhere to read its skills from.
+
+Chart 13's table C is therefore transcribed as a *reference* career: loaded
+and validated like any other, absent from the available careers and from
+the mechanics registry, and read only by chart 09's table. The alternative
+— recording the assignment and awarding nothing — would have quietly
+starved a row the book prints as playable.
+
+Its box A fields are not transcribed. Chart 13's Continue is "Office
+Politics", a form the engine has no target for, and nothing about the
+Agent's use of the chart needs it.
+
+Implemented at `career/data/functionary.json` (`reference: true`).

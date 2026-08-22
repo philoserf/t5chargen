@@ -187,6 +187,12 @@ const (
 	// carries the rank title.
 	ConsequenceRankSet ConsequenceKind = "rank_set"
 
+	// ConsequenceUndercover records an Agent's cover identity for the
+	// term, and ConsequenceCommendation a Reward success (chart 09,
+	// p. 83).
+	ConsequenceUndercover   ConsequenceKind = "undercover_assignment"
+	ConsequenceCommendation ConsequenceKind = "commendation"
+
 	// ConsequenceBranchSet records the Armed Forces branch served in, and
 	// ConsequenceOperation one of the term's assignments (chart 08,
 	// p. 82).
