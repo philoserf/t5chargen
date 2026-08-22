@@ -87,6 +87,7 @@ var careerRegistry = map[string]func() (*career.Definition, careerMechanics, err
 	"Scholar":     newScholar,
 	"Noble":       newNoble,
 	"Soldier":     newSoldier,
+	"Spacer":      newSpacer,
 	"Entertainer": newEntertainer,
 	"Scout":       newScout,
 	"Merchant":    newMerchant,

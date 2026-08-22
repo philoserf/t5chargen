@@ -136,6 +136,24 @@ Book 1, Print Edition 5.1.
 | Rank titles interpolate the Major ("Lecturer <of Major>") | chart 02 | plain titles stored | — | deferred (presentation; the record carries both) |
 | Muster-out table D | chart 02 D | — | — | deferred (M4) |
 
+## Career 07 — Spacer (chart 07, p. 81)
+
+The second Armed Forces career. Everything Soldier's section records
+applies unchanged — Branch, Operations, Medals, the restricted term
+columns, and interpretations I-31 through I-35 — because the mechanics are
+now shared (`chargen/armedforces.go`); only the chart data differs. Rows
+below cover what is particular to chart 07.
+
+| Rule | Cite | Implementation | Test | Status |
+| --- | --- | --- | --- | --- |
+| To Begin Int; Select Branch Soc; Continue Str | chart 07 A | shared mechanics over chart 07 data | golden seed 659 | covered |
+| Naval Branch prints Officer and Enlisted sides per row | chart 07 | `career.Branch.Side` | `TestSpacerCrewBecomesLine` | covered |
+| "for Spacers, Crew becomes Line" on commission | p. 66 | `enterRank` refreshes the branch | `TestSpacerCrewBecomesLine` | covered — the row is fixed, the side follows the rank |
+| Naval Operations takes no Branch DM | chart 07 vs 08 | `operations_use_branch_dm` absent | data | covered (chart 07 prints only "DM +2 if Edu 10+") |
+| Patrol and Strike both open the Patrol/Strike column | chart 07 C | `Operation.Column` | golden seed 659 | covered |
+| Rating Promotion (chart 07) vs Enlisted Promotion (chart 08) | charts 07, 08 | data only | golden seed 659 | covered — the same row under two names |
+| Muster-out table D | chart 07 D | — | — | deferred (M4) |
+
 ## Career 08 — Soldier (chart 08, p. 82)
 
 | Rule | Cite | Implementation | Test | Status |
@@ -233,10 +251,9 @@ Book 1, Print Edition 5.1.
 
 ## Careers 01–05 remainder, 07–13
 
-All deferred (M3): Craftsman, Spacer, Agent, Rogue, Marine, Functionary
-(charts pp. 75–88). Spacer (07) and Marine (12) share the Branch,
-Operations, and Medals machinery this chunk built for Soldier; extracting
-it is the first step of whichever lands next.
+All deferred (M3): Craftsman, Agent, Rogue, Marine, Functionary (charts
+pp. 75–88). Marine (12) is the third Armed Forces career and should be
+chart data alone over the shared mechanics, as Spacer was.
 
 Two are soft-gated on career changes (M4), not on effort: Functionary "is
 never a first career" (chart 13), and Craftsman's Begin is "Automatic* —
