@@ -136,6 +136,31 @@ Book 1, Print Edition 5.1.
 | Rank titles interpolate the Major ("Lecturer <of Major>") | chart 02 | plain titles stored | — | deferred (presentation; the record carries both) |
 | Muster-out table D | chart 02 D | — | — | deferred (M4) |
 
+## Career 08 — Soldier (chart 08, p. 82)
+
+| Rule | Cite | Implementation | Test | Status |
+| --- | --- | --- | --- | --- |
+| To Begin Str; enters at the service's enlisted rank | chart 08 A; p. 65 | `soldierMechanics.begin` | `TestSoldierBeginsEnlisted` | covered |
+| Select Branch on a Soc check, else roll one | chart 08; p. 65 | `selectBranch` | golden seed 305 | covered |
+| Branch automatic skills (Medical, Technical) | chart 08 | `enterBranch` | golden sweeps | covered |
+| Four assignments per term; highest Mod applies | chart 08; p. 66 | `operations` | `TestSoldierOperationsPerTerm` | covered |
+| Branch and Operations Mods oppose Risk and Reward | p. 66 | `riskAndReward` | `TestSoldierBranchModsOpposeRiskAndReward` | covered |
+| Term skills restricted to Personal plus the term's assignments | p. 65 | `termOutcome.termColumns` | `TestSoldierTermSkillsFollowAssignments` | covered (commission and promotion skills exempt) |
+| Risk failure: the shared injury and Wound Badge | chart 08; p. 65 | `careerRun.injury` | golden seed 305 | covered (Double Benefits deferred, M4) |
+| Risk success: Exemplary Service Badge | chart 08 | `riskAndReward` | `TestSoldierServiceBadgeCarriesNoMod` | interpretation I-32 (no promotion modifier) |
+| Reward success: the Imperial Medals table | chart 08; p. 66, 70 | `medal` package, `awardMedal` | `TestSoldierMedalsFollowTheTable`, `TestForPinsTheTable` | covered |
+| Medals modify promotion; Wound Badges do not | p. 70 vs chart 08 | `medalMod` | `TestSoldierPromotionUsesMedalsNotWoundBadges` | interpretation I-31 |
+| Commission to Officer1; two rank ladders with Auto Skills | chart 08; p. 65 | `advance`, `enterRank` | golden seed 305 | covered |
+| One advancement attempt per term per entry class | chart 08 | `advance` (entry snapshot) | golden seed 305 | I-13's rule applied, chart silent |
+| Per Term 4; Commission 1; Promotion 1 | chart 08 B | `resolveTerm` | golden seed 305 | covered |
+| Continue End | chart 08 A | `continueRoll` | golden seed 305 | covered |
+| Rolls past the end of the Branch/Operations tables | chart 08 | `BranchAt`, `OperationAt` | golden sweeps | interpretation I-33 |
+| Branch changes on promotion or at term end | chart 08 vs p. 66 | — | — | deferred, conflict recorded (I-34) |
+| ANM School assignment resolved as Education | chart 08 | assignment happens, Mod 0 | — | deferred (M4 Later Education) |
+| Command College for a Major continuing | chart 08 | — | — | deferred (M4 Later Education) |
+| The Reserves; Academy Officer1 entry | p. 66; chart C | — | — | deferred (M4) |
+| Muster-out table D | chart 08 D | — | — | deferred (M4) |
+
 ## Career 11 — Noble (chart 11, p. 85)
 
 | Rule | Cite | Implementation | Test | Status |
@@ -208,8 +233,10 @@ Book 1, Print Edition 5.1.
 
 ## Careers 01–05 remainder, 07–13
 
-All deferred (M3): Craftsman, Spacer, Soldier, Agent, Rogue, Marine,
-Functionary (charts pp. 75–88).
+All deferred (M3): Craftsman, Spacer, Agent, Rogue, Marine, Functionary
+(charts pp. 75–88). Spacer (07) and Marine (12) share the Branch,
+Operations, and Medals machinery this chunk built for Soldier; extracting
+it is the first step of whichever lands next.
 
 Two are soft-gated on career changes (M4), not on effort: Functionary "is
 never a first career" (chart 13), and Craftsman's Begin is "Automatic* —
@@ -239,6 +266,15 @@ enumerated, before it is called done.
 | Career: <Name> and World: <Name> knowledges | p. 134 | — | — | deferred (M4: needs terms-served and residence accounting) |
 | Sciences specialization beyond level 6 | p. 134 | — | — | deferred (M4) |
 | Education provides only contained Knowledges for the ten container skills | p. 134 | `knowledge_only` rows | education matrix tests | covered (data); award semantics with the progression above |
+
+## M1 — Muster Out (chart M1, p. 70)
+
+Sighted while transcribing the Medals table, and banked for milestone 4:
+the Automatics list (Medal for Spacer or Soldier, Commendations for Agent,
+Land Grants for Nobles and Scouts, Masterpieces for Craftsman), the
+Benefits split into Financial and Non-Financial, the Life Stage 9
+Entitlements, the Armed Forces retirement rates, and the Forbidden
+Knowledge table. Only the Medals table is implemented.
 
 ## E1 step E — Muster Out, and later steps
 

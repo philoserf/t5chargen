@@ -19,6 +19,10 @@ func (DefaultPolicy) Choose(c Choice) int {
 		// POLICY.md: highest-valued characteristic; ties break to
 		// first-listed.
 		return maxScoreIndex(c)
+	case ChooseBranch:
+		// POLICY.md: the lowest Branch Mod. Branch Mods are negative
+		// against the Risk roll, so the lowest is the least injurious.
+		return minScoreIndex(c)
 	case ChooseElevationFlux, ChooseComeback:
 		return chooseOnScore(c)
 	case ChooseCareerWaiver:
@@ -59,7 +63,8 @@ func chooseNamed(c Choice) (int, bool) {
 		// POLICY.md: the first present of General, then Exploration, then
 		// Business — the all-plain-skills columns of the shipped careers;
 		// first-listed otherwise.
-		return preferredIndex(c.Options, []string{"General", "Exploration", "Business"}, 0), true
+		return preferredIndex(c.Options,
+			[]string{"General", "Exploration", "Business", "Combat", "Peace Keeper", "Mission"}, 0), true
 	case ChooseDuty:
 		// POLICY.md: Explorer Duty — the career's point, and the larger
 		// skill eligibility (chart 05 table B).
@@ -160,6 +165,20 @@ func indexOrFirst(options []string, want string) int {
 // Kind identifies the policy in choice events.
 func (DefaultPolicy) Kind() DeciderKind {
 	return DeciderPolicy
+}
+
+// minScoreIndex returns the index of the lowest score, first-listed on
+// ties; index 0 when no scores are provided.
+func minScoreIndex(c Choice) int {
+	best := 0
+
+	for i, score := range c.Scores {
+		if score < c.Scores[best] {
+			best = i
+		}
+	}
+
+	return best
 }
 
 // maxScoreIndex returns the index of the highest score, first-listed on

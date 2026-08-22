@@ -1,0 +1,19 @@
+{
+  "cite": "Book 1 p. 70 chart M1 (Medals)",
+  "note": "Rew= Successful unmodified Reward Roll. If Officer, increase +1. Medals (but not Wound Badges) are Mods for Soldier / Spacer / Marine Promotion.",
+  "officer_dm": 1,
+  "rows": [
+    { "roll": 2, "code": "XS", "name": "Exemplary Service", "mod": 1 },
+    { "roll": 3, "code": "XS", "name": "Exemplary Service", "mod": 1 },
+    { "roll": 4, "code": "XS", "name": "Exemplary Service", "mod": 1 },
+    { "roll": 5, "code": "XS", "name": "Exemplary Service", "mod": 1 },
+    { "roll": 6, "code": "XS", "name": "Exemplary Service", "mod": 1 },
+    { "roll": 7, "code": "XS", "name": "Exemplary Service", "mod": 1 },
+    { "roll": 8, "code": "XS", "name": "Exemplary Service", "mod": 1 },
+    { "roll": 9, "code": "MCUF", "name": "Meritorious Conduct Under Fire", "mod": 2 },
+    { "roll": 10, "code": "MCUF", "name": "Meritorious Conduct Under Fire", "mod": 2 },
+    { "roll": 11, "code": "MCG", "name": "Medal for Conspicuous Gallantry", "mod": 3 },
+    { "roll": 12, "code": "SEH", "name": "Starburst for Extreme Heroism", "mod": 4 },
+    { "roll": 13, "code": "*SEH*", "name": "SEH With Diamonds", "mod": 5 }
+  ]
+}

@@ -187,6 +187,17 @@ const (
 	// carries the rank title.
 	ConsequenceRankSet ConsequenceKind = "rank_set"
 
+	// ConsequenceBranchSet records the Armed Forces branch served in, and
+	// ConsequenceOperation one of the term's assignments (chart 08,
+	// p. 82).
+	ConsequenceBranchSet ConsequenceKind = "branch_set"
+	ConsequenceOperation ConsequenceKind = "operation"
+
+	// ConsequenceMedal records a decoration from the p. 70 table, and
+	// ConsequenceServiceBadge the Risk-success Exemplary Service Badge.
+	ConsequenceMedal        ConsequenceKind = "medal"
+	ConsequenceServiceBadge ConsequenceKind = "service_badge"
+
 	// ConsequenceExiled and ConsequenceReturned record the Noble's exile
 	// state (chart 11, p. 85).
 	ConsequenceExiled   ConsequenceKind = "exiled"
