@@ -113,6 +113,29 @@ Book 1, Print Edition 5.1.
 | "Starship Skill" cells | chart 05 table C | `EntryStarship` (errors if selected) | data test | deferred (M3); unblocked — the MS list now supplies the seven Starship Skills |
 | No rank | p. 65 | (nothing to do) | — | covered |
 
+## Career 02 — Scholar (chart 02, p. 76)
+
+| Rule | Cite | Implementation | Test | Status |
+| --- | --- | --- | --- | --- |
+| Edu 8+ begins automatically at Scholar1 | chart 02 A; rank table | `scholarMechanics.begin` | `TestScholarEduGatesEntry` | covered |
+| Edu 7- rolls To Begin vs Edu, enters Amateur | chart 02 A; rank table | `begin` | `TestScholarEduGatesEntry` | covered |
+| Every Scholar has a Major and a Minor | chart 02 | `selectAreas` | `TestScholarDegreelessSelectsAreas` | interpretation I-23 |
+| Research vs CC+Mods; failure is the shared injury | chart 02 | `researchAndPublication`, `careerRun.injury` | golden seed 23 | covered (Double Benefits deferred, M4) |
+| "Research Success Major +2" | chart 02 B | `researchAndPublication` | golden seed 23 | interpretation I-24 (two levels) |
+| Publication vs CC−Mods, only if Research completed | chart 02 | `publish` | `TestScholarPublications` | covered |
+| Award-Winning publication counts as TWO | chart 02 | `publish` | `TestScholarPublications` | interpretation I-25 (raw characteristic) |
+| Promotion vs Int +Pubs, Edu 8+ only | chart 02 A | `promote`, `mayPromote` | `TestScholarEduGatesEntry` | covered; gates read current Edu (I-26) |
+| Tenure vs Pubs x3, Edu 10+ at Scholar3 | chart 02 A | `applyForTenure` | `TestScholarTenureGatesPromotion` | covered |
+| No promotion beyond Scholar3 without Tenure | chart 02 | `mayPromote` | `TestScholarTenureGatesPromotion` | covered |
+| One advancement attempt per term (promotion or Tenure) | chart 02 | `advance` (entry-state snapshot) | golden seed 23 | I-13's rule applied |
+| Per Term 4; Promoted 1 | chart 02 B | `resolveTerm` | golden seed 23 | covered |
+| May take a skill in the Major or Minor instead | chart 02 C | `skillColumnOptions`, `awardMajorOrMinor` | golden seed 23 | covered (offered as extra columns) |
+| Continue vs Edu +Pubs | chart 02 A | `continueRoll`, `ContinueMod` | `TestScholarContinueAddsPublications` | covered |
+| Waivers on six adverse events, one shared pool | chart 02; p. 59 | `careerRun.waive`, `offerWaiver` | `TestScholarWaiverPolicy` | interpretation I-22 |
+| Non-Traditional Scholar (C5=Tra); C5=Ins excluded | chart 02 | — | — | deferred (non-human; v1 is human-only) |
+| Rank titles interpolate the Major ("Lecturer <of Major>") | chart 02 | plain titles stored | — | deferred (presentation; the record carries both) |
+| Muster-out table D | chart 02 D | — | — | deferred (M4) |
+
 ## Career 03 — Entertainer (chart 03, p. 77)
 
 | Rule | Cite | Implementation | Test | Status |
@@ -162,8 +185,8 @@ Book 1, Print Edition 5.1.
 
 ## Careers 01–05 remainder, 07–13
 
-All deferred (M3): Craftsman, Scholar, Spacer, Soldier, Agent, Rogue,
-Noble, Marine, Functionary (charts pp. 75–88).
+All deferred (M3): Craftsman, Spacer, Soldier, Agent, Rogue, Noble,
+Marine, Functionary (charts pp. 75–88).
 
 Two are soft-gated on career changes (M4), not on effort: Functionary "is
 never a first career" (chart 13), and Craftsman's Begin is "Automatic* —
@@ -202,7 +225,7 @@ Batch, replay verification, interactive mode: deferred (M5).
 
 ## Cross-cutting interpretations
 
-I-1 … I-21 in ERRATA.md, each referenced from its row above. The I-4
+I-1 … I-26 in ERRATA.md, each referenced from its row above. The I-4
 skill-name residual (MSL-exact strings, the Navigator/Navigation split) is
 closed by I-9: every skill name in every embedded chart is validated
 against the Master Skill List at load time.

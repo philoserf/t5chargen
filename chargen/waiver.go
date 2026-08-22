@@ -13,7 +13,10 @@ import "github.com/philoserf/t5chargen/dice"
 
 // waiverPrompt names the waiver-able event in the choice event.
 type waiverPrompt struct {
-	// prompt is shown to the decider; cite names the governing rule.
+	// id distinguishes the education and career waivers, which share a
+	// pool but not a policy; prompt is shown to the decider and cite names
+	// the governing rule.
+	id     ChoiceID
 	prompt string
 	cite   string
 }
@@ -30,6 +33,7 @@ type waiverPrompt struct {
 // waivers are deferred with them; both land with milestone 5.
 func educationWaiver(reason string) waiverPrompt {
 	return waiverPrompt{
+		id:     ChooseWaiver,
 		prompt: "Attempt an Educational Waiver? (" + reason + ")",
 		cite:   "Book 1 p. 59 (Educational Waivers)",
 	}
@@ -41,7 +45,7 @@ func offerWaiver(
 	log *Log, decider Decider, roller *dice.Roller, character *Character, p waiverPrompt,
 ) (bool, error) {
 	chosen, _, err := choose(log, decider, Choice{
-		ID:      ChooseWaiver,
+		ID:      p.id,
 		Prompt:  p.prompt,
 		Options: []string{"Attempt waiver", "Accept the result"},
 		Cite:    p.cite,

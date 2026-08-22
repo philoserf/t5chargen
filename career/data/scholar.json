@@ -1,0 +1,98 @@
+{
+  "name": "Scholar",
+  "cite": "Book 1 p. 76 chart 02",
+  "controlling_characteristics": ["Str", "Dex", "End", "Int"],
+  "continue_characteristic": "Edu",
+  "continue_mod": "publications",
+  "skills_per_term": 4,
+  "skills_per_advancement": 1,
+  "major_or_minor_column": true,
+  "ranks": [
+    { "id": "S0", "class": "scholar", "title": "Amateur" },
+    { "id": "S1", "class": "scholar", "title": "Lecturer" },
+    { "id": "S2", "class": "scholar", "title": "Instructor" },
+    { "id": "S3", "class": "scholar", "title": "Assistant Professor" },
+    { "id": "S4", "class": "scholar", "title": "Associate Professor" },
+    { "id": "S5", "class": "scholar", "title": "Professor" },
+    { "id": "S6", "class": "scholar", "title": "Distinguished Professor" }
+  ],
+  "skill_columns": [
+    {
+      "name": "Personal",
+      "entries": [
+        { "kind": "characteristic", "name": "Str" },
+        { "kind": "characteristic", "name": "Dex" },
+        { "kind": "characteristic", "name": "End" },
+        { "kind": "characteristic", "name": "Int" },
+        { "kind": "characteristic", "name": "Edu" },
+        { "kind": "characteristic", "name": "Soc" }
+      ]
+    },
+    {
+      "name": "Academic",
+      "entries": [
+        { "kind": "major" },
+        { "kind": "major" },
+        { "kind": "minor" },
+        { "kind": "minor" },
+        { "kind": "trade" },
+        { "kind": "trade" }
+      ]
+    },
+    {
+      "name": "Travel",
+      "entries": [
+        { "kind": "skill", "name": "Seafarer" },
+        { "kind": "skill", "name": "Navigator" },
+        { "kind": "skill", "name": "Hostile Environ" },
+        { "kind": "skill", "name": "Flyer" },
+        { "kind": "skill", "name": "Driver" },
+        { "kind": "skill", "name": "Vacc Suit" }
+      ]
+    },
+    {
+      "name": "General",
+      "entries": [
+        { "kind": "skill", "name": "Survey" },
+        { "kind": "skill", "name": "Astrogator" },
+        { "kind": "skill", "name": "Hostile Environ" },
+        { "kind": "skill", "name": "Survival" },
+        { "kind": "skill", "name": "Animals" },
+        { "kind": "skill", "name": "Bureaucrat" }
+      ]
+    },
+    {
+      "name": "Conflict",
+      "entries": [
+        { "kind": "skill", "name": "Fighter" },
+        { "kind": "skill", "name": "Fighter" },
+        { "kind": "skill", "name": "Stealth" },
+        { "kind": "skill", "name": "Flyer" },
+        { "kind": "skill", "name": "Gunner" },
+        { "kind": "skill", "name": "Sensors" }
+      ]
+    },
+    {
+      "name": "Vocation",
+      "entries": [
+        { "kind": "skill", "name": "Admin" },
+        { "kind": "skill", "name": "Language" },
+        { "kind": "science" },
+        { "kind": "skill", "name": "Comms" },
+        { "kind": "starship" },
+        { "kind": "skill", "name": "Bureaucrat" }
+      ]
+    },
+    {
+      "name": "Avocation",
+      "entries": [
+        { "kind": "skill", "name": "Seafarer" },
+        { "kind": "art" },
+        { "kind": "science" },
+        { "kind": "skill", "name": "Athlete" },
+        { "kind": "skill", "name": "Medic" },
+        { "kind": "trade" }
+      ]
+    }
+  ]
+}
