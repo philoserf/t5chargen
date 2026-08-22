@@ -255,10 +255,11 @@ type Advancement struct {
 	MedalMods bool `json:"medal_mods,omitempty"`
 }
 
-// ArmedForces is the Branch and Operations machinery of the Soldier and
-// Marine charts (pp. 82, 86; prose p. 66). The Spacer's Naval Branch table
-// (p. 81) prints separate Officer and Enlisted name-and-Mod columns, which
-// this one-Mod-per-row shape cannot express; chart 07 needs it widened.
+// ArmedForces is the Branch and Operations machinery of the Spacer,
+// Soldier, and Marine charts (pp. 81, 82, 86; prose p. 66). A row carries
+// one Mod per rank class: the Spacer's Naval Branch table (p. 81) prints
+// separate Officer and Enlisted name-and-Mod columns, and the Army table
+// prints one set that serves both (see Branch).
 type ArmedForces struct {
 	// BranchCheck is the characteristic checked to select rather than roll
 	// a Branch (chart 08: "Select Branch Soc").
@@ -286,6 +287,11 @@ type ArmedForces struct {
 }
 
 // Branch is one row of a service's Branch table, indexed by the 1D roll.
+// The Naval table prints separate Officer and Enlisted names and Mods for
+// the same row (chart 07, p. 81), which is how "for Spacers, Crew becomes
+// Line" on commission (p. 66) falls out: the row is fixed and the side
+// follows the rank class. Where a chart prints one set, as the Army does,
+// the enlisted fields are empty and the officer's serve both.
 type Branch struct {
 	Name string `json:"name"`
 
@@ -294,17 +300,36 @@ type Branch struct {
 	Mod int `json:"mod"`
 	DM  int `json:"dm"`
 
+	// EnlistedName and EnlistedMod are the row's enlisted side where the
+	// chart prints one.
+	EnlistedName string `json:"enlisted_name,omitempty"`
+	EnlistedMod  int    `json:"enlisted_mod,omitempty"`
+
 	// AutoSkill and AutoTrade are the branch's automatic skills:
-	// "if Medical Branch= Medic-1; If Technical Branch= any Trade."
-	// (chart 08)
+	// "if Medical Branch= Medic-1; If Technical Branch= any Trade"
+	// (chart 08).
 	AutoSkill string `json:"auto_skill,omitempty"`
 	AutoTrade bool   `json:"auto_trade,omitempty"`
+}
+
+// Side returns the branch name and Mod for a rank class.
+func (b Branch) Side(officer bool) (string, int) {
+	if officer || b.EnlistedName == "" {
+		return b.Name, b.Mod
+	}
+
+	return b.EnlistedName, b.EnlistedMod
 }
 
 // Operation is one row of a service's Operations table.
 type Operation struct {
 	Name string `json:"name"`
 	Mod  int    `json:"mod"`
+
+	// Column names the skills-table column the assignment opens where it
+	// differs from the operation's own name (chart 07's Patrol and Strike
+	// both open "Patrol/Strike"); empty means the name itself.
+	Column string `json:"column,omitempty"`
 
 	// Implemented is false for the ANM School assignment, whose schooling
 	// is "resolved as Education" (chart 08) and lands with Later Education
@@ -484,15 +509,50 @@ func (d *Definition) validateArmedForces() error {
 		return fmt.Errorf("%w: %d operations per term", errBadDefinition, forces.OperationsPerTerm)
 	}
 
-	for _, branch := range forces.Branches {
+	if err := validateBranches(forces.Branches); err != nil {
+		return err
+	}
+
+	return d.validateOperations(forces.Operations)
+}
+
+// validateBranches checks each Branch row names itself and, where it
+// carries an enlisted Mod, names the enlisted side that Mod belongs to.
+func validateBranches(branches []Branch) error {
+	for _, branch := range branches {
 		if branch.Name == "" {
 			return fmt.Errorf("%w: a Branch row has no name", errBadDefinition)
 		}
+
+		// An enlisted Mod without an enlisted name is silently ignored by
+		// Side, which would hand the officer's Mod to a rating.
+		if branch.EnlistedMod != 0 && branch.EnlistedName == "" {
+			return fmt.Errorf("%w: Branch %q has an enlisted Mod but no enlisted name",
+				errBadDefinition, branch.Name)
+		}
 	}
 
-	for _, operation := range forces.Operations {
+	return nil
+}
+
+// validateOperations checks each Operations row names itself and that any
+// skills-column override names a column the chart actually prints: an
+// unmatched override would silently open no column at all, costing the
+// term its skill eligibility with no error.
+func (d *Definition) validateOperations(operations []Operation) error {
+	columns := make(map[string]bool, len(d.SkillColumns))
+	for _, column := range d.SkillColumns {
+		columns[column.Name] = true
+	}
+
+	for _, operation := range operations {
 		if operation.Name == "" {
 			return fmt.Errorf("%w: an Operations row has no name", errBadDefinition)
+		}
+
+		if operation.Column != "" && !columns[operation.Column] {
+			return fmt.Errorf("%w: Operation %q names skills column %q, which the chart does not have",
+				errBadDefinition, operation.Name, operation.Column)
 		}
 	}
 
@@ -836,6 +896,9 @@ var nobleJSON []byte
 //go:embed data/soldier.json
 var soldierJSON []byte
 
+//go:embed data/spacer.json
+var spacerJSON []byte
+
 // The implemented careers parse and validate their embedded definitions
 // once.
 var (
@@ -859,6 +922,9 @@ var (
 	})
 	soldier = sync.OnceValues(func() (*Definition, error) {
 		return load("soldier.json", soldierJSON)
+	})
+	spacer = sync.OnceValues(func() (*Definition, error) {
+		return load("spacer.json", spacerJSON)
 	})
 )
 
@@ -903,6 +969,11 @@ func Scholar() (*Definition, error) {
 	return scholar()
 }
 
+// Spacer returns the Spacer career definition (chart 07, p. 81).
+func Spacer() (*Definition, error) {
+	return spacer()
+}
+
 // Soldier returns the Soldier career definition (chart 08, p. 82).
 func Soldier() (*Definition, error) {
 	return soldier()
@@ -918,5 +989,5 @@ func Noble() (*Definition, error) {
 // The default policy names its career rather than taking the first listed,
 // so this order is presentation only (POLICY.md).
 func Available() []string {
-	return []string{"Scholar", "Entertainer", "Citizen", "Scout", "Merchant", "Soldier", "Noble"}
+	return []string{"Scholar", "Entertainer", "Citizen", "Scout", "Merchant", "Spacer", "Soldier", "Noble"}
 }

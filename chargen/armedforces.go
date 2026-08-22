@@ -1,12 +1,11 @@
 package chargen
 
-// Soldier career mechanics (Book 1 chart 08, p. 82; prose pp. 65-66).
-// "To Begin Str / Select Branch Soc / Risk & Reward C1 C3 C4 / Officer
-// Promotion Soc* / Officer Commission C3 / Enlisted Promotion C3* /
-// Continue C3" with "*+Medals and WB Mods" (chart 08 box A).
-//
-// The first of the Armed Forces, which "are Spacers, Soldiers, and
-// Marines, with background information as Branch and Assignment" (p. 66).
+// The Armed Forces career mechanics, shared by the careers Book 1 groups
+// as "Spacers, Soldiers, and Marines, with background information as
+// Branch and Assignment" (p. 66): chart 07 p. 81, chart 08 p. 82, and
+// chart 12 p. 86. Everything that differs between them — the checks, the
+// Branch and Operations tables, the rank ladders — is chart data; this
+// file is the procedure they share.
 // A branch is selected or rolled on entry and carries a Mod; four
 // assignments are rolled each term and the highest of their Mods joins it.
 // Both are "negative against the Risk Roll and positive against the Reward
@@ -18,8 +17,10 @@ package chargen
 // not (interpretation I-31, ERRATA.md).
 //
 // Deferred: the ANM School assignment's schooling, "resolved as Education"
-// (chart 08), and the Major's Command College, both mid-career schooling
-// that lands with Later Education (docs/PRD.md milestone 4); the Reserves
+// (charts 07, 08), and the Command College a service's flag-rank footnote
+// sends its officers to (chart 07's Lt Commander, chart 08's Major), both
+// mid-career schooling that lands with Later Education (docs/PRD.md
+// milestone 4); the branch changes of interpretation I-34; the Reserves
 // (p. 66); the Service Academy's Officer1 entry linkage.
 
 import (
@@ -30,29 +31,51 @@ import (
 	"github.com/philoserf/t5chargen/medal"
 )
 
-// soldierMechanics is the Soldier careerMechanics implementation.
-type soldierMechanics struct {
-	rank   string
+// armedForcesMechanics is the careerMechanics implementation shared by
+// the Armed Forces careers.
+type armedForcesMechanics struct {
+	rank string
+
+	// branch is the row rolled or chosen; its officer or enlisted side is
+	// resolved against the current rank, so a commission moves a Naval
+	// rating from Crew to Line without a second roll (p. 66).
 	branch career.Branch
 }
 
-// newSoldier is the Soldier careerRegistry entry.
+// branchSide returns the branch name and Mod for the rank now held.
+func (m *armedForcesMechanics) branchSide(r *careerRun) (string, int) {
+	return m.branch.Side(m.isOfficer(r))
+}
+
+// newSoldier and newSpacer are the Armed Forces careerRegistry entries.
 //
 //nolint:ireturn // The registry's function type returns the interface.
 func newSoldier() (*career.Definition, careerMechanics, error) {
-	def, err := career.Soldier()
+	return newArmedForces(career.Soldier)
+}
+
+//nolint:ireturn // The registry's function type returns the interface.
+func newSpacer() (*career.Definition, careerMechanics, error) {
+	return newArmedForces(career.Spacer)
+}
+
+// newArmedForces builds the shared mechanics over one service's chart.
+//
+//nolint:ireturn // The registry's function type returns the interface.
+func newArmedForces(load func() (*career.Definition, error)) (*career.Definition, careerMechanics, error) {
+	def, err := load()
 	if err != nil {
-		return nil, nil, fmt.Errorf("soldier career: %w", err)
+		return nil, nil, fmt.Errorf("armed forces career: %w", err)
 	}
 
-	return def, &soldierMechanics{}, nil
+	return def, &armedForcesMechanics{}, nil
 }
 
 // begin rolls To Begin, then enters at the service's starting enlisted
 // rank: "Armed Forces characters begin with enlisted rank (Army =
 // Soldier1)" (p. 65). A failed attempt costs one year (p. 65).
-func (m *soldierMechanics) begin(r *careerRun) (bool, error) {
-	r.log.Step("Soldier: To Begin", r.def.Cite)
+func (m *armedForcesMechanics) begin(r *careerRun) (bool, error) {
+	r.log.Step(r.def.Name+": To Begin", r.def.Cite)
 
 	check, value, err := chooseCheckCharacteristic(r, r.def.BeginChecks)
 	if err != nil {
@@ -79,10 +102,10 @@ func (m *soldierMechanics) begin(r *careerRun) (bool, error) {
 
 // selectBranch applies "Determine Branch and Mod": the character checks
 // the chart's characteristic to choose a branch and otherwise rolls one
-// (p. 65 worked example: "He must roll Soc or less to select Branch ...
+// (p. 66 worked example: "He must roll Soc or less to select Branch ...
 // and chooses Flight (otherwise a Flight School graduate does not
 // automatically receive Branch= Flight)").
-func (m *soldierMechanics) selectBranch(r *careerRun) error {
+func (m *armedForcesMechanics) selectBranch(r *careerRun) error {
 	forces := r.def.ArmedForces
 
 	value, ok := characteristicValue(&r.character.Characteristics, forces.BranchCheck)
@@ -110,7 +133,7 @@ func (m *soldierMechanics) selectBranch(r *careerRun) error {
 
 // eduDM is the chart's education modifier on the Branch and Operations
 // rolls ("DM +2 if Edu 10+").
-func (*soldierMechanics) eduDM(r *careerRun) int {
+func (*armedForcesMechanics) eduDM(r *careerRun) int {
 	forces := r.def.ArmedForces
 	if r.character.Characteristics.Edu >= forces.EduDMAt {
 		return forces.EduDM
@@ -120,7 +143,7 @@ func (*soldierMechanics) eduDM(r *careerRun) int {
 }
 
 // chooseBranch presents the distinct branches the table offers.
-func (*soldierMechanics) chooseBranch(r *careerRun) (career.Branch, error) {
+func (*armedForcesMechanics) chooseBranch(r *careerRun) (career.Branch, error) {
 	forces := r.def.ArmedForces
 
 	var (
@@ -163,12 +186,14 @@ const branchDMRange = 100
 
 // enterBranch records the branch and awards its automatic skill: "if
 // Medical Branch= Medic-1; If Technical Branch= any Trade" (chart 08).
-func (m *soldierMechanics) enterBranch(r *careerRun, branch career.Branch, cause int) error {
+func (m *armedForcesMechanics) enterBranch(r *careerRun, branch career.Branch, cause int) error {
 	m.branch = branch
-	r.record.Branch = branch.Name
+
+	name, _ := m.branchSide(r)
+	r.record.Branch = name
 
 	r.log.Consequence(ConsequenceEvent{
-		Cause: cause, Kind: ConsequenceBranchSet, Career: r.def.Name, Skill: branch.Name,
+		Cause: cause, Kind: ConsequenceBranchSet, Career: r.def.Name, Skill: name,
 	})
 
 	if branch.AutoSkill != "" {
@@ -189,7 +214,7 @@ func (m *soldierMechanics) enterBranch(r *careerRun, branch career.Branch, cause
 
 // enterRank records a rank and awards its Auto Skill (chart 08 table B:
 // "Automatic Skills by Rank").
-func (m *soldierMechanics) enterRank(r *careerRun, id string, cause int) error {
+func (m *armedForcesMechanics) enterRank(r *careerRun, id string, cause int) error {
 	rank, ok := r.def.RankByID(id)
 	if !ok {
 		return fmt.Errorf("%w: %q", errUnknownRank, id)
@@ -202,6 +227,20 @@ func (m *soldierMechanics) enterRank(r *careerRun, id string, cause int) error {
 	r.log.Consequence(ConsequenceEvent{
 		Cause: cause, Kind: ConsequenceRankSet, Career: r.def.Name, Skill: rank.Title,
 	})
+
+	// A commission can move the character to the branch's officer side
+	// ("for Spacers, Crew becomes Line", p. 66), so the branch follows the
+	// rank as soon as it changes.
+	if m.branch.Name != "" {
+		name, _ := m.branchSide(r)
+		if name != r.record.Branch {
+			r.record.Branch = name
+
+			r.log.Consequence(ConsequenceEvent{
+				Cause: cause, Kind: ConsequenceBranchSet, Career: r.def.Name, Skill: name,
+			})
+		}
+	}
 
 	if rank.AutoSkill == "" {
 		return nil
@@ -219,7 +258,7 @@ func (m *soldierMechanics) enterRank(r *careerRun, id string, cause int) error {
 
 // resolveTerm rolls the term's assignments, runs Risk & Reward with their
 // Mods, then the commission and promotion attempts.
-func (m *soldierMechanics) resolveTerm(r *careerRun, cc string) (termOutcome, error) {
+func (m *armedForcesMechanics) resolveTerm(r *careerRun, cc string) (termOutcome, error) {
 	columns, opsMod := m.operations(r)
 
 	outcome, err := m.riskAndReward(r, cc, opsMod)
@@ -243,7 +282,7 @@ func (m *soldierMechanics) resolveTerm(r *careerRun, cc string) (termOutcome, er
 // open and the highest of their Mods: "Roll for Assignment four times per
 // Term ... Determine the highest value for the Term: applied to Risk and
 // Reward" (p. 66).
-func (m *soldierMechanics) operations(r *careerRun) ([]string, int) {
+func (m *armedForcesMechanics) operations(r *careerRun) ([]string, int) {
 	forces := r.def.ArmedForces
 
 	dm := m.eduDM(r)
@@ -268,8 +307,13 @@ func (m *soldierMechanics) operations(r *careerRun) ([]string, int) {
 
 		highest = max(highest, operation.Mod)
 
-		if r.columnIndex(operation.Name) >= 0 && !slices.Contains(columns, operation.Name) {
-			columns = append(columns, operation.Name)
+		column := operation.Column
+		if column == "" {
+			column = operation.Name
+		}
+
+		if r.columnIndex(column) >= 0 && !slices.Contains(columns, column) {
+			columns = append(columns, column)
 		}
 	}
 
@@ -279,10 +323,10 @@ func (m *soldierMechanics) operations(r *careerRun) ([]string, int) {
 // riskAndReward runs the chart 08 box with the Branch and Operations Mods,
 // which are "negative against the Risk Roll and positive against the
 // Reward Roll" (p. 66).
-func (m *soldierMechanics) riskAndReward(r *careerRun, cc string, opsMod int) (termOutcome, error) {
+func (m *armedForcesMechanics) riskAndReward(r *careerRun, cc string, opsMod int) (termOutcome, error) {
 	var outcome termOutcome
 
-	caution, err := chooseRiskMod(r, "chart 08 p. 82")
+	caution, err := chooseRiskMod(r, r.def.Cite)
 	if err != nil {
 		return outcome, err
 	}
@@ -292,11 +336,12 @@ func (m *soldierMechanics) riskAndReward(r *careerRun, cc string, opsMod int) (t
 		return outcome, fmt.Errorf("%w: %q", errUnknownCharacteristic, cc)
 	}
 
-	service := m.branch.Mod + opsMod
+	_, branchMod := m.branchSide(r)
+	service := branchMod + opsMod
 
 	mods := riskMods(caution, 1)
 	mods = append(mods,
-		Mod{Name: "Branch", Value: -m.branch.Mod},
+		Mod{Name: "Branch", Value: -branchMod},
 		Mod{Name: "Operations", Value: -opsMod})
 
 	risk := r.roller.Check(2, value+caution-service)
@@ -310,8 +355,8 @@ func (m *soldierMechanics) riskAndReward(r *careerRun, cc string, opsMod int) (t
 			Cause: riskSeq, Kind: ConsequenceServiceBadge, Career: r.def.Name, Value: r.record.ServiceBadges,
 		})
 	} else {
-		died, disabled := r.injury(cc, negativeMods(caution, m.branch.Mod, opsMod), riskSeq,
-			"Book 1 p. 82 chart 08 (Failure: reduce CC by negative Mods and Flux)")
+		died, disabled := r.injury(cc, negativeMods(caution, branchMod, opsMod), riskSeq,
+			r.def.Cite+" (Failure: reduce CC by negative Mods and Flux)")
 		if died {
 			outcome.died = true
 
@@ -323,7 +368,7 @@ func (m *soldierMechanics) riskAndReward(r *careerRun, cc string, opsMod int) (t
 
 	rewardMods := riskMods(caution, -1)
 	rewardMods = append(rewardMods,
-		Mod{Name: "Branch", Value: m.branch.Mod},
+		Mod{Name: "Branch", Value: branchMod},
 		Mod{Name: "Operations", Value: opsMod})
 
 	reward := r.roller.Check(2, value-caution+service)
@@ -359,10 +404,10 @@ func negativeMods(caution, branchMod, opsMod int) int {
 
 // awardMedal consults the p. 70 table: "use the unmodified Reward roll to
 // determine the Medal; Mod +1 if an Officer" (p. 66).
-func (m *soldierMechanics) awardMedal(r *careerRun, reward, cause int) error {
+func (m *armedForcesMechanics) awardMedal(r *careerRun, reward, cause int) error {
 	won, err := medal.For(reward, m.isOfficer(r))
 	if err != nil {
-		return fmt.Errorf("soldier medal: %w", err)
+		return fmt.Errorf("%s medal: %w", r.def.Name, err)
 	}
 
 	index := slices.IndexFunc(r.record.Medals, func(a Award) bool { return a.Code == won.Code })
@@ -382,7 +427,7 @@ func (m *soldierMechanics) awardMedal(r *careerRun, reward, cause int) error {
 }
 
 // isOfficer reports whether the current rank is on the officer ladder.
-func (m *soldierMechanics) isOfficer(r *careerRun) bool {
+func (m *armedForcesMechanics) isOfficer(r *careerRun) bool {
 	rank, ok := r.def.RankByID(m.rank)
 
 	return ok && rank.Class == "officer"
@@ -403,7 +448,7 @@ func medalMod(record *CareerRecord) int {
 // advance runs the term's commission and promotion attempts against the
 // rank class held at the start of the phase, following the chart 06
 // precedent where chart 08 is silent (interpretation I-13's rule).
-func (m *soldierMechanics) advance(r *careerRun) (int, error) {
+func (m *armedForcesMechanics) advance(r *careerRun) (int, error) {
 	entry, ok := r.def.RankByID(m.rank)
 	if !ok {
 		return 0, fmt.Errorf("%w: %q", errUnknownRank, m.rank)
@@ -435,7 +480,7 @@ func (m *soldierMechanics) advance(r *careerRun) (int, error) {
 }
 
 // attempt offers and rolls one commission or promotion.
-func (m *soldierMechanics) attempt(r *careerRun, a career.Advancement, rank career.Rank) (bool, error) {
+func (m *armedForcesMechanics) attempt(r *careerRun, a career.Advancement, rank career.Rank) (bool, error) {
 	value, ok := characteristicValue(&r.character.Characteristics, a.Check)
 	if !ok {
 		return false, fmt.Errorf("%w: %q", errUnknownCharacteristic, a.Check)

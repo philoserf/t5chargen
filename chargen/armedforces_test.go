@@ -397,3 +397,81 @@ func soldierInjuryDelta(e chargen.Event) int {
 
 	return 0
 }
+
+// lineBranchDecider takes the Naval Line branch, whose enlisted side is
+// Crew, and otherwise defers to the auto policy. It reaches the case the
+// policy cannot: the policy takes the lowest Branch Mod, and Line's is
+// not it.
+type lineBranchDecider struct{ chargen.DefaultPolicy }
+
+func (d lineBranchDecider) Choose(c chargen.Choice) int {
+	if c.ID == chargen.ChooseBranch {
+		if i := slices.Index(c.Options, "Line"); i >= 0 {
+			return i
+		}
+	}
+
+	return d.DefaultPolicy.Choose(c)
+}
+
+func (lineBranchDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
+
+// TestSpacerCrewBecomesLine verifies p. 66: "A character who receives a
+// Commission may roll for Branch or keep his current Branch (for Spacers,
+// Crew becomes Line)." The Naval Branch table prints the two sides of one
+// row (chart 07), so a commission moves the rating across without a new
+// roll.
+func TestSpacerCrewBecomesLine(t *testing.T) {
+	for seed := uint64(1); seed <= 200; seed++ {
+		c, err := chargen.Generate(chargen.Options{
+			Seed: seed, Career: "Spacer", Decider: lineBranchDecider{},
+		})
+		if err != nil {
+			t.Fatalf("seed %d: %v", seed, err)
+		}
+
+		record := c.Careers[len(c.Careers)-1]
+		if !record.Began {
+			continue
+		}
+
+		entry := firstBranchSet(c)
+		if entry == "" {
+			continue
+		}
+
+		if entry != "Crew" {
+			// The Soc check failed and a branch was rolled instead.
+			continue
+		}
+
+		// An enlisted Spacer in the Line row serves as Crew; once
+		// commissioned the same row reads Line.
+		if !slices.ContainsFunc(c.Events, func(e chargen.Event) bool {
+			return e.Kind == chargen.EventConsequence &&
+				e.Consequence.Kind == chargen.ConsequenceRankSet &&
+				e.Consequence.Skill == "Ensign"
+		}) {
+			continue
+		}
+
+		if record.Branch != "Line" {
+			t.Fatalf("seed %d: commissioned Spacer serves in %q, want Line", seed, record.Branch)
+		}
+
+		return
+	}
+
+	t.Skip("no seed in 1..200 chose Line as a rating and was then commissioned")
+}
+
+// firstBranchSet returns the branch the character entered.
+func firstBranchSet(c chargen.Character) string {
+	for _, e := range c.Events {
+		if e.Kind == chargen.EventConsequence && e.Consequence.Kind == chargen.ConsequenceBranchSet {
+			return e.Consequence.Skill
+		}
+	}
+
+	return ""
+}

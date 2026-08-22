@@ -5,17 +5,17 @@
   "policy_version": "0.9.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
-    "seed": 305
+    "seed": 659
   },
   "characteristics": {
-    "str": 10,
-    "dex": 12,
-    "end": 12,
-    "int": -1,
-    "edu": 5,
-    "soc": 6
+    "str": 9,
+    "dex": 9,
+    "end": 8,
+    "int": 12,
+    "edu": 7,
+    "soc": 11
   },
-  "upp": "ACC?56",
+  "upp": "998C7B",
   "homeworld": {
     "name": "Regina",
     "uwp": "A788899-C",
@@ -25,12 +25,12 @@
       "Ri"
     ]
   },
-  "age": 39,
+  "age": 38,
   "education": [
     {
-      "program": "College",
-      "passes": 0,
-      "graduated": false
+      "program": "ED5",
+      "passes": 1,
+      "graduated": true
     }
   ],
   "skills": [
@@ -40,64 +40,66 @@
     },
     {
       "name": "Admin",
-      "level": 2
-    },
-    {
-      "name": "Fighter",
-      "level": 9
-    },
-    {
-      "name": "Hostile Environ",
       "level": 3
     },
     {
-      "name": "Leader",
-      "level": 2
+      "name": "Astrogator",
+      "level": 5
+    },
+    {
+      "name": "Comms",
+      "level": 1
+    },
+    {
+      "name": "Diplomat",
+      "level": 3
+    },
+    {
+      "name": "Engineer",
+      "level": 1
+    },
+    {
+      "name": "Fighter",
+      "level": 1
     },
     {
       "name": "Liaison",
       "level": 1
     },
     {
-      "name": "Navigator",
+      "name": "Pilot",
       "level": 1
-    },
-    {
-      "name": "Stealth",
-      "level": 2
-    },
-    {
-      "name": "Tactics",
-      "level": 6
     },
     {
       "name": "Trader",
       "level": 1
-    },
-    {
-      "name": "Vacc Suit",
-      "level": 2
     }
   ],
   "careers": [
     {
-      "career": "Soldier",
+      "career": "Spacer",
       "began": true,
-      "rank": "O5",
-      "rank_title": "Lt Colonel",
-      "branch": "Artillery",
+      "rank": "O4",
+      "rank_title": "Lt Commander",
+      "branch": "Engineer",
       "medals": [
-        {
-          "code": "XS",
-          "name": "Exemplary Service",
-          "count": 3,
-          "mod": 1
-        },
         {
           "code": "MCG",
           "name": "Medal for Conspicuous Gallantry",
           "count": 1,
           "mod": 3
+        },
+        {
+          "code": "XS",
+          "name": "Exemplary Service",
+          "count": 1,
+          "mod": 1
+        },
+        {
+          "code": "MCUF",
+          "name": "Meritorious Conduct Under Fire",
+          "count": 2,
+          "mod": 2
         },
         {
           "code": "SEH",
@@ -106,11 +108,11 @@
           "mod": 4
         }
       ],
-      "service_badges": 3,
+      "service_badges": 4,
       "terms": [
         {
           "term": 1,
-          "controlling_characteristic": "End",
+          "controlling_characteristic": "Int",
           "success": true,
           "continued": true
         },
@@ -122,34 +124,26 @@
         },
         {
           "term": 3,
-          "controlling_characteristic": "Int",
+          "controlling_characteristic": "Dex",
           "success": true,
           "continued": true
         },
         {
           "term": 4,
-          "controlling_characteristic": "End",
+          "controlling_characteristic": "Int",
           "success": true,
           "continued": true
         },
         {
           "term": 5,
-          "controlling_characteristic": "Str",
+          "controlling_characteristic": "Dex",
           "success": true,
-          "continued": true
-        },
-        {
-          "term": 6,
-          "controlling_characteristic": "Int",
-          "success": false,
           "continued": false
         }
       ]
     }
   ],
-  "waivers_attempted": 1,
   "wound_badges": 1,
-  "dead": true,
   "events": [
     {
       "seq": 1,
@@ -165,10 +159,10 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          5,
+          4,
           5
         ],
-        "total": 10,
+        "total": 9,
         "cite": "Book 1 p. 56 chart A"
       }
     },
@@ -179,7 +173,7 @@
         "cause": 2,
         "kind": "characteristic_set",
         "characteristic": "Str",
-        "value": 10
+        "value": 9
       }
     },
     {
@@ -188,10 +182,10 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          6,
-          6
+          3,
+          4
         ],
-        "total": 12,
+        "total": 7,
         "cite": "Book 1 p. 56 chart A"
       }
     },
@@ -202,7 +196,7 @@
         "cause": 4,
         "kind": "characteristic_set",
         "characteristic": "Dex",
-        "value": 12
+        "value": 7
       }
     },
     {
@@ -211,10 +205,10 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          6,
-          6
+          5,
+          2
         ],
-        "total": 12,
+        "total": 7,
         "cite": "Book 1 p. 56 chart A"
       }
     },
@@ -225,7 +219,7 @@
         "cause": 6,
         "kind": "characteristic_set",
         "characteristic": "End",
-        "value": 12
+        "value": 7
       }
     },
     {
@@ -234,10 +228,10 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          2,
-          5
+          6,
+          4
         ],
-        "total": 7,
+        "total": 10,
         "cite": "Book 1 p. 56 chart A"
       }
     },
@@ -248,7 +242,7 @@
         "cause": 8,
         "kind": "characteristic_set",
         "characteristic": "Int",
-        "value": 7
+        "value": 10
       }
     },
     {
@@ -257,10 +251,10 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          1,
-          4
+          2,
+          1
         ],
-        "total": 5,
+        "total": 3,
         "cite": "Book 1 p. 56 chart A"
       }
     },
@@ -271,7 +265,7 @@
         "cause": 10,
         "kind": "characteristic_set",
         "characteristic": "Edu",
-        "value": 5
+        "value": 3
       }
     },
     {
@@ -280,10 +274,10 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          5,
-          1
+          1,
+          6
         ],
-        "total": 6,
+        "total": 7,
         "cite": "Book 1 p. 56 chart A"
       }
     },
@@ -294,7 +288,7 @@
         "cause": 12,
         "kind": "characteristic_set",
         "characteristic": "Soc",
-        "value": 6
+        "value": 7
       }
     },
     {
@@ -373,69 +367,16 @@
         "decider": "policy",
         "prompt": "Select pre-career education",
         "options": [
-          "Trade School",
+          "ED5",
           "Apprenticeship",
-          "College",
           "None"
         ],
-        "chosen": 2,
+        "chosen": 0,
         "cite": "Book 1 p. 60 chart C; p. 57 step C (education is optional)"
       }
     },
     {
       "seq": 21,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the characteristic to check",
-        "options": [
-          "Int",
-          "Edu"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
-      }
-    },
-    {
-      "seq": 22,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          6,
-          4
-        ],
-        "total": 10,
-        "target": 7,
-        "success": false,
-        "cite": "Book 1 p. 60 chart C (College To Apply Check Int)"
-      }
-    },
-    {
-      "seq": 23,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 22,
-        "kind": "years_elapsed",
-        "value": 1
-      }
-    },
-    {
-      "seq": 24,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Attempt an Educational Waiver? (admission refused)",
-        "options": [
-          "Attempt waiver",
-          "Accept the result"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 59 (Educational Waivers)"
-      }
-    },
-    {
-      "seq": 25,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -444,19 +385,24 @@
           4
         ],
         "total": 9,
-        "target": 6,
-        "success": false,
-        "mods": [
-          {
-            "name": "previous waivers",
-            "value": 0
-          }
-        ],
-        "cite": "Book 1 p. 59 (Waiver: Check Soc, Mod minus previous waivers)"
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (ED5 Pass/Fail Check Int)"
       }
     },
     {
-      "seq": 26,
+      "seq": 22,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 21,
+        "kind": "characteristic_change",
+        "characteristic": "Edu",
+        "delta": 2,
+        "value": 5
+      }
+    },
+    {
+      "seq": 23,
       "kind": "step",
       "step": {
         "name": "Select Career",
@@ -464,24 +410,60 @@
       }
     },
     {
-      "seq": 27,
+      "seq": 24,
       "kind": "choice",
       "choice": {
         "decider": "policy",
         "prompt": "Select career",
         "options": [
-          "Soldier"
+          "Spacer"
         ],
         "chosen": 0,
         "cite": "Book 1 p. 72 chart E1 step D"
       }
     },
     {
-      "seq": 28,
+      "seq": 25,
       "kind": "step",
       "step": {
-        "name": "Soldier: To Begin",
-        "cite": "Book 1 p. 82 chart 08"
+        "name": "Spacer: To Begin",
+        "cite": "Book 1 p. 81 chart 07"
+      }
+    },
+    {
+      "seq": 26,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          3
+        ],
+        "total": 7,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 81 chart 07 (To Begin vs Int)"
+      }
+    },
+    {
+      "seq": 27,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 26,
+        "kind": "rank_set",
+        "skill": "Spacehand",
+        "career": "Spacer"
+      }
+    },
+    {
+      "seq": 28,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 26,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 1
       }
     },
     {
@@ -490,23 +472,31 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          1,
-          2
+          2,
+          4
         ],
-        "total": 3,
-        "target": 10,
+        "total": 6,
+        "target": 7,
         "success": true,
-        "cite": "Book 1 p. 82 chart 08 (To Begin vs Str)"
+        "cite": "Book 1 p. 81 chart 07 (Naval Branch) (Select Branch vs Soc)"
       }
     },
     {
       "seq": 30,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 29,
-        "kind": "rank_set",
-        "skill": "Private",
-        "career": "Soldier"
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Branch",
+        "options": [
+          "Line",
+          "Engineer",
+          "Gunnery",
+          "Flight",
+          "Technical",
+          "Medical"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 81 chart 07 (Naval Branch)"
       }
     },
     {
@@ -514,142 +504,36 @@
       "kind": "consequence",
       "consequence": {
         "cause": 29,
-        "kind": "skill_awarded",
-        "skill": "Fighter",
-        "delta": 1,
-        "value": 1
+        "kind": "branch_set",
+        "skill": "Engineer",
+        "career": "Spacer"
       }
     },
     {
       "seq": 32,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          6,
-          5
-        ],
-        "total": 11,
-        "target": 6,
-        "success": false,
-        "cite": "Book 1 p. 82 chart 08 (Army Branch) (Select Branch vs Soc)"
+      "kind": "step",
+      "step": {
+        "name": "Spacer: Term 1",
+        "cite": "Book 1 p. 81 chart 07"
       }
     },
     {
       "seq": 33,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 82 chart 08 (Army Branch)"
-      }
-    },
-    {
-      "seq": 34,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 33,
-        "kind": "branch_set",
-        "skill": "Artillery",
-        "career": "Soldier"
-      }
-    },
-    {
-      "seq": 35,
-      "kind": "step",
-      "step": {
-        "name": "Soldier: Term 1",
-        "cite": "Book 1 p. 82 chart 08"
-      }
-    },
-    {
-      "seq": 36,
       "kind": "choice",
       "choice": {
         "decider": "policy",
         "prompt": "Select the term's controlling characteristic",
         "options": [
           "Str",
-          "End",
+          "Dex",
           "Int"
         ],
-        "chosen": 1,
+        "chosen": 2,
         "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
       }
     },
     {
-      "seq": 37,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
-      }
-    },
-    {
-      "seq": 38,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 37,
-        "kind": "operation",
-        "skill": "Combat",
-        "career": "Soldier",
-        "value": 3
-      }
-    },
-    {
-      "seq": 39,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
-      }
-    },
-    {
-      "seq": 40,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 39,
-        "kind": "operation",
-        "skill": "Mission",
-        "career": "Soldier",
-        "value": 2
-      }
-    },
-    {
-      "seq": 41,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
-      }
-    },
-    {
-      "seq": 42,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 41,
-        "kind": "operation",
-        "skill": "Base",
-        "career": "Soldier"
-      }
-    },
-    {
-      "seq": 43,
+      "seq": 34,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -657,22 +541,90 @@
           2
         ],
         "total": 2,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
       }
     },
     {
-      "seq": 44,
+      "seq": 35,
       "kind": "consequence",
       "consequence": {
-        "cause": 43,
+        "cause": 34,
         "kind": "operation",
-        "skill": "Peace Keeper",
-        "career": "Soldier",
-        "value": 1
+        "skill": "Strike",
+        "career": "Spacer",
+        "value": 2
       }
     },
     {
-      "seq": 45,
+      "seq": 36,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
+      }
+    },
+    {
+      "seq": 37,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 36,
+        "kind": "operation",
+        "skill": "ANM School",
+        "career": "Spacer"
+      }
+    },
+    {
+      "seq": 38,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
+      }
+    },
+    {
+      "seq": 39,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 38,
+        "kind": "operation",
+        "skill": "Mission",
+        "career": "Spacer",
+        "value": 3
+      }
+    },
+    {
+      "seq": 40,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
+      }
+    },
+    {
+      "seq": 41,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 40,
+        "kind": "operation",
+        "skill": "Mission",
+        "career": "Spacer",
+        "value": 3
+      }
+    },
+    {
+      "seq": 42,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -699,82 +651,82 @@
           "Bravery -9"
         ],
         "chosen": 0,
-        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 82 chart 08"
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 81 chart 07"
       }
     },
     {
-      "seq": 46,
+      "seq": 43,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          1,
-          1
+          3,
+          3
         ],
-        "total": 2,
-        "target": 8,
+        "total": 6,
+        "target": 7,
         "success": true,
         "mods": [
           {
             "name": "Branch",
-            "value": -1
+            "value": 0
           },
           {
             "name": "Operations",
             "value": -3
           }
         ],
-        "cite": "Book 1 p. 82 chart 08 (Risk vs End+Mods)"
+        "cite": "Book 1 p. 81 chart 07 (Risk vs Int+Mods)"
       }
     },
     {
-      "seq": 47,
+      "seq": 44,
       "kind": "consequence",
       "consequence": {
-        "cause": 46,
+        "cause": 43,
         "kind": "service_badge",
-        "career": "Soldier",
+        "career": "Spacer",
         "value": 1
       }
     },
     {
-      "seq": 48,
+      "seq": 45,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          1,
-          6
+          6,
+          5
         ],
-        "total": 7,
-        "target": 16,
+        "total": 11,
+        "target": 13,
         "success": true,
         "mods": [
           {
             "name": "Branch",
-            "value": 1
+            "value": 0
           },
           {
             "name": "Operations",
             "value": 3
           }
         ],
-        "cite": "Book 1 p. 82 chart 08 (Reward vs End+ opposite sign Mods)"
+        "cite": "Book 1 p. 81 chart 07 (Reward vs Int+ opposite sign Mods)"
       }
     },
     {
-      "seq": 49,
+      "seq": 46,
       "kind": "consequence",
       "consequence": {
-        "cause": 48,
+        "cause": 45,
         "kind": "medal",
-        "skill": "XS",
-        "career": "Soldier",
+        "skill": "MCG",
+        "career": "Spacer",
         "value": 1
       }
     },
     {
-      "seq": 50,
+      "seq": 47,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -784,184 +736,133 @@
           "Decline"
         ],
         "chosen": 0,
-        "cite": "Book 1 p. 82 chart 08 (Officer Commission)"
+        "cite": "Book 1 p. 81 chart 07 (Officer Commission)"
       }
     },
     {
-      "seq": 51,
+      "seq": 48,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          4,
+          6,
           6
         ],
-        "total": 10,
-        "target": 12,
-        "success": true,
-        "cite": "Book 1 p. 82 chart 08 (Officer Commission vs End)"
+        "total": 12,
+        "target": 7,
+        "success": false,
+        "cite": "Book 1 p. 81 chart 07 (Officer Commission vs Dex)"
+      }
+    },
+    {
+      "seq": 49,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Attempt Rating Promotion?",
+        "options": [
+          "Attempt Rating Promotion",
+          "Decline"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 81 chart 07 (Rating Promotion)"
+      }
+    },
+    {
+      "seq": 50,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          6
+        ],
+        "total": 11,
+        "target": 10,
+        "success": false,
+        "mods": [
+          {
+            "name": "Medals",
+            "value": 3
+          }
+        ],
+        "cite": "Book 1 p. 81 chart 07 (Rating Promotion vs Dex)"
+      }
+    },
+    {
+      "seq": 51,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Spacer Skills column",
+        "options": [
+          "Personal",
+          "Patrol/Strike",
+          "Mission"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 52,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 51,
-        "kind": "rank_set",
-        "skill": "2nd Lieutenant",
-        "career": "Soldier"
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 81 chart 07 table C, column Mission"
       }
     },
     {
       "seq": 53,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 51,
-        "kind": "skill_awarded",
-        "skill": "Leader",
-        "delta": 1,
-        "value": 1
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Starship Skill",
+        "options": [
+          "Astrogator",
+          "Engineer",
+          "Gunner",
+          "Medic",
+          "Pilot",
+          "Sensors",
+          "Steward"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 81 chart 07 table C; Book 1 p. 132 chart MS"
       }
     },
     {
       "seq": 54,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
-        "options": [
-          "Personal",
-          "Combat",
-          "Mission",
-          "Base",
-          "Peace Keeper"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 53,
+        "kind": "skill_awarded",
+        "skill": "Astrogator",
+        "delta": 1,
+        "value": 1
       }
     },
     {
       "seq": 55,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Spacer Skills column",
+        "options": [
+          "Personal",
+          "Patrol/Strike",
+          "Mission"
         ],
-        "total": 1,
-        "cite": "Book 1 p. 82 chart 08 table C, column Combat"
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 56,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 55,
-        "kind": "skill_awarded",
-        "skill": "Fighter",
-        "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 57,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
-        "options": [
-          "Personal",
-          "Combat",
-          "Mission",
-          "Base",
-          "Peace Keeper"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 58,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 82 chart 08 table C, column Combat"
-      }
-    },
-    {
-      "seq": 59,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 58,
-        "kind": "skill_awarded",
-        "skill": "Vacc Suit",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 60,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
-        "options": [
-          "Personal",
-          "Combat",
-          "Mission",
-          "Base",
-          "Peace Keeper"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 61,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 82 chart 08 table C, column Combat"
-      }
-    },
-    {
-      "seq": 62,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 61,
-        "kind": "skill_awarded",
-        "skill": "Tactics",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 63,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
-        "options": [
-          "Personal",
-          "Combat",
-          "Mission",
-          "Base",
-          "Peace Keeper"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 64,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -969,177 +870,37 @@
           5
         ],
         "total": 5,
-        "cite": "Book 1 p. 82 chart 08 table C, column Combat"
+        "cite": "Book 1 p. 81 chart 07 table C, column Mission"
       }
     },
     {
-      "seq": 65,
+      "seq": 57,
       "kind": "consequence",
       "consequence": {
-        "cause": 64,
+        "cause": 56,
         "kind": "skill_awarded",
-        "skill": "Leader",
+        "skill": "Liaison",
         "delta": 1,
-        "value": 2
+        "value": 1
       }
     },
     {
-      "seq": 66,
+      "seq": 58,
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
+        "prompt": "Select a Spacer Skills column",
         "options": [
           "Personal",
-          "Base",
-          "Combat",
-          "Peace Keeper",
-          "Occupation",
-          "Mission",
-          "Technical"
+          "Patrol/Strike",
+          "Mission"
         ],
         "chosen": 2,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
-      "seq": 67,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 82 chart 08 table C, column Combat"
-      }
-    },
-    {
-      "seq": 68,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 67,
-        "kind": "skill_awarded",
-        "skill": "Tactics",
-        "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 69,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          4
-        ],
-        "total": 6,
-        "target": 12,
-        "success": true,
-        "cite": "Book 1 p. 82 chart 08 (Continue End; p. 66)"
-      }
-    },
-    {
-      "seq": 70,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 69,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 71,
-      "kind": "step",
-      "step": {
-        "name": "Soldier: Term 2",
-        "cite": "Book 1 p. 82 chart 08"
-      }
-    },
-    {
-      "seq": 72,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Str",
-          "Int"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 73,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
-      }
-    },
-    {
-      "seq": 74,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 73,
-        "kind": "operation",
-        "skill": "Base",
-        "career": "Soldier"
-      }
-    },
-    {
-      "seq": 75,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
-      }
-    },
-    {
-      "seq": 76,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 75,
-        "kind": "operation",
-        "skill": "Mission",
-        "career": "Soldier",
-        "value": 2
-      }
-    },
-    {
-      "seq": 77,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
-      }
-    },
-    {
-      "seq": 78,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 77,
-        "kind": "operation",
-        "skill": "Base",
-        "career": "Soldier"
-      }
-    },
-    {
-      "seq": 79,
+      "seq": 59,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1147,22 +908,197 @@
           1
         ],
         "total": 1,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
+        "cite": "Book 1 p. 81 chart 07 table C, column Mission"
       }
     },
     {
-      "seq": 80,
+      "seq": 60,
       "kind": "consequence",
       "consequence": {
-        "cause": 79,
+        "cause": 59,
+        "kind": "skill_awarded",
+        "skill": "Diplomat",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 61,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Spacer Skills column",
+        "options": [
+          "Personal",
+          "Patrol/Strike",
+          "Mission"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 62,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 81 chart 07 table C, column Mission"
+      }
+    },
+    {
+      "seq": 63,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 62,
+        "kind": "skill_awarded",
+        "skill": "Admin",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 64,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          1
+        ],
+        "total": 7,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 81 chart 07 (Continue Str; p. 66)"
+      }
+    },
+    {
+      "seq": 65,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 64,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 66,
+      "kind": "step",
+      "step": {
+        "name": "Spacer: Term 2",
+        "cite": "Book 1 p. 81 chart 07"
+      }
+    },
+    {
+      "seq": 67,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": [
+          "Str",
+          "Dex"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 68,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
+      }
+    },
+    {
+      "seq": 69,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 68,
         "kind": "operation",
-        "skill": "Combat",
-        "career": "Soldier",
+        "skill": "Patrol",
+        "career": "Spacer",
+        "value": 1
+      }
+    },
+    {
+      "seq": 70,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
+      }
+    },
+    {
+      "seq": 71,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 70,
+        "kind": "operation",
+        "skill": "Mission",
+        "career": "Spacer",
         "value": 3
       }
     },
     {
-      "seq": 81,
+      "seq": 72,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
+      }
+    },
+    {
+      "seq": 73,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 72,
+        "kind": "operation",
+        "skill": "Mission",
+        "career": "Spacer",
+        "value": 3
+      }
+    },
+    {
+      "seq": 74,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
+      }
+    },
+    {
+      "seq": 75,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 74,
+        "kind": "operation",
+        "skill": "Siege",
+        "career": "Spacer"
+      }
+    },
+    {
+      "seq": 76,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1189,45 +1125,115 @@
           "Bravery -9"
         ],
         "chosen": 0,
-        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 82 chart 08"
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 81 chart 07"
       }
     },
     {
-      "seq": 82,
+      "seq": 77,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          5,
+          3,
           6
         ],
-        "total": 11,
+        "total": 9,
         "target": 6,
         "success": false,
         "mods": [
           {
             "name": "Branch",
-            "value": -1
+            "value": 0
           },
           {
             "name": "Operations",
             "value": -3
           }
         ],
-        "cite": "Book 1 p. 82 chart 08 (Risk vs Str+Mods)"
+        "cite": "Book 1 p. 81 chart 07 (Risk vs Str+Mods)"
       }
     },
     {
-      "seq": 83,
+      "seq": 78,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
         "dice": [
-          5,
+          3,
           1
         ],
+        "total": 2,
+        "cite": "Book 1 p. 81 chart 07 (Failure: reduce CC by negative Mods and Flux)"
+      }
+    },
+    {
+      "seq": 79,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 77,
+        "kind": "characteristic_change",
+        "characteristic": "Str",
+        "delta": -1,
+        "value": 8
+      }
+    },
+    {
+      "seq": 80,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 77,
+        "kind": "wound_badge",
+        "value": 1
+      }
+    },
+    {
+      "seq": 81,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          2
+        ],
         "total": 4,
-        "cite": "Book 1 p. 82 chart 08 (Failure: reduce CC by negative Mods and Flux)"
+        "target": 12,
+        "success": true,
+        "mods": [
+          {
+            "name": "Branch",
+            "value": 0
+          },
+          {
+            "name": "Operations",
+            "value": 3
+          }
+        ],
+        "cite": "Book 1 p. 81 chart 07 (Reward vs Str+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 82,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 81,
+        "kind": "medal",
+        "skill": "XS",
+        "career": "Spacer",
+        "value": 1
+      }
+    },
+    {
+      "seq": 83,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Attempt Officer Commission?",
+        "options": [
+          "Attempt Officer Commission",
+          "Decline"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 81 chart 07 (Officer Commission)"
       }
     },
     {
@@ -1236,23 +1242,13 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          3,
-          3
+          1,
+          5
         ],
         "total": 6,
-        "target": 14,
+        "target": 7,
         "success": true,
-        "mods": [
-          {
-            "name": "Branch",
-            "value": 1
-          },
-          {
-            "name": "Operations",
-            "value": 3
-          }
-        ],
-        "cite": "Book 1 p. 82 chart 08 (Reward vs Str+ opposite sign Mods)"
+        "cite": "Book 1 p. 81 chart 07 (Officer Commission vs Dex)"
       }
     },
     {
@@ -1260,114 +1256,40 @@
       "kind": "consequence",
       "consequence": {
         "cause": 84,
-        "kind": "medal",
-        "skill": "XS",
-        "career": "Soldier",
-        "value": 2
+        "kind": "rank_set",
+        "skill": "Ensign",
+        "career": "Spacer"
       }
     },
     {
       "seq": 86,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Attempt Officer Promotion?",
-        "options": [
-          "Attempt Officer Promotion",
-          "Decline"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 82 chart 08 (Officer Promotion)"
-      }
-    },
-    {
-      "seq": 87,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          6,
-          1
-        ],
-        "total": 7,
-        "target": 8,
-        "success": true,
-        "mods": [
-          {
-            "name": "Medals",
-            "value": 2
-          }
-        ],
-        "cite": "Book 1 p. 82 chart 08 (Officer Promotion vs Soc)"
-      }
-    },
-    {
-      "seq": 88,
       "kind": "consequence",
       "consequence": {
-        "cause": 87,
-        "kind": "rank_set",
-        "skill": "1st Lieutenant",
-        "career": "Soldier"
-      }
-    },
-    {
-      "seq": 89,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
-        "options": [
-          "Personal",
-          "Base",
-          "Mission",
-          "Combat"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 90,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 82 chart 08 table C, column Combat"
-      }
-    },
-    {
-      "seq": 91,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 90,
+        "cause": 84,
         "kind": "skill_awarded",
-        "skill": "Vacc Suit",
+        "skill": "Astrogator",
         "delta": 1,
         "value": 2
       }
     },
     {
-      "seq": 92,
+      "seq": 87,
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
+        "prompt": "Select a Spacer Skills column",
         "options": [
           "Personal",
-          "Base",
+          "Patrol/Strike",
           "Mission",
-          "Combat"
+          "Siege"
         ],
-        "chosen": 3,
+        "chosen": 2,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
-      "seq": 93,
+      "seq": 88,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1375,77 +1297,38 @@
           1
         ],
         "total": 1,
-        "cite": "Book 1 p. 82 chart 08 table C, column Combat"
+        "cite": "Book 1 p. 81 chart 07 table C, column Mission"
       }
     },
     {
-      "seq": 94,
+      "seq": 89,
       "kind": "consequence",
       "consequence": {
-        "cause": 93,
+        "cause": 88,
         "kind": "skill_awarded",
-        "skill": "Fighter",
+        "skill": "Diplomat",
         "delta": 1,
-        "value": 3
+        "value": 2
       }
     },
     {
-      "seq": 95,
+      "seq": 90,
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
+        "prompt": "Select a Spacer Skills column",
         "options": [
           "Personal",
-          "Base",
+          "Patrol/Strike",
           "Mission",
-          "Combat"
+          "Siege"
         ],
-        "chosen": 3,
+        "chosen": 2,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
-      "seq": 96,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 82 chart 08 table C, column Combat"
-      }
-    },
-    {
-      "seq": 97,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 96,
-        "kind": "skill_awarded",
-        "skill": "Fighter",
-        "delta": 1,
-        "value": 4
-      }
-    },
-    {
-      "seq": 98,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
-        "options": [
-          "Personal",
-          "Base",
-          "Mission",
-          "Combat"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 99,
+      "seq": 91,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1453,7 +1336,123 @@
           4
         ],
         "total": 4,
-        "cite": "Book 1 p. 82 chart 08 table C, column Combat"
+        "cite": "Book 1 p. 81 chart 07 table C, column Mission"
+      }
+    },
+    {
+      "seq": 92,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Starship Skill",
+        "options": [
+          "Astrogator",
+          "Engineer",
+          "Gunner",
+          "Medic",
+          "Pilot",
+          "Sensors",
+          "Steward"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 81 chart 07 table C; Book 1 p. 132 chart MS"
+      }
+    },
+    {
+      "seq": 93,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 92,
+        "kind": "skill_awarded",
+        "skill": "Astrogator",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 94,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Spacer Skills column",
+        "options": [
+          "Personal",
+          "Patrol/Strike",
+          "Mission",
+          "Siege"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 95,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 81 chart 07 table C, column Mission"
+      }
+    },
+    {
+      "seq": 96,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 95,
+        "kind": "skill_awarded",
+        "skill": "Admin",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 97,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Spacer Skills column",
+        "options": [
+          "Personal",
+          "Patrol/Strike",
+          "Mission",
+          "Siege"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 98,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 81 chart 07 table C, column Mission"
+      }
+    },
+    {
+      "seq": 99,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Starship Skill",
+        "options": [
+          "Astrogator",
+          "Engineer",
+          "Gunner",
+          "Medic",
+          "Pilot",
+          "Sensors",
+          "Steward"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 81 chart 07 table C; Book 1 p. 132 chart MS"
       }
     },
     {
@@ -1462,9 +1461,9 @@
       "consequence": {
         "cause": 99,
         "kind": "skill_awarded",
-        "skill": "Stealth",
+        "skill": "Astrogator",
         "delta": 1,
-        "value": 1
+        "value": 4
       }
     },
     {
@@ -1472,17 +1471,17 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
+        "prompt": "Select a Spacer Skills column",
         "options": [
           "Personal",
-          "Base",
-          "Combat",
-          "Peace Keeper",
-          "Occupation",
+          "Shore Duty",
+          "Battle",
+          "Patrol/Strike",
+          "Siege",
           "Mission",
           "Technical"
         ],
-        "chosen": 2,
+        "chosen": 5,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
@@ -1495,7 +1494,7 @@
           1
         ],
         "total": 1,
-        "cite": "Book 1 p. 82 chart 08 table C, column Combat"
+        "cite": "Book 1 p. 81 chart 07 table C, column Mission"
       }
     },
     {
@@ -1504,9 +1503,9 @@
       "consequence": {
         "cause": 102,
         "kind": "skill_awarded",
-        "skill": "Fighter",
+        "skill": "Diplomat",
         "delta": 1,
-        "value": 5
+        "value": 3
       }
     },
     {
@@ -1516,12 +1515,12 @@
         "expr": "2D",
         "dice": [
           5,
-          1
+          3
         ],
-        "total": 6,
-        "target": 12,
+        "total": 8,
+        "target": 8,
         "success": true,
-        "cite": "Book 1 p. 82 chart 08 (Continue End; p. 66)"
+        "cite": "Book 1 p. 81 chart 07 (Continue Str; p. 66)"
       }
     },
     {
@@ -1537,8 +1536,8 @@
       "seq": 106,
       "kind": "step",
       "step": {
-        "name": "Soldier: Term 3",
-        "cite": "Book 1 p. 82 chart 08"
+        "name": "Spacer: Term 3",
+        "cite": "Book 1 p. 81 chart 07"
       }
     },
     {
@@ -1548,7 +1547,7 @@
         "decider": "policy",
         "prompt": "Select the term's controlling characteristic",
         "options": [
-          "Int"
+          "Dex"
         ],
         "chosen": 0,
         "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
@@ -1560,10 +1559,10 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          5
+          2
         ],
-        "total": 5,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
+        "total": 2,
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
       }
     },
     {
@@ -1572,8 +1571,9 @@
       "consequence": {
         "cause": 108,
         "kind": "operation",
-        "skill": "Base",
-        "career": "Soldier"
+        "skill": "Strike",
+        "career": "Spacer",
+        "value": 2
       }
     },
     {
@@ -1582,10 +1582,10 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          1
+          2
         ],
-        "total": 1,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
+        "total": 2,
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
       }
     },
     {
@@ -1594,9 +1594,9 @@
       "consequence": {
         "cause": 110,
         "kind": "operation",
-        "skill": "Combat",
-        "career": "Soldier",
-        "value": 3
+        "skill": "Strike",
+        "career": "Spacer",
+        "value": 2
       }
     },
     {
@@ -1605,10 +1605,10 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          2
+          1
         ],
-        "total": 2,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
+        "total": 1,
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
       }
     },
     {
@@ -1617,9 +1617,9 @@
       "consequence": {
         "cause": 112,
         "kind": "operation",
-        "skill": "Peace Keeper",
-        "career": "Soldier",
-        "value": 1
+        "skill": "Battle",
+        "career": "Spacer",
+        "value": 2
       }
     },
     {
@@ -1628,10 +1628,10 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          5
+          1
         ],
-        "total": 5,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
+        "total": 1,
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
       }
     },
     {
@@ -1640,8 +1640,9 @@
       "consequence": {
         "cause": 114,
         "kind": "operation",
-        "skill": "Base",
-        "career": "Soldier"
+        "skill": "Battle",
+        "career": "Spacer",
+        "value": 2
       }
     },
     {
@@ -1672,7 +1673,7 @@
           "Bravery -9"
         ],
         "chosen": 0,
-        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 82 chart 08"
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 81 chart 07"
       }
     },
     {
@@ -1685,92 +1686,69 @@
           4
         ],
         "total": 5,
-        "target": 3,
-        "success": false,
+        "target": 5,
+        "success": true,
         "mods": [
           {
             "name": "Branch",
-            "value": -1
+            "value": 0
           },
           {
             "name": "Operations",
-            "value": -3
+            "value": -2
           }
         ],
-        "cite": "Book 1 p. 82 chart 08 (Risk vs Int+Mods)"
+        "cite": "Book 1 p. 81 chart 07 (Risk vs Dex+Mods)"
       }
     },
     {
       "seq": 118,
-      "kind": "throw",
-      "throw": {
-        "expr": "Flux",
-        "dice": [
-          3,
-          2
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 82 chart 08 (Failure: reduce CC by negative Mods and Flux)"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 117,
+        "kind": "service_badge",
+        "career": "Spacer",
+        "value": 2
       }
     },
     {
       "seq": 119,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 117,
-        "kind": "characteristic_change",
-        "characteristic": "Int",
-        "delta": -3,
-        "value": 4
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          2
+        ],
+        "total": 8,
+        "target": 9,
+        "success": true,
+        "mods": [
+          {
+            "name": "Branch",
+            "value": 0
+          },
+          {
+            "name": "Operations",
+            "value": 2
+          }
+        ],
+        "cite": "Book 1 p. 81 chart 07 (Reward vs Dex+ opposite sign Mods)"
       }
     },
     {
       "seq": 120,
       "kind": "consequence",
       "consequence": {
-        "cause": 117,
-        "kind": "wound_badge",
+        "cause": 119,
+        "kind": "medal",
+        "skill": "MCUF",
+        "career": "Spacer",
         "value": 1
       }
     },
     {
       "seq": 121,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          5
-        ],
-        "total": 10,
-        "target": 11,
-        "success": true,
-        "mods": [
-          {
-            "name": "Branch",
-            "value": 1
-          },
-          {
-            "name": "Operations",
-            "value": 3
-          }
-        ],
-        "cite": "Book 1 p. 82 chart 08 (Reward vs Int+ opposite sign Mods)"
-      }
-    },
-    {
-      "seq": 122,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 121,
-        "kind": "medal",
-        "skill": "MCG",
-        "career": "Soldier",
-        "value": 1
-      }
-    },
-    {
-      "seq": 123,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1780,97 +1758,171 @@
           "Decline"
         ],
         "chosen": 0,
-        "cite": "Book 1 p. 82 chart 08 (Officer Promotion)"
+        "cite": "Book 1 p. 81 chart 07 (Officer Promotion)"
       }
     },
     {
-      "seq": 124,
+      "seq": 122,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          2,
-          2
+          6,
+          3
         ],
-        "total": 4,
-        "target": 11,
+        "total": 9,
+        "target": 13,
         "success": true,
         "mods": [
           {
             "name": "Medals",
-            "value": 5
+            "value": 6
           }
         ],
-        "cite": "Book 1 p. 82 chart 08 (Officer Promotion vs Soc)"
+        "cite": "Book 1 p. 81 chart 07 (Officer Promotion vs Soc)"
+      }
+    },
+    {
+      "seq": 123,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 122,
+        "kind": "rank_set",
+        "skill": "Sublieutenant",
+        "career": "Spacer"
+      }
+    },
+    {
+      "seq": 124,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Spacer Skills column",
+        "options": [
+          "Personal",
+          "Patrol/Strike",
+          "Battle"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 125,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 124,
-        "kind": "rank_set",
-        "skill": "Captain",
-        "career": "Soldier"
-      }
-    },
-    {
-      "seq": 126,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
-        "options": [
-          "Personal",
-          "Base",
-          "Combat",
-          "Peace Keeper"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 127,
       "kind": "throw",
       "throw": {
         "expr": "1D",
         "dice": [
-          6
+          4
         ],
-        "total": 6,
-        "cite": "Book 1 p. 82 chart 08 table C, column Combat"
+        "total": 4,
+        "cite": "Book 1 p. 81 chart 07 table C, column Personal"
       }
     },
     {
-      "seq": 128,
+      "seq": 126,
       "kind": "consequence",
       "consequence": {
-        "cause": 127,
-        "kind": "skill_awarded",
-        "skill": "Tactics",
+        "cause": 125,
+        "kind": "characteristic_change",
+        "characteristic": "Int",
         "delta": 1,
-        "value": 3
+        "value": 11
       }
     },
     {
-      "seq": 129,
+      "seq": 127,
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
+        "prompt": "Select a Spacer Skills column",
         "options": [
           "Personal",
-          "Base",
-          "Combat",
-          "Peace Keeper"
+          "Patrol/Strike",
+          "Battle"
         ],
-        "chosen": 2,
+        "chosen": 0,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
+      "seq": 128,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 81 chart 07 table C, column Personal"
+      }
+    },
+    {
+      "seq": 129,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 128,
+        "kind": "characteristic_change",
+        "characteristic": "Dex",
+        "delta": 1,
+        "value": 8
+      }
+    },
+    {
       "seq": 130,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Spacer Skills column",
+        "options": [
+          "Personal",
+          "Patrol/Strike",
+          "Battle"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 131,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 81 chart 07 table C, column Personal"
+      }
+    },
+    {
+      "seq": 132,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 131,
+        "kind": "characteristic_change",
+        "characteristic": "Int",
+        "delta": 1,
+        "value": 12
+      }
+    },
+    {
+      "seq": 133,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Spacer Skills column",
+        "options": [
+          "Personal",
+          "Patrol/Strike",
+          "Battle"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 134,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1878,96 +1930,49 @@
           3
         ],
         "total": 3,
-        "cite": "Book 1 p. 82 chart 08 table C, column Combat"
-      }
-    },
-    {
-      "seq": 131,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 130,
-        "kind": "skill_awarded",
-        "skill": "Fighter",
-        "delta": 1,
-        "value": 6
-      }
-    },
-    {
-      "seq": 132,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
-        "options": [
-          "Personal",
-          "Base",
-          "Combat",
-          "Peace Keeper"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 133,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 82 chart 08 table C, column Combat"
-      }
-    },
-    {
-      "seq": 134,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 133,
-        "kind": "skill_awarded",
-        "skill": "Tactics",
-        "delta": 1,
-        "value": 4
+        "cite": "Book 1 p. 81 chart 07 table C, column Personal"
       }
     },
     {
       "seq": 135,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
-        "options": [
-          "Personal",
-          "Base",
-          "Combat",
-          "Peace Keeper"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 134,
+        "kind": "characteristic_change",
+        "characteristic": "End",
+        "delta": 1,
+        "value": 8
       }
     },
     {
       "seq": 136,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Spacer Skills column",
+        "options": [
+          "Personal",
+          "Shore Duty",
+          "Battle",
+          "Patrol/Strike",
+          "Siege",
+          "Mission",
+          "Technical"
         ],
-        "total": 1,
-        "cite": "Book 1 p. 82 chart 08 table C, column Combat"
+        "chosen": 5,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 137,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 136,
-        "kind": "skill_awarded",
-        "skill": "Fighter",
-        "delta": 1,
-        "value": 7
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 81 chart 07 table C, column Mission"
       }
     },
     {
@@ -1975,354 +1980,80 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
+        "prompt": "Select a Starship Skill",
         "options": [
-          "Personal",
-          "Base",
-          "Combat",
-          "Peace Keeper",
-          "Occupation",
-          "Mission",
-          "Technical"
+          "Astrogator",
+          "Engineer",
+          "Gunner",
+          "Medic",
+          "Pilot",
+          "Sensors",
+          "Steward"
         ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+        "chosen": 0,
+        "cite": "Book 1 p. 81 chart 07 table C; Book 1 p. 132 chart MS"
       }
     },
     {
       "seq": 139,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 82 chart 08 table C, column Combat"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 138,
+        "kind": "skill_awarded",
+        "skill": "Astrogator",
+        "delta": 1,
+        "value": 5
       }
     },
     {
       "seq": 140,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 139,
-        "kind": "skill_awarded",
-        "skill": "Fighter",
-        "delta": 1,
-        "value": 8
-      }
-    },
-    {
-      "seq": 141,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          4,
-          3
+          1,
+          2
         ],
-        "total": 7,
-        "target": 12,
+        "total": 3,
+        "target": 8,
         "success": true,
-        "cite": "Book 1 p. 82 chart 08 (Continue End; p. 66)"
+        "cite": "Book 1 p. 81 chart 07 (Continue Str; p. 66)"
       }
     },
     {
-      "seq": 142,
+      "seq": 141,
       "kind": "consequence",
       "consequence": {
-        "cause": 141,
+        "cause": 140,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 143,
+      "seq": 142,
       "kind": "step",
       "step": {
-        "name": "Soldier: Term 4",
-        "cite": "Book 1 p. 82 chart 08"
+        "name": "Spacer: Term 4",
+        "cite": "Book 1 p. 81 chart 07"
       }
     },
     {
-      "seq": 144,
+      "seq": 143,
       "kind": "choice",
       "choice": {
         "decider": "policy",
         "prompt": "Select the term's controlling characteristic",
         "options": [
           "Str",
-          "End",
+          "Dex",
           "Int"
         ],
-        "chosen": 1,
+        "chosen": 2,
         "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
       }
     },
     {
-      "seq": 145,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
-      }
-    },
-    {
-      "seq": 146,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 145,
-        "kind": "operation",
-        "skill": "Base",
-        "career": "Soldier"
-      }
-    },
-    {
-      "seq": 147,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
-      }
-    },
-    {
-      "seq": 148,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 147,
-        "kind": "operation",
-        "skill": "Peace Keeper",
-        "career": "Soldier",
-        "value": 1
-      }
-    },
-    {
-      "seq": 149,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
-      }
-    },
-    {
-      "seq": 150,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 149,
-        "kind": "operation",
-        "skill": "Base",
-        "career": "Soldier"
-      }
-    },
-    {
-      "seq": 151,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
-      }
-    },
-    {
-      "seq": 152,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 151,
-        "kind": "operation",
-        "skill": "Base",
-        "career": "Soldier"
-      }
-    },
-    {
-      "seq": 153,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select Caution, Bravery, or No Mod",
-        "options": [
-          "No Mod",
-          "Caution +1",
-          "Caution +2",
-          "Caution +3",
-          "Caution +4",
-          "Caution +5",
-          "Caution +6",
-          "Caution +7",
-          "Caution +8",
-          "Caution +9",
-          "Bravery -1",
-          "Bravery -2",
-          "Bravery -3",
-          "Bravery -4",
-          "Bravery -5",
-          "Bravery -6",
-          "Bravery -7",
-          "Bravery -8",
-          "Bravery -9"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 82 chart 08"
-      }
-    },
-    {
-      "seq": 154,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          3,
-          1
-        ],
-        "total": 4,
-        "target": 10,
-        "success": true,
-        "mods": [
-          {
-            "name": "Branch",
-            "value": -1
-          },
-          {
-            "name": "Operations",
-            "value": -1
-          }
-        ],
-        "cite": "Book 1 p. 82 chart 08 (Risk vs End+Mods)"
-      }
-    },
-    {
-      "seq": 155,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 154,
-        "kind": "service_badge",
-        "career": "Soldier",
-        "value": 2
-      }
-    },
-    {
-      "seq": 156,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          6,
-          5
-        ],
-        "total": 11,
-        "target": 14,
-        "success": true,
-        "mods": [
-          {
-            "name": "Branch",
-            "value": 1
-          },
-          {
-            "name": "Operations",
-            "value": 1
-          }
-        ],
-        "cite": "Book 1 p. 82 chart 08 (Reward vs End+ opposite sign Mods)"
-      }
-    },
-    {
-      "seq": 157,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 156,
-        "kind": "medal",
-        "skill": "SEH",
-        "career": "Soldier",
-        "value": 1
-      }
-    },
-    {
-      "seq": 158,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Attempt Officer Promotion?",
-        "options": [
-          "Attempt Officer Promotion",
-          "Decline"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 82 chart 08 (Officer Promotion)"
-      }
-    },
-    {
-      "seq": 159,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          6,
-          5
-        ],
-        "total": 11,
-        "target": 15,
-        "success": true,
-        "mods": [
-          {
-            "name": "Medals",
-            "value": 9
-          }
-        ],
-        "cite": "Book 1 p. 82 chart 08 (Officer Promotion vs Soc)"
-      }
-    },
-    {
-      "seq": 160,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 159,
-        "kind": "rank_set",
-        "skill": "Major",
-        "career": "Soldier"
-      }
-    },
-    {
-      "seq": 161,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 159,
-        "kind": "skill_awarded",
-        "skill": "Tactics",
-        "delta": 1,
-        "value": 5
-      }
-    },
-    {
-      "seq": 162,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
-        "options": [
-          "Personal",
-          "Base",
-          "Peace Keeper"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 163,
+      "seq": 144,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2330,155 +2061,45 @@
           1
         ],
         "total": 1,
-        "cite": "Book 1 p. 82 chart 08 table C, column Peace Keeper"
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
       }
     },
     {
-      "seq": 164,
+      "seq": 145,
       "kind": "consequence",
       "consequence": {
-        "cause": 163,
-        "kind": "skill_awarded",
-        "skill": "Admin",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 165,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
-        "options": [
-          "Personal",
-          "Base",
-          "Peace Keeper"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 166,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 82 chart 08 table C, column Peace Keeper"
-      }
-    },
-    {
-      "seq": 167,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 166,
-        "kind": "skill_awarded",
-        "skill": "Hostile Environ",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 168,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
-        "options": [
-          "Personal",
-          "Base",
-          "Peace Keeper"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 169,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 82 chart 08 table C, column Peace Keeper"
-      }
-    },
-    {
-      "seq": 170,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 169,
-        "kind": "skill_awarded",
-        "skill": "Fighter",
-        "delta": 1,
-        "value": 9
-      }
-    },
-    {
-      "seq": 171,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
-        "options": [
-          "Personal",
-          "Base",
-          "Peace Keeper"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 172,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 82 chart 08 table C, column Peace Keeper"
-      }
-    },
-    {
-      "seq": 173,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 172,
-        "kind": "skill_awarded",
-        "skill": "Hostile Environ",
-        "delta": 1,
+        "cause": 144,
+        "kind": "operation",
+        "skill": "Battle",
+        "career": "Spacer",
         "value": 2
       }
     },
     {
-      "seq": 174,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
-        "options": [
-          "Personal",
-          "Base",
-          "Combat",
-          "Peace Keeper",
-          "Occupation",
-          "Mission",
-          "Technical"
+      "seq": 146,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
         ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+        "total": 1,
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
       }
     },
     {
-      "seq": 175,
+      "seq": 147,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 146,
+        "kind": "operation",
+        "skill": "Battle",
+        "career": "Spacer",
+        "value": 2
+      }
+    },
+    {
+      "seq": 148,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2486,113 +2107,22 @@
           4
         ],
         "total": 4,
-        "cite": "Book 1 p. 82 chart 08 table C, column Combat"
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
       }
     },
     {
-      "seq": 176,
+      "seq": 149,
       "kind": "consequence",
       "consequence": {
-        "cause": 175,
-        "kind": "skill_awarded",
-        "skill": "Stealth",
-        "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 177,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          6
-        ],
-        "total": 10,
-        "target": 12,
-        "success": true,
-        "cite": "Book 1 p. 82 chart 08 (Continue End; p. 66)"
-      }
-    },
-    {
-      "seq": 178,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 177,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 179,
-      "kind": "step",
-      "step": {
-        "name": "Soldier: Term 5",
-        "cite": "Book 1 p. 82 chart 08"
-      }
-    },
-    {
-      "seq": 180,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Str",
-          "Int"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 181,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
-      }
-    },
-    {
-      "seq": 182,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 181,
+        "cause": 148,
         "kind": "operation",
-        "skill": "Peace Keeper",
-        "career": "Soldier",
+        "skill": "Patrol",
+        "career": "Spacer",
         "value": 1
       }
     },
     {
-      "seq": 183,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
-      }
-    },
-    {
-      "seq": 184,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 183,
-        "kind": "operation",
-        "skill": "Base",
-        "career": "Soldier"
-      }
-    },
-    {
-      "seq": 185,
+      "seq": 150,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2600,43 +2130,21 @@
           6
         ],
         "total": 6,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
       }
     },
     {
-      "seq": 186,
+      "seq": 151,
       "kind": "consequence",
       "consequence": {
-        "cause": 185,
+        "cause": 150,
         "kind": "operation",
-        "skill": "Base",
-        "career": "Soldier"
+        "skill": "ANM School",
+        "career": "Spacer"
       }
     },
     {
-      "seq": 187,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
-      }
-    },
-    {
-      "seq": 188,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 187,
-        "kind": "operation",
-        "skill": "Base",
-        "career": "Soldier"
-      }
-    },
-    {
-      "seq": 189,
+      "seq": 152,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2663,82 +2171,82 @@
           "Bravery -9"
         ],
         "chosen": 0,
-        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 82 chart 08"
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 81 chart 07"
       }
     },
     {
-      "seq": 190,
+      "seq": 153,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          2,
-          4
+          5,
+          3
         ],
-        "total": 6,
-        "target": 8,
+        "total": 8,
+        "target": 10,
         "success": true,
         "mods": [
           {
             "name": "Branch",
-            "value": -1
+            "value": 0
           },
           {
             "name": "Operations",
-            "value": -1
+            "value": -2
           }
         ],
-        "cite": "Book 1 p. 82 chart 08 (Risk vs Str+Mods)"
+        "cite": "Book 1 p. 81 chart 07 (Risk vs Int+Mods)"
       }
     },
     {
-      "seq": 191,
+      "seq": 154,
       "kind": "consequence",
       "consequence": {
-        "cause": 190,
+        "cause": 153,
         "kind": "service_badge",
-        "career": "Soldier",
+        "career": "Spacer",
         "value": 3
       }
     },
     {
-      "seq": 192,
+      "seq": 155,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          2,
-          2
+          5,
+          6
         ],
-        "total": 4,
-        "target": 12,
+        "total": 11,
+        "target": 14,
         "success": true,
         "mods": [
           {
             "name": "Branch",
-            "value": 1
+            "value": 0
           },
           {
             "name": "Operations",
-            "value": 1
+            "value": 2
           }
         ],
-        "cite": "Book 1 p. 82 chart 08 (Reward vs Str+ opposite sign Mods)"
+        "cite": "Book 1 p. 81 chart 07 (Reward vs Int+ opposite sign Mods)"
       }
     },
     {
-      "seq": 193,
+      "seq": 156,
       "kind": "consequence",
       "consequence": {
-        "cause": 192,
+        "cause": 155,
         "kind": "medal",
-        "skill": "XS",
-        "career": "Soldier",
-        "value": 3
+        "skill": "SEH",
+        "career": "Spacer",
+        "value": 1
       }
     },
     {
-      "seq": 194,
+      "seq": 157,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2748,20 +2256,20 @@
           "Decline"
         ],
         "chosen": 0,
-        "cite": "Book 1 p. 82 chart 08 (Officer Promotion)"
+        "cite": "Book 1 p. 81 chart 07 (Officer Promotion)"
       }
     },
     {
-      "seq": 195,
+      "seq": 158,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          4,
+          5,
           1
         ],
-        "total": 5,
-        "target": 16,
+        "total": 6,
+        "target": 17,
         "success": true,
         "mods": [
           {
@@ -2769,17 +2277,516 @@
             "value": 10
           }
         ],
-        "cite": "Book 1 p. 82 chart 08 (Officer Promotion vs Soc)"
+        "cite": "Book 1 p. 81 chart 07 (Officer Promotion vs Soc)"
+      }
+    },
+    {
+      "seq": 159,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 158,
+        "kind": "rank_set",
+        "skill": "Lieutenant",
+        "career": "Spacer"
+      }
+    },
+    {
+      "seq": 160,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 158,
+        "kind": "skill_awarded",
+        "skill": "Engineer",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 161,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Spacer Skills column",
+        "options": [
+          "Personal",
+          "Battle",
+          "Patrol/Strike"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 162,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 81 chart 07 table C, column Personal"
+      }
+    },
+    {
+      "seq": 163,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 162,
+        "kind": "characteristic_change",
+        "characteristic": "Edu",
+        "delta": 1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 164,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Spacer Skills column",
+        "options": [
+          "Personal",
+          "Battle",
+          "Patrol/Strike"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 165,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 81 chart 07 table C, column Personal"
+      }
+    },
+    {
+      "seq": 166,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 165,
+        "kind": "characteristic_change",
+        "characteristic": "Dex",
+        "delta": 1,
+        "value": 9
+      }
+    },
+    {
+      "seq": 167,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Spacer Skills column",
+        "options": [
+          "Personal",
+          "Battle",
+          "Patrol/Strike"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 168,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 81 chart 07 table C, column Personal"
+      }
+    },
+    {
+      "seq": 169,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 168,
+        "kind": "characteristic_change",
+        "characteristic": "Soc",
+        "delta": 1,
+        "value": 8
+      }
+    },
+    {
+      "seq": 170,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Spacer Skills column",
+        "options": [
+          "Personal",
+          "Battle",
+          "Patrol/Strike"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 171,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 81 chart 07 table C, column Personal"
+      }
+    },
+    {
+      "seq": 172,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 171,
+        "kind": "characteristic_change",
+        "characteristic": "Soc",
+        "delta": 1,
+        "value": 9
+      }
+    },
+    {
+      "seq": 173,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Spacer Skills column",
+        "options": [
+          "Personal",
+          "Shore Duty",
+          "Battle",
+          "Patrol/Strike",
+          "Siege",
+          "Mission",
+          "Technical"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 174,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 81 chart 07 table C, column Mission"
+      }
+    },
+    {
+      "seq": 175,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 174,
+        "kind": "skill_awarded",
+        "skill": "Admin",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 176,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          2
+        ],
+        "total": 3,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 81 chart 07 (Continue Str; p. 66)"
+      }
+    },
+    {
+      "seq": 177,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 176,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 178,
+      "kind": "step",
+      "step": {
+        "name": "Spacer: Term 5",
+        "cite": "Book 1 p. 81 chart 07"
+      }
+    },
+    {
+      "seq": 179,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": [
+          "Str",
+          "Dex"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 180,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
+      }
+    },
+    {
+      "seq": 181,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 180,
+        "kind": "operation",
+        "skill": "ANM School",
+        "career": "Spacer"
+      }
+    },
+    {
+      "seq": 182,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
+      }
+    },
+    {
+      "seq": 183,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 182,
+        "kind": "operation",
+        "skill": "Strike",
+        "career": "Spacer",
+        "value": 2
+      }
+    },
+    {
+      "seq": 184,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
+      }
+    },
+    {
+      "seq": 185,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 184,
+        "kind": "operation",
+        "skill": "ANM School",
+        "career": "Spacer"
+      }
+    },
+    {
+      "seq": 186,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
+      }
+    },
+    {
+      "seq": 187,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 186,
+        "kind": "operation",
+        "skill": "Patrol",
+        "career": "Spacer",
+        "value": 1
+      }
+    },
+    {
+      "seq": 188,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 81 chart 07"
+      }
+    },
+    {
+      "seq": 189,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          1
+        ],
+        "total": 7,
+        "target": 7,
+        "success": true,
+        "mods": [
+          {
+            "name": "Branch",
+            "value": 0
+          },
+          {
+            "name": "Operations",
+            "value": -2
+          }
+        ],
+        "cite": "Book 1 p. 81 chart 07 (Risk vs Dex+Mods)"
+      }
+    },
+    {
+      "seq": 190,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 189,
+        "kind": "service_badge",
+        "career": "Spacer",
+        "value": 4
+      }
+    },
+    {
+      "seq": 191,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          4
+        ],
+        "total": 8,
+        "target": 11,
+        "success": true,
+        "mods": [
+          {
+            "name": "Branch",
+            "value": 0
+          },
+          {
+            "name": "Operations",
+            "value": 2
+          }
+        ],
+        "cite": "Book 1 p. 81 chart 07 (Reward vs Dex+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 192,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 191,
+        "kind": "medal",
+        "skill": "MCUF",
+        "career": "Spacer",
+        "value": 2
+      }
+    },
+    {
+      "seq": 193,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Attempt Officer Promotion?",
+        "options": [
+          "Attempt Officer Promotion",
+          "Decline"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 81 chart 07 (Officer Promotion)"
+      }
+    },
+    {
+      "seq": 194,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          1
+        ],
+        "total": 6,
+        "target": 21,
+        "success": true,
+        "mods": [
+          {
+            "name": "Medals",
+            "value": 12
+          }
+        ],
+        "cite": "Book 1 p. 81 chart 07 (Officer Promotion vs Soc)"
+      }
+    },
+    {
+      "seq": 195,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 194,
+        "kind": "rank_set",
+        "skill": "Lt Commander",
+        "career": "Spacer"
       }
     },
     {
       "seq": 196,
       "kind": "consequence",
       "consequence": {
-        "cause": 195,
-        "kind": "rank_set",
-        "skill": "Lt Colonel",
-        "career": "Soldier"
+        "cause": 194,
+        "kind": "skill_awarded",
+        "skill": "Pilot",
+        "delta": 1,
+        "value": 1
       }
     },
     {
@@ -2787,13 +2794,12 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
+        "prompt": "Select a Spacer Skills column",
         "options": [
           "Personal",
-          "Peace Keeper",
-          "Base"
+          "Patrol/Strike"
         ],
-        "chosen": 1,
+        "chosen": 0,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
@@ -2803,10 +2809,10 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          5
+          1
         ],
-        "total": 5,
-        "cite": "Book 1 p. 82 chart 08 table C, column Peace Keeper"
+        "total": 1,
+        "cite": "Book 1 p. 81 chart 07 table C, column Personal"
       }
     },
     {
@@ -2814,10 +2820,10 @@
       "kind": "consequence",
       "consequence": {
         "cause": 198,
-        "kind": "skill_awarded",
-        "skill": "Liaison",
+        "kind": "characteristic_change",
+        "characteristic": "Str",
         "delta": 1,
-        "value": 1
+        "value": 9
       }
     },
     {
@@ -2825,13 +2831,12 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
+        "prompt": "Select a Spacer Skills column",
         "options": [
           "Personal",
-          "Peace Keeper",
-          "Base"
+          "Patrol/Strike"
         ],
-        "chosen": 1,
+        "chosen": 0,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
@@ -2841,10 +2846,10 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          3
+          6
         ],
-        "total": 3,
-        "cite": "Book 1 p. 82 chart 08 table C, column Peace Keeper"
+        "total": 6,
+        "cite": "Book 1 p. 81 chart 07 table C, column Personal"
       }
     },
     {
@@ -2852,10 +2857,10 @@
       "kind": "consequence",
       "consequence": {
         "cause": 201,
-        "kind": "skill_awarded",
-        "skill": "Hostile Environ",
+        "kind": "characteristic_change",
+        "characteristic": "Soc",
         "delta": 1,
-        "value": 3
+        "value": 10
       }
     },
     {
@@ -2863,13 +2868,12 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
+        "prompt": "Select a Spacer Skills column",
         "options": [
           "Personal",
-          "Peace Keeper",
-          "Base"
+          "Patrol/Strike"
         ],
-        "chosen": 1,
+        "chosen": 0,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
@@ -2879,10 +2883,10 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          1
+          5
         ],
-        "total": 1,
-        "cite": "Book 1 p. 82 chart 08 table C, column Peace Keeper"
+        "total": 5,
+        "cite": "Book 1 p. 81 chart 07 table C, column Personal"
       }
     },
     {
@@ -2890,10 +2894,10 @@
       "kind": "consequence",
       "consequence": {
         "cause": 204,
-        "kind": "skill_awarded",
-        "skill": "Admin",
+        "kind": "characteristic_change",
+        "characteristic": "Edu",
         "delta": 1,
-        "value": 2
+        "value": 7
       }
     },
     {
@@ -2901,13 +2905,12 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
+        "prompt": "Select a Spacer Skills column",
         "options": [
           "Personal",
-          "Peace Keeper",
-          "Base"
+          "Patrol/Strike"
         ],
-        "chosen": 1,
+        "chosen": 0,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
@@ -2920,7 +2923,7 @@
           6
         ],
         "total": 6,
-        "cite": "Book 1 p. 82 chart 08 table C, column Peace Keeper"
+        "cite": "Book 1 p. 81 chart 07 table C, column Personal"
       }
     },
     {
@@ -2928,10 +2931,10 @@
       "kind": "consequence",
       "consequence": {
         "cause": 207,
-        "kind": "skill_awarded",
-        "skill": "Navigator",
+        "kind": "characteristic_change",
+        "characteristic": "Soc",
         "delta": 1,
-        "value": 1
+        "value": 11
       }
     },
     {
@@ -2939,17 +2942,17 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
+        "prompt": "Select a Spacer Skills column",
         "options": [
           "Personal",
-          "Base",
-          "Combat",
-          "Peace Keeper",
-          "Occupation",
+          "Shore Duty",
+          "Battle",
+          "Patrol/Strike",
+          "Siege",
           "Mission",
           "Technical"
         ],
-        "chosen": 2,
+        "chosen": 5,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
@@ -2962,7 +2965,7 @@
           6
         ],
         "total": 6,
-        "cite": "Book 1 p. 82 chart 08 table C, column Combat"
+        "cite": "Book 1 p. 81 chart 07 table C, column Mission"
       }
     },
     {
@@ -2971,9 +2974,9 @@
       "consequence": {
         "cause": 210,
         "kind": "skill_awarded",
-        "skill": "Tactics",
+        "skill": "Comms",
         "delta": 1,
-        "value": 6
+        "value": 1
       }
     },
     {
@@ -2982,13 +2985,13 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          1,
-          6
+          5,
+          5
         ],
-        "total": 7,
-        "target": 12,
-        "success": true,
-        "cite": "Book 1 p. 82 chart 08 (Continue End; p. 66)"
+        "total": 10,
+        "target": 9,
+        "success": false,
+        "cite": "Book 1 p. 81 chart 07 (Continue Str; p. 66)"
       }
     },
     {
@@ -3002,203 +3005,11 @@
     },
     {
       "seq": 214,
-      "kind": "step",
-      "step": {
-        "name": "Soldier: Term 6",
-        "cite": "Book 1 p. 82 chart 08"
-      }
-    },
-    {
-      "seq": 215,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Int"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 216,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
-      }
-    },
-    {
-      "seq": 217,
       "kind": "consequence",
       "consequence": {
-        "cause": 216,
-        "kind": "operation",
-        "skill": "Combat",
-        "career": "Soldier",
-        "value": 3
-      }
-    },
-    {
-      "seq": 218,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
-      }
-    },
-    {
-      "seq": 219,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 218,
-        "kind": "operation",
-        "skill": "Mission",
-        "career": "Soldier",
-        "value": 2
-      }
-    },
-    {
-      "seq": 220,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
-      }
-    },
-    {
-      "seq": 221,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 220,
-        "kind": "operation",
-        "skill": "Peace Keeper",
-        "career": "Soldier",
-        "value": 1
-      }
-    },
-    {
-      "seq": 222,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
-      }
-    },
-    {
-      "seq": 223,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 222,
-        "kind": "operation",
-        "skill": "Base",
-        "career": "Soldier"
-      }
-    },
-    {
-      "seq": 224,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select Caution, Bravery, or No Mod",
-        "options": [
-          "No Mod",
-          "Caution +1",
-          "Caution +2",
-          "Caution +3",
-          "Caution +4",
-          "Caution +5",
-          "Caution +6",
-          "Caution +7",
-          "Caution +8",
-          "Caution +9",
-          "Bravery -1",
-          "Bravery -2",
-          "Bravery -3",
-          "Bravery -4",
-          "Bravery -5",
-          "Bravery -6",
-          "Bravery -7",
-          "Bravery -8",
-          "Bravery -9"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 82 chart 08"
-      }
-    },
-    {
-      "seq": 225,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          6,
-          5
-        ],
-        "total": 11,
-        "target": 0,
-        "success": false,
-        "mods": [
-          {
-            "name": "Branch",
-            "value": -1
-          },
-          {
-            "name": "Operations",
-            "value": -3
-          }
-        ],
-        "cite": "Book 1 p. 82 chart 08 (Risk vs Int+Mods)"
-      }
-    },
-    {
-      "seq": 226,
-      "kind": "throw",
-      "throw": {
-        "expr": "Flux",
-        "dice": [
-          2,
-          3
-        ],
-        "total": -1,
-        "cite": "Book 1 p. 82 chart 08 (Failure: reduce CC by negative Mods and Flux)"
-      }
-    },
-    {
-      "seq": 227,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 225,
-        "kind": "characteristic_change",
-        "characteristic": "Int",
-        "delta": -5,
-        "value": -1
-      }
-    },
-    {
-      "seq": 228,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 225,
-        "kind": "dead",
-        "characteristic": "Int"
+        "cause": 212,
+        "kind": "career_ended",
+        "career": "Spacer"
       }
     }
   ]
