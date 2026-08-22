@@ -113,31 +113,54 @@ func careerLine(record chargen.CareerRecord) string {
 		line += ", Hobby " + record.Hobby
 	}
 
-	if record.Specialty != "" {
-		line += ", " + record.Specialty
-	}
-
-	if record.Talent > 0 {
-		line += fmt.Sprintf(", Talent %d", record.Talent)
-	}
-
-	if record.RankTitle != "" {
-		line += ", " + record.RankTitle + " " + record.Rank
-	}
-
-	if record.Discoveries > 0 {
-		line += ", " + plural(record.Discoveries, "Discovery")
-	}
-
-	if record.ShipShares > 0 {
-		line += ", " + plural(record.ShipShares, "Ship Share")
-	}
+	line += careerValues(record)
 
 	if !record.Began {
 		line += " — did not begin"
 	}
 
 	return line + "\n\n"
+}
+
+// careerValues renders the values a career tracks of its own: the
+// Scholar's publications and Tenure, the Entertainer's specialty and
+// Talent, rank, the Scout's Discoveries, and the Merchant's Ship Shares.
+func careerValues(record chargen.CareerRecord) string {
+	var parts []string
+
+	if record.Publications > 0 {
+		parts = append(parts, plural(record.Publications, "Publication"))
+	}
+
+	if record.Tenured {
+		parts = append(parts, "Tenured")
+	}
+
+	if record.Specialty != "" {
+		parts = append(parts, record.Specialty)
+	}
+
+	if record.Talent > 0 {
+		parts = append(parts, fmt.Sprintf("Talent %d", record.Talent))
+	}
+
+	if record.RankTitle != "" {
+		parts = append(parts, record.RankTitle+" "+record.Rank)
+	}
+
+	if record.Discoveries > 0 {
+		parts = append(parts, plural(record.Discoveries, "Discovery"))
+	}
+
+	if record.ShipShares > 0 {
+		parts = append(parts, plural(record.ShipShares, "Ship Share"))
+	}
+
+	if len(parts) == 0 {
+		return ""
+	}
+
+	return ", " + strings.Join(parts, ", ")
 }
 
 // plural renders "1 term" / "2 terms" / "1 Discovery" / "2 Discoveries".
@@ -360,6 +383,30 @@ func consequenceCareerValueText(c *chargen.ConsequenceEvent) string {
 		return fmt.Sprintf("Talent = %d", c.Value)
 	case chargen.ConsequenceComeback:
 		return fmt.Sprintf("Comeback (Fame reset to %d)", c.Value)
+	default:
+		return consequenceScholarText(c)
+	}
+}
+
+// consequenceScholarText renders the chart 02 consequence kinds.
+//
+//nolint:exhaustive // Deliberately partitioned: earlier kinds are handled upstream.
+func consequenceScholarText(c *chargen.ConsequenceEvent) string {
+	switch c.Kind {
+	case chargen.ConsequencePublication:
+		if c.Delta > 1 {
+			return fmt.Sprintf("Award-Winning Publication, counting as %d (total %d)", c.Delta, c.Value)
+		}
+
+		return fmt.Sprintf("Publication (total %d)", c.Value)
+	case chargen.ConsequenceTenure:
+		return "Tenure granted"
+	case chargen.ConsequenceWaived:
+		return "waived"
+	case chargen.ConsequenceMajorSet:
+		return "Major = " + c.Skill
+	case chargen.ConsequenceMinorSet:
+		return "Minor = " + c.Skill
 	default:
 		return string(c.Kind)
 	}

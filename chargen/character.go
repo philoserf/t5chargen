@@ -18,18 +18,18 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.8.0"
+	SchemaVersion = "0.9.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.8.0"
+	EngineVersion = "0.9.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
-	PolicyVersion = "0.6.0"
+	PolicyVersion = "0.7.0"
 
 	// RNGAlgorithm names the recorded random stream: Go math/rand/v2 PCG,
 	// seeded as documented at dice.New. The exact string is compared on
@@ -124,6 +124,15 @@ type EducationRecord struct {
 // "A character's current Major and Minor are the most recent ones
 // selected" (p. 59).
 func (c *Character) currentMajor() string {
+	// A career may select its own Major where the character arrived
+	// without a degree (chart 02's Scholar); the most recent selection
+	// wins, career records being later than education ones.
+	for _, record := range slices.Backward(c.Careers) {
+		if record.Major != "" {
+			return record.Major
+		}
+	}
+
 	for _, record := range slices.Backward(c.Education) {
 		if record.Major != "" {
 			return record.Major
@@ -134,6 +143,12 @@ func (c *Character) currentMajor() string {
 }
 
 func (c *Character) currentMinor() string {
+	for _, record := range slices.Backward(c.Careers) {
+		if record.Minor != "" {
+			return record.Minor
+		}
+	}
+
 	for _, record := range slices.Backward(c.Education) {
 		if record.Minor != "" {
 			return record.Minor
@@ -173,6 +188,20 @@ type CareerRecord struct {
 	// with no rank (p. 65).
 	Rank      string `json:"rank,omitempty"`
 	RankTitle string `json:"rank_title,omitempty"`
+
+	// Major and Minor are the Scholar's areas: "Every Scholar has a Major
+	// and a Minor" (chart 02, p. 76). A Scholar arriving without a degree
+	// selects both (interpretation I-23, ERRATA.md).
+	Major string `json:"major,omitempty"`
+	Minor string `json:"minor,omitempty"`
+
+	// Publications counts the Scholar's Reward successes (chart 02); an
+	// Award-Winning publication counts as two.
+	Publications int `json:"publications,omitempty"`
+
+	// Tenured records the chart 02 Tenure grant, which gates promotion
+	// beyond Scholar3.
+	Tenured bool `json:"tenured,omitempty"`
 
 	// Specialty is the Entertainer's chosen art (chart 03 "Select A
 	// Specialty", p. 77); Talent is the performance ability that career
@@ -357,7 +386,7 @@ func runCareer(forced string, roller *dice.Roller, log *Log, decider Decider, ch
 	// Begin and Retry fail, this career may not be used." (p. 65) Running
 	// out of options is a legal dead-end (no career), not an error.
 	for len(options) > 0 {
-		chosen, _, err := choose(log, decider, Choice{
+		chosen, chosenSeq, err := choose(log, decider, Choice{
 			ID:      ChooseCareer,
 			Prompt:  "Select career",
 			Options: options,
@@ -367,7 +396,7 @@ func runCareer(forced string, roller *dice.Roller, log *Log, decider Decider, ch
 			return err
 		}
 
-		began, err := runCareerByName(options[chosen], roller, log, decider, character)
+		began, err := runCareerByName(options[chosen], chosenSeq, roller, log, decider, character)
 		if err != nil || began {
 			return err
 		}

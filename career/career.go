@@ -97,6 +97,26 @@ type Definition struct {
 	ContinueCharacteristic string `json:"continue_characteristic,omitempty"`
 	ContinueFame           bool   `json:"continue_fame,omitempty"`
 
+	// ContinueMod adds a career-tracked value to the Continue target
+	// (chart 02: "Continue Edu*" with "*Mod +Pubs"). Unlike ContinueTarget
+	// it is not bounded to 2-11 (see validateContinue): the printed rule
+	// carries the target past 12 routinely, where the only remaining exit
+	// is the p. 134 automatic failure on a natural 12 (dice.resolveCheck),
+	// so terms run long until aging lands (docs/PRD.md milestone 4).
+	ContinueMod ContinueModKind `json:"continue_mod,omitempty"`
+
+	// ContinueWaiver offers a Waiver on a failed Continue throw — the
+	// sixth event chart 02's Waivers box lists ("An adverse die roll or
+	// decision (in Position, Promotion, Research, Publication, Tenure, or
+	// Continue) may be waived", p. 76). The other five belong to the
+	// career's own mechanics; Continue belongs to the generic runner.
+	ContinueWaiver bool `json:"continue_waiver,omitempty"`
+
+	// MajorOrMinorColumn offers the character's Major and Minor alongside
+	// the skills-table columns: "A Scholar may always take a skill in his
+	// Major or Minor instead of from this table" (chart 02 table C).
+	MajorOrMinorColumn bool `json:"major_or_minor_column,omitempty"`
+
 	// SkillsPerTerm is the table C eligibility (chart 04 table B:
 	// "Per Term: 4 on Table C"). SkillEligibility carries per-duty
 	// counts where the chart splits them (chart 05 table B: "If Courier
@@ -161,6 +181,16 @@ type Rank struct {
 	// "Automatic Skills by Rank"); empty for ranks with none.
 	AutoSkill string `json:"auto_skill,omitempty"`
 }
+
+// ContinueModKind names a career-tracked value added to the Continue
+// target.
+type ContinueModKind string
+
+// The Continue modifiers.
+const (
+	// ContinueModPublications is chart 02's "*Mod +Pubs".
+	ContinueModPublications ContinueModKind = "publications"
+)
 
 // TargetKind discriminates how an advancement's throw target is derived.
 type TargetKind string
@@ -462,25 +492,37 @@ func validateAdvancementTarget(a Advancement) error {
 	return nil
 }
 
+// countTrue counts the set flags.
+func countTrue(flags ...bool) int {
+	n := 0
+
+	for _, flag := range flags {
+		if flag {
+			n++
+		}
+	}
+
+	return n
+}
+
 // validateContinue enforces exactly one Continue form: a fixed target in
-// 2..11 (a target of 12 or more can never fail a 2D roll-low throw, p. 66,
-// so the term loop would never end; 11 is the largest missable target), or
-// a characteristic target (chart 05: "Continue Int").
+// 2..11 (11 is the largest target a 2D roll-low throw can miss on its
+// merits, p. 66; above it the only exit left is the p. 134 automatic
+// failure on a natural 12, which dice.resolveCheck applies, so the term
+// loop terminates but runs long), or a characteristic target (chart 05:
+// "Continue Int"). The bound is on the fixed form only: ContinueMod and a
+// characteristic target both carry the printed rule past 12 by design.
 func (d *Definition) validateContinue() error {
 	fixed := d.ContinueTarget != 0
 	characteristic := d.ContinueCharacteristic != ""
 
-	forms := 0
-
-	for _, set := range []bool{fixed, characteristic, d.ContinueFame} {
-		if set {
-			forms++
-		}
-	}
-
-	if forms != 1 {
+	if forms := countTrue(fixed, characteristic, d.ContinueFame); forms != 1 {
 		return fmt.Errorf("%w: want exactly one of continue_target, continue_characteristic, and continue_fame",
 			errBadDefinition)
+	}
+
+	if d.ContinueMod != "" && d.ContinueMod != ContinueModPublications {
+		return fmt.Errorf("%w: unknown continue mod %q", errBadDefinition, d.ContinueMod)
 	}
 
 	if fixed && (d.ContinueTarget < 2 || d.ContinueTarget > 11) {
@@ -635,6 +677,9 @@ var merchantJSON []byte
 //go:embed data/entertainer.json
 var entertainerJSON []byte
 
+//go:embed data/scholar.json
+var scholarJSON []byte
+
 // The implemented careers parse and validate their embedded definitions
 // once.
 var (
@@ -649,6 +694,9 @@ var (
 	})
 	entertainer = sync.OnceValues(func() (*Definition, error) {
 		return load("entertainer.json", entertainerJSON)
+	})
+	scholar = sync.OnceValues(func() (*Definition, error) {
+		return load("scholar.json", scholarJSON)
 	})
 )
 
@@ -688,10 +736,15 @@ func Entertainer() (*Definition, error) {
 	return entertainer()
 }
 
-// Available lists the implemented careers in Book 1 chart order
-// (Entertainer is chart 03, Citizen 04, Scout 05, Merchant 06). The
+// Scholar returns the Scholar career definition (chart 02, p. 76).
+func Scholar() (*Definition, error) {
+	return scholar()
+}
+
+// Available lists the implemented careers in Book 1 chart order (Scholar
+// is chart 02, Entertainer 03, Citizen 04, Scout 05, Merchant 06). The
 // default policy names its career rather than taking the first listed, so
 // this order is presentation only (POLICY.md).
 func Available() []string {
-	return []string{"Entertainer", "Citizen", "Scout", "Merchant"}
+	return []string{"Scholar", "Entertainer", "Citizen", "Scout", "Merchant"}
 }

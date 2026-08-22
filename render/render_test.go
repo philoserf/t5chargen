@@ -69,6 +69,12 @@ func TestEntertainerSheetGolden(t *testing.T) {
 		"testdata/entertainer_sheet.md")
 }
 
+// TestScholarSheetGolden pins the sheet for the career with Tenure and
+// Publications (chart 02).
+func TestScholarSheetGolden(t *testing.T) {
+	golden(t, render.Sheet(generate(t, chargen.Options{Seed: 23, Career: "Scholar"})), "testdata/scholar_sheet.md")
+}
+
 func TestSheetWithName(t *testing.T) {
 	sheet := render.Sheet(generate(t, chargen.Options{Seed: 1, Name: "Eneri Dinsha"}))
 

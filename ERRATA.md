@@ -472,3 +472,104 @@ rolls below 2, so targets of 0 and -3 fail identically — so the floor is
 omitted as unsupported rather than as load-bearing.
 
 Implemented at `chargen/entertainer.go` (`setFame`).
+
+### I-22: Waivers draw on one pool (p. 76 chart 02; p. 59)
+
+Chart 02 gives the Scholar "Waivers. An adverse die roll or decision (in
+Position, Promotion, Research, Publication, Tenure, or Continue) may be
+waived. Check Soc (2D); Mod minus previous waivers (successful or not)."
+That is the Educational Waiver rule of p. 59 word for word, but neither
+text says whose previous waivers are counted.
+
+Implemented as one pool: a waiver spent at university makes the next one
+harder in a career and the reverse. Neither rule qualifies "previous
+waivers" as educational or career waivers, and the shared decay reads as a
+single social-capital budget spent across a life.
+
+The alternative — separate counters per system — would let a character
+reset the penalty by changing context, which the unqualified wording does
+not support.
+
+A waiver negates the adverse outcome; it does not re-roll it. That is the
+existing reading of the education waiver, kept here.
+
+All six named events are offered. Five belong to the Scholar's own
+mechanics; Continue belongs to the generic term loop, which offers it
+where the definition sets `continue_waiver` (chart 02 is the only chart
+printing the Waivers box in v1). A waived Continue failure carries the
+career into the next term.
+
+Implemented at `chargen/waiver.go` (`offerWaiver`, `careerWaiver`),
+`chargen/careerrun.go` (`continueRoll`), counting
+`Character.WaiversAttempted`.
+
+### I-23: Every Scholar has a Major and a Minor (p. 76 chart 02)
+
+Chart 02 reads: "Every Scholar has a Major and a Minor. If no degree (and
+an associated Major and Minor) then select any Skill or Knowledge from the
+Skills List." The final sentence is singular, but the rule it serves names
+both.
+
+A Scholar arriving without a degree selects both, from the whole Master
+Skill List, and they cannot be the same (p. 59). The selections live on the
+career record and take precedence over any education Major and Minor for
+the rest of generation, being the more recent ("A character's current Major
+and Minor are the most recent ones selected", p. 59).
+
+This is why chart 02's Academic column prints Major and Minor without the
+asterisk the other charts carry: no Scholar can lose the benefit for want
+of a Major.
+
+Implemented at `chargen/scholar.go` (`selectAreas`).
+
+### I-24: "Research Success Major +2" awards two levels (p. 76 chart 02)
+
+Table B reads "Per Term 4 / Promoted 1 / Research Success Major +2". The
+first two rows are counts of table C rolls, which invites reading the third
+as two rolls restricted to the Major.
+
+Implemented as two levels of the Major, awarded directly. The row names the
+Major rather than a table, and "+2" is the notation Book 1 uses for a level
+award throughout the charts ("Str +1", "Skill-4"). Two restricted rolls
+would be written as a count, like the rows above it.
+
+The Skill-15 cap (p. 134) absorbs the compounding over a long career.
+
+Implemented at `chargen/scholar.go` (`researchAndPublication`).
+
+### I-25: The Award-Winning publication margin (p. 76 chart 02)
+
+Chart 02 reads: "If Publication Roll is 4 less than Characteristic, it is
+<Award-Winning> and counts as TWO."
+
+Read against the raw characteristic, not the modified target: the chart
+says *Characteristic*, and the Publication throw's target is the
+characteristic with the opposite-sign Caution or Bravery mod applied. A
+Publication roll of Characteristic − 4 or lower is Award-Winning and adds
+two publications.
+
+The alternative — measuring against the modified target — would let a
+Bravery mod manufacture awards, which the printed word does not support.
+
+The margin is read off a roll that carried the Publication on its own. A
+Caution Mod of +5 or more puts the Publication target below
+Characteristic − 4, so a *rejected* roll can sit inside the margin; a
+rejection rescued by a Waiver is a plain Publication, since the chart
+qualifies the award by the Publication Roll and that roll did not publish.
+
+Implemented at `chargen/scholar.go` (`publish`).
+
+### I-26: The Scholar rank gates read against current Edu (p. 76 chart 02)
+
+Chart 02 gates the ladder on Edu: entry is automatic at Scholar1 for
+Edu 8+, "A character with Edu 7 or less is an Amateur Scholar ... cannot be
+Promoted", and Tenure needs Edu 10+. The Personal skills column awards
+Edu +1, so a Scholar's Edu can cross either threshold mid-career.
+
+The promotion and Tenure gates are tested against the Edu held at the time,
+so an Amateur who studies his way to Edu 8 becomes promotable and climbs
+from Scholar0 by the ordinary promotion roll. The entry rule is not
+re-applied: "automatically Scholar1 to Begin" is scoped to Begin, so a
+late-blooming Amateur is not retroactively made a Lecturer.
+
+Implemented at `chargen/scholar.go` (`mayPromote`, `mayApplyForTenure`).

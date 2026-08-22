@@ -27,8 +27,13 @@ func (DefaultPolicy) Choose(c Choice) int {
 		}
 
 		return 1
+	case ChooseCareerWaiver:
+		// POLICY.md: waive only a career-ending outcome. Waivers share one
+		// decaying pool with education (I-22), so spending one on a
+		// rejected publication makes the next harder for no lasting gain.
+		return declineUnlessCareerEnding(c)
 	case ChooseHonors, ChooseWaiver, ChooseRetry, ChooseAdvancement, ChooseSpecialty,
-		ChooseOptionalFlux, ChooseBeginTrack:
+		ChooseOptionalFlux, ChooseBeginTrack, ChooseTenure:
 		// POLICY.md: always attempt (index 0). Honors failure has no
 		// effect (p. 59); waiver attempts burn future waiver odds (Mod
 		// minus previous waivers) but the immediate stake outweighs it;
@@ -80,6 +85,18 @@ func chooseNamed(c Choice) (int, bool) {
 	default:
 		return 0, false
 	}
+}
+
+// declineUnlessCareerEnding applies POLICY.md's waiver rule: attempt only
+// where the un-waived outcome ends the career. The stake is carried on the
+// Choice rather than inferred from its prompt, so rewording a reason
+// cannot silently change generated characters.
+func declineUnlessCareerEnding(c Choice) int {
+	if c.CareerEnding {
+		return 0
+	}
+
+	return 1
 }
 
 // comebackThreshold is the Fame below which the default policy takes a
