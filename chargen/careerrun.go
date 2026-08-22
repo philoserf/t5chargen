@@ -407,3 +407,149 @@ func (r *careerRun) continueRoll() bool {
 
 	return true
 }
+
+// chooseCheckCharacteristic presents a check's stated characteristics
+// (score-guided, like the education checks) and returns the chosen name
+// and roll-low target.
+func chooseCheckCharacteristic(r *careerRun, names []string) (string, int, error) {
+	name := names[0]
+
+	if len(names) > 1 {
+		scores := make([]int, len(names))
+		for i, n := range names {
+			scores[i], _ = characteristicValue(&r.character.Characteristics, n)
+		}
+
+		chosen, _, err := choose(r.log, r.decider, Choice{
+			ID:      ChooseCheck,
+			Prompt:  "Select the characteristic to check",
+			Options: names,
+			Scores:  scores,
+			Cite:    "Book 1 p. 59 (Check one of the stated Characteristics)",
+		})
+		if err != nil {
+			return "", 0, err
+		}
+
+		name = names[chosen]
+	}
+
+	value, ok := characteristicValue(&r.character.Characteristics, name)
+	if !ok {
+		return "", 0, fmt.Errorf("%w: %q", errUnknownCharacteristic, name)
+	}
+
+	return name, value, nil
+}
+
+// riskModOptions are the mod alternatives every Risk & Reward chart
+// offers: "Select Caution,
+// Bravery, or No Mod" with "any Cautious Mod +1 through +9 or any Bravery
+// Mod -1 to -9" (p. 65).
+var riskModOptions = buildRiskModOptions()
+
+// riskModValues parallel riskModOptions.
+var riskModValues = buildRiskModValues()
+
+func buildRiskModOptions() []string {
+	options := []string{"No Mod"}
+	for i := 1; i <= 9; i++ {
+		options = append(options, "Caution +"+strconv.Itoa(i))
+	}
+
+	for i := 1; i <= 9; i++ {
+		options = append(options, "Bravery -"+strconv.Itoa(i))
+	}
+
+	return options
+}
+
+func buildRiskModValues() []int {
+	values := []int{0}
+	for i := 1; i <= 9; i++ {
+		values = append(values, i)
+	}
+
+	for i := 1; i <= 9; i++ {
+		values = append(values, -i)
+	}
+
+	return values
+}
+
+// chooseRiskMod resolves the Caution/Bravery/No Mod selection (p. 65);
+// chartCite names the career chart printing the box.
+func chooseRiskMod(r *careerRun, chartCite string) (int, error) {
+	chosen, _, err := choose(r.log, r.decider, Choice{
+		ID:      ChooseRiskMod,
+		Prompt:  "Select Caution, Bravery, or No Mod",
+		Options: riskModOptions,
+		Cite:    "Book 1 p. 65 (Caution, Bravery, or No Mod); " + chartCite,
+	})
+	if err != nil {
+		return 0, err
+	}
+
+	return riskModValues[chosen], nil
+}
+
+// riskMods itemizes a non-zero Caution/Bravery mod for a throw event; sign
+// flips the mod for the Reward roll ("applied with an opposite sign to the
+// Reward roll", p. 65).
+func riskMods(mod, sign int) []Mod {
+	if mod == 0 {
+		return nil
+	}
+
+	name := "Caution"
+	if mod < 0 {
+		name = "Bravery"
+	}
+
+	return []Mod{{Name: name, Value: mod * sign}}
+}
+
+// injury resolves a Risk failure, shared by every career whose chart
+// prints the same text: "Risk Failure: Reduce CC by negative Mods and Flux
+// (CC may not be increased). If CC is reduced by 4 or more, then he is
+// disabled. Muster Out at Term end with Double Benefits." (charts 05
+// p. 79, 06 p. 80, 09 p. 83; wound badge, disabled, and dead per p. 65.)
+// The caller supplies its chart's citation. Reports died, then disabled.
+func (r *careerRun) injury(cc string, mod, cause int, cite string) (bool, bool) {
+	flux := r.roller.Flux()
+	r.log.Flux(flux, cite)
+
+	delta := min(mod, 0) + flux.Value
+	if delta >= 0 {
+		// "CC may not be increased"; an unreduced CC leaves the
+		// character unharmed (p. 65).
+		return false, false
+	}
+
+	value := characteristicAdd(&r.character.Characteristics, cc, delta)
+	r.log.Consequence(ConsequenceEvent{
+		Cause: cause, Kind: ConsequenceCharacteristicChange,
+		Characteristic: cc, Delta: delta, Value: value,
+	})
+
+	// "If the Controlling Characteristic is reduced to zero or less, the
+	// Character is dead." (p. 65)
+	if value <= 0 {
+		r.character.Dead = true
+		r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceDead, Characteristic: cc})
+
+		return true, false
+	}
+
+	r.character.WoundBadges++
+	r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceWoundBadge, Value: r.character.WoundBadges})
+
+	if -delta >= 4 {
+		r.character.Disabled = true
+		r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceDisabled, Characteristic: cc})
+
+		return false, true
+	}
+
+	return false, false
+}
