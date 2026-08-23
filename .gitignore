@@ -1,4 +1,7 @@
-# Go build artefacts
+# Go build artefacts. The bare root binary is what `go build ./cmd/...`
+# writes with no -o, and it was committed in the initial commit and sat
+# there. Anchored, so it cannot match the cmd/t5chargen package directory.
+/t5chargen
 *.exe
 *.test
 *.out
