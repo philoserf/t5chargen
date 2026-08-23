@@ -78,6 +78,13 @@ type termOutcome struct {
 	// died ends the term and the career immediately: no skills, no
 	// Continue ("the Character is dead", p. 65).
 	died bool
+
+	// endCause is the throw that ended the career, and so the cause of
+	// the years the term still elapses. Both career-ending paths skip the
+	// Continue roll, which is what carries the cause on an ordinary term
+	// (docs/PRD.md FR10: a consequence names the throw behind it, never a
+	// step). Read only when died or endCareer is set.
+	endCause int
 }
 
 // careerRegistry maps canonical career names to their definition and
@@ -205,7 +212,11 @@ func (r *careerRun) term(number int) (bool, error) {
 
 	if outcome.died {
 		// "the Character is dead" (p. 65): the term ends at the injury —
-		// no skills, no Continue.
+		// no skills, no Continue. The years still pass: the Continue
+		// throw is what elapses them on an ordinary term, and this path
+		// never reaches it.
+		r.character.advanceYears(TermYears, r.log, outcome.endCause)
+
 		r.record.Terms = append(r.record.Terms, TermRecord{
 			Term: number, ControllingCharacteristic: cc,
 		})
@@ -227,7 +238,13 @@ func (r *careerRun) term(number int) (bool, error) {
 
 	continued := false
 
-	if !outcome.endCareer {
+	if outcome.endCareer {
+		// A disabled character "Musters Out at Term end" (chart 05
+		// p. 79), so the term completes and its years pass — but, as on
+		// the death path, without the Continue throw that would have
+		// elapsed them.
+		r.character.advanceYears(TermYears, r.log, outcome.endCause)
+	} else {
 		continued, err = r.continueRoll()
 		if err != nil {
 			return false, err
@@ -724,8 +741,7 @@ func (r *careerRun) continueRoll() (bool, error) {
 	throw := r.roller.Check(2, target)
 	seq := r.log.Throw(throw, mods, r.def.Cite+" ("+label+"; p. 66)")
 
-	r.character.Age += TermYears
-	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceYearsElapsed, Value: TermYears})
+	r.character.advanceYears(TermYears, r.log, seq)
 
 	if throw.Total == 2 {
 		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceMandatoryContinue})

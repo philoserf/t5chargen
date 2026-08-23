@@ -118,3 +118,93 @@ func TestGenerateDerivedUPP(t *testing.T) {
 		}
 	}
 }
+
+// TestEveryTermElapsesFourYears pins the rule that a term costs its four
+// years however it ends: "the 4-year Term" (p. 66). A disabled character
+// "Musters Out at Term end" (chart 05 p. 79) and a dead one stops at the
+// injury (p. 65) — both complete the term, and neither reaches the
+// Continue throw that used to be the only thing advancing the clock. The
+// three cases below are the fixtures that carry those flags; before the
+// age advance was centralized each of them lost four years silently,
+// because no fixture can notice an event that was never emitted.
+func TestEveryTermElapsesFourYears(t *testing.T) {
+	tests := []struct {
+		name     string
+		career   string
+		seed     uint64
+		dead     bool
+		disabled bool
+	}{
+		{name: "disabled ends the career", career: "Scholar", seed: 23, disabled: true},
+		{name: "disabled in the Armed Forces", career: "Marine", seed: 529, disabled: true},
+		{name: "death ends the term", career: "Soldier", seed: 305, dead: true},
+		{name: "an ordinary career", career: "Citizen", seed: 9},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := generate(t, chargen.Options{Seed: tt.seed, Career: tt.career})
+
+			// Guard the premise: a fixture that stopped dying would make
+			// this test pass while testing nothing.
+			if c.Dead != tt.dead || c.Disabled != tt.disabled {
+				t.Fatalf("seed %d %s: dead=%v disabled=%v, want dead=%v disabled=%v",
+					tt.seed, tt.career, c.Dead, c.Disabled, tt.dead, tt.disabled)
+			}
+
+			terms := 0
+			for _, career := range c.Careers {
+				terms += len(career.Terms)
+			}
+
+			got := 0
+
+			for _, e := range c.Events {
+				if e.Kind == chargen.EventConsequence &&
+					e.Consequence.Kind == chargen.ConsequenceYearsElapsed &&
+					e.Consequence.Value == chargen.TermYears {
+					got++
+				}
+			}
+
+			if got != terms {
+				t.Errorf("%d terms served but %d elapsed four years", terms, got)
+			}
+		})
+	}
+}
+
+// TestYearsElapsedNamesAThrow holds the FR10 contract across the paths
+// that end a career without a Continue throw: the added consequence must
+// name the Risk throw that ended the term, never the step and never
+// sequence zero (docs/PRD.md FR10).
+func TestYearsElapsedNamesAThrow(t *testing.T) {
+	for _, tt := range []struct {
+		career string
+		seed   uint64
+	}{
+		{career: "Scholar", seed: 23},
+		{career: "Marine", seed: 529},
+		{career: "Soldier", seed: 305},
+	} {
+		t.Run(tt.career, func(t *testing.T) {
+			c := generate(t, chargen.Options{Seed: tt.seed, Career: tt.career})
+
+			kinds := make(map[int]chargen.EventKind, len(c.Events))
+			for _, e := range c.Events {
+				kinds[e.Seq] = e.Kind
+			}
+
+			for _, e := range c.Events {
+				if e.Kind != chargen.EventConsequence ||
+					e.Consequence.Kind != chargen.ConsequenceYearsElapsed {
+					continue
+				}
+
+				if kind := kinds[e.Consequence.Cause]; kind != chargen.EventThrow {
+					t.Errorf("seq %d: years_elapsed caused by %q, want a throw", e.Seq, kind)
+				}
+			}
+		})
+	}
+}

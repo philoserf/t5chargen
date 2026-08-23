@@ -25,7 +25,7 @@ const (
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.15.0"
+	EngineVersion = "0.16.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
@@ -43,6 +43,23 @@ const StartAge = 18
 
 // TermYears is the length of one career term: "the 4-year Term" (p. 66).
 const TermYears = 4
+
+// advanceYears elapses game time and records it, the single place a
+// character ages. Time passes for two printed reasons: a term is four
+// years ("the 4-year Term", p. 66) and a failed career entry costs one
+// ("Each failed attempt (both Begin or Retry) takes one year", p. 65).
+//
+// One site rather than nine because aging hangs off it: characters reach
+// Life Stage 5 at age 34 and are then "subject to Aging" every four years
+// (chart A, p. 89), which is a rule about the passage of time and not
+// about any of the particular events that pass it.
+//
+// cause is the throw or choice that consumed the time, never a step
+// (docs/PRD.md FR10).
+func (c *Character) advanceYears(years int, log *Log, cause int) {
+	c.Age += years
+	log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceYearsElapsed, Value: years})
+}
 
 // RNG records the random stream a character was generated from
 // (docs/PRD.md, Replay and provenance contract).
