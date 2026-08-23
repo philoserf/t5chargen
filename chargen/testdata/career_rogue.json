@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.22.0",
+  "schema_version": "0.23.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.23.0",
-  "policy_version": "0.14.0",
+  "engine_version": "0.24.0",
+  "policy_version": "0.15.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 39
@@ -192,6 +192,117 @@
   "life_stage": 9,
   "major_illnesses": 2,
   "extremely_major_illnesses": 2,
+  "credits": 1620000,
+  "benefits": [
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Rogue",
+      "credits": 90000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Rogue",
+      "credits": 90000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Rogue",
+      "credits": 90000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Rogue",
+      "credits": 90000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Rogue",
+      "credits": 90000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Rogue",
+      "credits": 90000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Rogue",
+      "credits": 90000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Rogue",
+      "credits": 90000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Rogue",
+      "credits": 90000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Rogue",
+      "credits": 90000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Rogue",
+      "credits": 90000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Rogue",
+      "credits": 90000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Rogue",
+      "credits": 90000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Rogue",
+      "credits": 90000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Rogue",
+      "credits": 90000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Rogue",
+      "credits": 90000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Rogue",
+      "credits": 90000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Rogue",
+      "credits": 90000
+    }
+  ],
   "fame": 20,
   "dead": true,
   "events": [
@@ -7685,6 +7796,1246 @@
             "value": 2
           }
         ]
+      }
+    },
+    {
+      "seq": 529,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out",
+        "cite": "Book 1 p. 67; chart M1 p. 70"
+      }
+    },
+    {
+      "seq": 530,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out: Rogue",
+        "cite": "Book 1 p. 84 chart 10 D"
+      }
+    },
+    {
+      "seq": 531,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Rogue muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 532,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the total_terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17"
+        ],
+        "chosen": 17,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 533,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+17",
+        "dice": [
+          1
+        ],
+        "mod": 17,
+        "total": 18,
+        "cite": "Book 1 p. 84 chart 10 D (Money column, 1D+17)"
+      }
+    },
+    {
+      "seq": 534,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 533,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Rogue",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 535,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Rogue muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 536,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the total_terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17"
+        ],
+        "chosen": 17,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 537,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+17",
+        "dice": [
+          4
+        ],
+        "mod": 17,
+        "total": 21,
+        "cite": "Book 1 p. 84 chart 10 D (Money column, 1D+17)"
+      }
+    },
+    {
+      "seq": 538,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 537,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Rogue",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 539,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Rogue muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 540,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the total_terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17"
+        ],
+        "chosen": 17,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 541,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+17",
+        "dice": [
+          4
+        ],
+        "mod": 17,
+        "total": 21,
+        "cite": "Book 1 p. 84 chart 10 D (Money column, 1D+17)"
+      }
+    },
+    {
+      "seq": 542,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 541,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Rogue",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 543,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Rogue muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 544,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the total_terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17"
+        ],
+        "chosen": 17,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 545,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+17",
+        "dice": [
+          2
+        ],
+        "mod": 17,
+        "total": 19,
+        "cite": "Book 1 p. 84 chart 10 D (Money column, 1D+17)"
+      }
+    },
+    {
+      "seq": 546,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 545,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Rogue",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 547,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Rogue muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 548,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the total_terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17"
+        ],
+        "chosen": 17,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 549,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+17",
+        "dice": [
+          1
+        ],
+        "mod": 17,
+        "total": 18,
+        "cite": "Book 1 p. 84 chart 10 D (Money column, 1D+17)"
+      }
+    },
+    {
+      "seq": 550,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 549,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Rogue",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 551,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Rogue muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 552,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the total_terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17"
+        ],
+        "chosen": 17,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 553,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+17",
+        "dice": [
+          4
+        ],
+        "mod": 17,
+        "total": 21,
+        "cite": "Book 1 p. 84 chart 10 D (Money column, 1D+17)"
+      }
+    },
+    {
+      "seq": 554,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 553,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Rogue",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 555,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Rogue muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 556,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the total_terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17"
+        ],
+        "chosen": 17,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 557,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+17",
+        "dice": [
+          4
+        ],
+        "mod": 17,
+        "total": 21,
+        "cite": "Book 1 p. 84 chart 10 D (Money column, 1D+17)"
+      }
+    },
+    {
+      "seq": 558,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 557,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Rogue",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 559,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Rogue muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 560,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the total_terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17"
+        ],
+        "chosen": 17,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 561,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+17",
+        "dice": [
+          1
+        ],
+        "mod": 17,
+        "total": 18,
+        "cite": "Book 1 p. 84 chart 10 D (Money column, 1D+17)"
+      }
+    },
+    {
+      "seq": 562,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 561,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Rogue",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 563,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Rogue muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 564,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the total_terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17"
+        ],
+        "chosen": 17,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 565,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+17",
+        "dice": [
+          6
+        ],
+        "mod": 17,
+        "total": 23,
+        "cite": "Book 1 p. 84 chart 10 D (Money column, 1D+17)"
+      }
+    },
+    {
+      "seq": 566,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 565,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Rogue",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 567,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Rogue muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 568,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the total_terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17"
+        ],
+        "chosen": 17,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 569,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+17",
+        "dice": [
+          5
+        ],
+        "mod": 17,
+        "total": 22,
+        "cite": "Book 1 p. 84 chart 10 D (Money column, 1D+17)"
+      }
+    },
+    {
+      "seq": 570,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 569,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Rogue",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 571,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Rogue muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 572,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the total_terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17"
+        ],
+        "chosen": 17,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 573,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+17",
+        "dice": [
+          1
+        ],
+        "mod": 17,
+        "total": 18,
+        "cite": "Book 1 p. 84 chart 10 D (Money column, 1D+17)"
+      }
+    },
+    {
+      "seq": 574,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 573,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Rogue",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 575,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Rogue muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 576,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the total_terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17"
+        ],
+        "chosen": 17,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 577,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+17",
+        "dice": [
+          3
+        ],
+        "mod": 17,
+        "total": 20,
+        "cite": "Book 1 p. 84 chart 10 D (Money column, 1D+17)"
+      }
+    },
+    {
+      "seq": 578,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 577,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Rogue",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 579,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Rogue muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 580,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the total_terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17"
+        ],
+        "chosen": 17,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 581,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+17",
+        "dice": [
+          1
+        ],
+        "mod": 17,
+        "total": 18,
+        "cite": "Book 1 p. 84 chart 10 D (Money column, 1D+17)"
+      }
+    },
+    {
+      "seq": 582,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 581,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Rogue",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 583,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Rogue muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 584,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the total_terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17"
+        ],
+        "chosen": 17,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 585,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+17",
+        "dice": [
+          5
+        ],
+        "mod": 17,
+        "total": 22,
+        "cite": "Book 1 p. 84 chart 10 D (Money column, 1D+17)"
+      }
+    },
+    {
+      "seq": 586,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 585,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Rogue",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 587,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Rogue muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 588,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the total_terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17"
+        ],
+        "chosen": 17,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 589,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+17",
+        "dice": [
+          4
+        ],
+        "mod": 17,
+        "total": 21,
+        "cite": "Book 1 p. 84 chart 10 D (Money column, 1D+17)"
+      }
+    },
+    {
+      "seq": 590,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 589,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Rogue",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 591,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Rogue muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 592,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the total_terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17"
+        ],
+        "chosen": 17,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 593,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+17",
+        "dice": [
+          4
+        ],
+        "mod": 17,
+        "total": 21,
+        "cite": "Book 1 p. 84 chart 10 D (Money column, 1D+17)"
+      }
+    },
+    {
+      "seq": 594,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 593,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Rogue",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 595,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Rogue muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 596,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the total_terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17"
+        ],
+        "chosen": 17,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 597,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+17",
+        "dice": [
+          1
+        ],
+        "mod": 17,
+        "total": 18,
+        "cite": "Book 1 p. 84 chart 10 D (Money column, 1D+17)"
+      }
+    },
+    {
+      "seq": 598,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 597,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Rogue",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 599,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Rogue muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 600,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the total_terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17"
+        ],
+        "chosen": 17,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 601,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+17",
+        "dice": [
+          3
+        ],
+        "mod": 17,
+        "total": 20,
+        "cite": "Book 1 p. 84 chart 10 D (Money column, 1D+17)"
+      }
+    },
+    {
+      "seq": 602,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 601,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Rogue",
+        "delta": 90000
       }
     }
   ]

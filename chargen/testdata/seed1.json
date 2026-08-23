@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.22.0",
+  "schema_version": "0.23.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.23.0",
-  "policy_version": "0.14.0",
+  "engine_version": "0.24.0",
+  "policy_version": "0.15.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 1
@@ -103,6 +103,22 @@
   ],
   "waivers_attempted": 1,
   "life_stage": 4,
+  "credits": 280000,
+  "benefits": [
+    {
+      "kind": "star_passage",
+      "name": "StarPass",
+      "career": "Citizen",
+      "count": 1,
+      "credits": 250000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Citizen",
+      "credits": 30000
+    }
+  ],
   "fame": 3,
   "events": [
     {
@@ -1500,6 +1516,129 @@
             "value": 3
           }
         ]
+      }
+    },
+    {
+      "seq": 97,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out",
+        "cite": "Book 1 p. 67; chart M1 p. 70"
+      }
+    },
+    {
+      "seq": 98,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out: Citizen",
+        "cite": "Book 1 p. 78 chart 04 D"
+      }
+    },
+    {
+      "seq": 99,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Citizen muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 100,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 101,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+2",
+        "dice": [
+          4
+        ],
+        "mod": 2,
+        "total": 6,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+2)"
+      }
+    },
+    {
+      "seq": 102,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 101,
+        "kind": "benefit",
+        "skill": "StarPass",
+        "career": "Citizen",
+        "delta": 250000,
+        "value": 1
+      }
+    },
+    {
+      "seq": 103,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Citizen muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 104,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 105,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+2",
+        "dice": [
+          6
+        ],
+        "mod": 2,
+        "total": 8,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+2)"
+      }
+    },
+    {
+      "seq": 106,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 105,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Citizen",
+        "delta": 30000
       }
     }
   ]

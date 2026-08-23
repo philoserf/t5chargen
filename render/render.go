@@ -56,6 +56,8 @@ func Sheet(c chargen.Character) string {
 		fmt.Fprintf(&b, "**Skills**: %s\n\n", skillList(c.Skills))
 	}
 
+	b.WriteString(benefitsLine(c))
+
 	if c.Fame > 0 || c.WoundBadges > 0 || c.Disabled || c.Dead {
 		b.WriteString(statusLine(c))
 	}
@@ -529,6 +531,8 @@ func consequenceAgingText(c *chargen.ConsequenceEvent) string {
 		return fmt.Sprintf("aging: %s %+d = %d", c.Characteristic, c.Delta, c.Value)
 	case chargen.ConsequenceCharacteristicReset:
 		return c.Characteristic + " reduced to zero, reset to 1"
+	case chargen.ConsequenceBenefit:
+		return benefitText(c)
 	case chargen.ConsequenceFameComputed:
 		return fameComputedText(c)
 	case chargen.ConsequenceFameChange:
@@ -728,4 +732,70 @@ func fameDescriptor(level int) string {
 	}
 
 	return strconv.Itoa(level)
+}
+
+// benefitText renders one muster-out award (chart M1 p. 70): what it was,
+// how many, and what it paid.
+func benefitText(c *chargen.ConsequenceEvent) string {
+	name := c.Skill
+	if c.Characteristic != "" {
+		name += " (" + c.Characteristic + ")"
+	}
+
+	if c.Value > 1 {
+		name = fmt.Sprintf("%s x%d", name, c.Value)
+	}
+
+	if c.Delta != 0 {
+		return fmt.Sprintf("%s, worth Cr%d", name, c.Delta)
+	}
+
+	return name
+}
+
+// benefitsLine renders what muster out awarded: the money first, then the
+// benefits themselves, gathered by kind (chart M1 p. 70).
+func benefitsLine(c chargen.Character) string {
+	if c.Credits == 0 && len(c.Benefits) == 0 {
+		return ""
+	}
+
+	var line strings.Builder
+
+	if c.Credits > 0 {
+		fmt.Fprintf(&line, "**Credits**: Cr%d\n\n", c.Credits)
+	}
+
+	counts := map[string]int{}
+	order := make([]string, 0, len(c.Benefits))
+
+	for _, got := range c.Benefits {
+		name := got.Name
+		if got.Detail != "" {
+			name += " (" + got.Detail + ")"
+		}
+
+		if counts[name] == 0 {
+			order = append(order, name)
+		}
+
+		counts[name] += max(got.Count, 1)
+	}
+
+	// Money is the credits line above, not a benefit to list again.
+	parts := make([]string, 0, len(order))
+
+	for _, name := range order {
+		if name == "Money" {
+			continue
+		}
+
+		parts = append(parts, plural(counts[name], name))
+	}
+
+	if len(parts) > 0 {
+		fmt.Fprintf(&line, "**Benefits**: %s\n\n", strings.Join(parts, ", "))
+	}
+
+	return line.String()
 }

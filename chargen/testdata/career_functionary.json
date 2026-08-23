@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.22.0",
+  "schema_version": "0.23.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.23.0",
+  "engine_version": "0.24.0",
   "policy_version": "none",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -159,6 +159,64 @@
   ],
   "waivers_attempted": 1,
   "life_stage": 7,
+  "credits": 36000,
+  "benefits": [
+    {
+      "kind": "low_passage",
+      "name": "Low Passage",
+      "career": "Scholar",
+      "count": 1,
+      "credits": 1000
+    },
+    {
+      "kind": "pension_doubling",
+      "name": "Pension x2",
+      "career": "Functionary",
+      "count": 1
+    },
+    {
+      "kind": "pension_doubling",
+      "name": "Pension x2",
+      "career": "Functionary",
+      "count": 1
+    },
+    {
+      "kind": "pension_doubling",
+      "name": "Pension x2",
+      "career": "Functionary",
+      "count": 1
+    },
+    {
+      "kind": "pension_doubling",
+      "name": "Pension x2",
+      "career": "Functionary",
+      "count": 1
+    },
+    {
+      "kind": "pension_doubling",
+      "name": "Pension x2",
+      "career": "Functionary",
+      "count": 1
+    },
+    {
+      "kind": "pension_doubling",
+      "name": "Pension x2",
+      "career": "Functionary",
+      "count": 1
+    },
+    {
+      "kind": "pension_doubling",
+      "name": "Pension x2",
+      "career": "Functionary",
+      "count": 1
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Functionary",
+      "credits": 35000
+    }
+  ],
   "fame": 2,
   "events": [
     {
@@ -4655,6 +4713,540 @@
             "value": 2
           }
         ]
+      }
+    },
+    {
+      "seq": 285,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out",
+        "cite": "Book 1 p. 67; chart M1 p. 70"
+      }
+    },
+    {
+      "seq": 286,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out: Scholar",
+        "cite": "Book 1 p. 76 chart 02 D"
+      }
+    },
+    {
+      "seq": 287,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 288,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+0)"
+      }
+    },
+    {
+      "seq": 289,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 288,
+        "kind": "benefit",
+        "skill": "Low Passage",
+        "career": "Scholar",
+        "delta": 1000,
+        "value": 1
+      }
+    },
+    {
+      "seq": 290,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out: Functionary",
+        "cite": "Book 1 p. 87 chart 13 D"
+      }
+    },
+    {
+      "seq": 291,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Functionary muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 292,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8"
+        ],
+        "chosen": 8,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 293,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+8",
+        "dice": [
+          4
+        ],
+        "mod": 8,
+        "total": 12,
+        "cite": "Book 1 p. 87 chart 13 D (Money column, 1D+8)"
+      }
+    },
+    {
+      "seq": 294,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 293,
+        "kind": "benefit",
+        "skill": "Pension x2",
+        "career": "Functionary",
+        "value": 1
+      }
+    },
+    {
+      "seq": 295,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Functionary muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 296,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8"
+        ],
+        "chosen": 8,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 297,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+8",
+        "dice": [
+          4
+        ],
+        "mod": 8,
+        "total": 12,
+        "cite": "Book 1 p. 87 chart 13 D (Money column, 1D+8)"
+      }
+    },
+    {
+      "seq": 298,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 297,
+        "kind": "benefit",
+        "skill": "Pension x2",
+        "career": "Functionary",
+        "value": 1
+      }
+    },
+    {
+      "seq": 299,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Functionary muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 300,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8"
+        ],
+        "chosen": 8,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 301,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+8",
+        "dice": [
+          4
+        ],
+        "mod": 8,
+        "total": 12,
+        "cite": "Book 1 p. 87 chart 13 D (Money column, 1D+8)"
+      }
+    },
+    {
+      "seq": 302,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 301,
+        "kind": "benefit",
+        "skill": "Pension x2",
+        "career": "Functionary",
+        "value": 1
+      }
+    },
+    {
+      "seq": 303,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Functionary muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 304,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8"
+        ],
+        "chosen": 8,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 305,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+8",
+        "dice": [
+          6
+        ],
+        "mod": 8,
+        "total": 14,
+        "cite": "Book 1 p. 87 chart 13 D (Money column, 1D+8)"
+      }
+    },
+    {
+      "seq": 306,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 305,
+        "kind": "benefit",
+        "skill": "Pension x2",
+        "career": "Functionary",
+        "value": 1
+      }
+    },
+    {
+      "seq": 307,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Functionary muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 308,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8"
+        ],
+        "chosen": 8,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 309,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+8",
+        "dice": [
+          2
+        ],
+        "mod": 8,
+        "total": 10,
+        "cite": "Book 1 p. 87 chart 13 D (Money column, 1D+8)"
+      }
+    },
+    {
+      "seq": 310,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 309,
+        "kind": "benefit",
+        "skill": "Pension x2",
+        "career": "Functionary",
+        "value": 1
+      }
+    },
+    {
+      "seq": 311,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Functionary muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 312,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8"
+        ],
+        "chosen": 8,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 313,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+8",
+        "dice": [
+          6
+        ],
+        "mod": 8,
+        "total": 14,
+        "cite": "Book 1 p. 87 chart 13 D (Money column, 1D+8)"
+      }
+    },
+    {
+      "seq": 314,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 313,
+        "kind": "benefit",
+        "skill": "Pension x2",
+        "career": "Functionary",
+        "value": 1
+      }
+    },
+    {
+      "seq": 315,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Functionary muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 316,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8"
+        ],
+        "chosen": 8,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 317,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+8",
+        "dice": [
+          4
+        ],
+        "mod": 8,
+        "total": 12,
+        "cite": "Book 1 p. 87 chart 13 D (Money column, 1D+8)"
+      }
+    },
+    {
+      "seq": 318,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 317,
+        "kind": "benefit",
+        "skill": "Pension x2",
+        "career": "Functionary",
+        "value": 1
+      }
+    },
+    {
+      "seq": 319,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Functionary muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 320,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8"
+        ],
+        "chosen": 8,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 321,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+8",
+        "dice": [
+          1
+        ],
+        "mod": 8,
+        "total": 9,
+        "cite": "Book 1 p. 87 chart 13 D (Money column, 1D+8)"
+      }
+    },
+    {
+      "seq": 322,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 321,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Functionary",
+        "delta": 35000
       }
     }
   ]

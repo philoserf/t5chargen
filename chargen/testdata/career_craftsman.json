@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.22.0",
+  "schema_version": "0.23.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.23.0",
+  "engine_version": "0.24.0",
   "policy_version": "none",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -149,6 +149,76 @@
   ],
   "waivers_attempted": 1,
   "life_stage": 8,
+  "credits": 575000,
+  "benefits": [
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Citizen",
+      "credits": 25000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Citizen",
+      "credits": 35000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Citizen",
+      "credits": 15000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Citizen",
+      "credits": 35000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Citizen",
+      "credits": 35000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scholar",
+      "credits": 30000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Craftsman",
+      "credits": 35000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Craftsman",
+      "credits": 40000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Craftsman",
+      "credits": 50000
+    },
+    {
+      "kind": "star_passage",
+      "name": "StarPass",
+      "career": "Craftsman",
+      "count": 1,
+      "credits": 250000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Craftsman",
+      "credits": 25000
+    }
+  ],
   "fame": 20,
   "events": [
     {
@@ -5196,6 +5266,647 @@
             "value": 10
           }
         ]
+      }
+    },
+    {
+      "seq": 338,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out",
+        "cite": "Book 1 p. 67; chart M1 p. 70"
+      }
+    },
+    {
+      "seq": 339,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out: Citizen",
+        "cite": "Book 1 p. 78 chart 04 D"
+      }
+    },
+    {
+      "seq": 340,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Citizen muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 341,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 342,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+4",
+        "dice": [
+          3
+        ],
+        "mod": 4,
+        "total": 7,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+4)"
+      }
+    },
+    {
+      "seq": 343,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 342,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Citizen",
+        "delta": 25000
+      }
+    },
+    {
+      "seq": 344,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Citizen muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 345,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 346,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+4",
+        "dice": [
+          5
+        ],
+        "mod": 4,
+        "total": 9,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+4)"
+      }
+    },
+    {
+      "seq": 347,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 346,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Citizen",
+        "delta": 35000
+      }
+    },
+    {
+      "seq": 348,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Citizen muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 349,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 350,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+4",
+        "dice": [
+          1
+        ],
+        "mod": 4,
+        "total": 5,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+4)"
+      }
+    },
+    {
+      "seq": 351,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 350,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Citizen",
+        "delta": 15000
+      }
+    },
+    {
+      "seq": 352,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Citizen muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 353,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 354,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+4",
+        "dice": [
+          5
+        ],
+        "mod": 4,
+        "total": 9,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+4)"
+      }
+    },
+    {
+      "seq": 355,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 354,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Citizen",
+        "delta": 35000
+      }
+    },
+    {
+      "seq": 356,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Citizen muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 357,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 358,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+4",
+        "dice": [
+          5
+        ],
+        "mod": 4,
+        "total": 9,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+4)"
+      }
+    },
+    {
+      "seq": 359,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 358,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Citizen",
+        "delta": 35000
+      }
+    },
+    {
+      "seq": 360,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out: Scholar",
+        "cite": "Book 1 p. 76 chart 02 D"
+      }
+    },
+    {
+      "seq": 361,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 362,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the scholar_rank DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 363,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+2",
+        "dice": [
+          6
+        ],
+        "mod": 2,
+        "total": 8,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+2)"
+      }
+    },
+    {
+      "seq": 364,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 363,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scholar",
+        "delta": 30000
+      }
+    },
+    {
+      "seq": 365,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out: Craftsman",
+        "cite": "Book 1 p. 75 chart 01 D"
+      }
+    },
+    {
+      "seq": 366,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Craftsman muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 367,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 368,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          4
+        ],
+        "mod": 5,
+        "total": 9,
+        "cite": "Book 1 p. 75 chart 01 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 369,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 368,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Craftsman",
+        "delta": 35000
+      }
+    },
+    {
+      "seq": 370,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Craftsman muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 371,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 372,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          5
+        ],
+        "mod": 5,
+        "total": 10,
+        "cite": "Book 1 p. 75 chart 01 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 373,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 372,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Craftsman",
+        "delta": 40000
+      }
+    },
+    {
+      "seq": 374,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Craftsman muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 375,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 376,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          6
+        ],
+        "mod": 5,
+        "total": 11,
+        "cite": "Book 1 p. 75 chart 01 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 377,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 376,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Craftsman",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 378,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Craftsman muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 379,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 380,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          1
+        ],
+        "mod": 5,
+        "total": 6,
+        "cite": "Book 1 p. 75 chart 01 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 381,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 380,
+        "kind": "benefit",
+        "skill": "StarPass",
+        "career": "Craftsman",
+        "delta": 250000,
+        "value": 1
+      }
+    },
+    {
+      "seq": 382,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Craftsman muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 383,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 384,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          2
+        ],
+        "mod": 5,
+        "total": 7,
+        "cite": "Book 1 p. 75 chart 01 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 385,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 384,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Craftsman",
+        "delta": 25000
       }
     }
   ]

@@ -1670,3 +1670,18 @@ by default, which is no award at all.
 
 The omission is chart M1's, and the vocabulary records it so a reader
 comparing the two lists finds the note rather than the gap.
+
+### I-73: The Fame-19+ muster-out roll goes to the first career served (p. 68)
+
+"He is allowed one additional roll if Fame 19+", and "A character with a
+roll allowed by Fame-19+ may select which career-dictated table to use."
+
+The choice is the character's, and the engine has to make it for him. Read
+as: the first career served. The page gives no basis for preferring one
+table over another — the tables differ, but not in a way a rule ranks —
+and first-listed is what the auto policy falls back on when it cannot weigh
+(docs/PRD.md, CLI sketch), so putting the roll anywhere else would be a
+preference dressed as a rule.
+
+The roll is a character's rather than a career's, so it is added once
+across the whole muster out rather than once per career.

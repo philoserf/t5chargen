@@ -20,10 +20,14 @@
 
 **Skills**: ACV-5, Actor-10, Admin-1, Archeology-3, Astrogator-1, Biologics-7, Bureaucrat-12, Hostile Environ-1, Leader-8, Survey-1, Trader-1
 
+**Credits**: Cr36000
+
+**Benefits**: 1 Low Passage, 7 Pension x2s
+
 **Status**: Fame 2 (Close Family)
 
 ---
 
-Seed 305 (math/rand/v2-pcg) · schema 0.22.0 · engine 0.23.0 · policy none
+Seed 305 (math/rand/v2-pcg) · schema 0.23.0 · engine 0.24.0 · policy none
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

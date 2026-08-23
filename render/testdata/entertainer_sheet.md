@@ -18,10 +18,14 @@
 
 **Skills**: Actor-1, Animals-4, Athlete-5, Broker-2, Bureaucrat-4, Hostile Environ-2, Navigator-2, Survey-1, Survival-3, Trader-1
 
+**Credits**: Cr310000
+
+**Benefits**: 1 High Passage, 1 StarPass
+
 **Status**: Fame 5 (Town)
 
 ---
 
-Seed 572 (math/rand/v2-pcg) · schema 0.22.0 · engine 0.23.0 · policy 0.14.0
+Seed 572 (math/rand/v2-pcg) · schema 0.23.0 · engine 0.24.0 · policy 0.15.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

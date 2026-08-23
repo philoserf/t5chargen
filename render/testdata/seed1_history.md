@@ -127,3 +127,21 @@ _Book 1 p. 91 chart F_
 - #94 1D = 3 = 3 — Book 1 p. 91 chart F (If NO other eligibility, 1D)
 - #95 policy chose "Keep this Fame" of [Keep this Fame, Add Flux to Fame]: Invoke the Fame Flux Event? (Fame 3 so far) — Book 1 p. 91 chart F (The Fame Flux Event)
   - #96 (from #95) Fame 3 (Extended Family) = no other eligibility +3
+
+## Muster Out
+
+_Book 1 p. 67; chart M1 p. 70_
+
+
+## Muster Out: Citizen
+
+_Book 1 p. 78 chart 04 D_
+
+- #99 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #100 policy chose "+2" of [+0, +1, +2]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #101 1D+2 = 4 = 6 — Book 1 p. 78 chart 04 D (Money column, 1D+2)
+  - #102 (from #101) StarPass, worth Cr250000
+- #103 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #104 policy chose "+2" of [+0, +1, +2]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #105 1D+2 = 6 = 8 — Book 1 p. 78 chart 04 D (Money column, 1D+2)
+  - #106 (from #105) Money, worth Cr30000

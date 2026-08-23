@@ -18,10 +18,12 @@
 
 **Skills**: Actor-1, Animals-4, Astrogator-9, Athlete-15, Broker-2, Bureaucrat-11, Hostile Environ-8, Survey-7, Survival-10, Trader-1
 
+**Credits**: Cr530000
+
 **Status**: Fame 19 (Subsector), Wound Badges 1, DEAD
 
 ---
 
-Seed 23 (math/rand/v2-pcg) · schema 0.22.0 · engine 0.23.0 · policy 0.14.0
+Seed 23 (math/rand/v2-pcg) · schema 0.23.0 · engine 0.24.0 · policy 0.15.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

@@ -16,6 +16,17 @@ const (
 	// eligible".
 	ChooseCareerChange ChoiceID = "change_career"
 
+	// ChooseBenefitColumn is p. 68's per-roll decision: "Which Column?
+	// Character may select either the Money column or Benefits column
+	// for each roll." Chart 11 adds a third, Power.
+	ChooseBenefitColumn ChoiceID = "select_benefit_column"
+
+	// ChooseBenefitDM offers as much of a table D DM as the character
+	// wants: "The DMs on the Benefits Tables are optional ... They may be
+	// partially applied (any value may be selected from 0 to the total
+	// allowed value)" (p. 68).
+	ChooseBenefitDM ChoiceID = "apply_benefit_dm"
+
 	// ChooseFameFlux offers chart F's once-per-character gamble: "Any
 	// character may choose (once during Character Generation or after
 	// adventuring begins) to add Flux to Fame" (p. 91).

@@ -351,3 +351,53 @@ _Book 1 p. 91 chart F_
 
 - #283 player chose "Keep this Fame" of [Keep this Fame, Add Flux to Fame]: Invoke the Fame Flux Event? (Fame 2 so far) — Book 1 p. 91 chart F (The Fame Flux Event)
   - #284 (from #283) Fame 2 (Close Family) = Scholar Publications +2
+
+## Muster Out
+
+_Book 1 p. 67; chart M1 p. 70_
+
+
+## Muster Out: Scholar
+
+_Book 1 p. 76 chart 02 D_
+
+- #287 player chose "Money" of [Money, Benefits]: Which column for this Scholar muster-out roll? — Book 1 p. 68 (Which Column?)
+- #288 1D = 2 = 2 — Book 1 p. 76 chart 02 D (Money column, 1D+0)
+  - #289 (from #288) Low Passage, worth Cr1000
+
+## Muster Out: Functionary
+
+_Book 1 p. 87 chart 13 D_
+
+- #291 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
+- #292 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #293 1D+8 = 4 = 12 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
+  - #294 (from #293) Pension x2
+- #295 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
+- #296 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #297 1D+8 = 4 = 12 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
+  - #298 (from #297) Pension x2
+- #299 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
+- #300 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #301 1D+8 = 4 = 12 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
+  - #302 (from #301) Pension x2
+- #303 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
+- #304 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #305 1D+8 = 6 = 14 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
+  - #306 (from #305) Pension x2
+- #307 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
+- #308 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #309 1D+8 = 2 = 10 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
+  - #310 (from #309) Pension x2
+- #311 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
+- #312 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #313 1D+8 = 6 = 14 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
+  - #314 (from #313) Pension x2
+- #315 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
+- #316 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #317 1D+8 = 4 = 12 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
+  - #318 (from #317) Pension x2
+- #319 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
+- #320 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #321 1D+8 = 1 = 9 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
+  - #322 (from #321) Money, worth Cr35000
