@@ -14,6 +14,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/philoserf/t5chargen/calendar"
 	"github.com/philoserf/t5chargen/career"
 	"github.com/philoserf/t5chargen/chargen"
 	"github.com/philoserf/t5chargen/render"
@@ -30,7 +31,8 @@ const (
 )
 
 const usage = `usage:
-  t5chargen new --auto [--seed N] [--name X] [--career citizen] [--homeworld "UWP TC..."] [-o file] [--force]
+  t5chargen new --auto [--seed N] [--name X] [--career citizen] [--homeworld "UWP TC..."]
+                [--current-year 1105] [-o file] [--force]
   t5chargen render character.json [--format md] [--history]
 `
 
@@ -94,6 +96,8 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 	homeworldFlag := flags.String("homeworld", "",
 		`homeworld as "UWP" or "UWP TC TC..." (for example "A788899-C Ph Pa Ri"); `+
 			`skills come from the trade classifications, so a bare UWP grants none (default: Regina)`)
+	currentYear := flags.Int("current-year", calendar.DefaultYear,
+		"Imperial year adventuring begins in, which fixes the birth year (Book 1 p. 58)")
 	auto := flags.Bool("auto", false, "apply the fixed default policy (POLICY.md) to every choice")
 	out := flags.String("o", "", "output file (default: stdout)")
 	force := flags.Bool("force", false, "overwrite an existing output file")
@@ -124,11 +128,12 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 	}
 
 	character, err := chargen.Generate(chargen.Options{
-		Seed:      *seed,
-		Name:      *name,
-		Career:    canonicalCareer(*careerFlag),
-		Homeworld: parseHomeworldFlag(*homeworldFlag),
-		Decider:   chargen.DefaultPolicy{},
+		Seed:        *seed,
+		Name:        *name,
+		Career:      canonicalCareer(*careerFlag),
+		Homeworld:   parseHomeworldFlag(*homeworldFlag),
+		CurrentYear: *currentYear,
+		Decider:     chargen.DefaultPolicy{},
 	})
 	if err != nil {
 		fmt.Fprintf(stderr, "t5chargen: %v\n", err)

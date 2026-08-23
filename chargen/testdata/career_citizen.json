@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.26.0",
+  "schema_version": "0.27.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.27.0",
+  "engine_version": "0.28.0",
   "policy_version": "0.16.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -143,6 +143,7 @@
       ]
     }
   ],
+  "birthdate": "Forday 110-1047",
   "life_stage": 8,
   "credits": 420000,
   "benefits": [
@@ -4325,6 +4326,39 @@
         "skill": "Citizen's Pension",
         "delta": 5000,
         "value": 66
+      }
+    },
+    {
+      "seq": 297,
+      "kind": "step",
+      "step": {
+        "name": "Record the Character's Birthdate",
+        "cite": "Book 1 p. 58; p. 263"
+      }
+    },
+    {
+      "seq": 298,
+      "kind": "throw",
+      "throw": {
+        "expr": "4D",
+        "dice": [
+          3,
+          1,
+          2,
+          4
+        ],
+        "total": 10,
+        "cite": "Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)"
+      }
+    },
+    {
+      "seq": 299,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 298,
+        "kind": "birthdate",
+        "detail": "Forday 110-1047",
+        "value": 1047
       }
     }
   ]

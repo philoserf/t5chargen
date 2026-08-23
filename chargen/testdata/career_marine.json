@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.26.0",
+  "schema_version": "0.27.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.27.0",
+  "engine_version": "0.28.0",
   "policy_version": "0.16.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -159,6 +159,7 @@
     }
   ],
   "waivers_attempted": 1,
+  "birthdate": "Forday 124-1055",
   "life_stage": 7,
   "credits": 360000,
   "benefits": [
@@ -5490,6 +5491,39 @@
         "skill": "Officer Retirement",
         "delta": 42000,
         "value": 50
+      }
+    },
+    {
+      "seq": 386,
+      "kind": "step",
+      "step": {
+        "name": "Record the Character's Birthdate",
+        "cite": "Book 1 p. 58; p. 263"
+      }
+    },
+    {
+      "seq": 387,
+      "kind": "throw",
+      "throw": {
+        "expr": "4D",
+        "dice": [
+          1,
+          3,
+          4,
+          4
+        ],
+        "total": 12,
+        "cite": "Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)"
+      }
+    },
+    {
+      "seq": 388,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 387,
+        "kind": "birthdate",
+        "detail": "Forday 124-1055",
+        "value": 1055
       }
     }
   ]

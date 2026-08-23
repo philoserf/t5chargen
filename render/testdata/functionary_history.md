@@ -408,3 +408,10 @@ _Book 1 p. 70 chart M1_
 
 - #324 player chose "Keep it (Cr120000 a year from age 66)" of [Keep it (Cr120000 a year from age 66), Cash out (Cr600000)]: Cash out the Functionary's Pension? — Book 1 p. 69 (Cashing Out)
   - #325 (from #324) Functionary's Pension, Cr120000 a year from age 66
+
+## Record the Character's Birthdate
+
+_Book 1 p. 58; p. 263_
+
+- #327 4D = 4+5+3+2 = 14 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
+  - #328 (from #327) born Forday 243-1050

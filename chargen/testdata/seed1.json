@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.26.0",
+  "schema_version": "0.27.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.27.0",
+  "engine_version": "0.28.0",
   "policy_version": "0.16.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -102,6 +102,7 @@
     }
   ],
   "waivers_attempted": 1,
+  "birthdate": "Thirday 060-1075",
   "life_stage": 4,
   "credits": 30000,
   "benefits": [
@@ -1682,6 +1683,39 @@
         "skill": "Citizen's Pension",
         "delta": 5000,
         "value": 66
+      }
+    },
+    {
+      "seq": 110,
+      "kind": "step",
+      "step": {
+        "name": "Record the Character's Birthdate",
+        "cite": "Book 1 p. 58; p. 263"
+      }
+    },
+    {
+      "seq": 111,
+      "kind": "throw",
+      "throw": {
+        "expr": "4D",
+        "dice": [
+          3,
+          4,
+          6,
+          2
+        ],
+        "total": 15,
+        "cite": "Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)"
+      }
+    },
+    {
+      "seq": 112,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 111,
+        "kind": "birthdate",
+        "detail": "Thirday 060-1075",
+        "value": 1075
       }
     }
   ]

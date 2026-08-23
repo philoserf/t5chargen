@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.26.0",
+  "schema_version": "0.27.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.27.0",
+  "engine_version": "0.28.0",
   "policy_version": "0.16.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -115,6 +115,7 @@
       ]
     }
   ],
+  "birthdate": "Sixday 056-1067",
   "life_stage": 5,
   "credits": 50000,
   "benefits": [
@@ -2288,6 +2289,54 @@
         "skill": "StarPass",
         "career": "Entertainer",
         "value": 1
+      }
+    },
+    {
+      "seq": 164,
+      "kind": "step",
+      "step": {
+        "name": "Record the Character's Birthdate",
+        "cite": "Book 1 p. 58; p. 263"
+      }
+    },
+    {
+      "seq": 165,
+      "kind": "throw",
+      "throw": {
+        "expr": "4D",
+        "dice": [
+          3,
+          3,
+          3,
+          6
+        ],
+        "total": 15,
+        "cite": "Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)"
+      }
+    },
+    {
+      "seq": 166,
+      "kind": "throw",
+      "throw": {
+        "expr": "4D",
+        "dice": [
+          2,
+          4,
+          2,
+          2
+        ],
+        "total": 10,
+        "cite": "Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)"
+      }
+    },
+    {
+      "seq": 167,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 166,
+        "kind": "birthdate",
+        "detail": "Sixday 056-1067",
+        "value": 1067
       }
     }
   ]

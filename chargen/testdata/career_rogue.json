@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.26.0",
+  "schema_version": "0.27.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.27.0",
+  "engine_version": "0.28.0",
   "policy_version": "0.16.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -189,6 +189,7 @@
       ]
     }
   ],
+  "birthdate": "Wonday 058-1015",
   "life_stage": 9,
   "major_illnesses": 2,
   "extremely_major_illnesses": 2,
@@ -7685,6 +7686,39 @@
             "value": 2
           }
         ]
+      }
+    },
+    {
+      "seq": 529,
+      "kind": "step",
+      "step": {
+        "name": "Record the Character's Birthdate",
+        "cite": "Book 1 p. 58; p. 263"
+      }
+    },
+    {
+      "seq": 530,
+      "kind": "throw",
+      "throw": {
+        "expr": "4D",
+        "dice": [
+          1,
+          4,
+          4,
+          2
+        ],
+        "total": 11,
+        "cite": "Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)"
+      }
+    },
+    {
+      "seq": 531,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 530,
+        "kind": "birthdate",
+        "detail": "Wonday 058-1015",
+        "value": 1015
       }
     }
   ]

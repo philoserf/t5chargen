@@ -378,3 +378,10 @@ _Book 1 p. 79 chart 05 D_
 - #321 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #322 1D+6 = 5 = 11 — Book 1 p. 79 chart 05 D (Money column, 1D+6)
   - #323 (from #322) Money, worth Cr70000
+
+## Record the Character's Birthdate
+
+_Book 1 p. 58; p. 263_
+
+- #325 4D = 2+2+6+1 = 11 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
+  - #326 (from #325) born Forday 012-1059
