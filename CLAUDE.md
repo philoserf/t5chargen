@@ -32,9 +32,26 @@ conventions, the auto-policy requirements, and milestones.
 
 ```sh
 task          # check + test (the gate; also runs on pre-push via task hooks)
-task fmt      # gofumpt -extra
+task fmt      # gofumpt for Go, prettier for JSON and Markdown
 task test     # go test -race ./...
 ```
+
+`main` is protected on GitHub: pushes to it are rejected, history is
+linear, and force-pushes and deletion are blocked. Every change lands
+through a pull request — branch, run the gate, push the branch, then
+`gh pr merge --squash --delete-branch`. No review approval is required, so
+this costs a solo workflow nothing beyond remembering to branch first. The
+rules apply to the repository owner too, which is the point: they exist to
+catch an accidental commit on `main`, and an owner exemption would defeat
+that. Lift them deliberately (repository settings, or the branches
+protection API) if you ever genuinely need to.
+
+Prettier formats the embedded chart data and the documents, but never
+`chargen/testdata` or `render/testdata`: those are the engine's own output,
+compared byte for byte, and a formatter must not be the thing that decides
+what a character record looks like. Prose that quotes the printed rules
+must escape T5's literal asterisks (`"+F +F\* +F\*"`), or prettier reads
+them as emphasis and rewrites the quote.
 
 ## Layout
 
