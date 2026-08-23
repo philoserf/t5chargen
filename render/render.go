@@ -142,9 +142,7 @@ func careerValues(record chargen.CareerRecord) string {
 		parts = append(parts, record.RankTitle+" "+record.Rank)
 	}
 
-	if record.Discoveries > 0 {
-		parts = append(parts, plural(record.Discoveries, "Discovery"))
-	}
+	parts = append(parts, scoutValues(record)...)
 
 	if record.ShipShares > 0 {
 		parts = append(parts, plural(record.ShipShares, "Ship Share"))
@@ -155,6 +153,25 @@ func careerValues(record chargen.CareerRecord) string {
 	}
 
 	return ", " + strings.Join(parts, ", ")
+}
+
+// scoutValues renders what a Scout career carries: the Discoveries it
+// earned (chart 05 p. 79) and what its terms will cost Sanity. The
+// modifier is a pending reduction rather than a value, because Sanity "is
+// not normally indicated in references to a character" and is not
+// generated during character generation at all (p. 52).
+func scoutValues(record chargen.CareerRecord) []string {
+	var parts []string
+
+	if record.Discoveries > 0 {
+		parts = append(parts, plural(record.Discoveries, "Discovery"))
+	}
+
+	if record.SanityMod != 0 {
+		parts = append(parts, fmt.Sprintf("San %+d when generated", record.SanityMod))
+	}
+
+	return parts
 }
 
 // rogueValues renders what chart 10 tracks: the Rogue's scheme, his
@@ -439,6 +456,8 @@ func consequenceInjuryText(c *chargen.ConsequenceEvent) string {
 //nolint:exhaustive // Deliberately partitioned: earlier kinds are handled upstream.
 func consequenceCareerValueText(c *chargen.ConsequenceEvent) string {
 	switch c.Kind {
+	case chargen.ConsequenceSanityMod:
+		return fmt.Sprintf("Sanity %+d when generated", c.Delta)
 	case chargen.ConsequenceSpecialtySet:
 		return "specialty " + c.Skill
 	case chargen.ConsequenceTalentSet:

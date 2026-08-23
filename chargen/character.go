@@ -18,14 +18,14 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.15.0"
+	SchemaVersion = "0.16.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.16.0"
+	EngineVersion = "0.17.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
@@ -199,6 +199,13 @@ type CareerRecord struct {
 
 	// Discoveries counts Scout Reward successes (chart 05, p. 79).
 	Discoveries int `json:"discoveries,omitempty"`
+
+	// SanityMod is the pending reduction the career's terms owe against
+	// Sanity, recorded rather than applied: "reduce San= -1 for each TWO
+	// Terms served" (chart 05 p. 79), but "Characters do not generate
+	// Sanity until it is first called for" (p. 52). Negative or absent.
+	// See interpretation I-47, ERRATA.md.
+	SanityMod int `json:"sanity_mod,omitempty"`
 
 	// Rank and RankTitle are the rank held on leaving the career, for the
 	// careers with a rank table (chart 06, p. 80); empty for the careers

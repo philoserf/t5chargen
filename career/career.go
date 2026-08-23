@@ -161,6 +161,14 @@ type Definition struct {
 	// gained in the term earns (chart 06 table B: "Promotion 1").
 	SkillsPerAdvancement int `json:"skills_per_advancement,omitempty"`
 
+	// SanityPerTerms is the number of terms in the career that cost one
+	// point of Sanity: "Because of the long-term isolation that a Scout
+	// must endure, reduce San= -1 for each TWO Terms served" (chart 05
+	// p. 79). Only chart 05 prints such a rule. The reduction is recorded
+	// as a modifier rather than applied, because Sanity is not generated
+	// during character generation (p. 52; interpretation I-47).
+	SanityPerTerms int `json:"sanity_per_terms,omitempty"`
+
 	// BeginTracks are the alternative entry paths where a chart offers
 	// several (chart 06: "To Begin 4th Officer Int / To Begin Spacehand
 	// Dex / To Begin Temp Auto"). Careers with a single To Begin use
@@ -901,6 +909,10 @@ func (d *Definition) validateContinue() error {
 
 	if d.ContinueCharacteristic != "" && !characteristicNames[d.ContinueCharacteristic] {
 		return fmt.Errorf("%w: unknown continue characteristic %q", errBadDefinition, d.ContinueCharacteristic)
+	}
+
+	if d.SanityPerTerms < 0 {
+		return fmt.Errorf("%w: negative sanity per terms %d", errBadDefinition, d.SanityPerTerms)
 	}
 
 	return nil

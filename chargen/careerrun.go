@@ -191,6 +191,8 @@ func runCareerByName(
 		}
 	}
 
+	run.recordSanityMod(entryCause)
+
 	character.Careers = append(character.Careers, run.record)
 
 	return true, nil
@@ -947,4 +949,35 @@ func (r *careerRun) injury(cc string, mod, cause int, cite string) (bool, bool) 
 	}
 
 	return false, false
+}
+
+// recordSanityMod charges the career's terms against Sanity where its
+// chart says they cost some: "Because of the long-term isolation that a
+// Scout must endure, reduce San= -1 for each TWO Terms served" (chart 05
+// p. 79). Chart 05 is the only career that prints such a rule, so the
+// count of terms per point is a chart fact in the career's data rather
+// than a Scout branch here.
+//
+// The reduction is recorded, not applied. Sanity has no value to reduce:
+// "Characters do not generate Sanity until it is first called for by a
+// situation, encounter, or stimulus" (p. 52), and generating one here
+// would both contradict that and consume the seeded stream for a value v1
+// never reads (interpretation I-47, ERRATA.md).
+//
+// Partial terms owe nothing: two terms are what the chart charges for, so
+// three terms cost the same as two.
+func (r *careerRun) recordSanityMod(cause int) {
+	if r.def.SanityPerTerms == 0 {
+		return
+	}
+
+	mod := -(len(r.record.Terms) / r.def.SanityPerTerms)
+	if mod == 0 {
+		return
+	}
+
+	r.record.SanityMod = mod
+	r.log.Consequence(ConsequenceEvent{
+		Cause: cause, Kind: ConsequenceSanityMod, Career: r.def.Name, Delta: mod,
+	})
 }

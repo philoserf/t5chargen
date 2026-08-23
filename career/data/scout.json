@@ -6,6 +6,7 @@
   "retry_check": "Edu",
   "continue_characteristic": "Int",
   "skills_per_term": 8,
+  "sanity_per_terms": 2,
   "skill_eligibility": {
     "Courier Duty": 4,
     "Explorer Duty": 8

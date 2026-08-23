@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.15.0",
+  "schema_version": "0.16.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.16.0",
+  "engine_version": "0.17.0",
   "policy_version": "0.11.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -84,6 +84,7 @@
       "career": "Scout",
       "began": true,
       "discoveries": 4,
+      "sanity_mod": -2,
       "terms": [
         {
           "term": 1,
@@ -2787,6 +2788,16 @@
         "cause": 192,
         "kind": "career_ended",
         "career": "Scout"
+      }
+    },
+    {
+      "seq": 195,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 46,
+        "kind": "sanity_mod",
+        "career": "Scout",
+        "delta": -2
       }
     }
   ]

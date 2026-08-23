@@ -194,3 +194,58 @@ func (d scoutFirstDecider) Choose(c chargen.Choice) int {
 }
 
 func (scoutFirstDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
+
+// TestScoutSanityModifier pins chart 05's "Because of the long-term
+// isolation that a Scout must endure, reduce San= -1 for each TWO Terms
+// served" (p. 79). Swept rather than pinned to one fixture because the
+// interesting cases are the boundaries: an odd term count owes the same
+// as the even one below it, and one term owes nothing.
+func TestScoutSanityModifier(t *testing.T) {
+	seen := map[int]bool{}
+
+	for seed := uint64(1); seed <= 300; seed++ {
+		c := generate(t, chargen.Options{Seed: seed, Career: "Scout"})
+
+		for _, record := range c.Careers {
+			if record.Career != "Scout" {
+				t.Fatalf("seed %d: forced Scout produced %q", seed, record.Career)
+			}
+
+			terms := len(record.Terms)
+			seen[terms%2] = true
+
+			if want := -(terms / 2); record.SanityMod != want {
+				t.Errorf("seed %d: %d terms gave San %+d, want %+d",
+					seed, terms, record.SanityMod, want)
+			}
+		}
+	}
+
+	// A sweep that only ever saw even term counts would pass while
+	// leaving the rounding rule — three terms cost what two cost —
+	// untested.
+	if !seen[0] || !seen[1] {
+		t.Errorf("sweep saw only %v term parities; both are needed to test the rounding", seen)
+	}
+}
+
+// TestOnlyTheScoutChargesSanity holds the scope of the rule: chart 05 is
+// the only career page that prints one, so no other career may record a
+// reduction (p. 79).
+func TestOnlyTheScoutChargesSanity(t *testing.T) {
+	for _, career := range []string{
+		"Citizen", "Scholar", "Entertainer", "Merchant", "Noble",
+		"Soldier", "Spacer", "Marine", "Agent", "Rogue",
+	} {
+		t.Run(career, func(t *testing.T) {
+			for seed := uint64(1); seed <= 40; seed++ {
+				c := generate(t, chargen.Options{Seed: seed, Career: career})
+				for _, record := range c.Careers {
+					if record.SanityMod != 0 {
+						t.Fatalf("seed %d: %s recorded San %+d", seed, record.Career, record.SanityMod)
+					}
+				}
+			}
+		})
+	}
+}
