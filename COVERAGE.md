@@ -11,12 +11,15 @@ Book 1, Print Edition 5.1.
 
 ## Milestone 3 status
 
-Every career reachable from a standing start is implemented: eleven of
-the thirteen charts, with Craftsman (01) and Functionary (13) waiting on
-career changes because neither can be a first career (see their section
-below). Each has a section here listing its uncommon branches as covered
-or deferred, and forty-four interpretations in ERRATA.md record every
-place the printed rules were ambiguous.
+Every career reachable from a standing start is implemented. Craftsman
+(01) and Functionary (13) wait on career changes, neither being able to
+be a first career (see their section below); every other chart has a
+section here listing its uncommon branches as covered or deferred, and
+ERRATA.md records every place the printed rules were ambiguous.
+
+Counts are deliberately absent from this prose. The tests below know how
+many careers, interpretations, and choice points there are; a sentence
+repeating a number only waits to be wrong.
 
 The criterion above is machine-checked rather than reviewed by eye
 (`docs/docs_test.go`): every test this file cites must exist, every

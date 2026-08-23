@@ -18,6 +18,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"slices"
+	"strconv"
 	"strings"
 	"testing"
 )
@@ -32,6 +33,36 @@ func read(t *testing.T, name string) string {
 	}
 
 	return string(data)
+}
+
+// scan returns the first submatch of every match of pattern across the
+// module's source files that keep accepts.
+func scan(t *testing.T, keep func(path string) bool, pattern *regexp.Regexp) []string {
+	t.Helper()
+
+	var found []string
+
+	err := filepath.WalkDir("..", func(path string, entry os.DirEntry, err error) error {
+		if err != nil || entry.IsDir() || !keep(path) {
+			return err
+		}
+
+		data, err := os.ReadFile(path) //nolint:gosec // G304: walking the module's own tree.
+		if err != nil {
+			return fmt.Errorf("reading %s: %w", path, err)
+		}
+
+		for _, match := range pattern.FindAllStringSubmatch(string(data), -1) {
+			found = append(found, match[1])
+		}
+
+		return nil
+	})
+	if err != nil {
+		t.Fatalf("walking the module: %v", err)
+	}
+
+	return found
 }
 
 // TestCoverageNamesRealTests verifies every test COVERAGE.md cites as
@@ -56,31 +87,9 @@ func TestCoverageNamesRealTests(t *testing.T) {
 func declaredTests(t *testing.T) []string {
 	t.Helper()
 
-	var names []string
-
-	declaration := regexp.MustCompile(`(?m)^func (Test[A-Za-z0-9_]+)\(`)
-
-	err := filepath.WalkDir("..", func(path string, entry os.DirEntry, err error) error {
-		if err != nil || entry.IsDir() || !strings.HasSuffix(path, "_test.go") {
-			return err
-		}
-
-		data, err := os.ReadFile(path) //nolint:gosec // G304: walking the module's own tree.
-		if err != nil {
-			return fmt.Errorf("reading %s: %w", path, err)
-		}
-
-		for _, match := range declaration.FindAllStringSubmatch(string(data), -1) {
-			names = append(names, match[1])
-		}
-
-		return nil
-	})
-	if err != nil {
-		t.Fatalf("walking the module: %v", err)
-	}
-
-	return names
+	return scan(t,
+		func(path string) bool { return strings.HasSuffix(path, "_test.go") },
+		regexp.MustCompile(`(?m)^func (Test[A-Za-z0-9_]+)\(`))
 }
 
 // TestEveryInterpretationIsCited verifies every ERRATA.md entry is
@@ -108,7 +117,7 @@ func TestEveryInterpretationIsCited(t *testing.T) {
 // (docs/PRD.md, CLI sketch), so a choice point with no rule is a gap in
 // the decision table even when the code happens to answer it.
 func TestEveryChoicePointHasAPolicy(t *testing.T) {
-	ids := regexp.MustCompile(`ChoiceID = "([a-z_]+)"`).FindAllStringSubmatch(read(t, "chargen/decider.go"), -1)
+	ids := declaredChoiceIDs(t)
 	if len(ids) == 0 {
 		t.Fatal("no choice points found")
 	}
@@ -116,10 +125,24 @@ func TestEveryChoicePointHasAPolicy(t *testing.T) {
 	policy := read(t, "POLICY.md")
 
 	for _, id := range ids {
-		if !strings.Contains(policy, "`"+id[1]+"`") {
-			t.Errorf("choice point %q has no POLICY.md rule", id[1])
+		if !strings.Contains(policy, "`"+id+"`") {
+			t.Errorf("choice point %q has no POLICY.md rule", id)
 		}
 	}
+}
+
+// declaredChoiceIDs lists every ChoiceID constant in the module's
+// non-test sources. The whole tree is scanned rather than decider.go
+// alone, so a choice point declared beside the career that raises it
+// cannot escape the gate.
+func declaredChoiceIDs(t *testing.T) []string {
+	t.Helper()
+
+	return scan(t,
+		func(path string) bool {
+			return strings.HasSuffix(path, ".go") && !strings.HasSuffix(path, "_test.go")
+		},
+		regexp.MustCompile(`ChoiceID = "([a-z0-9_]+)"`))
 }
 
 // TestEveryCareerHasCoverage verifies every career the engine can run has
@@ -145,10 +168,20 @@ func TestEveryCareerHasCoverage(t *testing.T) {
 // the book: its career sections run in Book 1 chart order.
 func TestCareerSectionsAreInChartOrder(t *testing.T) {
 	found := regexp.MustCompile(`(?m)^## Career (\d+) —`).FindAllStringSubmatch(read(t, "COVERAGE.md"), -1)
+	if len(found) == 0 {
+		t.Fatal("COVERAGE.md has no career sections")
+	}
 
-	numbers := make([]string, 0, len(found))
+	numbers := make([]int, 0, len(found))
+
 	for _, match := range found {
-		numbers = append(numbers, match[1])
+		// Compared as numbers: "9" does not sort after "10".
+		chart, err := strconv.Atoi(match[1])
+		if err != nil {
+			t.Fatalf("career section %q: %v", match[1], err)
+		}
+
+		numbers = append(numbers, chart)
 	}
 
 	if !slices.IsSorted(numbers) {
