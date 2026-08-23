@@ -608,18 +608,23 @@ func (r *careerRun) awardOpenCell(kind career.EntryKind) error {
 // It cannot go through groupCells, whose options do not depend on the
 // character; this cell's do.
 func (r *careerRun) awardNewTrade() error {
-	options := make([]string, 0, len(skill.InGroup(skill.GroupTrades)))
+	trades := skill.InGroup(skill.GroupTrades)
+	options := make([]string, 0, len(trades))
 
-	for _, name := range skill.InGroup(skill.GroupTrades) {
+	for _, name := range trades {
 		if r.character.skillLevel(name) == 0 {
 			options = append(options, name)
 		}
 	}
 
 	if len(options) == 0 {
-		// "if all are already held; this benefit is lost".
+		// "if all are already held; this benefit is lost". Skill names
+		// the exhausted group, so the transcript says which benefit was
+		// lost rather than falling through to the Major/Minor wording.
 		seq := r.log.Step("New Trade: every Trade is already held", r.def.Cite)
-		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceBenefitLost, Career: r.def.Name})
+		r.log.Consequence(ConsequenceEvent{
+			Cause: seq, Kind: ConsequenceBenefitLost, Career: r.def.Name, Skill: "Trade",
+		})
 
 		return nil
 	}

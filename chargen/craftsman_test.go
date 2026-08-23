@@ -75,8 +75,10 @@ func (d *craftsmanPath) pickCareer(c chargen.Choice) int {
 }
 
 // craftsmanRun generates the pinned Craftsman character: five terms
-// producing four Masterpieces, two of them Perfect, and one failed
-// attempt — so the fixture covers every branch of the creation throw.
+// producing four Masterpieces, two of them Perfect, and one term that
+// could not attempt at all. The rolled-failure branch of the creation
+// throw is not among them — all four throws succeed — so a reader of the
+// fixture should not take it for the "Creation Attempt Fails" case.
 func craftsmanRun(t *testing.T) (chargen.Character, chargen.CareerRecord) {
 	t.Helper()
 
@@ -118,6 +120,57 @@ func TestCraftsmanCoversEveryCreationBranch(t *testing.T) {
 		t.Error("every Masterpiece is Perfect; the ordinary branch is untested")
 	case record.Masterpieces >= len(record.Terms):
 		t.Error("every attempt succeeded; the failure branch is untested")
+	}
+}
+
+// vocationPath reaches chart 01's Vocation column, which craftsmanPath
+// never rolls on: it prefers Academic, and Academic is offered first. The
+// two "New Trade***" cells live in Vocation, so without this the only new
+// cell kind the chart introduced would ship unexercised.
+//
+// The preference is applied only inside the Craftsman career, so the path
+// to it — and every roll before it — is the pinned character's.
+type vocationPath struct {
+	craftsmanPath
+}
+
+func (d *vocationPath) Choose(c chargen.Choice) int {
+	if c.ID == chargen.ChooseSkillColumn && strings.Contains(c.Prompt, "Craftsman") {
+		if i := columnLike(c.Options, "Vocation"); i >= 0 {
+			return i
+		}
+	}
+
+	return d.craftsmanPath.Choose(c)
+}
+
+// TestCraftsmanNewTradeCell pins chart 01's "New Trade***: Any Trade not
+// already held; if all are already held; this benefit is lost" (p. 75):
+// the cell offers only Trades the character lacks, and awards one.
+func TestCraftsmanNewTradeCell(t *testing.T) {
+	c, err := chargen.Generate(chargen.Options{Seed: 177, Decider: &vocationPath{}})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	choices := 0
+
+	for _, e := range c.Events {
+		if e.Kind != chargen.EventChoice || !strings.Contains(e.Choice.Cite, "New Trade") {
+			continue
+		}
+
+		choices++
+
+		for _, option := range e.Choice.Options {
+			if option == "Craftsman" {
+				t.Error("New Trade offered Craftsman, which every Craftsman already holds")
+			}
+		}
+	}
+
+	if choices == 0 {
+		t.Fatal("the Vocation column never reached a New Trade cell; find another seed")
 	}
 }
 

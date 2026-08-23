@@ -155,6 +155,7 @@ func careerValues(record chargen.CareerRecord) string {
 
 	parts = append(parts, scoutValues(record)...)
 	parts = append(parts, functionaryValues(record)...)
+	parts = append(parts, craftsmanValues(record)...)
 
 	if record.ShipShares > 0 {
 		parts = append(parts, plural(record.ShipShares, "Ship Share"))
@@ -418,13 +419,7 @@ func consequenceFlowText(c *chargen.ConsequenceEvent) string {
 	case chargen.ConsequenceJobUndetermined:
 		return "Job undetermined (No Skill); retries next success — ERRATA I-1"
 	case chargen.ConsequenceBenefitLost:
-		if c.Characteristic != "" {
-			// The p. 68 human characteristic maximum.
-			return fmt.Sprintf("benefit lost (%s at the characteristic-%d maximum)",
-				c.Characteristic, chargen.CharacteristicMax)
-		}
-
-		return "benefit lost (no Major/Minor)"
+		return benefitLostText(c)
 	case chargen.ConsequenceMandatoryContinue:
 		return "mandatory continue"
 	case chargen.ConsequenceYearsElapsed:
@@ -434,6 +429,24 @@ func consequenceFlowText(c *chargen.ConsequenceEvent) string {
 	default:
 		return consequenceInjuryText(c)
 	}
+}
+
+// benefitLostText names which benefit a chart cell could not deliver. The
+// payload says which: a characteristic at the p. 68 maximum, a Master
+// Skill List group with nothing left to give (chart 01's "New Trade***:
+// Any Trade not already held; if all are already held; this benefit is
+// lost", p. 75), or neither, which is the p. 78 Major/Minor cell.
+func benefitLostText(c *chargen.ConsequenceEvent) string {
+	if c.Characteristic != "" {
+		return fmt.Sprintf("benefit lost (%s at the characteristic-%d maximum)",
+			c.Characteristic, chargen.CharacteristicMax)
+	}
+
+	if c.Skill != "" {
+		return "benefit lost (every " + c.Skill + " already held)"
+	}
+
+	return "benefit lost (no Major/Minor)"
 }
 
 // consequenceInjuryText renders the injury and reward consequence kinds.
@@ -495,6 +508,12 @@ func consequenceCareerValueText(c *chargen.ConsequenceEvent) string {
 		return fmt.Sprintf("Talent = %d", c.Value)
 	case chargen.ConsequenceComeback:
 		return fmt.Sprintf("Comeback (Fame reset to %d)", c.Value)
+	case chargen.ConsequenceMasterpiece:
+		// "The Masterpiece can be sold at Cr150,000 plus Cr10,000 per
+		// Master Point over 40" (chart 01 p. 75). Whether it is Perfect
+		// is a threshold the chart owns, so the line reports the points
+		// and leaves the count to the sheet.
+		return fmt.Sprintf("Masterpiece created (%d Master Points, worth Cr%d)", c.Value, c.Delta)
 	default:
 		return consequenceAgingText(c)
 	}
@@ -642,6 +661,23 @@ func reserveText(c *chargen.ConsequenceEvent) string {
 	}
 
 	return "enters the Reserves as a Reserve " + c.Skill + " (" + c.Career + ")"
+}
+
+// craftsmanValues renders what a Craftsman career carries: the
+// Masterpieces it produced, and how many of them are Perfect ("A Perfect
+// Masterpiece has 55 or more Master Points", chart 01 p. 75). Chart F
+// multiplies both for Fame, and muster out prices them.
+func craftsmanValues(record chargen.CareerRecord) []string {
+	if record.Masterpieces == 0 {
+		return nil
+	}
+
+	made := plural(record.Masterpieces, "Masterpiece")
+	if record.PerfectMasterpieces == 0 {
+		return []string{made}
+	}
+
+	return []string{fmt.Sprintf("%s (%d Perfect)", made, record.PerfectMasterpieces)}
 }
 
 // functionaryValues renders what a Functionary career carries beyond its

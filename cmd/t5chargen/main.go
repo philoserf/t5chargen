@@ -72,8 +72,6 @@ func run(args []string, seedFn func() (uint64, error), stdout, stderr io.Writer)
 	}
 }
 
-// runNew generates a character and writes its JSON record to stdout, or to
-// -o file (docs/PRD.md, CLI sketch: "new writes JSON to stdout unless -o").
 // isUsageError reports whether a generation failure is the caller's
 // fault rather than the engine's. The engine is the single validator for
 // careers, UWPs, and trade classifications.
@@ -85,6 +83,8 @@ func isUsageError(err error) bool {
 		errors.Is(err, world.ErrDuplicateTC)
 }
 
+// runNew generates a character and writes its JSON record to stdout, or to
+// -o file (docs/PRD.md, CLI sketch: "new writes JSON to stdout unless -o").
 func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writer) int {
 	flags := flag.NewFlagSet("new", flag.ContinueOnError)
 	flags.SetOutput(stderr)
