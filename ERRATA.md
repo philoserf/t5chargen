@@ -1770,65 +1770,14 @@ what muster out paid. Adding the price to the money would both spend a
 ticket the character still holds and count the award twice, once in the
 credits and once in the benefits list.
 
-Cashing out is its own step, deferred with the Automatics and the
-Entitlements (COVERAGE.md).
-
-Implemented at `chargen/musterout.go` (`award`).
-
-### I-74: A duplicate benefit is rerolled once, not until it differs (p. 69)
-
-"A result that duplicates a previous (unwanted or unusable) benefit may be
-rerolled until a different benefit is received, for example: Wafer Jack,
-TAS Member, Knighthood."
-
-Read as: rerolled once. The printed rule is a loop, and the engine does not
-run it.
-
-The reason is the tables. A Knighthood sits at row 10 or 11 of the careers
-that offer one, the throw is 1D plus a DM, and a character whose DM already
-carries him to the last row lands on the same cell every time. "Until a
-different benefit is received" would then never terminate. Rerolling once
-takes the benefit the rule is trying to give and stops.
-
-The deviation is recorded rather than resolved because the fix belongs to
-the rule, not the engine: a table where the duplicate is the only reachable
-row has no different benefit to offer.
-
-### I-75: A career's "+Officer Rank" DM is read from the rank the character holds (p. 68; p. 91)
-
-Charts 06, 07, 08, 12 and 13 head their Benefits DM "+Officer Rank". A
-character who never held a commission has no officer rank, and the natural
-reading withholds the DM from him.
-
-Read as: the DM is the rank's number whatever ladder it sits on. The
-discriminator is what the other reading costs. Knighthood sits at rows 10,
-11 and 10 on exactly the three careers p. 68 restricts it on — "In the
-Spacer, Soldier, and Marine careers, Knighthood is only available to
-Officers. A non-officer receives Soc +1" — and the Benefits throw is 1D.
-Withholding the DM from an enlisted character puts those rows out of reach
-of the dice, and makes the non-officer substitution a rule for a case that
-can never arise.
-
-Chart F's "Armed Forces Enlisted = no Fame" is deliberately not read across
-to this. That footnote is printed on chart F and scoped to Fame; nothing on
-p. 68 repeats it.
-
-### I-76: A benefit is held, not sold (p. 68)
-
-Chart M1 prices the passages, the Directorship and the Proxy, and p. 68
-gives each a value: "StarPass ... has a value of Cr250,000."
-
-Read as: what a benefit is worth, not what it pays. A character who
-receives a StarPass holds a StarPass; the value says what it would fetch,
-and selling it is play. Only the Money column pays credits.
-
 This is recorded because the engine did the other thing first, and the
 result was visible: a Craftsman showed Cr575,000 of which Cr250,000 was an
-unsold StarPass that the same sheet listed among his benefits. The value
-belongs to the benefit, and the benefit belongs to the character.
+unsold StarPass that the same sheet listed among his benefits.
 
-Cashing out is a separate rule, and only for Entitlements: "Any Entitlement
+Cashing out is its own step, and only for Entitlements: "Any Entitlement
 can be cashed out for a lump sum" of five years' payments (p. 69).
+
+Implemented at `chargen/musterout.go` (`award`).
 
 ### I-77: A dead character does not muster out (p. 67; p. 69)
 
@@ -1917,3 +1866,62 @@ wrong for the character p. 69 describes holding two: "a character may
 receive duplicate Entitlements (for example, a Reserve and a Functionary
 pension)". A benefit rolled on one career's table doubling another
 career's pension has nothing in the text behind it.
+
+### I-82: A Land Grant hex on a world the record does not name is priced at the no-TC floor (p. 88; p. 79)
+
+"An unimproved Land Grant generates income based on the Trade
+Classifications of the world and equal to Cr10,000 per TC annually (equal to
+Cr5,000 if there are no TCs)" (p. 88).
+
+Only one hex has a world this engine knows. p. 88 puts it there — "The first
+hex in any grant is on the Noble's homeworld" — and the homeworld's Trade
+Classifications are on the record because chart B needs them (docs/PRD.md
+FR2). Every other hex sits on a world nobody has generated: p. 88's
+subsequent hexes are "randomly allocated", p. 41's companion hex is "on
+another world in the system", and p. 79 puts a Scout's grant on "a
+non-Mainworld within the Imperium".
+
+Read as: a hex whose world is not named earns the no-TC rate. This is a
+deviation and worth naming as one, because "a world with no TCs" and "a
+world whose TCs are unknown" are not the same claim, and the engine is
+asserting the first where it only knows the second.
+
+What justifies it is the book pricing its own unnamed hex exactly that way.
+p. 88's worked example: "recently knighted Sir Richard of Hefry (Trade
+Classifications Ni Va) has a Land Grant of one Terrain Hex on Hefry
+producing an income of Cr20,000 annually, and a companion Land Grant on a
+minor world (no Trade Classifications) elsewhere in the system producing
+Cr5,000 annually." The companion world is not generated, named, or rolled
+for; it is simply taken to have no Trade Classifications. The engine does
+what the example does.
+
+The alternative was to leave grant income uncomputed, which is what this
+repo did until now on the stated ground that "a grant's income needs the
+world it sits on". That was wrong about the homeworld hex, and the earlier
+note is corrected in docs/MILESTONE-4.md.
+
+Implemented at `chargen/entitlement.go` (`landGrantIncome`, `hexIncome`),
+with the per-career hex layout in `benefit/data/benefits.json`.
+
+### I-83: The per-title Land Grant hex table is not applied (p. 88; chart 11 p. 85)
+
+p. 88's NOBLE LAND GRANTS table gives each title a hex count — a Gentleman
+one hex, a Knight one on the mainworld and one elsewhere, a Baron four and
+four, an Emperor 256 and 256 — under the heading "Each title confers its own
+Land Grant: a Knight raised to Baronet receives it in addition to his
+Knighthood."
+
+That table counts grants by title. I-30 already read chart 11's box A
+against the same page's rank-table note and chose box A: "Each increase in
+Soc during CharGen awards a Land Grant." The engine counts grants by Soc
+increase, and the two rules cannot both drive the same number.
+
+Read as: the count stays with I-30 and the hex table is not applied. Each
+grant is priced as one homeworld hex plus one companion (p. 88, p. 41),
+which is the shape of the page's own worked example and of its two smallest
+titles.
+
+Recorded rather than left implicit because the table is right there beside
+the income rule this engine does implement, and its absence would otherwise
+read as an oversight. Applying it means reopening I-30, which is a decision
+about the count and not about the money.

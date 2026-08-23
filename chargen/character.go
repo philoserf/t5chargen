@@ -20,14 +20,14 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.24.0"
+	SchemaVersion = "0.25.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.26.0"
+	EngineVersion = "0.27.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
@@ -132,6 +132,12 @@ type Character struct {
 	// Automatics are what a character already owns at muster out,
 	// "Subject to Eligibility" (chart M1 p. 70).
 	Automatics []string `json:"automatics,omitempty"`
+
+	// LandGrantIncome is the annual profit his Land Grants produce
+	// (p. 88). It is deliberately not Credits: a grant is retained, not
+	// sold — "Any character who has received a Land Grant retains it at
+	// Mustering Out" (p. 68).
+	LandGrantIncome int `json:"land_grant_income,omitempty"`
 
 	// Entitlements are the annual payments muster out settles: the four
 	// pensions from Life Stage 9, and the Armed Forces retirements from
@@ -338,9 +344,11 @@ type CareerRecord struct {
 	TimesExiled         int  `json:"times_exiled,omitempty"`
 	SuccessfulIntrigues int  `json:"successful_intrigues,omitempty"`
 
-	// LandGrants counts the Noble's Soc increases: "Each increase in Soc
-	// during CharGen awards a Land Grant" (chart 11). The hexes and their
-	// economics land with muster out (docs/PRD.md milestone 4).
+	// LandGrants counts the career's Land Grants: for a Noble, his Soc
+	// increases — "Each increase in Soc during CharGen awards a Land
+	// Grant" (chart 11) — and for a Scout, his Discoveries (chart 05).
+	// What they earn is priced at muster out, by career, since the two
+	// careers' hexes sit on different worlds (chart M1; pp. 41, 79, 88).
 	LandGrants int `json:"land_grants,omitempty"`
 
 	// Major and Minor are the Scholar's areas: "Every Scholar has a Major
