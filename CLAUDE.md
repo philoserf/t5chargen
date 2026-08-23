@@ -49,7 +49,10 @@ protection API) if you ever genuinely need to.
 Prettier formats the embedded chart data and the documents, but never
 `chargen/testdata` or `render/testdata`: those are the engine's own output,
 compared byte for byte, and a formatter must not be the thing that decides
-what a character record looks like. Prose that quotes the printed rules
+what a character record looks like. Regenerate those fixtures with `task
+goldens` (which rewrites them and then runs the full gate) rather than by
+hand, and never edit one directly — a fixture is only allowed to move when
+a change was meant to move it, so read the diff before committing it. Prose that quotes the printed rules
 must escape T5's literal asterisks (`"+F +F\* +F\*"`), or prettier reads
 them as emphasis and rewrites the quote.
 

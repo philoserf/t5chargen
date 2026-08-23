@@ -1,6 +1,7 @@
 package render_test
 
 import (
+	"flag"
 	"os"
 	"strings"
 	"testing"
@@ -9,9 +10,22 @@ import (
 	"github.com/philoserf/t5chargen/render"
 )
 
-// golden compares got against the named testdata file.
+// update rewrites the golden fixtures instead of comparing against them:
+// `task goldens`, or `go test ./render -update`.
+var update = flag.Bool("update", false, "rewrite testdata golden files instead of comparing")
+
+// golden compares got against the named testdata file, or rewrites it
+// under -update.
 func golden(t *testing.T, got, file string) {
 	t.Helper()
+
+	if *update {
+		if err := os.WriteFile(file, []byte(got), 0o600); err != nil {
+			t.Fatal(err)
+		}
+
+		return
+	}
 
 	want, err := os.ReadFile(file) //nolint:gosec // G304: fixed test-owned paths under testdata/.
 	if err != nil {

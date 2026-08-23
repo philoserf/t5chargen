@@ -83,6 +83,16 @@ tasks:
     cmds:
       - go test -race ./...
 
+  # The fixtures under chargen/testdata and render/testdata are the
+  # engine's own output, compared byte for byte. Regenerating them is a
+  # deliberate act: run this only when a change was meant to move them,
+  # and read the diff before committing it.
+  goldens:
+    desc: Rewrite the golden fixtures, then run the full gate
+    cmds:
+      - go test ./chargen ./render -update
+      - task: default
+
   tidy:
     desc: Run go mod tidy
     cmds:
