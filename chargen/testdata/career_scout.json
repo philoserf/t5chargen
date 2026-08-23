@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.22.0",
+  "schema_version": "0.23.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.23.0",
-  "policy_version": "0.14.0",
+  "engine_version": "0.24.0",
+  "policy_version": "0.15.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 26
@@ -128,6 +128,51 @@
     }
   ],
   "life_stage": 6,
+  "credits": 450000,
+  "benefits": [
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scout",
+      "credits": 50000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scout",
+      "credits": 80000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scout",
+      "credits": 60000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scout",
+      "credits": 60000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scout",
+      "credits": 50000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scout",
+      "credits": 80000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scout",
+      "credits": 70000
+    }
+  ],
   "fame": 20,
   "wound_badges": 2,
   "events": [
@@ -4116,6 +4161,421 @@
             "value": 24
           }
         ]
+      }
+    },
+    {
+      "seq": 288,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out",
+        "cite": "Book 1 p. 67; chart M1 p. 70"
+      }
+    },
+    {
+      "seq": 289,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out: Scout",
+        "cite": "Book 1 p. 79 chart 05 D"
+      }
+    },
+    {
+      "seq": 290,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scout muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 291,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 292,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          1
+        ],
+        "mod": 6,
+        "total": 7,
+        "cite": "Book 1 p. 79 chart 05 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 293,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 292,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scout",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 294,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scout muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 295,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 296,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          6
+        ],
+        "mod": 6,
+        "total": 12,
+        "cite": "Book 1 p. 79 chart 05 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 297,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 296,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scout",
+        "delta": 80000
+      }
+    },
+    {
+      "seq": 298,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scout muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 299,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 300,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          2
+        ],
+        "mod": 6,
+        "total": 8,
+        "cite": "Book 1 p. 79 chart 05 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 301,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 300,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scout",
+        "delta": 60000
+      }
+    },
+    {
+      "seq": 302,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scout muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 303,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 304,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          4
+        ],
+        "mod": 6,
+        "total": 10,
+        "cite": "Book 1 p. 79 chart 05 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 305,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 304,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scout",
+        "delta": 60000
+      }
+    },
+    {
+      "seq": 306,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scout muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 307,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 308,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          1
+        ],
+        "mod": 6,
+        "total": 7,
+        "cite": "Book 1 p. 79 chart 05 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 309,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 308,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scout",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 310,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scout muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 311,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 312,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          6
+        ],
+        "mod": 6,
+        "total": 12,
+        "cite": "Book 1 p. 79 chart 05 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 313,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 312,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scout",
+        "delta": 80000
+      }
+    },
+    {
+      "seq": 314,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scout muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 315,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 316,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          5
+        ],
+        "mod": 6,
+        "total": 11,
+        "cite": "Book 1 p. 79 chart 05 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 317,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 316,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scout",
+        "delta": 70000
       }
     }
   ]

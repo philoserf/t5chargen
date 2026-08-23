@@ -18,10 +18,12 @@
 
 **Skills**: Actor-1, Advocate-4, Astrogator-1, Comms-3, Computer-3, Driver-2, Engineer-1, Steward-5, Trader-3
 
+**Credits**: Cr120000
+
 **Status**: Fame 3 (Extended Family), Wound Badges 1
 
 ---
 
-Seed 17 (math/rand/v2-pcg) · schema 0.22.0 · engine 0.23.0 · policy 0.14.0
+Seed 17 (math/rand/v2-pcg) · schema 0.23.0 · engine 0.24.0 · policy 0.15.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

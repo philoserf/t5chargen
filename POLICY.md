@@ -1,6 +1,6 @@
 # POLICY.md — auto-mode default policy
 
-Version: **0.14.0** (`policy_version` in every character record). Changing any
+Version: **0.15.0** (`policy_version` in every character record). Changing any
 rule here is a policy version bump (docs/PRD.md, Replay and provenance
 contract). 0.2.0 added the homeworld choice points; 0.3.0 the education
 choice points; 0.4.0 the Scout career choice points (chart 05, p. 79) and
@@ -23,7 +23,9 @@ term and so shifts every subsequent event in every record; 0.13.0 the
 Functionary's associated career (`select_associated_career`; chart 13
 p. 87), which no auto-generated character reaches; 0.14.0 the Fame Flux
 Event (`invoke_fame_flux`; chart F p. 91), which every character is
-offered once and which consumes a Flux when taken.
+offered once and which consumes a Flux when taken; 0.15.0 the muster-out
+choice points (`select_benefit_column`, `apply_benefit_dm`; p. 68), which
+every character with a career reaches.
 
 The auto policy is total (it can decide every valid choice point),
 deterministic, and tie-breaks by first-listed order in Book 1 (docs/PRD.md,
@@ -62,6 +64,8 @@ lists them; the policy returns an index.
 | `select_risk_mod`                   | No Mod.                                                                                                                                             | Neutral default: Caution improves Risk but worsens Reward and vice versa (p. 65); a smarter Caution/Bravery heuristic is a future policy version.                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `select_associated_career`          | First-listed, which is the earliest career served.                                                                                                  | "The Functionary character must identify with which prior career his position is associated" (chart 13 p. 87). The choice is real at muster out, where a Functionary's terms join the associated career's benefit DM (p. 68), but the policy cannot weigh that before the tables land; first-listed is the printed tie-break. Unreachable in auto mode regardless, since the policy declines every career change.                                                                                                                                                                   |
 | `invoke_fame_flux`                  | Invoke only when Flux could reach Fame 19.                                                                                                          | Flux is symmetric with mean zero, so it has no expected value in itself. The only thing it can buy is "one additional roll if Fame 19+" (p. 68), and Flux runs -5 to +5 — so the gamble is worth taking exactly when the threshold is within reach and not already met. The engine passes the Fame so far as a score, so the policy weighs the number a player would see.                                                                                                                                                                                                           |
+| `select_benefit_column`             | First-listed, which is Money on every table D.                                                                                                      | "Character may select either the Money column or Benefits column for each roll" (p. 68). The policy has no way to weigh a Wafer Jack against Cr30,000, so it falls back on first-listed. The Money column is not only cash — Low, Middle and High Passage, StarPass, Pension x2 and Retirement x2 all sit in it. Known limitation: no auto-generated character receives a Knighthood, a characteristic improvement or a TAS membership. A valuation that could compare them is a future policy version.                                                                             |
+| `apply_benefit_dm`                  | Apply the DM in full.                                                                                                                               | "The DMs on the Benefits Tables are optional ... They may be partially applied (any value may be selected from 0 to the total allowed value)" (p. 68). Every table D runs from cheap to dear, so a partial DM only ever reaches a lower row; there is no case where holding back pays.                                                                                                                                                                                                                                                                                              |
 | `change_career`                     | Decline; continue in the current career.                                                                                                            | The change is offered before the Continue throw is known, so it trades a career in hand for a To Begin that may fail and end Career Resolution outright (p. 66, p. 65). Aging (chart A p. 89) now bounds the Mandatory Continue tail the change exists to avoid, so the reason to take it is weaker than it was. The consequence is stated plainly under Known limitations: no auto-generated character reaches Craftsman or Functionary.                                                                                                                                           |
 | `attempt_retry`                     | Always attempt.                                                                                                                                     | The I-8 Reward retry has no stated cost.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 
@@ -74,6 +78,10 @@ lists them; the policy returns an index.
   degrade as characteristics fall, so a Citizen can still serve into his
   hundreds. Rule-accurate; note the Skill-15 cap (p. 134) bounds individual
   skill levels, not career length.
+- **No auto-generated character takes the Benefits column at muster out**,
+  because `select_benefit_column` falls back to first-listed. Every
+  character musters out with money and passages and no Knighthood. That is
+  the tie-break working as documented, not a defect.
 - **No auto-generated character changes careers**, because `change_career`
   declines. Every character therefore has exactly one career, and Craftsman
   and Functionary — neither of which can be a first career (p. 63) — are
