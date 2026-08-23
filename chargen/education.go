@@ -326,8 +326,7 @@ func (r *eduRun) elapseYear(cause int) {
 		return
 	}
 
-	r.character.Age++
-	r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceYearsElapsed, Value: 1})
+	r.character.advanceYears(1, r.log, cause)
 }
 
 // awardPass applies the program's per-pass Provides (chart C p. 60).

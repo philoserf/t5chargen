@@ -1002,3 +1002,43 @@ division. The two Ship Share rows multiply and halve their shares the same
 way, since the chart gives them as Values like any other.
 
 Implemented at `chargen/rogue.go` (`payoff`).
+
+### I-45: A term ending in disability still elapses its four years (p. 66; chart 05 p. 79)
+
+Book 1 fixes the term at four years — "the 4-year Term" (p. 66) — and
+tells a disabled character to "Muster Out at Term end with Double
+Benefits" (p. 69; charts 02, 05, 06, 07, 08, 09, 12).
+
+Read as: the term completes. "Term end" is the printed moment the
+character musters out at, so the term he musters out of is a term he
+served, and it costs the four years every term costs.
+
+The alternative — that the career stops at the injury and the remaining
+years are never served — would make a disabled character younger at
+muster out than a healthy one who served the same number of terms, and
+would leave "Term end" naming a moment that never arrives.
+
+This is recorded because it changes generated output. The engine advanced
+the clock inside the Continue throw, which a disabled character never
+reaches, so such a term silently elapsed no time at all.
+
+Implemented at `chargen/careerrun.go` (`term`).
+
+### I-46: A term ending in death still elapses its four years (p. 66; p. 65)
+
+"If the Controlling Characteristic is reduced to zero or less, the
+Character is dead" (p. 65). Book 1 prints no rule for the character's age
+at death, and the engine's finest unit of time is the year.
+
+Read as: the term elapses in full, for the same reason as I-45 — the term
+is T5's atom of career time, and the engine has no sub-term clock to
+report a death partway through one.
+
+The rival reading is defensible and is named here rather than dismissed:
+a character who dies did not finish the term, so the term might cost
+nothing. It is rejected because it reports a character who dies in his
+first term as dying at 18 — the instant he entered the career — which is
+a worse answer than rounding to the term the book already treats as
+indivisible.
+
+Implemented at `chargen/careerrun.go` (`term`).

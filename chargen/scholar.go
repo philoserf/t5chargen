@@ -122,8 +122,7 @@ func (*scholarMechanics) resolveBeginThrow(r *careerRun, success bool, cause int
 	}
 
 	// "Each failed attempt ... takes one year" (p. 65).
-	r.character.Age++
-	r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceYearsElapsed, Value: 1})
+	r.character.advanceYears(1, r.log, cause)
 	r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceCareerNotBegun, Career: r.def.Name})
 
 	return false, nil
@@ -255,6 +254,8 @@ func (m *scholarMechanics) researchAndPublication(r *careerRun, cc string) (term
 		if !waived {
 			died, disabled := r.injury(cc, mod, seq,
 				"Book 1 p. 76 chart 02 (Research Failure: reduce CC by negative Mods and Flux)")
+			outcome.endCause = seq
+
 			if died {
 				outcome.died = true
 

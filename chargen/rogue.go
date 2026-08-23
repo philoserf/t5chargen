@@ -90,8 +90,7 @@ func (*rogueMechanics) begin(r *careerRun) (bool, error) {
 		return true, nil
 	}
 
-	r.character.Age++
-	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceYearsElapsed, Value: 1})
+	r.character.advanceYears(1, r.log, seq)
 	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerNotBegun, Career: r.def.Name})
 
 	return false, nil

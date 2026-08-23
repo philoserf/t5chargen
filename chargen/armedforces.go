@@ -92,8 +92,7 @@ func (m *armedForcesMechanics) begin(r *careerRun) (bool, error) {
 	seq := r.log.Throw(throw, nil, r.def.Cite+" (To Begin vs "+check+")")
 
 	if !throw.Success {
-		r.character.Age++
-		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceYearsElapsed, Value: 1})
+		r.character.advanceYears(1, r.log, seq)
 		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerNotBegun, Career: r.def.Name})
 
 		return false, nil
@@ -396,6 +395,8 @@ func (m *armedForcesMechanics) riskAndReward(r *careerRun, cc string, opsMod int
 	} else {
 		died, disabled := r.injury(cc, negativeMods(caution, branchMod, opsMod), riskSeq,
 			r.def.Cite+" (Failure: reduce CC by negative Mods and Flux)")
+		outcome.endCause = riskSeq
+
 		if died {
 			outcome.died = true
 

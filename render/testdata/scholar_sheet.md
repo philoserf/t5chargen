@@ -6,7 +6,7 @@
 
 **Homeworld**: Regina A788899-C (Ph Pa Ri)
 
-**Age**: 47
+**Age**: 51
 
 | Str | Dex | End | Int | Edu | Soc |
 | --- | --- | --- | --- | --- | --- |
@@ -22,6 +22,6 @@
 
 ---
 
-Seed 23 (math/rand/v2-pcg) · schema 0.15.0 · engine 0.15.0 · policy 0.11.0
+Seed 23 (math/rand/v2-pcg) · schema 0.15.0 · engine 0.16.0 · policy 0.11.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1
