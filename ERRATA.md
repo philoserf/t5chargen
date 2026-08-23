@@ -1824,3 +1824,36 @@ more useful than one that returns nothing. But it stops adding to it. Fame
 is computed for the dead and muster out is not, which is the distinction
 the two pages draw: Fame is what a character was known for, and benefits
 are what he takes with him.
+
+### I-78: Chart M1 lists the Medal automatic for the Spacer and Soldier only (p. 70; p. 86)
+
+Chart M1's Automatics column reads "Medal — Spacer or Soldier". Chart 12
+awards Marines medals from the same Imperial Medals table on the same page,
+and p. 67's prose is careerless: "A character may have received heroism
+medals, campaign ribbons, and wound badges."
+
+Read as printed. The automatic is what chart M1 says it is, and the Marine
+keeps the decorations his own chart gave him — they are on his record
+either way, and chart F prices them for him. What he does not get is the
+line in the Automatics list.
+
+The reading costs nothing and the alternative would be an invention. It is
+recorded because a reader comparing a decorated Marine's sheet against a
+decorated Soldier's will find the difference and want to know whether it
+was noticed.
+
+### I-79: The Automatics are recorded, not logged (p. 70; docs/PRD.md FR10)
+
+"When a character ends character generation he may find that he already own
+some specific awards or items" (p. 67). The Automatics are read off the
+finished record — a Fighter-1 means a personal weapon, three Discoveries
+mean a TAS Life Membership — and nothing is rolled or chosen for them.
+
+FR10 requires a consequence to name the throw or the choice that caused it,
+and an Automatic has neither. So they are recorded on the character and
+rendered on the sheet, like the UPP and the Life Stage, rather than emitted
+as events with nothing to hang from.
+
+The Entitlements are different, and are logged: p. 69 offers a decision on
+each of them — "Any Entitlement can be cashed out for a lump sum equal to
+five years of payments" — and that decision is what the record hangs from.

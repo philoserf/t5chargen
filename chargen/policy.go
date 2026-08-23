@@ -75,6 +75,13 @@ func (DefaultPolicy) Choose(c Choice) int {
 //
 //nolint:exhaustive // Deliberately partitioned: the remaining rules are in Choose.
 func chooseNamed(c Choice) (int, bool) {
+	if c.ID == ChooseCashOut {
+		// POLICY.md: keep it. A pension outlives five years of itself
+		// for any character who lives, and the record is more useful
+		// carrying the stream than the lump.
+		return 0, true
+	}
+
 	if c.ID == ChooseBenefitDM {
 		// POLICY.md: apply the DM in full. The tables run from cheap to
 		// dear, so a partial DM only ever reaches a lower row.

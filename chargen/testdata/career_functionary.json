@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.23.0",
+  "schema_version": "0.24.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.24.0",
+  "engine_version": "0.25.0",
   "policy_version": "none",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -159,7 +159,7 @@
   ],
   "waivers_attempted": 1,
   "life_stage": 7,
-  "credits": 35000,
+  "credits": 35800,
   "benefits": [
     {
       "kind": "low_passage",
@@ -214,6 +214,21 @@
       "name": "Money",
       "career": "Functionary",
       "credits": 35000
+    }
+  ],
+  "automatics": [
+    "Gold Watch (Cr800)",
+    "Directorship",
+    "Fame",
+    "TAS Life Membership"
+  ],
+  "entitlements": [
+    {
+      "id": "functionary_pension",
+      "name": "Functionary's Pension",
+      "annual_credits": 120000,
+      "from_age": 66,
+      "cash_out": 600000
     }
   ],
   "fame": 2,
@@ -5245,6 +5260,39 @@
         "skill": "Money",
         "career": "Functionary",
         "delta": 35000
+      }
+    },
+    {
+      "seq": 323,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out: Entitlements",
+        "cite": "Book 1 p. 70 chart M1"
+      }
+    },
+    {
+      "seq": 324,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Cash out the Functionary's Pension?",
+        "options": [
+          "Keep it (Cr120000 a year from age 66)",
+          "Cash out (Cr600000)"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 69 (Cashing Out)"
+      }
+    },
+    {
+      "seq": 325,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 324,
+        "kind": "entitlement",
+        "skill": "Functionary's Pension",
+        "delta": 120000,
+        "value": 66
       }
     }
   ]

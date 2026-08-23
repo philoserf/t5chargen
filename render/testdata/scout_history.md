@@ -372,3 +372,8 @@ _Book 1 p. 79 chart 05 D_
 - #315 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #316 1D+6 = 5 = 11 — Book 1 p. 79 chart 05 D (Money column, 1D+6)
   - #317 (from #316) Money, worth Cr70000
+
+## Muster Out: Entitlements
+
+_Book 1 p. 70 chart M1_
+

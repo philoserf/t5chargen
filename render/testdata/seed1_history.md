@@ -145,3 +145,10 @@ _Book 1 p. 78 chart 04 D_
 - #104 policy chose "+2" of [+0, +1, +2]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #105 1D+2 = 6 = 8 — Book 1 p. 78 chart 04 D (Money column, 1D+2)
   - #106 (from #105) Money, worth Cr30000
+
+## Muster Out: Entitlements
+
+_Book 1 p. 70 chart M1_
+
+- #108 policy chose "Keep it (Cr5000 a year from age 66)" of [Keep it (Cr5000 a year from age 66), Cash out (Cr25000)]: Cash out the Citizen's Pension? — Book 1 p. 69 (Cashing Out)
+  - #109 (from #108) Citizen's Pension, Cr5000 a year from age 66

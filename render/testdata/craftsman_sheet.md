@@ -26,10 +26,14 @@
 
 **Benefits**: 1 StarPass
 
+**Automatics**: Fame, TAS Life Membership, Masterpieces
+
+**Citizen's Pension**: Cr5000 a year from age 66
+
 **Status**: Fame 20 (Sector)
 
 ---
 
-Seed 177 (math/rand/v2-pcg) · schema 0.23.0 · engine 0.24.0 · policy none
+Seed 177 (math/rand/v2-pcg) · schema 0.24.0 · engine 0.25.0 · policy none
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

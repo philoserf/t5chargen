@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.23.0",
+  "schema_version": "0.24.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.24.0",
-  "policy_version": "0.15.0",
+  "engine_version": "0.25.0",
+  "policy_version": "0.16.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 2978
@@ -134,6 +134,10 @@
       "career": "Noble",
       "credits": 200000
     }
+  ],
+  "automatics": [
+    "Fame",
+    "Land Grants"
   ],
   "fame": 19,
   "events": [
@@ -2104,6 +2108,14 @@
         "skill": "Money",
         "career": "Noble",
         "delta": 200000
+      }
+    },
+    {
+      "seq": 151,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out: Entitlements",
+        "cite": "Book 1 p. 70 chart M1"
       }
     }
   ]

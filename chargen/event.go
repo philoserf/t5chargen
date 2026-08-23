@@ -179,6 +179,10 @@ const (
 	// world (a Discovery)" (chart 05 p. 79). Value is the running count.
 	ConsequenceDiscovery ConsequenceKind = "discovery"
 
+	// ConsequenceEntitlement records an annual payment (chart M1 p. 70).
+	// Delta is what it pays a year and Value the age it begins.
+	ConsequenceEntitlement ConsequenceKind = "entitlement"
+
 	// ConsequenceBenefit records a muster-out award (chart M1 p. 70).
 	// Skill is the benefit's name, Value how many, Delta the credits it
 	// paid, and Characteristic the one a "Str +1" raised.

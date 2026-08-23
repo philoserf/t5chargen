@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.23.0",
+  "schema_version": "0.24.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.24.0",
+  "engine_version": "0.25.0",
   "policy_version": "none",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -216,6 +216,20 @@
       "name": "Money",
       "career": "Craftsman",
       "credits": 25000
+    }
+  ],
+  "automatics": [
+    "Fame",
+    "TAS Life Membership",
+    "Masterpieces"
+  ],
+  "entitlements": [
+    {
+      "id": "citizen_pension",
+      "name": "Citizen's Pension",
+      "annual_credits": 5000,
+      "from_age": 66,
+      "cash_out": 25000
     }
   ],
   "fame": 20,
@@ -5905,6 +5919,39 @@
         "skill": "Money",
         "career": "Craftsman",
         "delta": 25000
+      }
+    },
+    {
+      "seq": 386,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out: Entitlements",
+        "cite": "Book 1 p. 70 chart M1"
+      }
+    },
+    {
+      "seq": 387,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Cash out the Citizen's Pension?",
+        "options": [
+          "Keep it (Cr5000 a year from age 66)",
+          "Cash out (Cr25000)"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 69 (Cashing Out)"
+      }
+    },
+    {
+      "seq": 388,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 387,
+        "kind": "entitlement",
+        "skill": "Citizen's Pension",
+        "delta": 5000,
+        "value": 66
       }
     }
   ]

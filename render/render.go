@@ -58,6 +58,7 @@ func Sheet(c chargen.Character) string {
 	}
 
 	b.WriteString(benefitsLine(c))
+	b.WriteString(automaticsLine(c))
 
 	if c.Fame > 0 || c.WoundBadges > 0 || c.Disabled || c.Dead {
 		b.WriteString(statusLine(c))
@@ -260,14 +261,20 @@ func careerSpecificValues(record chargen.CareerRecord) []string {
 }
 
 // plural renders "1 term" / "2 terms" / "1 Discovery" / "2 Discoveries".
+//
+// A name the chart already spells with a count — "Pension x2",
+// "Retirement x2" — takes the count in front and nothing on the end.
 func plural(n int, noun string) string {
 	if n == 1 {
 		return "1 " + noun
 	}
 
-	if noun == "Discovery" {
+	switch {
+	case noun == "Discovery":
 		noun = "Discoveries"
-	} else {
+	case strings.HasSuffix(noun, "x2"):
+		// The chart already spells the count into the name.
+	default:
 		noun += "s"
 	}
 
@@ -532,6 +539,8 @@ func consequenceAgingText(c *chargen.ConsequenceEvent) string {
 		return fmt.Sprintf("aging: %s %+d = %d", c.Characteristic, c.Delta, c.Value)
 	case chargen.ConsequenceCharacteristicReset:
 		return c.Characteristic + " reduced to zero, reset to 1"
+	case chargen.ConsequenceEntitlement:
+		return entitlementText(c)
 	case chargen.ConsequenceBenefit:
 		return benefitText(c)
 	case chargen.ConsequenceFameComputed:
@@ -795,6 +804,32 @@ func benefitsLine(c chargen.Character) string {
 
 	if len(parts) > 0 {
 		fmt.Fprintf(&line, "**Benefits**: %s\n\n", strings.Join(parts, ", "))
+	}
+
+	return line.String()
+}
+
+// entitlementText renders an annual payment, or the lump taken instead
+// (chart M1 p. 70; p. 69).
+func entitlementText(c *chargen.ConsequenceEvent) string {
+	if c.Characteristic != "" {
+		return c.Skill + ", " + c.Characteristic
+	}
+
+	return fmt.Sprintf("%s, Cr%d a year from age %d", c.Skill, c.Delta, c.Value)
+}
+
+// automaticsLine renders what a character already owns at muster out
+// (chart M1's Automatics, p. 70), and the pensions he retires on.
+func automaticsLine(c chargen.Character) string {
+	var line strings.Builder
+
+	if len(c.Automatics) > 0 {
+		fmt.Fprintf(&line, "**Automatics**: %s\n\n", strings.Join(c.Automatics, ", "))
+	}
+
+	for _, e := range c.Entitlements {
+		fmt.Fprintf(&line, "**%s**: Cr%d a year from age %d\n\n", e.Name, e.AnnualCredits, e.FromAge)
 	}
 
 	return line.String()
