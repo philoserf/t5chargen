@@ -185,7 +185,13 @@ func (r *musterOutRun) roll(record *CareerRecord, def *career.Definition) error 
 
 	// "A result that duplicates a previous (unwanted or unusable) benefit
 	// may be rerolled until a different benefit is received" (p. 69).
-	if rerollable[cell.Kind] && r.held[cell.Kind] {
+	//
+	// Until, not once. The loop is bounded by what the dice can actually
+	// reach: a throw of 1D+DM clamped to the table can only land on a
+	// handful of rows, and if every one of them holds the same duplicate
+	// there is no different benefit to receive and the rule asks for
+	// something the table cannot give (interpretation I-74).
+	for r.isDuplicate(cell.Kind) && r.canDiffer(table, column, dm) {
 		r.log.Consequence(ConsequenceEvent{
 			Cause: roll, Kind: ConsequenceBenefitLost, Career: record.Career,
 			Skill: string(cell.Kind),
@@ -207,15 +213,19 @@ func (r *musterOutRun) throw(
 	seq := r.log.Roll(roll, table.Cite+" ("+column+" column, 1D+"+strconv.Itoa(dm)+")")
 
 	index := min(max(roll.Total, 1), len(table.Rows)) - 1
-	row := table.Rows[index]
 
+	return columnCell(table.Rows[index], column), seq
+}
+
+// columnCell picks a row's cell for a named column.
+func columnCell(row career.MusterOutRow, column string) career.MusterOutCell {
 	switch column {
 	case "Money":
-		return row.Money, seq
+		return row.Money
 	case "Power":
-		return *row.Power, seq
+		return *row.Power
 	default:
-		return row.Benefit, seq
+		return row.Benefit
 	}
 }
 
@@ -492,4 +502,30 @@ func (r *musterOutRun) awardKnighthood(
 	}, cause)
 
 	return nil
+}
+
+// isDuplicate reports whether a cell repeats a benefit already held that
+// is worth nothing twice (p. 69).
+func (r *musterOutRun) isDuplicate(kind benefit.Kind) bool {
+	return rerollable[kind] && r.held[kind]
+}
+
+// canDiffer reports whether a reroll could land on anything the character
+// does not already hold. The throw is 1D plus the DM, clamped to the last
+// row, so the rows it can reach are a known span; if every one of them
+// repeats something held, no number of rerolls will find "a different
+// benefit" and the rule asks for what the table cannot give.
+//
+// The question is what the reachable rows offer, not merely whether they
+// differ from each other: a span of three held duplicates differs plenty
+// and still has nothing to give.
+func (r *musterOutRun) canDiffer(table *career.MusterOut, column string, dm int) bool {
+	for face := 1; face <= 6; face++ {
+		row := table.Rows[min(max(face+dm, 1), len(table.Rows))-1]
+		if !r.isDuplicate(columnCell(row, column).Kind) {
+			return true
+		}
+	}
+
+	return false
 }

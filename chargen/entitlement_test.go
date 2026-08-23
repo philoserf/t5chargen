@@ -386,25 +386,96 @@ func TestReserveYearsAreCalendarYears(t *testing.T) {
 	}
 }
 
-// TestADoublingBelongsToItsCareer pins p. 68: "Pension x 2 doubles the
-// Pension the character receives from the career" — the career the benefit
-// was rolled on, not every pension the character holds.
-func TestADoublingBelongsToItsCareer(t *testing.T) {
-	checked := 0
+// serviceThenFunctionary leaves an Armed Forces career, which earns a
+// Reserve Pension, for the Functionary, whose Money column carries the
+// Pension x2 cells. No auto-generated character does either.
+type serviceThenFunctionary struct {
+	offers  int
+	arrived bool
+}
 
-	for seed := uint64(1); seed <= 200; seed++ {
-		c, err := chargen.Generate(chargen.Options{Seed: seed, Decider: functionaryPath{first: "Citizen"}})
-		if err != nil {
-			continue
+func (d *serviceThenFunctionary) Choose(c chargen.Choice) int {
+	//nolint:exhaustive // Deliberately partitioned: the rest defer to the auto policy.
+	switch c.ID {
+	case chargen.ChooseCareerChange:
+		d.offers++
+
+		if d.arrived || d.offers < 5 {
+			return 0
 		}
 
-		if assertDoublingStaysHome(t, seed, c) {
-			checked++
+		return 1
+	case chargen.ChooseCareer:
+		if i := indexOf(c.Options, "Functionary"); i >= 0 {
+			d.arrived = true
+
+			return i
+		}
+
+		if i := indexOf(c.Options, "Soldier"); i >= 0 {
+			return i
+		}
+	default:
+	}
+
+	return chargen.DefaultPolicy{}.Choose(c)
+}
+
+func (*serviceThenFunctionary) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
+
+// TestADoublingBelongsToItsCareer pins p. 68: "Pension x 2 doubles the
+// Pension the character receives from the career" — the career the
+// benefit was rolled on, not every pension the character holds.
+//
+// Pinned rather than swept for. The case needs a character holding two
+// pensions with a doubling on one of them, which takes a career change out
+// of an Armed Forces career into the Functionary; a sweep produces none,
+// and this test skipped silently until it was pinned.
+func TestADoublingBelongsToItsCareer(t *testing.T) {
+	for _, seed := range []uint64{55, 176, 295} {
+		assertDoublingStaysHome(t, seed)
+	}
+}
+
+// assertDoublingStaysHome checks one character holding two pensions: the
+// Functionary's doublings reach his own pension and no further.
+func assertDoublingStaysHome(t *testing.T, seed uint64) {
+	t.Helper()
+
+	c, err := chargen.Generate(chargen.Options{Seed: seed, Decider: &serviceThenFunctionary{}})
+	if err != nil {
+		t.Fatalf("seed %d: %v", seed, err)
+	}
+
+	reserve := entitlementNamed(c, "Reserve Pension")
+	functionary := entitlementNamed(c, "Functionary's Pension")
+
+	if reserve == nil || functionary == nil {
+		t.Fatalf("seed %d no longer holds both pensions; find and pin another", seed)
+	}
+
+	doublings := 0
+
+	for _, got := range c.Benefits {
+		if got.Name == "Pension x2" && got.Career == "Functionary" {
+			doublings += max(got.Count, 1)
 		}
 	}
 
-	if checked == 0 {
-		t.Skip("no character held both a doubled Functionary pension and a Reserve pension")
+	if doublings == 0 {
+		t.Fatalf("seed %d no longer doubles the Functionary's pension; find and pin another", seed)
+	}
+
+	if want := 15_000 * (doublings + 1); functionary.AnnualCredits != want {
+		t.Errorf("seed %d: %d doublings gave the Functionary Cr%d a year, want Cr%d",
+			seed, doublings, functionary.AnnualCredits, want)
+	}
+
+	// And no further: the Reserve Pension is Cr100 a Reserve year,
+	// undoubled, because no chart 13 table can double it.
+	if want := 100 * reserveYearsOf(c); reserve.AnnualCredits != want {
+		t.Errorf("seed %d: %d Functionary doublings reached the Reserve Pension (Cr%d, want Cr%d)",
+			seed, doublings, reserve.AnnualCredits, want)
 	}
 }
 
@@ -447,37 +518,6 @@ func assertReserveYears(t *testing.T, seed uint64, c chargen.Character) bool {
 	// Cr100 a year over the years from the first leaving to 66.
 	if want := 100 * reserveYearsOf(c); pension.AnnualCredits != want {
 		t.Errorf("seed %d: two services pay Cr%d a year, want Cr%d", seed, pension.AnnualCredits, want)
-	}
-
-	return true
-}
-
-// assertDoublingStaysHome checks that a Functionary's Pension x2 has not
-// reached a Reserve Pension, and reports whether there was a case to
-// check.
-func assertDoublingStaysHome(t *testing.T, seed uint64, c chargen.Character) bool {
-	t.Helper()
-
-	reserve := entitlementNamed(c, "Reserve Pension")
-	if reserve == nil || entitlementNamed(c, "Functionary's Pension") == nil {
-		return false
-	}
-
-	doublings := 0
-
-	for _, got := range c.Benefits {
-		if got.Name == "Pension x2" && got.Career == "Functionary" {
-			doublings += max(got.Count, 1)
-		}
-	}
-
-	if doublings == 0 {
-		return false
-	}
-
-	if want := 100 * reserveYearsOf(c); reserve.AnnualCredits != want {
-		t.Errorf("seed %d: %d Functionary doublings reached the Reserve Pension (Cr%d, want Cr%d)",
-			seed, doublings, reserve.AnnualCredits, want)
 	}
 
 	return true
