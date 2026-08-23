@@ -30,7 +30,8 @@ one.
 
 What milestone 3 does not cover, by design, is listed against its owning
 milestone in the rows below — chiefly muster out, aging, career changes,
-and the fame system, all milestone 4.
+and the fame system, all milestone 4, which docs/MILESTONE-4.md scopes and
+sequences.
 
 ## Foundations
 
