@@ -1,14 +1,7 @@
 {
   "name": "Rogue",
   "cite": "Book 1 p. 84 chart 10",
-  "controlling_characteristics": [
-    "Str",
-    "Dex",
-    "End",
-    "Int",
-    "Edu",
-    "Soc"
-  ],
+  "controlling_characteristics": ["Str", "Dex", "End", "Int", "Edu", "Soc"],
   "cc_fixed": true,
   "continue_cc": true,
   "continue_mod": "terms",

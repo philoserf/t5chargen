@@ -13,12 +13,42 @@
   "ranks": [
     { "id": "RX", "class": "rating", "title": "Temp" },
     { "id": "R0", "class": "rating", "title": "Spacehand" },
-    { "id": "R1", "class": "rating", "title": "Steward Apprentice", "auto_skill": "Steward" },
-    { "id": "R2", "class": "rating", "title": "Drive Helper", "auto_skill": "Engineer" },
-    { "id": "M1", "class": "officer", "title": "Fourth Officer", "auto_skill": "Steward" },
-    { "id": "M2", "class": "officer", "title": "Third Officer", "auto_skill": "Engineer" },
-    { "id": "M3", "class": "officer", "title": "Second Officer", "auto_skill": "Astrogator" },
-    { "id": "M4", "class": "officer", "title": "First Officer", "auto_skill": "Pilot" },
+    {
+      "id": "R1",
+      "class": "rating",
+      "title": "Steward Apprentice",
+      "auto_skill": "Steward"
+    },
+    {
+      "id": "R2",
+      "class": "rating",
+      "title": "Drive Helper",
+      "auto_skill": "Engineer"
+    },
+    {
+      "id": "M1",
+      "class": "officer",
+      "title": "Fourth Officer",
+      "auto_skill": "Steward"
+    },
+    {
+      "id": "M2",
+      "class": "officer",
+      "title": "Third Officer",
+      "auto_skill": "Engineer"
+    },
+    {
+      "id": "M3",
+      "class": "officer",
+      "title": "Second Officer",
+      "auto_skill": "Astrogator"
+    },
+    {
+      "id": "M4",
+      "class": "officer",
+      "title": "First Officer",
+      "auto_skill": "Pilot"
+    },
     { "id": "M5", "class": "officer", "title": "Captain" },
     { "id": "M6", "class": "officer", "title": "Senior Captain" }
   ],

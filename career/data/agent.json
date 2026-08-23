@@ -1,18 +1,11 @@
 {
   "name": "Agent",
   "cite": "Book 1 p. 83 chart 09",
-  "controlling_characteristics": [
-    "Str",
-    "Dex",
-    "End",
-    "Int"
-  ],
+  "controlling_characteristics": ["Str", "Dex", "End", "Int"],
   "continue_characteristic": "Str",
   "continue_mod": "terms",
   "skills_per_term": 2,
-  "begin_checks": [
-    "End"
-  ],
+  "begin_checks": ["End"],
   "undercover": {
     "cite": "Book 1 p. 83 chart 09 (Agent Undercover Assignment)",
     "rows": [
@@ -21,119 +14,77 @@
         "b": 1,
         "career": "Army Enlisted",
         "source": "Soldier",
-        "titles": [
-          "Private",
-          "Corporal",
-          "Sergeant"
-        ]
+        "titles": ["Private", "Corporal", "Sergeant"]
       },
       {
         "a": 1,
         "b": 2,
         "career": "Army Officer",
         "source": "Soldier",
-        "titles": [
-          "First Lieutenant",
-          "Captain",
-          "Major"
-        ]
+        "titles": ["First Lieutenant", "Captain", "Major"]
       },
       {
         "a": 1,
         "b": 3,
         "career": "Marine Enlisted",
         "source": "Marine",
-        "titles": [
-          "Corporal",
-          "Sergeant",
-          "Master Sergeant"
-        ]
+        "titles": ["Corporal", "Sergeant", "Master Sergeant"]
       },
       {
         "a": 1,
         "b": 4,
         "career": "Marine Officer",
         "source": "Marine",
-        "titles": [
-          "Captain",
-          "Force Commander",
-          "Coronel"
-        ]
+        "titles": ["Captain", "Force Commander", "Coronel"]
       },
       {
         "a": 1,
         "b": 5,
         "career": "Navy Enlisted",
         "source": "Spacer",
-        "titles": [
-          "Able Spacer",
-          "Petty Officer First",
-          "Master Chief"
-        ]
+        "titles": ["Able Spacer", "Petty Officer First", "Master Chief"]
       },
       {
         "a": 1,
         "b": 6,
         "career": "Navy Officer",
         "source": "Spacer",
-        "titles": [
-          "Lieutenant",
-          "Commander",
-          "Captain"
-        ]
+        "titles": ["Lieutenant", "Commander", "Captain"]
       },
       {
         "a": 2,
         "b": 1,
         "career": "Scholar",
         "source": "Scholar",
-        "titles": [
-          "Amateur",
-          "Lecturer",
-          "Instructor"
-        ]
+        "titles": ["Amateur", "Lecturer", "Instructor"]
       },
       {
         "a": 2,
         "b": 2,
         "career": "Scholar",
         "source": "Scholar",
-        "titles": [
-          "Asst Professor",
-          "Professor",
-          "Dist Professor"
-        ]
+        "titles": ["Asst Professor", "Professor", "Dist Professor"]
       },
       {
         "a": 2,
         "b": 3,
         "career": "Entertainer",
         "source": "Entertainer",
-        "titles": [
-          "Musician",
-          "Actor",
-          "Dancer"
-        ]
+        "titles": ["Musician", "Actor", "Dancer"]
       },
       {
         "a": 2,
         "b": 4,
         "career": "Entertainer",
         "source": "Entertainer",
-        "titles": [
-          "Artist",
-          "Author",
-          "Chef"
-        ]
+        "titles": ["Artist", "Author", "Chef"]
       },
       {
         "a": 2,
         "b": 5,
         "career": "Citizen",
         "source": "Citizen",
-        "titles": [
-          "Roll on Citizen Life Skills for Job"
-        ],
+        "titles": ["Roll on Citizen Life Skills for Job"],
         "job_table": true
       },
       {
@@ -141,9 +92,7 @@
         "b": 6,
         "career": "Citizen",
         "source": "Citizen",
-        "titles": [
-          "Roll on Citizen Life Skills for Hobby"
-        ],
+        "titles": ["Roll on Citizen Life Skills for Hobby"],
         "job_table": true
       },
       {
@@ -151,53 +100,35 @@
         "b": 1,
         "career": "Merchant",
         "source": "Merchant",
-        "titles": [
-          "Engineer",
-          "Astrogator",
-          "Steward"
-        ]
+        "titles": ["Engineer", "Astrogator", "Steward"]
       },
       {
         "a": 3,
         "b": 2,
         "career": "Merchant",
         "source": "Merchant",
-        "titles": [
-          "Pilor",
-          "Freightmaster",
-          "Counsellor"
-        ]
+        "titles": ["Pilor", "Freightmaster", "Counsellor"]
       },
       {
         "a": 3,
         "b": 3,
         "career": "Scout",
         "source": "Scout",
-        "titles": [
-          "Courier",
-          "Courier",
-          "Courier"
-        ]
+        "titles": ["Courier", "Courier", "Courier"]
       },
       {
         "a": 3,
         "b": 4,
         "career": "Scout",
         "source": "Scout",
-        "titles": [
-          "World Discover"
-        ]
+        "titles": ["World Discover"]
       },
       {
         "a": 3,
         "b": 5,
         "career": "Noble",
         "source": "Noble",
-        "titles": [
-          "Knight",
-          "Baron",
-          "Marquis"
-        ]
+        "titles": ["Knight", "Baron", "Marquis"]
       },
       {
         "a": 3,

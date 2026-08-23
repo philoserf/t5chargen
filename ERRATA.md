@@ -428,7 +428,7 @@ Comeback that lands above the previous Fame is a Fame increase for table B
 
 Two decisions, both from the printed clause:
 
-1. **A Comeback replaces the term's "+F +F* +F*" progression** rather than
+1. **A Comeback replaces the term's "+F +F\* +F\*" progression** rather than
    preceding it. The Fame table gives one Fame determination per term; a
    reset followed by the term's Flux would apply two.
 2. **A Comeback term earns neither the Talent nor the two extra skills**,
@@ -543,7 +543,7 @@ Chart 02 reads: "If Publication Roll is 4 less than Characteristic, it is
 <Award-Winning> and counts as TWO."
 
 Read against the raw characteristic, not the modified target: the chart
-says *Characteristic*, and the Publication throw's target is the
+says _Characteristic_, and the Publication throw's target is the
 characteristic with the opposite-sign Caution or Bravery mod applied. A
 Publication roll of Characteristic − 4 or lower is Award-Winning and adds
 two publications.
@@ -553,7 +553,7 @@ Bravery mod manufacture awards, which the printed word does not support.
 
 The margin is read off a roll that carried the Publication on its own. A
 Caution Mod of +5 or more puts the Publication target below
-Characteristic − 4, so a *rejected* roll can sit inside the margin; a
+Characteristic − 4, so a _rejected_ roll can sit inside the margin; a
 rejection rescued by a Waiver is a plain Publication, since the chart
 qualifies the award by the Publication Roll and that roll did not publish.
 
@@ -637,7 +637,7 @@ Chart 11 gives "To Begin Automatic* ... *if Soc B+" and prints no To Begin
 throw. A character below Social Standing B therefore makes no attempt.
 
 Implemented as no throw, no year, and a career_not_begun consequence. P. 65
-charges a year for a *failed attempt* — "Each failed attempt (both Begin or
+charges a year for a _failed attempt_ — "Each failed attempt (both Begin or
 Retry) takes one year" — and distinguishes attempts from prerequisites:
 "Pre-Requisites. Some Careers have requirements before a character may
 attempt to Begin." An unqualified character never attempts, so nothing
@@ -689,7 +689,7 @@ income, which is the muster-out material deferred to milestone 4. Reading
 box A as the procedure and the note as the setting description keeps one
 rule in force during generation.
 
-Taken literally, box A also awards a Land Grant for *any* in-career Soc
+Taken literally, box A also awards a Land Grant for _any_ in-career Soc
 increase, not only Elevation's: chart 11 table C column 1 line 6 is "C6
 +1", which raises a Noble's Soc during the career. That grant is awarded.
 Soc increases before the career — homeworld skills, education — are not,
@@ -735,7 +735,7 @@ Read literally, every unharmed term would also add +1 to later promotions.
 The Medals table is indexed by "Rew= Successful unmodified **Reward** Roll"
 and has no row for a Risk result, so a Risk success awards a decoration
 outside the table. It is counted on the record and carries no modifier.
-The p. 66 Marine example agrees in spirit, awarding a *Campaign Ribbon* on
+The p. 66 Marine example agrees in spirit, awarding a _Campaign Ribbon_ on
 its Risk success rather than a table medal.
 
 The alternative — treating the badge as a table XS worth +1 — is rejected
@@ -791,9 +791,9 @@ Not implemented; see COVERAGE.md.
 Chart 08's Risk & Reward grid gives the Reward-success cell as "XS Exemplary
 Service, Medal", and the prose beside it as "Success: XS Exemplary Service
 and consult Medals table". Read as a conjunction, every Reward success would
-award an Exemplary Service *plus* whatever the Medals table returns.
+award an Exemplary Service _plus_ whatever the Medals table returns.
 
-The Medals table itself is the discriminator: its lines 2 through 8 *are*
+The Medals table itself is the discriminator: its lines 2 through 8 _are_
 "XS Exemplary Service" (p. 70), so the cell names the common case and then
 sends the reader to the table for the rest. The p. 66 worked example
 confirms it — Eneri Dinsha succeeds at Reward twice, taking line 4 (XS) in
@@ -878,7 +878,7 @@ order, without repeats, and read as follows:
   triggered.
 - Characteristic cells are excluded: they are not skills, and an Agent
   gathering information undercover is not living the cover career's life.
-- Major and Minor cells are excluded: they name the *Agent's* areas, not
+- Major and Minor cells are excluded: they name the _Agent's_ areas, not
   the cover career's, so they offer nothing the cover identity teaches.
 - Chart 13's "Any Skill*** from Citizen Life Skills and Knowledges" and
   chart 09's own "Any Knowledge" expand to those lists.
@@ -915,7 +915,7 @@ Functionary, whose career chart 13 says "is never a first career" — so the
 engine cannot run it until career changes land (docs/PRD.md milestone 4),
 and one assignment in eighteen had nowhere to read its skills from.
 
-Chart 13's table C is therefore transcribed as a *reference* career: loaded
+Chart 13's table C is therefore transcribed as a _reference_ career: loaded
 and validated like any other, absent from the available careers and from
 the mechanics registry, and read only by chart 09's table. The alternative
 — recording the assignment and awarding nothing — would have quietly

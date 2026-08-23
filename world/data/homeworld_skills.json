@@ -20,48 +20,168 @@
   ],
   "skills": [
     { "tc": "Ab", "label": "Data Repository", "grant": "none" },
-    { "tc": "Ag", "label": "Agricultural", "grant": "skill", "skills": ["Animals"] },
+    {
+      "tc": "Ag",
+      "label": "Agricultural",
+      "grant": "skill",
+      "skills": ["Animals"]
+    },
     { "tc": "An", "label": "Ancient Site", "grant": "none" },
     { "tc": "As", "label": "Asteroid", "grant": "skill", "skills": ["Zero-G"] },
     { "tc": "Ba", "label": "Barren", "grant": "none" },
-    { "tc": "Co", "label": "Cold", "grant": "skill", "skills": ["Hostile Environ"] },
-    { "tc": "Cp", "label": "Subsector Capital", "grant": "skill", "skills": ["Admin"] },
-    { "tc": "Cs", "label": "Sector Capital", "grant": "skill", "skills": ["Bureaucrat"] },
-    { "tc": "Cx", "label": "Capital", "grant": "skill", "skills": ["Language"] },
-    { "tc": "Da", "label": "Dangerous", "grant": "skill", "skills": ["Fighter"] },
+    {
+      "tc": "Co",
+      "label": "Cold",
+      "grant": "skill",
+      "skills": ["Hostile Environ"]
+    },
+    {
+      "tc": "Cp",
+      "label": "Subsector Capital",
+      "grant": "skill",
+      "skills": ["Admin"]
+    },
+    {
+      "tc": "Cs",
+      "label": "Sector Capital",
+      "grant": "skill",
+      "skills": ["Bureaucrat"]
+    },
+    {
+      "tc": "Cx",
+      "label": "Capital",
+      "grant": "skill",
+      "skills": ["Language"]
+    },
+    {
+      "tc": "Da",
+      "label": "Dangerous",
+      "grant": "skill",
+      "skills": ["Fighter"]
+    },
     { "tc": "De", "label": "Desert", "grant": "skill", "skills": ["Survival"] },
     { "tc": "Di", "label": "Die Back", "grant": "none" },
-    { "tc": "Ds", "label": "Deep Space", "grant": "skill", "skills": ["Vacc Suit", "Zero-G"] },
+    {
+      "tc": "Ds",
+      "label": "Deep Space",
+      "grant": "skill",
+      "skills": ["Vacc Suit", "Zero-G"]
+    },
     { "tc": "Fa", "label": "Farming", "grant": "skill", "skills": ["Animals"] },
-    { "tc": "Fl", "label": "Fluid", "grant": "skill", "skills": ["Hostile Environ"] },
+    {
+      "tc": "Fl",
+      "label": "Fluid",
+      "grant": "skill",
+      "skills": ["Hostile Environ"]
+    },
     { "tc": "Fo", "label": "Forbidden", "grant": "none" },
-    { "tc": "Fr", "label": "Frozen", "grant": "skill", "skills": ["Hostile Environ"] },
-    { "tc": "Ga", "label": "Garden World", "grant": "skill", "skills": ["Trader"] },
-    { "tc": "He", "label": "Hellworld", "grant": "skill", "skills": ["Hostile Environ"] },
-    { "tc": "Hi", "label": "High Population", "grant": "skill", "skills": ["Streetwise"] },
-    { "tc": "Ho", "label": "Hot", "grant": "skill", "skills": ["Hostile Environ"] },
-    { "tc": "Ic", "label": "Ice-Capped", "grant": "skill", "skills": ["Vacc Suit"] },
+    {
+      "tc": "Fr",
+      "label": "Frozen",
+      "grant": "skill",
+      "skills": ["Hostile Environ"]
+    },
+    {
+      "tc": "Ga",
+      "label": "Garden World",
+      "grant": "skill",
+      "skills": ["Trader"]
+    },
+    {
+      "tc": "He",
+      "label": "Hellworld",
+      "grant": "skill",
+      "skills": ["Hostile Environ"]
+    },
+    {
+      "tc": "Hi",
+      "label": "High Population",
+      "grant": "skill",
+      "skills": ["Streetwise"]
+    },
+    {
+      "tc": "Ho",
+      "label": "Hot",
+      "grant": "skill",
+      "skills": ["Hostile Environ"]
+    },
+    {
+      "tc": "Ic",
+      "label": "Ice-Capped",
+      "grant": "skill",
+      "skills": ["Vacc Suit"]
+    },
     { "tc": "In", "label": "Industrial", "grant": "trade" },
     { "tc": "Lk", "label": "Locked", "grant": "none" },
-    { "tc": "Lo", "label": "Low Population", "grant": "skill", "skills": ["Flyer"] },
+    {
+      "tc": "Lo",
+      "label": "Low Population",
+      "grant": "skill",
+      "skills": ["Flyer"]
+    },
     { "tc": "Mi", "label": "Mining", "grant": "skill", "skills": ["Survey"] },
     { "tc": "Mr", "label": "Military Rule", "grant": "none" },
-    { "tc": "Na", "label": "Non-agricultural", "grant": "skill", "skills": ["Survey"] },
-    { "tc": "Ni", "label": "Non-industrial", "grant": "skill", "skills": ["Driver"] },
-    { "tc": "Oc", "label": "Ocean World", "grant": "skill", "skills": ["High-G"] },
-    { "tc": "Pa", "label": "Pre-Agricultural", "grant": "skill", "skills": ["Trader"] },
+    {
+      "tc": "Na",
+      "label": "Non-agricultural",
+      "grant": "skill",
+      "skills": ["Survey"]
+    },
+    {
+      "tc": "Ni",
+      "label": "Non-industrial",
+      "grant": "skill",
+      "skills": ["Driver"]
+    },
+    {
+      "tc": "Oc",
+      "label": "Ocean World",
+      "grant": "skill",
+      "skills": ["High-G"]
+    },
+    {
+      "tc": "Pa",
+      "label": "Pre-Agricultural",
+      "grant": "skill",
+      "skills": ["Trader"]
+    },
     { "tc": "Ph", "label": "Pre-High Population", "grant": "none" },
-    { "tc": "Pi", "label": "Pre-Industrial", "grant": "skill", "skills": ["JOT"] },
+    {
+      "tc": "Pi",
+      "label": "Pre-Industrial",
+      "grant": "skill",
+      "skills": ["JOT"]
+    },
     { "tc": "Po", "label": "Poor", "grant": "skill", "skills": ["Steward"] },
-    { "tc": "Pr", "label": "Pre-Rich", "grant": "skill", "skills": ["Craftsman"] },
+    {
+      "tc": "Pr",
+      "label": "Pre-Rich",
+      "grant": "skill",
+      "skills": ["Craftsman"]
+    },
     { "tc": "Px", "label": "Prison Exile Camp", "grant": "none" },
     { "tc": "Pz", "label": "Puzzling", "grant": "none" },
     { "tc": "Re", "label": "Reserve", "grant": "none" },
     { "tc": "Ri", "label": "Rich", "grant": "art" },
     { "tc": "Tr", "label": "Tropic", "grant": "skill", "skills": ["Survival"] },
     { "tc": "Tu", "label": "Tundra", "grant": "skill", "skills": ["Survival"] },
-    { "tc": "Tz", "label": "Twilight Zone", "grant": "skill", "skills": ["Driver"] },
-    { "tc": "Va", "label": "Vacuum", "grant": "skill", "skills": ["Vacc Suit"] },
-    { "tc": "Wa", "label": "Water World", "grant": "skill", "skills": ["Seafarer"] }
+    {
+      "tc": "Tz",
+      "label": "Twilight Zone",
+      "grant": "skill",
+      "skills": ["Driver"]
+    },
+    {
+      "tc": "Va",
+      "label": "Vacuum",
+      "grant": "skill",
+      "skills": ["Vacc Suit"]
+    },
+    {
+      "tc": "Wa",
+      "label": "Water World",
+      "grant": "skill",
+      "skills": ["Seafarer"]
+    }
   ]
 }

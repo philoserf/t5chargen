@@ -1,12 +1,7 @@
 {
   "name": "Citizen",
   "cite": "Book 1 p. 78 chart 04",
-  "controlling_characteristics": [
-    "Str",
-    "Dex",
-    "End",
-    "Int"
-  ],
+  "controlling_characteristics": ["Str", "Dex", "End", "Int"],
   "continue_target": 10,
   "skills_per_term": 4,
   "skill_columns": [
@@ -204,104 +199,20 @@
   ],
   "job_table": [
     [
-      [
-        "ACV",
-        "Comms",
-        "High-G",
-        "Steward",
-        "Ordnance",
-        "Naval Architect"
-      ],
-      [
-        "JOT",
-        "Rider",
-        "Sensors",
-        "Forward Observer",
-        "Survival",
-        "Streetwise"
-      ],
-      [
-        "LTA",
-        "Spines",
-        "Flapper",
-        "Seafarer",
-        "No Skill",
-        "Astrogator"
-      ],
-      [
-        "WMD",
-        "Leader",
-        "Tracked",
-        "Engineer",
-        "Computer",
-        "Navigator"
-      ],
-      [
-        "Chef",
-        "Survey",
-        "Animals",
-        "Fluidics",
-        "Bay Weapons",
-        "Explosives"
-      ],
-      [
-        "Mole",
-        "Dancer",
-        "Tactics",
-        "Launcher",
-        "Magnetics",
-        "Jump Drives"
-      ]
+      ["ACV", "Comms", "High-G", "Steward", "Ordnance", "Naval Architect"],
+      ["JOT", "Rider", "Sensors", "Forward Observer", "Survival", "Streetwise"],
+      ["LTA", "Spines", "Flapper", "Seafarer", "No Skill", "Astrogator"],
+      ["WMD", "Leader", "Tracked", "Engineer", "Computer", "Navigator"],
+      ["Chef", "Survey", "Animals", "Fluidics", "Bay Weapons", "Explosives"],
+      ["Mole", "Dancer", "Tactics", "Launcher", "Magnetics", "Jump Drives"]
     ],
     [
-      [
-        "Grav",
-        "Artist",
-        "Turrets",
-        "Teamster",
-        "Photonics",
-        "Counsellor"
-      ],
-      [
-        "Boat",
-        "Legged",
-        "Teacher",
-        "Designer",
-        "Vacc Suit",
-        "Sub"
-      ],
-      [
-        "Ship",
-        "Sapper",
-        "Unarmed",
-        "Engineer",
-        "Artillery",
-        "Aeronautics"
-      ],
-      [
-        "Winged",
-        "Driver",
-        "Exotics",
-        "Language",
-        "Craftsman",
-        "Aquanautics"
-      ],
-      [
-        "Recon",
-        "Gunner",
-        "Stealth",
-        "Musician",
-        "Gravitics",
-        "Battle Dress"
-      ],
-      [
-        "Actor",
-        "Blades",
-        "Trainer",
-        "Strategy",
-        "Forensics",
-        "Electronics"
-      ]
+      ["Grav", "Artist", "Turrets", "Teamster", "Photonics", "Counsellor"],
+      ["Boat", "Legged", "Teacher", "Designer", "Vacc Suit", "Sub"],
+      ["Ship", "Sapper", "Unarmed", "Engineer", "Artillery", "Aeronautics"],
+      ["Winged", "Driver", "Exotics", "Language", "Craftsman", "Aquanautics"],
+      ["Recon", "Gunner", "Stealth", "Musician", "Gravitics", "Battle Dress"],
+      ["Actor", "Blades", "Trainer", "Strategy", "Forensics", "Electronics"]
     ],
     [
       [
@@ -312,30 +223,9 @@
         "Biologics",
         "Hostile Environ"
       ],
-      [
-        "Pilot",
-        "Author",
-        "Liaison",
-        "Polymers",
-        "Ortillery",
-        "Power Systems"
-      ],
-      [
-        "Rotor",
-        "Broker",
-        "Athlete",
-        "Advocate",
-        "Automotive",
-        "Life Support"
-      ],
-      [
-        "Admin",
-        "Trader",
-        "Fighter",
-        "Computer",
-        "Bureaucrat",
-        "Slug Throwers"
-      ],
+      ["Pilot", "Author", "Liaison", "Polymers", "Ortillery", "Power Systems"],
+      ["Rotor", "Broker", "Athlete", "Advocate", "Automotive", "Life Support"],
+      ["Admin", "Trader", "Fighter", "Computer", "Bureaucrat", "Slug Throwers"],
       [
         "Beams",
         "Sprays",
@@ -344,14 +234,7 @@
         "Heavy Weapons",
         "Fleet Tactics"
       ],
-      [
-        "Medic",
-        "Gambler",
-        "Screens",
-        "Mechanic",
-        "Programmer",
-        "Spacecraft"
-      ]
+      ["Medic", "Gambler", "Screens", "Mechanic", "Programmer", "Spacecraft"]
     ]
   ]
 }

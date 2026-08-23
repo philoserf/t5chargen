@@ -10,10 +10,30 @@
     { "roll": 6, "code": "XS", "name": "Exemplary Service", "mod": 1 },
     { "roll": 7, "code": "XS", "name": "Exemplary Service", "mod": 1 },
     { "roll": 8, "code": "XS", "name": "Exemplary Service", "mod": 1 },
-    { "roll": 9, "code": "MCUF", "name": "Meritorious Conduct Under Fire", "mod": 2 },
-    { "roll": 10, "code": "MCUF", "name": "Meritorious Conduct Under Fire", "mod": 2 },
-    { "roll": 11, "code": "MCG", "name": "Medal for Conspicuous Gallantry", "mod": 3 },
-    { "roll": 12, "code": "SEH", "name": "Starburst for Extreme Heroism", "mod": 4 },
+    {
+      "roll": 9,
+      "code": "MCUF",
+      "name": "Meritorious Conduct Under Fire",
+      "mod": 2
+    },
+    {
+      "roll": 10,
+      "code": "MCUF",
+      "name": "Meritorious Conduct Under Fire",
+      "mod": 2
+    },
+    {
+      "roll": 11,
+      "code": "MCG",
+      "name": "Medal for Conspicuous Gallantry",
+      "mod": 3
+    },
+    {
+      "roll": 12,
+      "code": "SEH",
+      "name": "Starburst for Extreme Heroism",
+      "mod": 4
+    },
     { "roll": 13, "code": "*SEH*", "name": "SEH With Diamonds", "mod": 5 }
   ]
 }

@@ -9,10 +9,11 @@ tasks:
       - task: test
 
   check:
-    desc: Modernize gate + gofumpt + go vet + golangci-lint
+    desc: Modernize gate + gofumpt + prettier + go vet + golangci-lint
     cmds:
       - task: modernize
       - task: fmt:check
+      - task: fmt:check:docs
       - task: vet
       - task: lint
 
@@ -43,10 +44,24 @@ tasks:
           exit 1
         fi
 
+  fmt:check:docs:
+    desc: Check JSON and Markdown formatting with prettier
+    cmds:
+      - |
+        if ! command -v prettier >/dev/null 2>&1; then
+          echo "prettier not found: install it with 'brew install prettier'." >&2
+          exit 1
+        fi
+        prettier --check . || {
+          echo "prettier formatting check failed: run 'task fmt' to fix." >&2
+          exit 1
+        }
+
   fmt:
-    desc: Format with gofumpt -extra
+    desc: Format Go with gofumpt, JSON and Markdown with prettier
     cmds:
       - gofumpt -l -w -extra .
+      - prettier --write --log-level warn .
 
   vet:
     desc: Run go vet

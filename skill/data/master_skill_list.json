@@ -115,15 +115,36 @@
     { "parent": "Animals", "names": ["Rider", "Teamster", "Trainer"] },
     {
       "parent": "Driver",
-      "names": ["ACV", "Automotive", "Grav", "Legged", "Mole", "Tracked", "Wheeled"]
+      "names": [
+        "ACV",
+        "Automotive",
+        "Grav",
+        "Legged",
+        "Mole",
+        "Tracked",
+        "Wheeled"
+      ]
     },
     {
       "parent": "Engineer",
-      "names": ["Jump Drives", "Life Support", "Maneuver Drive", "Power Systems"]
+      "names": [
+        "Jump Drives",
+        "Life Support",
+        "Maneuver Drive",
+        "Power Systems"
+      ]
     },
     {
       "parent": "Fighter",
-      "names": ["Battle Dress", "Beams", "Blades", "Exotics", "Slug Throwers", "Sprays", "Unarmed"]
+      "names": [
+        "Battle Dress",
+        "Beams",
+        "Blades",
+        "Exotics",
+        "Slug Throwers",
+        "Sprays",
+        "Unarmed"
+      ]
     },
     {
       "parent": "Flyer",
