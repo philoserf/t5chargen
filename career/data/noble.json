@@ -336,8 +336,7 @@
           "credits": 100000
         },
         "benefit": {
-          "kind": "directorship",
-          "printed": "Directorship"
+          "kind": "directorship"
         },
         "power": {
           "kind": "proxy",
@@ -439,8 +438,7 @@
           "credits": 800000
         },
         "benefit": {
-          "kind": "directorship",
-          "printed": "Directorship"
+          "kind": "directorship"
         },
         "power": {
           "kind": "proxy",
@@ -524,8 +522,7 @@
           "credits": 100000
         },
         "benefit": {
-          "kind": "directorship",
-          "printed": "Directorship"
+          "kind": "directorship"
         },
         "power": {
           "kind": "proxy",
@@ -627,8 +624,7 @@
           "credits": 800000
         },
         "benefit": {
-          "kind": "directorship",
-          "printed": "Directorship"
+          "kind": "directorship"
         },
         "power": {
           "kind": "proxy",

@@ -262,6 +262,17 @@ var m2Conflicts = map[string]string{
 	"Functionary": "M2 appends a twelfth row, Pension x2 / Knighthood",
 }
 
+// musterOutRows is the row count each career page prints for its table D:
+// ten for the Soldier and Marine, eleven for the Scholar, Citizen, Spacer
+// and Functionary, twelve for six more, thirteen for the Entertainer. A
+// band would let a dropped row pass; the counts are pinned instead.
+var musterOutRows = map[string]int{
+	"Craftsman": 12, "Scholar": 11, "Entertainer": 13, "Citizen": 11,
+	"Scout": 12, "Merchant": 12, "Spacer": 11, "Soldier": 10,
+	"Agent": 12, "Rogue": 12, "Noble": 12, "Marine": 10,
+	"Functionary": 11,
+}
+
 // TestEveryCareerHasAMusterOutTable holds that all thirteen table Ds are
 // transcribed: "Each career has a Mustering Out table" (p. 68).
 func TestEveryCareerHasAMusterOutTable(t *testing.T) {
@@ -277,9 +288,8 @@ func TestEveryCareerHasAMusterOutTable(t *testing.T) {
 			continue
 		}
 
-		if len(def.MusterOut.Rows) < 10 || len(def.MusterOut.Rows) > 13 {
-			t.Errorf("%s table D has %d rows; the printed tables run 10 to 13",
-				name, len(def.MusterOut.Rows))
+		if got := len(def.MusterOut.Rows); got != musterOutRows[name] {
+			t.Errorf("%s table D has %d rows, want %d", name, got, musterOutRows[name])
 		}
 	}
 }
@@ -307,6 +317,12 @@ func TestM2DivergesExactlyWhereRecorded(t *testing.T) {
 			t.Errorf("%s carries an M2 reprint but no recorded conflict", name)
 		}
 
+		if def.MusterOut == nil {
+			t.Errorf("%s carries an M2 reprint but no career-page table", name)
+
+			continue
+		}
+
 		if sameMusterOut(def.MusterOut, def.MusterOutM2) {
 			t.Errorf("%s carries an M2 reprint identical to its career page; the conflict is gone", name)
 		}
@@ -323,26 +339,44 @@ func TestM2DivergesExactlyWhereRecorded(t *testing.T) {
 // sameMusterOut reports whether two tables are the same rules, ignoring
 // the citation and the box label.
 func sameMusterOut(a, b *career.MusterOut) bool {
-	if len(a.Rows) != len(b.Rows) || a.MoneyDM != b.MoneyDM || a.BenefitDM != b.BenefitDM {
+	if a.MoneyDM != b.MoneyDM || a.BenefitDM != b.BenefitDM || !samePowerDM(a, b) {
+		return false
+	}
+
+	if len(a.Rows) != len(b.Rows) {
 		return false
 	}
 
 	for i, row := range a.Rows {
-		other := b.Rows[i]
-		if row.Money != other.Money || row.Benefit != other.Benefit {
-			return false
-		}
-
-		if (row.Power == nil) != (other.Power == nil) {
-			return false
-		}
-
-		if row.Power != nil && *row.Power != *other.Power {
+		if !sameMusterOutRow(row, b.Rows[i]) {
 			return false
 		}
 	}
 
 	return true
+}
+
+// samePowerDM compares the optional third column's DM line, which chart 11
+// alone prints.
+func samePowerDM(a, b *career.MusterOut) bool {
+	if (a.PowerDM == nil) != (b.PowerDM == nil) {
+		return false
+	}
+
+	return a.PowerDM == nil || *a.PowerDM == *b.PowerDM
+}
+
+// sameMusterOutRow compares one row across the two editions.
+func sameMusterOutRow(a, b career.MusterOutRow) bool {
+	if a.Money != b.Money || a.Benefit != b.Benefit {
+		return false
+	}
+
+	if (a.Power == nil) != (b.Power == nil) {
+		return false
+	}
+
+	return a.Power == nil || *a.Power == *b.Power
 }
 
 // TestTheSevenTablesThatAgreeCarryNoReprint holds the other half: a career

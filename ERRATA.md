@@ -1603,21 +1603,21 @@ at the implementation site.
 
 Implemented at `chargen/fame.go` (`rankNumber`).
 
-### I-70: Chart 12 prints "Directorate" where every other chart prints "Directorship" (p. 86; p. 71)
+### I-70: Charts 12 and 01 print "Directorate" and "Director" where the rest print "Directorship" (pp. 86, 75; p. 71)
 
-Chart 12's table D row 9 awards a "Directorate". Chart M1's Non-Financial
-list names a "Directorship", as do charts 01, 11 and 13, and p. 68 glosses
-only the latter: "A Directorship is an appointment to the Board of
-Directors of a large corporation."
+Chart 12's table D row 9 awards a "Directorate", and chart 01's row 11 a
+"Director". Chart M1's Non-Financial list names a "Directorship", as do
+charts 11 and 13, and p. 68 glosses only that spelling: "A Directorship is
+an appointment to the Board of Directors of a large corporation."
 
-Read as: the same benefit. Nothing in the book defines a Directorate, and
-a benefit that appears once, in one cell, with no rules attached, is a
-spelling rather than a mechanic.
+Read as: all three are the same benefit. Nothing in the book defines a
+Directorate or a Director, and a benefit that appears in one cell with no
+rules attached is a spelling rather than a mechanic.
 
-The word is transcribed as printed alongside the resolved kind, so the
-cell says both what the page says and what the engine does with it. It
-appears twice — chart 12 and chart M2's reprint of it agree — so it is a
-consistent spelling, not a slip in one place.
+Each word is transcribed as printed alongside the resolved kind, so the
+cell says both what the page says and what the engine does with it. Both
+appear twice — chart 12 and chart 01 agree with chart M2's reprint of them
+— so they are consistent spellings, not slips in one place.
 
 ### I-71: Where chart M2 disagrees with a career page, the career page governs (p. 71; p. 67)
 

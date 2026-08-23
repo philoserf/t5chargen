@@ -367,8 +367,7 @@
           "kind": "pension_doubling"
         },
         "benefit": {
-          "kind": "directorship",
-          "printed": "Directorship"
+          "kind": "directorship"
         }
       }
     ],
@@ -491,8 +490,7 @@
           "kind": "pension_doubling"
         },
         "benefit": {
-          "kind": "directorship",
-          "printed": "Directorship"
+          "kind": "directorship"
         }
       },
       {

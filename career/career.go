@@ -782,6 +782,10 @@ func (d *Definition) validate() error {
 		return err
 	}
 
+	if err := d.validateMusterOut(); err != nil {
+		return err
+	}
+
 	return d.validateJobTable()
 }
 
@@ -792,10 +796,6 @@ func (d *Definition) validate() error {
 func (d *Definition) validateTermCounts() error {
 	if d.SkillsPerTerm < 1 {
 		return fmt.Errorf("%w: %q has %d skills per term", errBadDefinition, d.Name, d.SkillsPerTerm)
-	}
-
-	if err := d.validateMusterOut(); err != nil {
-		return err
 	}
 
 	if d.SanityPerTerms < 0 {
@@ -1471,55 +1471,135 @@ func ByName(name string) (*Definition, error) {
 // ErrUnknownCareer reports a name absent from Available.
 var ErrUnknownCareer = errors.New("career: unknown career")
 
+// musterOutDMKinds is the closed vocabulary of table D DM lines: "+Terms"
+// and "+Total Terms", "+Commends", "+ Officer Rank", "+ Scholar Rank", and
+// "+Fame/N" (charts 01-13 box D, pp. 75-87). A DM is a string rather than a
+// benefit kind, so without this a typo would load and then modify nothing.
+var musterOutDMKinds = map[string]bool{
+	"terms": true, "total_terms": true, "commendations": true,
+	"officer_rank": true, "scholar_rank": true, "fame": true,
+}
+
 // validateMusterOut checks a career's table D, and the chart M2 reprint
 // where it carries one, so the engine can index rows unconditionally.
 func (d *Definition) validateMusterOut() error {
+	if d.MusterOut == nil && d.MusterOutM2 == nil {
+		return nil
+	}
+
+	benefits, err := benefit.Load()
+	if err != nil {
+		return fmt.Errorf("muster out: %w", err)
+	}
+
 	for _, t := range []*MusterOut{d.MusterOut, d.MusterOutM2} {
 		if t == nil {
 			continue
 		}
 
-		if len(t.Rows) == 0 {
-			return fmt.Errorf("%w: %q has an empty muster-out table", errBadDefinition, d.Name)
-		}
-
-		for i, row := range t.Rows {
-			// A table D is read with 1D plus DMs, so its rows must run
-			// from 1 without a gap.
-			if row.Roll != i+1 {
-				return fmt.Errorf("%w: %q muster-out row %d is numbered %d",
-					errBadDefinition, d.Name, i+1, row.Roll)
-			}
-
-			for _, cell := range []*MusterOutCell{&row.Money, &row.Benefit, row.Power} {
-				if cell == nil {
-					continue
-				}
-
-				if err := validateMusterOutCell(d.Name, row.Roll, *cell); err != nil {
-					return err
-				}
-			}
+		if err := d.validateMusterOutTable(benefits, t); err != nil {
+			return err
 		}
 	}
 
 	return nil
 }
 
-// validateMusterOutCell checks one cell against the chart M1 vocabulary.
-func validateMusterOutCell(career string, roll int, cell MusterOutCell) error {
-	table, err := benefit.Load()
-	if err != nil {
-		return fmt.Errorf("muster out: %w", err)
+// validateMusterOutTable checks one transcribed table D: its rows, its
+// cells, and the DM line under each column.
+func (d *Definition) validateMusterOutTable(benefits *benefit.Table, t *MusterOut) error {
+	if len(t.Rows) == 0 {
+		return fmt.Errorf("%w: %q has an empty muster-out table", errBadDefinition, d.Name)
 	}
 
-	if _, err := table.For(cell.Kind); err != nil {
+	for i, row := range t.Rows {
+		// A table D is read with 1D plus DMs, so its rows must run
+		// from 1 without a gap.
+		if row.Roll != i+1 {
+			return fmt.Errorf("%w: %q muster-out row %d is numbered %d",
+				errBadDefinition, d.Name, i+1, row.Roll)
+		}
+
+		if err := d.validateMusterOutRow(benefits, t, row); err != nil {
+			return err
+		}
+	}
+
+	for _, dm := range []*MusterOutDM{&t.MoneyDM, &t.BenefitDM, t.PowerDM} {
+		if dm == nil {
+			continue
+		}
+
+		if err := validateMusterOutDM(d.Name, *dm); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+// validateMusterOutRow checks one row's cells and its third column.
+func (d *Definition) validateMusterOutRow(benefits *benefit.Table, t *MusterOut, row MusterOutRow) error {
+	// Chart 11 is the only table with a Power column, and it prints one on
+	// every row: a Power cell without its DM line, or the reverse, is a
+	// half-transcribed column.
+	if (row.Power != nil) != (t.PowerDM != nil) {
+		return fmt.Errorf("%w: %q muster-out row %d and its power DM disagree on the third column",
+			errBadDefinition, d.Name, row.Roll)
+	}
+
+	for _, cell := range []*MusterOutCell{&row.Money, &row.Benefit, row.Power} {
+		if cell == nil {
+			continue
+		}
+
+		if err := validateMusterOutCell(benefits, d.Name, row.Roll, *cell); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+// validateMusterOutDM checks one column's DM line, so that a "+Fame/3"
+// never reaches the engine with the divisor missing.
+func validateMusterOutDM(career string, dm MusterOutDM) error {
+	if !musterOutDMKinds[dm.Kind] {
+		return fmt.Errorf("%w: %q muster-out DM %q is not a printed DM line",
+			errBadDefinition, career, dm.Kind)
+	}
+
+	// "+Fame/3" (chart 03) and "+Fame/2" (chart 05) are the only divided
+	// DMs the book prints, and a Fame DM is never printed undivided.
+	if (dm.Kind == "fame") != (dm.Divisor > 0) {
+		return fmt.Errorf("%w: %q muster-out DM %q has divisor %d",
+			errBadDefinition, career, dm.Kind, dm.Divisor)
+	}
+
+	return nil
+}
+
+// validateMusterOutCell checks one cell against the chart M1 vocabulary.
+func validateMusterOutCell(benefits *benefit.Table, career string, roll int, cell MusterOutCell) error {
+	if _, err := benefits.For(cell.Kind); err != nil {
 		return fmt.Errorf("%w: %q row %d: %w", errBadDefinition, career, roll, err)
 	}
 
 	if cell.Kind == benefit.Characteristic && !characteristicNames[cell.Detail] {
 		return fmt.Errorf("%w: %q row %d raises %q, which is not a characteristic",
 			errBadDefinition, career, roll, cell.Detail)
+	}
+
+	// A money cell pays a printed sum and nothing else pays one; a count
+	// and a rolled count are alternatives, never both.
+	if (cell.Kind == benefit.Money) != (cell.Credits > 0) {
+		return fmt.Errorf("%w: %q row %d pays Cr%d as a %q cell",
+			errBadDefinition, career, roll, cell.Credits, cell.Kind)
+	}
+
+	if cell.Count < 0 || cell.Dice < 0 || (cell.Count > 0 && cell.Dice > 0) {
+		return fmt.Errorf("%w: %q row %d gives count %d and dice %d",
+			errBadDefinition, career, roll, cell.Count, cell.Dice)
 	}
 
 	return nil
