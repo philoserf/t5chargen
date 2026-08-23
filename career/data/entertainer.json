@@ -4,90 +4,505 @@
   "continue_fame": true,
   "skills_per_term": 4,
   "begin_tracks": [
-    { "name": "Artist", "checks": ["End", "Int"] },
-    { "name": "Actor", "checks": ["Dex", "End"] },
-    { "name": "Author", "checks": ["Int", "Edu"] },
-    { "name": "Dancer", "checks": ["Dex", "End"] },
-    { "name": "Musician", "checks": ["Dex", "End"] },
-    { "name": "Chef", "checks": ["Dex", "Int"] }
+    {
+      "name": "Artist",
+      "checks": ["End", "Int"]
+    },
+    {
+      "name": "Actor",
+      "checks": ["Dex", "End"]
+    },
+    {
+      "name": "Author",
+      "checks": ["Int", "Edu"]
+    },
+    {
+      "name": "Dancer",
+      "checks": ["Dex", "End"]
+    },
+    {
+      "name": "Musician",
+      "checks": ["Dex", "End"]
+    },
+    {
+      "name": "Chef",
+      "checks": ["Dex", "Int"]
+    }
   ],
   "skill_columns": [
     {
       "name": "Personal",
       "entries": [
-        { "kind": "characteristic", "name": "Str" },
-        { "kind": "characteristic", "name": "Dex" },
-        { "kind": "characteristic", "name": "End" },
-        { "kind": "characteristic", "name": "Int" },
-        { "kind": "characteristic", "name": "Edu" },
-        { "kind": "characteristic", "name": "Soc" }
+        {
+          "kind": "characteristic",
+          "name": "Str"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Dex"
+        },
+        {
+          "kind": "characteristic",
+          "name": "End"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Int"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Edu"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Soc"
+        }
       ]
     },
     {
       "name": "Academic",
       "entries": [
-        { "kind": "major" },
-        { "kind": "major" },
-        { "kind": "minor" },
-        { "kind": "minor" },
-        { "kind": "trade" },
-        { "kind": "trade" }
+        {
+          "kind": "major"
+        },
+        {
+          "kind": "major"
+        },
+        {
+          "kind": "minor"
+        },
+        {
+          "kind": "minor"
+        },
+        {
+          "kind": "trade"
+        },
+        {
+          "kind": "trade"
+        }
       ]
     },
     {
       "name": "Travel",
       "entries": [
-        { "kind": "skill", "name": "Zero-G" },
-        { "kind": "skill", "name": "Vacc Suit" },
-        { "kind": "skill", "name": "Pilot" },
-        { "kind": "skill", "name": "Astrogator" },
-        { "kind": "skill", "name": "Sensors" },
-        { "kind": "starship" }
+        {
+          "kind": "skill",
+          "name": "Zero-G"
+        },
+        {
+          "kind": "skill",
+          "name": "Vacc Suit"
+        },
+        {
+          "kind": "skill",
+          "name": "Pilot"
+        },
+        {
+          "kind": "skill",
+          "name": "Astrogator"
+        },
+        {
+          "kind": "skill",
+          "name": "Sensors"
+        },
+        {
+          "kind": "starship"
+        }
       ]
     },
     {
       "name": "General",
       "entries": [
-        { "kind": "skill", "name": "Survey" },
-        { "kind": "skill", "name": "Survival" },
-        { "kind": "skill", "name": "Hostile Environ" },
-        { "kind": "skill", "name": "Animals" },
-        { "kind": "skill", "name": "Bureaucrat" },
-        { "kind": "skill", "name": "Navigator" }
+        {
+          "kind": "skill",
+          "name": "Survey"
+        },
+        {
+          "kind": "skill",
+          "name": "Survival"
+        },
+        {
+          "kind": "skill",
+          "name": "Hostile Environ"
+        },
+        {
+          "kind": "skill",
+          "name": "Animals"
+        },
+        {
+          "kind": "skill",
+          "name": "Bureaucrat"
+        },
+        {
+          "kind": "skill",
+          "name": "Navigator"
+        }
       ]
     },
     {
       "name": "Business",
       "entries": [
-        { "kind": "skill", "name": "Broker" },
-        { "kind": "skill", "name": "Trader" },
-        { "kind": "skill", "name": "Advocate" },
-        { "kind": "skill", "name": "Liaison" },
-        { "kind": "skill", "name": "Diplomat" },
-        { "kind": "skill", "name": "Bureaucrat" }
+        {
+          "kind": "skill",
+          "name": "Broker"
+        },
+        {
+          "kind": "skill",
+          "name": "Trader"
+        },
+        {
+          "kind": "skill",
+          "name": "Advocate"
+        },
+        {
+          "kind": "skill",
+          "name": "Liaison"
+        },
+        {
+          "kind": "skill",
+          "name": "Diplomat"
+        },
+        {
+          "kind": "skill",
+          "name": "Bureaucrat"
+        }
       ]
     },
     {
       "name": "Vocation",
       "entries": [
-        { "kind": "skill", "name": "Broker" },
-        { "kind": "art" },
-        { "kind": "skill", "name": "Language" },
-        { "kind": "skill", "name": "Admin" },
-        { "kind": "art" },
-        { "kind": "skill", "name": "Bureaucrat" }
+        {
+          "kind": "skill",
+          "name": "Broker"
+        },
+        {
+          "kind": "art"
+        },
+        {
+          "kind": "skill",
+          "name": "Language"
+        },
+        {
+          "kind": "skill",
+          "name": "Admin"
+        },
+        {
+          "kind": "art"
+        },
+        {
+          "kind": "skill",
+          "name": "Bureaucrat"
+        }
       ]
     },
     {
       "name": "Avocation",
       "entries": [
-        { "kind": "art" },
-        { "kind": "art" },
-        { "kind": "trade" },
-        { "kind": "skill", "name": "Athlete" },
-        { "kind": "skill", "name": "Medic" },
-        { "kind": "trade" }
+        {
+          "kind": "art"
+        },
+        {
+          "kind": "art"
+        },
+        {
+          "kind": "trade"
+        },
+        {
+          "kind": "skill",
+          "name": "Athlete"
+        },
+        {
+          "kind": "skill",
+          "name": "Medic"
+        },
+        {
+          "kind": "trade"
+        }
       ]
     }
-  ]
+  ],
+  "muster_out": {
+    "cite": "Book 1 p. 77 chart 03 D",
+    "label": "D MUSTER OUT BENEFITS",
+    "rows": [
+      {
+        "roll": 1,
+        "money": {
+          "kind": "low_passage"
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Edu"
+        }
+      },
+      {
+        "roll": 2,
+        "money": {
+          "kind": "low_passage"
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Edu"
+        }
+      },
+      {
+        "roll": 3,
+        "money": {
+          "kind": "middle_passage"
+        },
+        "benefit": {
+          "kind": "wafer_jack"
+        }
+      },
+      {
+        "roll": 4,
+        "money": {
+          "kind": "high_passage"
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Edu"
+        }
+      },
+      {
+        "roll": 5,
+        "money": {
+          "kind": "money",
+          "credits": 15000
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Str"
+        }
+      },
+      {
+        "roll": 6,
+        "money": {
+          "kind": "star_passage"
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Dex"
+        }
+      },
+      {
+        "roll": 7,
+        "money": {
+          "kind": "money",
+          "credits": 25000
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "End"
+        }
+      },
+      {
+        "roll": 8,
+        "money": {
+          "kind": "money",
+          "credits": 30000
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Int"
+        }
+      },
+      {
+        "roll": 9,
+        "money": {
+          "kind": "money",
+          "credits": 35000
+        },
+        "benefit": {
+          "kind": "fame",
+          "count": 1
+        }
+      },
+      {
+        "roll": 10,
+        "money": {
+          "kind": "money",
+          "credits": 40000
+        },
+        "benefit": {
+          "kind": "ship_shares",
+          "count": 1
+        }
+      },
+      {
+        "roll": 11,
+        "money": {
+          "kind": "money",
+          "credits": 50000
+        },
+        "benefit": {
+          "kind": "tas_fellowship"
+        }
+      },
+      {
+        "roll": 12,
+        "money": {
+          "kind": "money",
+          "credits": 400000
+        },
+        "benefit": {
+          "kind": "knighthood"
+        }
+      },
+      {
+        "roll": 13,
+        "money": {
+          "kind": "money",
+          "credits": 500000
+        },
+        "benefit": {
+          "kind": "tas_life"
+        }
+      }
+    ],
+    "money_dm": {
+      "kind": "fame",
+      "divisor": 3
+    },
+    "benefit_dm": {
+      "kind": "terms"
+    }
+  },
+  "muster_out_m2": {
+    "cite": "Book 1 p. 71 chart M2",
+    "label": "M2 Muster Out Tables",
+    "rows": [
+      {
+        "roll": 1,
+        "money": {
+          "kind": "low_passage"
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Edu"
+        }
+      },
+      {
+        "roll": 2,
+        "money": {
+          "kind": "low_passage"
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Edu"
+        }
+      },
+      {
+        "roll": 3,
+        "money": {
+          "kind": "middle_passage"
+        },
+        "benefit": {
+          "kind": "wafer_jack"
+        }
+      },
+      {
+        "roll": 4,
+        "money": {
+          "kind": "high_passage"
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Edu"
+        }
+      },
+      {
+        "roll": 5,
+        "money": {
+          "kind": "money",
+          "credits": 15000
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Str"
+        }
+      },
+      {
+        "roll": 6,
+        "money": {
+          "kind": "star_passage"
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Dex"
+        }
+      },
+      {
+        "roll": 7,
+        "money": {
+          "kind": "money",
+          "credits": 25000
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "End"
+        }
+      },
+      {
+        "roll": 8,
+        "money": {
+          "kind": "money",
+          "credits": 30000
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Int"
+        }
+      },
+      {
+        "roll": 9,
+        "money": {
+          "kind": "money",
+          "credits": 35000
+        },
+        "benefit": {
+          "kind": "fame",
+          "count": 1
+        }
+      },
+      {
+        "roll": 10,
+        "money": {
+          "kind": "money",
+          "credits": 40000
+        },
+        "benefit": {
+          "kind": "ship_shares",
+          "count": 1
+        }
+      },
+      {
+        "roll": 11,
+        "money": {
+          "kind": "money",
+          "credits": 50000
+        },
+        "benefit": {
+          "kind": "tas_fellowship"
+        }
+      },
+      {
+        "roll": 12,
+        "money": {
+          "kind": "money",
+          "credits": 400000
+        },
+        "benefit": {
+          "kind": "knighthood"
+        }
+      }
+    ],
+    "money_dm": {
+      "kind": "fame",
+      "divisor": 5
+    },
+    "benefit_dm": {
+      "kind": "terms"
+    }
+  }
 }

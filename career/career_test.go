@@ -247,3 +247,162 @@ func TestByNameCoversAvailable(t *testing.T) {
 		}
 	}
 }
+
+// m2Conflicts is the divergence set between each career's own table D and
+// chart M2's reprint on p. 71, with what the disagreement is. The career
+// page governs (interpretation I-71); this pins which pages disagree so a
+// later transcription pass cannot quietly resolve one or introduce a
+// seventh.
+var m2Conflicts = map[string]string{
+	"Scholar":     "M2 appends a twelfth row, Cr60,000 / TAS Fellow",
+	"Entertainer": "M2 stops at twelve rows and divides Fame by 5, not 3",
+	"Citizen":     "M2 has twelve rows: a new first row, and the career page's eleven shifted down",
+	"Rogue":       "M2 reads +Terms where the career page reads +Total Terms",
+	"Noble":       "M2 reads + Terms where the career page reads +Total Terms",
+	"Functionary": "M2 appends a twelfth row, Pension x2 / Knighthood",
+}
+
+// musterOutRows is the row count each career page prints for its table D:
+// ten for the Soldier and Marine, eleven for the Scholar, Citizen, Spacer
+// and Functionary, twelve for six more, thirteen for the Entertainer. A
+// band would let a dropped row pass; the counts are pinned instead.
+var musterOutRows = map[string]int{
+	"Craftsman": 12, "Scholar": 11, "Entertainer": 13, "Citizen": 11,
+	"Scout": 12, "Merchant": 12, "Spacer": 11, "Soldier": 10,
+	"Agent": 12, "Rogue": 12, "Noble": 12, "Marine": 10,
+	"Functionary": 11,
+}
+
+// TestEveryCareerHasAMusterOutTable holds that all thirteen table Ds are
+// transcribed: "Each career has a Mustering Out table" (p. 68).
+func TestEveryCareerHasAMusterOutTable(t *testing.T) {
+	for _, name := range career.Available() {
+		def, err := career.ByName(name)
+		if err != nil {
+			t.Fatalf("%s: %v", name, err)
+		}
+
+		if def.MusterOut == nil {
+			t.Errorf("%s has no muster-out table", name)
+
+			continue
+		}
+
+		if got := len(def.MusterOut.Rows); got != musterOutRows[name] {
+			t.Errorf("%s table D has %d rows, want %d", name, got, musterOutRows[name])
+		}
+	}
+}
+
+// TestM2DivergesExactlyWhereRecorded is the guard the M2 decision rests
+// on. Chart M2 (p. 71) reprints all thirteen tables and disagrees with six
+// of them; the career page governs, and this test fails if that set
+// changes in either direction.
+func TestM2DivergesExactlyWhereRecorded(t *testing.T) {
+	diverged := map[string]bool{}
+
+	for _, name := range career.Available() {
+		def, err := career.ByName(name)
+		if err != nil {
+			t.Fatalf("%s: %v", name, err)
+		}
+
+		if def.MusterOutM2 == nil {
+			continue
+		}
+
+		diverged[name] = true
+
+		if _, known := m2Conflicts[name]; !known {
+			t.Errorf("%s carries an M2 reprint but no recorded conflict", name)
+		}
+
+		if def.MusterOut == nil {
+			t.Errorf("%s carries an M2 reprint but no career-page table", name)
+
+			continue
+		}
+
+		if sameMusterOut(def.MusterOut, def.MusterOutM2) {
+			t.Errorf("%s carries an M2 reprint identical to its career page; the conflict is gone", name)
+		}
+	}
+
+	for name := range m2Conflicts {
+		if !diverged[name] {
+			t.Errorf("%s is recorded as conflicting with M2 but carries no reprint: %s",
+				name, m2Conflicts[name])
+		}
+	}
+}
+
+// sameMusterOut reports whether two tables are the same rules, ignoring
+// the citation and the box label.
+func sameMusterOut(a, b *career.MusterOut) bool {
+	if a.MoneyDM != b.MoneyDM || a.BenefitDM != b.BenefitDM || !samePowerDM(a, b) {
+		return false
+	}
+
+	if len(a.Rows) != len(b.Rows) {
+		return false
+	}
+
+	for i, row := range a.Rows {
+		if !sameMusterOutRow(row, b.Rows[i]) {
+			return false
+		}
+	}
+
+	return true
+}
+
+// samePowerDM compares the optional third column's DM line, which chart 11
+// alone prints.
+func samePowerDM(a, b *career.MusterOut) bool {
+	if (a.PowerDM == nil) != (b.PowerDM == nil) {
+		return false
+	}
+
+	return a.PowerDM == nil || *a.PowerDM == *b.PowerDM
+}
+
+// sameMusterOutRow compares one row across the two editions.
+func sameMusterOutRow(a, b career.MusterOutRow) bool {
+	if a.Money != b.Money || a.Benefit != b.Benefit {
+		return false
+	}
+
+	if (a.Power == nil) != (b.Power == nil) {
+		return false
+	}
+
+	return a.Power == nil || *a.Power == *b.Power
+}
+
+// TestTheSevenTablesThatAgreeCarryNoReprint holds the other half: a career
+// absent from the divergence set must match M2, which it does by carrying
+// no reprint at all.
+func TestTheSevenTablesThatAgreeCarryNoReprint(t *testing.T) {
+	agree := 0
+
+	for _, name := range career.Available() {
+		def, err := career.ByName(name)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if _, conflicts := m2Conflicts[name]; conflicts {
+			continue
+		}
+
+		agree++
+
+		if def.MusterOutM2 != nil {
+			t.Errorf("%s agrees with M2 but carries a reprint", name)
+		}
+	}
+
+	if want := len(career.Available()) - len(m2Conflicts); agree != want {
+		t.Errorf("%d careers agree with M2, want %d", agree, want)
+	}
+}

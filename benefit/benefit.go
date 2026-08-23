@@ -50,6 +50,10 @@ const (
 	TASLife            Kind = "tas_life"
 	ShipShares         Kind = "ship_shares"
 	LandGrant          Kind = "land_grant"
+
+	// Fame is awarded by four career tables ("Fame +1", "Fame +2") though
+	// chart M1 lists it only among the Automatics (interpretation I-72).
+	Fame Kind = "fame"
 )
 
 // Class is chart M1's split of the benefit tables.
@@ -344,7 +348,7 @@ func closedVocabulary(seen map[Kind]bool) error {
 		Money, StarPassage, HighPassage, MiddlePassage, LowPassage,
 		PensionDoubling, RetirementDoubling, Characteristic, WaferJack,
 		ForbiddenKnowledge, Knighthood, Directorship, Proxy, LifeInsurance,
-		TASFellowship, TASLife, ShipShares, LandGrant,
+		TASFellowship, TASLife, ShipShares, LandGrant, Fame,
 	}
 
 	known := make(map[Kind]bool, len(declared))
