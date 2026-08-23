@@ -473,6 +473,26 @@ func consequenceCareerValueText(c *chargen.ConsequenceEvent) string {
 	switch c.Kind {
 	case chargen.ConsequenceSanityMod:
 		return fmt.Sprintf("Sanity %+d when generated", c.Delta)
+	case chargen.ConsequenceCareerChanged:
+		return "leaves " + c.Career + " for another career"
+	case chargen.ConsequenceReserve:
+		return reserveText(c)
+	case chargen.ConsequenceSpecialtySet:
+		return "specialty " + c.Skill
+	case chargen.ConsequenceTalentSet:
+		return fmt.Sprintf("Talent = %d", c.Value)
+	case chargen.ConsequenceComeback:
+		return fmt.Sprintf("Comeback (Fame reset to %d)", c.Value)
+	default:
+		return consequenceAgingText(c)
+	}
+}
+
+// consequenceAgingText renders the chart A consequence kinds (p. 89).
+//
+//nolint:exhaustive // Deliberately partitioned: earlier kinds are handled upstream.
+func consequenceAgingText(c *chargen.ConsequenceEvent) string {
+	switch c.Kind {
 	case chargen.ConsequenceAgingEffect:
 		return fmt.Sprintf("aging: %s %+d = %d", c.Characteristic, c.Delta, c.Value)
 	case chargen.ConsequenceCharacteristicReset:
@@ -481,12 +501,6 @@ func consequenceCareerValueText(c *chargen.ConsequenceEvent) string {
 		return fmt.Sprintf("major illness (%d characteristics at zero); four weeks recuperating", c.Value)
 	case chargen.ConsequenceExtremelyMajorIllness:
 		return fmt.Sprintf("extremely major illness (%d at zero); four months recuperating", c.Value)
-	case chargen.ConsequenceSpecialtySet:
-		return "specialty " + c.Skill
-	case chargen.ConsequenceTalentSet:
-		return fmt.Sprintf("Talent = %d", c.Value)
-	case chargen.ConsequenceComeback:
-		return fmt.Sprintf("Comeback (Fame reset to %d)", c.Value)
 	default:
 		return consequenceScholarText(c)
 	}
@@ -605,4 +619,15 @@ func lifeStageName(stage int) string {
 	}
 
 	return strconv.Itoa(stage)
+}
+
+// reserveText names the Reserve Rank where the career held one: "A
+// character in the Reserves maintains his or her last held rank as a
+// Reserve Rank" (p. 67).
+func reserveText(c *chargen.ConsequenceEvent) string {
+	if c.Skill == "" {
+		return "enters the " + c.Career + " Reserves"
+	}
+
+	return "enters the Reserves as a Reserve " + c.Skill + " (" + c.Career + ")"
 }

@@ -9,6 +9,13 @@ const (
 	// ChooseCareer selects the next career (chart E1 step D, p. 72).
 	ChooseCareer ChoiceID = "select_career"
 
+	// ChooseCareerChange offers the p. 66 decision at the end of a term:
+	// "A character may avoid the Continue roll (and its possibility of
+	// Mandatory Continue) by voluntarily ending his service in the
+	// current career and selecting a different career for which he is
+	// eligible".
+	ChooseCareerChange ChoiceID = "change_career"
+
 	// ChooseControllingCharacteristic selects the term's controlling
 	// characteristic (p. 65: "The player picks one of these
 	// Characteristics ... it governs Risk and Reward for the current

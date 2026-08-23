@@ -19,18 +19,18 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.17.0"
+	SchemaVersion = "0.18.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.18.0"
+	EngineVersion = "0.19.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
-	PolicyVersion = "0.11.0"
+	PolicyVersion = "0.12.0"
 
 	// RNGAlgorithm names the recorded random stream: Go math/rand/v2 PCG,
 	// seeded as documented at dice.New. The exact string is compared on
@@ -219,6 +219,18 @@ type CareerRecord struct {
 
 	// Discoveries counts Scout Reward successes (chart 05, p. 79).
 	Discoveries int `json:"discoveries,omitempty"`
+
+	// EndAge is the character's age when the career ended, including a
+	// career that never began (the year a failed To Begin cost, p. 65).
+	// Muster out reads it: retirement and the Reserve Pension both run
+	// from when the service stopped (p. 69).
+	EndAge int `json:"end_age,omitempty"`
+
+	// Reserve records enrolment on leaving the Armed Forces: "A character
+	// who leaves a military, naval, or marine career is automatically in
+	// the Reserves until retirement at Life Stage 9" (p. 67), holding the
+	// rank in Rank as a Reserve Rank.
+	Reserve bool `json:"reserve,omitempty"`
 
 	// SanityMod is the pending reduction the career's terms owe against
 	// Sanity, recorded rather than applied: "reduce San= -1 for each TWO
@@ -484,9 +496,37 @@ func runCareer(forced string, roller *dice.Roller, log *Log, decider Decider, ch
 
 	log.Step("Select Career", "Book 1 p. 72 chart E1 step D")
 
-	// A failed To Begin removes the career and offers the rest: "If both
-	// Begin and Retry fail, this career may not be used." (p. 65) Running
-	// out of options is a legal dead-end (no career), not an error.
+	// The outer loop runs once per career served: a character who
+	// voluntarily leaves one selects another (p. 66). The inner loop is
+	// the To Begin failure path — "If both Begin and Retry fail, this
+	// career may not be used" (p. 65) — where running out of options is a
+	// legal dead-end (no career), not an error.
+	for {
+		began, end, err := runCareerOnce(options, roller, log, decider, character)
+		if err != nil {
+			return err
+		}
+
+		// "the Character is dead (and all efforts in this particular
+		// character creation process are lost)" (p. 69). The engine keeps
+		// the record rather than discarding the run, but a dead character
+		// does not go on to try another career.
+		if !began || end != termCareerChanged || character.Dead {
+			return nil
+		}
+
+		options = eligibleForChange(character, character.Careers[len(character.Careers)-1].Career)
+		if len(options) == 0 {
+			return nil
+		}
+	}
+}
+
+// runCareerOnce selects a career and resolves it, retrying with the
+// remaining options while To Begin fails.
+func runCareerOnce(
+	options []string, roller *dice.Roller, log *Log, decider Decider, character *Character,
+) (bool, termEnd, error) {
 	for len(options) > 0 {
 		chosen, chosenSeq, err := choose(log, decider, Choice{
 			ID:      ChooseCareer,
@@ -495,26 +535,22 @@ func runCareer(forced string, roller *dice.Roller, log *Log, decider Decider, ch
 			Cite:    "Book 1 p. 72 chart E1 step D",
 		})
 		if err != nil {
-			return err
+			return false, termCareerEnded, err
 		}
 
-		began, err := runCareerByName(options[chosen], chosenSeq, roller, log, decider, character)
+		began, end, err := runCareerByName(options[chosen], chosenSeq, roller, log, decider, character)
 		if err != nil || began {
-			return err
+			return began, end, err
 		}
 
-		// "the Character is dead (and all efforts in this particular
-		// character creation process are lost)" (p. 69). The engine keeps
-		// the record rather than discarding the run, but a dead character
-		// does not go on to try another career.
 		if character.Dead {
-			return nil
+			return false, termDied, nil
 		}
 
 		options = slices.Concat(options[:chosen], options[chosen+1:])
 	}
 
-	return nil
+	return false, termCareerEnded, nil
 }
 
 // choose puts a choice to the decider, validates the answer, and logs the

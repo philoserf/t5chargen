@@ -1200,3 +1200,62 @@ that says 87.
 
 Implemented at `chargen/aging.go` (`illness`) and `render/render.go`
 (`consequenceDeadText`).
+
+### I-53: A failed Continue ends Career Resolution; only a voluntary change chains careers (p. 66)
+
+Two sentences on the same page decide how many careers a character can
+hold. "At the end of the 4-year Term, the Character must successfully roll
+(2D) to Continue (or less) in the career. Failure ends Career Resolution:
+the character must begin adventuring." And: "A character may avoid the
+Continue roll (and its possibility of Mandatory Continue) by voluntarily
+ending his service in the current career and selecting a different career
+for which he is eligible."
+
+Read as: a failed Continue ends everything, and the voluntary change is
+the only way to a second career. The rival reading — that a failed
+Continue merely ends _that_ career and another may be selected — is
+rejected by the first sentence naming Career Resolution rather than the
+career, and because it would make the voluntary change pointless: the
+change exists precisely to avoid the Continue roll, and there would be
+nothing to avoid if failing it cost the same.
+
+**No cap on the number of careers is stated anywhere.** Book 1 prints
+none, and none is invented here. The practical bound is the one the rules
+supply: each new career must pass a To Begin, aging accumulates, and death
+ends resolution.
+
+### I-54: A career left may be re-entered; a career failed may not (p. 66; p. 65)
+
+"a different career for which he is eligible" (p. 66) is read as different
+from the current one, which is what the sentence is distinguishing. Nothing
+forbids returning to a career served earlier, and chart 10's "select any
+previous career" for a Rogue's Scheme presupposes that careers accumulate.
+A character may therefore serve, leave, and later return.
+
+A career whose To Begin failed is different: "If both Begin and Retry
+fail, this career may not be used" (p. 65). That is read as lifetime
+rather than scoped to the selection round in progress, since the sentence
+scopes itself to the career rather than to the attempt. The engine reads
+it off the record — a career holding a `began:false` entry is excluded —
+so the exclusion survives a career change without separate bookkeeping.
+
+### I-55: Resigning from the Reserves is deferred (p. 67)
+
+"A character who leaves a military, naval, or marine career is
+automatically in the Reserves until retirement at Life Stage 9, at which
+point he or she receives a Reserve Pension. A character in the Reserves
+maintains his or her last held rank as a Reserve Rank." That much is
+recorded: which careers enrol a leaver is a chart fact in the career data,
+and the rank is the last one held, there being "no process for promotion
+or advancement while in the Reserves".
+
+"A character may resign from the Reserves (Check Continue) and forego its
+benefits and responsibilities" is deferred to interactive mode. The
+default policy would never resign — resigning forfeits a pension and
+gains nothing the engine models — so the Check would consume two faces of
+the seeded stream in every Armed Forces character and shift every
+subsequent throw for an outcome that never varies. It becomes a real
+decision when a player is answering.
+
+Activation — "A member of the Reserves is subject to activation for the
+needs of the service" — is play, not generation.

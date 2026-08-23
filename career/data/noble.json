@@ -1,101 +1,274 @@
 {
-  "name": "Noble",
   "cite": "Book 1 p. 85 chart 11",
-  "controlling_characteristics": ["Dex", "End", "Int", "Edu"],
+  "name": "Noble",
   "continue_target": 7,
-  "skills_per_term": 4,
-  "skills_per_advancement": 2,
+  "controlling_characteristics": ["Dex", "End", "Int", "Edu"],
+  "no_career_change": true,
   "ranks": [
-    { "id": "A", "class": "noble", "title": "Gentleman", "soc": 10 },
-    { "id": "B", "class": "noble", "title": "Knight", "soc": 11 },
-    { "id": "c", "class": "noble", "title": "Baronet", "soc": 12 },
-    { "id": "C", "class": "noble", "title": "Baron", "soc": 12 },
-    { "id": "D", "class": "noble", "title": "Marquis", "soc": 13 },
-    { "id": "e", "class": "noble", "title": "Viscount", "soc": 14 },
-    { "id": "E", "class": "noble", "title": "Count", "soc": 14 },
-    { "id": "f", "class": "noble", "title": "Duke", "soc": 15 },
-    { "id": "F", "class": "noble", "title": "Duke", "soc": 15 },
-    { "id": "G", "class": "noble", "title": "Archduke", "soc": 16 },
-    { "id": "G2", "class": "noble", "title": "Imperial Family", "soc": 16 },
-    { "id": "H", "class": "noble", "title": "Emperor", "soc": 17 }
+    {
+      "id": "A",
+      "class": "noble",
+      "title": "Gentleman",
+      "soc": 10
+    },
+    {
+      "id": "B",
+      "class": "noble",
+      "title": "Knight",
+      "soc": 11
+    },
+    {
+      "id": "c",
+      "class": "noble",
+      "title": "Baronet",
+      "soc": 12
+    },
+    {
+      "id": "C",
+      "class": "noble",
+      "title": "Baron",
+      "soc": 12
+    },
+    {
+      "id": "D",
+      "class": "noble",
+      "title": "Marquis",
+      "soc": 13
+    },
+    {
+      "id": "e",
+      "class": "noble",
+      "title": "Viscount",
+      "soc": 14
+    },
+    {
+      "id": "E",
+      "class": "noble",
+      "title": "Count",
+      "soc": 14
+    },
+    {
+      "id": "f",
+      "class": "noble",
+      "title": "Duke",
+      "soc": 15
+    },
+    {
+      "id": "F",
+      "class": "noble",
+      "title": "Duke",
+      "soc": 15
+    },
+    {
+      "id": "G",
+      "class": "noble",
+      "title": "Archduke",
+      "soc": 16
+    },
+    {
+      "id": "G2",
+      "class": "noble",
+      "title": "Imperial Family",
+      "soc": 16
+    },
+    {
+      "id": "H",
+      "class": "noble",
+      "title": "Emperor",
+      "soc": 17
+    }
   ],
   "skill_columns": [
     {
       "name": "Personal",
       "entries": [
-        { "kind": "characteristic", "name": "Str" },
-        { "kind": "characteristic", "name": "Dex" },
-        { "kind": "characteristic", "name": "End" },
-        { "kind": "characteristic", "name": "Int" },
-        { "kind": "characteristic", "name": "Edu" },
-        { "kind": "characteristic", "name": "Soc" }
+        {
+          "kind": "characteristic",
+          "name": "Str"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Dex"
+        },
+        {
+          "kind": "characteristic",
+          "name": "End"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Int"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Edu"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Soc"
+        }
       ]
     },
     {
       "name": "Academic",
       "entries": [
-        { "kind": "major" },
-        { "kind": "major" },
-        { "kind": "minor" },
-        { "kind": "minor" },
-        { "kind": "trade" },
-        { "kind": "trade" }
+        {
+          "kind": "major"
+        },
+        {
+          "kind": "major"
+        },
+        {
+          "kind": "minor"
+        },
+        {
+          "kind": "minor"
+        },
+        {
+          "kind": "trade"
+        },
+        {
+          "kind": "trade"
+        }
       ]
     },
     {
       "name": "Travel",
       "entries": [
-        { "kind": "skill", "name": "Driver" },
-        { "kind": "skill", "name": "Flyer" },
-        { "kind": "skill", "name": "Pilot" },
-        { "kind": "starship" },
-        { "kind": "skill", "name": "High-G" },
-        { "kind": "skill", "name": "Zero-G" }
+        {
+          "kind": "skill",
+          "name": "Driver"
+        },
+        {
+          "kind": "skill",
+          "name": "Flyer"
+        },
+        {
+          "kind": "skill",
+          "name": "Pilot"
+        },
+        {
+          "kind": "starship"
+        },
+        {
+          "kind": "skill",
+          "name": "High-G"
+        },
+        {
+          "kind": "skill",
+          "name": "Zero-G"
+        }
       ]
     },
     {
       "name": "General",
       "entries": [
-        { "kind": "skill", "name": "Advocate" },
-        { "kind": "skill", "name": "Counsellor" },
-        { "kind": "skill", "name": "Bureaucrat" },
-        { "kind": "skill", "name": "Liaison" },
-        { "kind": "skill", "name": "Leader" },
-        { "kind": "skill", "name": "Leader" }
+        {
+          "kind": "skill",
+          "name": "Advocate"
+        },
+        {
+          "kind": "skill",
+          "name": "Counsellor"
+        },
+        {
+          "kind": "skill",
+          "name": "Bureaucrat"
+        },
+        {
+          "kind": "skill",
+          "name": "Liaison"
+        },
+        {
+          "kind": "skill",
+          "name": "Leader"
+        },
+        {
+          "kind": "skill",
+          "name": "Leader"
+        }
       ]
     },
     {
       "name": "Political",
       "entries": [
-        { "kind": "skill", "name": "Liaison" },
-        { "kind": "skill", "name": "Strategy" },
-        { "kind": "skill", "name": "Tactics" },
-        { "kind": "skill", "name": "Diplomat" },
-        { "kind": "skill", "name": "Advocate" },
-        { "kind": "skill", "name": "Leader" }
+        {
+          "kind": "skill",
+          "name": "Liaison"
+        },
+        {
+          "kind": "skill",
+          "name": "Strategy"
+        },
+        {
+          "kind": "skill",
+          "name": "Tactics"
+        },
+        {
+          "kind": "skill",
+          "name": "Diplomat"
+        },
+        {
+          "kind": "skill",
+          "name": "Advocate"
+        },
+        {
+          "kind": "skill",
+          "name": "Leader"
+        }
       ]
     },
     {
       "name": "Vocation",
       "entries": [
-        { "kind": "capital" },
-        { "kind": "skill", "name": "Admin" },
-        { "kind": "skill", "name": "Language" },
-        { "kind": "starship" },
-        { "kind": "skill", "name": "Bureaucrat" },
-        { "kind": "skill", "name": "Comms" }
+        {
+          "kind": "capital"
+        },
+        {
+          "kind": "skill",
+          "name": "Admin"
+        },
+        {
+          "kind": "skill",
+          "name": "Language"
+        },
+        {
+          "kind": "starship"
+        },
+        {
+          "kind": "skill",
+          "name": "Bureaucrat"
+        },
+        {
+          "kind": "skill",
+          "name": "Comms"
+        }
       ]
     },
     {
       "name": "Technical",
       "entries": [
-        { "kind": "art" },
-        { "kind": "science" },
-        { "kind": "skill", "name": "Athlete" },
-        { "kind": "soldier" },
-        { "kind": "starship" },
-        { "kind": "trade" }
+        {
+          "kind": "art"
+        },
+        {
+          "kind": "science"
+        },
+        {
+          "kind": "skill",
+          "name": "Athlete"
+        },
+        {
+          "kind": "soldier"
+        },
+        {
+          "kind": "starship"
+        },
+        {
+          "kind": "trade"
+        }
       ]
     }
-  ]
+  ],
+  "skills_per_advancement": 2,
+  "skills_per_term": 4
 }

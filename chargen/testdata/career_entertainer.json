@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.17.0",
+  "schema_version": "0.18.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.18.0",
-  "policy_version": "0.11.0",
+  "engine_version": "0.19.0",
+  "policy_version": "0.12.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 572
@@ -83,6 +83,7 @@
     {
       "career": "Entertainer",
       "began": true,
+      "end_age": 38,
       "specialty": "Artist",
       "talent": 6,
       "fame": 5,
@@ -1019,6 +1020,20 @@
     },
     {
       "seq": 68,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Entertainer for another career?",
+        "options": [
+          "Continue in Entertainer",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 69,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1033,16 +1048,16 @@
       }
     },
     {
-      "seq": 69,
+      "seq": 70,
       "kind": "consequence",
       "consequence": {
-        "cause": 68,
+        "cause": 69,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 70,
+      "seq": 71,
       "kind": "step",
       "step": {
         "name": "Entertainer: Term 2",
@@ -1050,7 +1065,7 @@
       }
     },
     {
-      "seq": 71,
+      "seq": 72,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1064,7 +1079,7 @@
       }
     },
     {
-      "seq": 72,
+      "seq": 73,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1077,25 +1092,25 @@
       }
     },
     {
-      "seq": 73,
+      "seq": 74,
       "kind": "consequence",
       "consequence": {
-        "cause": 72,
+        "cause": 73,
         "kind": "comeback",
         "value": 6
       }
     },
     {
-      "seq": 74,
+      "seq": 75,
       "kind": "consequence",
       "consequence": {
-        "cause": 72,
+        "cause": 73,
         "kind": "fame_change",
         "value": 6
       }
     },
     {
-      "seq": 75,
+      "seq": 76,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1114,7 +1129,7 @@
       }
     },
     {
-      "seq": 76,
+      "seq": 77,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1126,10 +1141,10 @@
       }
     },
     {
-      "seq": 77,
+      "seq": 78,
       "kind": "consequence",
       "consequence": {
-        "cause": 76,
+        "cause": 77,
         "kind": "skill_awarded",
         "skill": "Survival",
         "delta": 1,
@@ -1137,7 +1152,7 @@
       }
     },
     {
-      "seq": 78,
+      "seq": 79,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1156,7 +1171,7 @@
       }
     },
     {
-      "seq": 79,
+      "seq": 80,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1168,10 +1183,10 @@
       }
     },
     {
-      "seq": 80,
+      "seq": 81,
       "kind": "consequence",
       "consequence": {
-        "cause": 79,
+        "cause": 80,
         "kind": "skill_awarded",
         "skill": "Bureaucrat",
         "delta": 1,
@@ -1179,7 +1194,7 @@
       }
     },
     {
-      "seq": 81,
+      "seq": 82,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1198,7 +1213,7 @@
       }
     },
     {
-      "seq": 82,
+      "seq": 83,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1210,10 +1225,10 @@
       }
     },
     {
-      "seq": 83,
+      "seq": 84,
       "kind": "consequence",
       "consequence": {
-        "cause": 82,
+        "cause": 83,
         "kind": "skill_awarded",
         "skill": "Navigator",
         "delta": 1,
@@ -1221,7 +1236,7 @@
       }
     },
     {
-      "seq": 84,
+      "seq": 85,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1240,7 +1255,7 @@
       }
     },
     {
-      "seq": 85,
+      "seq": 86,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1252,10 +1267,10 @@
       }
     },
     {
-      "seq": 86,
+      "seq": 87,
       "kind": "consequence",
       "consequence": {
-        "cause": 85,
+        "cause": 86,
         "kind": "skill_awarded",
         "skill": "Bureaucrat",
         "delta": 1,
@@ -1263,7 +1278,21 @@
       }
     },
     {
-      "seq": 87,
+      "seq": 88,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Entertainer for another career?",
+        "options": [
+          "Continue in Entertainer",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 89,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1278,16 +1307,16 @@
       }
     },
     {
-      "seq": 88,
+      "seq": 90,
       "kind": "consequence",
       "consequence": {
-        "cause": 87,
+        "cause": 89,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 89,
+      "seq": 91,
       "kind": "step",
       "step": {
         "name": "Entertainer: Term 3",
@@ -1295,7 +1324,7 @@
       }
     },
     {
-      "seq": 90,
+      "seq": 92,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1309,7 +1338,7 @@
       }
     },
     {
-      "seq": 91,
+      "seq": 93,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1322,26 +1351,26 @@
       }
     },
     {
-      "seq": 92,
+      "seq": 94,
       "kind": "consequence",
       "consequence": {
-        "cause": 91,
+        "cause": 93,
         "kind": "comeback",
         "value": 8
       }
     },
     {
-      "seq": 93,
+      "seq": 95,
       "kind": "consequence",
       "consequence": {
-        "cause": 91,
+        "cause": 93,
         "kind": "fame_change",
         "delta": 2,
         "value": 8
       }
     },
     {
-      "seq": 94,
+      "seq": 96,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1360,7 +1389,7 @@
       }
     },
     {
-      "seq": 95,
+      "seq": 97,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1372,10 +1401,10 @@
       }
     },
     {
-      "seq": 96,
+      "seq": 98,
       "kind": "consequence",
       "consequence": {
-        "cause": 95,
+        "cause": 97,
         "kind": "skill_awarded",
         "skill": "Animals",
         "delta": 1,
@@ -1383,7 +1412,7 @@
       }
     },
     {
-      "seq": 97,
+      "seq": 99,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1402,7 +1431,7 @@
       }
     },
     {
-      "seq": 98,
+      "seq": 100,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1414,10 +1443,10 @@
       }
     },
     {
-      "seq": 99,
+      "seq": 101,
       "kind": "consequence",
       "consequence": {
-        "cause": 98,
+        "cause": 100,
         "kind": "skill_awarded",
         "skill": "Animals",
         "delta": 1,
@@ -1425,7 +1454,7 @@
       }
     },
     {
-      "seq": 100,
+      "seq": 102,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1444,7 +1473,7 @@
       }
     },
     {
-      "seq": 101,
+      "seq": 103,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1456,10 +1485,10 @@
       }
     },
     {
-      "seq": 102,
+      "seq": 104,
       "kind": "consequence",
       "consequence": {
-        "cause": 101,
+        "cause": 103,
         "kind": "skill_awarded",
         "skill": "Hostile Environ",
         "delta": 1,
@@ -1467,7 +1496,7 @@
       }
     },
     {
-      "seq": 103,
+      "seq": 105,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1486,7 +1515,7 @@
       }
     },
     {
-      "seq": 104,
+      "seq": 106,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1498,10 +1527,10 @@
       }
     },
     {
-      "seq": 105,
+      "seq": 107,
       "kind": "consequence",
       "consequence": {
-        "cause": 104,
+        "cause": 106,
         "kind": "skill_awarded",
         "skill": "Navigator",
         "delta": 1,
@@ -1509,7 +1538,21 @@
       }
     },
     {
-      "seq": 106,
+      "seq": 108,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Entertainer for another career?",
+        "options": [
+          "Continue in Entertainer",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 109,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1524,16 +1567,16 @@
       }
     },
     {
-      "seq": 107,
+      "seq": 110,
       "kind": "consequence",
       "consequence": {
-        "cause": 106,
+        "cause": 109,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 108,
+      "seq": 111,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1548,7 +1591,7 @@
       }
     },
     {
-      "seq": 109,
+      "seq": 112,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1563,7 +1606,7 @@
       }
     },
     {
-      "seq": 110,
+      "seq": 113,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1578,7 +1621,7 @@
       }
     },
     {
-      "seq": 111,
+      "seq": 114,
       "kind": "step",
       "step": {
         "name": "Entertainer: Term 4",
@@ -1586,7 +1629,7 @@
       }
     },
     {
-      "seq": 112,
+      "seq": 115,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1600,7 +1643,7 @@
       }
     },
     {
-      "seq": 113,
+      "seq": 116,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -1613,48 +1656,12 @@
       }
     },
     {
-      "seq": 114,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 113,
-        "kind": "fame_change",
-        "delta": -4,
-        "value": 4
-      }
-    },
-    {
-      "seq": 115,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Roll the optional Fame Flux?",
-        "options": [
-          "Roll Flux",
-          "Stand pat"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 77 chart 03 (the second and third Flux rolls are optional)"
-      }
-    },
-    {
-      "seq": 116,
-      "kind": "throw",
-      "throw": {
-        "expr": "Flux",
-        "dice": [
-          1,
-          1
-        ],
-        "total": 0,
-        "cite": "Book 1 p. 77 chart 03 (Fame +F*; optional Flux)"
-      }
-    },
-    {
       "seq": 117,
       "kind": "consequence",
       "consequence": {
         "cause": 116,
         "kind": "fame_change",
+        "delta": -4,
         "value": 4
       }
     },
@@ -1678,10 +1685,10 @@
       "throw": {
         "expr": "Flux",
         "dice": [
-          2,
+          1,
           1
         ],
-        "total": 1,
+        "total": 0,
         "cite": "Book 1 p. 77 chart 03 (Fame +F*; optional Flux)"
       }
     },
@@ -1691,8 +1698,7 @@
       "consequence": {
         "cause": 119,
         "kind": "fame_change",
-        "delta": 1,
-        "value": 5
+        "value": 4
       }
     },
     {
@@ -1700,30 +1706,26 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select an Entertainer Skills column",
+        "prompt": "Roll the optional Fame Flux?",
         "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
+          "Roll Flux",
+          "Stand pat"
         ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+        "chosen": 0,
+        "cite": "Book 1 p. 77 chart 03 (the second and third Flux rolls are optional)"
       }
     },
     {
       "seq": 122,
       "kind": "throw",
       "throw": {
-        "expr": "1D",
+        "expr": "Flux",
         "dice": [
-          5
+          2,
+          1
         ],
-        "total": 5,
-        "cite": "Book 1 p. 77 chart 03 table C, column General"
+        "total": 1,
+        "cite": "Book 1 p. 77 chart 03 (Fame +F*; optional Flux)"
       }
     },
     {
@@ -1731,10 +1733,9 @@
       "kind": "consequence",
       "consequence": {
         "cause": 122,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
+        "kind": "fame_change",
         "delta": 1,
-        "value": 3
+        "value": 5
       }
     },
     {
@@ -1762,9 +1763,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          2
+          5
         ],
-        "total": 2,
+        "total": 5,
         "cite": "Book 1 p. 77 chart 03 table C, column General"
       }
     },
@@ -1774,9 +1775,9 @@
       "consequence": {
         "cause": 125,
         "kind": "skill_awarded",
-        "skill": "Survival",
+        "skill": "Bureaucrat",
         "delta": 1,
-        "value": 2
+        "value": 3
       }
     },
     {
@@ -1804,9 +1805,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          5
+          2
         ],
-        "total": 5,
+        "total": 2,
         "cite": "Book 1 p. 77 chart 03 table C, column General"
       }
     },
@@ -1816,9 +1817,9 @@
       "consequence": {
         "cause": 128,
         "kind": "skill_awarded",
-        "skill": "Bureaucrat",
+        "skill": "Survival",
         "delta": 1,
-        "value": 4
+        "value": 2
       }
     },
     {
@@ -1846,9 +1847,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          2
+          5
         ],
-        "total": 2,
+        "total": 5,
         "cite": "Book 1 p. 77 chart 03 table C, column General"
       }
     },
@@ -1858,13 +1859,69 @@
       "consequence": {
         "cause": 131,
         "kind": "skill_awarded",
+        "skill": "Bureaucrat",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 133,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Entertainer Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 134,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 77 chart 03 table C, column General"
+      }
+    },
+    {
+      "seq": 135,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 134,
+        "kind": "skill_awarded",
         "skill": "Survival",
         "delta": 1,
         "value": 3
       }
     },
     {
-      "seq": 133,
+      "seq": 136,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Entertainer for another career?",
+        "options": [
+          "Continue in Entertainer",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 137,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1879,16 +1936,16 @@
       }
     },
     {
-      "seq": 134,
+      "seq": 138,
       "kind": "consequence",
       "consequence": {
-        "cause": 133,
+        "cause": 137,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 135,
+      "seq": 139,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1903,7 +1960,7 @@
       }
     },
     {
-      "seq": 136,
+      "seq": 140,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1918,7 +1975,7 @@
       }
     },
     {
-      "seq": 137,
+      "seq": 141,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1933,10 +1990,10 @@
       }
     },
     {
-      "seq": 138,
+      "seq": 142,
       "kind": "consequence",
       "consequence": {
-        "cause": 133,
+        "cause": 137,
         "kind": "career_ended",
         "career": "Entertainer"
       }

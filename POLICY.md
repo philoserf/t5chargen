@@ -1,6 +1,6 @@
 # POLICY.md — auto-mode default policy
 
-Version: **0.11.0** (`policy_version` in every character record). Changing any
+Version: **0.12.0** (`policy_version` in every character record). Changing any
 rule here is a policy version bump (docs/PRD.md, Replay and provenance
 contract). 0.2.0 added the homeworld choice points; 0.3.0 the education
 choice points; 0.4.0 the Scout career choice points (chart 05, p. 79) and
@@ -17,7 +17,9 @@ Noble Elevation Flux (`invoke_elevation_flux`; chart 11, p. 85); 0.9.0 the Soldi
 choice (`select_branch`; chart 08, p. 82) and its three skill columns; 0.10.0
 names and scores the Branch choice on the side the character serves
 (interpretation I-36), which changes the options `select_branch` is offered
-and so how a recorded index replays.
+and so how a recorded index replays; 0.12.0 the career-change decision
+(`change_career`; p. 66), which is offered at the end of every eligible
+term and so shifts every subsequent event in every record.
 
 The auto policy is total (it can decide every valid choice point),
 deterministic, and tie-breaks by first-listed order in Book 1 (docs/PRD.md,
@@ -54,13 +56,21 @@ lists them; the policy returns an index.
 | `select_skill`                      | First-listed.                                                                                                                                       | Tie-break rule. Reached when a chart cell names more than one Master Skill List entry — the chart 04 table E "Grav" and "Spacecraft" cells (ERRATA.md I-10, I-11), whose options are listed in Master Skill List order — by the Apprenticeship award, which the policy never selects; and by the "One Art", "One Trade", "One Science", and "Starship Skill" cells, whose alternatives are the corresponding Master Skill List groups.                                                                                                                                              |
 | `select_duty`                       | Explorer Duty.                                                                                                                                      | The Scout career's point, and the larger skill eligibility (chart 05 table B: Explorer 8 vs Courier 4); Courier's safety is an interactive-play trade-off.                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `select_risk_mod`                   | No Mod.                                                                                                                                             | Neutral default: Caution improves Risk but worsens Reward and vice versa (p. 65); a smarter Caution/Bravery heuristic is a future policy version.                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `change_career`                     | Decline; continue in the current career.                                                                                                            | The change is offered before the Continue throw is known, so it trades a career in hand for a To Begin that may fail and end Career Resolution outright (p. 66, p. 65). Aging (chart A p. 89) now bounds the Mandatory Continue tail the change exists to avoid, so the reason to take it is weaker than it was. The consequence is stated plainly under Known limitations: no auto-generated character reaches Craftsman or Functionary.                                                                                                                                           |
 | `attempt_retry`                     | Always attempt.                                                                                                                                     | The I-8 Reward retry has no stated cost.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 
 ## Known limitations (0.4.0)
 
 - Every auto-generated Citizen's hobby is the first-listed table E entry
   (excluding the determined Job, per ERRATA I-3).
-- Careers run until the Continue roll fails — an unbounded geometric
-  process, so long careers produce old characters until milestone 4 aging
-  lands. Rule-accurate; note the Skill-15 cap (p. 134) bounds individual
+- Careers run until the Continue roll fails or aging kills. Aging (chart A
+  p. 89) bounds the tail, but chart 04's fixed "Continue 10-" does not
+  degrade as characteristics fall, so a Citizen can still serve into his
+  hundreds. Rule-accurate; note the Skill-15 cap (p. 134) bounds individual
   skill levels, not career length.
+- **No auto-generated character changes careers**, because `change_career`
+  declines. Every character therefore has exactly one career, and Craftsman
+  and Functionary — neither of which can be a first career (p. 63) — are
+  unreachable in auto mode. Their fixtures are generated with a test
+  Decider and carry `policy_version: "none"`; that is the policy working as
+  written, not a defect.

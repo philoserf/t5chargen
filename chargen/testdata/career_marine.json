@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.17.0",
+  "schema_version": "0.18.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.18.0",
-  "policy_version": "0.11.0",
+  "engine_version": "0.19.0",
+  "policy_version": "0.12.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 529
@@ -91,6 +91,8 @@
     {
       "career": "Marine",
       "began": true,
+      "end_age": 50,
+      "reserve": true,
       "rank": "O6",
       "rank_title": "Coronel",
       "branch": "Medical",
@@ -1394,6 +1396,20 @@
     },
     {
       "seq": 91,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Marine for another career?",
+        "options": [
+          "Continue in Marine",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 92,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1408,16 +1424,16 @@
       }
     },
     {
-      "seq": 92,
+      "seq": 93,
       "kind": "consequence",
       "consequence": {
-        "cause": 91,
+        "cause": 92,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 93,
+      "seq": 94,
       "kind": "step",
       "step": {
         "name": "Marine: Term 2",
@@ -1425,7 +1441,7 @@
       }
     },
     {
-      "seq": 94,
+      "seq": 95,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1438,7 +1454,7 @@
       }
     },
     {
-      "seq": 95,
+      "seq": 96,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1447,20 +1463,20 @@
         ],
         "total": 5,
         "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
-      }
-    },
-    {
-      "seq": 96,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 95,
-        "kind": "operation",
-        "skill": "Garrison",
-        "career": "Marine"
       }
     },
     {
       "seq": 97,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 96,
+        "kind": "operation",
+        "skill": "Garrison",
+        "career": "Marine"
+      }
+    },
+    {
+      "seq": 98,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1472,17 +1488,17 @@
       }
     },
     {
-      "seq": 98,
+      "seq": 99,
       "kind": "consequence",
       "consequence": {
-        "cause": 97,
+        "cause": 98,
         "kind": "operation",
         "skill": "Garrison",
         "career": "Marine"
       }
     },
     {
-      "seq": 99,
+      "seq": 100,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1494,17 +1510,17 @@
       }
     },
     {
-      "seq": 100,
+      "seq": 101,
       "kind": "consequence",
       "consequence": {
-        "cause": 99,
+        "cause": 100,
         "kind": "operation",
         "skill": "Garrison",
         "career": "Marine"
       }
     },
     {
-      "seq": 101,
+      "seq": 102,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1516,10 +1532,10 @@
       }
     },
     {
-      "seq": 102,
+      "seq": 103,
       "kind": "consequence",
       "consequence": {
-        "cause": 101,
+        "cause": 102,
         "kind": "operation",
         "skill": "Peace Keeper",
         "career": "Marine",
@@ -1527,7 +1543,7 @@
       }
     },
     {
-      "seq": 103,
+      "seq": 104,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1558,7 +1574,7 @@
       }
     },
     {
-      "seq": 104,
+      "seq": 105,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1583,17 +1599,17 @@
       }
     },
     {
-      "seq": 105,
+      "seq": 106,
       "kind": "consequence",
       "consequence": {
-        "cause": 104,
+        "cause": 105,
         "kind": "service_badge",
         "career": "Marine",
         "value": 2
       }
     },
     {
-      "seq": 106,
+      "seq": 107,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1618,10 +1634,10 @@
       }
     },
     {
-      "seq": 107,
+      "seq": 108,
       "kind": "consequence",
       "consequence": {
-        "cause": 106,
+        "cause": 107,
         "kind": "medal",
         "skill": "XS",
         "career": "Marine",
@@ -1629,7 +1645,7 @@
       }
     },
     {
-      "seq": 108,
+      "seq": 109,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1643,7 +1659,7 @@
       }
     },
     {
-      "seq": 109,
+      "seq": 110,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1658,20 +1674,20 @@
       }
     },
     {
-      "seq": 110,
+      "seq": 111,
       "kind": "consequence",
       "consequence": {
-        "cause": 109,
+        "cause": 110,
         "kind": "rank_set",
         "skill": "2nd Lieutenant",
         "career": "Marine"
       }
     },
     {
-      "seq": 111,
+      "seq": 112,
       "kind": "consequence",
       "consequence": {
-        "cause": 109,
+        "cause": 110,
         "kind": "skill_awarded",
         "skill": "Leader",
         "delta": 1,
@@ -1679,7 +1695,7 @@
       }
     },
     {
-      "seq": 112,
+      "seq": 113,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1694,7 +1710,7 @@
       }
     },
     {
-      "seq": 113,
+      "seq": 114,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1706,10 +1722,10 @@
       }
     },
     {
-      "seq": 114,
+      "seq": 115,
       "kind": "consequence",
       "consequence": {
-        "cause": 113,
+        "cause": 114,
         "kind": "skill_awarded",
         "skill": "Tactics",
         "delta": 1,
@@ -1717,7 +1733,7 @@
       }
     },
     {
-      "seq": 115,
+      "seq": 116,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1732,7 +1748,7 @@
       }
     },
     {
-      "seq": 116,
+      "seq": 117,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1744,10 +1760,10 @@
       }
     },
     {
-      "seq": 117,
+      "seq": 118,
       "kind": "consequence",
       "consequence": {
-        "cause": 116,
+        "cause": 117,
         "kind": "skill_awarded",
         "skill": "Leader",
         "delta": 1,
@@ -1755,7 +1771,7 @@
       }
     },
     {
-      "seq": 118,
+      "seq": 119,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1770,7 +1786,7 @@
       }
     },
     {
-      "seq": 119,
+      "seq": 120,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1782,10 +1798,10 @@
       }
     },
     {
-      "seq": 120,
+      "seq": 121,
       "kind": "consequence",
       "consequence": {
-        "cause": 119,
+        "cause": 120,
         "kind": "skill_awarded",
         "skill": "Leader",
         "delta": 1,
@@ -1793,7 +1809,7 @@
       }
     },
     {
-      "seq": 121,
+      "seq": 122,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1808,7 +1824,7 @@
       }
     },
     {
-      "seq": 122,
+      "seq": 123,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1820,10 +1836,10 @@
       }
     },
     {
-      "seq": 123,
+      "seq": 124,
       "kind": "consequence",
       "consequence": {
-        "cause": 122,
+        "cause": 123,
         "kind": "skill_awarded",
         "skill": "Stealth",
         "delta": 1,
@@ -1831,7 +1847,7 @@
       }
     },
     {
-      "seq": 124,
+      "seq": 125,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1850,7 +1866,7 @@
       }
     },
     {
-      "seq": 125,
+      "seq": 126,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1862,10 +1878,10 @@
       }
     },
     {
-      "seq": 126,
+      "seq": 127,
       "kind": "consequence",
       "consequence": {
-        "cause": 125,
+        "cause": 126,
         "kind": "skill_awarded",
         "skill": "Tactics",
         "delta": 1,
@@ -1873,7 +1889,21 @@
       }
     },
     {
-      "seq": 127,
+      "seq": 128,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Marine for another career?",
+        "options": [
+          "Continue in Marine",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 129,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1888,16 +1918,16 @@
       }
     },
     {
-      "seq": 128,
+      "seq": 130,
       "kind": "consequence",
       "consequence": {
-        "cause": 127,
+        "cause": 129,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 129,
+      "seq": 131,
       "kind": "step",
       "step": {
         "name": "Marine: Term 3",
@@ -1905,7 +1935,7 @@
       }
     },
     {
-      "seq": 130,
+      "seq": 132,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1919,7 +1949,7 @@
       }
     },
     {
-      "seq": 131,
+      "seq": 133,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1931,10 +1961,10 @@
       }
     },
     {
-      "seq": 132,
+      "seq": 134,
       "kind": "consequence",
       "consequence": {
-        "cause": 131,
+        "cause": 133,
         "kind": "operation",
         "skill": "Mission",
         "career": "Marine",
@@ -1942,7 +1972,7 @@
       }
     },
     {
-      "seq": 133,
+      "seq": 135,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1954,36 +1984,13 @@
       }
     },
     {
-      "seq": 134,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 133,
-        "kind": "operation",
-        "skill": "Garrison",
-        "career": "Marine"
-      }
-    },
-    {
-      "seq": 135,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
-      }
-    },
-    {
       "seq": 136,
       "kind": "consequence",
       "consequence": {
         "cause": 135,
         "kind": "operation",
-        "skill": "Combat",
-        "career": "Marine",
-        "value": 3
+        "skill": "Garrison",
+        "career": "Marine"
       }
     },
     {
@@ -2011,6 +2018,29 @@
     },
     {
       "seq": 139,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 140,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 139,
+        "kind": "operation",
+        "skill": "Combat",
+        "career": "Marine",
+        "value": 3
+      }
+    },
+    {
+      "seq": 141,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2041,7 +2071,7 @@
       }
     },
     {
-      "seq": 140,
+      "seq": 142,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2066,17 +2096,17 @@
       }
     },
     {
-      "seq": 141,
+      "seq": 143,
       "kind": "consequence",
       "consequence": {
-        "cause": 140,
+        "cause": 142,
         "kind": "service_badge",
         "career": "Marine",
         "value": 3
       }
     },
     {
-      "seq": 142,
+      "seq": 144,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2101,10 +2131,10 @@
       }
     },
     {
-      "seq": 143,
+      "seq": 145,
       "kind": "consequence",
       "consequence": {
-        "cause": 142,
+        "cause": 144,
         "kind": "medal",
         "skill": "MCUF",
         "career": "Marine",
@@ -2112,7 +2142,7 @@
       }
     },
     {
-      "seq": 144,
+      "seq": 146,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2126,7 +2156,7 @@
       }
     },
     {
-      "seq": 145,
+      "seq": 147,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2147,17 +2177,17 @@
       }
     },
     {
-      "seq": 146,
+      "seq": 148,
       "kind": "consequence",
       "consequence": {
-        "cause": 145,
+        "cause": 147,
         "kind": "rank_set",
         "skill": "1st Lieutenant",
         "career": "Marine"
       }
     },
     {
-      "seq": 147,
+      "seq": 149,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2173,7 +2203,7 @@
       }
     },
     {
-      "seq": 148,
+      "seq": 150,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2185,7 +2215,7 @@
       }
     },
     {
-      "seq": 149,
+      "seq": 151,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2203,10 +2233,10 @@
       }
     },
     {
-      "seq": 150,
+      "seq": 152,
       "kind": "consequence",
       "consequence": {
-        "cause": 149,
+        "cause": 151,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -2214,7 +2244,7 @@
       }
     },
     {
-      "seq": 151,
+      "seq": 153,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2230,7 +2260,7 @@
       }
     },
     {
-      "seq": 152,
+      "seq": 154,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2242,10 +2272,10 @@
       }
     },
     {
-      "seq": 153,
+      "seq": 155,
       "kind": "consequence",
       "consequence": {
-        "cause": 152,
+        "cause": 154,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -2253,7 +2283,7 @@
       }
     },
     {
-      "seq": 154,
+      "seq": 156,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2269,7 +2299,7 @@
       }
     },
     {
-      "seq": 155,
+      "seq": 157,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2281,10 +2311,10 @@
       }
     },
     {
-      "seq": 156,
+      "seq": 158,
       "kind": "consequence",
       "consequence": {
-        "cause": 155,
+        "cause": 157,
         "kind": "skill_awarded",
         "skill": "Tactics",
         "delta": 1,
@@ -2292,7 +2322,7 @@
       }
     },
     {
-      "seq": 157,
+      "seq": 159,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2308,7 +2338,7 @@
       }
     },
     {
-      "seq": 158,
+      "seq": 160,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2320,7 +2350,7 @@
       }
     },
     {
-      "seq": 159,
+      "seq": 161,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2338,10 +2368,10 @@
       }
     },
     {
-      "seq": 160,
+      "seq": 162,
       "kind": "consequence",
       "consequence": {
-        "cause": 159,
+        "cause": 161,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -2349,7 +2379,7 @@
       }
     },
     {
-      "seq": 161,
+      "seq": 163,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2368,7 +2398,7 @@
       }
     },
     {
-      "seq": 162,
+      "seq": 164,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2380,10 +2410,10 @@
       }
     },
     {
-      "seq": 163,
+      "seq": 165,
       "kind": "consequence",
       "consequence": {
-        "cause": 162,
+        "cause": 164,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -2391,7 +2421,21 @@
       }
     },
     {
-      "seq": 164,
+      "seq": 166,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Marine for another career?",
+        "options": [
+          "Continue in Marine",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 167,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2406,16 +2450,16 @@
       }
     },
     {
-      "seq": 165,
+      "seq": 168,
       "kind": "consequence",
       "consequence": {
-        "cause": 164,
+        "cause": 167,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 166,
+      "seq": 169,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2430,7 +2474,7 @@
       }
     },
     {
-      "seq": 167,
+      "seq": 170,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2445,7 +2489,7 @@
       }
     },
     {
-      "seq": 168,
+      "seq": 171,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2460,10 +2504,10 @@
       }
     },
     {
-      "seq": 169,
+      "seq": 172,
       "kind": "consequence",
       "consequence": {
-        "cause": 168,
+        "cause": 171,
         "kind": "aging_effect",
         "characteristic": "End",
         "delta": -1,
@@ -2471,7 +2515,7 @@
       }
     },
     {
-      "seq": 170,
+      "seq": 173,
       "kind": "step",
       "step": {
         "name": "Marine: Term 4",
@@ -2479,7 +2523,7 @@
       }
     },
     {
-      "seq": 171,
+      "seq": 174,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2492,7 +2536,7 @@
       }
     },
     {
-      "seq": 172,
+      "seq": 175,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2504,61 +2548,61 @@
       }
     },
     {
-      "seq": 173,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 172,
-        "kind": "operation",
-        "skill": "Garrison",
-        "career": "Marine"
-      }
-    },
-    {
-      "seq": 174,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
-      }
-    },
-    {
-      "seq": 175,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 174,
-        "kind": "operation",
-        "skill": "Garrison",
-        "career": "Marine"
-      }
-    },
-    {
       "seq": 176,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 175,
+        "kind": "operation",
+        "skill": "Garrison",
+        "career": "Marine"
       }
     },
     {
       "seq": 177,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 178,
       "kind": "consequence",
       "consequence": {
-        "cause": 176,
+        "cause": 177,
         "kind": "operation",
         "skill": "Garrison",
         "career": "Marine"
       }
     },
     {
-      "seq": 178,
+      "seq": 179,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 180,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 179,
+        "kind": "operation",
+        "skill": "Garrison",
+        "career": "Marine"
+      }
+    },
+    {
+      "seq": 181,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2570,10 +2614,10 @@
       }
     },
     {
-      "seq": 179,
+      "seq": 182,
       "kind": "consequence",
       "consequence": {
-        "cause": 178,
+        "cause": 181,
         "kind": "operation",
         "skill": "Combat",
         "career": "Marine",
@@ -2581,7 +2625,7 @@
       }
     },
     {
-      "seq": 180,
+      "seq": 183,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2612,7 +2656,7 @@
       }
     },
     {
-      "seq": 181,
+      "seq": 184,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2637,7 +2681,7 @@
       }
     },
     {
-      "seq": 182,
+      "seq": 185,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -2650,10 +2694,10 @@
       }
     },
     {
-      "seq": 183,
+      "seq": 186,
       "kind": "consequence",
       "consequence": {
-        "cause": 181,
+        "cause": 184,
         "kind": "characteristic_change",
         "characteristic": "Int",
         "delta": -1,
@@ -2661,16 +2705,16 @@
       }
     },
     {
-      "seq": 184,
+      "seq": 187,
       "kind": "consequence",
       "consequence": {
-        "cause": 181,
+        "cause": 184,
         "kind": "wound_badge",
         "value": 1
       }
     },
     {
-      "seq": 185,
+      "seq": 188,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2695,10 +2739,10 @@
       }
     },
     {
-      "seq": 186,
+      "seq": 189,
       "kind": "consequence",
       "consequence": {
-        "cause": 185,
+        "cause": 188,
         "kind": "medal",
         "skill": "XS",
         "career": "Marine",
@@ -2706,7 +2750,7 @@
       }
     },
     {
-      "seq": 187,
+      "seq": 190,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2720,7 +2764,7 @@
       }
     },
     {
-      "seq": 188,
+      "seq": 191,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2741,17 +2785,17 @@
       }
     },
     {
-      "seq": 189,
+      "seq": 192,
       "kind": "consequence",
       "consequence": {
-        "cause": 188,
+        "cause": 191,
         "kind": "rank_set",
         "skill": "Captain",
         "career": "Marine"
       }
     },
     {
-      "seq": 190,
+      "seq": 193,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2766,7 +2810,7 @@
       }
     },
     {
-      "seq": 191,
+      "seq": 194,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2778,7 +2822,7 @@
       }
     },
     {
-      "seq": 192,
+      "seq": 195,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2796,10 +2840,10 @@
       }
     },
     {
-      "seq": 193,
+      "seq": 196,
       "kind": "consequence",
       "consequence": {
-        "cause": 192,
+        "cause": 195,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -2807,7 +2851,7 @@
       }
     },
     {
-      "seq": 194,
+      "seq": 197,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2822,7 +2866,7 @@
       }
     },
     {
-      "seq": 195,
+      "seq": 198,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2834,7 +2878,7 @@
       }
     },
     {
-      "seq": 196,
+      "seq": 199,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2849,44 +2893,6 @@
         ],
         "chosen": 0,
         "cite": "Book 1 p. 86 chart 12 table C; Book 1 p. 132 chart MS"
-      }
-    },
-    {
-      "seq": 197,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 196,
-        "kind": "skill_awarded",
-        "skill": "Fighter",
-        "delta": 1,
-        "value": 10
-      }
-    },
-    {
-      "seq": 198,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Garrison",
-          "Combat"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 199,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
       }
     },
     {
@@ -2897,7 +2903,7 @@
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
-        "value": 11
+        "value": 10
       }
     },
     {
@@ -2935,7 +2941,7 @@
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
-        "value": 12
+        "value": 11
       }
     },
     {
@@ -2947,11 +2953,7 @@
         "options": [
           "Personal",
           "Garrison",
-          "Combat",
-          "Peacekeeper",
-          "Occupation",
-          "Mission",
-          "Technical"
+          "Combat"
         ],
         "chosen": 2,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
@@ -2977,11 +2979,67 @@
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
-        "value": 13
+        "value": 12
       }
     },
     {
       "seq": 207,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Garrison",
+          "Combat",
+          "Peacekeeper",
+          "Occupation",
+          "Mission",
+          "Technical"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 208,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 209,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 208,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 13
+      }
+    },
+    {
+      "seq": 210,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Marine for another career?",
+        "options": [
+          "Continue in Marine",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 211,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2996,16 +3054,16 @@
       }
     },
     {
-      "seq": 208,
+      "seq": 212,
       "kind": "consequence",
       "consequence": {
-        "cause": 207,
+        "cause": 211,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 209,
+      "seq": 213,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3020,10 +3078,10 @@
       }
     },
     {
-      "seq": 210,
+      "seq": 214,
       "kind": "consequence",
       "consequence": {
-        "cause": 209,
+        "cause": 213,
         "kind": "aging_effect",
         "characteristic": "Str",
         "delta": -1,
@@ -3031,7 +3089,7 @@
       }
     },
     {
-      "seq": 211,
+      "seq": 215,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3046,7 +3104,7 @@
       }
     },
     {
-      "seq": 212,
+      "seq": 216,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3061,7 +3119,7 @@
       }
     },
     {
-      "seq": 213,
+      "seq": 217,
       "kind": "step",
       "step": {
         "name": "Marine: Term 5",
@@ -3069,7 +3127,7 @@
       }
     },
     {
-      "seq": 214,
+      "seq": 218,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3083,7 +3141,7 @@
       }
     },
     {
-      "seq": 215,
+      "seq": 219,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3095,10 +3153,10 @@
       }
     },
     {
-      "seq": 216,
+      "seq": 220,
       "kind": "consequence",
       "consequence": {
-        "cause": 215,
+        "cause": 219,
         "kind": "operation",
         "skill": "Mission",
         "career": "Marine",
@@ -3106,53 +3164,53 @@
       }
     },
     {
-      "seq": 217,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
-      }
-    },
-    {
-      "seq": 218,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 217,
-        "kind": "operation",
-        "skill": "Combat",
-        "career": "Marine",
-        "value": 3
-      }
-    },
-    {
-      "seq": 219,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
-      }
-    },
-    {
-      "seq": 220,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 219,
-        "kind": "operation",
-        "skill": "Combat",
-        "career": "Marine",
-        "value": 3
-      }
-    },
-    {
       "seq": 221,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 222,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 221,
+        "kind": "operation",
+        "skill": "Combat",
+        "career": "Marine",
+        "value": 3
+      }
+    },
+    {
+      "seq": 223,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 224,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 223,
+        "kind": "operation",
+        "skill": "Combat",
+        "career": "Marine",
+        "value": 3
+      }
+    },
+    {
+      "seq": 225,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3164,17 +3222,17 @@
       }
     },
     {
-      "seq": 222,
+      "seq": 226,
       "kind": "consequence",
       "consequence": {
-        "cause": 221,
+        "cause": 225,
         "kind": "operation",
         "skill": "Garrison",
         "career": "Marine"
       }
     },
     {
-      "seq": 223,
+      "seq": 227,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3205,7 +3263,7 @@
       }
     },
     {
-      "seq": 224,
+      "seq": 228,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3230,17 +3288,17 @@
       }
     },
     {
-      "seq": 225,
+      "seq": 229,
       "kind": "consequence",
       "consequence": {
-        "cause": 224,
+        "cause": 228,
         "kind": "service_badge",
         "career": "Marine",
         "value": 4
       }
     },
     {
-      "seq": 226,
+      "seq": 230,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3265,10 +3323,10 @@
       }
     },
     {
-      "seq": 227,
+      "seq": 231,
       "kind": "consequence",
       "consequence": {
-        "cause": 226,
+        "cause": 230,
         "kind": "medal",
         "skill": "MCUF",
         "career": "Marine",
@@ -3276,7 +3334,7 @@
       }
     },
     {
-      "seq": 228,
+      "seq": 232,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3290,7 +3348,7 @@
       }
     },
     {
-      "seq": 229,
+      "seq": 233,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3311,81 +3369,24 @@
       }
     },
     {
-      "seq": 230,
+      "seq": 234,
       "kind": "consequence",
       "consequence": {
-        "cause": 229,
+        "cause": 233,
         "kind": "rank_set",
         "skill": "Force Commander",
         "career": "Marine"
       }
     },
     {
-      "seq": 231,
+      "seq": 235,
       "kind": "consequence",
       "consequence": {
-        "cause": 229,
+        "cause": 233,
         "kind": "skill_awarded",
         "skill": "Tactics",
         "delta": 1,
         "value": 4
-      }
-    },
-    {
-      "seq": 232,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Mission",
-          "Combat",
-          "Garrison"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 233,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
-      }
-    },
-    {
-      "seq": 234,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Soldier Skill",
-        "options": [
-          "Fighter",
-          "Forward Observer",
-          "Heavy Weapons",
-          "Navigator",
-          "Recon",
-          "Sapper"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 86 chart 12 table C; Book 1 p. 132 chart MS"
-      }
-    },
-    {
-      "seq": 235,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 234,
-        "kind": "skill_awarded",
-        "skill": "Fighter",
-        "delta": 1,
-        "value": 14
       }
     },
     {
@@ -3410,25 +3411,43 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          1
+          4
         ],
-        "total": 1,
+        "total": 4,
         "cite": "Book 1 p. 86 chart 12 table C, column Combat"
       }
     },
     {
       "seq": 238,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 237,
-        "kind": "skill_awarded",
-        "skill": "Fighter",
-        "delta": 1,
-        "value": 15
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Soldier Skill",
+        "options": [
+          "Fighter",
+          "Forward Observer",
+          "Heavy Weapons",
+          "Navigator",
+          "Recon",
+          "Sapper"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 86 chart 12 table C; Book 1 p. 132 chart MS"
       }
     },
     {
       "seq": 239,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 238,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 14
+      }
+    },
+    {
+      "seq": 240,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3444,7 +3463,46 @@
       }
     },
     {
-      "seq": 240,
+      "seq": 241,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 242,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 241,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 15
+      }
+    },
+    {
+      "seq": 243,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Mission",
+          "Combat",
+          "Garrison"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 244,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3456,10 +3514,10 @@
       }
     },
     {
-      "seq": 241,
+      "seq": 245,
       "kind": "consequence",
       "consequence": {
-        "cause": 240,
+        "cause": 244,
         "kind": "skill_awarded",
         "skill": "Tactics",
         "delta": 1,
@@ -3467,7 +3525,7 @@
       }
     },
     {
-      "seq": 242,
+      "seq": 246,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3483,7 +3541,7 @@
       }
     },
     {
-      "seq": 243,
+      "seq": 247,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3495,10 +3553,10 @@
       }
     },
     {
-      "seq": 244,
+      "seq": 248,
       "kind": "consequence",
       "consequence": {
-        "cause": 243,
+        "cause": 247,
         "kind": "skill_awarded",
         "skill": "Leader",
         "delta": 1,
@@ -3506,7 +3564,7 @@
       }
     },
     {
-      "seq": 245,
+      "seq": 249,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3525,7 +3583,7 @@
       }
     },
     {
-      "seq": 246,
+      "seq": 250,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3537,16 +3595,30 @@
       }
     },
     {
-      "seq": 247,
+      "seq": 251,
       "kind": "consequence",
       "consequence": {
-        "cause": 246,
+        "cause": 250,
         "kind": "no_award",
         "skill": "Fighter"
       }
     },
     {
-      "seq": 248,
+      "seq": 252,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Marine for another career?",
+        "options": [
+          "Continue in Marine",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 253,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3561,16 +3633,16 @@
       }
     },
     {
-      "seq": 249,
+      "seq": 254,
       "kind": "consequence",
       "consequence": {
-        "cause": 248,
+        "cause": 253,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 250,
+      "seq": 255,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3585,10 +3657,10 @@
       }
     },
     {
-      "seq": 251,
+      "seq": 256,
       "kind": "consequence",
       "consequence": {
-        "cause": 250,
+        "cause": 255,
         "kind": "aging_effect",
         "characteristic": "Str",
         "delta": -1,
@@ -3596,7 +3668,7 @@
       }
     },
     {
-      "seq": 252,
+      "seq": 257,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3611,7 +3683,7 @@
       }
     },
     {
-      "seq": 253,
+      "seq": 258,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3626,15 +3698,15 @@
       }
     },
     {
-      "seq": 254,
+      "seq": 259,
       "kind": "consequence",
       "consequence": {
-        "cause": 248,
+        "cause": 253,
         "kind": "mandatory_continue"
       }
     },
     {
-      "seq": 255,
+      "seq": 260,
       "kind": "step",
       "step": {
         "name": "Marine: Term 6",
@@ -3642,7 +3714,7 @@
       }
     },
     {
-      "seq": 256,
+      "seq": 261,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3655,7 +3727,7 @@
       }
     },
     {
-      "seq": 257,
+      "seq": 262,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3667,10 +3739,10 @@
       }
     },
     {
-      "seq": 258,
+      "seq": 263,
       "kind": "consequence",
       "consequence": {
-        "cause": 257,
+        "cause": 262,
         "kind": "operation",
         "skill": "Peace Keeper",
         "career": "Marine",
@@ -3678,7 +3750,7 @@
       }
     },
     {
-      "seq": 259,
+      "seq": 264,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3690,10 +3762,10 @@
       }
     },
     {
-      "seq": 260,
+      "seq": 265,
       "kind": "consequence",
       "consequence": {
-        "cause": 259,
+        "cause": 264,
         "kind": "operation",
         "skill": "Mission",
         "career": "Marine",
@@ -3701,7 +3773,7 @@
       }
     },
     {
-      "seq": 261,
+      "seq": 266,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3713,10 +3785,10 @@
       }
     },
     {
-      "seq": 262,
+      "seq": 267,
       "kind": "consequence",
       "consequence": {
-        "cause": 261,
+        "cause": 266,
         "kind": "operation",
         "skill": "Mission",
         "career": "Marine",
@@ -3724,7 +3796,7 @@
       }
     },
     {
-      "seq": 263,
+      "seq": 268,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3736,17 +3808,17 @@
       }
     },
     {
-      "seq": 264,
+      "seq": 269,
       "kind": "consequence",
       "consequence": {
-        "cause": 263,
+        "cause": 268,
         "kind": "operation",
         "skill": "Garrison",
         "career": "Marine"
       }
     },
     {
-      "seq": 265,
+      "seq": 270,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3777,7 +3849,7 @@
       }
     },
     {
-      "seq": 266,
+      "seq": 271,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3802,7 +3874,7 @@
       }
     },
     {
-      "seq": 267,
+      "seq": 272,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -3815,10 +3887,10 @@
       }
     },
     {
-      "seq": 268,
+      "seq": 273,
       "kind": "consequence",
       "consequence": {
-        "cause": 266,
+        "cause": 271,
         "kind": "characteristic_change",
         "characteristic": "Int",
         "delta": -2,
@@ -3826,16 +3898,16 @@
       }
     },
     {
-      "seq": 269,
+      "seq": 274,
       "kind": "consequence",
       "consequence": {
-        "cause": 266,
+        "cause": 271,
         "kind": "wound_badge",
         "value": 2
       }
     },
     {
-      "seq": 270,
+      "seq": 275,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3860,10 +3932,10 @@
       }
     },
     {
-      "seq": 271,
+      "seq": 276,
       "kind": "consequence",
       "consequence": {
-        "cause": 270,
+        "cause": 275,
         "kind": "medal",
         "skill": "MCUF",
         "career": "Marine",
@@ -3871,7 +3943,7 @@
       }
     },
     {
-      "seq": 272,
+      "seq": 277,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3885,7 +3957,7 @@
       }
     },
     {
-      "seq": 273,
+      "seq": 278,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3906,17 +3978,17 @@
       }
     },
     {
-      "seq": 274,
+      "seq": 279,
       "kind": "consequence",
       "consequence": {
-        "cause": 273,
+        "cause": 278,
         "kind": "rank_set",
         "skill": "Lt Coronel",
         "career": "Marine"
       }
     },
     {
-      "seq": 275,
+      "seq": 280,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3932,7 +4004,7 @@
       }
     },
     {
-      "seq": 276,
+      "seq": 281,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3944,10 +4016,10 @@
       }
     },
     {
-      "seq": 277,
+      "seq": 282,
       "kind": "consequence",
       "consequence": {
-        "cause": 276,
+        "cause": 281,
         "kind": "skill_awarded",
         "skill": "Hostile Environ",
         "delta": 1,
@@ -3955,7 +4027,7 @@
       }
     },
     {
-      "seq": 278,
+      "seq": 283,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3971,7 +4043,7 @@
       }
     },
     {
-      "seq": 279,
+      "seq": 284,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3983,10 +4055,10 @@
       }
     },
     {
-      "seq": 280,
+      "seq": 285,
       "kind": "consequence",
       "consequence": {
-        "cause": 279,
+        "cause": 284,
         "kind": "skill_awarded",
         "skill": "Hostile Environ",
         "delta": 1,
@@ -3994,7 +4066,7 @@
       }
     },
     {
-      "seq": 281,
+      "seq": 286,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4010,7 +4082,7 @@
       }
     },
     {
-      "seq": 282,
+      "seq": 287,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4022,10 +4094,10 @@
       }
     },
     {
-      "seq": 283,
+      "seq": 288,
       "kind": "consequence",
       "consequence": {
-        "cause": 282,
+        "cause": 287,
         "kind": "skill_awarded",
         "skill": "Hostile Environ",
         "delta": 1,
@@ -4033,7 +4105,7 @@
       }
     },
     {
-      "seq": 284,
+      "seq": 289,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4049,7 +4121,7 @@
       }
     },
     {
-      "seq": 285,
+      "seq": 290,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4061,10 +4133,10 @@
       }
     },
     {
-      "seq": 286,
+      "seq": 291,
       "kind": "consequence",
       "consequence": {
-        "cause": 285,
+        "cause": 290,
         "kind": "skill_awarded",
         "skill": "Vacc Suit",
         "delta": 1,
@@ -4072,7 +4144,7 @@
       }
     },
     {
-      "seq": 287,
+      "seq": 292,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4091,7 +4163,7 @@
       }
     },
     {
-      "seq": 288,
+      "seq": 293,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4103,10 +4175,10 @@
       }
     },
     {
-      "seq": 289,
+      "seq": 294,
       "kind": "consequence",
       "consequence": {
-        "cause": 288,
+        "cause": 293,
         "kind": "skill_awarded",
         "skill": "Tactics",
         "delta": 1,
@@ -4114,7 +4186,21 @@
       }
     },
     {
-      "seq": 290,
+      "seq": 295,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Marine for another career?",
+        "options": [
+          "Continue in Marine",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 296,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4129,16 +4215,16 @@
       }
     },
     {
-      "seq": 291,
+      "seq": 297,
       "kind": "consequence",
       "consequence": {
-        "cause": 290,
+        "cause": 296,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 292,
+      "seq": 298,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4153,7 +4239,7 @@
       }
     },
     {
-      "seq": 293,
+      "seq": 299,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4168,7 +4254,7 @@
       }
     },
     {
-      "seq": 294,
+      "seq": 300,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4183,10 +4269,10 @@
       }
     },
     {
-      "seq": 295,
+      "seq": 301,
       "kind": "consequence",
       "consequence": {
-        "cause": 294,
+        "cause": 300,
         "kind": "aging_effect",
         "characteristic": "End",
         "delta": -1,
@@ -4194,7 +4280,7 @@
       }
     },
     {
-      "seq": 296,
+      "seq": 302,
       "kind": "step",
       "step": {
         "name": "Marine: Term 7",
@@ -4202,7 +4288,7 @@
       }
     },
     {
-      "seq": 297,
+      "seq": 303,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4216,7 +4302,7 @@
       }
     },
     {
-      "seq": 298,
+      "seq": 304,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4228,10 +4314,10 @@
       }
     },
     {
-      "seq": 299,
+      "seq": 305,
       "kind": "consequence",
       "consequence": {
-        "cause": 298,
+        "cause": 304,
         "kind": "operation",
         "skill": "Combat",
         "career": "Marine",
@@ -4239,7 +4325,7 @@
       }
     },
     {
-      "seq": 300,
+      "seq": 306,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4251,10 +4337,10 @@
       }
     },
     {
-      "seq": 301,
+      "seq": 307,
       "kind": "consequence",
       "consequence": {
-        "cause": 300,
+        "cause": 306,
         "kind": "operation",
         "skill": "Peace Keeper",
         "career": "Marine",
@@ -4262,7 +4348,7 @@
       }
     },
     {
-      "seq": 302,
+      "seq": 308,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4274,10 +4360,10 @@
       }
     },
     {
-      "seq": 303,
+      "seq": 309,
       "kind": "consequence",
       "consequence": {
-        "cause": 302,
+        "cause": 308,
         "kind": "operation",
         "skill": "Mission",
         "career": "Marine",
@@ -4285,7 +4371,7 @@
       }
     },
     {
-      "seq": 304,
+      "seq": 310,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4297,10 +4383,10 @@
       }
     },
     {
-      "seq": 305,
+      "seq": 311,
       "kind": "consequence",
       "consequence": {
-        "cause": 304,
+        "cause": 310,
         "kind": "operation",
         "skill": "Mission",
         "career": "Marine",
@@ -4308,7 +4394,7 @@
       }
     },
     {
-      "seq": 306,
+      "seq": 312,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4339,7 +4425,7 @@
       }
     },
     {
-      "seq": 307,
+      "seq": 313,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4364,7 +4450,7 @@
       }
     },
     {
-      "seq": 308,
+      "seq": 314,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -4377,10 +4463,10 @@
       }
     },
     {
-      "seq": 309,
+      "seq": 315,
       "kind": "consequence",
       "consequence": {
-        "cause": 307,
+        "cause": 313,
         "kind": "characteristic_change",
         "characteristic": "Str",
         "delta": -2,
@@ -4388,16 +4474,16 @@
       }
     },
     {
-      "seq": 310,
+      "seq": 316,
       "kind": "consequence",
       "consequence": {
-        "cause": 307,
+        "cause": 313,
         "kind": "wound_badge",
         "value": 3
       }
     },
     {
-      "seq": 311,
+      "seq": 317,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4422,10 +4508,10 @@
       }
     },
     {
-      "seq": 312,
+      "seq": 318,
       "kind": "consequence",
       "consequence": {
-        "cause": 311,
+        "cause": 317,
         "kind": "medal",
         "skill": "XS",
         "career": "Marine",
@@ -4433,7 +4519,7 @@
       }
     },
     {
-      "seq": 313,
+      "seq": 319,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4447,7 +4533,7 @@
       }
     },
     {
-      "seq": 314,
+      "seq": 320,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4468,20 +4554,20 @@
       }
     },
     {
-      "seq": 315,
+      "seq": 321,
       "kind": "consequence",
       "consequence": {
-        "cause": 314,
+        "cause": 320,
         "kind": "rank_set",
         "skill": "Coronel",
         "career": "Marine"
       }
     },
     {
-      "seq": 316,
+      "seq": 322,
       "kind": "consequence",
       "consequence": {
-        "cause": 314,
+        "cause": 320,
         "kind": "skill_awarded",
         "skill": "Leader",
         "delta": 1,
@@ -4489,7 +4575,7 @@
       }
     },
     {
-      "seq": 317,
+      "seq": 323,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4505,7 +4591,7 @@
       }
     },
     {
-      "seq": 318,
+      "seq": 324,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4517,7 +4603,7 @@
       }
     },
     {
-      "seq": 319,
+      "seq": 325,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4532,82 +4618,6 @@
         ],
         "chosen": 0,
         "cite": "Book 1 p. 86 chart 12 table C; Book 1 p. 132 chart MS"
-      }
-    },
-    {
-      "seq": 320,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 319,
-        "kind": "no_award",
-        "skill": "Fighter"
-      }
-    },
-    {
-      "seq": 321,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Combat",
-          "Peacekeeper",
-          "Mission"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 322,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
-      }
-    },
-    {
-      "seq": 323,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 322,
-        "kind": "skill_awarded",
-        "skill": "Leader",
-        "delta": 1,
-        "value": 6
-      }
-    },
-    {
-      "seq": 324,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Combat",
-          "Peacekeeper",
-          "Mission"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 325,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
       }
     },
     {
@@ -4655,11 +4665,87 @@
         "kind": "skill_awarded",
         "skill": "Leader",
         "delta": 1,
-        "value": 7
+        "value": 6
       }
     },
     {
       "seq": 330,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Combat",
+          "Peacekeeper",
+          "Mission"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 331,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 332,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 331,
+        "kind": "no_award",
+        "skill": "Fighter"
+      }
+    },
+    {
+      "seq": 333,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Combat",
+          "Peacekeeper",
+          "Mission"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 334,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 335,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 334,
+        "kind": "skill_awarded",
+        "skill": "Leader",
+        "delta": 1,
+        "value": 7
+      }
+    },
+    {
+      "seq": 336,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4678,7 +4764,7 @@
       }
     },
     {
-      "seq": 331,
+      "seq": 337,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4690,10 +4776,10 @@
       }
     },
     {
-      "seq": 332,
+      "seq": 338,
       "kind": "consequence",
       "consequence": {
-        "cause": 331,
+        "cause": 337,
         "kind": "skill_awarded",
         "skill": "Leader",
         "delta": 1,
@@ -4701,7 +4787,21 @@
       }
     },
     {
-      "seq": 333,
+      "seq": 339,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Marine for another career?",
+        "options": [
+          "Continue in Marine",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 340,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4716,16 +4816,16 @@
       }
     },
     {
-      "seq": 334,
+      "seq": 341,
       "kind": "consequence",
       "consequence": {
-        "cause": 333,
+        "cause": 340,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 335,
+      "seq": 342,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4740,7 +4840,7 @@
       }
     },
     {
-      "seq": 336,
+      "seq": 343,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4755,10 +4855,10 @@
       }
     },
     {
-      "seq": 337,
+      "seq": 344,
       "kind": "consequence",
       "consequence": {
-        "cause": 336,
+        "cause": 343,
         "kind": "aging_effect",
         "characteristic": "Dex",
         "delta": -1,
@@ -4766,7 +4866,7 @@
       }
     },
     {
-      "seq": 338,
+      "seq": 345,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4781,11 +4881,21 @@
       }
     },
     {
-      "seq": 339,
+      "seq": 346,
       "kind": "consequence",
       "consequence": {
-        "cause": 333,
+        "cause": 340,
         "kind": "career_ended",
+        "career": "Marine"
+      }
+    },
+    {
+      "seq": 347,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 46,
+        "kind": "reserve",
+        "skill": "O6",
         "career": "Marine"
       }
     }

@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.17.0",
+  "schema_version": "0.18.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.18.0",
-  "policy_version": "0.11.0",
+  "engine_version": "0.19.0",
+  "policy_version": "0.12.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 659
@@ -83,6 +83,8 @@
     {
       "career": "Spacer",
       "began": true,
+      "end_age": 38,
+      "reserve": true,
       "rank": "O4",
       "rank_title": "Lt Commander",
       "branch": "Engineer",
@@ -967,6 +969,20 @@
     },
     {
       "seq": 64,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Spacer for another career?",
+        "options": [
+          "Continue in Spacer",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 65,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -981,16 +997,16 @@
       }
     },
     {
-      "seq": 65,
+      "seq": 66,
       "kind": "consequence",
       "consequence": {
-        "cause": 64,
+        "cause": 65,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 66,
+      "seq": 67,
       "kind": "step",
       "step": {
         "name": "Spacer: Term 2",
@@ -998,7 +1014,7 @@
       }
     },
     {
-      "seq": 67,
+      "seq": 68,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1012,7 +1028,7 @@
       }
     },
     {
-      "seq": 68,
+      "seq": 69,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1024,10 +1040,10 @@
       }
     },
     {
-      "seq": 69,
+      "seq": 70,
       "kind": "consequence",
       "consequence": {
-        "cause": 68,
+        "cause": 69,
         "kind": "operation",
         "skill": "Patrol",
         "career": "Spacer",
@@ -1035,7 +1051,7 @@
       }
     },
     {
-      "seq": 70,
+      "seq": 71,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1044,21 +1060,21 @@
         ],
         "total": 5,
         "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
-      }
-    },
-    {
-      "seq": 71,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 70,
-        "kind": "operation",
-        "skill": "Mission",
-        "career": "Spacer",
-        "value": 3
       }
     },
     {
       "seq": 72,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 71,
+        "kind": "operation",
+        "skill": "Mission",
+        "career": "Spacer",
+        "value": 3
+      }
+    },
+    {
+      "seq": 73,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1070,10 +1086,10 @@
       }
     },
     {
-      "seq": 73,
+      "seq": 74,
       "kind": "consequence",
       "consequence": {
-        "cause": 72,
+        "cause": 73,
         "kind": "operation",
         "skill": "Mission",
         "career": "Spacer",
@@ -1081,7 +1097,7 @@
       }
     },
     {
-      "seq": 74,
+      "seq": 75,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1093,17 +1109,17 @@
       }
     },
     {
-      "seq": 75,
+      "seq": 76,
       "kind": "consequence",
       "consequence": {
-        "cause": 74,
+        "cause": 75,
         "kind": "operation",
         "skill": "Siege",
         "career": "Spacer"
       }
     },
     {
-      "seq": 76,
+      "seq": 77,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1134,7 +1150,7 @@
       }
     },
     {
-      "seq": 77,
+      "seq": 78,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1159,7 +1175,7 @@
       }
     },
     {
-      "seq": 78,
+      "seq": 79,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -1172,10 +1188,10 @@
       }
     },
     {
-      "seq": 79,
+      "seq": 80,
       "kind": "consequence",
       "consequence": {
-        "cause": 77,
+        "cause": 78,
         "kind": "characteristic_change",
         "characteristic": "Str",
         "delta": -1,
@@ -1183,16 +1199,16 @@
       }
     },
     {
-      "seq": 80,
+      "seq": 81,
       "kind": "consequence",
       "consequence": {
-        "cause": 77,
+        "cause": 78,
         "kind": "wound_badge",
         "value": 1
       }
     },
     {
-      "seq": 81,
+      "seq": 82,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1217,10 +1233,10 @@
       }
     },
     {
-      "seq": 82,
+      "seq": 83,
       "kind": "consequence",
       "consequence": {
-        "cause": 81,
+        "cause": 82,
         "kind": "medal",
         "skill": "XS",
         "career": "Spacer",
@@ -1228,7 +1244,7 @@
       }
     },
     {
-      "seq": 83,
+      "seq": 84,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1242,7 +1258,7 @@
       }
     },
     {
-      "seq": 84,
+      "seq": 85,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1257,20 +1273,20 @@
       }
     },
     {
-      "seq": 85,
+      "seq": 86,
       "kind": "consequence",
       "consequence": {
-        "cause": 84,
+        "cause": 85,
         "kind": "rank_set",
         "skill": "Ensign",
         "career": "Spacer"
       }
     },
     {
-      "seq": 86,
+      "seq": 87,
       "kind": "consequence",
       "consequence": {
-        "cause": 84,
+        "cause": 85,
         "kind": "skill_awarded",
         "skill": "Astrogator",
         "delta": 1,
@@ -1278,7 +1294,7 @@
       }
     },
     {
-      "seq": 87,
+      "seq": 88,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1294,7 +1310,7 @@
       }
     },
     {
-      "seq": 88,
+      "seq": 89,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1306,10 +1322,10 @@
       }
     },
     {
-      "seq": 89,
+      "seq": 90,
       "kind": "consequence",
       "consequence": {
-        "cause": 88,
+        "cause": 89,
         "kind": "skill_awarded",
         "skill": "Diplomat",
         "delta": 1,
@@ -1317,7 +1333,7 @@
       }
     },
     {
-      "seq": 90,
+      "seq": 91,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1333,7 +1349,7 @@
       }
     },
     {
-      "seq": 91,
+      "seq": 92,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1345,7 +1361,7 @@
       }
     },
     {
-      "seq": 92,
+      "seq": 93,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1364,10 +1380,10 @@
       }
     },
     {
-      "seq": 93,
+      "seq": 94,
       "kind": "consequence",
       "consequence": {
-        "cause": 92,
+        "cause": 93,
         "kind": "skill_awarded",
         "skill": "Astrogator",
         "delta": 1,
@@ -1375,7 +1391,7 @@
       }
     },
     {
-      "seq": 94,
+      "seq": 95,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1391,7 +1407,7 @@
       }
     },
     {
-      "seq": 95,
+      "seq": 96,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1403,10 +1419,10 @@
       }
     },
     {
-      "seq": 96,
+      "seq": 97,
       "kind": "consequence",
       "consequence": {
-        "cause": 95,
+        "cause": 96,
         "kind": "skill_awarded",
         "skill": "Admin",
         "delta": 1,
@@ -1414,7 +1430,7 @@
       }
     },
     {
-      "seq": 97,
+      "seq": 98,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1430,7 +1446,7 @@
       }
     },
     {
-      "seq": 98,
+      "seq": 99,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1442,7 +1458,7 @@
       }
     },
     {
-      "seq": 99,
+      "seq": 100,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1461,10 +1477,10 @@
       }
     },
     {
-      "seq": 100,
+      "seq": 101,
       "kind": "consequence",
       "consequence": {
-        "cause": 99,
+        "cause": 100,
         "kind": "skill_awarded",
         "skill": "Astrogator",
         "delta": 1,
@@ -1472,7 +1488,7 @@
       }
     },
     {
-      "seq": 101,
+      "seq": 102,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1491,7 +1507,7 @@
       }
     },
     {
-      "seq": 102,
+      "seq": 103,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1503,10 +1519,10 @@
       }
     },
     {
-      "seq": 103,
+      "seq": 104,
       "kind": "consequence",
       "consequence": {
-        "cause": 102,
+        "cause": 103,
         "kind": "skill_awarded",
         "skill": "Diplomat",
         "delta": 1,
@@ -1514,7 +1530,21 @@
       }
     },
     {
-      "seq": 104,
+      "seq": 105,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Spacer for another career?",
+        "options": [
+          "Continue in Spacer",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 106,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1529,16 +1559,16 @@
       }
     },
     {
-      "seq": 105,
+      "seq": 107,
       "kind": "consequence",
       "consequence": {
-        "cause": 104,
+        "cause": 106,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 106,
+      "seq": 108,
       "kind": "step",
       "step": {
         "name": "Spacer: Term 3",
@@ -1546,7 +1576,7 @@
       }
     },
     {
-      "seq": 107,
+      "seq": 109,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1556,29 +1586,6 @@
         ],
         "chosen": 0,
         "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 108,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
-      }
-    },
-    {
-      "seq": 109,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 108,
-        "kind": "operation",
-        "skill": "Strike",
-        "career": "Spacer",
-        "value": 2
       }
     },
     {
@@ -1610,9 +1617,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          1
+          2
         ],
-        "total": 1,
+        "total": 2,
         "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
       }
     },
@@ -1622,7 +1629,7 @@
       "consequence": {
         "cause": 112,
         "kind": "operation",
-        "skill": "Battle",
+        "skill": "Strike",
         "career": "Spacer",
         "value": 2
       }
@@ -1652,6 +1659,29 @@
     },
     {
       "seq": 116,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
+      }
+    },
+    {
+      "seq": 117,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 116,
+        "kind": "operation",
+        "skill": "Battle",
+        "career": "Spacer",
+        "value": 2
+      }
+    },
+    {
+      "seq": 118,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1682,7 +1712,7 @@
       }
     },
     {
-      "seq": 117,
+      "seq": 119,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1707,17 +1737,17 @@
       }
     },
     {
-      "seq": 118,
+      "seq": 120,
       "kind": "consequence",
       "consequence": {
-        "cause": 117,
+        "cause": 119,
         "kind": "service_badge",
         "career": "Spacer",
         "value": 2
       }
     },
     {
-      "seq": 119,
+      "seq": 121,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1742,10 +1772,10 @@
       }
     },
     {
-      "seq": 120,
+      "seq": 122,
       "kind": "consequence",
       "consequence": {
-        "cause": 119,
+        "cause": 121,
         "kind": "medal",
         "skill": "MCUF",
         "career": "Spacer",
@@ -1753,7 +1783,7 @@
       }
     },
     {
-      "seq": 121,
+      "seq": 123,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1767,7 +1797,7 @@
       }
     },
     {
-      "seq": 122,
+      "seq": 124,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1788,17 +1818,17 @@
       }
     },
     {
-      "seq": 123,
+      "seq": 125,
       "kind": "consequence",
       "consequence": {
-        "cause": 122,
+        "cause": 124,
         "kind": "rank_set",
         "skill": "Sublieutenant",
         "career": "Spacer"
       }
     },
     {
-      "seq": 124,
+      "seq": 126,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1813,7 +1843,7 @@
       }
     },
     {
-      "seq": 125,
+      "seq": 127,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1825,10 +1855,10 @@
       }
     },
     {
-      "seq": 126,
+      "seq": 128,
       "kind": "consequence",
       "consequence": {
-        "cause": 125,
+        "cause": 127,
         "kind": "characteristic_change",
         "characteristic": "Int",
         "delta": 1,
@@ -1836,7 +1866,7 @@
       }
     },
     {
-      "seq": 127,
+      "seq": 129,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1851,7 +1881,7 @@
       }
     },
     {
-      "seq": 128,
+      "seq": 130,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1863,10 +1893,10 @@
       }
     },
     {
-      "seq": 129,
+      "seq": 131,
       "kind": "consequence",
       "consequence": {
-        "cause": 128,
+        "cause": 130,
         "kind": "characteristic_change",
         "characteristic": "Dex",
         "delta": 1,
@@ -1874,7 +1904,7 @@
       }
     },
     {
-      "seq": 130,
+      "seq": 132,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1889,7 +1919,7 @@
       }
     },
     {
-      "seq": 131,
+      "seq": 133,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1901,10 +1931,10 @@
       }
     },
     {
-      "seq": 132,
+      "seq": 134,
       "kind": "consequence",
       "consequence": {
-        "cause": 131,
+        "cause": 133,
         "kind": "characteristic_change",
         "characteristic": "Int",
         "delta": 1,
@@ -1912,7 +1942,7 @@
       }
     },
     {
-      "seq": 133,
+      "seq": 135,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1927,7 +1957,7 @@
       }
     },
     {
-      "seq": 134,
+      "seq": 136,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1939,10 +1969,10 @@
       }
     },
     {
-      "seq": 135,
+      "seq": 137,
       "kind": "consequence",
       "consequence": {
-        "cause": 134,
+        "cause": 136,
         "kind": "characteristic_change",
         "characteristic": "End",
         "delta": 1,
@@ -1950,7 +1980,7 @@
       }
     },
     {
-      "seq": 136,
+      "seq": 138,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1969,7 +1999,7 @@
       }
     },
     {
-      "seq": 137,
+      "seq": 139,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1981,7 +2011,7 @@
       }
     },
     {
-      "seq": 138,
+      "seq": 140,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2000,10 +2030,10 @@
       }
     },
     {
-      "seq": 139,
+      "seq": 141,
       "kind": "consequence",
       "consequence": {
-        "cause": 138,
+        "cause": 140,
         "kind": "skill_awarded",
         "skill": "Astrogator",
         "delta": 1,
@@ -2011,7 +2041,21 @@
       }
     },
     {
-      "seq": 140,
+      "seq": 142,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Spacer for another career?",
+        "options": [
+          "Continue in Spacer",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 143,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2026,16 +2070,16 @@
       }
     },
     {
-      "seq": 141,
+      "seq": 144,
       "kind": "consequence",
       "consequence": {
-        "cause": 140,
+        "cause": 143,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 142,
+      "seq": 145,
       "kind": "step",
       "step": {
         "name": "Spacer: Term 4",
@@ -2043,7 +2087,7 @@
       }
     },
     {
-      "seq": 143,
+      "seq": 146,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2058,53 +2102,53 @@
       }
     },
     {
-      "seq": 144,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
-      }
-    },
-    {
-      "seq": 145,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 144,
-        "kind": "operation",
-        "skill": "Battle",
-        "career": "Spacer",
-        "value": 2
-      }
-    },
-    {
-      "seq": 146,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
-      }
-    },
-    {
       "seq": 147,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 146,
-        "kind": "operation",
-        "skill": "Battle",
-        "career": "Spacer",
-        "value": 2
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
       }
     },
     {
       "seq": 148,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 147,
+        "kind": "operation",
+        "skill": "Battle",
+        "career": "Spacer",
+        "value": 2
+      }
+    },
+    {
+      "seq": 149,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
+      }
+    },
+    {
+      "seq": 150,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 149,
+        "kind": "operation",
+        "skill": "Battle",
+        "career": "Spacer",
+        "value": 2
+      }
+    },
+    {
+      "seq": 151,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2116,10 +2160,10 @@
       }
     },
     {
-      "seq": 149,
+      "seq": 152,
       "kind": "consequence",
       "consequence": {
-        "cause": 148,
+        "cause": 151,
         "kind": "operation",
         "skill": "Patrol",
         "career": "Spacer",
@@ -2127,7 +2171,7 @@
       }
     },
     {
-      "seq": 150,
+      "seq": 153,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2139,17 +2183,17 @@
       }
     },
     {
-      "seq": 151,
+      "seq": 154,
       "kind": "consequence",
       "consequence": {
-        "cause": 150,
+        "cause": 153,
         "kind": "operation",
         "skill": "ANM School",
         "career": "Spacer"
       }
     },
     {
-      "seq": 152,
+      "seq": 155,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2180,7 +2224,7 @@
       }
     },
     {
-      "seq": 153,
+      "seq": 156,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2205,17 +2249,17 @@
       }
     },
     {
-      "seq": 154,
+      "seq": 157,
       "kind": "consequence",
       "consequence": {
-        "cause": 153,
+        "cause": 156,
         "kind": "service_badge",
         "career": "Spacer",
         "value": 3
       }
     },
     {
-      "seq": 155,
+      "seq": 158,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2240,10 +2284,10 @@
       }
     },
     {
-      "seq": 156,
+      "seq": 159,
       "kind": "consequence",
       "consequence": {
-        "cause": 155,
+        "cause": 158,
         "kind": "medal",
         "skill": "SEH",
         "career": "Spacer",
@@ -2251,7 +2295,7 @@
       }
     },
     {
-      "seq": 157,
+      "seq": 160,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2265,7 +2309,7 @@
       }
     },
     {
-      "seq": 158,
+      "seq": 161,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2286,62 +2330,24 @@
       }
     },
     {
-      "seq": 159,
+      "seq": 162,
       "kind": "consequence",
       "consequence": {
-        "cause": 158,
+        "cause": 161,
         "kind": "rank_set",
         "skill": "Lieutenant",
         "career": "Spacer"
       }
     },
     {
-      "seq": 160,
+      "seq": 163,
       "kind": "consequence",
       "consequence": {
-        "cause": 158,
+        "cause": 161,
         "kind": "skill_awarded",
         "skill": "Engineer",
         "delta": 1,
         "value": 1
-      }
-    },
-    {
-      "seq": 161,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Spacer Skills column",
-        "options": [
-          "Personal",
-          "Battle",
-          "Patrol/Strike"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 162,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 81 chart 07 table C, column Personal"
-      }
-    },
-    {
-      "seq": 163,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 162,
-        "kind": "characteristic_change",
-        "characteristic": "Edu",
-        "delta": 1,
-        "value": 6
       }
     },
     {
@@ -2365,9 +2371,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          2
+          5
         ],
-        "total": 2,
+        "total": 5,
         "cite": "Book 1 p. 81 chart 07 table C, column Personal"
       }
     },
@@ -2377,9 +2383,9 @@
       "consequence": {
         "cause": 165,
         "kind": "characteristic_change",
-        "characteristic": "Dex",
+        "characteristic": "Edu",
         "delta": 1,
-        "value": 9
+        "value": 6
       }
     },
     {
@@ -2403,9 +2409,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          6
+          2
         ],
-        "total": 6,
+        "total": 2,
         "cite": "Book 1 p. 81 chart 07 table C, column Personal"
       }
     },
@@ -2415,9 +2421,9 @@
       "consequence": {
         "cause": 168,
         "kind": "characteristic_change",
-        "characteristic": "Soc",
+        "characteristic": "Dex",
         "delta": 1,
-        "value": 8
+        "value": 9
       }
     },
     {
@@ -2455,11 +2461,49 @@
         "kind": "characteristic_change",
         "characteristic": "Soc",
         "delta": 1,
-        "value": 9
+        "value": 8
       }
     },
     {
       "seq": 173,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Spacer Skills column",
+        "options": [
+          "Personal",
+          "Battle",
+          "Patrol/Strike"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 174,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 81 chart 07 table C, column Personal"
+      }
+    },
+    {
+      "seq": 175,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 174,
+        "kind": "characteristic_change",
+        "characteristic": "Soc",
+        "delta": 1,
+        "value": 9
+      }
+    },
+    {
+      "seq": 176,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2478,7 +2522,7 @@
       }
     },
     {
-      "seq": 174,
+      "seq": 177,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2490,10 +2534,10 @@
       }
     },
     {
-      "seq": 175,
+      "seq": 178,
       "kind": "consequence",
       "consequence": {
-        "cause": 174,
+        "cause": 177,
         "kind": "skill_awarded",
         "skill": "Admin",
         "delta": 1,
@@ -2501,7 +2545,21 @@
       }
     },
     {
-      "seq": 176,
+      "seq": 179,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Spacer for another career?",
+        "options": [
+          "Continue in Spacer",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 180,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2516,16 +2574,16 @@
       }
     },
     {
-      "seq": 177,
+      "seq": 181,
       "kind": "consequence",
       "consequence": {
-        "cause": 176,
+        "cause": 180,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 178,
+      "seq": 182,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2540,7 +2598,7 @@
       }
     },
     {
-      "seq": 179,
+      "seq": 183,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2555,7 +2613,7 @@
       }
     },
     {
-      "seq": 180,
+      "seq": 184,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2570,7 +2628,7 @@
       }
     },
     {
-      "seq": 181,
+      "seq": 185,
       "kind": "step",
       "step": {
         "name": "Spacer: Term 5",
@@ -2578,7 +2636,7 @@
       }
     },
     {
-      "seq": 182,
+      "seq": 186,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2592,53 +2650,53 @@
       }
     },
     {
-      "seq": 183,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
-      }
-    },
-    {
-      "seq": 184,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 183,
-        "kind": "operation",
-        "skill": "Patrol",
-        "career": "Spacer",
-        "value": 1
-      }
-    },
-    {
-      "seq": 185,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
-      }
-    },
-    {
-      "seq": 186,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 185,
-        "kind": "operation",
-        "skill": "Patrol",
-        "career": "Spacer",
-        "value": 1
-      }
-    },
-    {
       "seq": 187,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
+      }
+    },
+    {
+      "seq": 188,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 187,
+        "kind": "operation",
+        "skill": "Patrol",
+        "career": "Spacer",
+        "value": 1
+      }
+    },
+    {
+      "seq": 189,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
+      }
+    },
+    {
+      "seq": 190,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 189,
+        "kind": "operation",
+        "skill": "Patrol",
+        "career": "Spacer",
+        "value": 1
+      }
+    },
+    {
+      "seq": 191,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2650,10 +2708,10 @@
       }
     },
     {
-      "seq": 188,
+      "seq": 192,
       "kind": "consequence",
       "consequence": {
-        "cause": 187,
+        "cause": 191,
         "kind": "operation",
         "skill": "Mission",
         "career": "Spacer",
@@ -2661,7 +2719,7 @@
       }
     },
     {
-      "seq": 189,
+      "seq": 193,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2673,10 +2731,10 @@
       }
     },
     {
-      "seq": 190,
+      "seq": 194,
       "kind": "consequence",
       "consequence": {
-        "cause": 189,
+        "cause": 193,
         "kind": "operation",
         "skill": "Battle",
         "career": "Spacer",
@@ -2684,7 +2742,7 @@
       }
     },
     {
-      "seq": 191,
+      "seq": 195,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2715,7 +2773,7 @@
       }
     },
     {
-      "seq": 192,
+      "seq": 196,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2740,7 +2798,7 @@
       }
     },
     {
-      "seq": 193,
+      "seq": 197,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -2753,10 +2811,10 @@
       }
     },
     {
-      "seq": 194,
+      "seq": 198,
       "kind": "consequence",
       "consequence": {
-        "cause": 192,
+        "cause": 196,
         "kind": "characteristic_change",
         "characteristic": "Dex",
         "delta": -4,
@@ -2764,25 +2822,25 @@
       }
     },
     {
-      "seq": 195,
+      "seq": 199,
       "kind": "consequence",
       "consequence": {
-        "cause": 192,
+        "cause": 196,
         "kind": "wound_badge",
         "value": 2
       }
     },
     {
-      "seq": 196,
+      "seq": 200,
       "kind": "consequence",
       "consequence": {
-        "cause": 192,
+        "cause": 196,
         "kind": "disabled",
         "characteristic": "Dex"
       }
     },
     {
-      "seq": 197,
+      "seq": 201,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2807,10 +2865,10 @@
       }
     },
     {
-      "seq": 198,
+      "seq": 202,
       "kind": "consequence",
       "consequence": {
-        "cause": 197,
+        "cause": 201,
         "kind": "medal",
         "skill": "SEH",
         "career": "Spacer",
@@ -2818,7 +2876,7 @@
       }
     },
     {
-      "seq": 199,
+      "seq": 203,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2832,7 +2890,7 @@
       }
     },
     {
-      "seq": 200,
+      "seq": 204,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2853,20 +2911,20 @@
       }
     },
     {
-      "seq": 201,
+      "seq": 205,
       "kind": "consequence",
       "consequence": {
-        "cause": 200,
+        "cause": 204,
         "kind": "rank_set",
         "skill": "Lt Commander",
         "career": "Spacer"
       }
     },
     {
-      "seq": 202,
+      "seq": 206,
       "kind": "consequence",
       "consequence": {
-        "cause": 200,
+        "cause": 204,
         "kind": "skill_awarded",
         "skill": "Pilot",
         "delta": 1,
@@ -2874,7 +2932,7 @@
       }
     },
     {
-      "seq": 203,
+      "seq": 207,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2890,7 +2948,7 @@
       }
     },
     {
-      "seq": 204,
+      "seq": 208,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2902,10 +2960,10 @@
       }
     },
     {
-      "seq": 205,
+      "seq": 209,
       "kind": "consequence",
       "consequence": {
-        "cause": 204,
+        "cause": 208,
         "kind": "skill_awarded",
         "skill": "Comms",
         "delta": 1,
@@ -2913,7 +2971,7 @@
       }
     },
     {
-      "seq": 206,
+      "seq": 210,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2929,7 +2987,7 @@
       }
     },
     {
-      "seq": 207,
+      "seq": 211,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2941,10 +2999,10 @@
       }
     },
     {
-      "seq": 208,
+      "seq": 212,
       "kind": "consequence",
       "consequence": {
-        "cause": 207,
+        "cause": 211,
         "kind": "skill_awarded",
         "skill": "Admin",
         "delta": 1,
@@ -2952,7 +3010,7 @@
       }
     },
     {
-      "seq": 209,
+      "seq": 213,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2968,7 +3026,7 @@
       }
     },
     {
-      "seq": 210,
+      "seq": 214,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2980,10 +3038,10 @@
       }
     },
     {
-      "seq": 211,
+      "seq": 215,
       "kind": "consequence",
       "consequence": {
-        "cause": 210,
+        "cause": 214,
         "kind": "skill_awarded",
         "skill": "Language",
         "delta": 1,
@@ -2991,7 +3049,7 @@
       }
     },
     {
-      "seq": 212,
+      "seq": 216,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3007,7 +3065,7 @@
       }
     },
     {
-      "seq": 213,
+      "seq": 217,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3019,10 +3077,10 @@
       }
     },
     {
-      "seq": 214,
+      "seq": 218,
       "kind": "consequence",
       "consequence": {
-        "cause": 213,
+        "cause": 217,
         "kind": "skill_awarded",
         "skill": "Admin",
         "delta": 1,
@@ -3030,7 +3088,7 @@
       }
     },
     {
-      "seq": 215,
+      "seq": 219,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3049,7 +3107,7 @@
       }
     },
     {
-      "seq": 216,
+      "seq": 220,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3061,10 +3119,10 @@
       }
     },
     {
-      "seq": 217,
+      "seq": 221,
       "kind": "consequence",
       "consequence": {
-        "cause": 216,
+        "cause": 220,
         "kind": "skill_awarded",
         "skill": "Diplomat",
         "delta": 1,
@@ -3072,16 +3130,16 @@
       }
     },
     {
-      "seq": 218,
+      "seq": 222,
       "kind": "consequence",
       "consequence": {
-        "cause": 192,
+        "cause": 196,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 219,
+      "seq": 223,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3096,7 +3154,7 @@
       }
     },
     {
-      "seq": 220,
+      "seq": 224,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3111,7 +3169,7 @@
       }
     },
     {
-      "seq": 221,
+      "seq": 225,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3123,6 +3181,25 @@
         "target": 5,
         "success": false,
         "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
+      }
+    },
+    {
+      "seq": 226,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 196,
+        "kind": "career_ended",
+        "career": "Spacer"
+      }
+    },
+    {
+      "seq": 227,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 24,
+        "kind": "reserve",
+        "skill": "O4",
+        "career": "Spacer"
       }
     }
   ]

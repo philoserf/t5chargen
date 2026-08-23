@@ -1,11 +1,29 @@
 {
-  "name": "Soldier",
   "cite": "Book 1 p. 82 chart 08",
-  "controlling_characteristics": ["Str", "End", "Int"],
-  "continue_characteristic": "End",
-  "skills_per_term": 4,
-  "skills_per_advancement": 1,
-  "begin_checks": ["Str"],
+  "name": "Soldier",
+  "advancements": [
+    {
+      "name": "Officer Commission",
+      "from_classes": ["enlisted"],
+      "to_rank": "O1",
+      "target": "characteristic",
+      "check": "End"
+    },
+    {
+      "name": "Enlisted Promotion",
+      "from_classes": ["enlisted"],
+      "target": "characteristic",
+      "check": "End",
+      "medal_mods": true
+    },
+    {
+      "name": "Officer Promotion",
+      "from_classes": ["officer"],
+      "target": "characteristic",
+      "check": "Soc",
+      "medal_mods": true
+    }
+  ],
   "armed_forces": {
     "branch_check": "Soc",
     "branch_cite": "Book 1 p. 82 chart 08 (Army Branch)",
@@ -100,6 +118,9 @@
       }
     ]
   },
+  "begin_checks": ["Str"],
+  "continue_characteristic": "End",
+  "controlling_characteristics": ["Str", "End", "Int"],
   "ranks": [
     {
       "id": "S1",
@@ -173,29 +194,7 @@
       "title": "General"
     }
   ],
-  "advancements": [
-    {
-      "name": "Officer Commission",
-      "from_classes": ["enlisted"],
-      "to_rank": "O1",
-      "target": "characteristic",
-      "check": "End"
-    },
-    {
-      "name": "Enlisted Promotion",
-      "from_classes": ["enlisted"],
-      "target": "characteristic",
-      "check": "End",
-      "medal_mods": true
-    },
-    {
-      "name": "Officer Promotion",
-      "from_classes": ["officer"],
-      "target": "characteristic",
-      "check": "Soc",
-      "medal_mods": true
-    }
-  ],
+  "reserves": true,
   "skill_columns": [
     {
       "name": "Personal",
@@ -389,5 +388,7 @@
         }
       ]
     }
-  ]
+  ],
+  "skills_per_advancement": 1,
+  "skills_per_term": 4
 }
