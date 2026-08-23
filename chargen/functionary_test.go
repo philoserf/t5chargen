@@ -197,3 +197,69 @@ func TestFunctionaryAutoSkills(t *testing.T) {
 		t.Errorf("chart 13 prints %d ranks, want 9 (F0..F8)", len(def.Ranks))
 	}
 }
+
+// TestSecretaryIsTheTopOfTheLadder pins what a Reward success buys a
+// character who has nowhere left to go. Chart 13 prints nine ranks and no
+// rule for passing Secretary, so an F8 who succeeds is not promoted — and
+// must not collect the "Per Promotion 1" eligibility (chart 13 B) that
+// only a promotion earns.
+func TestSecretaryIsTheTopOfTheLadder(t *testing.T) {
+	const secretarySeed = 447
+
+	c, err := chargen.Generate(chargen.Options{Seed: secretarySeed, Decider: functionaryPath{first: "Scholar"}})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	record := functionaryRecord(c)
+	if record.Rank != "F8" {
+		t.Fatalf("seed %d ends at %s, not Secretary; find and pin another seed", secretarySeed, record.Rank)
+	}
+
+	// F0 on entry plus eight promotions is the whole ladder.
+	ranks := countRankSets(c)
+	if ranks != 9 {
+		t.Errorf("%d rank changes, want 9 (F0 on entry and eight promotions)", ranks)
+	}
+
+	// Terms served at F8 cannot have been promotions, so they cannot have
+	// scored a success.
+	promotions := 0
+
+	for _, term := range record.Terms {
+		if term.Success {
+			promotions++
+		}
+	}
+
+	if promotions != 8 {
+		t.Errorf("%d terms scored a promotion over %d served, want 8", promotions, len(record.Terms))
+	}
+}
+
+// functionaryRecord returns the character's Functionary career record.
+func functionaryRecord(c chargen.Character) chargen.CareerRecord {
+	var record chargen.CareerRecord
+
+	for _, r := range c.Careers {
+		if r.Career == "Functionary" {
+			record = r
+		}
+	}
+
+	return record
+}
+
+// countRankSets counts the Functionary rank changes in a record's log.
+func countRankSets(c chargen.Character) int {
+	ranks := 0
+
+	for _, e := range c.Events {
+		if e.Kind == chargen.EventConsequence &&
+			e.Consequence.Kind == chargen.ConsequenceRankSet && e.Consequence.Career == "Functionary" {
+			ranks++
+		}
+	}
+
+	return ranks
+}

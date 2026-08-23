@@ -12,11 +12,16 @@ package chargen
 // Continue Office Politics".
 //
 // Office Politics replaces both the Risk & Reward cycle and the Continue
-// throw: "Roll for Risk against CC. No Mods are used for Office Politics.
-// Risk Failure: Functionary career ends. The character may not Continue.
-// Risk Success: Functionary may continue in the career. Roll for Reward
-// against CC. Reward Failure: Functionary is not promoted. Reward Success:
-// Functionary is promoted one rank."
+// throw. The page prints these as separate lines, and the breaks matter —
+// run together they read as though the Reward were nested inside a Risk
+// success, which it is not (interpretation I-59):
+//
+//	Roll for Risk against CC. No Mods are used for Office Politics.
+//	Risk Failure: Functionary career ends. The character may not Continue.
+//	Risk Success: Functionary may continue in the career.
+//	Roll for Reward against CC
+//	Reward Failure: Functionary is not promoted.
+//	Reward Success: Functionary is promoted one rank."
 //
 // "Functionary is never a first career" (box Not A First Career), and "a
 // Noble may not become a Functionary".
@@ -130,13 +135,22 @@ func (m *functionaryMechanics) resolveTerm(r *careerRun, cc string) (termOutcome
 		return outcome, nil
 	}
 
-	// "Reward Success: Functionary is promoted one rank."
-	outcome.success = true
-
-	if err := m.promote(r, rewardSeq); err != nil {
+	// "Reward Success: Functionary is promoted one rank." A Secretary is
+	// already at the top of the ladder, so the success buys nothing — not
+	// a rank, and not the "Per Promotion 1" eligibility that comes with
+	// one (chart 13 B).
+	promoted, err := m.promote(r, rewardSeq)
+	if err != nil {
 		return outcome, err
 	}
 
+	if !promoted {
+		r.log.Consequence(ConsequenceEvent{Cause: rewardSeq, Kind: ConsequenceNoAward})
+
+		return outcome, nil
+	}
+
+	outcome.success = true
 	outcome.bonusRolls = r.def.SkillsPerAdvancement
 
 	return outcome, nil
@@ -147,12 +161,22 @@ func (m *functionaryMechanics) resolveTerm(r *careerRun, cc string) (termOutcome
 // soldier finds a position in the civilian defense establishment; a
 // scholar becomes an educational administrator" (chart 13).
 func (m *functionaryMechanics) associate(r *careerRun, cause int) error {
+	// Distinct careers, in the order first served. A character may serve
+	// one career twice (interpretation I-54), and offering it twice would
+	// print the same line twice with no way for a player to tell the two
+	// apart — and POLICY.md promises first-listed is "the earliest career
+	// served".
 	options := make([]string, 0, len(r.character.Careers))
+	seen := make(map[string]bool, len(r.character.Careers))
 
 	for _, record := range r.character.Careers {
-		if record.Began && record.Career != r.def.Name {
-			options = append(options, record.Career)
+		if !record.Began || record.Career == r.def.Name || seen[record.Career] {
+			continue
 		}
+
+		seen[record.Career] = true
+
+		options = append(options, record.Career)
 	}
 
 	if len(options) == 0 {
@@ -177,16 +201,16 @@ func (m *functionaryMechanics) associate(r *careerRun, cause int) error {
 	return nil
 }
 
-// promote advances one rank, stopping at the top of the ladder: the chart
-// prints nine ranks and no rule for passing Secretary.
-func (m *functionaryMechanics) promote(r *careerRun, cause int) error {
+// promote advances one rank and reports whether it could: the chart prints
+// nine ranks and no rule for passing Secretary, so a Secretary stays one.
+func (m *functionaryMechanics) promote(r *careerRun, cause int) (bool, error) {
 	if m.rank+1 >= len(r.def.Ranks) {
-		return nil
+		return false, nil
 	}
 
 	m.rank++
 
-	return m.enterRank(r, r.def.Ranks[m.rank].ID, cause)
+	return true, m.enterRank(r, r.def.Ranks[m.rank].ID, cause)
 }
 
 // enterRank records a rank, names it, and awards its Auto Skill.

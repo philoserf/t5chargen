@@ -1311,3 +1311,39 @@ one.
 
 The redundancy is worth noting rather than resolving: chart 13 says it
 because a reader on that page has no reason to have read p. 66.
+
+### I-59: A failed Risk does not stop the Reward roll (p. 66; p. 87 chart 13)
+
+Chart 13's Office Politics box prints six lines, and run together they read
+as though the Reward were nested inside a Risk success:
+
+    Roll for Risk against CC. No Mods are used for Office Politics.
+    Risk Failure: Functionary career ends. The character may not Continue.
+    Risk Success: Functionary may continue in the career.
+    Roll for Reward against CC
+    Reward Failure: Functionary is not promoted.
+    Reward Success: Functionary is promoted one rank.
+
+Read as: Risk and Reward are two rolls, both made every term, as the box's
+own two-row table shows — one row for Risk with its Failure and Success
+columns, one for Reward with its own.
+
+The discriminator is the worked example on p. 66, where a failed Risk is
+followed by a Reward roll anyway: "Risk must roll (10 -2 -1 +2) =9 or less
+on 2D; he rolls 11 and fails ... Reward changes the sign on the Mods and
+must roll (10 +2 +1 -2) = 11 or less on 2D; he rolls 9 and succeeds again.
+He will receive a Medal." That is the generic Risk & Reward procedure every
+career shares, and chart 13 prints its Office Politics in the same
+two-row form.
+
+The consequence is worth stating plainly, because it looks wrong at first:
+a Functionary can be **promoted in the term he loses his job**. The Risk
+asks whether he keeps the position and the Reward whether he did well, and
+office politics is exactly the setting where both can be true at once — as
+the Armed Forces version already is, where Eneri is wounded and decorated
+in the same term. The rank is not cosmetic: muster out reads it ("Automatic:
+Directorship if Rank F6+", chart 13 D).
+
+Implemented at `chargen/functionary.go` (`resolveTerm`), whose doc comment
+keeps the page's line breaks so the quote cannot be misread back into the
+nested form.

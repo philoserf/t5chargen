@@ -86,13 +86,6 @@ type Definition struct {
 	Name string `json:"name"`
 	Cite string `json:"cite"`
 
-	// Reference marks a career transcribed for another career to read
-	// rather than to play: chart 09's Undercover Assignment sends an Agent
-	// into careers the engine does not yet run, and needs their skill
-	// tables. A reference career is absent from Available and from the
-	// mechanics registry, and its box A fields are not required.
-	Reference bool `json:"reference,omitempty"`
-
 	// BeginChecks lists the characteristics the To Begin throw may check
 	// (chart 05: "To Begin C1 or C2 or C3"); empty means Begin is
 	// automatic (chart 04: "To Begin Auto").
@@ -611,12 +604,6 @@ var entryKinds = map[EntryKind]bool{
 func (d *Definition) validate() error {
 	if d.Name == "" {
 		return fmt.Errorf("%w: nameless career", errBadDefinition)
-	}
-
-	if d.Reference {
-		// A reference career carries only the tables another career
-		// reads; it is never run, so it has no Continue or eligibility.
-		return d.validateColumns()
 	}
 
 	if err := d.validateTermCounts(); err != nil {
