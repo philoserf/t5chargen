@@ -41,7 +41,7 @@ because they were two reviewable things rather than one.
 
 - All thirteen careers, 84 recorded interpretations, 34 choice points with
   a policy row each, 255 tests over 14 packages, 31 golden fixtures.
-- Schema 0.24.0, engine 0.25.0, policy 0.16.0.
+- Schema 0.24.0, engine 0.26.0, policy 0.16.0.
 - No row in `COVERAGE.md` says `deferred (M4)`.
 
 ## Two things need a decision
