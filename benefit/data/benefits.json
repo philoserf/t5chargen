@@ -1,0 +1,223 @@
+{
+  "cite": "Book 1 p. 70 chart M1; values pp. 68-69",
+  "kinds": [
+    {
+      "kind": "money",
+      "name": "Money",
+      "class": "financial"
+    },
+    {
+      "kind": "star_passage",
+      "name": "StarPass",
+      "class": "financial",
+      "credits": 250000,
+      "note": "A multi-use pass for Middle Passage valid for one year after first use."
+    },
+    {
+      "kind": "high_passage",
+      "name": "High Passage",
+      "class": "financial",
+      "credits": 10000
+    },
+    {
+      "kind": "middle_passage",
+      "name": "Middle Passage",
+      "class": "financial",
+      "credits": 8000
+    },
+    {
+      "kind": "low_passage",
+      "name": "Low Passage",
+      "class": "financial",
+      "credits": 1000
+    },
+    {
+      "kind": "pension_doubling",
+      "name": "Pension x2",
+      "class": "financial",
+      "note": "Each doubling is of the original: the first x2 doubles the Pension, the second triples it."
+    },
+    {
+      "kind": "retirement_doubling",
+      "name": "Retirement x2",
+      "class": "financial",
+      "note": "Each doubling is of the original Retirement Pay."
+    },
+    {
+      "kind": "characteristic",
+      "name": "Characteristic Improvement",
+      "class": "non_financial"
+    },
+    {
+      "kind": "wafer_jack",
+      "name": "Wafer Jack",
+      "class": "non_financial",
+      "note": "A cyber implant allowing use of skill or personality wafers."
+    },
+    {
+      "kind": "forbidden_knowledge",
+      "name": "Forbidden Knowledge",
+      "class": "non_financial",
+      "note": "Uncouth in polite society; the skill is rolled on chart M1's 1D table."
+    },
+    {
+      "kind": "knighthood",
+      "name": "Knighthood",
+      "class": "non_financial",
+      "note": "Raises any value of Soc to B; a character already higher keeps his. In the Spacer, Soldier and Marine careers it is for Officers only."
+    },
+    {
+      "kind": "directorship",
+      "name": "Directorship",
+      "class": "non_financial",
+      "annual_credits": 36000,
+      "note": "An appointment to the Board of Directors of a large corporation."
+    },
+    {
+      "kind": "proxy",
+      "name": "Proxy",
+      "class": "non_financial",
+      "annual_credits": 100000,
+      "note": "A delegation of power to vote in the Moot."
+    },
+    {
+      "kind": "life_insurance",
+      "name": "Life Insurance",
+      "class": "non_financial",
+      "note": "The premium is MCr1 to start a policy and Cr100,000 to update."
+    },
+    {
+      "kind": "tas_fellowship",
+      "name": "TAS Fellowship",
+      "class": "non_financial",
+      "note": "A temporary membership in the Travellers' Aid Society: one week of accommodations and one High Passage per month after award."
+    },
+    {
+      "kind": "tas_life",
+      "name": "TAS Life Membership",
+      "class": "non_financial"
+    },
+    {
+      "kind": "ship_shares",
+      "name": "Ship Shares",
+      "class": "non_financial",
+      "note": "A fractional ownership; chart S (p. 90) prices ships in shares."
+    },
+    {
+      "kind": "land_grant",
+      "name": "Land Grant",
+      "class": "non_financial",
+      "annual_credits": 5000,
+      "credits_per_tc": 10000,
+      "note": "A token annual profit: Cr10,000 per Trade Classification, or Cr5,000 on a world with none."
+    }
+  ],
+  "entitlements": [
+    {
+      "id": "citizen_pension",
+      "name": "Citizen's Pension",
+      "annual_credits": 5000,
+      "from_life_stage": 9
+    },
+    {
+      "id": "functionary_pension",
+      "name": "Functionary's Pension",
+      "annual_credits": 15000,
+      "from_life_stage": 9
+    },
+    {
+      "id": "reserve_pension",
+      "name": "Reserve Pension",
+      "credits_per_year": 100,
+      "from_life_stage": 9
+    },
+    {
+      "id": "professor_pension",
+      "name": "Tenured Professor's Pension",
+      "annual_credits": 10000,
+      "from_life_stage": 9
+    },
+    {
+      "id": "enlisted_retirement",
+      "name": "Enlisted Retirement",
+      "credits_per_term": 2000,
+      "minimum_terms": 4
+    },
+    {
+      "id": "officer_retirement",
+      "name": "Officer Retirement",
+      "credits_per_term": 3000,
+      "minimum_terms": 4
+    }
+  ],
+  "cash_out_years": 5,
+  "automatics": [
+    {
+      "id": "personal_weapons",
+      "name": "Personal Weapons",
+      "eligibility": "if Fighter-1+"
+    },
+    {
+      "id": "medal",
+      "name": "Medal",
+      "eligibility": "Spacer or Soldier"
+    },
+    {
+      "id": "commendations",
+      "name": "Commendations",
+      "eligibility": "Agent"
+    },
+    {
+      "id": "fame",
+      "name": "Fame",
+      "eligibility": "any"
+    },
+    {
+      "id": "tas_life",
+      "name": "TAS Life Membership",
+      "eligibility": "Scholar, Scout, Craftsman, SEH"
+    },
+    {
+      "id": "land_grants",
+      "name": "Land Grants",
+      "eligibility": "Nobles, Scouts"
+    },
+    {
+      "id": "masterpieces",
+      "name": "Masterpieces",
+      "eligibility": "Craftsman"
+    }
+  ],
+  "forbidden_knowledge": [
+    {
+      "roll": 1,
+      "skill": "Fighter",
+      "note": "accepts weapons and violence as a means of achieving goals"
+    },
+    {
+      "roll": 2,
+      "skill": "Streetwise",
+      "note": "implies interaction with the lower or fringe social classes"
+    },
+    {
+      "roll": 3,
+      "skill": "Stealth",
+      "note": "accepts covert and illegal actions as a means to achieving goals"
+    },
+    {
+      "roll": 4,
+      "skill": "Explosives",
+      "note": "accepts large scale destruction as a means of achieving goals"
+    },
+    {
+      "roll": 5,
+      "skill": "WMD",
+      "note": "accepts massive violence as a means of achieving goals"
+    },
+    {
+      "roll": 6,
+      "skill": "Programmer",
+      "note": "accepts computer hacking is an acceptable enterprise"
+    }
+  ]
+}
