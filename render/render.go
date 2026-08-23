@@ -154,6 +154,7 @@ func careerValues(record chargen.CareerRecord) string {
 	}
 
 	parts = append(parts, scoutValues(record)...)
+	parts = append(parts, functionaryValues(record)...)
 
 	if record.ShipShares > 0 {
 		parts = append(parts, plural(record.ShipShares, "Ship Share"))
@@ -484,6 +485,8 @@ func consequenceCareerValueText(c *chargen.ConsequenceEvent) string {
 		return fmt.Sprintf("Sanity %+d when generated", c.Delta)
 	case chargen.ConsequenceCareerChanged:
 		return "leaves " + c.Career + " for another career"
+	case chargen.ConsequenceAssociated:
+		return "position associated with the character's " + c.Skill + " career"
 	case chargen.ConsequenceReserve:
 		return reserveText(c)
 	case chargen.ConsequenceSpecialtySet:
@@ -639,4 +642,15 @@ func reserveText(c *chargen.ConsequenceEvent) string {
 	}
 
 	return "enters the Reserves as a Reserve " + c.Skill + " (" + c.Career + ")"
+}
+
+// functionaryValues renders what a Functionary career carries beyond its
+// rank: "The Functionary character must identify with which prior career
+// his position is associated" (chart 13 p. 87), which muster out reads.
+func functionaryValues(record chargen.CareerRecord) []string {
+	if record.AssociatedCareer == "" {
+		return nil
+	}
+
+	return []string{"associated with " + record.AssociatedCareer}
 }

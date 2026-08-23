@@ -179,6 +179,10 @@ const (
 	// world (a Discovery)" (chart 05 p. 79). Value is the running count.
 	ConsequenceDiscovery ConsequenceKind = "discovery"
 
+	// ConsequenceAssociated records the prior career a Functionary
+	// position belongs to (chart 13 p. 87); Skill carries its name.
+	ConsequenceAssociated ConsequenceKind = "associated"
+
 	// ConsequenceReserve records enrolment on leaving the Armed Forces
 	// (p. 67). Skill carries the Reserve Rank, which is the last rank
 	// held: "There is no process for promotion or advancement while in

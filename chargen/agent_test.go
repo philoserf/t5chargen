@@ -248,21 +248,33 @@ func TestAgentFunctionaryRowResolves(t *testing.T) {
 	}
 }
 
-// TestFunctionaryIsReferenceOnly verifies chart 13 is transcribed for the
-// Agent's table without becoming a playable career: it is absent from
-// Available, and chart 13 says it "is never a first career".
-func TestFunctionaryIsReferenceOnly(t *testing.T) {
+// TestFunctionaryIsNeverAFirstCareer verifies the gate chart 13 states in
+// its own box and p. 63 restates: "Functionary is never a first career",
+// and "Craftsman (1) and Functionary (13) are unavailable as initial
+// careers". It is a full career now — the Agent's Undercover table read it
+// as a reference career before it was playable (I-40) and reads the same
+// skills table still.
+func TestFunctionaryIsNeverAFirstCareer(t *testing.T) {
 	def, err := career.Functionary()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !def.Reference {
-		t.Error("Functionary should be a reference career")
+	if !def.NotAFirstCareer {
+		t.Error("chart 13 says Functionary is never a first career")
 	}
 
-	if slices.Contains(career.Available(), "Functionary") {
-		t.Error("Functionary is listed as an available career")
+	if !slices.Contains(career.Available(), "Functionary") {
+		t.Error("Functionary is playable and should be available")
+	}
+
+	first, err := career.FirstCareers()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if slices.Contains(first, "Functionary") {
+		t.Error("Functionary can open a lifepath")
 	}
 
 	if len(def.SkillColumns) != 7 {
