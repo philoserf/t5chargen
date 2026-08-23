@@ -1045,3 +1045,48 @@ instant he entered the career — which is a worse answer than rounding to
 the term the book already treats as indivisible.
 
 Implemented at `chargen/careerrun.go` (`term`).
+
+### I-47: Sanity is recorded as a pending modifier, never generated (p. 52; chart 05 p. 79)
+
+Two pages govern, and they pull in different directions.
+
+Page 52 establishes the characteristic and withholds it: "Every character
+has this obscure (and usually unreferenced) characteristic called Sanity.
+Characters do not generate Sanity until it is first called for by a
+situation, encounter, or stimulus." Generation is "All sophonts roll
+Sanity with 2D", and recording is deliberately absent — "Sanity is not
+normally indicated in references to a character ... When necessary, it is
+stated independently as CS= N or San= N."
+
+Chart 05 then spends it: "Because of the long-term isolation that a Scout
+must endure, reduce San= -1 for each TWO Terms served" (p. 79). It is the
+only career chart that prints such a rule, and it presupposes a value that
+p. 52 says does not yet exist.
+
+Read as: the reduction is recorded, not applied. The record carries
+`sanity_mod` — what a Sanity value will owe the moment something calls for
+one — and no Sanity value is generated.
+
+The rival reading is to roll 2D at the moment chart 05 demands it and
+apply the reduction immediately. It is rejected on both pages: p. 52 says
+plainly that generation waits for a situation, and character generation is
+not one, since nothing in the lifepath ever reads Sanity. It would also
+consume two faces of the seeded stream for a value v1 never uses, moving
+every downstream throw for no outcome.
+
+Partial terms owe nothing. The chart charges per two terms, so three terms
+cost what two cost.
+
+**Open where career changes make it reachable (milestone 4).** "for each
+TWO Terms served" is charged here against the terms of a single career
+record. Should a character serve as a Scout, leave, and return, three
+terms followed by one would owe -1 under this reading but -2 if the two
+stints were summed first. Nothing in the book settles it, and until career
+changes land no character can serve two Scout stints.
+
+The genetic-die rule — "Sanity Is Genetic. The first die of Sanity is
+recorded as the genetic D" (p. 52) — is out of reach for the same reason:
+there is no roll from which to take a first die.
+
+Implemented at `chargen/careerrun.go` (`recordSanityMod`), with the count
+of terms per point as a chart fact in `career/data/scout.json`.

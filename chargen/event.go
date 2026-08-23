@@ -177,6 +177,12 @@ const (
 	// world (a Discovery)" (chart 05 p. 79). Value is the running count.
 	ConsequenceDiscovery ConsequenceKind = "discovery"
 
+	// ConsequenceSanityMod records a pending reduction against a Sanity
+	// value that has not been generated: "reduce San= -1 for each TWO
+	// Terms served" (chart 05 p. 79; p. 52). Delta is the reduction the
+	// career owes; there is no value to total it against.
+	ConsequenceSanityMod ConsequenceKind = "sanity_mod"
+
 	// ConsequenceFameChange records a Fame change (chart 05: "Fame +1";
 	// the full Fame system, chart F p. 91, lands with milestone 4).
 	// Delta is the change, Value the new Fame.

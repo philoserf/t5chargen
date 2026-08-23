@@ -10,13 +10,20 @@ before this plan was written; nothing below is from memory.
 
 ## Three findings that shape the work
 
-**Sanity is on p. 52, not chart A.** Chart 05 gives the Scout "reduce San
-= -1 for each TWO Terms served", deferred in COVERAGE on the grounds that
-chart A would define San. Chart A (p. 89) never mentions it; the CS Sanity
-section on p. 52 does, along with 2D generation, the Check, and the
-zero-is-insanity clause. Two COVERAGE rows are wrong as a result: the one
-citing "chart A defers it", and the one bundling Sanity with the PRD's
-Psionics non-goal, which does not mention Sanity at all.
+**Sanity is defined on p. 52.** Chart 05 gives the Scout "reduce San = -1
+for each TWO Terms served", which COVERAGE deferred because "chart A
+defers it". That was well-founded, and an earlier draft of this document
+wrongly called it false: **two charts are labelled A**, and the one on
+p. 56 does say "Defer rolling for Psi and Sanity until later". What no
+chart A does is define the characteristic. The CS Sanity section on p. 52
+does, and it is the page that matters here — because "Characters do not
+generate Sanity until it is first called for" is what lets the Scout's
+reduction be recorded as a pending modifier rather than applied to a value
+that must first be rolled. The deferral was superseded, not mistaken.
+
+One genuine over-read stands: the COVERAGE row folding Sanity into the
+PRD's Psionics non-goal, which names "Psionics, clones, chimeras, robots,
+artificials" and says nothing about Sanity.
 
 **Printed p. 71 is a second chart, M2 Muster Out Tables** — a consolidated
 reprint of all thirteen career table Ds that contradicts six career pages
