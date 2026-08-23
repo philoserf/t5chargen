@@ -119,3 +119,11 @@ _Book 1 p. 78 chart 04_
 - #90 2D = 6+6 = 12 vs 10: failure — Book 1 p. 78 chart 04 (Continue 10-; p. 66)
   - #91 (from #90) +4 years
   - #92 (from #90) career ended (Citizen)
+
+## Determine Fame
+
+_Book 1 p. 91 chart F_
+
+- #94 1D = 3 = 3 — Book 1 p. 91 chart F (If NO other eligibility, 1D)
+- #95 policy chose "Keep this Fame" of [Keep this Fame, Add Flux to Fame]: Invoke the Fame Flux Event? (Fame 3 so far) — Book 1 p. 91 chart F (The Fame Flux Event)
+  - #96 (from #95) Fame 3 (Extended Family) = no other eligibility +3

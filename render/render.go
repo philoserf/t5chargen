@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/philoserf/t5chargen/chargen"
+	"github.com/philoserf/t5chargen/fame"
 	"github.com/philoserf/t5chargen/lifestage"
 )
 
@@ -275,7 +276,9 @@ func statusLine(c chargen.Character) string {
 	parts := []string{}
 
 	if c.Fame > 0 {
-		parts = append(parts, fmt.Sprintf("Fame %d", c.Fame))
+		// "Fame is noted as Fame-<level>" with a descriptor naming its
+		// reach: "A world famous Entertainer has Fame-10" (chart F p. 91).
+		parts = append(parts, fmt.Sprintf("Fame %d (%s)", c.Fame, fameDescriptor(c.Fame)))
 	}
 
 	if c.WoundBadges > 0 {
@@ -464,8 +467,6 @@ func consequenceInjuryText(c *chargen.ConsequenceEvent) string {
 		return consequenceDeadText(c)
 	case chargen.ConsequenceDiscovery:
 		return fmt.Sprintf("Discovery (total %d)", c.Value)
-	case chargen.ConsequenceFameChange:
-		return fmt.Sprintf("Fame %+d = %d", c.Delta, c.Value)
 	case chargen.ConsequenceRankSet:
 		return "rank " + c.Skill
 	case chargen.ConsequenceShipShares:
@@ -528,6 +529,10 @@ func consequenceAgingText(c *chargen.ConsequenceEvent) string {
 		return fmt.Sprintf("aging: %s %+d = %d", c.Characteristic, c.Delta, c.Value)
 	case chargen.ConsequenceCharacteristicReset:
 		return c.Characteristic + " reduced to zero, reset to 1"
+	case chargen.ConsequenceFameComputed:
+		return fameComputedText(c)
+	case chargen.ConsequenceFameChange:
+		return fmt.Sprintf("Fame %+d = %d", c.Delta, c.Value)
 	case chargen.ConsequenceMajorIllness:
 		return fmt.Sprintf("major illness (%d characteristics at zero); four weeks recuperating", c.Value)
 	case chargen.ConsequenceExtremelyMajorIllness:
@@ -594,7 +599,8 @@ func consequenceArmedForcesText(c *chargen.ConsequenceEvent) string {
 
 		return "undercover as " + c.Career + " (" + c.Skill + ")"
 	case chargen.ConsequenceCommendation:
-		return fmt.Sprintf("Commendation (total %d)", c.Value)
+		// "<Undercover Career> Commendation-N" (chart F p. 91).
+		return fmt.Sprintf("%s-%d (total %d)", c.Skill, c.Delta, c.Value)
 	case chargen.ConsequenceBranchSet:
 		return "Branch " + c.Skill
 	case chargen.ConsequenceOperation:
@@ -689,4 +695,37 @@ func functionaryValues(record chargen.CareerRecord) []string {
 	}
 
 	return []string{"associated with " + record.AssociatedCareer}
+}
+
+// fameComputedText renders chart F's calculation with its working, as the
+// chart's own example does ("Rogue with one Failed Scheme ... has Fame =
+// 1 x 3 = 3", p. 91). The sources are worth more than the total: they say
+// why a character is known.
+func fameComputedText(c *chargen.ConsequenceEvent) string {
+	line := fmt.Sprintf("Fame %d (%s)", c.Value, c.Skill)
+	if len(c.Mods) == 0 {
+		return line
+	}
+
+	sources := make([]string, 0, len(c.Mods))
+	for _, mod := range c.Mods {
+		sources = append(sources, fmt.Sprintf("%s %+d", mod.Name, mod.Value))
+	}
+
+	return line + " = " + strings.Join(sources, ", ")
+}
+
+// fameDescriptor names a Fame level's reach (chart F p. 91). An unreadable
+// table degrades to the bare level rather than failing the sheet.
+func fameDescriptor(level int) string {
+	table, err := fame.Load()
+	if err != nil {
+		return strconv.Itoa(level)
+	}
+
+	if name := table.Descriptor(level); name != "" {
+		return name
+	}
+
+	return strconv.Itoa(level)
 }

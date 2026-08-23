@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.20.0",
+  "schema_version": "0.22.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.21.0",
-  "policy_version": "0.13.0",
+  "engine_version": "0.23.0",
+  "policy_version": "0.14.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 23
@@ -86,6 +86,7 @@
       "end_age": 71,
       "rank": "S6",
       "rank_title": "Distinguished Professor",
+      "wound_badges": 1,
       "publications": 8,
       "tenured": true,
       "terms": [
@@ -166,6 +167,7 @@
   ],
   "waivers_attempted": 1,
   "life_stage": 9,
+  "fame": 19,
   "wound_badges": 1,
   "dead": true,
   "events": [
@@ -5507,6 +5509,65 @@
         "cause": 363,
         "kind": "career_ended",
         "career": "Scholar"
+      }
+    },
+    {
+      "seq": 370,
+      "kind": "step",
+      "step": {
+        "name": "Determine Fame",
+        "cite": "Book 1 p. 91 chart F"
+      }
+    },
+    {
+      "seq": 371,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Invoke the Fame Flux Event? (Fame 14 so far)",
+        "options": [
+          "Keep this Fame",
+          "Add Flux to Fame"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 91 chart F (The Fame Flux Event)"
+      }
+    },
+    {
+      "seq": 372,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          6,
+          1
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 91 chart F (The Fame Flux Event)"
+      }
+    },
+    {
+      "seq": 373,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 371,
+        "kind": "fame_computed",
+        "skill": "Subsector",
+        "value": 19,
+        "mods": [
+          {
+            "name": "Scholar Rank",
+            "value": 6
+          },
+          {
+            "name": "Scholar Publications",
+            "value": 8
+          },
+          {
+            "name": "Fame Flux Event",
+            "value": 5
+          }
+        ]
       }
     }
   ]

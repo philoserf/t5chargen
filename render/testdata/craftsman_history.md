@@ -413,3 +413,10 @@ _Book 1 p. 75 chart 01_
 - #332 2D = 5+4 = 9 vs 8: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 8, age 58)
 - #333 2D = 6+5 = 11 vs 8: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 8, age 58)
   - #334 (from #328) career ended (Craftsman)
+
+## Determine Fame
+
+_Book 1 p. 91 chart F_
+
+- #336 player chose "Keep this Fame" of [Keep this Fame, Add Flux to Fame]: Invoke the Fame Flux Event? (Fame 20 so far) — Book 1 p. 91 chart F (The Fame Flux Event)
+  - #337 (from #336) Fame 20 (Sector) = Scholar Rank +2, Scholar Publications +1, Craftsman Masterpieces x3 +12, Craftsman Perfect Masterpieces x5 +10

@@ -75,6 +75,11 @@ func (DefaultPolicy) Choose(c Choice) int {
 //
 //nolint:exhaustive // Deliberately partitioned: the remaining rules are in Choose.
 func chooseNamed(c Choice) (int, bool) {
+	if c.ID == ChooseFameFlux {
+		// POLICY.md: invoke only when Flux could reach Fame 19.
+		return fameFluxChoice(c), true
+	}
+
 	switch c.ID {
 	case ChooseSkillColumn:
 		// POLICY.md: the first present of General, then Exploration, then
@@ -210,4 +215,29 @@ func maxScoreIndex(c Choice) int {
 	}
 
 	return best
+}
+
+// fameFluxThreshold is the Fame that earns an extra muster-out roll: "He
+// is allowed one additional roll if Fame 19+" (p. 68).
+const fameFluxThreshold = 19
+
+// fluxRange is the most Flux can add or subtract (dice.Flux, p. 19).
+const fluxRange = 5
+
+// fameFluxChoice decides chart F's once-per-character gamble. The engine
+// passes the Fame so far as a score, so the policy weighs the same number
+// a player would see.
+func fameFluxChoice(c Choice) int {
+	if len(c.Scores) == 0 {
+		return 0
+	}
+
+	base := c.Scores[0]
+
+	// Already there, or out of reach: the gamble can only lose.
+	if base >= fameFluxThreshold || base+fluxRange < fameFluxThreshold {
+		return 0
+	}
+
+	return 1
 }

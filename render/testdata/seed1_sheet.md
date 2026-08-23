@@ -18,8 +18,10 @@
 
 **Skills**: ACV-2, Actor-1, Admin-2, Animals-2, Athlete-3, Broker-3, Bureaucrat-1, Chef-4, Computer-1, Trader-1
 
+**Status**: Fame 3 (Extended Family)
+
 ---
 
-Seed 1 (math/rand/v2-pcg) · schema 0.20.0 · engine 0.21.0 · policy 0.13.0
+Seed 1 (math/rand/v2-pcg) · schema 0.22.0 · engine 0.23.0 · policy 0.14.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

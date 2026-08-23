@@ -19,18 +19,18 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.20.0"
+	SchemaVersion = "0.22.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.21.0"
+	EngineVersion = "0.23.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
-	PolicyVersion = "0.13.0"
+	PolicyVersion = "0.14.0"
 
 	// RNGAlgorithm names the recorded random stream: Go math/rand/v2 PCG,
 	// seeded as documented at dice.New. The exact string is compared on
@@ -261,6 +261,12 @@ type CareerRecord struct {
 	// chooses one rather than rotating (chart 10, p. 84).
 	ControllingCharacteristic string `json:"controlling_characteristic,omitempty"`
 
+	// SuccessfulSchemes and FailedSchemes count what chart F prices at x2
+	// and x3 (p. 91). Chart 10's Risk decides which: a caught Rogue's
+	// scheme failed, whatever the Reward paid.
+	SuccessfulSchemes int `json:"successful_schemes,omitempty"`
+	FailedSchemes     int `json:"failed_schemes,omitempty"`
+
 	// Scheme is the Rogue's current plan, PrisonYears a sentence owed at
 	// the start of the next term, and SchemePayoff the credits his
 	// schemes have paid (chart 10, p. 84). Spending it lands with muster
@@ -276,6 +282,13 @@ type CareerRecord struct {
 	UndercoverTitle  string `json:"undercover_title,omitempty"`
 	Commendations    int    `json:"commendations,omitempty"`
 
+	// CommendationAwards records each Commendation as chart F formats it:
+	// "<Undercover Career> Commendation-N", where "N= C-R = the
+	// Controlling Characteristic (without Mods) minus the Reward Die
+	// Roll" (p. 91). Mod carries N. Chart F's Fame counts them rather
+	// than summing N.
+	CommendationAwards []Award `json:"commendation_awards,omitempty"`
+
 	// Branch is the Armed Forces branch served in (chart 08, p. 82);
 	// Medals are the decorations earned, in the card's own notation
 	// ("MCUF-1. XS-1.", p. 65); ServiceBadges counts the Risk-success
@@ -284,6 +297,14 @@ type CareerRecord struct {
 	Branch        string  `json:"branch,omitempty"`
 	Medals        []Award `json:"medals,omitempty"`
 	ServiceBadges int     `json:"service_badges,omitempty"`
+
+	// WoundBadges counts this career's Risk-failure wounds: "If the
+	// Soldier, Spacer, or Marines Risk Roll fails, the character is
+	// wounded and receives a Wound Badge (WB)" (p. 91). The character
+	// carries the lifetime total across every career; chart F prices the
+	// Armed Forces career's own, at x1 per badge, so the count has to be
+	// attributable to the career that took them.
+	WoundBadges int `json:"wound_badges,omitempty"`
 
 	// Exiled, TimesExiled, and SuccessfulIntrigues are the Noble's state
 	// (chart 11, p. 85): "Exile is a banishment to the edges of the empire
@@ -467,17 +488,37 @@ func Generate(opts Options) (Character, error) {
 		return Character{}, err
 	}
 
-	character.UPP = character.Characteristics.UPP()
+	// Fame is calculated over the finished record, not accumulated
+	// (chart F p. 91), and muster out reads it — "one additional roll if
+	// Fame 19+" (p. 68).
+	log.Step("Determine Fame", "Book 1 p. 91 chart F")
+
+	if err := computeFame(&character, roller, &log, opts.Decider); err != nil {
+		return Character{}, err
+	}
+
+	if err := character.finalize(&log); err != nil {
+		return Character{}, err
+	}
+
+	return character, nil
+}
+
+// finalize fills the fields derived from the finished record — the UPP
+// (p. 48) and the Life Stage the character's age falls in (chart A p. 89)
+// — and freezes the event log.
+func (c *Character) finalize(log *Log) error {
+	c.UPP = c.Characteristics.UPP()
 
 	stages, err := lifestage.Load()
 	if err != nil {
-		return Character{}, fmt.Errorf("life stages: %w", err)
+		return fmt.Errorf("life stages: %w", err)
 	}
 
-	character.LifeStage = stages.Of(character.Age)
-	character.Events = log.Events()
+	c.LifeStage = stages.Of(c.Age)
+	c.Events = log.Events()
 
-	return character, nil
+	return nil
 }
 
 // ErrCareerUnavailable reports a forced career the character cannot

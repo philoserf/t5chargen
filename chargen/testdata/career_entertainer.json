@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.20.0",
+  "schema_version": "0.22.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.21.0",
-  "policy_version": "0.13.0",
+  "engine_version": "0.23.0",
+  "policy_version": "0.14.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 572
@@ -1996,6 +1996,44 @@
         "cause": 137,
         "kind": "career_ended",
         "career": "Entertainer"
+      }
+    },
+    {
+      "seq": 143,
+      "kind": "step",
+      "step": {
+        "name": "Determine Fame",
+        "cite": "Book 1 p. 91 chart F"
+      }
+    },
+    {
+      "seq": 144,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Invoke the Fame Flux Event? (Fame 5 so far)",
+        "options": [
+          "Keep this Fame",
+          "Add Flux to Fame"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 91 chart F (The Fame Flux Event)"
+      }
+    },
+    {
+      "seq": 145,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 144,
+        "kind": "fame_computed",
+        "skill": "Town",
+        "value": 5,
+        "mods": [
+          {
+            "name": "Entertainer Fame",
+            "value": 5
+          }
+        ]
       }
     }
   ]

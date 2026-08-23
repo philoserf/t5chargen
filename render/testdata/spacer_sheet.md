@@ -18,10 +18,10 @@
 
 **Skills**: Actor-1, Admin-5, Astrogator-5, Comms-1, Diplomat-4, Engineer-1, Fighter-1, Language-1, Liaison-1, Pilot-1, Trader-1
 
-**Status**: Wound Badges 2, Disabled
+**Status**: Fame 18 (Many Systems), Wound Badges 2, Disabled
 
 ---
 
-Seed 659 (math/rand/v2-pcg) · schema 0.20.0 · engine 0.21.0 · policy 0.13.0
+Seed 659 (math/rand/v2-pcg) · schema 0.22.0 · engine 0.23.0 · policy 0.14.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

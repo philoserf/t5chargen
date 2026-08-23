@@ -173,11 +173,15 @@ func (m *rogueMechanics) schemeTerm(r *careerRun, cc string) (termOutcome, error
 	outcome.skillRolls = r.def.SkillsPerTerm + rogueFailedScheme
 
 	if !reward.Success {
+		// Chart 10 table B calls this a Failed Scheme, which is what
+		// chart F prices at x3 (p. 91).
+		r.record.FailedSchemes++
 		r.log.Consequence(ConsequenceEvent{Cause: rewardSeq, Kind: ConsequenceNoAward})
 
 		return outcome, nil
 	}
 
+	r.record.SuccessfulSchemes++
 	outcome.success = true
 	outcome.skillRolls = r.def.SkillsPerTerm + rogueSuccessfulScheme
 
@@ -243,9 +247,12 @@ func (*rogueMechanics) imprison(r *careerRun, caution, cause int) {
 	years := min(max(-(min(caution, 0)+flux.Value), 0), roguePrisonMaxYears)
 	r.record.PrisonYears = years
 
-	r.character.Fame++
+	// "Fame +1 (actually Infamy)" (chart 10). Chart F prices schemes, not
+	// imprisonments, so this is the career's own tracked Fame — the same
+	// field chart 03 uses — and chart F adds it (interpretation I-67).
+	r.record.Fame++
 	r.log.Consequence(ConsequenceEvent{
-		Cause: cause, Kind: ConsequenceFameChange, Delta: 1, Value: r.character.Fame,
+		Cause: cause, Kind: ConsequenceFameChange, Delta: 1, Value: r.record.Fame,
 	})
 
 	if years == 0 {

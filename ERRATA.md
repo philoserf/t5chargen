@@ -1430,3 +1430,175 @@ from the column positions — and the allocation is left to play.
 Vintage appreciation is deferred with it: "A Masterpiece increases in value
 about 1% per year (simple interest), but are subject to Flux (in percent)
 when sold" prices a sale, and character generation makes none.
+
+### I-63: Fame stacks to 20 as a cap, not a cliff (p. 91 chart F)
+
+"Fame Stacks. A character's Fame is the sum of all Fame points received to
+20; beyond 20, only the highest Fame applies."
+
+Read as: the sum applies up to 20, and a single accomplishment worth more
+than 20 carries past it. So Fame is the greater of the capped sum and the
+largest single source.
+
+The rival reading takes "beyond 20" to describe the total: once the sum
+passes 20 it collapses to the largest single source. The discriminating
+case is two accomplishments of 12. This reading gives 20; the rival gives
+12 — less Fame than the same character had after the first of them alone.
+No reading of a rule titled "Fame Stacks" should let an accomplishment
+subtract, and `TestStackIsMonotonic` holds that property over the whole
+range rather than trusting the argument.
+
+**What "the highest Fame" is a unit of.** The clause names a largest
+single source, and the chart offers two candidates for what a source is:
+one eligibility line's total, or one occurrence within it.
+
+Read as: the occurrence. The chart defines the unit itself — "xN = N Fame
+points per occurrence" — so a Scout's six Discoveries are six Fame points
+of 4, not one of 24, and "the sum of all Fame points received" sums those.
+The eligibility rows that instead name a value outright — "=Rank",
+"=Publications", "Soc x1.5", the Entertainer's tracked Fame — each supply
+a single point of that size, since there are no occurrences to divide them
+into.
+
+The rival reading takes the whole line as the unit, and the discriminating
+case is a Rogue with twelve failed schemes: 36 under the rival, 20 under
+this one. Two things decide it. The footnote defines the unit in so many
+words, and it is the only sentence on the page that does. And under the
+rival the "to 20" limit almost never binds — any xN line with a handful of
+occurrences clears it — which leaves half the sentence idle and makes a
+Rogue famous throughout All Reality for a dozen botched heists.
+
+Under this reading both clauses have work. Sweeping the auto policy across
+every first career and 800 seeds, 49 characters pass 20 and the highest
+reaches 40, all of them on a single direct-value line — chart 03's
+Entertainer, whose Fame the career tracks and chart F takes whole. The
+limit binds on the xN lines; the escape carries the outright values.
+
+**Where the Fame Flux Event applies.** "Any character may choose ... to
+add Flux to Fame." The Flux is added to the Fame the accomplishments stack
+to, not stacked alongside them as another source. Stacking it would put it
+under the "only the highest Fame applies" clause, where a negative Flux is
+absorbed whenever one eligibility dominates the total — a Scout with a
+single 16-point source keeps 16 whatever he rolls — and a symmetric gamble
+would only ever pay. `TestFameFluxCanLose` holds the property.
+
+Implemented at `fame/fame.go` (`Stack`) and `chargen/fame.go`
+(`computeFame`).
+
+### I-64: "Merchant Ship Owner = 1D" is deferred (p. 91 chart F; p. 68)
+
+Chart F gives a Merchant Fame for his rank and again for owning a ship.
+Ownership is not established during career resolution: a Merchant
+accumulates Ship Shares, and what they buy is settled at muster out, where
+chart S (p. 90) prices ships in shares.
+
+The ordering forecloses it. Muster out reads Fame — "He is allowed one
+additional roll if Fame 19+" (p. 68) — so Fame must be known before muster
+out runs, and ownership is not known until it has. Rolling 1D for a
+Merchant who merely holds shares would credit Fame for a ship he may never
+own.
+
+Deferred rather than guessed. The eligibility is recorded here so that
+whoever implements ship purchase knows Fame is waiting on it.
+
+### I-65: "Armed Forces Enlisted = no Fame" is read flat (p. 91 chart F)
+
+Chart F's Armed Forces block lists "Army / Marine / Navy: Officer Rank *"
+above six decorations with their multipliers, and footnotes the block
+"*Armed Forces Enlisted = no Fame."
+
+Read as: an enlisted character earns no Fame from that career at all —
+neither from rank, which he has none of, nor from his decorations.
+
+The rival reading is defensible and turns on where the asterisk sits: it
+is printed on the three "Officer Rank *" lines and nowhere else, so it
+could be scoping only those, leaving the medal lines to apply to anyone.
+That reading has something going for it — the chart's own Marine Sergeant
+Brett Bozeman, with Wound Badge-4 after four terms, is memorable enough
+that a reader expects him to be known for it.
+
+It is rejected because the footnote says what it says. "Enlisted = no
+Fame" is a flat statement, and reading it as narrower than its own words,
+on the strength of a typographical detail, is the kind of inference this
+file exists to avoid making silently.
+
+Implemented at `chargen/fame.go` (`armedForcesFame`).
+
+### I-66: "Imperial Noble Soc x1.5" rounds down (p. 91 chart F)
+
+Fame points are whole numbers everywhere else on the chart — "xN = N Fame
+points per occurrence" — and this is the only eligibility that can produce
+a half. An odd Social Standing gives one: Soc 11 yields 16.5.
+
+Read as: round down, which is how every other division in the rules
+resolves (the muster-out DMs "+Fame/3" and "+Fame/2", the Scout's Sanity
+"per TWO Terms"). Nothing on the page says otherwise, and rounding up
+would make an odd Soc worth more per point than an even one.
+
+Implemented at `chargen/fame.go` (`nobleFame`).
+
+### I-67: A Rogue's failed scheme is a failed Reward, and his infamy is separate (p. 91 chart F; p. 84 chart 10)
+
+Chart F prices "Rogue Successful Schemes x2" and "Rogue Failed Schemes
+x3", and chart 10 has two rolls that could decide which a scheme was: the
+Risk, whose failure imprisons, and the Reward, whose failure pays nothing.
+
+Read as: the Reward decides. Chart 10's own skill eligibility table uses
+exactly these words — "Failed Scheme 1 / Successful Scheme 4" — for the
+Reward outcome, and reading the same two terms differently on the facing
+page would be perverse.
+
+That leaves chart 10's "Fame +1 (actually Infamy)", which it awards on a
+Risk failure and chart F does not enumerate. It is recorded as the career's
+own tracked Fame — the same field chart 03 uses, and which chart F reads
+where it says "Entertainer detailed under Career" — and chart F adds it to
+the total. The two are not the same event: a Rogue can be caught on a
+scheme that still pays, and walk free from one that pays nothing.
+
+Implemented at `chargen/rogue.go` (`schemeTerm`, `imprison`) and
+`chargen/fame.go` (`rogueFame`).
+
+### I-68: A career's own Fame contributes nothing when it is negative (p. 91 chart F; p. 77 chart 03)
+
+Chart F reads the Entertainer's Fame off his career — "Entertainer detailed
+under Career" — and chart 03 keeps that Fame as a running level: 2D at the
+start, then "+F +F\* +F\*" every term, and 2D again on a Comeback. Flux is
+1D-1D, so the level can end below zero. Seed 144 forced to Entertainer ends
+at Fame -2.
+
+Read as: the career contributes nothing. Chart F's eligibility column
+prices accomplishments, and an Entertainer nobody has heard of has none;
+"Fame is the level of recognition or respect society ... holds for an
+individual", and no level of it is less than none.
+
+The rival reading takes the number as printed and subtracts it, which
+credits an obscure career with unmaking the Fame of every other one — a
+Scout's Discoveries erased by an Entertainer's bad run. It also silently
+suppresses "If NO other eligibility, 1D", because a negative entry is an
+entry: seed 144 finished at Fame 0, Unknown, with no Fame line on the
+sheet, where a career worth exactly zero would have rolled 1D.
+
+The clamp is at the chart F reading, not on chart 03's own value: the
+Entertainer's record keeps the negative level, which is his Continue
+target and the number a Comeback measures against.
+
+Implemented at `chargen/fame.go` (`singleLineFame`).
+
+### I-69: "Merchant =Rank" reads the printed rank number (p. 91 chart F; p. 80 chart 06)
+
+Chart 06 prints the Merchant ladder as RX Temp, R0 Spacehand, R1 Steward
+Apprentice, R2 Drive Helper, then M1 Fourth Officer through M6 Senior
+Captain, and notes "R-Ranks are Ratings (or Enlisted). M-Ranks are
+Officers." The numbering restarts at the commission.
+
+Read as: "=Rank" is the number printed beside the title, so a Drive Helper
+is Rank 2 and a Fourth Officer is Rank 1.
+
+The consequence is worth stating plainly: a Rating who takes his Officer
+Commission loses Fame by it, R2's two points becoming M1's one. That is
+what the chart says, and no other numbering is printed for the ladder —
+chart 06's own muster-out DM says "+ Officer Rank", which likewise counts
+the M-number. Recorded here because a non-monotonic Fame looks like a bug
+at the implementation site.
+
+Implemented at `chargen/fame.go` (`rankNumber`).

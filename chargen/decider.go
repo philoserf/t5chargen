@@ -16,6 +16,11 @@ const (
 	// eligible".
 	ChooseCareerChange ChoiceID = "change_career"
 
+	// ChooseFameFlux offers chart F's once-per-character gamble: "Any
+	// character may choose (once during Character Generation or after
+	// adventuring begins) to add Flux to Fame" (p. 91).
+	ChooseFameFlux ChoiceID = "invoke_fame_flux"
+
 	// ChooseAssociatedCareer names the prior career a Functionary
 	// position belongs to: "The Functionary character must identify with
 	// which prior career his position is associated" (chart 13 p. 87).

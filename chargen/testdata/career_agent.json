@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.20.0",
+  "schema_version": "0.22.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.21.0",
-  "policy_version": "0.13.0",
+  "engine_version": "0.23.0",
+  "policy_version": "0.14.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 1717
@@ -89,6 +89,43 @@
       "undercover_career": "Entertainer",
       "undercover_title": "Chef",
       "commendations": 6,
+      "commendation_awards": [
+        {
+          "code": "Functionary",
+          "name": "Functionary Commendation",
+          "count": 1
+        },
+        {
+          "code": "Citizen",
+          "name": "Citizen Commendation",
+          "count": 1,
+          "mod": 1
+        },
+        {
+          "code": "Navy Officer",
+          "name": "Navy Officer Commendation",
+          "count": 1,
+          "mod": 1
+        },
+        {
+          "code": "Army Officer",
+          "name": "Army Officer Commendation",
+          "count": 1,
+          "mod": 2
+        },
+        {
+          "code": "Entertainer",
+          "name": "Entertainer Commendation",
+          "count": 1,
+          "mod": 3
+        },
+        {
+          "code": "Marine Officer",
+          "name": "Marine Officer Commendation",
+          "count": 1,
+          "mod": 2
+        }
+      ],
       "terms": [
         {
           "term": 1,
@@ -191,6 +228,7 @@
   ],
   "waivers_attempted": 1,
   "life_stage": 9,
+  "fame": 6,
   "events": [
     {
       "seq": 1,
@@ -1033,6 +1071,7 @@
       "consequence": {
         "cause": 51,
         "kind": "commendation",
+        "skill": "Functionary Commendation",
         "career": "Agent",
         "value": 1
       }
@@ -1870,7 +1909,9 @@
       "consequence": {
         "cause": 109,
         "kind": "commendation",
+        "skill": "Citizen Commendation",
         "career": "Agent",
+        "delta": 1,
         "value": 2
       }
     },
@@ -2375,7 +2416,9 @@
       "consequence": {
         "cause": 142,
         "kind": "commendation",
+        "skill": "Navy Officer Commendation",
         "career": "Agent",
+        "delta": 1,
         "value": 3
       }
     },
@@ -3744,7 +3787,9 @@
       "consequence": {
         "cause": 231,
         "kind": "commendation",
+        "skill": "Army Officer Commendation",
         "career": "Agent",
+        "delta": 2,
         "value": 4
       }
     },
@@ -4345,7 +4390,9 @@
       "consequence": {
         "cause": 272,
         "kind": "commendation",
+        "skill": "Entertainer Commendation",
         "career": "Agent",
+        "delta": 3,
         "value": 5
       }
     },
@@ -5267,7 +5314,9 @@
       "consequence": {
         "cause": 335,
         "kind": "commendation",
+        "skill": "Marine Officer Commendation",
         "career": "Agent",
+        "delta": 2,
         "value": 6
       }
     },
@@ -8272,6 +8321,44 @@
         "cause": 528,
         "kind": "career_ended",
         "career": "Agent"
+      }
+    },
+    {
+      "seq": 537,
+      "kind": "step",
+      "step": {
+        "name": "Determine Fame",
+        "cite": "Book 1 p. 91 chart F"
+      }
+    },
+    {
+      "seq": 538,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Invoke the Fame Flux Event? (Fame 6 so far)",
+        "options": [
+          "Keep this Fame",
+          "Add Flux to Fame"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 91 chart F (The Fame Flux Event)"
+      }
+    },
+    {
+      "seq": 539,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 538,
+        "kind": "fame_computed",
+        "skill": "City",
+        "value": 6,
+        "mods": [
+          {
+            "name": "Agent Commendations",
+            "value": 6
+          }
+        ]
       }
     }
   ]

@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.20.0",
+  "schema_version": "0.22.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.21.0",
-  "policy_version": "0.13.0",
+  "engine_version": "0.23.0",
+  "policy_version": "0.14.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 305
@@ -101,6 +101,7 @@
         }
       ],
       "service_badges": 2,
+      "wound_badges": 2,
       "terms": [
         {
           "term": 1,
@@ -137,6 +138,7 @@
   ],
   "waivers_attempted": 1,
   "life_stage": 5,
+  "fame": 12,
   "wound_badges": 2,
   "disabled": true,
   "events": [
@@ -3175,6 +3177,56 @@
         "kind": "reserve",
         "skill": "Lt Colonel O5",
         "career": "Soldier"
+      }
+    },
+    {
+      "seq": 228,
+      "kind": "step",
+      "step": {
+        "name": "Determine Fame",
+        "cite": "Book 1 p. 91 chart F"
+      }
+    },
+    {
+      "seq": 229,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Invoke the Fame Flux Event? (Fame 12 so far)",
+        "options": [
+          "Keep this Fame",
+          "Add Flux to Fame"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 91 chart F (The Fame Flux Event)"
+      }
+    },
+    {
+      "seq": 230,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 229,
+        "kind": "fame_computed",
+        "skill": "World System",
+        "value": 12,
+        "mods": [
+          {
+            "name": "Soldier Officer Rank",
+            "value": 5
+          },
+          {
+            "name": "Soldier WB x1",
+            "value": 2
+          },
+          {
+            "name": "Soldier MCG x2",
+            "value": 2
+          },
+          {
+            "name": "Soldier SEH x3",
+            "value": 3
+          }
+        ]
       }
     }
   ]

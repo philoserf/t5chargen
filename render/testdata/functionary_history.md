@@ -344,3 +344,10 @@ _Book 1 p. 87 chart 13_
   - #279 (from #278) aging: Dex -1 = 7
 - #280 2D = 5+5 = 10 vs 7: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 54)
   - #281 (from #254) career ended (Functionary)
+
+## Determine Fame
+
+_Book 1 p. 91 chart F_
+
+- #283 player chose "Keep this Fame" of [Keep this Fame, Add Flux to Fame]: Invoke the Fame Flux Event? (Fame 2 so far) — Book 1 p. 91 chart F (The Fame Flux Event)
+  - #284 (from #283) Fame 2 (Close Family) = Scholar Publications +2
