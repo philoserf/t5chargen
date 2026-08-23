@@ -392,8 +392,9 @@ type Options struct {
 // Generate runs the generation procedure and returns the character record:
 // checklist steps A (Generate Characteristics), B (Determine A Homeworld),
 // C (Education and Training), and D (Select Career) plus career resolution
-// for the implemented careers (chart E1, p. 72); aging, career changes,
-// muster out, and fame land with docs/PRD.md milestone 4.
+// for the implemented careers (chart E1, p. 72), with the Aging Checks the
+// lifepath crosses (chart A, p. 89); career changes, muster out, and fame
+// land with docs/PRD.md milestone 4.
 func Generate(opts Options) (Character, error) {
 	if opts.Decider == nil {
 		return Character{}, errNoDecider

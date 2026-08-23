@@ -50,6 +50,16 @@ func (c *Character) ageEffects(from, to int, roller *dice.Roller, log *Log) erro
 		return fmt.Errorf("aging: %w", err)
 	}
 
+	// A misspelled name in the table would make characteristicAdd a
+	// no-op returning zero, so every Aging Check would read as "reduced
+	// to zero" and reliably kill the character. Fail loudly instead.
+	for _, name := range append(append([]string{},
+		table.PhysicalCharacteristics...), table.MentalCharacteristics...) {
+		if _, ok := characteristicValue(&c.Characteristics, name); !ok {
+			return fmt.Errorf("%w: aging affects unknown characteristic %q", errUnknownCharacteristic, name)
+		}
+	}
+
 	first := table.FirstYearOf(table.PhysicalStage)
 
 	for age := from + 1; age <= to; age++ {
@@ -103,14 +113,16 @@ func (c *Character) agingPass(table *lifestage.Table, age int, roller *dice.Roll
 		zeroed++
 		last = seq
 
-		reset := characteristicAdd(&c.Characteristics, name, 1)
+		// Set to 1, not incremented: the chart resets, and an increment
+		// would leave anything already below zero below it.
+		reset := characteristicAdd(&c.Characteristics, name, 1-value)
 		log.Consequence(ConsequenceEvent{
 			Cause: seq, Kind: ConsequenceCharacteristicReset,
-			Characteristic: name, Delta: 1, Value: reset,
+			Characteristic: name, Delta: 1 - value, Value: reset,
 		})
 	}
 
-	c.illness(zeroed, last, log)
+	c.illness(zeroed, last, age, log)
 }
 
 // illness applies what the count of characteristics reduced to zero in one
@@ -123,7 +135,7 @@ func (c *Character) agingPass(table *lifestage.Table, age int, roller *dice.Roll
 //
 // Neither illness costs game years: four weeks and four months are both
 // shorter than the year, which is the finest unit the engine tracks.
-func (c *Character) illness(zeroed, cause int, log *Log) {
+func (c *Character) illness(zeroed, cause, age int, log *Log) {
 	if zeroed < majorIllnessZeroes {
 		return
 	}
@@ -151,6 +163,11 @@ func (c *Character) illness(zeroed, cause int, log *Log) {
 	if c.ExtremelyMajorIllnesses >= fatalExtremelyMajorIllnesses {
 		c.Dead = true
 
-		log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceDead})
+		// Value is the age the character died at. The term's four years
+		// still pass in full (I-45, I-46), so Age can run up to three
+		// years past this; aging is the one death whose year the rules
+		// pin exactly, and the record says so rather than leaving a
+		// reader to infer it (interpretation I-52).
+		log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceDead, Value: age})
 	}
 }

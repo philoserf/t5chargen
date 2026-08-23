@@ -1174,3 +1174,29 @@ tool. That question stays open in COVERAGE.
 
 Implemented at `chargen/careerrun.go` (`term`) and `chargen/character.go`
 (`runCareer`).
+
+### I-52: A character killed by aging may record an age past the year he died (p. 89 chart A; p. 66)
+
+The term is four years (p. 66) and the engine elapses them together, then
+resolves the Aging Checks the span crossed. A character who dies on a
+birthday inside the term therefore keeps the whole term's years: he can
+die at 86 and end the record at 87.
+
+Read as: the term still costs its four years, consistent with I-45 and
+I-46. The alternative — truncating the clock at the fatal birthday — is
+more accurate about the age and was measured before being rejected: 203 of
+531 aging deaths over 3000 seeds overstate the age by one to three years.
+It is rejected because it would move the years-elapsed event after the
+Aging Checks it precedes, renumbering every subsequent event in every
+record for a cosmetic gain, and because the engine already charges whole
+terms for deaths within them.
+
+What the record does instead is state the year plainly. Aging is the one
+death in character generation whose year the rules pin exactly — an injury
+can fall anywhere in a term, an Aging Check falls on a named birthday — so
+the death consequence carries the age at death, and the transcript prints
+"DEAD at 86" rather than leaving a reader to infer it from a `age` field
+that says 87.
+
+Implemented at `chargen/aging.go` (`illness`) and `render/render.go`
+(`consequenceDeadText`).

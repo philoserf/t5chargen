@@ -736,24 +736,7 @@ func (r *careerRun) awardCharacteristic(name string, cause int) error {
 // exactly, the character is required to Continue" (p. 66). Each term
 // elapses 4 years ("the 4-year Term", p. 66).
 func (r *careerRun) continueRoll() (bool, error) {
-	target := r.def.ContinueTarget
-	label := "Continue " + strconv.Itoa(target) + "-"
-
-	switch {
-	case r.def.ContinueCharacteristic != "":
-		// A characteristic Continue target (chart 05: "Continue Int").
-		target, _ = characteristicValue(&r.character.Characteristics, r.def.ContinueCharacteristic)
-		label = "Continue " + r.def.ContinueCharacteristic
-	case r.def.ContinueFame:
-		// The career's own tracked value (chart 03: "Continue Fame").
-		target = r.record.Fame
-		label = "Continue Fame"
-	case r.def.ContinueCC:
-		// The career-long controlling characteristic (chart 10:
-		// "Continue CC*").
-		target, _ = characteristicValue(&r.character.Characteristics, r.record.ControllingCharacteristic)
-		label = "Continue " + r.record.ControllingCharacteristic
-	}
+	target, label := r.continueTarget()
 
 	bonus, mods, suffix := r.continueMod()
 	target += bonus
@@ -764,6 +747,13 @@ func (r *careerRun) continueRoll() (bool, error) {
 
 	if err := r.character.advanceYears(TermYears, r.roller, r.log, seq); err != nil {
 		return false, err
+	}
+
+	// Aging killed him as the term's years passed (chart A p. 89). There
+	// is no Continue to be required or waived, and no career for him to
+	// leave: death ends career resolution (interpretation I-51).
+	if r.character.Dead {
+		return false, nil
 	}
 
 	if throw.Total == 2 {
@@ -793,6 +783,28 @@ func (r *careerRun) continueRoll() (bool, error) {
 	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerEnded, Career: r.def.Name})
 
 	return false, nil
+}
+
+// continueTarget resolves what the Continue throw is rolled against, and
+// the label the transcript names it by: a fixed number ("Continue 10-",
+// chart 04), a characteristic ("Continue Int", chart 05), the career's own
+// tracked value ("Continue Fame", chart 03), or the career-long
+// controlling characteristic ("Continue CC*", chart 10).
+func (r *careerRun) continueTarget() (int, string) {
+	switch {
+	case r.def.ContinueCharacteristic != "":
+		target, _ := characteristicValue(&r.character.Characteristics, r.def.ContinueCharacteristic)
+
+		return target, "Continue " + r.def.ContinueCharacteristic
+	case r.def.ContinueFame:
+		return r.record.Fame, "Continue Fame"
+	case r.def.ContinueCC:
+		target, _ := characteristicValue(&r.character.Characteristics, r.record.ControllingCharacteristic)
+
+		return target, "Continue " + r.record.ControllingCharacteristic
+	default:
+		return r.def.ContinueTarget, "Continue " + strconv.Itoa(r.def.ContinueTarget) + "-"
+	}
 }
 
 // continueMod applies the career-tracked value a chart adds to its

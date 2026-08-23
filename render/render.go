@@ -438,7 +438,7 @@ func consequenceInjuryText(c *chargen.ConsequenceEvent) string {
 	case chargen.ConsequenceDisabled:
 		return "disabled (" + c.Characteristic + " reduced by 4+); musters out at term end"
 	case chargen.ConsequenceDead:
-		return "DEAD (" + c.Characteristic + " reduced to zero)"
+		return consequenceDeadText(c)
 	case chargen.ConsequenceDiscovery:
 		return fmt.Sprintf("Discovery (total %d)", c.Value)
 	case chargen.ConsequenceFameChange:
@@ -450,6 +450,19 @@ func consequenceInjuryText(c *chargen.ConsequenceEvent) string {
 	default:
 		return consequenceCareerValueText(c)
 	}
+}
+
+// consequenceDeadText names the death's cause. Injury names the
+// characteristic it reduced ("If the Controlling Characteristic is reduced
+// to zero or less, the Character is dead", p. 65); aging names none ("The
+// second time three characteristics are reduced to 0, the character dies",
+// chart A p. 89).
+func consequenceDeadText(c *chargen.ConsequenceEvent) string {
+	if c.Characteristic == "" {
+		return fmt.Sprintf("DEAD at %d (the second extremely major illness)", c.Value)
+	}
+
+	return "DEAD (" + c.Characteristic + " reduced to zero)"
 }
 
 // consequenceCareerValueText renders the consequence kinds for the values a

@@ -167,9 +167,11 @@ const (
 	// Benefits" (chart 05 p. 79; p. 65).
 	ConsequenceDisabled ConsequenceKind = "disabled"
 
-	// ConsequenceDead records a characteristic reduced to zero: "If the
-	// Controlling Characteristic is reduced to zero or less, the
-	// Character is dead" (p. 65).
+	// ConsequenceDead records a death. Injury names the characteristic:
+	// "If the Controlling Characteristic is reduced to zero or less, the
+	// Character is dead" (p. 65). Aging names none: "The second time
+	// three characteristics are reduced to 0, the character dies"
+	// (p. 89 chart A).
 	ConsequenceDead ConsequenceKind = "dead"
 
 	// ConsequenceDiscovery records a Scout Reward success: "The Scout

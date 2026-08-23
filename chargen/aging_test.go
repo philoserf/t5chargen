@@ -1,6 +1,7 @@
 package chargen_test
 
 import (
+	"slices"
 	"strings"
 	"testing"
 
@@ -186,7 +187,7 @@ func TestLifeStageIsDerived(t *testing.T) {
 func assertNothingFollowsDeath(t *testing.T, seed uint64, c chargen.Character) {
 	t.Helper()
 
-	dead := false
+	dead, deathCause := false, 0
 
 	for _, e := range c.Events {
 		if e.Kind != chargen.EventConsequence {
@@ -197,7 +198,14 @@ func assertNothingFollowsDeath(t *testing.T, seed uint64, c chargen.Character) {
 			//nolint:exhaustive // Deliberately partitioned: only what must not happen after death.
 			switch e.Consequence.Kind {
 			case chargen.ConsequenceYearsElapsed:
-				t.Fatalf("seed %d: %d years elapsed after dying (age %d)", seed, e.Consequence.Value, c.Age)
+				// The fatal term still costs its four years, and the
+				// injury path elapses them after the death it caused
+				// (interpretations I-45, I-46): same cause, so the years
+				// belong to the term that killed him, not to a lifepath
+				// running on past it.
+				if e.Consequence.Cause != deathCause {
+					t.Fatalf("seed %d: %d years elapsed after dying (age %d)", seed, e.Consequence.Value, c.Age)
+				}
 			case chargen.ConsequenceAgingEffect:
 				t.Fatalf("seed %d: aged after dying", seed)
 			default:
@@ -205,7 +213,7 @@ func assertNothingFollowsDeath(t *testing.T, seed uint64, c chargen.Character) {
 		}
 
 		if e.Consequence.Kind == chargen.ConsequenceDead {
-			dead = true
+			dead, deathCause = true, e.Consequence.Cause
 		}
 	}
 }
@@ -241,4 +249,88 @@ func assertAgingDeltas(t *testing.T, seed uint64, c chargen.Character) int {
 	}
 
 	return zeroes
+}
+
+// TestAgingDeathRecordsTheAge holds interpretation I-52. The term's four
+// years pass in full, so a character killed by an Aging Check can carry an
+// Age up to three years past the birthday that killed him. Aging is the
+// one death whose year the rules pin exactly, so the death event carries
+// it and a reader never has to infer it from the age.
+func TestAgingDeathRecordsTheAge(t *testing.T) {
+	checked, overshot := 0, 0
+
+	for seed := uint64(1); seed <= 600; seed++ {
+		c := generate(t, chargen.Options{Seed: seed})
+		if !c.Dead || c.ExtremelyMajorIllnesses < 2 {
+			continue
+		}
+
+		n, short := assertDeathAge(t, seed, c)
+		checked += n
+		overshot += short
+	}
+
+	if checked == 0 {
+		t.Fatal("no aging deaths in the sweep; the rule went untested")
+	}
+
+	if overshot == 0 {
+		t.Error("no death fell short of the term's end; the case the entry exists for went untested")
+	}
+}
+
+// TestAgingAffectsThePrintedCharacteristics pins the transcription
+// against the page: "Human Physical Aging affects Strength, Dexterity, and
+// Endurance" and "Human Mental Aging affects Intelligence" (p. 89 chart A).
+//
+// A misspelled name here would not fail loudly on its own — the engine
+// guards it at run time, because characteristicAdd returns zero for a name
+// it does not know, which would read as "reduced to zero" on every check
+// and reliably kill the character.
+func TestAgingAffectsThePrintedCharacteristics(t *testing.T) {
+	table, err := lifestage.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !slices.Equal(table.PhysicalCharacteristics, []string{"Str", "Dex", "End"}) {
+		t.Errorf("Physical Aging affects %v", table.PhysicalCharacteristics)
+	}
+
+	if !slices.Equal(table.MentalCharacteristics, []string{"Int"}) {
+		t.Errorf("Mental Aging affects %v", table.MentalCharacteristics)
+	}
+}
+
+// assertDeathAge checks the age an aging death records, and reports how
+// many deaths were found and how many fell short of the term's end.
+func assertDeathAge(t *testing.T, seed uint64, c chargen.Character) (int, int) {
+	t.Helper()
+
+	found, short := 0, 0
+
+	for _, e := range c.Events {
+		if e.Kind != chargen.EventConsequence || e.Consequence.Kind != chargen.ConsequenceDead {
+			continue
+		}
+
+		found++
+
+		at := e.Consequence.Value
+		if at <= 0 {
+			t.Fatalf("seed %d: aging death records no age", seed)
+		}
+
+		// Never later than the age the record ends at, and never more
+		// than a term short of it.
+		if at > c.Age || c.Age-at >= chargen.TermYears {
+			t.Fatalf("seed %d: died at %d but the record ends at %d", seed, at, c.Age)
+		}
+
+		if at < c.Age {
+			short++
+		}
+	}
+
+	return found, short
 }

@@ -7395,7 +7395,8 @@
       "kind": "consequence",
       "consequence": {
         "cause": 503,
-        "kind": "dead"
+        "kind": "dead",
+        "value": 90
       }
     }
   ]
