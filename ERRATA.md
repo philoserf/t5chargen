@@ -1670,3 +1670,157 @@ by default, which is no award at all.
 
 The omission is chart M1's, and the vocabulary records it so a reader
 comparing the two lists finds the note rather than the gap.
+
+### I-73: The Fame-19+ muster-out roll goes to the first career served (p. 68)
+
+"He is allowed one additional roll if Fame 19+", and "A character with a
+roll allowed by Fame-19+ may select which career-dictated table to use."
+
+The choice is the character's, and the engine has to make it for him. Read
+as: the first career served. The page gives no basis for preferring one
+table over another — the tables differ, but not in a way a rule ranks —
+and first-listed is what the auto policy falls back on when it cannot weigh
+(docs/PRD.md, CLI sketch), so putting the roll anywhere else would be a
+preference dressed as a rule.
+
+The roll is a character's rather than a career's, so it is added once
+across the whole muster out rather than once per career.
+
+### I-74: A duplicate benefit is rerolled once, not until it differs (p. 69)
+
+"A result that duplicates a previous (unwanted or unusable) benefit may be
+rerolled until a different benefit is received, for example: Wafer Jack,
+TAS Member, Knighthood."
+
+Read as: one reroll. "Until a different benefit is received" describes an
+unbounded loop, and the engine takes a single throw instead; if that throw
+duplicates the benefit again, it stands.
+
+The deviation is deliberate. The reroll is permissive ("may be rerolled"),
+so declining it is inside the rule, and a loop over a column whose high
+rows are all one kind — which the DMs make the likely landing place — has
+no printed stopping condition. A bounded reroll is the smaller departure
+from the page than a bound invented for it.
+
+Implemented at `chargen/musterout.go` (`rerollable`, `roll`).
+
+### I-75: "+ Officer Rank" counts the number beside the rank, on either ladder (p. 68; charts 06, 08, 10, 12)
+
+Charts 06, 08, 10 and 12 head a muster-out DM column "+ Officer Rank", and
+their ladders number the enlisted ranks from 1 alongside the officers':
+chart 08 runs S1-S6 beside O1-O7, and chart 06 "R-Ranks are Ratings (or
+Enlisted). M-Ranks are Officers."
+
+Read as: the number printed beside the character's rank, whichever ladder
+he stands on. An enlisted S4 counts 4.
+
+The rival reading — an enlisted character has no Officer Rank, so no DM —
+is the more natural reading of the four words, and it is wrong. Knighthood
+sits at row 10 on chart 08, row 11 on chart 07 and row 10 on chart 12, and
+the Benefits throw is 1D. Without a DM a non-officer cannot reach those
+rows at all, which would make p. 68's "In the Spacer, Soldier, and Marine
+careers, Knighthood is only available to Officers. A non-officer receives
+Soc +1" a rule for a case the dice cannot produce. The clause names exactly
+the three dual-ladder careers, and their enlisted ladders run to 6 — enough
+to reach the Knighthood row and no further. That is a system, not a
+coincidence.
+
+Chart F shows what the book does when it means to exclude the enlisted: it
+footnotes the block "*Armed Forces Enlisted = no Fame" (interpretation
+I-65). The muster-out box carries no such footnote. And I-68 already reads
+this DM the same way — "chart 06's own muster-out DM says '+ Officer Rank',
+which likewise counts the M-number" — with the non-monotonicity that
+follows stated there plainly.
+
+Implemented at `chargen/musterout.go` (`dmValue`), pinned by
+`TestKnighthoodFollowsItsThreeClauses`, whose non-officer sweep fails if
+the DM is withheld from the enlisted.
+
+### I-76: A passage is a benefit, not its cash value, until it is cashed out (pp. 68-69)
+
+p. 68 prices the non-money benefits — "StarPass ... has a value of
+Cr250,000", a High Passage Cr10,000 — and p. 69 describes cashing out.
+
+Read as: the price is what the benefit fetches if the character sells it,
+not money he already holds. The record carries the passage; `credits` is
+what muster out paid. Adding the price to the money would both spend a
+ticket the character still holds and count the award twice, once in the
+credits and once in the benefits list.
+
+Cashing out is its own step, deferred with the Automatics and the
+Entitlements (COVERAGE.md).
+
+Implemented at `chargen/musterout.go` (`award`).
+
+### I-74: A duplicate benefit is rerolled once, not until it differs (p. 69)
+
+"A result that duplicates a previous (unwanted or unusable) benefit may be
+rerolled until a different benefit is received, for example: Wafer Jack,
+TAS Member, Knighthood."
+
+Read as: rerolled once. The printed rule is a loop, and the engine does not
+run it.
+
+The reason is the tables. A Knighthood sits at row 10 or 11 of the careers
+that offer one, the throw is 1D plus a DM, and a character whose DM already
+carries him to the last row lands on the same cell every time. "Until a
+different benefit is received" would then never terminate. Rerolling once
+takes the benefit the rule is trying to give and stops.
+
+The deviation is recorded rather than resolved because the fix belongs to
+the rule, not the engine: a table where the duplicate is the only reachable
+row has no different benefit to offer.
+
+### I-75: A career's "+Officer Rank" DM is read from the rank the character holds (p. 68; p. 91)
+
+Charts 06, 07, 08, 12 and 13 head their Benefits DM "+Officer Rank". A
+character who never held a commission has no officer rank, and the natural
+reading withholds the DM from him.
+
+Read as: the DM is the rank's number whatever ladder it sits on. The
+discriminator is what the other reading costs. Knighthood sits at rows 10,
+11 and 10 on exactly the three careers p. 68 restricts it on — "In the
+Spacer, Soldier, and Marine careers, Knighthood is only available to
+Officers. A non-officer receives Soc +1" — and the Benefits throw is 1D.
+Withholding the DM from an enlisted character puts those rows out of reach
+of the dice, and makes the non-officer substitution a rule for a case that
+can never arise.
+
+Chart F's "Armed Forces Enlisted = no Fame" is deliberately not read across
+to this. That footnote is printed on chart F and scoped to Fame; nothing on
+p. 68 repeats it.
+
+### I-76: A benefit is held, not sold (p. 68)
+
+Chart M1 prices the passages, the Directorship and the Proxy, and p. 68
+gives each a value: "StarPass ... has a value of Cr250,000."
+
+Read as: what a benefit is worth, not what it pays. A character who
+receives a StarPass holds a StarPass; the value says what it would fetch,
+and selling it is play. Only the Money column pays credits.
+
+This is recorded because the engine did the other thing first, and the
+result was visible: a Craftsman showed Cr575,000 of which Cr250,000 was an
+unsold StarPass that the same sheet listed among his benefits. The value
+belongs to the benefit, and the benefit belongs to the character.
+
+Cashing out is a separate rule, and only for Entitlements: "Any Entitlement
+can be cashed out for a lump sum" of five years' payments (p. 69).
+
+### I-77: A dead character does not muster out (p. 67; p. 69)
+
+"Mustering Out counts up the character's belongings (at least the major
+ones), the money, and the abilities that a character has accumulated
+through several years of career and notes them as assets for the
+adventuring situations to come" (p. 67).
+
+Read as: a character who died in generation has no adventuring situations
+to come, and takes nothing. p. 69 says it flatly — "the Character is dead
+(and all efforts in this particular character creation process are lost)".
+
+The engine still returns the record, which is the narrower reading of that
+sentence recorded at I-51: a generator that reports how a character died is
+more useful than one that returns nothing. But it stops adding to it. Fame
+is computed for the dead and muster out is not, which is the distinction
+the two pages draw: Fame is what a character was known for, and benefits
+are what he takes with him.

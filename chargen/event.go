@@ -179,6 +179,11 @@ const (
 	// world (a Discovery)" (chart 05 p. 79). Value is the running count.
 	ConsequenceDiscovery ConsequenceKind = "discovery"
 
+	// ConsequenceBenefit records a muster-out award (chart M1 p. 70).
+	// Skill is the benefit's name, Value how many, Delta the credits it
+	// paid, and Characteristic the one a "Str +1" raised.
+	ConsequenceBenefit ConsequenceKind = "benefit"
+
 	// ConsequenceMasterpiece records a Craftsman creation success (chart
 	// 01 p. 75). Value is the Master Points it scored, Delta the credits
 	// it would sell for; a Perfect Masterpiece is one of 55 or more.

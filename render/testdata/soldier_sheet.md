@@ -18,10 +18,14 @@
 
 **Skills**: Actor-1, Admin-1, Fighter-10, Hostile Environ-2, Leader-3, Stealth-3, Tactics-6, Trader-1, Vacc Suit-3
 
+**Credits**: Cr630000
+
+**Benefits**: 2 Retirement x2s
+
 **Status**: Fame 12 (World System), Wound Badges 2, Disabled
 
 ---
 
-Seed 305 (math/rand/v2-pcg) · schema 0.22.0 · engine 0.23.0 · policy 0.14.0
+Seed 305 (math/rand/v2-pcg) · schema 0.23.0 · engine 0.24.0 · policy 0.15.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

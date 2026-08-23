@@ -280,6 +280,11 @@ func (r *careerRun) elapseTerm(cause int) error {
 // term its four years.
 func (r *careerRun) closeTerm(outcome termOutcome) (termEnd, int, error) {
 	if outcome.endCareer {
+		// The disability is what ends the career, and muster out pays
+		// Double Benefits for it (p. 69), so the record says which
+		// career it happened in.
+		r.record.Disabled = r.character.Disabled
+
 		return termCareerEnded, outcome.endCause, r.elapseTerm(outcome.endCause)
 	}
 

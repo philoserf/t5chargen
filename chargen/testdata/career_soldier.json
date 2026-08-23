@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.22.0",
+  "schema_version": "0.23.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.23.0",
-  "policy_version": "0.14.0",
+  "engine_version": "0.24.0",
+  "policy_version": "0.15.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 305
@@ -76,6 +76,7 @@
       "career": "Soldier",
       "began": true,
       "end_age": 39,
+      "disabled": true,
       "reserve": true,
       "rank": "O5",
       "rank_title": "Lt Colonel",
@@ -138,6 +139,93 @@
   ],
   "waivers_attempted": 1,
   "life_stage": 5,
+  "credits": 630000,
+  "benefits": [
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Soldier",
+      "credits": 40000
+    },
+    {
+      "kind": "retirement_doubling",
+      "name": "Retirement x2",
+      "career": "Soldier",
+      "count": 1
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Soldier",
+      "credits": 50000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Soldier",
+      "credits": 60000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Soldier",
+      "credits": 60000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Soldier",
+      "credits": 50000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Soldier",
+      "credits": 50000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Soldier",
+      "credits": 40000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Soldier",
+      "credits": 60000
+    },
+    {
+      "kind": "retirement_doubling",
+      "name": "Retirement x2",
+      "career": "Soldier",
+      "count": 1
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Soldier",
+      "credits": 50000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Soldier",
+      "credits": 50000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Soldier",
+      "credits": 60000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Soldier",
+      "credits": 60000
+    }
+  ],
   "fame": 12,
   "wound_badges": 2,
   "disabled": true,
@@ -3227,6 +3315,806 @@
             "value": 3
           }
         ]
+      }
+    },
+    {
+      "seq": 231,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out",
+        "cite": "Book 1 p. 67; chart M1 p. 70"
+      }
+    },
+    {
+      "seq": 232,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out: Soldier",
+        "cite": "Book 1 p. 82 chart 08 D"
+      }
+    },
+    {
+      "seq": 233,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 234,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 235,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          1
+        ],
+        "mod": 5,
+        "total": 6,
+        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 236,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 235,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Soldier",
+        "delta": 40000
+      }
+    },
+    {
+      "seq": 237,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 238,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 239,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          4
+        ],
+        "mod": 5,
+        "total": 9,
+        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 240,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 239,
+        "kind": "benefit",
+        "skill": "Retirement x2",
+        "career": "Soldier",
+        "value": 1
+      }
+    },
+    {
+      "seq": 241,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 242,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 243,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          2
+        ],
+        "mod": 5,
+        "total": 7,
+        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 244,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 243,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Soldier",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 245,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 246,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 247,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          6
+        ],
+        "mod": 5,
+        "total": 11,
+        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 248,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 247,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Soldier",
+        "delta": 60000
+      }
+    },
+    {
+      "seq": 249,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 250,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 251,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          5
+        ],
+        "mod": 5,
+        "total": 10,
+        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 252,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 251,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Soldier",
+        "delta": 60000
+      }
+    },
+    {
+      "seq": 253,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 254,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 255,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          2
+        ],
+        "mod": 5,
+        "total": 7,
+        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 256,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 255,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Soldier",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 257,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 258,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 259,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          2
+        ],
+        "mod": 5,
+        "total": 7,
+        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 260,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 259,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Soldier",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 261,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 262,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 263,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          1
+        ],
+        "mod": 5,
+        "total": 6,
+        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 264,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 263,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Soldier",
+        "delta": 40000
+      }
+    },
+    {
+      "seq": 265,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 266,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 267,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          6
+        ],
+        "mod": 5,
+        "total": 11,
+        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 268,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 267,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Soldier",
+        "delta": 60000
+      }
+    },
+    {
+      "seq": 269,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 270,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 271,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          4
+        ],
+        "mod": 5,
+        "total": 9,
+        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 272,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 271,
+        "kind": "benefit",
+        "skill": "Retirement x2",
+        "career": "Soldier",
+        "value": 1
+      }
+    },
+    {
+      "seq": 273,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 274,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 275,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          2
+        ],
+        "mod": 5,
+        "total": 7,
+        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 276,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 275,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Soldier",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 277,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 278,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 279,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          2
+        ],
+        "mod": 5,
+        "total": 7,
+        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 280,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 279,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Soldier",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 281,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 282,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 283,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          5
+        ],
+        "mod": 5,
+        "total": 10,
+        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 284,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 283,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Soldier",
+        "delta": 60000
+      }
+    },
+    {
+      "seq": 285,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 286,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 287,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          5
+        ],
+        "mod": 5,
+        "total": 10,
+        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 288,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 287,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Soldier",
+        "delta": 60000
       }
     }
   ]

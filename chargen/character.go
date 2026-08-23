@@ -6,6 +6,7 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/philoserf/t5chargen/benefit"
 	"github.com/philoserf/t5chargen/career"
 	"github.com/philoserf/t5chargen/dice"
 	"github.com/philoserf/t5chargen/lifestage"
@@ -19,18 +20,18 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.22.0"
+	SchemaVersion = "0.23.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.23.0"
+	EngineVersion = "0.24.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
-	PolicyVersion = "0.14.0"
+	PolicyVersion = "0.15.0"
 
 	// RNGAlgorithm names the recorded random stream: Go math/rand/v2 PCG,
 	// seeded as documented at dice.New. The exact string is compared on
@@ -119,6 +120,14 @@ type Character struct {
 	// (chart A p. 89). The second extremely major illness is fatal.
 	MajorIllnesses          int `json:"major_illnesses,omitempty"`
 	ExtremelyMajorIllnesses int `json:"extremely_major_illnesses,omitempty"`
+
+	// Credits is the character's money, in credits (docs/PRD.md, JSON
+	// conventions). Muster out is what puts any there.
+	Credits int `json:"credits,omitempty"`
+
+	// Benefits are what muster out awarded, one entry per benefit
+	// received (chart M1 p. 70; the career tables D).
+	Benefits []BenefitRecord `json:"benefits,omitempty"`
 
 	// Fame is the running Fame counter (chart 05 "Fame +1"; the full
 	// Fame system, chart F p. 91, lands with milestone 4).
@@ -238,6 +247,12 @@ type CareerRecord struct {
 	// from when the service stopped (p. 69).
 	EndAge int `json:"end_age,omitempty"`
 
+	// Disabled records that this career ended in a Disability Muster Out:
+	// "When Risk Failure produces an Injury or Wound which reduces the
+	// Controlling Characteristic by 4 or more points, the character is
+	// Disabled ... Muster Out at Term End with Double Benefits" (p. 69).
+	Disabled bool `json:"disabled,omitempty"`
+
 	// Reserve records enrolment on leaving the Armed Forces: "A character
 	// who leaves a military, naval, or marine career is automatically in
 	// the Reserves until retirement at Life Stage 9" (p. 67), holding the
@@ -349,6 +364,23 @@ type CareerRecord struct {
 	ShipShares int `json:"ship_shares,omitempty"`
 
 	Terms []TermRecord `json:"terms"`
+}
+
+// BenefitRecord is one muster-out award (chart M1 p. 70).
+type BenefitRecord struct {
+	Kind benefit.Kind `json:"kind"`
+	Name string       `json:"name"`
+
+	// Career is the table it came from: "Use the Mustering Out Table
+	// corresponding to the Career for the time spent in that career"
+	// (p. 68).
+	Career string `json:"career"`
+
+	// Count is how many were received; Credits what it paid, where it
+	// paid anything. Detail names a characteristic a "Str +1" raised.
+	Count   int    `json:"count,omitempty"`
+	Credits int    `json:"credits,omitempty"`
+	Detail  string `json:"detail,omitempty"`
 }
 
 // Award is one decoration and how many times it was earned, in the
@@ -491,17 +523,39 @@ func Generate(opts Options) (Character, error) {
 	// Fame is calculated over the finished record, not accumulated
 	// (chart F p. 91), and muster out reads it — "one additional roll if
 	// Fame 19+" (p. 68).
-	log.Step("Determine Fame", "Book 1 p. 91 chart F")
-
-	if err := computeFame(&character, roller, &log, opts.Decider); err != nil {
-		return Character{}, err
-	}
-
-	if err := character.finalize(&log); err != nil {
+	if err := afterCareers(&character, roller, &log, opts.Decider); err != nil {
 		return Character{}, err
 	}
 
 	return character, nil
+}
+
+// afterCareers runs checklist step E and what follows it: Fame, which
+// muster out reads (p. 68), then muster out itself (p. 67).
+func afterCareers(c *Character, roller *dice.Roller, log *Log, decider Decider) error {
+	log.Step("Determine Fame", "Book 1 p. 91 chart F")
+
+	if err := computeFame(c, roller, log, decider); err != nil {
+		return err
+	}
+
+	// "Mustering Out counts up the character's belongings ... and notes
+	// them as assets for the adventuring situations to come" (p. 67). A
+	// dead character has none, and p. 69 is blunter: "the Character is
+	// dead (and all efforts in this particular character creation
+	// process are lost)". The record is kept — that much of the sentence
+	// the engine declines, I-51 — but nothing is added to it, and the
+	// step is not opened for a section that would hold nothing
+	// (interpretation I-77).
+	if !c.Dead {
+		log.Step("Muster Out", "Book 1 p. 67; chart M1 p. 70")
+
+		if err := musterOut(c, roller, log, decider); err != nil {
+			return err
+		}
+	}
+
+	return c.finalize(log)
 }
 
 // finalize fills the fields derived from the finished record — the UPP

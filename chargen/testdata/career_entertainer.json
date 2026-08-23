@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.22.0",
+  "schema_version": "0.23.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.23.0",
-  "policy_version": "0.14.0",
+  "engine_version": "0.24.0",
+  "policy_version": "0.15.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 572
@@ -116,6 +116,33 @@
     }
   ],
   "life_stage": 5,
+  "credits": 50000,
+  "benefits": [
+    {
+      "kind": "high_passage",
+      "name": "High Passage",
+      "career": "Entertainer",
+      "count": 1
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Entertainer",
+      "credits": 25000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Entertainer",
+      "credits": 25000
+    },
+    {
+      "kind": "star_passage",
+      "name": "StarPass",
+      "career": "Entertainer",
+      "count": 1
+    }
+  ],
   "fame": 5,
   "events": [
     {
@@ -2034,6 +2061,230 @@
             "value": 5
           }
         ]
+      }
+    },
+    {
+      "seq": 146,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out",
+        "cite": "Book 1 p. 67; chart M1 p. 70"
+      }
+    },
+    {
+      "seq": 147,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out: Entertainer",
+        "cite": "Book 1 p. 77 chart 03 D"
+      }
+    },
+    {
+      "seq": 148,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Entertainer muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 149,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the fame DM to apply?",
+        "options": [
+          "+0",
+          "+1"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 150,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+1",
+        "dice": [
+          3
+        ],
+        "mod": 1,
+        "total": 4,
+        "cite": "Book 1 p. 77 chart 03 D (Money column, 1D+1)"
+      }
+    },
+    {
+      "seq": 151,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 150,
+        "kind": "benefit",
+        "skill": "High Passage",
+        "career": "Entertainer",
+        "value": 1
+      }
+    },
+    {
+      "seq": 152,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Entertainer muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 153,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the fame DM to apply?",
+        "options": [
+          "+0",
+          "+1"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 154,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+1",
+        "dice": [
+          6
+        ],
+        "mod": 1,
+        "total": 7,
+        "cite": "Book 1 p. 77 chart 03 D (Money column, 1D+1)"
+      }
+    },
+    {
+      "seq": 155,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 154,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Entertainer",
+        "delta": 25000
+      }
+    },
+    {
+      "seq": 156,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Entertainer muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 157,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the fame DM to apply?",
+        "options": [
+          "+0",
+          "+1"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 158,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+1",
+        "dice": [
+          6
+        ],
+        "mod": 1,
+        "total": 7,
+        "cite": "Book 1 p. 77 chart 03 D (Money column, 1D+1)"
+      }
+    },
+    {
+      "seq": 159,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 158,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Entertainer",
+        "delta": 25000
+      }
+    },
+    {
+      "seq": 160,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Entertainer muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 161,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the fame DM to apply?",
+        "options": [
+          "+0",
+          "+1"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 162,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+1",
+        "dice": [
+          5
+        ],
+        "mod": 1,
+        "total": 6,
+        "cite": "Book 1 p. 77 chart 03 D (Money column, 1D+1)"
+      }
+    },
+    {
+      "seq": 163,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 162,
+        "kind": "benefit",
+        "skill": "StarPass",
+        "career": "Entertainer",
+        "value": 1
       }
     }
   ]

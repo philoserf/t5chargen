@@ -334,3 +334,41 @@ _Book 1 p. 91 chart F_
 
 - #286 policy chose "Keep this Fame" of [Keep this Fame, Add Flux to Fame]: Invoke the Fame Flux Event? (Fame 20 so far) — Book 1 p. 91 chart F (The Fame Flux Event)
   - #287 (from #286) Fame 20 (Sector) = Scout Discoveries x4 +24
+
+## Muster Out
+
+_Book 1 p. 67; chart M1 p. 70_
+
+
+## Muster Out: Scout
+
+_Book 1 p. 79 chart 05 D_
+
+- #290 policy chose "Money" of [Money, Benefits]: Which column for this Scout muster-out roll? — Book 1 p. 68 (Which Column?)
+- #291 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #292 1D+6 = 1 = 7 — Book 1 p. 79 chart 05 D (Money column, 1D+6)
+  - #293 (from #292) Money, worth Cr50000
+- #294 policy chose "Money" of [Money, Benefits]: Which column for this Scout muster-out roll? — Book 1 p. 68 (Which Column?)
+- #295 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #296 1D+6 = 6 = 12 — Book 1 p. 79 chart 05 D (Money column, 1D+6)
+  - #297 (from #296) Money, worth Cr80000
+- #298 policy chose "Money" of [Money, Benefits]: Which column for this Scout muster-out roll? — Book 1 p. 68 (Which Column?)
+- #299 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #300 1D+6 = 2 = 8 — Book 1 p. 79 chart 05 D (Money column, 1D+6)
+  - #301 (from #300) Money, worth Cr60000
+- #302 policy chose "Money" of [Money, Benefits]: Which column for this Scout muster-out roll? — Book 1 p. 68 (Which Column?)
+- #303 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #304 1D+6 = 4 = 10 — Book 1 p. 79 chart 05 D (Money column, 1D+6)
+  - #305 (from #304) Money, worth Cr60000
+- #306 policy chose "Money" of [Money, Benefits]: Which column for this Scout muster-out roll? — Book 1 p. 68 (Which Column?)
+- #307 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #308 1D+6 = 1 = 7 — Book 1 p. 79 chart 05 D (Money column, 1D+6)
+  - #309 (from #308) Money, worth Cr50000
+- #310 policy chose "Money" of [Money, Benefits]: Which column for this Scout muster-out roll? — Book 1 p. 68 (Which Column?)
+- #311 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #312 1D+6 = 6 = 12 — Book 1 p. 79 chart 05 D (Money column, 1D+6)
+  - #313 (from #312) Money, worth Cr80000
+- #314 policy chose "Money" of [Money, Benefits]: Which column for this Scout muster-out roll? — Book 1 p. 68 (Which Column?)
+- #315 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #316 1D+6 = 5 = 11 — Book 1 p. 79 chart 05 D (Money column, 1D+6)
+  - #317 (from #316) Money, worth Cr70000

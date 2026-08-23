@@ -61,7 +61,7 @@ func (DefaultPolicy) Choose(c Choice) int {
 		return 0
 	case ChooseHobby, ChooseHomeworld, ChooseArt, ChooseTrade,
 		ChooseService, ChooseMajor, ChooseMinor, ChooseSkill,
-		ChooseAssociatedCareer:
+		ChooseAssociatedCareer, ChooseBenefitColumn:
 		// POLICY.md: first-listed.
 		return 0
 	}
@@ -75,6 +75,12 @@ func (DefaultPolicy) Choose(c Choice) int {
 //
 //nolint:exhaustive // Deliberately partitioned: the remaining rules are in Choose.
 func chooseNamed(c Choice) (int, bool) {
+	if c.ID == ChooseBenefitDM {
+		// POLICY.md: apply the DM in full. The tables run from cheap to
+		// dear, so a partial DM only ever reaches a lower row.
+		return len(c.Options) - 1, true
+	}
+
 	if c.ID == ChooseFameFlux {
 		// POLICY.md: invoke only when Flux could reach Fame 19.
 		return fameFluxChoice(c), true
