@@ -275,25 +275,41 @@ func TestFunctionaryIsReferenceOnly(t *testing.T) {
 func TestAgentContinueAddsTerms(t *testing.T) {
 	c, _ := agentRun(t)
 
-	terms, checked := 0, 0
+	// Str is tracked as the log reports it, not read off the finished
+	// record: aging reduces characteristics mid-career (chart A p. 89), so
+	// the target a term threw against is the Str the character had then.
+	str, terms, checked := 0, 0, 0
 
 	for _, e := range c.Events {
 		switch {
+		case e.Kind == chargen.EventConsequence && e.Consequence.Characteristic == "Str":
+			str = e.Consequence.Value
 		case e.Kind == chargen.EventThrow && strings.Contains(e.Throw.Cite, "Continue Str"):
 			checked++
 
-			want := c.Characteristics.Str + terms
-			if e.Throw.Target == nil || *e.Throw.Target != want {
-				t.Errorf("Continue target = %v, want Str %d + %d terms",
-					e.Throw.Target, c.Characteristics.Str, terms)
-			}
+			assertTarget(t, e.Throw.Target, str+terms, str, terms)
 
 			terms++
 		default:
 		}
 	}
 
+	if str != c.Characteristics.Str {
+		t.Errorf("tracked Str ended at %d, record says %d", str, c.Characteristics.Str)
+	}
+
 	if checked == 0 {
 		t.Fatal("the pinned seed records no Continue throw")
+	}
+}
+
+// assertTarget checks one Continue throw's target against the Str the
+// character held at the time plus his completed terms (chart 09 "Continue
+// Str*", "*Mod +Terms"; interpretation I-12).
+func assertTarget(t *testing.T, got *int, want, str, terms int) {
+	t.Helper()
+
+	if got == nil || *got != want {
+		t.Errorf("Continue target = %v, want Str %d + %d terms", got, str, terms)
 	}
 }

@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.16.0",
+  "schema_version": "0.17.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.17.0",
+  "engine_version": "0.18.0",
   "policy_version": "0.11.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -100,6 +100,7 @@
       ]
     }
   ],
+  "life_stage": 5,
   "events": [
     {
       "seq": 1,
@@ -1680,6 +1681,51 @@
     },
     {
       "seq": 122,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          1
+        ],
+        "total": 5,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
+      }
+    },
+    {
+      "seq": 123,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          1
+        ],
+        "total": 7,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
+      }
+    },
+    {
+      "seq": 124,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          6
+        ],
+        "total": 9,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
+      }
+    },
+    {
+      "seq": 125,
       "kind": "consequence",
       "consequence": {
         "cause": 120,

@@ -2,15 +2,15 @@
 
 **Name**:
 
-**UPP**: 638C53
+**UPP**: 538C53
 
 **Homeworld**: Regina A788899-C (Ph Pa Ri)
 
-**Age**: 34
+**Age**: 34 (Peak)
 
 | Str | Dex | End | Int | Edu | Soc |
 | --- | --- | --- | --- | --- | --- |
-| 6 | 3 | 8 | 12 | 5 | 3 |
+| 5 | 3 | 8 | 12 | 5 | 3 |
 
 **Education**: ED5 — graduated
 
@@ -22,6 +22,6 @@
 
 ---
 
-Seed 17 (math/rand/v2-pcg) · schema 0.16.0 · engine 0.17.0 · policy 0.11.0
+Seed 17 (math/rand/v2-pcg) · schema 0.17.0 · engine 0.18.0 · policy 0.11.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

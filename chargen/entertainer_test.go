@@ -196,7 +196,20 @@ func firstTermEvents(c chargen.Character) []chargen.Event {
 // increase Talent +1" (chart 03): Talent rises exactly once per term whose
 // Fame ended higher than it started, and never otherwise.
 func TestEntertainerTalentTracksFameIncreases(t *testing.T) {
-	c, record := entertainerRun(t)
+	// Its own seed rather than the golden's: this test needs several Fame
+	// increases, and pinning it to the fixture means every stream change
+	// that shortens that career silently guts the test instead of the
+	// fixture. Seed 15 runs eight terms and raises Talent six times.
+	const talentSeed = 15
+
+	c, err := chargen.Generate(chargen.Options{
+		Seed: talentSeed, Career: "Entertainer", Decider: chargen.DefaultPolicy{},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	record := c.Careers[len(c.Careers)-1]
 
 	talent := consequences(c, chargen.ConsequenceTalentSet)
 	if len(talent) < 2 {

@@ -6,7 +6,7 @@
 
 **Homeworld**: Regina A788899-C (Ph Pa Ri)
 
-**Age**: 50
+**Age**: 38 (Peak)
 
 | Str | Dex | End | Int | Edu | Soc |
 | --- | --- | --- | --- | --- | --- |
@@ -14,14 +14,14 @@
 
 **Education**: University, Major Athlete, Minor Broker — Honors BA
 
-**Career**: Entertainer (7 terms), Artist, Talent 9
+**Career**: Entertainer (4 terms), Artist, Talent 6
 
-**Skills**: Actor-1, Animals-5, Athlete-5, Broker-2, Bureaucrat-7, Hostile Environ-6, Navigator-7, Survey-3, Survival-6, Trader-1
+**Skills**: Actor-1, Animals-4, Athlete-5, Broker-2, Bureaucrat-4, Hostile Environ-2, Navigator-2, Survey-1, Survival-3, Trader-1
 
-**Status**: Fame 6
+**Status**: Fame 5
 
 ---
 
-Seed 572 (math/rand/v2-pcg) · schema 0.16.0 · engine 0.17.0 · policy 0.11.0
+Seed 572 (math/rand/v2-pcg) · schema 0.17.0 · engine 0.18.0 · policy 0.11.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1
