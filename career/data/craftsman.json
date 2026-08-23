@@ -1,0 +1,251 @@
+{
+  "cite": "Book 1 p. 75 chart 01",
+  "name": "Craftsman",
+  "begin_prerequisite": {
+    "skill": "Craftsman",
+    "skill_level": 1,
+    "skills_at_level": 6,
+    "skills_at_level_count": 2
+  },
+  "controlling_characteristics": ["Str", "Dex", "End", "Int"],
+  "continue_skill": "Craftsman",
+  "continue_skill_multiplier": 2,
+  "skills_per_term": 4,
+  "masterpiece": {
+    "cite": "Book 1 p. 75 chart 01 (Creating A Masterpiece)",
+    "dice": 9,
+    "minimum_points": 40,
+    "perfect_points": 55,
+    "bonus_skill_level": 6,
+    "max_bonus_skills": 5,
+    "excluded_skill": "Language",
+    "skills_per_success": 3,
+    "skills_per_failure": 1,
+    "base_value": 150000,
+    "value_per_point": 10000,
+    "perfect_multiplier": 2,
+    "qrebs": [
+      {
+        "code": "Q",
+        "name": "Quality",
+        "minimum": 1,
+        "maximum": 10
+      },
+      {
+        "code": "R",
+        "name": "Reliability",
+        "minimum": -5,
+        "maximum": 5
+      },
+      {
+        "code": "E",
+        "name": "Ease",
+        "minimum": -5,
+        "maximum": 5
+      },
+      {
+        "code": "B",
+        "name": "Bulk",
+        "minimum": -5,
+        "maximum": 5
+      },
+      {
+        "code": "S",
+        "name": "Safety",
+        "minimum": -5,
+        "maximum": 5
+      }
+    ]
+  },
+  "skill_columns": [
+    {
+      "name": "Personal",
+      "entries": [
+        {
+          "kind": "characteristic",
+          "name": "Str"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Dex"
+        },
+        {
+          "kind": "characteristic",
+          "name": "End"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Int"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Edu"
+        },
+        {
+          "kind": "characteristic",
+          "name": "Soc"
+        }
+      ]
+    },
+    {
+      "name": "Academic",
+      "entries": [
+        {
+          "kind": "major"
+        },
+        {
+          "kind": "major"
+        },
+        {
+          "kind": "minor"
+        },
+        {
+          "kind": "minor"
+        },
+        {
+          "kind": "trade"
+        },
+        {
+          "kind": "trade"
+        }
+      ]
+    },
+    {
+      "name": "Travel",
+      "entries": [
+        {
+          "kind": "skill",
+          "name": "Seafarer"
+        },
+        {
+          "kind": "skill",
+          "name": "Navigator"
+        },
+        {
+          "kind": "skill",
+          "name": "Hostile Environ"
+        },
+        {
+          "kind": "skill",
+          "name": "Flyer"
+        },
+        {
+          "kind": "skill",
+          "name": "Driver"
+        },
+        {
+          "kind": "skill",
+          "name": "Vacc Suit"
+        }
+      ]
+    },
+    {
+      "name": "General",
+      "entries": [
+        {
+          "kind": "skill",
+          "name": "Animals"
+        },
+        {
+          "kind": "skill",
+          "name": "Comms"
+        },
+        {
+          "kind": "skill",
+          "name": "Computer"
+        },
+        {
+          "kind": "skill",
+          "name": "Designer"
+        },
+        {
+          "kind": "skill",
+          "name": "Designer"
+        },
+        {
+          "kind": "skill",
+          "name": "Designer"
+        }
+      ]
+    },
+    {
+      "name": "Business",
+      "entries": [
+        {
+          "kind": "skill",
+          "name": "Liaison"
+        },
+        {
+          "kind": "skill",
+          "name": "Comms"
+        },
+        {
+          "kind": "skill",
+          "name": "Bureaucrat"
+        },
+        {
+          "kind": "skill",
+          "name": "Diplomat"
+        },
+        {
+          "kind": "skill",
+          "name": "Leader"
+        },
+        {
+          "kind": "skill",
+          "name": "Trader"
+        }
+      ]
+    },
+    {
+      "name": "Vocation",
+      "entries": [
+        {
+          "kind": "skill",
+          "name": "Naval Architect"
+        },
+        {
+          "kind": "art"
+        },
+        {
+          "kind": "new_trade"
+        },
+        {
+          "kind": "new_trade"
+        },
+        {
+          "kind": "trade"
+        },
+        {
+          "kind": "trade"
+        }
+      ]
+    },
+    {
+      "name": "Avocation",
+      "entries": [
+        {
+          "kind": "skill",
+          "name": "Animals"
+        },
+        {
+          "kind": "art"
+        },
+        {
+          "kind": "science"
+        },
+        {
+          "kind": "skill",
+          "name": "Athlete"
+        },
+        {
+          "kind": "skill",
+          "name": "Medic"
+        },
+        {
+          "kind": "trade"
+        }
+      ]
+    }
+  ]
+}

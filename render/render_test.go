@@ -3,6 +3,8 @@ package render_test
 import (
 	"flag"
 	"os"
+	"regexp"
+	"slices"
 	"strings"
 	"testing"
 
@@ -167,8 +169,10 @@ func TestHistoryMalformedEvents(t *testing.T) {
 }
 
 // TestHistoryConsequenceTexts covers the consequence renderings the seed-1
-// golden does not pin: the ERRATA I-1 job_undetermined line and the
-// cap-absorbed no_award carrying the skill name.
+// golden does not pin: the ERRATA I-1 job_undetermined line, the
+// cap-absorbed no_award carrying the skill name, and chart 01's two —
+// a Masterpiece and its price, and a New Trade cell with no Trade left to
+// give, which must not read as the Major/Minor benefit.
 func TestHistoryConsequenceTexts(t *testing.T) {
 	c := chargen.Character{Events: []chargen.Event{
 		{Seq: 1, Kind: chargen.EventConsequence, Consequence: &chargen.ConsequenceEvent{
@@ -177,6 +181,13 @@ func TestHistoryConsequenceTexts(t *testing.T) {
 		{Seq: 2, Kind: chargen.EventConsequence, Consequence: &chargen.ConsequenceEvent{
 			Cause: 1, Kind: chargen.ConsequenceNoAward, Skill: "Admin",
 		}},
+		{Seq: 3, Kind: chargen.EventConsequence, Consequence: &chargen.ConsequenceEvent{
+			Cause: 1, Kind: chargen.ConsequenceMasterpiece,
+			Career: "Craftsman", Value: 55, Delta: 600_000,
+		}},
+		{Seq: 4, Kind: chargen.EventConsequence, Consequence: &chargen.ConsequenceEvent{
+			Cause: 1, Kind: chargen.ConsequenceBenefitLost, Career: "Craftsman", Skill: "Trade",
+		}},
 	}}
 
 	got := render.History(c)
@@ -184,10 +195,40 @@ func TestHistoryConsequenceTexts(t *testing.T) {
 	for _, want := range []string{
 		"Job undetermined (No Skill); retries next success — ERRATA I-1",
 		"no award (Admin at the Skill-15 cap)",
+		"Masterpiece created (55 Master Points, worth Cr600000)",
+		"benefit lost (every Trade already held)",
 	} {
 		if !strings.Contains(got, want) {
 			t.Errorf("History() missing %q:\n%s", want, got)
 		}
+	}
+}
+
+// TestSheetCraftsmanValues pins what a Craftsman career shows on the card:
+// the Masterpieces it produced and how many are Perfect (chart 01 p. 75).
+// Without it the sheet said only how many terms he served, which is the
+// one thing the career is not about.
+func TestSheetCraftsmanValues(t *testing.T) {
+	for _, tc := range []struct {
+		name          string
+		made, perfect int
+		want          string
+	}{
+		{"one", 1, 0, "**Career**: Craftsman (1 term), 1 Masterpiece\n"},
+		{"several", 4, 2, "**Career**: Craftsman (1 term), 4 Masterpieces (2 Perfect)\n"},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			c := chargen.Character{Careers: []chargen.CareerRecord{{
+				Career: "Craftsman", Began: true,
+				Terms:               []chargen.TermRecord{{Term: 1}},
+				Masterpieces:        tc.made,
+				PerfectMasterpieces: tc.perfect,
+			}}}
+
+			if got := render.Sheet(c); !strings.Contains(got, tc.want) {
+				t.Errorf("Sheet() missing %q:\n%s", tc.want, got)
+			}
+		})
 	}
 }
 
@@ -285,4 +326,152 @@ func TestFunctionaryHistoryGolden(t *testing.T) {
 	}
 
 	golden(t, render.History(c), "testdata/functionary_history.md")
+}
+
+// craftsmanPath reaches chart 01, which no auto-generated character does:
+// entry is "Automatic* — *if TWO skill-6 and Craftsman-1" (p. 75), so the
+// craft and the breadth must be acquired in another career first, and the
+// auto policy declines every career change (POLICY.md `change_career`).
+type craftsmanPath struct {
+	offers  int
+	arrived bool
+}
+
+func (d *craftsmanPath) Choose(c chargen.Choice) int {
+	//nolint:exhaustive // Deliberately partitioned: the rest defer to the auto policy.
+	switch c.ID {
+	case chargen.ChooseCareerChange:
+		d.offers++
+
+		if d.arrived || d.offers < 4 {
+			return 0
+		}
+
+		return 1
+	case chargen.ChooseCareer:
+		return d.pickCareer(c)
+	case chargen.ChooseSkill, chargen.ChooseTrade:
+		if i := prefer(c.Options, "Craftsman"); i >= 0 {
+			return i
+		}
+	case chargen.ChooseSkillColumn:
+		if i := preferColumn(c.Options, "Academic", "Vocation"); i >= 0 {
+			return i
+		}
+	default:
+	}
+
+	return chargen.DefaultPolicy{}.Choose(c)
+}
+
+// preferColumn picks the first skills-table column named after one of the
+// given words, or -1.
+func preferColumn(options []string, words ...string) int {
+	for i, option := range options {
+		for _, word := range words {
+			if strings.Contains(option, word) {
+				return i
+			}
+		}
+	}
+
+	return -1
+}
+
+// prefer returns the index of an option by name, or -1.
+func prefer(options []string, want string) int {
+	for i, option := range options {
+		if option == want {
+			return i
+		}
+	}
+
+	return -1
+}
+
+func (*craftsmanPath) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
+
+// pickCareer takes Craftsman the moment it is offered, and otherwise
+// builds toward it as a Citizen, whose table C offers Trades.
+func (d *craftsmanPath) pickCareer(c chargen.Choice) int {
+	if i := prefer(c.Options, "Craftsman"); i >= 0 {
+		d.arrived = true
+
+		return i
+	}
+
+	if i := prefer(c.Options, "Citizen"); i >= 0 {
+		return i
+	}
+
+	return chargen.DefaultPolicy{}.Choose(c)
+}
+
+func craftsmanCharacter(t *testing.T) chargen.Character {
+	t.Helper()
+
+	c, err := chargen.Generate(chargen.Options{Seed: 177, Decider: &craftsmanPath{}})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	return c
+}
+
+// TestCraftsmanSheetGolden pins the sheet for the last career, whose
+// output is its Masterpieces rather than a rank.
+func TestCraftsmanSheetGolden(t *testing.T) {
+	golden(t, render.Sheet(craftsmanCharacter(t)), "testdata/craftsman_sheet.md")
+}
+
+// TestCraftsmanHistoryGolden pins the transcript. Every career has one so
+// that a mechanic without a renderer cannot ship: chart 01's Masterpiece
+// event printed as the bare word "masterpiece" until this existed.
+func TestCraftsmanHistoryGolden(t *testing.T) {
+	golden(t, render.History(craftsmanCharacter(t)), "testdata/craftsman_history.md")
+}
+
+// TestEveryConsequenceKindRenders holds the repo's rule that a mechanic is
+// not done until its events render in the transcript (docs/PRD.md FR10).
+//
+// consequenceText ends in a default that returns the kind's raw string, so
+// a kind added without a case prints as "masterpiece" or "reserve" rather
+// than as anything a reader can use. Only a history transcript would show
+// it, and most careers have only a sheet golden — which is how chart 01's
+// Masterpiece shipped unrendered.
+//
+// The check is structural rather than behavioural: a renderer may
+// legitimately return the kind's own word, as ConsequenceWaived does.
+func TestEveryConsequenceKindRenders(t *testing.T) {
+	declared := readIdentifiers(t, "../chargen/event.go", `(Consequence[A-Za-z]+) ConsequenceKind = "`)
+	if len(declared) < 20 {
+		t.Fatalf("found %d consequence kinds in chargen/event.go; the scan is not working", len(declared))
+	}
+
+	handled := readIdentifiers(t, "render.go", `case chargen\.(Consequence[A-Za-z]+)`)
+
+	for _, kind := range declared {
+		if !slices.Contains(handled, kind) {
+			t.Errorf("%s has no case in the transcript renderer", kind)
+		}
+	}
+}
+
+// readIdentifiers returns every capture of pattern in the named file.
+func readIdentifiers(t *testing.T, file, pattern string) []string {
+	t.Helper()
+
+	source, err := os.ReadFile(file) //nolint:gosec // G304: fixed test-owned source paths.
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	matches := regexp.MustCompile(pattern).FindAllStringSubmatch(string(source), -1)
+	found := make([]string, 0, len(matches))
+
+	for _, match := range matches {
+		found = append(found, match[1])
+	}
+
+	return found
 }

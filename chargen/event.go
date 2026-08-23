@@ -179,6 +179,11 @@ const (
 	// world (a Discovery)" (chart 05 p. 79). Value is the running count.
 	ConsequenceDiscovery ConsequenceKind = "discovery"
 
+	// ConsequenceMasterpiece records a Craftsman creation success (chart
+	// 01 p. 75). Value is the Master Points it scored, Delta the credits
+	// it would sell for; a Perfect Masterpiece is one of 55 or more.
+	ConsequenceMasterpiece ConsequenceKind = "masterpiece"
+
 	// ConsequenceAssociated records the prior career a Functionary
 	// position belongs to (chart 13 p. 87); Skill carries its name.
 	ConsequenceAssociated ConsequenceKind = "associated"
