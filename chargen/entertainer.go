@@ -76,7 +76,10 @@ func (m *entertainerMechanics) begin(r *careerRun) (bool, error) {
 
 	if !throw.Success {
 		// "Each failed attempt (both Begin or Retry) takes one year" (p. 65).
-		r.character.advanceYears(1, r.log, seq)
+		if err := r.character.advanceYears(1, r.roller, r.log, seq); err != nil {
+			return false, err
+		}
+
 		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerNotBegun, Career: r.def.Name})
 
 		return false, nil

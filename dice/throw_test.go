@@ -146,3 +146,40 @@ func TestHighRollsHigh(t *testing.T) {
 		t.Errorf("total = %d, mod = %d, want 8 and 1", got.Total, got.Mod)
 	}
 }
+
+// TestResolveUnder enumerates every 2D combination against every target
+// that matters, pinning the strict less-than of the Aging Check ("2D <
+// Life Stage", p. 89) against the equal-or-less of Throw and Check.
+func TestResolveUnder(t *testing.T) {
+	for target := range 14 {
+		for a := 1; a <= 6; a++ {
+			for b := 1; b <= 6; b++ {
+				roll := dice.Roll{N: 2, Faces: []int{a, b}, Total: a + b}
+
+				got := dice.ResolveUnder(roll, target)
+				if want := roll.Total < target; got.Success != want {
+					t.Fatalf("Under(%d vs %d) = %v, want %v", roll.Total, target, got.Success, want)
+				}
+
+				// The boundary is the whole point: a roll equal to the
+				// target succeeds as a Throw and fails as an Under.
+				if roll.Total == target && dice.ResolveThrow(roll, target).Success == got.Success {
+					t.Fatalf("Under and Throw agree at the boundary %d", target)
+				}
+			}
+		}
+	}
+}
+
+// TestUnderKeepsTheMaximumRollAFailure holds the note in Under's doc
+// comment: the p. 134 automatic-failure rule is not applied because it
+// would change nothing. A 2D roll of 12 is never under a Life Stage,
+// which caps at 9.
+func TestUnderKeepsTheMaximumRollAFailure(t *testing.T) {
+	roll := dice.Roll{N: 2, Faces: []int{6, 6}, Total: 12}
+	for target := range 10 {
+		if dice.ResolveUnder(roll, target).Success {
+			t.Errorf("12 succeeded against Life Stage %d", target)
+		}
+	}
+}

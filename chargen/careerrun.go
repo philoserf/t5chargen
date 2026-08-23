@@ -198,6 +198,25 @@ func runCareerByName(
 	return true, nil
 }
 
+// elapseTerm advances the clock by the term's four years, resolving any
+// Aging Check the span crosses (p. 66; chart A p. 89).
+func (r *careerRun) elapseTerm(cause int) error {
+	return r.character.advanceYears(TermYears, r.roller, r.log, cause)
+}
+
+// closeTerm ends the term and reports whether the career continues.
+//
+// A disabled character "Musters Out at Term end" (chart 05 p. 79): the
+// term completes and its years pass, but there is no Continue throw, which
+// is what elapses them on an ordinary term.
+func (r *careerRun) closeTerm(outcome termOutcome) (bool, error) {
+	if outcome.endCareer {
+		return false, r.elapseTerm(outcome.endCause)
+	}
+
+	return r.continueRoll()
+}
+
 // term resolves one 4-year term and reports whether the career continues.
 func (r *careerRun) term(number int) (bool, error) {
 	r.log.Step(r.def.Name+": Term "+strconv.Itoa(number), r.def.Cite)
@@ -217,7 +236,9 @@ func (r *careerRun) term(number int) (bool, error) {
 		// no skills, no Continue. The years still pass: the Continue
 		// throw is what elapses them on an ordinary term, and this path
 		// never reaches it.
-		r.character.advanceYears(TermYears, r.log, outcome.endCause)
+		if err := r.elapseTerm(outcome.endCause); err != nil {
+			return false, err
+		}
 
 		r.record.Terms = append(r.record.Terms, TermRecord{
 			Term: number, ControllingCharacteristic: cc,
@@ -238,19 +259,17 @@ func (r *careerRun) term(number int) (bool, error) {
 		}
 	}
 
-	continued := false
+	continued, err := r.closeTerm(outcome)
+	if err != nil {
+		return false, err
+	}
 
-	if outcome.endCareer {
-		// A disabled character "Musters Out at Term end" (chart 05
-		// p. 79), so the term completes and its years pass — but, as on
-		// the death path, without the Continue throw that would have
-		// elapsed them.
-		r.character.advanceYears(TermYears, r.log, outcome.endCause)
-	} else {
-		continued, err = r.continueRoll()
-		if err != nil {
-			return false, err
-		}
+	// Aging resolves as the term's years pass, and can kill: "The second
+	// time three characteristics are reduced to 0, the character dies"
+	// (chart A p. 89). A Continue throw already rolled cannot bring the
+	// character back to serve it.
+	if r.character.Dead {
+		continued = false
 	}
 
 	r.record.Terms = append(r.record.Terms, TermRecord{
@@ -743,7 +762,9 @@ func (r *careerRun) continueRoll() (bool, error) {
 	throw := r.roller.Check(2, target)
 	seq := r.log.Throw(throw, mods, r.def.Cite+" ("+label+"; p. 66)")
 
-	r.character.advanceYears(TermYears, r.log, seq)
+	if err := r.character.advanceYears(TermYears, r.roller, r.log, seq); err != nil {
+		return false, err
+	}
 
 	if throw.Total == 2 {
 		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceMandatoryContinue})

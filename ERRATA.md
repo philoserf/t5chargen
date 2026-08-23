@@ -1090,3 +1090,87 @@ there is no roll from which to take a first die.
 
 Implemented at `chargen/careerrun.go` (`recordSanityMod`), with the count
 of terms per point as a chart fact in `career/data/scout.json`.
+
+### I-48: The Retirement stage runs to 73, not the printed 71 (p. 89 chart A)
+
+Chart A states its structure three times, and one statement disagrees with
+the other two.
+
+The prose: "After Infancy, each Life Stage is two terms (8 years; this may
+differ for non-humans)." The lifespan: "Humans have a 2-year infancy and
+nine stages of 8 years each. The traditional lifespan for humans is 74
+years." Both put Retirement, stage 9, at 66-73. The Stages of Life table
+prints "9 Retirement 66-71".
+
+Read as: the arithmetic governs. Two statements agree against one, the
+lifespan of 74 is arithmetically impossible under the printed range (2 +
+8×8 + 6 = 72), and every other row of the table matches the arithmetic
+exactly.
+
+Nothing mechanical turns on it. Retirement is the last stage, so a
+character past 71 stays in it either way, and the Aging Check reads the
+stage number rather than the range. It is recorded because the table is
+transcribed as printed, so a reader comparing the data to the derivation
+will find the divergence and should find this entry with it.
+`TestPrintedRangesDivergeExactlyOnce` pins the divergence set to this one
+row, so a later transcription cannot quietly resolve it or add another.
+
+Implemented at `lifestage/lifestage.go` (`Of`, `FirstYearOf`), with the
+printed columns kept in `lifestage/data/lifestages.json`.
+
+### I-49: Three characteristics at zero means three or more (p. 89 chart A)
+
+The chart escalates by count: one characteristic reduced to zero is reset
+to 1; two bring "a major illness ... four weeks in rest and recuperation";
+three bring "an extremely major illness ... four months", and "the second
+time three characteristics are reduced to 0, the character dies". It stops
+at three.
+
+Four is reachable. Mental Aging adds Intelligence to the three Physical
+characteristics at Life Stage 9, so a single Aging Check pass rolls four,
+and all four can zero at once.
+
+Read as: three or more. The chart's sequence is plainly an escalation, and
+reading "three" strictly would make four characteristics at zero less
+severe than three — indeed harmless, since no clause would match.
+
+### I-50: Aging Checks fall on absolute ages, and illnesses cost no game years (p. 89 chart A)
+
+"Once Aging begins, it occurs every four years on the character's
+birthday." The engine has no birthdate: FR8's is cited to the Archive,
+which the ground rules exclude, and Book 1 prints no birthdate rule.
+
+Read as: the checks fall at ages 34, 38, 42 and so on — the four-year
+cadence anchored to the age Physical Aging begins at. Anchoring to
+absolute ages rather than to elapsed time matters because a failed career
+entry costs a single year (p. 65), which would otherwise knock a character
+permanently off the four-year grid and change how many checks a lifetime
+holds.
+
+Neither illness costs game years. Four weeks and four months are both
+shorter than the year, which is the finest unit the engine tracks. They
+are recorded on the character and in the transcript, and charged nothing.
+
+Implemented at `chargen/aging.go` (`ageEffects`, `illness`).
+
+### I-51: Death ends career resolution (p. 89 chart A; p. 65; p. 69)
+
+Both deaths in character generation — a controlling characteristic reduced
+to zero by injury (p. 65), and the second extremely major illness (p. 89) —
+now stop the lifepath.
+
+This is recorded because the engine did not do it before, and the omission
+was invisible until aging made it load-bearing. Aging kills, but
+generation went on serving terms afterwards: sweeps produced characters
+who died in their nineties and were still accumulating skills at 401. The
+engine has always set the dead flag and carried on.
+
+The record is still returned rather than discarded, which is the narrower
+reading of p. 69's "the Character is dead (and all efforts in this
+particular character creation process are lost)". A generator that reports
+how a character died is more useful than one that returns nothing, and the
+sentence is as easily read as guidance for play as an instruction to the
+tool. That question stays open in COVERAGE.
+
+Implemented at `chargen/careerrun.go` (`term`) and `chargen/character.go`
+(`runCareer`).

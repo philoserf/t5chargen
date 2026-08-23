@@ -177,6 +177,28 @@ const (
 	// world (a Discovery)" (chart 05 p. 79). Value is the running count.
 	ConsequenceDiscovery ConsequenceKind = "discovery"
 
+	// ConsequenceAgingEffect records an Aging Check that landed: "If the
+	// Aging Check imposes an effect, the characteristic is reduced -1"
+	// (p. 89 chart A). Delta is -1, Value the resulting value.
+	ConsequenceAgingEffect ConsequenceKind = "aging_effect"
+
+	// ConsequenceCharacteristicReset records the floor aging cannot pass:
+	// "If one Characteristic is reduced to 0, it is reset to 1" (p. 89
+	// chart A).
+	ConsequenceCharacteristicReset ConsequenceKind = "characteristic_reset"
+
+	// ConsequenceMajorIllness records two characteristics reduced to zero
+	// in one Aging Check: "the character suffers a major illness and must
+	// spend four weeks in rest and recuperation" (p. 89 chart A). Value
+	// is how many reached zero.
+	ConsequenceMajorIllness ConsequenceKind = "major_illness"
+
+	// ConsequenceExtremelyMajorIllness records three or more: "an
+	// extremely major illness and must spend four months in rest and
+	// recuperation" (p. 89 chart A; interpretation I-49 reads the
+	// chart's three as three or more). Value is how many reached zero.
+	ConsequenceExtremelyMajorIllness ConsequenceKind = "extremely_major_illness"
+
 	// ConsequenceSanityMod records a pending reduction against a Sanity
 	// value that has not been generated: "reduce San= -1 for each TWO
 	// Terms served" (chart 05 p. 79; p. 52). Delta is the reduction the

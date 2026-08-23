@@ -1,21 +1,21 @@
 {
-  "schema_version": "0.16.0",
+  "schema_version": "0.17.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.17.0",
+  "engine_version": "0.18.0",
   "policy_version": "0.11.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 39
   },
   "characteristics": {
-    "str": 4,
-    "dex": 5,
-    "end": 6,
-    "int": 12,
+    "str": 1,
+    "dex": 1,
+    "end": 1,
+    "int": 9,
     "edu": 8,
     "soc": 12
   },
-  "upp": "456C8C",
+  "upp": "11198C",
   "homeworld": {
     "name": "Regina",
     "uwp": "A788899-C",
@@ -25,7 +25,7 @@
       "Ri"
     ]
   },
-  "age": 54,
+  "age": 90,
   "education": [
     {
       "program": "College",
@@ -48,27 +48,27 @@
     },
     {
       "name": "Broker",
-      "level": 12
+      "level": 15
     },
     {
       "name": "Computer",
-      "level": 9
+      "level": 12
     },
     {
       "name": "Fighter",
-      "level": 2
+      "level": 8
     },
     {
       "name": "JOT",
-      "level": 3
+      "level": 9
     },
     {
       "name": "Teacher",
-      "level": 5
+      "level": 15
     },
     {
       "name": "Trader",
-      "level": 2
+      "level": 4
     }
   ],
   "careers": [
@@ -76,8 +76,9 @@
       "career": "Rogue",
       "began": true,
       "controlling_characteristic": "Int",
-      "scheme": "Soldier",
-      "scheme_payoff": 300000,
+      "scheme": "Merchant",
+      "scheme_payoff": 450000,
+      "ship_shares": 4,
       "terms": [
         {
           "term": 1,
@@ -100,7 +101,7 @@
         {
           "term": 4,
           "controlling_characteristic": "Int",
-          "success": false,
+          "success": true,
           "continued": true
         },
         {
@@ -118,19 +119,77 @@
         {
           "term": 7,
           "controlling_characteristic": "Int",
-          "success": false,
+          "success": true,
           "continued": true
         },
         {
           "term": 8,
           "controlling_characteristic": "Int",
-          "success": true,
+          "success": false,
+          "continued": true
+        },
+        {
+          "term": 9,
+          "controlling_characteristic": "Int",
+          "success": false,
+          "continued": true
+        },
+        {
+          "term": 10,
+          "controlling_characteristic": "Int",
+          "success": false,
+          "continued": true
+        },
+        {
+          "term": 11,
+          "controlling_characteristic": "Int",
+          "success": false,
+          "continued": true
+        },
+        {
+          "term": 12,
+          "controlling_characteristic": "Int",
+          "success": false,
+          "continued": true
+        },
+        {
+          "term": 13,
+          "controlling_characteristic": "Int",
+          "success": false,
+          "continued": true
+        },
+        {
+          "term": 14,
+          "controlling_characteristic": "Int",
+          "success": false,
+          "continued": true
+        },
+        {
+          "term": 15,
+          "controlling_characteristic": "Int",
+          "success": false,
+          "continued": true
+        },
+        {
+          "term": 16,
+          "controlling_characteristic": "Int",
+          "success": false,
+          "continued": true
+        },
+        {
+          "term": 17,
+          "controlling_characteristic": "Int",
+          "success": false,
           "continued": false
         }
       ]
     }
   ],
+  "life_stage": 9,
+  "major_illnesses": 2,
+  "extremely_major_illnesses": 2,
   "fame": 2,
+  "dead": true,
   "events": [
     {
       "seq": 1,
@@ -1666,6 +1725,62 @@
     },
     {
       "seq": 113,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          2
+        ],
+        "total": 4,
+        "target": 5,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
+      }
+    },
+    {
+      "seq": 114,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 113,
+        "kind": "aging_effect",
+        "characteristic": "Str",
+        "delta": -1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 115,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          1
+        ],
+        "total": 7,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
+      }
+    },
+    {
+      "seq": 116,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          5
+        ],
+        "total": 11,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
+      }
+    },
+    {
+      "seq": 117,
       "kind": "consequence",
       "consequence": {
         "cause": 111,
@@ -1673,7 +1788,7 @@
       }
     },
     {
-      "seq": 114,
+      "seq": 118,
       "kind": "step",
       "step": {
         "name": "Rogue: Term 4",
@@ -1681,20 +1796,20 @@
       }
     },
     {
-      "seq": 115,
+      "seq": 119,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
         "dice": [
-          2,
-          2
+          3,
+          4
         ],
-        "total": 0,
+        "total": -1,
         "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)"
       }
     },
     {
-      "seq": 116,
+      "seq": 120,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1709,17 +1824,18 @@
       }
     },
     {
-      "seq": 117,
+      "seq": 121,
       "kind": "consequence",
       "consequence": {
-        "cause": 115,
+        "cause": 119,
         "kind": "scheme",
-        "skill": "Spacer",
-        "career": "Rogue"
+        "skill": "Merchant",
+        "career": "Rogue",
+        "value": -1
       }
     },
     {
-      "seq": 118,
+      "seq": 122,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1750,15 +1866,15 @@
       }
     },
     {
-      "seq": 119,
+      "seq": 123,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          6,
-          1
+          3,
+          5
         ],
-        "total": 7,
+        "total": 8,
         "target": 15,
         "success": true,
         "mods": [
@@ -1771,17 +1887,17 @@
       }
     },
     {
-      "seq": 120,
+      "seq": 124,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          6,
-          5
+          4,
+          2
         ],
-        "total": 11,
+        "total": 6,
         "target": 9,
-        "success": false,
+        "success": true,
         "mods": [
           {
             "name": "Terms",
@@ -1792,57 +1908,17 @@
       }
     },
     {
-      "seq": 121,
+      "seq": 125,
       "kind": "consequence",
       "consequence": {
-        "cause": 120,
-        "kind": "no_award"
-      }
-    },
-    {
-      "seq": 122,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Rogue Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "World Travel",
-          "Space Travel",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 4,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 123,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 84 chart 10 table C, column Business"
-      }
-    },
-    {
-      "seq": 124,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 123,
-        "kind": "skill_awarded",
-        "skill": "Computer",
-        "delta": 1,
+        "cause": 124,
+        "kind": "ship_shares",
+        "delta": 4,
         "value": 4
       }
     },
     {
-      "seq": 125,
+      "seq": 126,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1861,7 +1937,7 @@
       }
     },
     {
-      "seq": 126,
+      "seq": 127,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1873,10 +1949,10 @@
       }
     },
     {
-      "seq": 127,
+      "seq": 128,
       "kind": "consequence",
       "consequence": {
-        "cause": 126,
+        "cause": 127,
         "kind": "skill_awarded",
         "skill": "JOT",
         "delta": 1,
@@ -1884,7 +1960,7 @@
       }
     },
     {
-      "seq": 128,
+      "seq": 129,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1903,7 +1979,49 @@
       }
     },
     {
-      "seq": 129,
+      "seq": 130,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 131,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 130,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 7
+      }
+    },
+    {
+      "seq": 132,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 133,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1915,65 +2033,14 @@
       }
     },
     {
-      "seq": 130,
+      "seq": 134,
       "kind": "consequence",
       "consequence": {
-        "cause": 129,
+        "cause": 133,
         "kind": "skill_awarded",
         "skill": "Computer",
         "delta": 1,
-        "value": 5
-      }
-    },
-    {
-      "seq": 131,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          4
-        ],
-        "total": 9,
-        "target": 15,
-        "success": true,
-        "mods": [
-          {
-            "name": "Terms",
-            "value": 3
-          }
-        ],
-        "cite": "Book 1 p. 84 chart 10 (Continue Int +Terms; p. 66)"
-      }
-    },
-    {
-      "seq": 132,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 131,
-        "kind": "years_elapsed",
         "value": 4
-      }
-    },
-    {
-      "seq": 133,
-      "kind": "step",
-      "step": {
-        "name": "Rogue: Term 5",
-        "cite": "Book 1 p. 84 chart 10"
-      }
-    },
-    {
-      "seq": 134,
-      "kind": "throw",
-      "throw": {
-        "expr": "Flux",
-        "dice": [
-          2,
-          4
-        ],
-        "total": -2,
-        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)"
       }
     },
     {
@@ -1981,98 +2048,72 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Modify the Scheme Flux?",
+        "prompt": "Select a Rogue Skills column",
         "options": [
-          "As rolled",
-          "Minus 1",
-          "Plus 1"
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
         ],
-        "chosen": 0,
-        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes) (Flux may be modified (after roll) plus or minus 1)"
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 136,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 134,
-        "kind": "scheme",
-        "skill": "Scout",
-        "career": "Rogue",
-        "value": -2
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
     {
       "seq": 137,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select Caution, Bravery, or No Mod",
-        "options": [
-          "No Mod",
-          "Caution +1",
-          "Caution +2",
-          "Caution +3",
-          "Caution +4",
-          "Caution +5",
-          "Caution +6",
-          "Caution +7",
-          "Caution +8",
-          "Caution +9",
-          "Bravery -1",
-          "Bravery -2",
-          "Bravery -3",
-          "Bravery -4",
-          "Bravery -5",
-          "Bravery -6",
-          "Bravery -7",
-          "Bravery -8",
-          "Bravery -9"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 84 chart 10"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 136,
+        "kind": "skill_awarded",
+        "skill": "Teacher",
+        "delta": 1,
+        "value": 2
       }
     },
     {
       "seq": 138,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          3
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
         ],
-        "total": 5,
-        "target": 16,
-        "success": true,
-        "mods": [
-          {
-            "name": "Terms",
-            "value": 4
-          }
-        ],
-        "cite": "Book 1 p. 84 chart 10 (Risk vs Int+Mods)"
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 139,
       "kind": "throw",
       "throw": {
-        "expr": "2D",
+        "expr": "1D",
         "dice": [
-          5,
           4
         ],
-        "total": 9,
-        "target": 8,
-        "success": false,
-        "mods": [
-          {
-            "name": "Terms",
-            "value": -4
-          }
-        ],
-        "cite": "Book 1 p. 84 chart 10 (Reward vs Int+ opposite sign Mods)"
+        "total": 4,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
     {
@@ -2080,7 +2121,10 @@
       "kind": "consequence",
       "consequence": {
         "cause": 139,
-        "kind": "no_award"
+        "kind": "skill_awarded",
+        "skill": "JOT",
+        "delta": 1,
+        "value": 2
       }
     },
     {
@@ -2122,95 +2166,41 @@
         "kind": "skill_awarded",
         "skill": "Teacher",
         "delta": 1,
-        "value": 2
+        "value": 3
       }
     },
     {
       "seq": 144,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Rogue Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "World Travel",
-          "Space Travel",
-          "Business",
-          "Vocation",
-          "Avocation"
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          4
         ],
-        "chosen": 4,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+        "total": 6,
+        "target": 15,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 3
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Continue Int +Terms; p. 66)"
       }
     },
     {
       "seq": 145,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 144,
+        "kind": "years_elapsed",
+        "value": 4
       }
     },
     {
       "seq": 146,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 145,
-        "kind": "skill_awarded",
-        "skill": "Broker",
-        "delta": 1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 147,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Rogue Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "World Travel",
-          "Space Travel",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 4,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 148,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 84 chart 10 table C, column Business"
-      }
-    },
-    {
-      "seq": 149,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 148,
-        "kind": "skill_awarded",
-        "skill": "JOT",
-        "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 150,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2219,49 +2209,64 @@
           2
         ],
         "total": 8,
-        "target": 16,
-        "success": true,
-        "mods": [
-          {
-            "name": "Terms",
-            "value": 4
-          }
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
+      }
+    },
+    {
+      "seq": 147,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          6
         ],
-        "cite": "Book 1 p. 84 chart 10 (Continue Int +Terms; p. 66)"
+        "total": 9,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
       }
     },
     {
-      "seq": 151,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 150,
-        "kind": "years_elapsed",
-        "value": 4
+      "seq": 148,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          4
+        ],
+        "total": 7,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
       }
     },
     {
-      "seq": 152,
+      "seq": 149,
       "kind": "step",
       "step": {
-        "name": "Rogue: Term 6",
+        "name": "Rogue: Term 5",
         "cite": "Book 1 p. 84 chart 10"
       }
     },
     {
-      "seq": 153,
+      "seq": 150,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
         "dice": [
           3,
-          6
+          2
         ],
-        "total": -3,
+        "total": 1,
         "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)"
       }
     },
     {
-      "seq": 154,
+      "seq": 151,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2276,18 +2281,18 @@
       }
     },
     {
-      "seq": 155,
+      "seq": 152,
       "kind": "consequence",
       "consequence": {
-        "cause": 153,
+        "cause": 150,
         "kind": "scheme",
-        "skill": "Citizen",
+        "skill": "Soldier",
         "career": "Rogue",
-        "value": -3
+        "value": 1
       }
     },
     {
-      "seq": 156,
+      "seq": 153,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2318,45 +2323,84 @@
       }
     },
     {
-      "seq": 157,
+      "seq": 154,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          3,
-          4
+          1,
+          2
         ],
-        "total": 7,
-        "target": 17,
+        "total": 3,
+        "target": 16,
         "success": true,
         "mods": [
           {
             "name": "Terms",
-            "value": 5
+            "value": 4
           }
         ],
         "cite": "Book 1 p. 84 chart 10 (Risk vs Int+Mods)"
       }
     },
     {
-      "seq": 158,
+      "seq": 155,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          3,
-          2
+          5,
+          6
         ],
-        "total": 5,
-        "target": 7,
-        "success": true,
+        "total": 11,
+        "target": 8,
+        "success": false,
         "mods": [
           {
             "name": "Terms",
-            "value": -5
+            "value": -4
           }
         ],
         "cite": "Book 1 p. 84 chart 10 (Reward vs Int+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 156,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 155,
+        "kind": "no_award"
+      }
+    },
+    {
+      "seq": 157,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 158,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
     {
@@ -2364,11 +2408,10 @@
       "kind": "consequence",
       "consequence": {
         "cause": 158,
-        "kind": "payoff",
-        "skill": "x3",
-        "career": "Rogue",
-        "delta": 150000,
-        "value": 250000
+        "kind": "skill_awarded",
+        "skill": "Teacher",
+        "delta": 1,
+        "value": 4
       }
     },
     {
@@ -2396,9 +2439,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          1
+          5
         ],
-        "total": 1,
+        "total": 5,
         "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
@@ -2408,9 +2451,9 @@
       "consequence": {
         "cause": 161,
         "kind": "skill_awarded",
-        "skill": "Trader",
+        "skill": "Teacher",
         "delta": 1,
-        "value": 2
+        "value": 5
       }
     },
     {
@@ -2438,9 +2481,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          2
+          5
         ],
-        "total": 2,
+        "total": 5,
         "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
@@ -2450,55 +2493,231 @@
       "consequence": {
         "cause": 164,
         "kind": "skill_awarded",
-        "skill": "Broker",
+        "skill": "Teacher",
         "delta": 1,
-        "value": 8
+        "value": 6
       }
     },
     {
       "seq": 166,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Rogue Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "World Travel",
-          "Space Travel",
-          "Business",
-          "Vocation",
-          "Avocation"
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          2
         ],
-        "chosen": 4,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+        "total": 5,
+        "target": 16,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 4
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Continue Int +Terms; p. 66)"
       }
     },
     {
       "seq": 167,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 166,
+        "kind": "years_elapsed",
+        "value": 4
       }
     },
     {
       "seq": 168,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 167,
-        "kind": "skill_awarded",
-        "skill": "Teacher",
-        "delta": 1,
-        "value": 3
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          1
+        ],
+        "total": 6,
+        "target": 6,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)"
       }
     },
     {
       "seq": 169,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          6
+        ],
+        "total": 12,
+        "target": 6,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)"
+      }
+    },
+    {
+      "seq": 170,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          3
+        ],
+        "total": 5,
+        "target": 6,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)"
+      }
+    },
+    {
+      "seq": 171,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 170,
+        "kind": "aging_effect",
+        "characteristic": "End",
+        "delta": -1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 172,
+      "kind": "step",
+      "step": {
+        "name": "Rogue: Term 6",
+        "cite": "Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 173,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          4,
+          3
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)"
+      }
+    },
+    {
+      "seq": 174,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Modify the Scheme Flux?",
+        "options": [
+          "As rolled",
+          "Minus 1",
+          "Plus 1"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes) (Flux may be modified (after roll) plus or minus 1)"
+      }
+    },
+    {
+      "seq": 175,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 173,
+        "kind": "scheme",
+        "skill": "Soldier",
+        "career": "Rogue",
+        "value": 1
+      }
+    },
+    {
+      "seq": 176,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 177,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          4
+        ],
+        "total": 9,
+        "target": 17,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 5
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Risk vs Int+Mods)"
+      }
+    },
+    {
+      "seq": 178,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          2
+        ],
+        "total": 5,
+        "target": 7,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": -5
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Reward vs Int+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 179,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 178,
+        "kind": "payoff",
+        "skill": "x3",
+        "career": "Rogue",
+        "delta": 150000,
+        "value": 250000
+      }
+    },
+    {
+      "seq": 180,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2517,7 +2736,49 @@
       }
     },
     {
-      "seq": 170,
+      "seq": 181,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 182,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 181,
+        "kind": "skill_awarded",
+        "skill": "Trader",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 183,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 184,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2529,10 +2790,10 @@
       }
     },
     {
-      "seq": 171,
+      "seq": 185,
       "kind": "consequence",
       "consequence": {
-        "cause": 170,
+        "cause": 184,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -2540,7 +2801,7 @@
       }
     },
     {
-      "seq": 172,
+      "seq": 186,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2559,30 +2820,30 @@
       }
     },
     {
-      "seq": 173,
+      "seq": 187,
       "kind": "throw",
       "throw": {
         "expr": "1D",
         "dice": [
-          5
+          2
         ],
-        "total": 5,
+        "total": 2,
         "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
     {
-      "seq": 174,
+      "seq": 188,
       "kind": "consequence",
       "consequence": {
-        "cause": 173,
+        "cause": 187,
         "kind": "skill_awarded",
-        "skill": "Teacher",
+        "skill": "Broker",
         "delta": 1,
-        "value": 4
+        "value": 8
       }
     },
     {
-      "seq": 175,
+      "seq": 189,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2601,38 +2862,122 @@
       }
     },
     {
-      "seq": 176,
+      "seq": 190,
       "kind": "throw",
       "throw": {
         "expr": "1D",
         "dice": [
-          5
+          3
         ],
-        "total": 5,
+        "total": 3,
         "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
     {
-      "seq": 177,
+      "seq": 191,
       "kind": "consequence",
       "consequence": {
-        "cause": 176,
+        "cause": 190,
         "kind": "skill_awarded",
-        "skill": "Teacher",
+        "skill": "Computer",
         "delta": 1,
         "value": 5
       }
     },
     {
-      "seq": 178,
+      "seq": 192,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 193,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 194,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 193,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 9
+      }
+    },
+    {
+      "seq": 195,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 196,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 197,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 196,
+        "kind": "skill_awarded",
+        "skill": "Computer",
+        "delta": 1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 198,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          5,
-          3
+          2,
+          2
         ],
-        "total": 8,
+        "total": 4,
         "target": 17,
         "success": true,
         "mods": [
@@ -2645,16 +2990,72 @@
       }
     },
     {
-      "seq": 179,
+      "seq": 199,
       "kind": "consequence",
       "consequence": {
-        "cause": 178,
+        "cause": 198,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 180,
+      "seq": 200,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          2
+        ],
+        "total": 5,
+        "target": 6,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)"
+      }
+    },
+    {
+      "seq": 201,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 200,
+        "kind": "aging_effect",
+        "characteristic": "Str",
+        "delta": -1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 202,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          6
+        ],
+        "total": 12,
+        "target": 6,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)"
+      }
+    },
+    {
+      "seq": 203,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          6
+        ],
+        "total": 10,
+        "target": 6,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)"
+      }
+    },
+    {
+      "seq": 204,
       "kind": "step",
       "step": {
         "name": "Rogue: Term 7",
@@ -2662,20 +3063,20 @@
       }
     },
     {
-      "seq": 181,
+      "seq": 205,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
         "dice": [
-          2,
-          5
+          1,
+          6
         ],
-        "total": -3,
+        "total": -5,
         "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)"
       }
     },
     {
-      "seq": 182,
+      "seq": 206,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2690,18 +3091,18 @@
       }
     },
     {
-      "seq": 183,
+      "seq": 207,
       "kind": "consequence",
       "consequence": {
-        "cause": 181,
+        "cause": 205,
         "kind": "scheme",
-        "skill": "Citizen",
+        "skill": "Scholar",
         "career": "Rogue",
-        "value": -3
+        "value": -5
       }
     },
     {
-      "seq": 184,
+      "seq": 208,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2732,15 +3133,15 @@
       }
     },
     {
-      "seq": 185,
+      "seq": 209,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          1,
-          6
+          2,
+          3
         ],
-        "total": 7,
+        "total": 5,
         "target": 18,
         "success": true,
         "mods": [
@@ -2753,17 +3154,17 @@
       }
     },
     {
-      "seq": 186,
+      "seq": 210,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          6,
-          2
+          2,
+          3
         ],
-        "total": 8,
+        "total": 5,
         "target": 6,
-        "success": false,
+        "success": true,
         "mods": [
           {
             "name": "Terms",
@@ -2774,15 +3175,19 @@
       }
     },
     {
-      "seq": 187,
+      "seq": 211,
       "kind": "consequence",
       "consequence": {
-        "cause": 186,
-        "kind": "no_award"
+        "cause": 210,
+        "kind": "payoff",
+        "skill": "x2",
+        "career": "Rogue",
+        "delta": 200000,
+        "value": 450000
       }
     },
     {
-      "seq": 188,
+      "seq": 212,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2801,7 +3206,7 @@
       }
     },
     {
-      "seq": 189,
+      "seq": 213,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2813,18 +3218,18 @@
       }
     },
     {
-      "seq": 190,
+      "seq": 214,
       "kind": "consequence",
       "consequence": {
-        "cause": 189,
+        "cause": 213,
         "kind": "skill_awarded",
         "skill": "Computer",
         "delta": 1,
-        "value": 6
+        "value": 7
       }
     },
     {
-      "seq": 191,
+      "seq": 215,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2843,7 +3248,91 @@
       }
     },
     {
-      "seq": 192,
+      "seq": 216,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 217,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 216,
+        "kind": "skill_awarded",
+        "skill": "Teacher",
+        "delta": 1,
+        "value": 7
+      }
+    },
+    {
+      "seq": 218,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 219,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 220,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 219,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 10
+      }
+    },
+    {
+      "seq": 221,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 222,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2855,10 +3344,10 @@
       }
     },
     {
-      "seq": 193,
+      "seq": 223,
       "kind": "consequence",
       "consequence": {
-        "cause": 192,
+        "cause": 222,
         "kind": "skill_awarded",
         "skill": "JOT",
         "delta": 1,
@@ -2866,7 +3355,7 @@
       }
     },
     {
-      "seq": 194,
+      "seq": 224,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2885,7 +3374,7 @@
       }
     },
     {
-      "seq": 195,
+      "seq": 225,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2897,26 +3386,68 @@
       }
     },
     {
-      "seq": 196,
+      "seq": 226,
       "kind": "consequence",
       "consequence": {
-        "cause": 195,
+        "cause": 225,
         "kind": "skill_awarded",
         "skill": "Computer",
         "delta": 1,
-        "value": 7
+        "value": 8
       }
     },
     {
-      "seq": 197,
+      "seq": 227,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 228,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 229,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 228,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 230,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
           5,
-          4
+          3
         ],
-        "total": 9,
+        "total": 8,
         "target": 18,
         "success": true,
         "mods": [
@@ -2929,16 +3460,83 @@
       }
     },
     {
-      "seq": 198,
+      "seq": 231,
       "kind": "consequence",
       "consequence": {
-        "cause": 197,
+        "cause": 230,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 199,
+      "seq": 232,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          4
+        ],
+        "total": 5,
+        "target": 7,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 50)"
+      }
+    },
+    {
+      "seq": 233,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 232,
+        "kind": "aging_effect",
+        "characteristic": "Str",
+        "delta": -1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 234,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          3
+        ],
+        "total": 8,
+        "target": 7,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 50)"
+      }
+    },
+    {
+      "seq": 235,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          2
+        ],
+        "total": 4,
+        "target": 7,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 50)"
+      }
+    },
+    {
+      "seq": 236,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 235,
+        "kind": "aging_effect",
+        "characteristic": "End",
+        "delta": -1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 237,
       "kind": "step",
       "step": {
         "name": "Rogue: Term 8",
@@ -2946,20 +3544,20 @@
       }
     },
     {
-      "seq": 200,
+      "seq": 238,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
         "dice": [
-          3,
-          2
+          4,
+          5
         ],
-        "total": 1,
+        "total": -1,
         "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)"
       }
     },
     {
-      "seq": 201,
+      "seq": 239,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2974,18 +3572,18 @@
       }
     },
     {
-      "seq": 202,
+      "seq": 240,
       "kind": "consequence",
       "consequence": {
-        "cause": 200,
+        "cause": 238,
         "kind": "scheme",
-        "skill": "Soldier",
+        "skill": "Merchant",
         "career": "Rogue",
-        "value": 1
+        "value": -1
       }
     },
     {
-      "seq": 203,
+      "seq": 241,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3016,15 +3614,15 @@
       }
     },
     {
-      "seq": 204,
+      "seq": 242,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
           1,
-          6
+          5
         ],
-        "total": 7,
+        "total": 6,
         "target": 19,
         "success": true,
         "mods": [
@@ -3037,17 +3635,17 @@
       }
     },
     {
-      "seq": 205,
+      "seq": 243,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
           2,
-          3
+          4
         ],
-        "total": 5,
+        "total": 6,
         "target": 5,
-        "success": true,
+        "success": false,
         "mods": [
           {
             "name": "Terms",
@@ -3058,19 +3656,15 @@
       }
     },
     {
-      "seq": 206,
+      "seq": 244,
       "kind": "consequence",
       "consequence": {
-        "cause": 205,
-        "kind": "payoff",
-        "skill": "x1",
-        "career": "Rogue",
-        "delta": 50000,
-        "value": 300000
+        "cause": 243,
+        "kind": "no_award"
       }
     },
     {
-      "seq": 207,
+      "seq": 245,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3089,7 +3683,7 @@
       }
     },
     {
-      "seq": 208,
+      "seq": 246,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3101,136 +3695,10 @@
       }
     },
     {
-      "seq": 209,
+      "seq": 247,
       "kind": "consequence",
       "consequence": {
-        "cause": 208,
-        "kind": "skill_awarded",
-        "skill": "Broker",
-        "delta": 1,
-        "value": 9
-      }
-    },
-    {
-      "seq": 210,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Rogue Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "World Travel",
-          "Space Travel",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 4,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 211,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 84 chart 10 table C, column Business"
-      }
-    },
-    {
-      "seq": 212,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 211,
-        "kind": "skill_awarded",
-        "skill": "Computer",
-        "delta": 1,
-        "value": 8
-      }
-    },
-    {
-      "seq": 213,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Rogue Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "World Travel",
-          "Space Travel",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 4,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 214,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 84 chart 10 table C, column Business"
-      }
-    },
-    {
-      "seq": 215,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 214,
-        "kind": "skill_awarded",
-        "skill": "Broker",
-        "delta": 1,
-        "value": 10
-      }
-    },
-    {
-      "seq": 216,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Rogue Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "World Travel",
-          "Space Travel",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 4,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 217,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 84 chart 10 table C, column Business"
-      }
-    },
-    {
-      "seq": 218,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 217,
+        "cause": 246,
         "kind": "skill_awarded",
         "skill": "Broker",
         "delta": 1,
@@ -3238,7 +3706,7 @@
       }
     },
     {
-      "seq": 219,
+      "seq": 248,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3257,7 +3725,49 @@
       }
     },
     {
-      "seq": 220,
+      "seq": 249,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 250,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 249,
+        "kind": "skill_awarded",
+        "skill": "Trader",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 251,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 252,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3269,10 +3779,10 @@
       }
     },
     {
-      "seq": 221,
+      "seq": 253,
       "kind": "consequence",
       "consequence": {
-        "cause": 220,
+        "cause": 252,
         "kind": "skill_awarded",
         "skill": "Computer",
         "delta": 1,
@@ -3280,59 +3790,17 @@
       }
     },
     {
-      "seq": 222,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Rogue Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "World Travel",
-          "Space Travel",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 4,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 223,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 84 chart 10 table C, column Business"
-      }
-    },
-    {
-      "seq": 224,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 223,
-        "kind": "skill_awarded",
-        "skill": "Broker",
-        "delta": 1,
-        "value": 12
-      }
-    },
-    {
-      "seq": 225,
+      "seq": 254,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          6,
+          4,
           6
         ],
-        "total": 12,
+        "total": 10,
         "target": 19,
-        "success": false,
+        "success": true,
         "mods": [
           {
             "name": "Terms",
@@ -3343,21 +3811,3591 @@
       }
     },
     {
-      "seq": 226,
+      "seq": 255,
       "kind": "consequence",
       "consequence": {
-        "cause": 225,
+        "cause": 254,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 227,
+      "seq": 256,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          5
+        ],
+        "total": 6,
+        "target": 7,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 54)"
+      }
+    },
+    {
+      "seq": 257,
       "kind": "consequence",
       "consequence": {
-        "cause": 225,
-        "kind": "career_ended",
+        "cause": 256,
+        "kind": "aging_effect",
+        "characteristic": "Str",
+        "delta": -1
+      }
+    },
+    {
+      "seq": 258,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 256,
+        "kind": "characteristic_reset",
+        "characteristic": "Str",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 259,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          3
+        ],
+        "total": 5,
+        "target": 7,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 54)"
+      }
+    },
+    {
+      "seq": 260,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 259,
+        "kind": "aging_effect",
+        "characteristic": "Dex",
+        "delta": -1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 261,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          5
+        ],
+        "total": 11,
+        "target": 7,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 54)"
+      }
+    },
+    {
+      "seq": 262,
+      "kind": "step",
+      "step": {
+        "name": "Rogue: Term 9",
+        "cite": "Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 263,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          6,
+          6
+        ],
+        "total": 0,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)"
+      }
+    },
+    {
+      "seq": 264,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Modify the Scheme Flux?",
+        "options": [
+          "As rolled",
+          "Minus 1",
+          "Plus 1"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes) (Flux may be modified (after roll) plus or minus 1)"
+      }
+    },
+    {
+      "seq": 265,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 263,
+        "kind": "scheme",
+        "skill": "Spacer",
         "career": "Rogue"
+      }
+    },
+    {
+      "seq": 266,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 267,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          5
+        ],
+        "total": 8,
+        "target": 20,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 8
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Risk vs Int+Mods)"
+      }
+    },
+    {
+      "seq": 268,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          3
+        ],
+        "total": 5,
+        "target": 4,
+        "success": false,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": -8
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Reward vs Int+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 269,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 268,
+        "kind": "no_award"
+      }
+    },
+    {
+      "seq": 270,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 271,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 272,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 271,
+        "kind": "skill_awarded",
+        "skill": "Teacher",
+        "delta": 1,
+        "value": 8
+      }
+    },
+    {
+      "seq": 273,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 274,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 275,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 274,
+        "kind": "skill_awarded",
+        "skill": "JOT",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 276,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 277,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 278,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 277,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 279,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          5
+        ],
+        "total": 9,
+        "target": 20,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 8
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Continue Int +Terms; p. 66)"
+      }
+    },
+    {
+      "seq": 280,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 279,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 281,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          4
+        ],
+        "total": 10,
+        "target": 8,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 8, age 58)"
+      }
+    },
+    {
+      "seq": 282,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          1
+        ],
+        "total": 3,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 8, age 58)"
+      }
+    },
+    {
+      "seq": 283,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 282,
+        "kind": "aging_effect",
+        "characteristic": "Dex",
+        "delta": -1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 284,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          5
+        ],
+        "total": 11,
+        "target": 8,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 8, age 58)"
+      }
+    },
+    {
+      "seq": 285,
+      "kind": "step",
+      "step": {
+        "name": "Rogue: Term 10",
+        "cite": "Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 286,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          4,
+          6
+        ],
+        "total": -2,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)"
+      }
+    },
+    {
+      "seq": 287,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Modify the Scheme Flux?",
+        "options": [
+          "As rolled",
+          "Minus 1",
+          "Plus 1"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes) (Flux may be modified (after roll) plus or minus 1)"
+      }
+    },
+    {
+      "seq": 288,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 286,
+        "kind": "scheme",
+        "skill": "Scout",
+        "career": "Rogue",
+        "value": -2
+      }
+    },
+    {
+      "seq": 289,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 290,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          3
+        ],
+        "total": 6,
+        "target": 21,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 9
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Risk vs Int+Mods)"
+      }
+    },
+    {
+      "seq": 291,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          6
+        ],
+        "total": 11,
+        "target": 3,
+        "success": false,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": -9
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Reward vs Int+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 292,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 291,
+        "kind": "no_award"
+      }
+    },
+    {
+      "seq": 293,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 294,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 295,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 294,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 12
+      }
+    },
+    {
+      "seq": 296,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 297,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 298,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 297,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 299,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 300,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 301,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 300,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 302,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          1
+        ],
+        "total": 7,
+        "target": 21,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 9
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Continue Int +Terms; p. 66)"
+      }
+    },
+    {
+      "seq": 303,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 302,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 304,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          1
+        ],
+        "total": 3,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 8, age 62)"
+      }
+    },
+    {
+      "seq": 305,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 304,
+        "kind": "aging_effect",
+        "characteristic": "Str",
+        "delta": -1
+      }
+    },
+    {
+      "seq": 306,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 304,
+        "kind": "characteristic_reset",
+        "characteristic": "Str",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 307,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          5
+        ],
+        "total": 10,
+        "target": 8,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 8, age 62)"
+      }
+    },
+    {
+      "seq": 308,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          3
+        ],
+        "total": 7,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 8, age 62)"
+      }
+    },
+    {
+      "seq": 309,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 308,
+        "kind": "aging_effect",
+        "characteristic": "End",
+        "delta": -1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 310,
+      "kind": "step",
+      "step": {
+        "name": "Rogue: Term 11",
+        "cite": "Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 311,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          5,
+          1
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)"
+      }
+    },
+    {
+      "seq": 312,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Modify the Scheme Flux?",
+        "options": [
+          "As rolled",
+          "Minus 1",
+          "Plus 1"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes) (Flux may be modified (after roll) plus or minus 1)"
+      }
+    },
+    {
+      "seq": 313,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 311,
+        "kind": "scheme",
+        "skill": "Noble",
+        "career": "Rogue",
+        "value": 4
+      }
+    },
+    {
+      "seq": 314,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 315,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          3
+        ],
+        "total": 8,
+        "target": 22,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 10
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Risk vs Int+Mods)"
+      }
+    },
+    {
+      "seq": 316,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          3
+        ],
+        "total": 8,
+        "target": 2,
+        "success": false,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": -10
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Reward vs Int+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 317,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 316,
+        "kind": "no_award"
+      }
+    },
+    {
+      "seq": 318,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 319,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 320,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 319,
+        "kind": "skill_awarded",
+        "skill": "Trader",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 321,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 322,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 323,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 322,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 7
+      }
+    },
+    {
+      "seq": 324,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 325,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 326,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 325,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 8
+      }
+    },
+    {
+      "seq": 327,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          6
+        ],
+        "total": 8,
+        "target": 22,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 10
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Continue Int +Terms; p. 66)"
+      }
+    },
+    {
+      "seq": 328,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 327,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 329,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          1
+        ],
+        "total": 2,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 66)"
+      }
+    },
+    {
+      "seq": 330,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 329,
+        "kind": "aging_effect",
+        "characteristic": "Str",
+        "delta": -1
+      }
+    },
+    {
+      "seq": 331,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 329,
+        "kind": "characteristic_reset",
+        "characteristic": "Str",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 332,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          3
+        ],
+        "total": 5,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 66)"
+      }
+    },
+    {
+      "seq": 333,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 332,
+        "kind": "aging_effect",
+        "characteristic": "Dex",
+        "delta": -1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 334,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          1
+        ],
+        "total": 7,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 66)"
+      }
+    },
+    {
+      "seq": 335,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 334,
+        "kind": "aging_effect",
+        "characteristic": "End",
+        "delta": -1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 336,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          6
+        ],
+        "total": 7,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 66)"
+      }
+    },
+    {
+      "seq": 337,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 336,
+        "kind": "aging_effect",
+        "characteristic": "Int",
+        "delta": -1,
+        "value": 11
+      }
+    },
+    {
+      "seq": 338,
+      "kind": "step",
+      "step": {
+        "name": "Rogue: Term 12",
+        "cite": "Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 339,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          4,
+          3
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)"
+      }
+    },
+    {
+      "seq": 340,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Modify the Scheme Flux?",
+        "options": [
+          "As rolled",
+          "Minus 1",
+          "Plus 1"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes) (Flux may be modified (after roll) plus or minus 1)"
+      }
+    },
+    {
+      "seq": 341,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 339,
+        "kind": "scheme",
+        "skill": "Soldier",
+        "career": "Rogue",
+        "value": 1
+      }
+    },
+    {
+      "seq": 342,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 343,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          6
+        ],
+        "total": 7,
+        "target": 22,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 11
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Risk vs Int+Mods)"
+      }
+    },
+    {
+      "seq": 344,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          2
+        ],
+        "total": 5,
+        "target": 0,
+        "success": false,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": -11
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Reward vs Int+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 345,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 344,
+        "kind": "no_award"
+      }
+    },
+    {
+      "seq": 346,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 347,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 348,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 347,
+        "kind": "skill_awarded",
+        "skill": "Teacher",
+        "delta": 1,
+        "value": 9
+      }
+    },
+    {
+      "seq": 349,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 350,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 351,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 350,
+        "kind": "skill_awarded",
+        "skill": "Teacher",
+        "delta": 1,
+        "value": 10
+      }
+    },
+    {
+      "seq": 352,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 353,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 354,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 353,
+        "kind": "skill_awarded",
+        "skill": "Teacher",
+        "delta": 1,
+        "value": 11
+      }
+    },
+    {
+      "seq": 355,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          3
+        ],
+        "total": 8,
+        "target": 22,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 11
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Continue Int +Terms; p. 66)"
+      }
+    },
+    {
+      "seq": 356,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 355,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 357,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          3
+        ],
+        "total": 6,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 70)"
+      }
+    },
+    {
+      "seq": 358,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 357,
+        "kind": "aging_effect",
+        "characteristic": "Str",
+        "delta": -1
+      }
+    },
+    {
+      "seq": 359,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 357,
+        "kind": "characteristic_reset",
+        "characteristic": "Str",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 360,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          5
+        ],
+        "total": 7,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 70)"
+      }
+    },
+    {
+      "seq": 361,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 360,
+        "kind": "aging_effect",
+        "characteristic": "Dex",
+        "delta": -1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 362,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          5
+        ],
+        "total": 9,
+        "target": 9,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 70)"
+      }
+    },
+    {
+      "seq": 363,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          6
+        ],
+        "total": 9,
+        "target": 9,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 70)"
+      }
+    },
+    {
+      "seq": 364,
+      "kind": "step",
+      "step": {
+        "name": "Rogue: Term 13",
+        "cite": "Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 365,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          6,
+          2
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)"
+      }
+    },
+    {
+      "seq": 366,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Modify the Scheme Flux?",
+        "options": [
+          "As rolled",
+          "Minus 1",
+          "Plus 1"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes) (Flux may be modified (after roll) plus or minus 1)"
+      }
+    },
+    {
+      "seq": 367,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 365,
+        "kind": "scheme",
+        "skill": "Noble",
+        "career": "Rogue",
+        "value": 4
+      }
+    },
+    {
+      "seq": 368,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 369,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          6
+        ],
+        "total": 7,
+        "target": 23,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 12
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Risk vs Int+Mods)"
+      }
+    },
+    {
+      "seq": 370,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          2
+        ],
+        "total": 7,
+        "target": -1,
+        "success": false,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": -12
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Reward vs Int+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 371,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 370,
+        "kind": "no_award"
+      }
+    },
+    {
+      "seq": 372,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 373,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 374,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 373,
+        "kind": "skill_awarded",
+        "skill": "Teacher",
+        "delta": 1,
+        "value": 12
+      }
+    },
+    {
+      "seq": 375,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 376,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 377,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 376,
+        "kind": "skill_awarded",
+        "skill": "JOT",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 378,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 379,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 380,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 379,
+        "kind": "skill_awarded",
+        "skill": "Computer",
+        "delta": 1,
+        "value": 10
+      }
+    },
+    {
+      "seq": 381,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          1
+        ],
+        "total": 3,
+        "target": 23,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 12
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Continue Int +Terms; p. 66)"
+      }
+    },
+    {
+      "seq": 382,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 381,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 383,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          6
+        ],
+        "total": 12,
+        "target": 9,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 74)"
+      }
+    },
+    {
+      "seq": 384,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          3
+        ],
+        "total": 4,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 74)"
+      }
+    },
+    {
+      "seq": 385,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 384,
+        "kind": "aging_effect",
+        "characteristic": "Dex",
+        "delta": -1
+      }
+    },
+    {
+      "seq": 386,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 384,
+        "kind": "characteristic_reset",
+        "characteristic": "Dex",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 387,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          6
+        ],
+        "total": 7,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 74)"
+      }
+    },
+    {
+      "seq": 388,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 387,
+        "kind": "aging_effect",
+        "characteristic": "End",
+        "delta": -1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 389,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          4
+        ],
+        "total": 5,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 74)"
+      }
+    },
+    {
+      "seq": 390,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 389,
+        "kind": "aging_effect",
+        "characteristic": "Int",
+        "delta": -1,
+        "value": 10
+      }
+    },
+    {
+      "seq": 391,
+      "kind": "step",
+      "step": {
+        "name": "Rogue: Term 14",
+        "cite": "Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 392,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          2,
+          6
+        ],
+        "total": -4,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)"
+      }
+    },
+    {
+      "seq": 393,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Modify the Scheme Flux?",
+        "options": [
+          "As rolled",
+          "Minus 1",
+          "Plus 1"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes) (Flux may be modified (after roll) plus or minus 1)"
+      }
+    },
+    {
+      "seq": 394,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 392,
+        "kind": "scheme",
+        "skill": "Entertainer",
+        "career": "Rogue",
+        "value": -4
+      }
+    },
+    {
+      "seq": 395,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 396,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          6
+        ],
+        "total": 8,
+        "target": 23,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 13
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Risk vs Int+Mods)"
+      }
+    },
+    {
+      "seq": 397,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          5
+        ],
+        "total": 9,
+        "target": -3,
+        "success": false,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": -13
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Reward vs Int+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 398,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 397,
+        "kind": "no_award"
+      }
+    },
+    {
+      "seq": 399,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 400,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 401,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 400,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 13
+      }
+    },
+    {
+      "seq": 402,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 403,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 404,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 403,
+        "kind": "skill_awarded",
+        "skill": "JOT",
+        "delta": 1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 405,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 406,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 407,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 406,
+        "kind": "skill_awarded",
+        "skill": "JOT",
+        "delta": 1,
+        "value": 7
+      }
+    },
+    {
+      "seq": 408,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          4
+        ],
+        "total": 6,
+        "target": 23,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 13
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Continue Int +Terms; p. 66)"
+      }
+    },
+    {
+      "seq": 409,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 408,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 410,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          4
+        ],
+        "total": 7,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 78)"
+      }
+    },
+    {
+      "seq": 411,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 410,
+        "kind": "aging_effect",
+        "characteristic": "Str",
+        "delta": -1
+      }
+    },
+    {
+      "seq": 412,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 410,
+        "kind": "characteristic_reset",
+        "characteristic": "Str",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 413,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          4
+        ],
+        "total": 5,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 78)"
+      }
+    },
+    {
+      "seq": 414,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 413,
+        "kind": "aging_effect",
+        "characteristic": "Dex",
+        "delta": -1
+      }
+    },
+    {
+      "seq": 415,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 413,
+        "kind": "characteristic_reset",
+        "characteristic": "Dex",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 416,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          6
+        ],
+        "total": 12,
+        "target": 9,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 78)"
+      }
+    },
+    {
+      "seq": 417,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          6
+        ],
+        "total": 12,
+        "target": 9,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 78)"
+      }
+    },
+    {
+      "seq": 418,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 413,
+        "kind": "major_illness",
+        "value": 2
+      }
+    },
+    {
+      "seq": 419,
+      "kind": "step",
+      "step": {
+        "name": "Rogue: Term 15",
+        "cite": "Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 420,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          4,
+          6
+        ],
+        "total": -2,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)"
+      }
+    },
+    {
+      "seq": 421,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Modify the Scheme Flux?",
+        "options": [
+          "As rolled",
+          "Minus 1",
+          "Plus 1"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes) (Flux may be modified (after roll) plus or minus 1)"
+      }
+    },
+    {
+      "seq": 422,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 420,
+        "kind": "scheme",
+        "skill": "Scout",
+        "career": "Rogue",
+        "value": -2
+      }
+    },
+    {
+      "seq": 423,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 424,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          2
+        ],
+        "total": 3,
+        "target": 24,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 14
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Risk vs Int+Mods)"
+      }
+    },
+    {
+      "seq": 425,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          5
+        ],
+        "total": 9,
+        "target": -4,
+        "success": false,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": -14
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Reward vs Int+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 426,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 425,
+        "kind": "no_award"
+      }
+    },
+    {
+      "seq": 427,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 428,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 429,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 428,
+        "kind": "skill_awarded",
+        "skill": "JOT",
+        "delta": 1,
+        "value": 8
+      }
+    },
+    {
+      "seq": 430,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 431,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 432,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 431,
+        "kind": "skill_awarded",
+        "skill": "Teacher",
+        "delta": 1,
+        "value": 13
+      }
+    },
+    {
+      "seq": 433,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 434,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 435,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 434,
+        "kind": "skill_awarded",
+        "skill": "Teacher",
+        "delta": 1,
+        "value": 14
+      }
+    },
+    {
+      "seq": 436,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          6
+        ],
+        "total": 9,
+        "target": 24,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 14
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Continue Int +Terms; p. 66)"
+      }
+    },
+    {
+      "seq": 437,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 436,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 438,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          5
+        ],
+        "total": 8,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 82)"
+      }
+    },
+    {
+      "seq": 439,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 438,
+        "kind": "aging_effect",
+        "characteristic": "Str",
+        "delta": -1
+      }
+    },
+    {
+      "seq": 440,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 438,
+        "kind": "characteristic_reset",
+        "characteristic": "Str",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 441,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          2
+        ],
+        "total": 5,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 82)"
+      }
+    },
+    {
+      "seq": 442,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 441,
+        "kind": "aging_effect",
+        "characteristic": "Dex",
+        "delta": -1
+      }
+    },
+    {
+      "seq": 443,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 441,
+        "kind": "characteristic_reset",
+        "characteristic": "Dex",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 444,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          6
+        ],
+        "total": 12,
+        "target": 9,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 82)"
+      }
+    },
+    {
+      "seq": 445,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          4
+        ],
+        "total": 8,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 82)"
+      }
+    },
+    {
+      "seq": 446,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 445,
+        "kind": "aging_effect",
+        "characteristic": "Int",
+        "delta": -1,
+        "value": 9
+      }
+    },
+    {
+      "seq": 447,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 441,
+        "kind": "major_illness",
+        "value": 2
+      }
+    },
+    {
+      "seq": 448,
+      "kind": "step",
+      "step": {
+        "name": "Rogue: Term 16",
+        "cite": "Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 449,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          4,
+          5
+        ],
+        "total": -1,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)"
+      }
+    },
+    {
+      "seq": 450,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Modify the Scheme Flux?",
+        "options": [
+          "As rolled",
+          "Minus 1",
+          "Plus 1"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes) (Flux may be modified (after roll) plus or minus 1)"
+      }
+    },
+    {
+      "seq": 451,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 449,
+        "kind": "scheme",
+        "skill": "Merchant",
+        "career": "Rogue",
+        "value": -1
+      }
+    },
+    {
+      "seq": 452,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 453,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          3
+        ],
+        "total": 4,
+        "target": 24,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 15
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Risk vs Int+Mods)"
+      }
+    },
+    {
+      "seq": 454,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          6
+        ],
+        "total": 8,
+        "target": -6,
+        "success": false,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": -15
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Reward vs Int+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 455,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 454,
+        "kind": "no_award"
+      }
+    },
+    {
+      "seq": 456,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 457,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 458,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 457,
+        "kind": "skill_awarded",
+        "skill": "Teacher",
+        "delta": 1,
+        "value": 15
+      }
+    },
+    {
+      "seq": 459,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 460,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 461,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 460,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 14
+      }
+    },
+    {
+      "seq": 462,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 463,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 464,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 463,
+        "kind": "skill_awarded",
+        "skill": "Computer",
+        "delta": 1,
+        "value": 11
+      }
+    },
+    {
+      "seq": 465,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          2
+        ],
+        "total": 5,
+        "target": 24,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 15
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Continue Int +Terms; p. 66)"
+      }
+    },
+    {
+      "seq": 466,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 465,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 467,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          3
+        ],
+        "total": 6,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 86)"
+      }
+    },
+    {
+      "seq": 468,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 467,
+        "kind": "aging_effect",
+        "characteristic": "Str",
+        "delta": -1
+      }
+    },
+    {
+      "seq": 469,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 467,
+        "kind": "characteristic_reset",
+        "characteristic": "Str",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 470,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          6
+        ],
+        "total": 8,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 86)"
+      }
+    },
+    {
+      "seq": 471,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 470,
+        "kind": "aging_effect",
+        "characteristic": "Dex",
+        "delta": -1
+      }
+    },
+    {
+      "seq": 472,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 470,
+        "kind": "characteristic_reset",
+        "characteristic": "Dex",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 473,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          5
+        ],
+        "total": 7,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 86)"
+      }
+    },
+    {
+      "seq": 474,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 473,
+        "kind": "aging_effect",
+        "characteristic": "End",
+        "delta": -1
+      }
+    },
+    {
+      "seq": 475,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 473,
+        "kind": "characteristic_reset",
+        "characteristic": "End",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 476,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          4
+        ],
+        "total": 9,
+        "target": 9,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 86)"
+      }
+    },
+    {
+      "seq": 477,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 473,
+        "kind": "extremely_major_illness",
+        "value": 3
+      }
+    },
+    {
+      "seq": 478,
+      "kind": "step",
+      "step": {
+        "name": "Rogue: Term 17",
+        "cite": "Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 479,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          3,
+          4
+        ],
+        "total": -1,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes)"
+      }
+    },
+    {
+      "seq": 480,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Modify the Scheme Flux?",
+        "options": [
+          "As rolled",
+          "Minus 1",
+          "Plus 1"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 84 chart 10 (Rogue Schemes) (Flux may be modified (after roll) plus or minus 1)"
+      }
+    },
+    {
+      "seq": 481,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 479,
+        "kind": "scheme",
+        "skill": "Merchant",
+        "career": "Rogue",
+        "value": -1
+      }
+    },
+    {
+      "seq": 482,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 84 chart 10"
+      }
+    },
+    {
+      "seq": 483,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          1
+        ],
+        "total": 7,
+        "target": 25,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 16
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Risk vs Int+Mods)"
+      }
+    },
+    {
+      "seq": 484,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          4
+        ],
+        "total": 7,
+        "target": -7,
+        "success": false,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": -16
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Reward vs Int+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 485,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 484,
+        "kind": "no_award"
+      }
+    },
+    {
+      "seq": 486,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 487,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 488,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 487,
+        "kind": "skill_awarded",
+        "skill": "JOT",
+        "delta": 1,
+        "value": 9
+      }
+    },
+    {
+      "seq": 489,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 490,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 491,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 490,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 15
+      }
+    },
+    {
+      "seq": 492,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 493,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 494,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 493,
+        "kind": "skill_awarded",
+        "skill": "Computer",
+        "delta": 1,
+        "value": 12
+      }
+    },
+    {
+      "seq": 495,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          4
+        ],
+        "total": 5,
+        "target": 25,
+        "success": true,
+        "mods": [
+          {
+            "name": "Terms",
+            "value": 16
+          }
+        ],
+        "cite": "Book 1 p. 84 chart 10 (Continue Int +Terms; p. 66)"
+      }
+    },
+    {
+      "seq": 496,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 495,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 497,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          4
+        ],
+        "total": 7,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 90)"
+      }
+    },
+    {
+      "seq": 498,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 497,
+        "kind": "aging_effect",
+        "characteristic": "Str",
+        "delta": -1
+      }
+    },
+    {
+      "seq": 499,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 497,
+        "kind": "characteristic_reset",
+        "characteristic": "Str",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 500,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          3
+        ],
+        "total": 5,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 90)"
+      }
+    },
+    {
+      "seq": 501,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 500,
+        "kind": "aging_effect",
+        "characteristic": "Dex",
+        "delta": -1
+      }
+    },
+    {
+      "seq": 502,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 500,
+        "kind": "characteristic_reset",
+        "characteristic": "Dex",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 503,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          1
+        ],
+        "total": 6,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 90)"
+      }
+    },
+    {
+      "seq": 504,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 503,
+        "kind": "aging_effect",
+        "characteristic": "End",
+        "delta": -1
+      }
+    },
+    {
+      "seq": 505,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 503,
+        "kind": "characteristic_reset",
+        "characteristic": "End",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 506,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          5
+        ],
+        "total": 10,
+        "target": 9,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 90)"
+      }
+    },
+    {
+      "seq": 507,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 503,
+        "kind": "extremely_major_illness",
+        "value": 3
+      }
+    },
+    {
+      "seq": 508,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 503,
+        "kind": "dead"
       }
     }
   ]

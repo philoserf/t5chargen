@@ -135,9 +135,12 @@ func TestEveryTermElapsesFourYears(t *testing.T) {
 		dead     bool
 		disabled bool
 	}{
-		{name: "disabled ends the career", career: "Scholar", seed: 23, disabled: true},
-		{name: "disabled in the Armed Forces", career: "Marine", seed: 529, disabled: true},
-		{name: "death ends the term", career: "Soldier", seed: 305, dead: true},
+		{name: "disabled ends the career", career: "Soldier", seed: 305, disabled: true},
+		{name: "disabled in the Armed Forces", career: "Spacer", seed: 659, disabled: true},
+		{name: "death at the injury", career: "Scholar", seed: 23, dead: true},
+		// Aging kills through a different path: the term reaches its
+		// Continue throw, and the years it elapses are what prove fatal.
+		{name: "death by aging", career: "Rogue", seed: 39, dead: true},
 		{name: "an ordinary career", career: "Citizen", seed: 9},
 	}
 

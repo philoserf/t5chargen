@@ -8,6 +8,7 @@ import (
 
 	"github.com/philoserf/t5chargen/career"
 	"github.com/philoserf/t5chargen/dice"
+	"github.com/philoserf/t5chargen/lifestage"
 	"github.com/philoserf/t5chargen/world"
 )
 
@@ -18,14 +19,14 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.16.0"
+	SchemaVersion = "0.17.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.17.0"
+	EngineVersion = "0.18.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
@@ -55,10 +56,19 @@ const TermYears = 4
 // about any of the particular events that pass it.
 //
 // cause is the throw or choice that consumed the time, never a step
-// (docs/PRD.md FR10).
-func (c *Character) advanceYears(years int, log *Log, cause int) {
+// (docs/PRD.md FR10). The Aging Checks the span crosses carry their own
+// throws as causes.
+func (c *Character) advanceYears(years int, roller *dice.Roller, log *Log, cause int) error {
+	from := c.Age
+
 	c.Age += years
 	log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceYearsElapsed, Value: years})
+
+	// Aging is a rule about the passage of time, so it resolves here
+	// rather than at any of the events that pass it: "Once Aging begins,
+	// it occurs every four years on the character's birthday" (chart A
+	// p. 89).
+	return c.ageEffects(from, c.Age, roller, log)
 }
 
 // RNG records the random stream a character was generated from
@@ -99,6 +109,16 @@ type Character struct {
 	// not, lifetime ("Mod minus number of previous waivers rolled
 	// (successful or not)", p. 59).
 	WaiversAttempted int `json:"waivers_attempted,omitempty"`
+
+	// LifeStage is the stage the character's age falls in (chart A p. 89),
+	// stored derived like UPP so a record can be read without the table.
+	LifeStage int `json:"life_stage"`
+
+	// MajorIllnesses and ExtremelyMajorIllnesses count the Aging Check
+	// passes that reduced two, and three or more, characteristics to zero
+	// (chart A p. 89). The second extremely major illness is fatal.
+	MajorIllnesses          int `json:"major_illnesses,omitempty"`
+	ExtremelyMajorIllnesses int `json:"extremely_major_illnesses,omitempty"`
 
 	// Fame is the running Fame counter (chart 05 "Fame +1"; the full
 	// Fame system, chart F p. 91, lands with milestone 4).
@@ -423,6 +443,13 @@ func Generate(opts Options) (Character, error) {
 	}
 
 	character.UPP = character.Characteristics.UPP()
+
+	stages, err := lifestage.Load()
+	if err != nil {
+		return Character{}, fmt.Errorf("life stages: %w", err)
+	}
+
+	character.LifeStage = stages.Of(character.Age)
 	character.Events = log.Events()
 
 	return character, nil
@@ -473,6 +500,14 @@ func runCareer(forced string, roller *dice.Roller, log *Log, decider Decider, ch
 		began, err := runCareerByName(options[chosen], chosenSeq, roller, log, decider, character)
 		if err != nil || began {
 			return err
+		}
+
+		// "the Character is dead (and all efforts in this particular
+		// character creation process are lost)" (p. 69). The engine keeps
+		// the record rather than discarding the run, but a dead character
+		// does not go on to try another career.
+		if character.Dead {
+			return nil
 		}
 
 		options = slices.Concat(options[:chosen], options[chosen+1:])

@@ -237,7 +237,9 @@ func (r *eduRun) apply() (bool, error) {
 		return true, nil
 	}
 
-	r.elapseYear(seq)
+	if err := r.elapseYear(seq); err != nil {
+		return false, err
+	}
 
 	waived, err := offerWaiver(r.log, r.decider, r.roller, r.character, educationWaiver("admission refused"))
 	if err != nil {
@@ -305,7 +307,10 @@ func (r *eduRun) passFailYear() (bool, bool, error) {
 	throw := r.roller.Check(2, target)
 	seq := r.log.Throw(throw, nil, "Book 1 p. 60 chart C ("+r.program.Name+" Pass/Fail Check "+r.checkName+")")
 	r.lastThrowSeq = seq
-	r.elapseYear(seq)
+
+	if err := r.elapseYear(seq); err != nil {
+		return false, false, err
+	}
 
 	if throw.Success {
 		return true, false, r.awardPass(seq)
@@ -321,12 +326,12 @@ func (r *eduRun) passFailYear() (bool, bool, error) {
 
 // elapseYear advances age by one year for timed programs (chart C
 // Duration; ED5 and Apprenticeship take "no time").
-func (r *eduRun) elapseYear(cause int) {
+func (r *eduRun) elapseYear(cause int) error {
 	if r.program.DurationYears == 0 {
-		return
+		return nil
 	}
 
-	r.character.advanceYears(1, r.log, cause)
+	return r.character.advanceYears(1, r.roller, r.log, cause)
 }
 
 // awardPass applies the program's per-pass Provides (chart C p. 60).

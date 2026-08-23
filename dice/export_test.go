@@ -6,4 +6,5 @@ var (
 	NewFlux      = newFlux
 	ResolveThrow = resolveThrow
 	ResolveCheck = resolveCheck
+	ResolveUnder = resolveUnder
 )

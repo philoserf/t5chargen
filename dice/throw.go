@@ -67,6 +67,37 @@ func maxRoll(roll Roll) int {
 	return roll.N*6 + roll.Mod
 }
 
+// Under rolls n dice against target as a strict less-than throw: "2D <
+// Life Stage" (Book 1 p. 89 chart A, The Aging Check).
+//
+// This is the only strict comparison the rules print. Throw and Check test
+// "equal to or less than" (p. 122), so an Aging Check cannot be expressed
+// as either with the target reduced by one: the target IS the Life Stage,
+// and the recorded throw must say so.
+//
+// Success has its plain meaning — the comparison held — but the caller
+// wants it to fail: "Success inflicts the effects of age on the character.
+// (A character wants to FAIL this action)." Interpreting that is the call
+// site's job, as it is for the spectacular flags.
+//
+// The p. 134 automatic-failure rule is deliberately not applied. It says a
+// Check "fails on the highest possible roll", which here is already a
+// failure — the maximum 2D roll of 12 is never under a Life Stage capped
+// at 9 — so applying it would change nothing. Stated so a later reader
+// does not read its absence as an oversight (interpretation I-17).
+func (r *Roller) Under(n, target int) Throw {
+	return resolveUnder(r.Roll(n), target)
+}
+
+// resolveUnder is the strict less-than comparison. Pure arithmetic, split
+// from the stream for exhaustive testing.
+func resolveUnder(roll Roll, target int) Throw {
+	throw := resolveThrow(roll, target)
+	throw.Success = roll.Total < target
+
+	return throw
+}
+
 // High rolls n dice against target as a Roll High throw: the result
 // succeeds when the total is equal to or greater than the target, the
 // reverse of the ordinary roll-low comparison.
