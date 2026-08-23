@@ -68,8 +68,7 @@ func (*agentMechanics) begin(r *careerRun) (bool, error) {
 		return true, nil
 	}
 
-	r.character.Age++
-	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceYearsElapsed, Value: 1})
+	r.character.advanceYears(1, r.log, seq)
 	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerNotBegun, Career: r.def.Name})
 
 	return false, nil
@@ -306,6 +305,8 @@ func (*agentMechanics) mission(r *careerRun, cc string) (termOutcome, error) {
 	if !risk.Success {
 		died, disabled := r.injury(cc, mod, riskSeq,
 			r.def.Cite+" (Risk Failure: reduce CC by negative Mods and Flux)")
+		outcome.endCause = riskSeq
+
 		if died {
 			outcome.died = true
 

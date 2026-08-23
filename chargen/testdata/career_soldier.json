@@ -1,7 +1,7 @@
 {
   "schema_version": "0.15.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.15.0",
+  "engine_version": "0.16.0",
   "policy_version": "0.11.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -25,7 +25,7 @@
       "Ri"
     ]
   },
-  "age": 39,
+  "age": 43,
   "education": [
     {
       "program": "College",
@@ -3199,6 +3199,15 @@
         "cause": 225,
         "kind": "dead",
         "characteristic": "Int"
+      }
+    },
+    {
+      "seq": 229,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 225,
+        "kind": "years_elapsed",
+        "value": 4
       }
     }
   ]
