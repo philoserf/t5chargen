@@ -2109,14 +2109,6 @@
         "career": "Noble",
         "delta": 200000
       }
-    },
-    {
-      "seq": 151,
-      "kind": "step",
-      "step": {
-        "name": "Muster Out: Entitlements",
-        "cite": "Book 1 p. 70 chart M1"
-      }
     }
   ]
 }

@@ -9989,14 +9989,6 @@
         "career": "Agent",
         "delta": 90000
       }
-    },
-    {
-      "seq": 630,
-      "kind": "step",
-      "step": {
-        "name": "Muster Out: Entitlements",
-        "cite": "Book 1 p. 70 chart M1"
-      }
     }
   ]
 }

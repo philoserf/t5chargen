@@ -2326,14 +2326,6 @@
         "career": "Merchant",
         "delta": 25000
       }
-    },
-    {
-      "seq": 162,
-      "kind": "step",
-      "step": {
-        "name": "Muster Out: Entitlements",
-        "cite": "Book 1 p. 70 chart M1"
-      }
     }
   ]
 }

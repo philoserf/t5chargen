@@ -326,3 +326,159 @@ func assertDoubling(t *testing.T, seed uint64, c chargen.Character, doublings in
 
 	return true
 }
+
+// twoServices leaves one Armed Forces career for another, which the auto
+// policy never does, so the Reserve years of two services overlap.
+type twoServices struct {
+	offers int
+	second bool
+}
+
+func (d *twoServices) Choose(c chargen.Choice) int {
+	//nolint:exhaustive // Deliberately partitioned: the rest defer to the auto policy.
+	switch c.ID {
+	case chargen.ChooseCareerChange:
+		d.offers++
+
+		if d.second || d.offers < 5 {
+			return 0
+		}
+
+		return 1
+	case chargen.ChooseCareer:
+		if i := indexOf(c.Options, "Spacer"); i >= 0 && d.offers > 0 {
+			d.second = true
+
+			return i
+		}
+
+		if i := indexOf(c.Options, "Soldier"); i >= 0 {
+			return i
+		}
+	default:
+	}
+
+	return chargen.DefaultPolicy{}.Choose(c)
+}
+
+func (*twoServices) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
+
+// TestReserveYearsAreCalendarYears pins p. 69: "the Reserve Pension is
+// paid for years actually served as a Reservist". A character who leaves
+// two services is in the Reserves once, from the first leaving — summing
+// each service's stretch to 66 would bill calendar years twice over.
+func TestReserveYearsAreCalendarYears(t *testing.T) {
+	both := 0
+
+	for seed := uint64(1); seed <= 300; seed++ {
+		c, err := chargen.Generate(chargen.Options{Seed: seed, Decider: &twoServices{}})
+		if err != nil {
+			continue
+		}
+
+		if assertReserveYears(t, seed, c) {
+			both++
+		}
+	}
+
+	if both == 0 {
+		t.Error("no character served two Reserve careers; the overlap went untested")
+	}
+}
+
+// TestADoublingBelongsToItsCareer pins p. 68: "Pension x 2 doubles the
+// Pension the character receives from the career" — the career the benefit
+// was rolled on, not every pension the character holds.
+func TestADoublingBelongsToItsCareer(t *testing.T) {
+	checked := 0
+
+	for seed := uint64(1); seed <= 200; seed++ {
+		c, err := chargen.Generate(chargen.Options{Seed: seed, Decider: functionaryPath{first: "Citizen"}})
+		if err != nil {
+			continue
+		}
+
+		if assertDoublingStaysHome(t, seed, c) {
+			checked++
+		}
+	}
+
+	if checked == 0 {
+		t.Skip("no character held both a doubled Functionary pension and a Reserve pension")
+	}
+}
+
+// reserveYearsOf counts the calendar years a character spends in the
+// Reserves.
+func reserveYearsOf(c chargen.Character) int {
+	first := 0
+
+	for _, record := range c.Careers {
+		if record.Reserve && (first == 0 || record.EndAge < first) {
+			first = record.EndAge
+		}
+	}
+
+	if first == 0 {
+		return 0
+	}
+
+	return max(66-first, 0)
+}
+
+// assertReserveYears checks a character who left two services, and reports
+// whether there were two to check.
+func assertReserveYears(t *testing.T, seed uint64, c chargen.Character) bool {
+	t.Helper()
+
+	services := 0
+
+	for _, record := range c.Careers {
+		if record.Reserve {
+			services++
+		}
+	}
+
+	pension := entitlementNamed(c, "Reserve Pension")
+	if services < 2 || pension == nil {
+		return false
+	}
+
+	// Cr100 a year over the years from the first leaving to 66.
+	if want := 100 * reserveYearsOf(c); pension.AnnualCredits != want {
+		t.Errorf("seed %d: two services pay Cr%d a year, want Cr%d", seed, pension.AnnualCredits, want)
+	}
+
+	return true
+}
+
+// assertDoublingStaysHome checks that a Functionary's Pension x2 has not
+// reached a Reserve Pension, and reports whether there was a case to
+// check.
+func assertDoublingStaysHome(t *testing.T, seed uint64, c chargen.Character) bool {
+	t.Helper()
+
+	reserve := entitlementNamed(c, "Reserve Pension")
+	if reserve == nil || entitlementNamed(c, "Functionary's Pension") == nil {
+		return false
+	}
+
+	doublings := 0
+
+	for _, got := range c.Benefits {
+		if got.Name == "Pension x2" && got.Career == "Functionary" {
+			doublings += max(got.Count, 1)
+		}
+	}
+
+	if doublings == 0 {
+		return false
+	}
+
+	if want := 100 * reserveYearsOf(c); reserve.AnnualCredits != want {
+		t.Errorf("seed %d: %d Functionary doublings reached the Reserve Pension (Cr%d, want Cr%d)",
+			seed, doublings, reserve.AnnualCredits, want)
+	}
+
+	return true
+}

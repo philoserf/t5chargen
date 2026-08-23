@@ -26,7 +26,7 @@
 
 **Benefits**: 1 StarPass
 
-**Automatics**: Fame, TAS Life Membership, Masterpieces
+**Automatics**: Fame, Masterpieces
 
 **Citizen's Pension**: Cr5000 a year from age 66
 

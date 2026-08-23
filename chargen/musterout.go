@@ -120,9 +120,9 @@ func musterOut(c *Character, roller *dice.Roller, log *Log, decider Decider) err
 	// for, so they are recorded like the UPP and the Life Stage and emit
 	// no events: there is no throw or choice to name as their cause
 	// (docs/PRD.md FR10).
-	run.automatics()
-
-	log.Step("Muster Out: Entitlements", "Book 1 p. 70 chart M1")
+	if err := run.automatics(); err != nil {
+		return err
+	}
 
 	return run.entitlements()
 }

@@ -353,6 +353,11 @@ type CareerRecord struct {
 	// Award-Winning publication counts as two.
 	Publications int `json:"publications,omitempty"`
 
+	// AwardWinningPublications counts only those, which Publications
+	// cannot be read back from (I-25). Chart M1's TAS Life Membership is
+	// the "Award-Winning Scholar's" (p. 67).
+	AwardWinningPublications int `json:"award_winning_publications,omitempty"`
+
 	// Tenured records the chart 02 Tenure grant, which gates promotion
 	// beyond Scholar3.
 	Tenured bool `json:"tenured,omitempty"`

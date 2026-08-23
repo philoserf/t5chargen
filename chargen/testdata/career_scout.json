@@ -4582,14 +4582,6 @@
         "career": "Scout",
         "delta": 70000
       }
-    },
-    {
-      "seq": 318,
-      "kind": "step",
-      "step": {
-        "name": "Muster Out: Entitlements",
-        "cite": "Book 1 p. 70 chart M1"
-      }
     }
   ]
 }

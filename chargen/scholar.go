@@ -62,7 +62,15 @@ const (
 type scholarMechanics struct {
 	rank         string
 	publications int
-	tenured      bool
+
+	// awardWinning counts only the Award-Winning publications, which
+	// publications cannot be read back from: an Award-Winning one "counts
+	// as TWO" (chart 02; I-25), so a count of two is either one award or
+	// two ordinary papers. Chart M1's TAS Life Membership is the
+	// "Award-Winning Scholar's" (p. 67), and needs the distinction.
+	awardWinning int
+
+	tenured bool
 }
 
 // newScholar is the Scholar careerRegistry entry.
@@ -316,6 +324,8 @@ func (m *scholarMechanics) publish(r *careerRun, cc string, value, mod int) erro
 	count := 1
 	if throw.Success && throw.Total <= value-scholarAwardMargin {
 		count = 2
+		m.awardWinning++
+		r.record.AwardWinningPublications = m.awardWinning
 	}
 
 	m.publications += count

@@ -2289,14 +2289,6 @@
         "career": "Entertainer",
         "value": 1
       }
-    },
-    {
-      "seq": 164,
-      "kind": "step",
-      "step": {
-        "name": "Muster Out: Entitlements",
-        "cite": "Book 1 p. 70 chart M1"
-      }
     }
   ]
 }

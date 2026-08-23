@@ -1857,3 +1857,40 @@ as events with nothing to hang from.
 The Entitlements are different, and are logged: p. 69 offers a decision on
 each of them — "Any Entitlement can be cashed out for a lump sum equal to
 five years of payments" — and that decision is what the record hangs from.
+
+### I-80: Reserve years are calendar years, not one stretch per service (p. 69)
+
+"A character who leaves a military, naval, or marine career is
+automatically in the Reserves until retirement at Life Stage 9" (p. 67),
+and "the Reserve Pension is paid for years actually served as a Reservist,
+but only upon reaching Life Stage 9" (p. 69).
+
+Read as: the years from the first service he left until Life Stage 9,
+counted once. A character who leaves the Soldiers at 34 and the Spacers at
+50 has been a Reservist for the thirty-two years since he was 34, not for
+the forty-eight that summing each service's stretch would give him. "Years
+actually served" is what forecloses the other reading: forty-eight years
+cannot be served inside thirty-two.
+
+Recorded because the engine did the summing first, and the overlap is only
+reachable through a career change — no auto-generated character leaves two
+services, so nothing in the default sweep would have shown it.
+
+### I-81: A Pension x2 doubles the pension of the career it was rolled on (p. 68)
+
+"Pension x 2 doubles the Pension the character receives from the career.
+Each doubling is of the original Pension: the first x2 doubles the Pension,
+the second x2 triples the pension, the third x2 quadruples the original
+Pension."
+
+Read as: from _the_ career, singular and definite — the career whose table
+D the benefit was rolled on. A Pension x2 taken on chart 13 doubles the
+Functionary's pension. It does not reach the Reserve Pension, which no
+Functionary table can grant, nor a Professor's.
+
+The rival reading takes "the Pension" as whatever pension the character
+holds, which is the same thing for the common case of one pension and
+wrong for the character p. 69 describes holding two: "a character may
+receive duplicate Entitlements (for example, a Reserve and a Functionary
+pension)". A benefit rolled on one career's table doubling another
+career's pension has nothing in the text behind it.
