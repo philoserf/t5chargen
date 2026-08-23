@@ -330,5 +330,139 @@
         }
       ]
     }
-  ]
+  ],
+  "muster_out": {
+    "cite": "Book 1 p. 83 chart 09 D",
+    "label": "D MUSTER OUT",
+    "rows": [
+      {
+        "roll": 1,
+        "money": {
+          "kind": "low_passage"
+        },
+        "benefit": {
+          "kind": "ship_shares",
+          "count": 1
+        }
+      },
+      {
+        "roll": 2,
+        "money": {
+          "kind": "low_passage"
+        },
+        "benefit": {
+          "kind": "forbidden_knowledge"
+        }
+      },
+      {
+        "roll": 3,
+        "money": {
+          "kind": "middle_passage"
+        },
+        "benefit": {
+          "kind": "wafer_jack"
+        }
+      },
+      {
+        "roll": 4,
+        "money": {
+          "kind": "high_passage"
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Edu"
+        }
+      },
+      {
+        "roll": 5,
+        "money": {
+          "kind": "money",
+          "credits": 15000
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Str"
+        }
+      },
+      {
+        "roll": 6,
+        "money": {
+          "kind": "star_passage"
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Dex"
+        }
+      },
+      {
+        "roll": 7,
+        "money": {
+          "kind": "money",
+          "credits": 25000
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "End"
+        }
+      },
+      {
+        "roll": 8,
+        "money": {
+          "kind": "money",
+          "credits": 30000
+        },
+        "benefit": {
+          "kind": "ship_shares",
+          "count": 1
+        }
+      },
+      {
+        "roll": 9,
+        "money": {
+          "kind": "money",
+          "credits": 35000
+        },
+        "benefit": {
+          "kind": "life_insurance"
+        }
+      },
+      {
+        "roll": 10,
+        "money": {
+          "kind": "money",
+          "credits": 40000
+        },
+        "benefit": {
+          "kind": "tas_fellowship"
+        }
+      },
+      {
+        "roll": 11,
+        "money": {
+          "kind": "money",
+          "credits": 80000
+        },
+        "benefit": {
+          "kind": "fame",
+          "count": 2
+        }
+      },
+      {
+        "roll": 12,
+        "money": {
+          "kind": "money",
+          "credits": 90000
+        },
+        "benefit": {
+          "kind": "knighthood"
+        }
+      }
+    ],
+    "money_dm": {
+      "kind": "terms"
+    },
+    "benefit_dm": {
+      "kind": "commendations"
+    }
+  }
 }

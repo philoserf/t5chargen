@@ -254,5 +254,260 @@
         }
       ]
     }
-  ]
+  ],
+  "muster_out": {
+    "cite": "Book 1 p. 87 chart 13 D",
+    "label": "D MUSTER OUT",
+    "rows": [
+      {
+        "roll": 1,
+        "money": {
+          "kind": "money",
+          "credits": 5000
+        },
+        "benefit": {
+          "kind": "forbidden_knowledge"
+        }
+      },
+      {
+        "roll": 2,
+        "money": {
+          "kind": "money",
+          "credits": 10000
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Str"
+        }
+      },
+      {
+        "roll": 3,
+        "money": {
+          "kind": "money",
+          "credits": 15000
+        },
+        "benefit": {
+          "kind": "wafer_jack"
+        }
+      },
+      {
+        "roll": 4,
+        "money": {
+          "kind": "money",
+          "credits": 20000
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Str"
+        }
+      },
+      {
+        "roll": 5,
+        "money": {
+          "kind": "high_passage"
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Dex"
+        }
+      },
+      {
+        "roll": 6,
+        "money": {
+          "kind": "star_passage"
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "End"
+        }
+      },
+      {
+        "roll": 7,
+        "money": {
+          "kind": "money",
+          "credits": 25000
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Int"
+        }
+      },
+      {
+        "roll": 8,
+        "money": {
+          "kind": "money",
+          "credits": 30000
+        },
+        "benefit": {
+          "kind": "life_insurance"
+        }
+      },
+      {
+        "roll": 9,
+        "money": {
+          "kind": "money",
+          "credits": 35000
+        },
+        "benefit": {
+          "kind": "tas_fellowship"
+        }
+      },
+      {
+        "roll": 10,
+        "money": {
+          "kind": "pension_doubling"
+        },
+        "benefit": {
+          "kind": "knighthood"
+        }
+      },
+      {
+        "roll": 11,
+        "money": {
+          "kind": "pension_doubling"
+        },
+        "benefit": {
+          "kind": "directorship"
+        }
+      }
+    ],
+    "money_dm": {
+      "kind": "terms"
+    },
+    "benefit_dm": {
+      "kind": "officer_rank"
+    }
+  },
+  "muster_out_m2": {
+    "cite": "Book 1 p. 71 chart M2",
+    "label": "M2 Muster Out Tables",
+    "rows": [
+      {
+        "roll": 1,
+        "money": {
+          "kind": "money",
+          "credits": 5000
+        },
+        "benefit": {
+          "kind": "forbidden_knowledge"
+        }
+      },
+      {
+        "roll": 2,
+        "money": {
+          "kind": "money",
+          "credits": 10000
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Str"
+        }
+      },
+      {
+        "roll": 3,
+        "money": {
+          "kind": "money",
+          "credits": 15000
+        },
+        "benefit": {
+          "kind": "wafer_jack"
+        }
+      },
+      {
+        "roll": 4,
+        "money": {
+          "kind": "money",
+          "credits": 20000
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Str"
+        }
+      },
+      {
+        "roll": 5,
+        "money": {
+          "kind": "high_passage"
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Dex"
+        }
+      },
+      {
+        "roll": 6,
+        "money": {
+          "kind": "star_passage"
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "End"
+        }
+      },
+      {
+        "roll": 7,
+        "money": {
+          "kind": "money",
+          "credits": 25000
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Int"
+        }
+      },
+      {
+        "roll": 8,
+        "money": {
+          "kind": "money",
+          "credits": 30000
+        },
+        "benefit": {
+          "kind": "life_insurance"
+        }
+      },
+      {
+        "roll": 9,
+        "money": {
+          "kind": "money",
+          "credits": 35000
+        },
+        "benefit": {
+          "kind": "tas_fellowship"
+        }
+      },
+      {
+        "roll": 10,
+        "money": {
+          "kind": "pension_doubling"
+        },
+        "benefit": {
+          "kind": "knighthood"
+        }
+      },
+      {
+        "roll": 11,
+        "money": {
+          "kind": "pension_doubling"
+        },
+        "benefit": {
+          "kind": "directorship"
+        }
+      },
+      {
+        "roll": 12,
+        "money": {
+          "kind": "pension_doubling"
+        },
+        "benefit": {
+          "kind": "knighthood"
+        }
+      }
+    ],
+    "money_dm": {
+      "kind": "terms"
+    },
+    "benefit_dm": {
+      "kind": "officer_rank"
+    }
+  }
 }
