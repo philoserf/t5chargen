@@ -19,18 +19,18 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.18.0"
+	SchemaVersion = "0.19.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.19.0"
+	EngineVersion = "0.20.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
-	PolicyVersion = "0.12.0"
+	PolicyVersion = "0.13.0"
 
 	// RNGAlgorithm names the recorded random stream: Go math/rand/v2 PCG,
 	// seeded as documented at dice.New. The exact string is compared on
@@ -219,6 +219,11 @@ type CareerRecord struct {
 
 	// Discoveries counts Scout Reward successes (chart 05, p. 79).
 	Discoveries int `json:"discoveries,omitempty"`
+
+	// AssociatedCareer is the prior career a Functionary position belongs
+	// to (chart 13 p. 87). Muster out adds this career's terms to that
+	// career's benefit DM (p. 68).
+	AssociatedCareer string `json:"associated_career,omitempty"`
 
 	// EndAge is the character's age when the career ended, including a
 	// career that never began (the year a failed To Begin cost, p. 65).
@@ -484,11 +489,18 @@ var errBadChoice = errors.New("invalid choice")
 // resolves the selected career through the careerRegistry (careerrun.go);
 // registered careers grow with docs/PRD.md milestone 3.
 func runCareer(forced string, roller *dice.Roller, log *Log, decider Decider, character *Character) error {
-	options := career.Available()
+	// "Functionary is never a first career" (chart 13 p. 87), so the
+	// lifepath opens on FirstCareers; a forced career may still name one
+	// the lifepath cannot open with, which the To Begin then decides.
+	options, err := career.FirstCareers()
+	if err != nil {
+		return fmt.Errorf("first careers: %w", err)
+	}
 
 	if forced != "" {
-		if !slices.Contains(options, forced) {
-			return fmt.Errorf("%w: %q (available: %s)", ErrUnknownCareer, forced, strings.Join(options, ", "))
+		if !slices.Contains(career.Available(), forced) {
+			return fmt.Errorf("%w: %q (available: %s)",
+				ErrUnknownCareer, forced, strings.Join(career.Available(), ", "))
 		}
 
 		options = []string{forced}

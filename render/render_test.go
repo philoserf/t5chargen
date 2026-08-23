@@ -233,3 +233,56 @@ func TestHistoryChoiceLine(t *testing.T) {
 		t.Errorf("History() =\n%q\nwant\n%q", got, want)
 	}
 }
+
+// functionaryPath reaches chart 13, which no auto-generated character can:
+// "Functionary is never a first career" (p. 87) and the auto policy
+// declines every career change (POLICY.md `change_career`).
+type functionaryPath struct{}
+
+func (functionaryPath) Choose(c chargen.Choice) int {
+	//nolint:exhaustive // Deliberately partitioned: the rest defer to the auto policy.
+	switch c.ID {
+	case chargen.ChooseCareerChange:
+		return 1
+	case chargen.ChooseCareer:
+		for i, option := range c.Options {
+			if option == "Functionary" {
+				return i
+			}
+		}
+
+		for i, option := range c.Options {
+			if option == "Scholar" {
+				return i
+			}
+		}
+	default:
+	}
+
+	return chargen.DefaultPolicy{}.Choose(c)
+}
+
+func (functionaryPath) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
+
+// TestFunctionarySheetGolden pins the sheet for the first career a
+// character can only reach by changing into one (chart 13, p. 87): two
+// career lines, a rolled rank title, and the associated career.
+func TestFunctionarySheetGolden(t *testing.T) {
+	c, err := chargen.Generate(chargen.Options{Seed: 305, Decider: functionaryPath{}})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	golden(t, render.Sheet(c), "testdata/functionary_sheet.md")
+}
+
+// TestFunctionaryHistoryGolden pins the transcript for the same character:
+// the career change, the association, and the promotions.
+func TestFunctionaryHistoryGolden(t *testing.T) {
+	c, err := chargen.Generate(chargen.Options{Seed: 305, Decider: functionaryPath{}})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	golden(t, render.History(c), "testdata/functionary_history.md")
+}

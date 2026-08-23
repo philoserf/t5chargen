@@ -86,13 +86,6 @@ type Definition struct {
 	Name string `json:"name"`
 	Cite string `json:"cite"`
 
-	// Reference marks a career transcribed for another career to read
-	// rather than to play: chart 09's Undercover Assignment sends an Agent
-	// into careers the engine does not yet run, and needs their skill
-	// tables. A reference career is absent from Available and from the
-	// mechanics registry, and its box A fields are not required.
-	Reference bool `json:"reference,omitempty"`
-
 	// BeginChecks lists the characteristics the To Begin throw may check
 	// (chart 05: "To Begin C1 or C2 or C3"); empty means Begin is
 	// automatic (chart 04: "To Begin Auto").
@@ -160,6 +153,29 @@ type Definition struct {
 	// SkillsPerAdvancement is the extra table C eligibility each rank
 	// gained in the term earns (chart 06 table B: "Promotion 1").
 	SkillsPerAdvancement int `json:"skills_per_advancement,omitempty"`
+
+	// NotAFirstCareer marks a career unreachable at the start of the
+	// lifepath: "Functionary is never a first career" (chart 13 p. 87),
+	// and p. 63's random-selection note that "Craftsman (1) and
+	// Functionary (13) are unavailable as initial careers".
+	NotAFirstCareer bool `json:"not_a_first_career,omitempty"`
+
+	// BeginTotalTermsMultiplier is chart 13's "To Begin Total Terms x3":
+	// the target is the character's terms in every prior career, times
+	// this. A first career therefore has a target of zero, which is the
+	// same rule as NotAFirstCareer said twice.
+	BeginTotalTermsMultiplier int `json:"begin_total_terms_multiplier,omitempty"`
+
+	// ContinueOfficePolitics marks chart 13's "Continue Office Politics":
+	// the career has no Continue throw of its own, the Office Politics
+	// Risk result deciding it ("Risk Failure: Functionary career ends.
+	// The character may not Continue").
+	ContinueOfficePolitics bool `json:"continue_office_politics,omitempty"`
+
+	// DirectorTitles renames rank F6 by the career the Functionary
+	// position is associated with: "Scholar F6 =College President"
+	// (chart 13 p. 87).
+	DirectorTitles map[string]string `json:"director_titles,omitempty"`
 
 	// Reserves marks the careers p. 67 enrols a leaver from: "A character
 	// who leaves a military, naval, or marine career is automatically in
@@ -590,12 +606,6 @@ func (d *Definition) validate() error {
 		return fmt.Errorf("%w: nameless career", errBadDefinition)
 	}
 
-	if d.Reference {
-		// A reference career carries only the tables another career
-		// reads; it is never run, so it has no Continue or eligibility.
-		return d.validateColumns()
-	}
-
 	if err := d.validateTermCounts(); err != nil {
 		return err
 	}
@@ -904,8 +914,13 @@ func (d *Definition) validateContinueForm() error {
 	fixed := d.ContinueTarget != 0
 	characteristic := d.ContinueCharacteristic != ""
 
-	if forms := countTrue(fixed, characteristic, d.ContinueFame, d.ContinueCC); forms != 1 {
-		return fmt.Errorf("%w: want exactly one Continue form", errBadDefinition)
+	// Chart 13 is the one career with no Continue throw at all: "Continue
+	// Office Politics" defers to the Risk result already rolled for the
+	// term ("Risk Failure: Functionary career ends. The character may not
+	// Continue", p. 87). So it declares that form and no other.
+	forms := countTrue(fixed, characteristic, d.ContinueFame, d.ContinueCC, d.ContinueOfficePolitics)
+	if forms != 1 {
+		return fmt.Errorf("%w: want exactly one Continue form, have %d", errBadDefinition, forms)
 	}
 
 	if d.ContinueCC && !d.CCFixed {
@@ -1230,13 +1245,60 @@ func Noble() (*Definition, error) {
 	return noble()
 }
 
-// Available lists the implemented careers in Book 1 chart order (Scholar
-// is chart 02, Entertainer 03, Citizen 04, Scout 05, Merchant 06, Noble 11).
-// The default policy names its career rather than taking the first listed,
-// so this order is presentation only (POLICY.md).
+// Available lists the implemented careers in Book 1 chart order. The
+// default policy names its career rather than taking the first listed, so
+// this order is presentation only (POLICY.md).
+//
+// Not every career here can start a lifepath: see NotAFirstCareer and
+// FirstCareers.
 func Available() []string {
 	return []string{
 		"Scholar", "Entertainer", "Citizen", "Scout", "Merchant",
 		"Spacer", "Soldier", "Agent", "Rogue", "Noble", "Marine",
+		"Functionary",
 	}
 }
+
+// FirstCareers lists the careers a lifepath may open with, which is
+// Available minus those a chart bars from the start: "Functionary is never
+// a first career" (chart 13 p. 87).
+func FirstCareers() ([]string, error) {
+	all := Available()
+	first := make([]string, 0, len(all))
+
+	for _, name := range all {
+		def, err := ByName(name)
+		if err != nil {
+			return nil, err
+		}
+
+		if def.NotAFirstCareer {
+			continue
+		}
+
+		first = append(first, name)
+	}
+
+	return first, nil
+}
+
+// loaders maps each Available name to its definition loader.
+var loaders = map[string]func() (*Definition, error){
+	"Scholar": Scholar, "Entertainer": Entertainer, "Citizen": Citizen,
+	"Scout": Scout, "Merchant": Merchant, "Spacer": Spacer,
+	"Soldier": Soldier, "Agent": Agent, "Rogue": Rogue,
+	"Noble": Noble, "Marine": Marine, "Functionary": Functionary,
+}
+
+// ByName loads a career definition by its Available name.
+func ByName(name string) (*Definition, error) {
+	load, ok := loaders[name]
+	if !ok {
+		return nil, fmt.Errorf("%w: %q", ErrUnknownCareer, name)
+	}
+
+	return load()
+}
+
+// ErrUnknownCareer reports a name absent from Available.
+var ErrUnknownCareer = errors.New("career: unknown career")

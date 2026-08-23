@@ -1,7 +1,69 @@
 {
-  "name": "Functionary",
   "cite": "Book 1 p. 87 chart 13",
-  "reference": true,
+  "name": "Functionary",
+  "not_a_first_career": true,
+  "no_career_change": true,
+  "begin_total_terms_multiplier": 3,
+  "controlling_characteristics": ["Dex", "End", "Int", "Edu"],
+  "continue_office_politics": true,
+  "skills_per_term": 4,
+  "skills_per_advancement": 1,
+  "ranks": [
+    {
+      "id": "F0",
+      "class": "functionary",
+      "title": "Clerk",
+      "auto_skill": "Bureaucrat"
+    },
+    {
+      "id": "F1",
+      "class": "functionary",
+      "title": "Supervisor"
+    },
+    {
+      "id": "F2",
+      "class": "functionary",
+      "title": "Senior Supervisor",
+      "auto_skill": "Admin"
+    },
+    {
+      "id": "F3",
+      "class": "functionary",
+      "title": "Manager",
+      "auto_skill": "Bureaucrat"
+    },
+    {
+      "id": "F4",
+      "class": "functionary",
+      "title": "Senior Manager"
+    },
+    {
+      "id": "F5",
+      "class": "functionary",
+      "title": "Assistant Director"
+    },
+    {
+      "id": "F6",
+      "class": "functionary",
+      "title": "Director"
+    },
+    {
+      "id": "F7",
+      "class": "functionary",
+      "title": "Nth UnderSecretary"
+    },
+    {
+      "id": "F8",
+      "class": "functionary",
+      "title": "Secretary"
+    }
+  ],
+  "director_titles": {
+    "Scholar": "College President",
+    "Entertainer": "Association Director",
+    "Merchant": "Starport Warden",
+    "Rogue": "Bank President"
+  },
   "skill_columns": [
     {
       "name": "Personal",
