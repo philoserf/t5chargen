@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.17.0",
+  "schema_version": "0.18.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.18.0",
-  "policy_version": "0.11.0",
+  "engine_version": "0.19.0",
+  "policy_version": "0.12.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 39
@@ -75,6 +75,7 @@
     {
       "career": "Rogue",
       "began": true,
+      "end_age": 90,
       "controlling_characteristic": "Int",
       "scheme": "Merchant",
       "scheme_payoff": 450000,
@@ -1135,6 +1136,20 @@
     },
     {
       "seq": 70,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Rogue for another career?",
+        "options": [
+          "Continue in Rogue",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 71,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1149,16 +1164,16 @@
       }
     },
     {
-      "seq": 71,
+      "seq": 72,
       "kind": "consequence",
       "consequence": {
-        "cause": 70,
+        "cause": 71,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 72,
+      "seq": 73,
       "kind": "step",
       "step": {
         "name": "Rogue: Term 2",
@@ -1166,7 +1181,7 @@
       }
     },
     {
-      "seq": 73,
+      "seq": 74,
       "kind": "step",
       "step": {
         "name": "Rogue: In Prison",
@@ -1174,17 +1189,17 @@
       }
     },
     {
-      "seq": 74,
+      "seq": 75,
       "kind": "consequence",
       "consequence": {
-        "cause": 73,
+        "cause": 74,
         "kind": "imprisoned",
         "career": "Rogue",
         "value": 4
       }
     },
     {
-      "seq": 75,
+      "seq": 76,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1198,7 +1213,7 @@
       }
     },
     {
-      "seq": 76,
+      "seq": 77,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1210,10 +1225,10 @@
       }
     },
     {
-      "seq": 77,
+      "seq": 78,
       "kind": "consequence",
       "consequence": {
-        "cause": 76,
+        "cause": 77,
         "kind": "characteristic_change",
         "characteristic": "End",
         "delta": 1,
@@ -1221,7 +1236,7 @@
       }
     },
     {
-      "seq": 78,
+      "seq": 79,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1235,7 +1250,7 @@
       }
     },
     {
-      "seq": 79,
+      "seq": 80,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1247,10 +1262,10 @@
       }
     },
     {
-      "seq": 80,
+      "seq": 81,
       "kind": "consequence",
       "consequence": {
-        "cause": 79,
+        "cause": 80,
         "kind": "characteristic_change",
         "characteristic": "Dex",
         "delta": 1,
@@ -1258,7 +1273,21 @@
       }
     },
     {
-      "seq": 81,
+      "seq": 82,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Rogue for another career?",
+        "options": [
+          "Continue in Rogue",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 83,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1279,16 +1308,16 @@
       }
     },
     {
-      "seq": 82,
+      "seq": 84,
       "kind": "consequence",
       "consequence": {
-        "cause": 81,
+        "cause": 83,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 83,
+      "seq": 85,
       "kind": "step",
       "step": {
         "name": "Rogue: Term 3",
@@ -1296,7 +1325,7 @@
       }
     },
     {
-      "seq": 84,
+      "seq": 86,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -1309,7 +1338,7 @@
       }
     },
     {
-      "seq": 85,
+      "seq": 87,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1324,17 +1353,17 @@
       }
     },
     {
-      "seq": 86,
+      "seq": 88,
       "kind": "consequence",
       "consequence": {
-        "cause": 84,
+        "cause": 86,
         "kind": "scheme",
         "skill": "Spacer",
         "career": "Rogue"
       }
     },
     {
-      "seq": 87,
+      "seq": 89,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1365,7 +1394,7 @@
       }
     },
     {
-      "seq": 88,
+      "seq": 90,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1386,7 +1415,7 @@
       }
     },
     {
-      "seq": 89,
+      "seq": 91,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -1399,17 +1428,17 @@
       }
     },
     {
-      "seq": 90,
+      "seq": 92,
       "kind": "consequence",
       "consequence": {
-        "cause": 88,
+        "cause": 90,
         "kind": "fame_change",
         "delta": 1,
         "value": 2
       }
     },
     {
-      "seq": 91,
+      "seq": 93,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1430,10 +1459,10 @@
       }
     },
     {
-      "seq": 92,
+      "seq": 94,
       "kind": "consequence",
       "consequence": {
-        "cause": 91,
+        "cause": 93,
         "kind": "payoff",
         "skill": "x2",
         "career": "Rogue",
@@ -1442,7 +1471,7 @@
       }
     },
     {
-      "seq": 93,
+      "seq": 95,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1461,7 +1490,7 @@
       }
     },
     {
-      "seq": 94,
+      "seq": 96,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1473,10 +1502,10 @@
       }
     },
     {
-      "seq": 95,
+      "seq": 97,
       "kind": "consequence",
       "consequence": {
-        "cause": 94,
+        "cause": 96,
         "kind": "skill_awarded",
         "skill": "Computer",
         "delta": 1,
@@ -1484,7 +1513,7 @@
       }
     },
     {
-      "seq": 96,
+      "seq": 98,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1503,7 +1532,7 @@
       }
     },
     {
-      "seq": 97,
+      "seq": 99,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1515,10 +1544,10 @@
       }
     },
     {
-      "seq": 98,
+      "seq": 100,
       "kind": "consequence",
       "consequence": {
-        "cause": 97,
+        "cause": 99,
         "kind": "skill_awarded",
         "skill": "Broker",
         "delta": 1,
@@ -1526,7 +1555,7 @@
       }
     },
     {
-      "seq": 99,
+      "seq": 101,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1545,7 +1574,7 @@
       }
     },
     {
-      "seq": 100,
+      "seq": 102,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1557,10 +1586,10 @@
       }
     },
     {
-      "seq": 101,
+      "seq": 103,
       "kind": "consequence",
       "consequence": {
-        "cause": 100,
+        "cause": 102,
         "kind": "skill_awarded",
         "skill": "Computer",
         "delta": 1,
@@ -1568,7 +1597,7 @@
       }
     },
     {
-      "seq": 102,
+      "seq": 104,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1587,7 +1616,7 @@
       }
     },
     {
-      "seq": 103,
+      "seq": 105,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1599,10 +1628,10 @@
       }
     },
     {
-      "seq": 104,
+      "seq": 106,
       "kind": "consequence",
       "consequence": {
-        "cause": 103,
+        "cause": 105,
         "kind": "skill_awarded",
         "skill": "Teacher",
         "delta": 1,
@@ -1610,7 +1639,7 @@
       }
     },
     {
-      "seq": 105,
+      "seq": 107,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1629,7 +1658,7 @@
       }
     },
     {
-      "seq": 106,
+      "seq": 108,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1641,10 +1670,10 @@
       }
     },
     {
-      "seq": 107,
+      "seq": 109,
       "kind": "consequence",
       "consequence": {
-        "cause": 106,
+        "cause": 108,
         "kind": "skill_awarded",
         "skill": "Broker",
         "delta": 1,
@@ -1652,7 +1681,7 @@
       }
     },
     {
-      "seq": 108,
+      "seq": 110,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1671,7 +1700,7 @@
       }
     },
     {
-      "seq": 109,
+      "seq": 111,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1683,10 +1712,10 @@
       }
     },
     {
-      "seq": 110,
+      "seq": 112,
       "kind": "consequence",
       "consequence": {
-        "cause": 109,
+        "cause": 111,
         "kind": "skill_awarded",
         "skill": "Broker",
         "delta": 1,
@@ -1694,7 +1723,21 @@
       }
     },
     {
-      "seq": 111,
+      "seq": 113,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Rogue for another career?",
+        "options": [
+          "Continue in Rogue",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 114,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1715,16 +1758,16 @@
       }
     },
     {
-      "seq": 112,
+      "seq": 115,
       "kind": "consequence",
       "consequence": {
-        "cause": 111,
+        "cause": 114,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 113,
+      "seq": 116,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1739,10 +1782,10 @@
       }
     },
     {
-      "seq": 114,
+      "seq": 117,
       "kind": "consequence",
       "consequence": {
-        "cause": 113,
+        "cause": 116,
         "kind": "aging_effect",
         "characteristic": "Str",
         "delta": -1,
@@ -1750,7 +1793,7 @@
       }
     },
     {
-      "seq": 115,
+      "seq": 118,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1765,7 +1808,7 @@
       }
     },
     {
-      "seq": 116,
+      "seq": 119,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1780,15 +1823,15 @@
       }
     },
     {
-      "seq": 117,
+      "seq": 120,
       "kind": "consequence",
       "consequence": {
-        "cause": 111,
+        "cause": 114,
         "kind": "mandatory_continue"
       }
     },
     {
-      "seq": 118,
+      "seq": 121,
       "kind": "step",
       "step": {
         "name": "Rogue: Term 4",
@@ -1796,7 +1839,7 @@
       }
     },
     {
-      "seq": 119,
+      "seq": 122,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -1809,7 +1852,7 @@
       }
     },
     {
-      "seq": 120,
+      "seq": 123,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1824,10 +1867,10 @@
       }
     },
     {
-      "seq": 121,
+      "seq": 124,
       "kind": "consequence",
       "consequence": {
-        "cause": 119,
+        "cause": 122,
         "kind": "scheme",
         "skill": "Merchant",
         "career": "Rogue",
@@ -1835,7 +1878,7 @@
       }
     },
     {
-      "seq": 122,
+      "seq": 125,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1866,7 +1909,7 @@
       }
     },
     {
-      "seq": 123,
+      "seq": 126,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1887,7 +1930,7 @@
       }
     },
     {
-      "seq": 124,
+      "seq": 127,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1908,55 +1951,13 @@
       }
     },
     {
-      "seq": 125,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 124,
-        "kind": "ship_shares",
-        "delta": 4,
-        "value": 4
-      }
-    },
-    {
-      "seq": 126,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Rogue Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "World Travel",
-          "Space Travel",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 4,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 127,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 84 chart 10 table C, column Business"
-      }
-    },
-    {
       "seq": 128,
       "kind": "consequence",
       "consequence": {
         "cause": 127,
-        "kind": "skill_awarded",
-        "skill": "JOT",
-        "delta": 1,
-        "value": 1
+        "kind": "ship_shares",
+        "delta": 4,
+        "value": 4
       }
     },
     {
@@ -1984,9 +1985,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          2
+          4
         ],
-        "total": 2,
+        "total": 4,
         "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
@@ -1996,9 +1997,9 @@
       "consequence": {
         "cause": 130,
         "kind": "skill_awarded",
-        "skill": "Broker",
+        "skill": "JOT",
         "delta": 1,
-        "value": 7
+        "value": 1
       }
     },
     {
@@ -2026,9 +2027,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          3
+          2
         ],
-        "total": 3,
+        "total": 2,
         "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
@@ -2038,9 +2039,9 @@
       "consequence": {
         "cause": 133,
         "kind": "skill_awarded",
-        "skill": "Computer",
+        "skill": "Broker",
         "delta": 1,
-        "value": 4
+        "value": 7
       }
     },
     {
@@ -2068,9 +2069,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          5
+          3
         ],
-        "total": 5,
+        "total": 3,
         "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
@@ -2080,9 +2081,9 @@
       "consequence": {
         "cause": 136,
         "kind": "skill_awarded",
-        "skill": "Teacher",
+        "skill": "Computer",
         "delta": 1,
-        "value": 2
+        "value": 4
       }
     },
     {
@@ -2110,9 +2111,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          4
+          5
         ],
-        "total": 4,
+        "total": 5,
         "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
@@ -2122,7 +2123,7 @@
       "consequence": {
         "cause": 139,
         "kind": "skill_awarded",
-        "skill": "JOT",
+        "skill": "Teacher",
         "delta": 1,
         "value": 2
       }
@@ -2152,9 +2153,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          5
+          4
         ],
-        "total": 5,
+        "total": 4,
         "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
@@ -2164,13 +2165,69 @@
       "consequence": {
         "cause": 142,
         "kind": "skill_awarded",
+        "skill": "JOT",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 144,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 145,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 146,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 145,
+        "kind": "skill_awarded",
         "skill": "Teacher",
         "delta": 1,
         "value": 3
       }
     },
     {
-      "seq": 144,
+      "seq": 147,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Rogue for another career?",
+        "options": [
+          "Continue in Rogue",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 148,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2191,16 +2248,16 @@
       }
     },
     {
-      "seq": 145,
+      "seq": 149,
       "kind": "consequence",
       "consequence": {
-        "cause": 144,
+        "cause": 148,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 146,
+      "seq": 150,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2215,7 +2272,7 @@
       }
     },
     {
-      "seq": 147,
+      "seq": 151,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2230,7 +2287,7 @@
       }
     },
     {
-      "seq": 148,
+      "seq": 152,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2245,7 +2302,7 @@
       }
     },
     {
-      "seq": 149,
+      "seq": 153,
       "kind": "step",
       "step": {
         "name": "Rogue: Term 5",
@@ -2253,7 +2310,7 @@
       }
     },
     {
-      "seq": 150,
+      "seq": 154,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -2266,7 +2323,7 @@
       }
     },
     {
-      "seq": 151,
+      "seq": 155,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2281,10 +2338,10 @@
       }
     },
     {
-      "seq": 152,
+      "seq": 156,
       "kind": "consequence",
       "consequence": {
-        "cause": 150,
+        "cause": 154,
         "kind": "scheme",
         "skill": "Soldier",
         "career": "Rogue",
@@ -2292,7 +2349,7 @@
       }
     },
     {
-      "seq": 153,
+      "seq": 157,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2323,7 +2380,7 @@
       }
     },
     {
-      "seq": 154,
+      "seq": 158,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2344,7 +2401,7 @@
       }
     },
     {
-      "seq": 155,
+      "seq": 159,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2365,15 +2422,15 @@
       }
     },
     {
-      "seq": 156,
+      "seq": 160,
       "kind": "consequence",
       "consequence": {
-        "cause": 155,
+        "cause": 159,
         "kind": "no_award"
       }
     },
     {
-      "seq": 157,
+      "seq": 161,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2392,7 +2449,7 @@
       }
     },
     {
-      "seq": 158,
+      "seq": 162,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2404,10 +2461,10 @@
       }
     },
     {
-      "seq": 159,
+      "seq": 163,
       "kind": "consequence",
       "consequence": {
-        "cause": 158,
+        "cause": 162,
         "kind": "skill_awarded",
         "skill": "Teacher",
         "delta": 1,
@@ -2415,7 +2472,7 @@
       }
     },
     {
-      "seq": 160,
+      "seq": 164,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2434,7 +2491,7 @@
       }
     },
     {
-      "seq": 161,
+      "seq": 165,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2446,10 +2503,10 @@
       }
     },
     {
-      "seq": 162,
+      "seq": 166,
       "kind": "consequence",
       "consequence": {
-        "cause": 161,
+        "cause": 165,
         "kind": "skill_awarded",
         "skill": "Teacher",
         "delta": 1,
@@ -2457,7 +2514,7 @@
       }
     },
     {
-      "seq": 163,
+      "seq": 167,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2476,7 +2533,7 @@
       }
     },
     {
-      "seq": 164,
+      "seq": 168,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2488,10 +2545,10 @@
       }
     },
     {
-      "seq": 165,
+      "seq": 169,
       "kind": "consequence",
       "consequence": {
-        "cause": 164,
+        "cause": 168,
         "kind": "skill_awarded",
         "skill": "Teacher",
         "delta": 1,
@@ -2499,7 +2556,21 @@
       }
     },
     {
-      "seq": 166,
+      "seq": 170,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Rogue for another career?",
+        "options": [
+          "Continue in Rogue",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 171,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2520,16 +2591,16 @@
       }
     },
     {
-      "seq": 167,
+      "seq": 172,
       "kind": "consequence",
       "consequence": {
-        "cause": 166,
+        "cause": 171,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 168,
+      "seq": 173,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2544,7 +2615,7 @@
       }
     },
     {
-      "seq": 169,
+      "seq": 174,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2559,7 +2630,7 @@
       }
     },
     {
-      "seq": 170,
+      "seq": 175,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2574,10 +2645,10 @@
       }
     },
     {
-      "seq": 171,
+      "seq": 176,
       "kind": "consequence",
       "consequence": {
-        "cause": 170,
+        "cause": 175,
         "kind": "aging_effect",
         "characteristic": "End",
         "delta": -1,
@@ -2585,7 +2656,7 @@
       }
     },
     {
-      "seq": 172,
+      "seq": 177,
       "kind": "step",
       "step": {
         "name": "Rogue: Term 6",
@@ -2593,7 +2664,7 @@
       }
     },
     {
-      "seq": 173,
+      "seq": 178,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -2606,7 +2677,7 @@
       }
     },
     {
-      "seq": 174,
+      "seq": 179,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2621,10 +2692,10 @@
       }
     },
     {
-      "seq": 175,
+      "seq": 180,
       "kind": "consequence",
       "consequence": {
-        "cause": 173,
+        "cause": 178,
         "kind": "scheme",
         "skill": "Soldier",
         "career": "Rogue",
@@ -2632,7 +2703,7 @@
       }
     },
     {
-      "seq": 176,
+      "seq": 181,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2663,7 +2734,7 @@
       }
     },
     {
-      "seq": 177,
+      "seq": 182,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2684,7 +2755,7 @@
       }
     },
     {
-      "seq": 178,
+      "seq": 183,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2705,10 +2776,10 @@
       }
     },
     {
-      "seq": 179,
+      "seq": 184,
       "kind": "consequence",
       "consequence": {
-        "cause": 178,
+        "cause": 183,
         "kind": "payoff",
         "skill": "x3",
         "career": "Rogue",
@@ -2717,7 +2788,7 @@
       }
     },
     {
-      "seq": 180,
+      "seq": 185,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2736,7 +2807,7 @@
       }
     },
     {
-      "seq": 181,
+      "seq": 186,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2748,10 +2819,10 @@
       }
     },
     {
-      "seq": 182,
+      "seq": 187,
       "kind": "consequence",
       "consequence": {
-        "cause": 181,
+        "cause": 186,
         "kind": "skill_awarded",
         "skill": "Trader",
         "delta": 1,
@@ -2759,7 +2830,7 @@
       }
     },
     {
-      "seq": 183,
+      "seq": 188,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2778,7 +2849,7 @@
       }
     },
     {
-      "seq": 184,
+      "seq": 189,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2790,10 +2861,10 @@
       }
     },
     {
-      "seq": 185,
+      "seq": 190,
       "kind": "consequence",
       "consequence": {
-        "cause": 184,
+        "cause": 189,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -2801,7 +2872,7 @@
       }
     },
     {
-      "seq": 186,
+      "seq": 191,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2820,7 +2891,7 @@
       }
     },
     {
-      "seq": 187,
+      "seq": 192,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2832,10 +2903,10 @@
       }
     },
     {
-      "seq": 188,
+      "seq": 193,
       "kind": "consequence",
       "consequence": {
-        "cause": 187,
+        "cause": 192,
         "kind": "skill_awarded",
         "skill": "Broker",
         "delta": 1,
@@ -2843,7 +2914,7 @@
       }
     },
     {
-      "seq": 189,
+      "seq": 194,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2862,7 +2933,7 @@
       }
     },
     {
-      "seq": 190,
+      "seq": 195,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2874,10 +2945,10 @@
       }
     },
     {
-      "seq": 191,
+      "seq": 196,
       "kind": "consequence",
       "consequence": {
-        "cause": 190,
+        "cause": 195,
         "kind": "skill_awarded",
         "skill": "Computer",
         "delta": 1,
@@ -2885,7 +2956,7 @@
       }
     },
     {
-      "seq": 192,
+      "seq": 197,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2904,7 +2975,7 @@
       }
     },
     {
-      "seq": 193,
+      "seq": 198,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2916,10 +2987,10 @@
       }
     },
     {
-      "seq": 194,
+      "seq": 199,
       "kind": "consequence",
       "consequence": {
-        "cause": 193,
+        "cause": 198,
         "kind": "skill_awarded",
         "skill": "Broker",
         "delta": 1,
@@ -2927,7 +2998,7 @@
       }
     },
     {
-      "seq": 195,
+      "seq": 200,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2946,7 +3017,7 @@
       }
     },
     {
-      "seq": 196,
+      "seq": 201,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2958,10 +3029,10 @@
       }
     },
     {
-      "seq": 197,
+      "seq": 202,
       "kind": "consequence",
       "consequence": {
-        "cause": 196,
+        "cause": 201,
         "kind": "skill_awarded",
         "skill": "Computer",
         "delta": 1,
@@ -2969,7 +3040,21 @@
       }
     },
     {
-      "seq": 198,
+      "seq": 203,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Rogue for another career?",
+        "options": [
+          "Continue in Rogue",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 204,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2990,16 +3075,16 @@
       }
     },
     {
-      "seq": 199,
+      "seq": 205,
       "kind": "consequence",
       "consequence": {
-        "cause": 198,
+        "cause": 204,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 200,
+      "seq": 206,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3014,10 +3099,10 @@
       }
     },
     {
-      "seq": 201,
+      "seq": 207,
       "kind": "consequence",
       "consequence": {
-        "cause": 200,
+        "cause": 206,
         "kind": "aging_effect",
         "characteristic": "Str",
         "delta": -1,
@@ -3025,7 +3110,7 @@
       }
     },
     {
-      "seq": 202,
+      "seq": 208,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3040,7 +3125,7 @@
       }
     },
     {
-      "seq": 203,
+      "seq": 209,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3055,7 +3140,7 @@
       }
     },
     {
-      "seq": 204,
+      "seq": 210,
       "kind": "step",
       "step": {
         "name": "Rogue: Term 7",
@@ -3063,7 +3148,7 @@
       }
     },
     {
-      "seq": 205,
+      "seq": 211,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -3076,7 +3161,7 @@
       }
     },
     {
-      "seq": 206,
+      "seq": 212,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3091,10 +3176,10 @@
       }
     },
     {
-      "seq": 207,
+      "seq": 213,
       "kind": "consequence",
       "consequence": {
-        "cause": 205,
+        "cause": 211,
         "kind": "scheme",
         "skill": "Scholar",
         "career": "Rogue",
@@ -3102,7 +3187,7 @@
       }
     },
     {
-      "seq": 208,
+      "seq": 214,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3133,7 +3218,7 @@
       }
     },
     {
-      "seq": 209,
+      "seq": 215,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3154,7 +3239,7 @@
       }
     },
     {
-      "seq": 210,
+      "seq": 216,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3175,99 +3260,15 @@
       }
     },
     {
-      "seq": 211,
+      "seq": 217,
       "kind": "consequence",
       "consequence": {
-        "cause": 210,
+        "cause": 216,
         "kind": "payoff",
         "skill": "x2",
         "career": "Rogue",
         "delta": 200000,
         "value": 450000
-      }
-    },
-    {
-      "seq": 212,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Rogue Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "World Travel",
-          "Space Travel",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 4,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 213,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 84 chart 10 table C, column Business"
-      }
-    },
-    {
-      "seq": 214,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 213,
-        "kind": "skill_awarded",
-        "skill": "Computer",
-        "delta": 1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 215,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Rogue Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "World Travel",
-          "Space Travel",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 4,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 216,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 84 chart 10 table C, column Business"
-      }
-    },
-    {
-      "seq": 217,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 216,
-        "kind": "skill_awarded",
-        "skill": "Teacher",
-        "delta": 1,
-        "value": 7
       }
     },
     {
@@ -3295,9 +3296,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          2
+          3
         ],
-        "total": 2,
+        "total": 3,
         "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
@@ -3307,9 +3308,9 @@
       "consequence": {
         "cause": 219,
         "kind": "skill_awarded",
-        "skill": "Broker",
+        "skill": "Computer",
         "delta": 1,
-        "value": 10
+        "value": 7
       }
     },
     {
@@ -3337,9 +3338,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          4
+          5
         ],
-        "total": 4,
+        "total": 5,
         "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
@@ -3349,9 +3350,9 @@
       "consequence": {
         "cause": 222,
         "kind": "skill_awarded",
-        "skill": "JOT",
+        "skill": "Teacher",
         "delta": 1,
-        "value": 3
+        "value": 7
       }
     },
     {
@@ -3379,9 +3380,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          3
+          2
         ],
-        "total": 3,
+        "total": 2,
         "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
@@ -3391,9 +3392,9 @@
       "consequence": {
         "cause": 225,
         "kind": "skill_awarded",
-        "skill": "Computer",
+        "skill": "Broker",
         "delta": 1,
-        "value": 8
+        "value": 10
       }
     },
     {
@@ -3421,9 +3422,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          6
+          4
         ],
-        "total": 6,
+        "total": 4,
         "cite": "Book 1 p. 84 chart 10 table C, column Business"
       }
     },
@@ -3433,13 +3434,111 @@
       "consequence": {
         "cause": 228,
         "kind": "skill_awarded",
-        "skill": "Fighter",
+        "skill": "JOT",
         "delta": 1,
         "value": 3
       }
     },
     {
       "seq": 230,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 231,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 232,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 231,
+        "kind": "skill_awarded",
+        "skill": "Computer",
+        "delta": 1,
+        "value": 8
+      }
+    },
+    {
+      "seq": 233,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Rogue Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "World Travel",
+          "Space Travel",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 234,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 84 chart 10 table C, column Business"
+      }
+    },
+    {
+      "seq": 235,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 234,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 236,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Rogue for another career?",
+        "options": [
+          "Continue in Rogue",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 237,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3460,16 +3559,16 @@
       }
     },
     {
-      "seq": 231,
+      "seq": 238,
       "kind": "consequence",
       "consequence": {
-        "cause": 230,
+        "cause": 237,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 232,
+      "seq": 239,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3484,10 +3583,10 @@
       }
     },
     {
-      "seq": 233,
+      "seq": 240,
       "kind": "consequence",
       "consequence": {
-        "cause": 232,
+        "cause": 239,
         "kind": "aging_effect",
         "characteristic": "Str",
         "delta": -1,
@@ -3495,7 +3594,7 @@
       }
     },
     {
-      "seq": 234,
+      "seq": 241,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3510,7 +3609,7 @@
       }
     },
     {
-      "seq": 235,
+      "seq": 242,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3525,10 +3624,10 @@
       }
     },
     {
-      "seq": 236,
+      "seq": 243,
       "kind": "consequence",
       "consequence": {
-        "cause": 235,
+        "cause": 242,
         "kind": "aging_effect",
         "characteristic": "End",
         "delta": -1,
@@ -3536,7 +3635,7 @@
       }
     },
     {
-      "seq": 237,
+      "seq": 244,
       "kind": "step",
       "step": {
         "name": "Rogue: Term 8",
@@ -3544,7 +3643,7 @@
       }
     },
     {
-      "seq": 238,
+      "seq": 245,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -3557,7 +3656,7 @@
       }
     },
     {
-      "seq": 239,
+      "seq": 246,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3572,10 +3671,10 @@
       }
     },
     {
-      "seq": 240,
+      "seq": 247,
       "kind": "consequence",
       "consequence": {
-        "cause": 238,
+        "cause": 245,
         "kind": "scheme",
         "skill": "Merchant",
         "career": "Rogue",
@@ -3583,7 +3682,7 @@
       }
     },
     {
-      "seq": 241,
+      "seq": 248,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3614,7 +3713,7 @@
       }
     },
     {
-      "seq": 242,
+      "seq": 249,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3635,7 +3734,7 @@
       }
     },
     {
-      "seq": 243,
+      "seq": 250,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3656,15 +3755,15 @@
       }
     },
     {
-      "seq": 244,
+      "seq": 251,
       "kind": "consequence",
       "consequence": {
-        "cause": 243,
+        "cause": 250,
         "kind": "no_award"
       }
     },
     {
-      "seq": 245,
+      "seq": 252,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3683,7 +3782,7 @@
       }
     },
     {
-      "seq": 246,
+      "seq": 253,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3695,10 +3794,10 @@
       }
     },
     {
-      "seq": 247,
+      "seq": 254,
       "kind": "consequence",
       "consequence": {
-        "cause": 246,
+        "cause": 253,
         "kind": "skill_awarded",
         "skill": "Broker",
         "delta": 1,
@@ -3706,7 +3805,7 @@
       }
     },
     {
-      "seq": 248,
+      "seq": 255,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3725,7 +3824,7 @@
       }
     },
     {
-      "seq": 249,
+      "seq": 256,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3737,10 +3836,10 @@
       }
     },
     {
-      "seq": 250,
+      "seq": 257,
       "kind": "consequence",
       "consequence": {
-        "cause": 249,
+        "cause": 256,
         "kind": "skill_awarded",
         "skill": "Trader",
         "delta": 1,
@@ -3748,7 +3847,7 @@
       }
     },
     {
-      "seq": 251,
+      "seq": 258,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3767,7 +3866,7 @@
       }
     },
     {
-      "seq": 252,
+      "seq": 259,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3779,10 +3878,10 @@
       }
     },
     {
-      "seq": 253,
+      "seq": 260,
       "kind": "consequence",
       "consequence": {
-        "cause": 252,
+        "cause": 259,
         "kind": "skill_awarded",
         "skill": "Computer",
         "delta": 1,
@@ -3790,7 +3889,21 @@
       }
     },
     {
-      "seq": 254,
+      "seq": 261,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Rogue for another career?",
+        "options": [
+          "Continue in Rogue",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 262,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3811,16 +3924,16 @@
       }
     },
     {
-      "seq": 255,
+      "seq": 263,
       "kind": "consequence",
       "consequence": {
-        "cause": 254,
+        "cause": 262,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 256,
+      "seq": 264,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3835,20 +3948,20 @@
       }
     },
     {
-      "seq": 257,
+      "seq": 265,
       "kind": "consequence",
       "consequence": {
-        "cause": 256,
+        "cause": 264,
         "kind": "aging_effect",
         "characteristic": "Str",
         "delta": -1
       }
     },
     {
-      "seq": 258,
+      "seq": 266,
       "kind": "consequence",
       "consequence": {
-        "cause": 256,
+        "cause": 264,
         "kind": "characteristic_reset",
         "characteristic": "Str",
         "delta": 1,
@@ -3856,7 +3969,7 @@
       }
     },
     {
-      "seq": 259,
+      "seq": 267,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3871,10 +3984,10 @@
       }
     },
     {
-      "seq": 260,
+      "seq": 268,
       "kind": "consequence",
       "consequence": {
-        "cause": 259,
+        "cause": 267,
         "kind": "aging_effect",
         "characteristic": "Dex",
         "delta": -1,
@@ -3882,7 +3995,7 @@
       }
     },
     {
-      "seq": 261,
+      "seq": 269,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3897,7 +4010,7 @@
       }
     },
     {
-      "seq": 262,
+      "seq": 270,
       "kind": "step",
       "step": {
         "name": "Rogue: Term 9",
@@ -3905,7 +4018,7 @@
       }
     },
     {
-      "seq": 263,
+      "seq": 271,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -3918,7 +4031,7 @@
       }
     },
     {
-      "seq": 264,
+      "seq": 272,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3933,17 +4046,17 @@
       }
     },
     {
-      "seq": 265,
+      "seq": 273,
       "kind": "consequence",
       "consequence": {
-        "cause": 263,
+        "cause": 271,
         "kind": "scheme",
         "skill": "Spacer",
         "career": "Rogue"
       }
     },
     {
-      "seq": 266,
+      "seq": 274,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3974,7 +4087,7 @@
       }
     },
     {
-      "seq": 267,
+      "seq": 275,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3995,7 +4108,7 @@
       }
     },
     {
-      "seq": 268,
+      "seq": 276,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4016,15 +4129,15 @@
       }
     },
     {
-      "seq": 269,
+      "seq": 277,
       "kind": "consequence",
       "consequence": {
-        "cause": 268,
+        "cause": 276,
         "kind": "no_award"
       }
     },
     {
-      "seq": 270,
+      "seq": 278,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4043,7 +4156,7 @@
       }
     },
     {
-      "seq": 271,
+      "seq": 279,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4055,10 +4168,10 @@
       }
     },
     {
-      "seq": 272,
+      "seq": 280,
       "kind": "consequence",
       "consequence": {
-        "cause": 271,
+        "cause": 279,
         "kind": "skill_awarded",
         "skill": "Teacher",
         "delta": 1,
@@ -4066,7 +4179,7 @@
       }
     },
     {
-      "seq": 273,
+      "seq": 281,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4085,7 +4198,7 @@
       }
     },
     {
-      "seq": 274,
+      "seq": 282,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4097,10 +4210,10 @@
       }
     },
     {
-      "seq": 275,
+      "seq": 283,
       "kind": "consequence",
       "consequence": {
-        "cause": 274,
+        "cause": 282,
         "kind": "skill_awarded",
         "skill": "JOT",
         "delta": 1,
@@ -4108,7 +4221,7 @@
       }
     },
     {
-      "seq": 276,
+      "seq": 284,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4127,7 +4240,7 @@
       }
     },
     {
-      "seq": 277,
+      "seq": 285,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4139,10 +4252,10 @@
       }
     },
     {
-      "seq": 278,
+      "seq": 286,
       "kind": "consequence",
       "consequence": {
-        "cause": 277,
+        "cause": 285,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -4150,7 +4263,21 @@
       }
     },
     {
-      "seq": 279,
+      "seq": 287,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Rogue for another career?",
+        "options": [
+          "Continue in Rogue",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 288,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4171,16 +4298,16 @@
       }
     },
     {
-      "seq": 280,
+      "seq": 289,
       "kind": "consequence",
       "consequence": {
-        "cause": 279,
+        "cause": 288,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 281,
+      "seq": 290,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4195,7 +4322,7 @@
       }
     },
     {
-      "seq": 282,
+      "seq": 291,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4210,10 +4337,10 @@
       }
     },
     {
-      "seq": 283,
+      "seq": 292,
       "kind": "consequence",
       "consequence": {
-        "cause": 282,
+        "cause": 291,
         "kind": "aging_effect",
         "characteristic": "Dex",
         "delta": -1,
@@ -4221,7 +4348,7 @@
       }
     },
     {
-      "seq": 284,
+      "seq": 293,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4236,7 +4363,7 @@
       }
     },
     {
-      "seq": 285,
+      "seq": 294,
       "kind": "step",
       "step": {
         "name": "Rogue: Term 10",
@@ -4244,7 +4371,7 @@
       }
     },
     {
-      "seq": 286,
+      "seq": 295,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -4257,7 +4384,7 @@
       }
     },
     {
-      "seq": 287,
+      "seq": 296,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4272,10 +4399,10 @@
       }
     },
     {
-      "seq": 288,
+      "seq": 297,
       "kind": "consequence",
       "consequence": {
-        "cause": 286,
+        "cause": 295,
         "kind": "scheme",
         "skill": "Scout",
         "career": "Rogue",
@@ -4283,7 +4410,7 @@
       }
     },
     {
-      "seq": 289,
+      "seq": 298,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4314,7 +4441,7 @@
       }
     },
     {
-      "seq": 290,
+      "seq": 299,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4335,7 +4462,7 @@
       }
     },
     {
-      "seq": 291,
+      "seq": 300,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4356,15 +4483,15 @@
       }
     },
     {
-      "seq": 292,
+      "seq": 301,
       "kind": "consequence",
       "consequence": {
-        "cause": 291,
+        "cause": 300,
         "kind": "no_award"
       }
     },
     {
-      "seq": 293,
+      "seq": 302,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4383,7 +4510,7 @@
       }
     },
     {
-      "seq": 294,
+      "seq": 303,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4395,10 +4522,10 @@
       }
     },
     {
-      "seq": 295,
+      "seq": 304,
       "kind": "consequence",
       "consequence": {
-        "cause": 294,
+        "cause": 303,
         "kind": "skill_awarded",
         "skill": "Broker",
         "delta": 1,
@@ -4406,7 +4533,7 @@
       }
     },
     {
-      "seq": 296,
+      "seq": 305,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4425,7 +4552,7 @@
       }
     },
     {
-      "seq": 297,
+      "seq": 306,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4437,10 +4564,10 @@
       }
     },
     {
-      "seq": 298,
+      "seq": 307,
       "kind": "consequence",
       "consequence": {
-        "cause": 297,
+        "cause": 306,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -4448,7 +4575,7 @@
       }
     },
     {
-      "seq": 299,
+      "seq": 308,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4467,7 +4594,7 @@
       }
     },
     {
-      "seq": 300,
+      "seq": 309,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4479,10 +4606,10 @@
       }
     },
     {
-      "seq": 301,
+      "seq": 310,
       "kind": "consequence",
       "consequence": {
-        "cause": 300,
+        "cause": 309,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -4490,7 +4617,21 @@
       }
     },
     {
-      "seq": 302,
+      "seq": 311,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Rogue for another career?",
+        "options": [
+          "Continue in Rogue",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 312,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4511,16 +4652,16 @@
       }
     },
     {
-      "seq": 303,
+      "seq": 313,
       "kind": "consequence",
       "consequence": {
-        "cause": 302,
+        "cause": 312,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 304,
+      "seq": 314,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4535,20 +4676,20 @@
       }
     },
     {
-      "seq": 305,
+      "seq": 315,
       "kind": "consequence",
       "consequence": {
-        "cause": 304,
+        "cause": 314,
         "kind": "aging_effect",
         "characteristic": "Str",
         "delta": -1
       }
     },
     {
-      "seq": 306,
+      "seq": 316,
       "kind": "consequence",
       "consequence": {
-        "cause": 304,
+        "cause": 314,
         "kind": "characteristic_reset",
         "characteristic": "Str",
         "delta": 1,
@@ -4556,7 +4697,7 @@
       }
     },
     {
-      "seq": 307,
+      "seq": 317,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4571,7 +4712,7 @@
       }
     },
     {
-      "seq": 308,
+      "seq": 318,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4586,10 +4727,10 @@
       }
     },
     {
-      "seq": 309,
+      "seq": 319,
       "kind": "consequence",
       "consequence": {
-        "cause": 308,
+        "cause": 318,
         "kind": "aging_effect",
         "characteristic": "End",
         "delta": -1,
@@ -4597,7 +4738,7 @@
       }
     },
     {
-      "seq": 310,
+      "seq": 320,
       "kind": "step",
       "step": {
         "name": "Rogue: Term 11",
@@ -4605,7 +4746,7 @@
       }
     },
     {
-      "seq": 311,
+      "seq": 321,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -4618,7 +4759,7 @@
       }
     },
     {
-      "seq": 312,
+      "seq": 322,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4633,10 +4774,10 @@
       }
     },
     {
-      "seq": 313,
+      "seq": 323,
       "kind": "consequence",
       "consequence": {
-        "cause": 311,
+        "cause": 321,
         "kind": "scheme",
         "skill": "Noble",
         "career": "Rogue",
@@ -4644,7 +4785,7 @@
       }
     },
     {
-      "seq": 314,
+      "seq": 324,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4675,7 +4816,7 @@
       }
     },
     {
-      "seq": 315,
+      "seq": 325,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4696,7 +4837,7 @@
       }
     },
     {
-      "seq": 316,
+      "seq": 326,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4717,15 +4858,15 @@
       }
     },
     {
-      "seq": 317,
+      "seq": 327,
       "kind": "consequence",
       "consequence": {
-        "cause": 316,
+        "cause": 326,
         "kind": "no_award"
       }
     },
     {
-      "seq": 318,
+      "seq": 328,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4744,7 +4885,7 @@
       }
     },
     {
-      "seq": 319,
+      "seq": 329,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4756,10 +4897,10 @@
       }
     },
     {
-      "seq": 320,
+      "seq": 330,
       "kind": "consequence",
       "consequence": {
-        "cause": 319,
+        "cause": 329,
         "kind": "skill_awarded",
         "skill": "Trader",
         "delta": 1,
@@ -4767,7 +4908,7 @@
       }
     },
     {
-      "seq": 321,
+      "seq": 331,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4786,7 +4927,7 @@
       }
     },
     {
-      "seq": 322,
+      "seq": 332,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4798,10 +4939,10 @@
       }
     },
     {
-      "seq": 323,
+      "seq": 333,
       "kind": "consequence",
       "consequence": {
-        "cause": 322,
+        "cause": 332,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -4809,7 +4950,7 @@
       }
     },
     {
-      "seq": 324,
+      "seq": 334,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4828,7 +4969,7 @@
       }
     },
     {
-      "seq": 325,
+      "seq": 335,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4840,10 +4981,10 @@
       }
     },
     {
-      "seq": 326,
+      "seq": 336,
       "kind": "consequence",
       "consequence": {
-        "cause": 325,
+        "cause": 335,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -4851,7 +4992,21 @@
       }
     },
     {
-      "seq": 327,
+      "seq": 337,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Rogue for another career?",
+        "options": [
+          "Continue in Rogue",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 338,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4872,16 +5027,16 @@
       }
     },
     {
-      "seq": 328,
+      "seq": 339,
       "kind": "consequence",
       "consequence": {
-        "cause": 327,
+        "cause": 338,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 329,
+      "seq": 340,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4896,20 +5051,20 @@
       }
     },
     {
-      "seq": 330,
+      "seq": 341,
       "kind": "consequence",
       "consequence": {
-        "cause": 329,
+        "cause": 340,
         "kind": "aging_effect",
         "characteristic": "Str",
         "delta": -1
       }
     },
     {
-      "seq": 331,
+      "seq": 342,
       "kind": "consequence",
       "consequence": {
-        "cause": 329,
+        "cause": 340,
         "kind": "characteristic_reset",
         "characteristic": "Str",
         "delta": 1,
@@ -4917,7 +5072,7 @@
       }
     },
     {
-      "seq": 332,
+      "seq": 343,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4932,10 +5087,10 @@
       }
     },
     {
-      "seq": 333,
+      "seq": 344,
       "kind": "consequence",
       "consequence": {
-        "cause": 332,
+        "cause": 343,
         "kind": "aging_effect",
         "characteristic": "Dex",
         "delta": -1,
@@ -4943,7 +5098,7 @@
       }
     },
     {
-      "seq": 334,
+      "seq": 345,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4958,10 +5113,10 @@
       }
     },
     {
-      "seq": 335,
+      "seq": 346,
       "kind": "consequence",
       "consequence": {
-        "cause": 334,
+        "cause": 345,
         "kind": "aging_effect",
         "characteristic": "End",
         "delta": -1,
@@ -4969,7 +5124,7 @@
       }
     },
     {
-      "seq": 336,
+      "seq": 347,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4984,10 +5139,10 @@
       }
     },
     {
-      "seq": 337,
+      "seq": 348,
       "kind": "consequence",
       "consequence": {
-        "cause": 336,
+        "cause": 347,
         "kind": "aging_effect",
         "characteristic": "Int",
         "delta": -1,
@@ -4995,7 +5150,7 @@
       }
     },
     {
-      "seq": 338,
+      "seq": 349,
       "kind": "step",
       "step": {
         "name": "Rogue: Term 12",
@@ -5003,7 +5158,7 @@
       }
     },
     {
-      "seq": 339,
+      "seq": 350,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -5016,7 +5171,7 @@
       }
     },
     {
-      "seq": 340,
+      "seq": 351,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5031,10 +5186,10 @@
       }
     },
     {
-      "seq": 341,
+      "seq": 352,
       "kind": "consequence",
       "consequence": {
-        "cause": 339,
+        "cause": 350,
         "kind": "scheme",
         "skill": "Soldier",
         "career": "Rogue",
@@ -5042,7 +5197,7 @@
       }
     },
     {
-      "seq": 342,
+      "seq": 353,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5073,7 +5228,7 @@
       }
     },
     {
-      "seq": 343,
+      "seq": 354,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -5094,7 +5249,7 @@
       }
     },
     {
-      "seq": 344,
+      "seq": 355,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -5115,15 +5270,15 @@
       }
     },
     {
-      "seq": 345,
+      "seq": 356,
       "kind": "consequence",
       "consequence": {
-        "cause": 344,
+        "cause": 355,
         "kind": "no_award"
       }
     },
     {
-      "seq": 346,
+      "seq": 357,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5142,7 +5297,7 @@
       }
     },
     {
-      "seq": 347,
+      "seq": 358,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -5154,10 +5309,10 @@
       }
     },
     {
-      "seq": 348,
+      "seq": 359,
       "kind": "consequence",
       "consequence": {
-        "cause": 347,
+        "cause": 358,
         "kind": "skill_awarded",
         "skill": "Teacher",
         "delta": 1,
@@ -5165,7 +5320,7 @@
       }
     },
     {
-      "seq": 349,
+      "seq": 360,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5184,7 +5339,7 @@
       }
     },
     {
-      "seq": 350,
+      "seq": 361,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -5196,10 +5351,10 @@
       }
     },
     {
-      "seq": 351,
+      "seq": 362,
       "kind": "consequence",
       "consequence": {
-        "cause": 350,
+        "cause": 361,
         "kind": "skill_awarded",
         "skill": "Teacher",
         "delta": 1,
@@ -5207,7 +5362,7 @@
       }
     },
     {
-      "seq": 352,
+      "seq": 363,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5226,7 +5381,7 @@
       }
     },
     {
-      "seq": 353,
+      "seq": 364,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -5238,10 +5393,10 @@
       }
     },
     {
-      "seq": 354,
+      "seq": 365,
       "kind": "consequence",
       "consequence": {
-        "cause": 353,
+        "cause": 364,
         "kind": "skill_awarded",
         "skill": "Teacher",
         "delta": 1,
@@ -5249,7 +5404,21 @@
       }
     },
     {
-      "seq": 355,
+      "seq": 366,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Rogue for another career?",
+        "options": [
+          "Continue in Rogue",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 367,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -5270,16 +5439,16 @@
       }
     },
     {
-      "seq": 356,
+      "seq": 368,
       "kind": "consequence",
       "consequence": {
-        "cause": 355,
+        "cause": 367,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 357,
+      "seq": 369,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -5294,20 +5463,20 @@
       }
     },
     {
-      "seq": 358,
+      "seq": 370,
       "kind": "consequence",
       "consequence": {
-        "cause": 357,
+        "cause": 369,
         "kind": "aging_effect",
         "characteristic": "Str",
         "delta": -1
       }
     },
     {
-      "seq": 359,
+      "seq": 371,
       "kind": "consequence",
       "consequence": {
-        "cause": 357,
+        "cause": 369,
         "kind": "characteristic_reset",
         "characteristic": "Str",
         "delta": 1,
@@ -5315,7 +5484,7 @@
       }
     },
     {
-      "seq": 360,
+      "seq": 372,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -5330,10 +5499,10 @@
       }
     },
     {
-      "seq": 361,
+      "seq": 373,
       "kind": "consequence",
       "consequence": {
-        "cause": 360,
+        "cause": 372,
         "kind": "aging_effect",
         "characteristic": "Dex",
         "delta": -1,
@@ -5341,7 +5510,7 @@
       }
     },
     {
-      "seq": 362,
+      "seq": 374,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -5356,7 +5525,7 @@
       }
     },
     {
-      "seq": 363,
+      "seq": 375,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -5371,7 +5540,7 @@
       }
     },
     {
-      "seq": 364,
+      "seq": 376,
       "kind": "step",
       "step": {
         "name": "Rogue: Term 13",
@@ -5379,7 +5548,7 @@
       }
     },
     {
-      "seq": 365,
+      "seq": 377,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -5392,7 +5561,7 @@
       }
     },
     {
-      "seq": 366,
+      "seq": 378,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5407,10 +5576,10 @@
       }
     },
     {
-      "seq": 367,
+      "seq": 379,
       "kind": "consequence",
       "consequence": {
-        "cause": 365,
+        "cause": 377,
         "kind": "scheme",
         "skill": "Noble",
         "career": "Rogue",
@@ -5418,7 +5587,7 @@
       }
     },
     {
-      "seq": 368,
+      "seq": 380,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5449,7 +5618,7 @@
       }
     },
     {
-      "seq": 369,
+      "seq": 381,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -5470,7 +5639,7 @@
       }
     },
     {
-      "seq": 370,
+      "seq": 382,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -5491,15 +5660,15 @@
       }
     },
     {
-      "seq": 371,
+      "seq": 383,
       "kind": "consequence",
       "consequence": {
-        "cause": 370,
+        "cause": 382,
         "kind": "no_award"
       }
     },
     {
-      "seq": 372,
+      "seq": 384,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5518,7 +5687,7 @@
       }
     },
     {
-      "seq": 373,
+      "seq": 385,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -5530,10 +5699,10 @@
       }
     },
     {
-      "seq": 374,
+      "seq": 386,
       "kind": "consequence",
       "consequence": {
-        "cause": 373,
+        "cause": 385,
         "kind": "skill_awarded",
         "skill": "Teacher",
         "delta": 1,
@@ -5541,7 +5710,7 @@
       }
     },
     {
-      "seq": 375,
+      "seq": 387,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5560,7 +5729,7 @@
       }
     },
     {
-      "seq": 376,
+      "seq": 388,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -5572,10 +5741,10 @@
       }
     },
     {
-      "seq": 377,
+      "seq": 389,
       "kind": "consequence",
       "consequence": {
-        "cause": 376,
+        "cause": 388,
         "kind": "skill_awarded",
         "skill": "JOT",
         "delta": 1,
@@ -5583,7 +5752,7 @@
       }
     },
     {
-      "seq": 378,
+      "seq": 390,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5602,7 +5771,7 @@
       }
     },
     {
-      "seq": 379,
+      "seq": 391,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -5614,10 +5783,10 @@
       }
     },
     {
-      "seq": 380,
+      "seq": 392,
       "kind": "consequence",
       "consequence": {
-        "cause": 379,
+        "cause": 391,
         "kind": "skill_awarded",
         "skill": "Computer",
         "delta": 1,
@@ -5625,7 +5794,21 @@
       }
     },
     {
-      "seq": 381,
+      "seq": 393,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Rogue for another career?",
+        "options": [
+          "Continue in Rogue",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 394,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -5646,16 +5829,16 @@
       }
     },
     {
-      "seq": 382,
+      "seq": 395,
       "kind": "consequence",
       "consequence": {
-        "cause": 381,
+        "cause": 394,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 383,
+      "seq": 396,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -5670,7 +5853,7 @@
       }
     },
     {
-      "seq": 384,
+      "seq": 397,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -5685,20 +5868,20 @@
       }
     },
     {
-      "seq": 385,
+      "seq": 398,
       "kind": "consequence",
       "consequence": {
-        "cause": 384,
+        "cause": 397,
         "kind": "aging_effect",
         "characteristic": "Dex",
         "delta": -1
       }
     },
     {
-      "seq": 386,
+      "seq": 399,
       "kind": "consequence",
       "consequence": {
-        "cause": 384,
+        "cause": 397,
         "kind": "characteristic_reset",
         "characteristic": "Dex",
         "delta": 1,
@@ -5706,7 +5889,7 @@
       }
     },
     {
-      "seq": 387,
+      "seq": 400,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -5721,10 +5904,10 @@
       }
     },
     {
-      "seq": 388,
+      "seq": 401,
       "kind": "consequence",
       "consequence": {
-        "cause": 387,
+        "cause": 400,
         "kind": "aging_effect",
         "characteristic": "End",
         "delta": -1,
@@ -5732,7 +5915,7 @@
       }
     },
     {
-      "seq": 389,
+      "seq": 402,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -5747,10 +5930,10 @@
       }
     },
     {
-      "seq": 390,
+      "seq": 403,
       "kind": "consequence",
       "consequence": {
-        "cause": 389,
+        "cause": 402,
         "kind": "aging_effect",
         "characteristic": "Int",
         "delta": -1,
@@ -5758,7 +5941,7 @@
       }
     },
     {
-      "seq": 391,
+      "seq": 404,
       "kind": "step",
       "step": {
         "name": "Rogue: Term 14",
@@ -5766,7 +5949,7 @@
       }
     },
     {
-      "seq": 392,
+      "seq": 405,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -5779,7 +5962,7 @@
       }
     },
     {
-      "seq": 393,
+      "seq": 406,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5794,10 +5977,10 @@
       }
     },
     {
-      "seq": 394,
+      "seq": 407,
       "kind": "consequence",
       "consequence": {
-        "cause": 392,
+        "cause": 405,
         "kind": "scheme",
         "skill": "Entertainer",
         "career": "Rogue",
@@ -5805,7 +5988,7 @@
       }
     },
     {
-      "seq": 395,
+      "seq": 408,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5836,7 +6019,7 @@
       }
     },
     {
-      "seq": 396,
+      "seq": 409,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -5857,7 +6040,7 @@
       }
     },
     {
-      "seq": 397,
+      "seq": 410,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -5878,15 +6061,15 @@
       }
     },
     {
-      "seq": 398,
+      "seq": 411,
       "kind": "consequence",
       "consequence": {
-        "cause": 397,
+        "cause": 410,
         "kind": "no_award"
       }
     },
     {
-      "seq": 399,
+      "seq": 412,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5905,7 +6088,7 @@
       }
     },
     {
-      "seq": 400,
+      "seq": 413,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -5917,10 +6100,10 @@
       }
     },
     {
-      "seq": 401,
+      "seq": 414,
       "kind": "consequence",
       "consequence": {
-        "cause": 400,
+        "cause": 413,
         "kind": "skill_awarded",
         "skill": "Broker",
         "delta": 1,
@@ -5928,7 +6111,7 @@
       }
     },
     {
-      "seq": 402,
+      "seq": 415,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5947,7 +6130,7 @@
       }
     },
     {
-      "seq": 403,
+      "seq": 416,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -5959,10 +6142,10 @@
       }
     },
     {
-      "seq": 404,
+      "seq": 417,
       "kind": "consequence",
       "consequence": {
-        "cause": 403,
+        "cause": 416,
         "kind": "skill_awarded",
         "skill": "JOT",
         "delta": 1,
@@ -5970,7 +6153,7 @@
       }
     },
     {
-      "seq": 405,
+      "seq": 418,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5989,7 +6172,7 @@
       }
     },
     {
-      "seq": 406,
+      "seq": 419,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -6001,10 +6184,10 @@
       }
     },
     {
-      "seq": 407,
+      "seq": 420,
       "kind": "consequence",
       "consequence": {
-        "cause": 406,
+        "cause": 419,
         "kind": "skill_awarded",
         "skill": "JOT",
         "delta": 1,
@@ -6012,7 +6195,21 @@
       }
     },
     {
-      "seq": 408,
+      "seq": 421,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Rogue for another career?",
+        "options": [
+          "Continue in Rogue",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 422,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -6033,16 +6230,16 @@
       }
     },
     {
-      "seq": 409,
+      "seq": 423,
       "kind": "consequence",
       "consequence": {
-        "cause": 408,
+        "cause": 422,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 410,
+      "seq": 424,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -6057,20 +6254,20 @@
       }
     },
     {
-      "seq": 411,
+      "seq": 425,
       "kind": "consequence",
       "consequence": {
-        "cause": 410,
+        "cause": 424,
         "kind": "aging_effect",
         "characteristic": "Str",
         "delta": -1
       }
     },
     {
-      "seq": 412,
+      "seq": 426,
       "kind": "consequence",
       "consequence": {
-        "cause": 410,
+        "cause": 424,
         "kind": "characteristic_reset",
         "characteristic": "Str",
         "delta": 1,
@@ -6078,7 +6275,7 @@
       }
     },
     {
-      "seq": 413,
+      "seq": 427,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -6093,20 +6290,20 @@
       }
     },
     {
-      "seq": 414,
+      "seq": 428,
       "kind": "consequence",
       "consequence": {
-        "cause": 413,
+        "cause": 427,
         "kind": "aging_effect",
         "characteristic": "Dex",
         "delta": -1
       }
     },
     {
-      "seq": 415,
+      "seq": 429,
       "kind": "consequence",
       "consequence": {
-        "cause": 413,
+        "cause": 427,
         "kind": "characteristic_reset",
         "characteristic": "Dex",
         "delta": 1,
@@ -6114,7 +6311,7 @@
       }
     },
     {
-      "seq": 416,
+      "seq": 430,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -6129,7 +6326,7 @@
       }
     },
     {
-      "seq": 417,
+      "seq": 431,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -6144,16 +6341,16 @@
       }
     },
     {
-      "seq": 418,
+      "seq": 432,
       "kind": "consequence",
       "consequence": {
-        "cause": 413,
+        "cause": 427,
         "kind": "major_illness",
         "value": 2
       }
     },
     {
-      "seq": 419,
+      "seq": 433,
       "kind": "step",
       "step": {
         "name": "Rogue: Term 15",
@@ -6161,7 +6358,7 @@
       }
     },
     {
-      "seq": 420,
+      "seq": 434,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -6174,7 +6371,7 @@
       }
     },
     {
-      "seq": 421,
+      "seq": 435,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6189,10 +6386,10 @@
       }
     },
     {
-      "seq": 422,
+      "seq": 436,
       "kind": "consequence",
       "consequence": {
-        "cause": 420,
+        "cause": 434,
         "kind": "scheme",
         "skill": "Scout",
         "career": "Rogue",
@@ -6200,7 +6397,7 @@
       }
     },
     {
-      "seq": 423,
+      "seq": 437,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6231,7 +6428,7 @@
       }
     },
     {
-      "seq": 424,
+      "seq": 438,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -6252,7 +6449,7 @@
       }
     },
     {
-      "seq": 425,
+      "seq": 439,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -6273,15 +6470,15 @@
       }
     },
     {
-      "seq": 426,
+      "seq": 440,
       "kind": "consequence",
       "consequence": {
-        "cause": 425,
+        "cause": 439,
         "kind": "no_award"
       }
     },
     {
-      "seq": 427,
+      "seq": 441,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6300,7 +6497,7 @@
       }
     },
     {
-      "seq": 428,
+      "seq": 442,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -6312,10 +6509,10 @@
       }
     },
     {
-      "seq": 429,
+      "seq": 443,
       "kind": "consequence",
       "consequence": {
-        "cause": 428,
+        "cause": 442,
         "kind": "skill_awarded",
         "skill": "JOT",
         "delta": 1,
@@ -6323,7 +6520,7 @@
       }
     },
     {
-      "seq": 430,
+      "seq": 444,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6342,7 +6539,7 @@
       }
     },
     {
-      "seq": 431,
+      "seq": 445,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -6354,10 +6551,10 @@
       }
     },
     {
-      "seq": 432,
+      "seq": 446,
       "kind": "consequence",
       "consequence": {
-        "cause": 431,
+        "cause": 445,
         "kind": "skill_awarded",
         "skill": "Teacher",
         "delta": 1,
@@ -6365,7 +6562,7 @@
       }
     },
     {
-      "seq": 433,
+      "seq": 447,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6384,7 +6581,7 @@
       }
     },
     {
-      "seq": 434,
+      "seq": 448,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -6396,10 +6593,10 @@
       }
     },
     {
-      "seq": 435,
+      "seq": 449,
       "kind": "consequence",
       "consequence": {
-        "cause": 434,
+        "cause": 448,
         "kind": "skill_awarded",
         "skill": "Teacher",
         "delta": 1,
@@ -6407,7 +6604,21 @@
       }
     },
     {
-      "seq": 436,
+      "seq": 450,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Rogue for another career?",
+        "options": [
+          "Continue in Rogue",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 451,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -6428,16 +6639,16 @@
       }
     },
     {
-      "seq": 437,
+      "seq": 452,
       "kind": "consequence",
       "consequence": {
-        "cause": 436,
+        "cause": 451,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 438,
+      "seq": 453,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -6452,20 +6663,20 @@
       }
     },
     {
-      "seq": 439,
+      "seq": 454,
       "kind": "consequence",
       "consequence": {
-        "cause": 438,
+        "cause": 453,
         "kind": "aging_effect",
         "characteristic": "Str",
         "delta": -1
       }
     },
     {
-      "seq": 440,
+      "seq": 455,
       "kind": "consequence",
       "consequence": {
-        "cause": 438,
+        "cause": 453,
         "kind": "characteristic_reset",
         "characteristic": "Str",
         "delta": 1,
@@ -6473,7 +6684,7 @@
       }
     },
     {
-      "seq": 441,
+      "seq": 456,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -6488,20 +6699,20 @@
       }
     },
     {
-      "seq": 442,
+      "seq": 457,
       "kind": "consequence",
       "consequence": {
-        "cause": 441,
+        "cause": 456,
         "kind": "aging_effect",
         "characteristic": "Dex",
         "delta": -1
       }
     },
     {
-      "seq": 443,
+      "seq": 458,
       "kind": "consequence",
       "consequence": {
-        "cause": 441,
+        "cause": 456,
         "kind": "characteristic_reset",
         "characteristic": "Dex",
         "delta": 1,
@@ -6509,7 +6720,7 @@
       }
     },
     {
-      "seq": 444,
+      "seq": 459,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -6524,7 +6735,7 @@
       }
     },
     {
-      "seq": 445,
+      "seq": 460,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -6539,10 +6750,10 @@
       }
     },
     {
-      "seq": 446,
+      "seq": 461,
       "kind": "consequence",
       "consequence": {
-        "cause": 445,
+        "cause": 460,
         "kind": "aging_effect",
         "characteristic": "Int",
         "delta": -1,
@@ -6550,16 +6761,16 @@
       }
     },
     {
-      "seq": 447,
+      "seq": 462,
       "kind": "consequence",
       "consequence": {
-        "cause": 441,
+        "cause": 456,
         "kind": "major_illness",
         "value": 2
       }
     },
     {
-      "seq": 448,
+      "seq": 463,
       "kind": "step",
       "step": {
         "name": "Rogue: Term 16",
@@ -6567,7 +6778,7 @@
       }
     },
     {
-      "seq": 449,
+      "seq": 464,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -6580,7 +6791,7 @@
       }
     },
     {
-      "seq": 450,
+      "seq": 465,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6595,10 +6806,10 @@
       }
     },
     {
-      "seq": 451,
+      "seq": 466,
       "kind": "consequence",
       "consequence": {
-        "cause": 449,
+        "cause": 464,
         "kind": "scheme",
         "skill": "Merchant",
         "career": "Rogue",
@@ -6606,7 +6817,7 @@
       }
     },
     {
-      "seq": 452,
+      "seq": 467,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6637,7 +6848,7 @@
       }
     },
     {
-      "seq": 453,
+      "seq": 468,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -6658,7 +6869,7 @@
       }
     },
     {
-      "seq": 454,
+      "seq": 469,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -6679,15 +6890,15 @@
       }
     },
     {
-      "seq": 455,
+      "seq": 470,
       "kind": "consequence",
       "consequence": {
-        "cause": 454,
+        "cause": 469,
         "kind": "no_award"
       }
     },
     {
-      "seq": 456,
+      "seq": 471,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6706,7 +6917,7 @@
       }
     },
     {
-      "seq": 457,
+      "seq": 472,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -6718,10 +6929,10 @@
       }
     },
     {
-      "seq": 458,
+      "seq": 473,
       "kind": "consequence",
       "consequence": {
-        "cause": 457,
+        "cause": 472,
         "kind": "skill_awarded",
         "skill": "Teacher",
         "delta": 1,
@@ -6729,7 +6940,7 @@
       }
     },
     {
-      "seq": 459,
+      "seq": 474,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6748,7 +6959,7 @@
       }
     },
     {
-      "seq": 460,
+      "seq": 475,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -6760,10 +6971,10 @@
       }
     },
     {
-      "seq": 461,
+      "seq": 476,
       "kind": "consequence",
       "consequence": {
-        "cause": 460,
+        "cause": 475,
         "kind": "skill_awarded",
         "skill": "Broker",
         "delta": 1,
@@ -6771,7 +6982,7 @@
       }
     },
     {
-      "seq": 462,
+      "seq": 477,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6790,7 +7001,7 @@
       }
     },
     {
-      "seq": 463,
+      "seq": 478,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -6802,10 +7013,10 @@
       }
     },
     {
-      "seq": 464,
+      "seq": 479,
       "kind": "consequence",
       "consequence": {
-        "cause": 463,
+        "cause": 478,
         "kind": "skill_awarded",
         "skill": "Computer",
         "delta": 1,
@@ -6813,7 +7024,21 @@
       }
     },
     {
-      "seq": 465,
+      "seq": 480,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Rogue for another career?",
+        "options": [
+          "Continue in Rogue",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 481,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -6834,16 +7059,16 @@
       }
     },
     {
-      "seq": 466,
+      "seq": 482,
       "kind": "consequence",
       "consequence": {
-        "cause": 465,
+        "cause": 481,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 467,
+      "seq": 483,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -6858,20 +7083,20 @@
       }
     },
     {
-      "seq": 468,
+      "seq": 484,
       "kind": "consequence",
       "consequence": {
-        "cause": 467,
+        "cause": 483,
         "kind": "aging_effect",
         "characteristic": "Str",
         "delta": -1
       }
     },
     {
-      "seq": 469,
+      "seq": 485,
       "kind": "consequence",
       "consequence": {
-        "cause": 467,
+        "cause": 483,
         "kind": "characteristic_reset",
         "characteristic": "Str",
         "delta": 1,
@@ -6879,7 +7104,7 @@
       }
     },
     {
-      "seq": 470,
+      "seq": 486,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -6894,20 +7119,20 @@
       }
     },
     {
-      "seq": 471,
+      "seq": 487,
       "kind": "consequence",
       "consequence": {
-        "cause": 470,
+        "cause": 486,
         "kind": "aging_effect",
         "characteristic": "Dex",
         "delta": -1
       }
     },
     {
-      "seq": 472,
+      "seq": 488,
       "kind": "consequence",
       "consequence": {
-        "cause": 470,
+        "cause": 486,
         "kind": "characteristic_reset",
         "characteristic": "Dex",
         "delta": 1,
@@ -6915,7 +7140,7 @@
       }
     },
     {
-      "seq": 473,
+      "seq": 489,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -6930,20 +7155,20 @@
       }
     },
     {
-      "seq": 474,
+      "seq": 490,
       "kind": "consequence",
       "consequence": {
-        "cause": 473,
+        "cause": 489,
         "kind": "aging_effect",
         "characteristic": "End",
         "delta": -1
       }
     },
     {
-      "seq": 475,
+      "seq": 491,
       "kind": "consequence",
       "consequence": {
-        "cause": 473,
+        "cause": 489,
         "kind": "characteristic_reset",
         "characteristic": "End",
         "delta": 1,
@@ -6951,7 +7176,7 @@
       }
     },
     {
-      "seq": 476,
+      "seq": 492,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -6966,16 +7191,16 @@
       }
     },
     {
-      "seq": 477,
+      "seq": 493,
       "kind": "consequence",
       "consequence": {
-        "cause": 473,
+        "cause": 489,
         "kind": "extremely_major_illness",
         "value": 3
       }
     },
     {
-      "seq": 478,
+      "seq": 494,
       "kind": "step",
       "step": {
         "name": "Rogue: Term 17",
@@ -6983,7 +7208,7 @@
       }
     },
     {
-      "seq": 479,
+      "seq": 495,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -6996,7 +7221,7 @@
       }
     },
     {
-      "seq": 480,
+      "seq": 496,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -7011,10 +7236,10 @@
       }
     },
     {
-      "seq": 481,
+      "seq": 497,
       "kind": "consequence",
       "consequence": {
-        "cause": 479,
+        "cause": 495,
         "kind": "scheme",
         "skill": "Merchant",
         "career": "Rogue",
@@ -7022,7 +7247,7 @@
       }
     },
     {
-      "seq": 482,
+      "seq": 498,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -7053,7 +7278,7 @@
       }
     },
     {
-      "seq": 483,
+      "seq": 499,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -7074,7 +7299,7 @@
       }
     },
     {
-      "seq": 484,
+      "seq": 500,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -7095,15 +7320,15 @@
       }
     },
     {
-      "seq": 485,
+      "seq": 501,
       "kind": "consequence",
       "consequence": {
-        "cause": 484,
+        "cause": 500,
         "kind": "no_award"
       }
     },
     {
-      "seq": 486,
+      "seq": 502,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -7122,7 +7347,7 @@
       }
     },
     {
-      "seq": 487,
+      "seq": 503,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -7134,10 +7359,10 @@
       }
     },
     {
-      "seq": 488,
+      "seq": 504,
       "kind": "consequence",
       "consequence": {
-        "cause": 487,
+        "cause": 503,
         "kind": "skill_awarded",
         "skill": "JOT",
         "delta": 1,
@@ -7145,7 +7370,7 @@
       }
     },
     {
-      "seq": 489,
+      "seq": 505,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -7164,7 +7389,7 @@
       }
     },
     {
-      "seq": 490,
+      "seq": 506,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -7176,10 +7401,10 @@
       }
     },
     {
-      "seq": 491,
+      "seq": 507,
       "kind": "consequence",
       "consequence": {
-        "cause": 490,
+        "cause": 506,
         "kind": "skill_awarded",
         "skill": "Broker",
         "delta": 1,
@@ -7187,7 +7412,7 @@
       }
     },
     {
-      "seq": 492,
+      "seq": 508,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -7206,7 +7431,7 @@
       }
     },
     {
-      "seq": 493,
+      "seq": 509,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -7218,10 +7443,10 @@
       }
     },
     {
-      "seq": 494,
+      "seq": 510,
       "kind": "consequence",
       "consequence": {
-        "cause": 493,
+        "cause": 509,
         "kind": "skill_awarded",
         "skill": "Computer",
         "delta": 1,
@@ -7229,7 +7454,21 @@
       }
     },
     {
-      "seq": 495,
+      "seq": 511,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Rogue for another career?",
+        "options": [
+          "Continue in Rogue",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 512,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -7250,16 +7489,16 @@
       }
     },
     {
-      "seq": 496,
+      "seq": 513,
       "kind": "consequence",
       "consequence": {
-        "cause": 495,
+        "cause": 512,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 497,
+      "seq": 514,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -7274,20 +7513,20 @@
       }
     },
     {
-      "seq": 498,
+      "seq": 515,
       "kind": "consequence",
       "consequence": {
-        "cause": 497,
+        "cause": 514,
         "kind": "aging_effect",
         "characteristic": "Str",
         "delta": -1
       }
     },
     {
-      "seq": 499,
+      "seq": 516,
       "kind": "consequence",
       "consequence": {
-        "cause": 497,
+        "cause": 514,
         "kind": "characteristic_reset",
         "characteristic": "Str",
         "delta": 1,
@@ -7295,7 +7534,7 @@
       }
     },
     {
-      "seq": 500,
+      "seq": 517,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -7310,20 +7549,20 @@
       }
     },
     {
-      "seq": 501,
+      "seq": 518,
       "kind": "consequence",
       "consequence": {
-        "cause": 500,
+        "cause": 517,
         "kind": "aging_effect",
         "characteristic": "Dex",
         "delta": -1
       }
     },
     {
-      "seq": 502,
+      "seq": 519,
       "kind": "consequence",
       "consequence": {
-        "cause": 500,
+        "cause": 517,
         "kind": "characteristic_reset",
         "characteristic": "Dex",
         "delta": 1,
@@ -7331,7 +7570,7 @@
       }
     },
     {
-      "seq": 503,
+      "seq": 520,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -7346,20 +7585,20 @@
       }
     },
     {
-      "seq": 504,
+      "seq": 521,
       "kind": "consequence",
       "consequence": {
-        "cause": 503,
+        "cause": 520,
         "kind": "aging_effect",
         "characteristic": "End",
         "delta": -1
       }
     },
     {
-      "seq": 505,
+      "seq": 522,
       "kind": "consequence",
       "consequence": {
-        "cause": 503,
+        "cause": 520,
         "kind": "characteristic_reset",
         "characteristic": "End",
         "delta": 1,
@@ -7367,7 +7606,7 @@
       }
     },
     {
-      "seq": 506,
+      "seq": 523,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -7382,19 +7621,19 @@
       }
     },
     {
-      "seq": 507,
+      "seq": 524,
       "kind": "consequence",
       "consequence": {
-        "cause": 503,
+        "cause": 520,
         "kind": "extremely_major_illness",
         "value": 3
       }
     },
     {
-      "seq": 508,
+      "seq": 525,
       "kind": "consequence",
       "consequence": {
-        "cause": 503,
+        "cause": 520,
         "kind": "dead",
         "value": 90
       }

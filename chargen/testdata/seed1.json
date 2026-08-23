@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.17.0",
+  "schema_version": "0.18.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.18.0",
-  "policy_version": "0.11.0",
+  "engine_version": "0.19.0",
+  "policy_version": "0.12.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 1
@@ -84,6 +84,7 @@
       "began": true,
       "job": "Chef",
       "hobby": "ACV",
+      "end_age": 30,
       "terms": [
         {
           "term": 1,
@@ -1026,6 +1027,20 @@
     },
     {
       "seq": 68,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Citizen for another career?",
+        "options": [
+          "Continue in Citizen",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 69,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1040,16 +1055,16 @@
       }
     },
     {
-      "seq": 69,
+      "seq": 70,
       "kind": "consequence",
       "consequence": {
-        "cause": 68,
+        "cause": 69,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 70,
+      "seq": 71,
       "kind": "step",
       "step": {
         "name": "Citizen: Term 2",
@@ -1057,7 +1072,7 @@
       }
     },
     {
-      "seq": 71,
+      "seq": 72,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1072,7 +1087,7 @@
       }
     },
     {
-      "seq": 72,
+      "seq": 73,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1087,7 +1102,7 @@
       }
     },
     {
-      "seq": 73,
+      "seq": 74,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1202,19 +1217,19 @@
       }
     },
     {
-      "seq": 74,
+      "seq": 75,
       "kind": "consequence",
       "consequence": {
-        "cause": 73,
+        "cause": 74,
         "kind": "hobby_set",
         "skill": "ACV"
       }
     },
     {
-      "seq": 75,
+      "seq": 76,
       "kind": "consequence",
       "consequence": {
-        "cause": 73,
+        "cause": 74,
         "kind": "skill_awarded",
         "skill": "ACV",
         "delta": 2,
@@ -1222,7 +1237,7 @@
       }
     },
     {
-      "seq": 76,
+      "seq": 77,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1241,7 +1256,7 @@
       }
     },
     {
-      "seq": 77,
+      "seq": 78,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1253,10 +1268,10 @@
       }
     },
     {
-      "seq": 78,
+      "seq": 79,
       "kind": "consequence",
       "consequence": {
-        "cause": 77,
+        "cause": 78,
         "kind": "skill_awarded",
         "skill": "Computer",
         "delta": 1,
@@ -1264,7 +1279,7 @@
       }
     },
     {
-      "seq": 79,
+      "seq": 80,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1283,7 +1298,7 @@
       }
     },
     {
-      "seq": 80,
+      "seq": 81,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1295,10 +1310,10 @@
       }
     },
     {
-      "seq": 81,
+      "seq": 82,
       "kind": "consequence",
       "consequence": {
-        "cause": 80,
+        "cause": 81,
         "kind": "skill_awarded",
         "skill": "Animals",
         "delta": 1,
@@ -1306,7 +1321,7 @@
       }
     },
     {
-      "seq": 82,
+      "seq": 83,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1325,7 +1340,7 @@
       }
     },
     {
-      "seq": 83,
+      "seq": 84,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1337,10 +1352,10 @@
       }
     },
     {
-      "seq": 84,
+      "seq": 85,
       "kind": "consequence",
       "consequence": {
-        "cause": 83,
+        "cause": 84,
         "kind": "skill_awarded",
         "skill": "Broker",
         "delta": 1,
@@ -1348,7 +1363,7 @@
       }
     },
     {
-      "seq": 85,
+      "seq": 86,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1367,7 +1382,7 @@
       }
     },
     {
-      "seq": 86,
+      "seq": 87,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1379,10 +1394,10 @@
       }
     },
     {
-      "seq": 87,
+      "seq": 88,
       "kind": "consequence",
       "consequence": {
-        "cause": 86,
+        "cause": 87,
         "kind": "skill_awarded",
         "skill": "Broker",
         "delta": 1,
@@ -1390,7 +1405,21 @@
       }
     },
     {
-      "seq": 88,
+      "seq": 89,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Citizen for another career?",
+        "options": [
+          "Continue in Citizen",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 90,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1405,19 +1434,19 @@
       }
     },
     {
-      "seq": 89,
+      "seq": 91,
       "kind": "consequence",
       "consequence": {
-        "cause": 88,
+        "cause": 90,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 90,
+      "seq": 92,
       "kind": "consequence",
       "consequence": {
-        "cause": 88,
+        "cause": 90,
         "kind": "career_ended",
         "career": "Citizen"
       }

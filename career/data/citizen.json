@@ -1,9 +1,49 @@
 {
-  "name": "Citizen",
   "cite": "Book 1 p. 78 chart 04",
-  "controlling_characteristics": ["Str", "Dex", "End", "Int"],
+  "name": "Citizen",
   "continue_target": 10,
-  "skills_per_term": 4,
+  "controlling_characteristics": ["Str", "Dex", "End", "Int"],
+  "job_table": [
+    [
+      ["ACV", "Comms", "High-G", "Steward", "Ordnance", "Naval Architect"],
+      ["JOT", "Rider", "Sensors", "Forward Observer", "Survival", "Streetwise"],
+      ["LTA", "Spines", "Flapper", "Seafarer", "No Skill", "Astrogator"],
+      ["WMD", "Leader", "Tracked", "Engineer", "Computer", "Navigator"],
+      ["Chef", "Survey", "Animals", "Fluidics", "Bay Weapons", "Explosives"],
+      ["Mole", "Dancer", "Tactics", "Launcher", "Magnetics", "Jump Drives"]
+    ],
+    [
+      ["Grav", "Artist", "Turrets", "Teamster", "Photonics", "Counsellor"],
+      ["Boat", "Legged", "Teacher", "Designer", "Vacc Suit", "Sub"],
+      ["Ship", "Sapper", "Unarmed", "Engineer", "Artillery", "Aeronautics"],
+      ["Winged", "Driver", "Exotics", "Language", "Craftsman", "Aquanautics"],
+      ["Recon", "Gunner", "Stealth", "Musician", "Gravitics", "Battle Dress"],
+      ["Actor", "Blades", "Trainer", "Strategy", "Forensics", "Electronics"]
+    ],
+    [
+      [
+        "Flyer",
+        "Zero-G",
+        "Animals",
+        "Maneuver Drive",
+        "Biologics",
+        "Hostile Environ"
+      ],
+      ["Pilot", "Author", "Liaison", "Polymers", "Ortillery", "Power Systems"],
+      ["Rotor", "Broker", "Athlete", "Advocate", "Automotive", "Life Support"],
+      ["Admin", "Trader", "Fighter", "Computer", "Bureaucrat", "Slug Throwers"],
+      [
+        "Beams",
+        "Sprays",
+        "Wheeled",
+        "Diplomat",
+        "Heavy Weapons",
+        "Fleet Tactics"
+      ],
+      ["Medic", "Gambler", "Screens", "Mechanic", "Programmer", "Spacecraft"]
+    ]
+  ],
+  "no_entry_by_change": true,
   "skill_columns": [
     {
       "name": "Personal",
@@ -197,44 +237,5 @@
       ]
     }
   ],
-  "job_table": [
-    [
-      ["ACV", "Comms", "High-G", "Steward", "Ordnance", "Naval Architect"],
-      ["JOT", "Rider", "Sensors", "Forward Observer", "Survival", "Streetwise"],
-      ["LTA", "Spines", "Flapper", "Seafarer", "No Skill", "Astrogator"],
-      ["WMD", "Leader", "Tracked", "Engineer", "Computer", "Navigator"],
-      ["Chef", "Survey", "Animals", "Fluidics", "Bay Weapons", "Explosives"],
-      ["Mole", "Dancer", "Tactics", "Launcher", "Magnetics", "Jump Drives"]
-    ],
-    [
-      ["Grav", "Artist", "Turrets", "Teamster", "Photonics", "Counsellor"],
-      ["Boat", "Legged", "Teacher", "Designer", "Vacc Suit", "Sub"],
-      ["Ship", "Sapper", "Unarmed", "Engineer", "Artillery", "Aeronautics"],
-      ["Winged", "Driver", "Exotics", "Language", "Craftsman", "Aquanautics"],
-      ["Recon", "Gunner", "Stealth", "Musician", "Gravitics", "Battle Dress"],
-      ["Actor", "Blades", "Trainer", "Strategy", "Forensics", "Electronics"]
-    ],
-    [
-      [
-        "Flyer",
-        "Zero-G",
-        "Animals",
-        "Maneuver Drive",
-        "Biologics",
-        "Hostile Environ"
-      ],
-      ["Pilot", "Author", "Liaison", "Polymers", "Ortillery", "Power Systems"],
-      ["Rotor", "Broker", "Athlete", "Advocate", "Automotive", "Life Support"],
-      ["Admin", "Trader", "Fighter", "Computer", "Bureaucrat", "Slug Throwers"],
-      [
-        "Beams",
-        "Sprays",
-        "Wheeled",
-        "Diplomat",
-        "Heavy Weapons",
-        "Fleet Tactics"
-      ],
-      ["Medic", "Gambler", "Screens", "Mechanic", "Programmer", "Spacecraft"]
-    ]
-  ]
+  "skills_per_term": 4
 }

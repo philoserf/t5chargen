@@ -161,6 +161,20 @@ type Definition struct {
 	// gained in the term earns (chart 06 table B: "Promotion 1").
 	SkillsPerAdvancement int `json:"skills_per_advancement,omitempty"`
 
+	// Reserves marks the careers p. 67 enrols a leaver from: "A character
+	// who leaves a military, naval, or marine career is automatically in
+	// the Reserves." Chart facts, so the three Armed Forces careers carry
+	// it rather than the engine naming them.
+	Reserves bool `json:"reserves,omitempty"`
+
+	// NoCareerChange marks a career a character cannot leave for another:
+	// "A Functionary or Noble cannot change to a new career" (p. 66).
+	NoCareerChange bool `json:"no_career_change,omitempty"`
+
+	// NoEntryByChange marks a career a character cannot change into: "A
+	// Character may not change to the Citizen career" (p. 66).
+	NoEntryByChange bool `json:"no_entry_by_change,omitempty"`
+
 	// SanityPerTerms is the number of terms in the career that cost one
 	// point of Sanity: "Because of the long-term isolation that a Scout
 	// must endure, reduce San= -1 for each TWO Terms served" (chart 05

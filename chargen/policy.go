@@ -52,6 +52,13 @@ func (DefaultPolicy) Choose(c Choice) int {
 		// multiplies a payoff the Reward roll may never earn, while the
 		// row itself changes nothing about the odds.
 		return 0
+	case ChooseCareerChange:
+		// POLICY.md: decline. The change is offered before the Continue
+		// throw is known, so it trades a career in hand for a To Begin
+		// that may fail and end resolution outright (p. 66, p. 65), and
+		// aging now bounds the mandatory-continue tail the change exists
+		// to avoid.
+		return 0
 	case ChooseHobby, ChooseHomeworld, ChooseArt, ChooseTrade,
 		ChooseService, ChooseMajor, ChooseMinor, ChooseSkill:
 		// POLICY.md: first-listed.

@@ -179,6 +179,18 @@ const (
 	// world (a Discovery)" (chart 05 p. 79). Value is the running count.
 	ConsequenceDiscovery ConsequenceKind = "discovery"
 
+	// ConsequenceReserve records enrolment on leaving the Armed Forces
+	// (p. 67). Skill carries the Reserve Rank, which is the last rank
+	// held: "There is no process for promotion or advancement while in
+	// the Reserves".
+	ConsequenceReserve ConsequenceKind = "reserve"
+
+	// ConsequenceCareerChanged records a voluntary career change: "A
+	// character may avoid the Continue roll ... by voluntarily ending his
+	// service in the current career and selecting a different career for
+	// which he is eligible" (p. 66); Career is the career left.
+	ConsequenceCareerChanged ConsequenceKind = "career_changed"
+
 	// ConsequenceAgingEffect records an Aging Check that landed: "If the
 	// Aging Check imposes an effect, the characteristic is reduced -1"
 	// (p. 89 chart A). Delta is -1, Value the resulting value.

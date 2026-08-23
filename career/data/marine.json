@@ -1,11 +1,29 @@
 {
-  "name": "Marine",
   "cite": "Book 1 p. 86 chart 12",
-  "controlling_characteristics": ["Str", "Int"],
-  "continue_characteristic": "Str",
-  "skills_per_term": 4,
-  "skills_per_advancement": 1,
-  "begin_checks": ["Str"],
+  "name": "Marine",
+  "advancements": [
+    {
+      "name": "Officer Commission",
+      "from_classes": ["enlisted"],
+      "to_rank": "O1",
+      "target": "characteristic",
+      "check": "End"
+    },
+    {
+      "name": "Enlisted Promotion",
+      "from_classes": ["enlisted"],
+      "target": "characteristic",
+      "check": "Str",
+      "medal_mods": true
+    },
+    {
+      "name": "Officer Promotion",
+      "from_classes": ["officer"],
+      "target": "characteristic",
+      "check": "Int",
+      "medal_mods": true
+    }
+  ],
   "armed_forces": {
     "branch_check": "Soc",
     "branch_cite": "Book 1 p. 86 chart 12 (Marine Branch)",
@@ -100,6 +118,9 @@
       }
     ]
   },
+  "begin_checks": ["Str"],
+  "continue_characteristic": "Str",
+  "controlling_characteristics": ["Str", "Int"],
   "ranks": [
     {
       "id": "M1",
@@ -174,29 +195,7 @@
       "title": "Brigadier"
     }
   ],
-  "advancements": [
-    {
-      "name": "Officer Commission",
-      "from_classes": ["enlisted"],
-      "to_rank": "O1",
-      "target": "characteristic",
-      "check": "End"
-    },
-    {
-      "name": "Enlisted Promotion",
-      "from_classes": ["enlisted"],
-      "target": "characteristic",
-      "check": "Str",
-      "medal_mods": true
-    },
-    {
-      "name": "Officer Promotion",
-      "from_classes": ["officer"],
-      "target": "characteristic",
-      "check": "Int",
-      "medal_mods": true
-    }
-  ],
+  "reserves": true,
   "skill_columns": [
     {
       "name": "Personal",
@@ -391,5 +390,7 @@
         }
       ]
     }
-  ]
+  ],
+  "skills_per_advancement": 1,
+  "skills_per_term": 4
 }
