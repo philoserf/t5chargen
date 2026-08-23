@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.26.0",
+  "schema_version": "0.27.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.27.0",
+  "engine_version": "0.28.0",
   "policy_version": "0.16.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -108,6 +108,7 @@
       ]
     }
   ],
+  "birthdate": "Senday 295-1071",
   "life_stage": 5,
   "credits": 120000,
   "benefits": [
@@ -2326,6 +2327,39 @@
         "skill": "Money",
         "career": "Merchant",
         "delta": 25000
+      }
+    },
+    {
+      "seq": 162,
+      "kind": "step",
+      "step": {
+        "name": "Record the Character's Birthdate",
+        "cite": "Book 1 p. 58; p. 263"
+      }
+    },
+    {
+      "seq": 163,
+      "kind": "throw",
+      "throw": {
+        "expr": "4D",
+        "dice": [
+          4,
+          2,
+          1,
+          4
+        ],
+        "total": 11,
+        "cite": "Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)"
+      }
+    },
+    {
+      "seq": 164,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 163,
+        "kind": "birthdate",
+        "detail": "Senday 295-1071",
+        "value": 1071
       }
     }
   ]

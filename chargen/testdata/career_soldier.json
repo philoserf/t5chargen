@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.26.0",
+  "schema_version": "0.27.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.27.0",
+  "engine_version": "0.28.0",
   "policy_version": "0.16.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -138,6 +138,7 @@
     }
   ],
   "waivers_attempted": 1,
+  "birthdate": "Thirday 130-1066",
   "life_stage": 5,
   "credits": 630000,
   "benefits": [
@@ -4195,6 +4196,39 @@
         "skill": "Officer Retirement",
         "delta": 45000,
         "value": 39
+      }
+    },
+    {
+      "seq": 294,
+      "kind": "step",
+      "step": {
+        "name": "Record the Character's Birthdate",
+        "cite": "Book 1 p. 58; p. 263"
+      }
+    },
+    {
+      "seq": 295,
+      "kind": "throw",
+      "throw": {
+        "expr": "4D",
+        "dice": [
+          2,
+          4,
+          4,
+          4
+        ],
+        "total": 14,
+        "cite": "Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)"
+      }
+    },
+    {
+      "seq": 296,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 295,
+        "kind": "birthdate",
+        "detail": "Thirday 130-1066",
+        "value": 1066
       }
     }
   ]

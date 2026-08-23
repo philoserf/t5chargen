@@ -537,14 +537,25 @@ chart M1 are the next chunk.
 | Land Grant income: Cr10,000 per TC, Cr5,000 with none                                                                                    | p. 88; p. 68; p. 79; p. 41  | `landGrantIncome`, `hexIncome`; `land_grant_hexes` data | `TestANobleGrantEarnsItsHomeworldHexAndOneCompanion`, `TestAScoutGrantEarnsOneHexAndNotTheHomeworld`, `TestALandGrantIsIncomeAndNotMoney` | covered. A Noble grant is a homeworld hex plus a companion (pp. 88, 41); a Scout's is one non-Mainworld hex (p. 79). An unnamed world is priced at the floor — I-82; the per-title hex table is not applied — I-83                               |
 | Ship Share value: "one Share acquires 50 tons of the ship"                                                                               | chart S p. 90; p. 69; p. 80 | `ship` package; `shipSharesLine`                        | `TestEveryPricedShipCostsItsTonnage`, `TestTheChartsWorkedExampleHolds`, `TestShipSharesPoolBothLedgers`                                  | covered as far as Book 1 goes: chart S is transcribed and the career and Benefits-column ledgers are pooled into one total. Book 1 attaches no credit value to a share — I-84. Redeeming shares for a ship is out: I-64, and p. 90 makes it play |
 
+## Birthdate (p. 58; pp. 262-263)
+
+| Rule                                                                                    | Cite          | Implementation                           | Test                                    | Status                                                                                                                                |
+| --------------------------------------------------------------------------------------- | ------------- | ---------------------------------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| "The default date ... is 001-1105"; the Referee may supply another                      | p. 58; p. 263 | `calendar.DefaultYear`, `--current-year` | `TestSiggOdraLandsOnDayFortyFour`       | covered                                                                                                                               |
+| "subtract the character's age at muster out from 1105 to determine his birth year"      | p. 58; p. 263 | `Character.birthdate`                    | `TestEveryCharacterIsBornBeforeHeLived` | covered, including the page's Sigg Odra example                                                                                       |
+| "Roll four consecutive dice to determine the specific day/date of the year"; RR rerolls | p. 263        | `calendar.Table.Day`                     | `TestTheTableCoversTheYearExactlyOnce`  | covered; all 432 cells transcribed and checked to cover the year exactly once                                                         |
+| Day 1 is Holiday, the week runs Wonday to Senday from day 2                             | p. 262        | `calendar.Weekday`                       | `TestTheWeekRunsFromDayTwo`             | covered against all three of the page's worked examples                                                                               |
+| "Until Character Generation is complete, Birthdate calculation may be deferred"         | p. 58         | `afterCareers`                           | golden fixtures                         | covered — the step runs last, after muster out                                                                                        |
+| "Every character has a birthdate"                                                       | p. 263        | `afterCareers`                           | `TestEvenTheDeadAreBorn`                | covered; unlike muster out it is not gated on survival — interpretation I-86                                                          |
+| "Alternative Birthdate Option. Use the Player's actual Birth Date"                      | p. 263        | —                                        | —                                       | deliberately not implemented — it takes an input from outside the record, which the determinism contract forbids; interpretation I-85 |
+| "as a trigger to acquiring experience"                                                  | p. 263        | —                                        | —                                       | out of scope: in-play advancement is a PRD non-goal                                                                                   |
+
 Muster out (pp. 67-71), aging (chart A p. 89; FR6), fame (chart F p. 91;
-FR7) and career changes (p. 66) are implemented; each has its own section
-above. Birthdate (FR8) is not yet implemented, but it is sourceable: Book 1
-prints the rule on p. 58 ("Date of Birth") and p. 263 ("Birthdates"). This
-file previously said Book 1 printed no birthdate rule and that FR8's only
-cite was the Archive the ground rules exclude. The second half was true —
-FR8 does cite the Archive — and the first half was false. See
-docs/MILESTONE-4.md.
+FR7), career changes (p. 66) and the birthdate (FR8) are implemented; each
+has its own section above. This file previously said Book 1 printed no
+birthdate rule and that FR8's only cite was the Archive the ground rules
+exclude. The second half was true — FR8 does cite the Archive — and the
+first half was false. See docs/MILESTONE-4.md.
 
 Batch, replay verification, interactive mode: deferred (M5).
 

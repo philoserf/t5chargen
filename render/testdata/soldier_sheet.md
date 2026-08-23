@@ -8,6 +8,8 @@
 
 **Age**: 39 (Peak)
 
+**Born**: Thirday 130-1066
+
 | Str | Dex | End | Int | Edu | Soc |
 | --- | --- | --- | --- | --- | --- |
 | 1 | 12 | 12 | 4 | 5 | 6 |
@@ -32,6 +34,6 @@
 
 ---
 
-Seed 305 (math/rand/v2-pcg) · schema 0.26.0 · engine 0.27.0 · policy 0.16.0
+Seed 305 (math/rand/v2-pcg) · schema 0.27.0 · engine 0.28.0 · policy 0.16.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

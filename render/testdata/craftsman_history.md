@@ -491,3 +491,11 @@ _Book 1 p. 70 chart M1_
 
 - #387 player chose "Keep it (Cr5000 a year from age 66)" of [Keep it (Cr5000 a year from age 66), Cash out (Cr25000)]: Cash out the Citizen's Pension? — Book 1 p. 69 (Cashing Out)
   - #388 (from #387) Citizen's Pension, Cr5000 a year from age 66
+
+## Record the Character's Birthdate
+
+_Book 1 p. 58; p. 263_
+
+- #390 4D = 1+3+6+6 = 16 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
+- #391 4D = 4+2+6+3 = 15 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
+  - #392 (from #391) born Forday 264-1046

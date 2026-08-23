@@ -8,6 +8,8 @@
 
 **Age**: 34 (Peak)
 
+**Born**: Senday 295-1071
+
 | Str | Dex | End | Int | Edu | Soc |
 | --- | --- | --- | --- | --- | --- |
 | 5 | 3 | 8 | 12 | 5 | 3 |
@@ -28,6 +30,6 @@
 
 ---
 
-Seed 17 (math/rand/v2-pcg) · schema 0.26.0 · engine 0.27.0 · policy 0.16.0
+Seed 17 (math/rand/v2-pcg) · schema 0.27.0 · engine 0.28.0 · policy 0.16.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

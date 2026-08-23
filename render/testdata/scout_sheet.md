@@ -8,6 +8,8 @@
 
 **Age**: 46 (Mid-Life)
 
+**Born**: Forday 012-1059
+
 | Str | Dex | End | Int | Edu | Soc |
 | --- | --- | --- | --- | --- | --- |
 | 4 | 2 | 5 | 10 | 10 | 5 |
@@ -28,6 +30,6 @@
 
 ---
 
-Seed 26 (math/rand/v2-pcg) · schema 0.26.0 · engine 0.27.0 · policy 0.16.0
+Seed 26 (math/rand/v2-pcg) · schema 0.27.0 · engine 0.28.0 · policy 0.16.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

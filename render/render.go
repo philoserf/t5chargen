@@ -38,7 +38,7 @@ func Sheet(c chargen.Character) string {
 		fmt.Fprintf(&b, "**Homeworld**: %s\n\n", c.Homeworld.Label())
 	}
 
-	fmt.Fprintf(&b, "**Age**: %d (%s)\n\n", c.Age, lifeStageName(c.LifeStage))
+	b.WriteString(ageLines(c))
 
 	b.WriteString("| Str | Dex | End | Int | Edu | Soc |\n")
 	b.WriteString("| --- | --- | --- | --- | --- | --- |\n")
@@ -596,6 +596,8 @@ func consequenceNobleText(c *chargen.ConsequenceEvent) string {
 		return "Elevated"
 	case chargen.ConsequenceLandGrant:
 		return fmt.Sprintf("Land Grant (total %d)", c.Value)
+	case chargen.ConsequenceBirthdate:
+		return "born " + c.Detail
 	default:
 		return consequenceArmedForcesText(c)
 	}
@@ -842,6 +844,18 @@ func shipSharesLine(shares int) string {
 	}
 
 	return line + "\n\n"
+}
+
+// ageLines renders the age, the life stage it falls in (chart A p. 89),
+// and the birthdate — "Sigg's birthdate is Wonday 044-1075" (p. 263).
+func ageLines(c chargen.Character) string {
+	line := fmt.Sprintf("**Age**: %d (%s)\n\n", c.Age, lifeStageName(c.LifeStage))
+
+	if c.Birthdate != "" {
+		line += fmt.Sprintf("**Born**: %s\n\n", c.Birthdate)
+	}
+
+	return line
 }
 
 // automaticsLine renders what a character already owns at muster out
