@@ -110,6 +110,18 @@ sequences.
 | The Reserves: enrolled on leaving a military, naval, or marine career, at the last rank held              | p. 67                     | `recordReserve`, `reserves` chart fact                     | `TestLeavingTheArmedForcesEntersTheReserves`, `TestTheReserveRankIsNamed`                                     | covered; resigning deferred (I-55), the pension is muster out's                                                                                           |
 | Every career records when it ended                                                                        | p. 69                     | `CareerRecord.EndAge`                                      | `TestEveryCareerRecordsWhenItEnded`                                                                           | covered — muster out reads it for retirement and the Reserve Pension                                                                                      |
 
+## Career 01 — Craftsman
+
+Craftsman is now reachable in principle — career changes landed — and is
+the last career left. Its Begin is "Automatic\* — \*if TWO skill-6 and
+Craftsman-1" (chart 01), which a character leaving education at 18
+essentially never satisfies, so it waits on a chunk of its own. Findings
+banked from the page: the box/prose conflict between "9D < Master Points"
+and "Roll 9D for Master Points or less"; QREBS allocation and the
+Masterpiece Value table are M4 economics; and its "New Trade\*\*\*" cells
+("Any Trade not already held; if all are already held, this benefit is
+lost") need a cell kind the engine does not yet have.
+
 ## Career 02 — Scholar (chart 02, p. 76)
 
 | Rule                                                      | Cite                   | Implementation                                               | Test                                                   | Status                                           |
@@ -254,20 +266,20 @@ below cover what is particular to chart 07.
 
 ## Career 09 — Agent (chart 09, p. 83)
 
-| Rule                                                               | Cite               | Implementation                           | Test                                                                | Status                                                                   |
-| ------------------------------------------------------------------ | ------------------ | ---------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| To Begin End; Risk & Reward Str/Dex/End/Int                        | chart 09 A         | `agentMechanics.begin`, `mission`        | golden seed 1717                                                    | covered                                                                  |
-| A Mission per term: two years undercover, two completing it        | chart 09           | `resolveTerm`                            | `TestAgentUndercoverEveryTerm`                                      | covered (the chart prints no separate Mission roll; Risk & Reward is it) |
-| Undercover Assignment: roll A, B, and C if required                | chart 09           | `undercover`, `rollUnder`                | `TestAgentUndercoverTableIsWhole`                                   | covered; the "if required" reading is I-39                               |
-| "Select (not Roll) one skill from the skill tables of that Career" | chart 09           | `undercoverSkills`                       | `TestAgentSelectsFromTheCoverCareersTable`                          | interpretation I-38                                                      |
-| The two Citizen rows roll on table E instead                       | chart 09           | `undercoverJobTable`                     | `TestAgentCitizenRowRollsTableE`                                    | interpretation I-39                                                      |
-| The Functionary row                                                | chart 09; chart 13 | `functionary.json` as a reference career | `TestAgentFunctionaryRowResolves`, `TestFunctionaryIsReferenceOnly` | interpretation I-40                                                      |
-| "Any Knowledge" (Vocation column)                                  | chart 09 C         | `groupCells`, `allKnowledges`            | `TestAgentAnyKnowledgeCellResolves`                                 | covered                                                                  |
-| Risk failure: the shared injury                                    | chart 09; p. 65    | `careerRun.injury`                       | golden seed 1717                                                    | covered (Double Benefits deferred, M4)                                   |
-| Reward success: a Commendation                                     | chart 09           | `mission`                                | golden seed 1717                                                    | covered as a count; the muster-out "+Commends" modifier is M4            |
-| Per Term 2; Undercover 1; Successful Mission 4                     | chart 09 B         | `resolveTerm`                            | golden seed 1717                                                    | covered                                                                  |
-| Continue Str +Terms                                                | chart 09 A         | `continueRoll`, `ContinueModTerms`       | `TestAgentContinueAddsTerms`                                        | covered (completed terms, I-12)                                          |
-| Muster-out table D                                                 | chart 09 D         | —                                        | —                                                                   | deferred (M4)                                                            |
+| Rule                                                               | Cite               | Implementation                           | Test                                                                    | Status                                                                   |
+| ------------------------------------------------------------------ | ------------------ | ---------------------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| To Begin End; Risk & Reward Str/Dex/End/Int                        | chart 09 A         | `agentMechanics.begin`, `mission`        | golden seed 1717                                                        | covered                                                                  |
+| A Mission per term: two years undercover, two completing it        | chart 09           | `resolveTerm`                            | `TestAgentUndercoverEveryTerm`                                          | covered (the chart prints no separate Mission roll; Risk & Reward is it) |
+| Undercover Assignment: roll A, B, and C if required                | chart 09           | `undercover`, `rollUnder`                | `TestAgentUndercoverTableIsWhole`                                       | covered; the "if required" reading is I-39                               |
+| "Select (not Roll) one skill from the skill tables of that Career" | chart 09           | `undercoverSkills`                       | `TestAgentSelectsFromTheCoverCareersTable`                              | interpretation I-38                                                      |
+| The two Citizen rows roll on table E instead                       | chart 09           | `undercoverJobTable`                     | `TestAgentCitizenRowRollsTableE`                                        | interpretation I-39                                                      |
+| The Functionary row                                                | chart 09; chart 13 | `functionary.json` as a reference career | `TestAgentFunctionaryRowResolves`, `TestFunctionaryIsNeverAFirstCareer` | interpretation I-40                                                      |
+| "Any Knowledge" (Vocation column)                                  | chart 09 C         | `groupCells`, `allKnowledges`            | `TestAgentAnyKnowledgeCellResolves`                                     | covered                                                                  |
+| Risk failure: the shared injury                                    | chart 09; p. 65    | `careerRun.injury`                       | golden seed 1717                                                        | covered (Double Benefits deferred, M4)                                   |
+| Reward success: a Commendation                                     | chart 09           | `mission`                                | golden seed 1717                                                        | covered as a count; the muster-out "+Commends" modifier is M4            |
+| Per Term 2; Undercover 1; Successful Mission 4                     | chart 09 B         | `resolveTerm`                            | golden seed 1717                                                        | covered                                                                  |
+| Continue Str +Terms                                                | chart 09 A         | `continueRoll`, `ContinueModTerms`       | `TestAgentContinueAddsTerms`                                            | covered (completed terms, I-12)                                          |
+| Muster-out table D                                                 | chart 09 D         | —                                        | —                                                                       | deferred (M4)                                                            |
 
 ## Career 10 — Rogue (chart 10, p. 84)
 
@@ -332,23 +344,29 @@ with interpretations I-31 through I-37.
 | Checks fail on the highest possible roll (2D on 12)              | p. 134-135; chart 10         | `dice.Check`               | `TestCheckAutomaticFailure` | interpretation I-17 — applied at every chargen throw; guarantees careers terminate |
 | "One Art" / "One Trade" / "One Science" / "Starship Skill" cells | charts 04-06 table C; p. 132 | `careerRun.awardFromGroup` | Merchant golden             | covered (alternatives are the chart MS groups)                                     |
 
-## Careers 01 and 13 — Craftsman and Functionary
+## Career 13 — Functionary (chart 13, p. 87)
 
-Every career reachable as a first career is implemented. The two that
-remain are soft-gated on career changes (M4), not on effort: Functionary
-"is never a first career" (chart 13), and Craftsman's Begin is
-"Automatic\* — \*if TWO skill-6 and Craftsman-1" (chart 01), which a
-character leaving education at 18 essentially never satisfies. Their
-machinery is transcribed when career changes make them reachable, though
-chart 13's skills table is already transcribed as a reference career for
-the Agent's Undercover table (interpretation I-40). Craftsman findings
-banked from the page: the box/prose conflict between "9D < Master Points"
-and "Roll 9D for Master Points or less"; QREBS allocation and the
-Masterpiece Value table are M4 economics; and its "New Trade\*\*\*" cells
-("Any Trade not already held; if all are already held, this benefit is
-lost") need a cell kind the engine does not yet have.
-Each career's section is added here with its chunk, uncommon branches
-enumerated, before it is called done.
+Reachable only by changing careers (p. 66), which the auto policy declines,
+so its fixtures are generated with a test Decider and carry
+`policy_version: "none"` — see POLICY.md, Known limitations.
+
+| Rule                                                                                         | Cite                                 | Implementation                                       | Test                                 | Status                                                                                         |
+| -------------------------------------------------------------------------------------------- | ------------------------------------ | ---------------------------------------------------- | ------------------------------------ | ---------------------------------------------------------------------------------------------- |
+| "Functionary is never a first career"; p. 63 bars it from initial selection                  | chart 13 p. 87; p. 63                | `not_a_first_career`, `career.FirstCareers`          | `TestFunctionaryIsNeverAFirstCareer` | covered                                                                                        |
+| "To Begin Total Terms x3"                                                                    | chart 13 A                           | `functionaryMechanics.begin`, `totalTerms`           | `TestFunctionaryNeedsAPriorCareer`   | covered — a first career throws against zero, which states the same bar twice                  |
+| "Office Politics C2 C3 C4 C5" as the controlling characteristics                             | chart 13 A                           | `controlling_characteristics`                        | golden `career_functionary`          | covered                                                                                        |
+| "Continue Office Politics": no Continue throw of its own                                     | chart 13 A; chart 13 Office Politics | `continue_office_politics`, `closeTerm`              | `TestOfficePoliticsIsTheContinue`    | interpretation I-56                                                                            |
+| "Roll for Risk against CC. No Mods are used for Office Politics."                            | chart 13                             | `functionaryMechanics.resolveTerm`                   | golden `career_functionary`          | covered                                                                                        |
+| Risk Failure ends the career; Risk Success continues it                                      | chart 13                             | `termOutcome.endCareer`                              | `TestOfficePoliticsIsTheContinue`    | covered — job loss, not injury: the chart prints no characteristic reduction                   |
+| Reward Failure: not promoted; Reward Success: promoted one rank                              | chart 13                             | `functionaryMechanics.promote`                       | golden `career_functionary`          | covered                                                                                        |
+| The nine ranks F0–F8 and their Auto Skills                                                   | chart 13 Functionary Ranks           | `ranks` data                                         | `TestFunctionaryAutoSkills`          | covered — F0 Bureaucrat, F2 Admin, F3 Bureaucrat, read off the page's coordinates (I-57)       |
+| "F7 Nth UnderSecretary\*", "\* N= 1D"                                                        | chart 13                             | `functionaryMechanics.rankTitle`, `ordinal`          | `TestFunctionaryRankTitles`          | covered                                                                                        |
+| "Scholar F6 =College President" and the other three F6 renames                               | chart 13                             | `director_titles` data                               | `TestFunctionaryRankTitles`          | covered                                                                                        |
+| "The Functionary character must identify with which prior career his position is associated" | chart 13                             | `functionaryMechanics.associate`, `AssociatedCareer` | `TestFunctionaryRankTitles`, golden  | covered — muster out reads it (p. 68)                                                          |
+| "Note that a Noble may not become a Functionary"                                             | chart 13                             | `no_career_change` on Noble (p. 66)                  | `TestNobleMayNotBecomeAFunctionary`  | interpretation I-58 — p. 66 already forbids a Noble leaving any career, so the two rules agree |
+| Per Term 4, Per Promotion 1                                                                  | chart 13 B                           | `skills_per_term`, `skills_per_advancement`          | golden `career_functionary`          | covered                                                                                        |
+| Table C, seven columns                                                                       | chart 13 C                           | `skill_columns`                                      | `TestAgentFunctionaryRowResolves`    | covered — transcribed first as a reference career for the Agent (I-40)                         |
+| Muster out table D, the Gold Watch, and the Rank F6+ Directorship                            | chart 13 D                           | —                                                    | —                                    | deferred (M4 muster out)                                                                       |
 
 ## Master Skill List (chart MS, p. 132)
 

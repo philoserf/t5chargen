@@ -93,6 +93,7 @@ var careerRegistry = map[string]func() (*career.Definition, careerMechanics, err
 	"Citizen":     newCitizen,
 	"Scholar":     newScholar,
 	"Noble":       newNoble,
+	"Functionary": newFunctionary,
 	"Soldier":     newSoldier,
 	"Spacer":      newSpacer,
 	"Marine":      newMarine,
@@ -288,6 +289,14 @@ func (r *careerRun) closeTerm(outcome termOutcome) (termEnd, int, error) {
 
 	if changed {
 		return termCareerChanged, cause, r.elapseTerm(cause)
+	}
+
+	// "Continue Office Politics" (chart 13 p. 87) is not a throw. The
+	// term's Risk already decided it — "Risk Success: Functionary may
+	// continue in the career" — and reaching here means it succeeded, so
+	// the career goes on with only the years to elapse.
+	if r.def.ContinueOfficePolitics {
+		return termContinues, 0, r.elapseTerm(outcome.endCause)
 	}
 
 	end, err := r.continueRoll()

@@ -60,7 +60,8 @@ func (DefaultPolicy) Choose(c Choice) int {
 		// to avoid.
 		return 0
 	case ChooseHobby, ChooseHomeworld, ChooseArt, ChooseTrade,
-		ChooseService, ChooseMajor, ChooseMinor, ChooseSkill:
+		ChooseService, ChooseMajor, ChooseMinor, ChooseSkill,
+		ChooseAssociatedCareer:
 		// POLICY.md: first-listed.
 		return 0
 	}

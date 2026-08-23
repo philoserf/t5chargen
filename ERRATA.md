@@ -1259,3 +1259,55 @@ decision when a player is answering.
 
 Activation — "A member of the Reserves is subject to activation for the
 needs of the service" — is play, not generation.
+
+### I-56: "Continue Office Politics" is not a throw (p. 87 chart 13)
+
+Box A prints three lines: "To Begin Total Terms x3 / Office Politics C2 C3
+C4 C5 / Continue Office Politics". Every other career's Continue line names
+a target — a number, a characteristic, a tracked value. Chart 13's names a
+procedure.
+
+Read as: the Functionary rolls no Continue throw. The Office Politics box
+already decides it, in the terms the page uses for the Risk: "Risk Failure:
+Functionary career ends. The character may not Continue. Risk Success:
+Functionary may continue in the career." A separate Continue throw would
+be a second chance at a question the Risk has answered, and the box's
+Failure column says "Cannot Continue" rather than "career ends", which is
+the language of a Continue outcome.
+
+This is recorded because the engine's Continue machinery assumes a target,
+and a Functionary reaching it with none would throw against zero and end
+every career after one term. The definition therefore declares Office
+Politics as its Continue form, and the term loop skips the throw.
+
+### I-57: The Auto Skill column pairs with F0, F2, and F3 (p. 87 chart 13)
+
+The Functionary Ranks table prints a rank ladder beside an Auto Skill
+column with three entries: Bureaucrat, Admin, Bureaucrat. Which ranks they
+belong to is a matter of vertical alignment, and the table's row spacing is
+uneven — text extraction in reading order pairs the second Bureaucrat with
+F3, and a layout-preserving extraction places it below F4.
+
+Settled from the glyph coordinates rather than by eye or by pattern. Each
+Auto Skill shares an exact baseline with its rank: F0 Clerk and Bureaucrat
+at y=290.511, F2 Senior Supervisor and Admin at y=308.646, F3 Manager and
+Bureaucrat at y=322.911. F4 Senior Manager sits at y=330.246 with nothing
+beside it.
+
+Worth recording because the result is not the pattern a reader expects. F0,
+F2, F4 — every other rank — would be the natural reading, and it is wrong.
+
+### I-58: A Noble cannot become a Functionary, by two rules that agree (p. 87 chart 13; p. 66)
+
+Chart 13 states it directly: "Note that a Noble may not become a
+Functionary." p. 66 states it more broadly: "A Functionary or Noble cannot
+change to a new career."
+
+The engine enforces the broad rule, which subsumes the narrow one — a
+Noble cannot leave for any career, so he cannot leave for this one. No
+separate Noble-to-Functionary check exists, and a test holds the two
+together so that relaxing the broad rule cannot silently repeal the narrow
+one.
+
+The redundancy is worth noting rather than resolving: chart 13 says it
+because a reader on that page has no reason to have read p. 66.

@@ -16,6 +16,13 @@ const (
 	// eligible".
 	ChooseCareerChange ChoiceID = "change_career"
 
+	// ChooseAssociatedCareer names the prior career a Functionary
+	// position belongs to: "The Functionary character must identify with
+	// which prior career his position is associated" (chart 13 p. 87).
+	// Muster out reads it — a later Functionary's terms join the earlier
+	// career's benefit DM (p. 68).
+	ChooseAssociatedCareer ChoiceID = "select_associated_career"
+
 	// ChooseControllingCharacteristic selects the term's controlling
 	// characteristic (p. 65: "The player picks one of these
 	// Characteristics ... it governs Risk and Reward for the current
