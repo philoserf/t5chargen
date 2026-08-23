@@ -74,6 +74,17 @@ func run(args []string, seedFn func() (uint64, error), stdout, stderr io.Writer)
 
 // runNew generates a character and writes its JSON record to stdout, or to
 // -o file (docs/PRD.md, CLI sketch: "new writes JSON to stdout unless -o").
+// isUsageError reports whether a generation failure is the caller's
+// fault rather than the engine's. The engine is the single validator for
+// careers, UWPs, and trade classifications.
+func isUsageError(err error) bool {
+	return errors.Is(err, chargen.ErrUnknownCareer) ||
+		errors.Is(err, chargen.ErrCareerUnavailable) ||
+		errors.Is(err, world.ErrInvalidUWP) ||
+		errors.Is(err, world.ErrUnknownTC) ||
+		errors.Is(err, world.ErrDuplicateTC)
+}
+
 func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writer) int {
 	flags := flag.NewFlagSet("new", flag.ContinueOnError)
 	flags.SetOutput(stderr)
@@ -122,11 +133,7 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 	if err != nil {
 		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
 
-		// Bad flag values are usage errors; the engine is the single
-		// validator for careers, UWPs, and trade classifications.
-		if errors.Is(err, chargen.ErrUnknownCareer) ||
-			errors.Is(err, world.ErrInvalidUWP) || errors.Is(err, world.ErrUnknownTC) ||
-			errors.Is(err, world.ErrDuplicateTC) {
+		if isUsageError(err) {
 			return exitUsage
 		}
 

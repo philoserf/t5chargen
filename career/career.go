@@ -64,6 +64,11 @@ const (
 	// milestone 4).
 	EntryCapital EntryKind = "capital"
 
+	// EntryNewTrade is chart 01's "New Trade***" cell: "Any Trade not
+	// already held; if all are already held; this benefit is lost"
+	// (p. 75).
+	EntryNewTrade EntryKind = "new_trade"
+
 	// EntryNone is the "No Skill" cell of table E (p. 78).
 	EntryNone EntryKind = "none"
 )
@@ -153,6 +158,20 @@ type Definition struct {
 	// SkillsPerAdvancement is the extra table C eligibility each rank
 	// gained in the term earns (chart 06 table B: "Promotion 1").
 	SkillsPerAdvancement int `json:"skills_per_advancement,omitempty"`
+
+	// Masterpiece is chart 01's Creating A Masterpiece box (p. 75); nil
+	// for every other career.
+	Masterpiece *Masterpiece `json:"masterpiece,omitempty"`
+
+	// BeginPrerequisite is chart 01's "To Begin Automatic* — *if TWO
+	// skill-6 and Craftsman-1" (p. 75): entry is automatic, but only for
+	// a character who already qualifies. nil for every other career.
+	BeginPrerequisite *Prerequisite `json:"begin_prerequisite,omitempty"`
+
+	// ContinueSkill and ContinueSkillMultiplier are chart 01's "Continue
+	// Craftsman x2": the target is a skill level times a multiplier.
+	ContinueSkill           string `json:"continue_skill,omitempty"`
+	ContinueSkillMultiplier int    `json:"continue_skill_multiplier,omitempty"`
 
 	// NotAFirstCareer marks a career unreachable at the start of the
 	// lifepath: "Functionary is never a first career" (chart 13 p. 87),
@@ -252,6 +271,68 @@ type BeginTrack struct {
 
 	// Rank is the rank id entry confers.
 	Rank string `json:"rank,omitempty"`
+}
+
+// Prerequisite is a condition a character must already meet to enter a
+// career: chart 01's "*if TWO skill-6 and Craftsman-1" (p. 75).
+type Prerequisite struct {
+	// Skill and SkillLevel are the named skill the character must hold
+	// ("Craftsman-1").
+	Skill      string `json:"skill"`
+	SkillLevel int    `json:"skill_level"`
+
+	// SkillsAtLevel and SkillsAtLevelCount are the breadth requirement
+	// ("TWO skill-6"): how many skills, at what level.
+	SkillsAtLevel      int `json:"skills_at_level"`
+	SkillsAtLevelCount int `json:"skills_at_level_count"`
+}
+
+// QREBS is one of the five qualities a Masterpiece carries: "Q R E B S",
+// Quality on 1 to 10 and the rest on -5 to +5 (chart 01 p. 75).
+type QREBS struct {
+	Code    string `json:"code"`
+	Name    string `json:"name"`
+	Minimum int    `json:"minimum"`
+	Maximum int    `json:"maximum"`
+}
+
+// Masterpiece is chart 01's Creating A Masterpiece box (p. 75).
+type Masterpiece struct {
+	Cite string `json:"cite"`
+
+	// Dice and MinimumPoints are the creation throw and its floor: "Roll
+	// 9D for Master Points or less for success in creation. If the
+	// Craftsman cannot show at least 40 Master Points, he cannot attempt
+	// a Masterpiece (treat as Failure)."
+	Dice          int `json:"dice"`
+	MinimumPoints int `json:"minimum_points"`
+
+	// PerfectPoints: "A Perfect Masterpiece has 55 or more Master Points."
+	PerfectPoints int `json:"perfect_points"`
+
+	// BonusSkillLevel, MaxBonusSkills, and ExcludedSkill are the Master
+	// Points skills contribute: "Up to FIVE Skills at level 6+ (or
+	// Knowledges at level-6) (but not languages)".
+	BonusSkillLevel int    `json:"bonus_skill_level"`
+	MaxBonusSkills  int    `json:"max_bonus_skills"`
+	ExcludedSkill   string `json:"excluded_skill"`
+
+	// SkillsPerSuccess and SkillsPerFailure are table B's "Per Success 3
+	// +Craftsman-1 / Per Failure 1 +Craftsman-1".
+	SkillsPerSuccess int `json:"skills_per_success"`
+	SkillsPerFailure int `json:"skills_per_failure"`
+
+	// BaseValue, ValuePerPoint, and PerfectMultiplier price the result:
+	// "The Masterpiece can be sold at Cr150,000 plus Cr10,000 per Master
+	// Point over 40. A Perfect Masterpiece (=55 points or more) sells for
+	// Double". Spending it lands with muster out.
+	BaseValue         int `json:"base_value"`
+	ValuePerPoint     int `json:"value_per_point"`
+	PerfectMultiplier int `json:"perfect_multiplier"`
+
+	// QREBS are the five qualities the Master Points are allocated to.
+	// The allocation itself is deferred (interpretation I-62).
+	QREBS []QREBS `json:"qrebs,omitempty"`
 }
 
 // Rank is one row of a career's rank table.
@@ -595,7 +676,7 @@ var entryKinds = map[EntryKind]bool{
 	EntrySkill: true, EntryCharacteristic: true, EntryMajor: true, EntryMinor: true,
 	EntryTrade: true, EntryArt: true, EntryScience: true, EntryStarship: true,
 	EntrySoldier: true, EntryCapital: true, EntryAnySkill: true,
-	EntryAnyKnowledge: true, EntryNone: true,
+	EntryAnyKnowledge: true, EntryNewTrade: true, EntryNone: true,
 }
 
 // validate rejects malformed-but-parseable career data at load time, so
@@ -918,7 +999,8 @@ func (d *Definition) validateContinueForm() error {
 	// Office Politics" defers to the Risk result already rolled for the
 	// term ("Risk Failure: Functionary career ends. The character may not
 	// Continue", p. 87). So it declares that form and no other.
-	forms := countTrue(fixed, characteristic, d.ContinueFame, d.ContinueCC, d.ContinueOfficePolitics)
+	forms := countTrue(fixed, characteristic, d.ContinueFame, d.ContinueCC,
+		d.ContinueOfficePolitics, d.ContinueSkill != "")
 	if forms != 1 {
 		return fmt.Errorf("%w: want exactly one Continue form, have %d", errBadDefinition, forms)
 	}
@@ -954,6 +1036,10 @@ func (d *Definition) validateContinue() error {
 
 	if d.ContinueCharacteristic != "" && !characteristicNames[d.ContinueCharacteristic] {
 		return fmt.Errorf("%w: unknown continue characteristic %q", errBadDefinition, d.ContinueCharacteristic)
+	}
+
+	if (d.ContinueSkill != "") != (d.ContinueSkillMultiplier != 0) {
+		return fmt.Errorf("%w: continue skill and its multiplier must both be set", errBadDefinition)
 	}
 
 	return nil
@@ -1124,6 +1210,9 @@ var functionaryJSON []byte
 //go:embed data/rogue.json
 var rogueJSON []byte
 
+//go:embed data/craftsman.json
+var craftsmanJSON []byte
+
 // The implemented careers parse and validate their embedded definitions
 // once.
 var (
@@ -1156,6 +1245,9 @@ var (
 	})
 	agent = sync.OnceValues(func() (*Definition, error) {
 		return load("agent.json", agentJSON)
+	})
+	craftsman = sync.OnceValues(func() (*Definition, error) {
+		return load("craftsman.json", craftsmanJSON)
 	})
 	functionary = sync.OnceValues(func() (*Definition, error) {
 		return load("functionary.json", functionaryJSON)
@@ -1216,11 +1308,15 @@ func Agent() (*Definition, error) {
 	return agent()
 }
 
-// Functionary returns the Functionary chart data (chart 13, p. 87). It is
-// a reference career: chart 09's Undercover Assignment sends an Agent into
-// it, so its skills table is transcribed, but the career itself is not
-// playable until career changes land (docs/PRD.md milestone 4) — chart 13
-// says it "is never a first career".
+// Craftsman returns the Craftsman career definition (chart 01, p. 75).
+func Craftsman() (*Definition, error) {
+	return craftsman()
+}
+
+// Functionary returns the Functionary career definition (chart 13, p. 87).
+// Its skills table was transcribed first as a reference for chart 09's
+// Undercover Assignment (interpretation I-40); the career became playable
+// when career changes landed, chart 13 saying it "is never a first career".
 func Functionary() (*Definition, error) {
 	return functionary()
 }
@@ -1253,7 +1349,7 @@ func Noble() (*Definition, error) {
 // FirstCareers.
 func Available() []string {
 	return []string{
-		"Scholar", "Entertainer", "Citizen", "Scout", "Merchant",
+		"Craftsman", "Scholar", "Entertainer", "Citizen", "Scout", "Merchant",
 		"Spacer", "Soldier", "Agent", "Rogue", "Noble", "Marine",
 		"Functionary",
 	}
@@ -1288,6 +1384,7 @@ var loaders = map[string]func() (*Definition, error){
 	"Scout": Scout, "Merchant": Merchant, "Spacer": Spacer,
 	"Soldier": Soldier, "Agent": Agent, "Rogue": Rogue,
 	"Noble": Noble, "Marine": Marine, "Functionary": Functionary,
+	"Craftsman": Craftsman,
 }
 
 // ByName loads a career definition by its Available name.

@@ -1347,3 +1347,86 @@ Directorship if Rank F6+", chart 13 D).
 Implemented at `chargen/functionary.go` (`resolveTerm`), whose doc comment
 keeps the page's line breaks so the quote cannot be misread back into the
 nested form.
+
+### I-60: An automatic-but-conditional entry gates eligibility, it does not fail (p. 75 chart 01; p. 65)
+
+Chart 01's box A reads "To Begin Automatic\*", footnoted "\*if TWO skill-6
+and Craftsman-1". Entry is automatic — there is no throw printed — but only
+for a character who already qualifies.
+
+Read as: a character who does not qualify is not offered the career. p. 65
+attaches its two costs to attempts — "Each failed attempt (both Begin or
+Retry) takes one year" and "If both Begin and Retry fail, this career may
+not be used" — and an automatic entry has no attempt to fail. Treating the
+unmet condition as a failed To Begin would charge a year for a throw never
+made, and would burn the career for life on a condition the character may
+satisfy two terms later.
+
+The practical effect is that Craftsman is unreachable at eighteen without
+being barred: a character leaving education has neither the craft nor two
+skills at level 6, and acquires both only over several terms in another
+career. That is a different mechanism from chart 13's, which states the
+bar as a rule ("Functionary is never a first career"), and chart 01 states
+no such rule. p. 63 mentions both together — "Craftsman (1) and Functionary
+(13) are unavailable as initial careers" — but scopes that to the 2D
+random-selection system, where 1 and 13 are simply unrollable.
+
+Implemented at `chargen/craftsman.go` (`meetsPrerequisite`) and
+`chargen/careerrun.go` (`eligibleCareers`).
+
+### I-61: Master Points count all four Controlling Characteristics (p. 75 chart 01)
+
+The Creating A Masterpiece box lists what a Craftsman totals:
+
+    Controlling Characteristics
+    Craftsman Skill
+    Up to FIVE Skills at level 6+ (or Knowledges at level-6) (but not
+    languages)
+    Must total at least 40 Master Points
+
+"Controlling Characteristics" is plural, and box A names four of them —
+"Masterpiece C1 C2 C3 C4". But the Passion text says "The Controlling
+Characteristic governs creating the current Masterpiece", singular, and the
+career rotates them.
+
+Read as: all four are counted, and the rotating one governs which
+characteristic the term's Masterpiece is made under. The arithmetic decides
+it. A character entering on the chart's own minimum — Craftsman-1 and two
+skills at 6 — totals about 7 + 1 + 12 = 20 under the singular reading, half
+the 40 the box demands, so no new Craftsman could ever attempt a Masterpiece
+and the career would be inert. Under the plural reading the same character
+totals about 28 + 1 + 12 = 41, just over the bar. The entry condition and
+the creation floor were plainly written to meet.
+
+"Up to FIVE" is read as the best five available, which is what any Craftsman
+would choose. Craftsman itself is counted on its own line and not again
+among them.
+
+Implemented at `chargen/craftsman.go` (`masterPoints`).
+
+### I-62: The creation throw is roll-low inclusive, and QREBS is deferred (p. 75 chart 01)
+
+The page states the throw twice and the two disagree by one. The box prints
+"9D < Master Points"; the prose prints "Roll 9D for Master Points or less
+for success in creation".
+
+Read as: the prose, "or less". It is the roll-low Check form every other
+throw in character generation uses (interpretation I-17), and a strict
+less-than would be the second in the whole book after the Aging Check
+(I-50), introduced here by a glyph rather than by words. The p. 134
+automatic failure applies as usual, which matters: a Craftsman with 54 or
+more Master Points would otherwise be unable to fail.
+
+**QREBS is deferred.** "Allocate the Master Points to QREBS (for the ranges
+-5 to +5, -5 = 1 point; +5 = 11 points). If all QREBS values are set at the
+Maximum, excess Master Points can be allocated equally in excess of +5."
+Nothing in character generation reads the result: chart F counts
+Masterpieces and Perfect Masterpieces for Fame, and muster out prices them
+by Master Points. The allocation is a decision about an object, made when
+the object matters, so the five qualities and their ranges are transcribed
+— Quality on 1 to 10, Reliability, Ease, Bulk and Safety on -5 to +5, read
+from the column positions — and the allocation is left to play.
+
+Vintage appreciation is deferred with it: "A Masterpiece increases in value
+about 1% per year (simple interest), but are subject to Flux (in percent)
+when sold" prices a sale, and character generation makes none.

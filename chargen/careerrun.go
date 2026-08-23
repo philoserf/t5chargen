@@ -94,6 +94,7 @@ var careerRegistry = map[string]func() (*career.Definition, careerMechanics, err
 	"Scholar":     newScholar,
 	"Noble":       newNoble,
 	"Functionary": newFunctionary,
+	"Craftsman":   newCraftsman,
 	"Soldier":     newSoldier,
 	"Spacer":      newSpacer,
 	"Marine":      newMarine,
@@ -587,6 +588,10 @@ func (r *careerRun) minor() string {
 // awardOpenCell resolves the cells that select from a Master Skill List
 // group, and rejects the ones still waiting on later milestones.
 func (r *careerRun) awardOpenCell(kind career.EntryKind) error {
+	if kind == career.EntryNewTrade {
+		return r.awardNewTrade()
+	}
+
 	if kind == career.EntryCapital {
 		// "Capital*** = World Knowledge (of world of highest held noble
 		// Land Grant)" (chart 11 p. 85): the Land Grant worlds land with
@@ -595,6 +600,43 @@ func (r *careerRun) awardOpenCell(kind career.EntryKind) error {
 	}
 
 	return r.awardFromGroup(kind)
+}
+
+// awardNewTrade resolves chart 01's "New Trade***" cell: "Any Trade not
+// already held; if all are already held; this benefit is lost" (p. 75).
+//
+// It cannot go through groupCells, whose options do not depend on the
+// character; this cell's do.
+func (r *careerRun) awardNewTrade() error {
+	options := make([]string, 0, len(skill.InGroup(skill.GroupTrades)))
+
+	for _, name := range skill.InGroup(skill.GroupTrades) {
+		if r.character.skillLevel(name) == 0 {
+			options = append(options, name)
+		}
+	}
+
+	if len(options) == 0 {
+		// "if all are already held; this benefit is lost".
+		seq := r.log.Step("New Trade: every Trade is already held", r.def.Cite)
+		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceBenefitLost, Career: r.def.Name})
+
+		return nil
+	}
+
+	chosen, seq, err := choose(r.log, r.decider, Choice{
+		ID:      ChooseSkill,
+		Prompt:  "Select a New Trade",
+		Options: options,
+		Cite:    r.def.Cite + " (New Trade: any Trade not already held)",
+	})
+	if err != nil {
+		return err
+	}
+
+	r.awardAndLog(options[chosen], 1, seq)
+
+	return nil
 }
 
 // awardFromGroup resolves an open-selection cell by choice and awards the
@@ -910,6 +952,12 @@ func (r *careerRun) continueTarget() (int, string) {
 		return target, "Continue " + r.def.ContinueCharacteristic
 	case r.def.ContinueFame:
 		return r.record.Fame, "Continue Fame"
+	case r.def.ContinueSkill != "":
+		// "Continue Craftsman x2" (chart 01 p. 75): a skill level times
+		// a multiplier, so the career runs as long as the craft grows.
+		target := r.character.skillLevel(r.def.ContinueSkill) * r.def.ContinueSkillMultiplier
+
+		return target, "Continue " + r.def.ContinueSkill + " x" + strconv.Itoa(r.def.ContinueSkillMultiplier)
 	case r.def.ContinueCC:
 		target, _ := characteristicValue(&r.character.Characteristics, r.record.ControllingCharacteristic)
 
@@ -1144,7 +1192,12 @@ func (r *careerRun) offerCareerChange() (bool, int, error) {
 		return false, 0, nil
 	}
 
-	if len(eligibleForChange(r.character, r.def.Name)) == 0 {
+	eligible, err := eligibleForChange(r.character, r.def.Name)
+	if err != nil {
+		return false, 0, err
+	}
+
+	if len(eligible) == 0 {
 		return false, 0, nil
 	}
 
@@ -1174,8 +1227,22 @@ func (r *careerRun) offerCareerChange() (bool, int, error) {
 	return true, seq, nil
 }
 
+// careerIsOpen reports whether a career admits this character, either to
+// open the lifepath (first) or to change into.
+func careerIsOpen(character *Character, def *career.Definition, first bool) bool {
+	if first && def.NotAFirstCareer {
+		return false
+	}
+
+	if !first && def.NoEntryByChange {
+		return false
+	}
+
+	return meetsPrerequisite(character, def.BeginPrerequisite)
+}
+
 // eligibleForChange lists the careers a character may change into: "a
-// different career for which he is eligible" (p. 66).
+// different career for which he is eligible" (p. 66). See eligibleCareers.
 //
 // Excluded are the career he is in (the change is to a different one), any
 // career whose To Begin he has already failed ("If both Begin and Retry
@@ -1187,7 +1254,24 @@ func (r *careerRun) offerCareerChange() (bool, int, error) {
 // which is different from the current one; nothing forbids returning to an
 // earlier one, and chart 10's "select any previous career" for a Scheme
 // presupposes that careers accumulate (interpretation I-53).
-func eligibleForChange(character *Character, current string) []string {
+func eligibleForChange(character *Character, current string) ([]string, error) {
+	return eligibleCareers(character, current, false)
+}
+
+// eligibleCareers lists the careers open to a character, either to open
+// the lifepath with (first) or to change into.
+//
+// Excluded either way: a career whose To Begin has already failed ("If
+// both Begin and Retry fail, this career may not be used", p. 65, read as
+// lifetime — interpretation I-54), and one whose entry is automatic but
+// conditional on qualifications the character does not have (chart 01's
+// "*if TWO skill-6 and Craftsman-1" — interpretation I-60).
+//
+// Excluded as a first career: "Functionary is never a first career"
+// (chart 13 p. 87). Excluded as a change: the career being left, since
+// p. 66 offers "a different career", and Citizen, which "A Character may
+// not change to".
+func eligibleCareers(character *Character, current string, first bool) ([]string, error) {
 	failed := make(map[string]bool, len(character.Careers))
 
 	for _, record := range character.Careers {
@@ -1199,7 +1283,7 @@ func eligibleForChange(character *Character, current string) []string {
 	eligible := make([]string, 0, len(careerRegistry))
 
 	for _, name := range career.Available() {
-		if name == current || failed[name] {
+		if failed[name] || (!first && name == current) {
 			continue
 		}
 
@@ -1209,12 +1293,20 @@ func eligibleForChange(character *Character, current string) []string {
 		}
 
 		def, _, err := entry()
-		if err != nil || def.NoEntryByChange {
-			continue
+		if err != nil {
+			// A definition that will not load is a build fault, not an
+			// ineligible career. Skipping it silently is how a broken
+			// transcription vanishes from the options with nothing to
+			// show for it — which is exactly how chart 01's unregistered
+			// New Trade cell hid while Craftsman was simply never
+			// offered.
+			return nil, fmt.Errorf("career %q: %w", name, err)
 		}
 
-		eligible = append(eligible, name)
+		if careerIsOpen(character, def, first) {
+			eligible = append(eligible, name)
+		}
 	}
 
-	return eligible
+	return eligible, nil
 }

@@ -156,9 +156,18 @@ func checkHobby(t *testing.T, seed uint64, record chargen.CareerRecord) {
 // adding data without mechanics or mechanics without data.
 func TestRegistryMatchesAvailable(t *testing.T) {
 	for _, name := range career.Available() {
-		if _, err := chargen.Generate(chargen.Options{
+		_, err := chargen.Generate(chargen.Options{
 			Seed: 1, Career: name, Decider: chargen.DefaultPolicy{},
-		}); err != nil {
+		})
+
+		// Craftsman and Functionary cannot open a lifepath (p. 75,
+		// p. 87), so a refusal is the right answer and not a missing
+		// registration. Anything else must generate.
+		if errors.Is(err, chargen.ErrCareerUnavailable) {
+			continue
+		}
+
+		if err != nil {
 			t.Errorf("available career %q does not generate: %v", name, err)
 		}
 	}
@@ -295,11 +304,19 @@ func TestGenerateForcedCareer(t *testing.T) {
 		t.Errorf("forced career = %+v", c.Careers)
 	}
 
-	// Craftsman (chart 01) is not reachable as a first career, so it has
-	// no mechanics; it stays unknown until career changes land (M4).
-	_, err := chargen.Generate(chargen.Options{Seed: 3, Career: "Craftsman", Decider: chargen.DefaultPolicy{}})
+	// A name that is not a career at all.
+	_, err := chargen.Generate(chargen.Options{Seed: 3, Career: "Cook", Decider: chargen.DefaultPolicy{}})
 	if !errors.Is(err, chargen.ErrUnknownCareer) {
 		t.Errorf("unknown forced career error = %v, want ErrUnknownCareer", err)
+	}
+
+	// A career that exists but cannot open a lifepath. Chart 01's entry
+	// is automatic only "if TWO skill-6 and Craftsman-1" (p. 75), which a
+	// character leaving education does not have — a different refusal
+	// from an unknown name, and worth telling apart.
+	_, err = chargen.Generate(chargen.Options{Seed: 3, Career: "Craftsman", Decider: chargen.DefaultPolicy{}})
+	if !errors.Is(err, chargen.ErrCareerUnavailable) {
+		t.Errorf("unavailable forced career error = %v, want ErrCareerUnavailable", err)
 	}
 }
 

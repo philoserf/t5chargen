@@ -9,13 +9,18 @@ Statuses: **covered** · **deferred (M#)** with the owning milestone ·
 **interpretation** rows also name their ERRATA.md entry. Cites are to
 Book 1, Print Edition 5.1.
 
-## Milestone 3 status
+## Career status
 
-Every career reachable from a standing start is implemented. Craftsman
-(01) and Functionary (13) wait on career changes, neither being able to
-be a first career (see their section below); every other chart has a
+**Every career is implemented.** Craftsman (01) and Functionary (13) came
+last because neither can open a lifepath — chart 13 says so outright, and
+chart 01's automatic entry is conditional on qualifications no school
+leaver has — so both waited on career changes (p. 66). Each chart has a
 section here listing its uncommon branches as covered or deferred, and
 ERRATA.md records every place the printed rules were ambiguous.
+
+Neither is reachable in auto mode, because the default policy declines
+every career change; their fixtures carry `policy_version: "none"`. See
+POLICY.md, Known limitations.
 
 Counts are deliberately absent from this prose. The tests below know how
 many careers, interpretations, and choice points there are; a sentence
@@ -110,17 +115,31 @@ sequences.
 | The Reserves: enrolled on leaving a military, naval, or marine career, at the last rank held              | p. 67                     | `recordReserve`, `reserves` chart fact                     | `TestLeavingTheArmedForcesEntersTheReserves`, `TestTheReserveRankIsNamed`                                     | covered; resigning deferred (I-55), the pension is muster out's                                                                                           |
 | Every career records when it ended                                                                        | p. 69                     | `CareerRecord.EndAge`                                      | `TestEveryCareerRecordsWhenItEnded`                                                                           | covered — muster out reads it for retirement and the Reserve Pension                                                                                      |
 
-## Career 01 — Craftsman
+## Career 01 — Craftsman (chart 01, p. 75)
 
-Craftsman is now reachable in principle — career changes landed — and is
-the last career left. Its Begin is "Automatic\* — \*if TWO skill-6 and
-Craftsman-1" (chart 01), which a character leaving education at 18
-essentially never satisfies, so it waits on a chunk of its own. Findings
-banked from the page: the box/prose conflict between "9D < Master Points"
-and "Roll 9D for Master Points or less"; QREBS allocation and the
-Masterpiece Value table are M4 economics; and its "New Trade\*\*\*" cells
-("Any Trade not already held; if all are already held, this benefit is
-lost") need a cell kind the engine does not yet have.
+The last career. Reachable only by changing into it (p. 66) once the
+character has acquired the craft and the breadth its entry demands, so its
+fixture is generated with a test Decider and carries
+`policy_version: "none"` — see POLICY.md, Known limitations.
+
+| Rule                                                                                                            | Cite                            | Implementation                                              | Test                                         | Status                                                                                  |
+| --------------------------------------------------------------------------------------------------------------- | ------------------------------- | ----------------------------------------------------------- | -------------------------------------------- | --------------------------------------------------------------------------------------- |
+| "To Begin Automatic\* — \*if TWO skill-6 and Craftsman-1"                                                       | chart 01 A                      | `BeginPrerequisite`, `meetsPrerequisite`, `eligibleCareers` | `TestCraftsmanNeedsItsPrerequisite`          | interpretation I-60 — an unmet condition gates eligibility, it does not fail an attempt |
+| "Masterpiece C1 C2 C3 C4" as the controlling characteristics                                                    | chart 01 A                      | `controlling_characteristics`                               | golden `career_craftsman`                    | covered                                                                                 |
+| "Continue Craftsman x2"                                                                                         | chart 01 A                      | `continue_skill`, `continueTarget`                          | golden `career_craftsman`                    | covered — the target grows as the craft does                                            |
+| "He does not roll Risk and Reward"                                                                              | chart 01                        | `craftsmanMechanics.resolveTerm`                            | golden `career_craftsman`                    | covered — the only career whose term is neither Risk & Reward nor a variant             |
+| Master Points: Controlling Characteristics, Craftsman Skill, up to five skills at 6+                            | chart 01 Creating A Masterpiece | `masterPoints`, `bonusSkillPoints`                          | `TestMasterPointsTotalTheChartsSources`      | interpretation I-61 — all four characteristics, not the governing one                   |
+| "(but not languages)"                                                                                           | chart 01                        | `bonusSkillPoints` excludes Language and its Knowledges     | `TestMasterPointsTotalTheChartsSources`      | covered                                                                                 |
+| "If the Craftsman cannot show at least 40 Master Points, he cannot attempt a Masterpiece (treat as Failure)"    | chart 01                        | `craftsmanMechanics.attempt`                                | golden `career_craftsman` term 1 (39 points) | covered                                                                                 |
+| The creation throw: box "9D < Master Points" vs prose "Roll 9D for Master Points or less"                       | chart 01                        | `dice.Check`                                                | `TestMasterPointsTotalTheChartsSources`      | interpretation I-62 — the prose governs                                                 |
+| "Creation Attempt Fails: Receive Craftsman +1"                                                                  | chart 01                        | `resolveTerm`                                               | `TestCraftsmanCoversEveryCreationBranch`     | covered — the level comes either way; only the eligibility differs                      |
+| "A Perfect Masterpiece has 55 or more Master Points"                                                            | chart 01                        | `PerfectMasterpieces`                                       | `TestCraftsmanCoversEveryCreationBranch`     | covered                                                                                 |
+| "Per Term 4 / Per Success 3 +Craftsman-1 / Per Failure 1 +Craftsman-1"                                          | chart 01 B                      | `skills_per_term`, `SkillsPerSuccess`, `SkillsPerFailure`   | golden `career_craftsman`                    | covered                                                                                 |
+| The Masterpiece Value table and "Cr150,000 plus Cr10,000 per Master Point over 40 ... Perfect sells for Double" | chart 01                        | `masterpieceValue`                                          | `TestMasterpieceValue`                       | covered — the fixture's four Masterpieces match four printed rows                       |
+| "New Trade\*\*\*: Any Trade not already held; if all are already held; this benefit is lost"                    | chart 01 C                      | `EntryNewTrade`, `awardNewTrade`                            | golden `career_craftsman`                    | covered — the cell's options depend on the character, so it cannot use `groupCells`     |
+| QREBS allocation                                                                                                | chart 01                        | `masterpiece.qrebs` transcribed                             | —                                            | deferred (I-62) — nothing in generation reads it                                        |
+| Vintage Masterpiece appreciation                                                                                | chart 01                        | —                                                           | —                                            | deferred (I-62) — prices a sale, and generation makes none                              |
+| Muster out table D (labelled "D CRAFTSMAN", not "D MUSTER OUT")                                                 | chart 01 D                      | —                                                           | —                                            | deferred (M4 muster out)                                                                |
 
 ## Career 02 — Scholar (chart 02, p. 76)
 
