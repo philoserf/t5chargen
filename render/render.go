@@ -141,7 +141,16 @@ func careerValues(record chargen.CareerRecord) string {
 	}
 
 	if record.RankTitle != "" {
-		parts = append(parts, record.RankTitle+" "+record.Rank)
+		// "A character in the Reserves maintains his or her last held
+		// rank as a Reserve Rank ('I'm a Marine Reserve Sergeant')"
+		// (p. 67) — which is what the character is once the career ends,
+		// so the sheet says so rather than printing the active rank.
+		rank := record.RankTitle + " " + record.Rank
+		if record.Reserve {
+			rank = "Reserve " + rank
+		}
+
+		parts = append(parts, rank)
 	}
 
 	parts = append(parts, scoutValues(record)...)

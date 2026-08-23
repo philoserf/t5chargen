@@ -1,6 +1,7 @@
 package chargen_test
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/philoserf/t5chargen/chargen"
@@ -244,5 +245,47 @@ func assertNoOtherCareerEnrols(t *testing.T) {
 				}
 			}
 		}
+	}
+}
+
+// TestTheReserveRankIsNamed pins what p. 67 preserves. The rank is what
+// the Reserves keep — "maintains his or her last held rank as a Reserve
+// Rank ('I'm a Marine Reserve Sergeant')" — so the record must carry a
+// name a reader recognises, not the internal rank id.
+func TestTheReserveRankIsNamed(t *testing.T) {
+	named := 0
+
+	for _, career := range []string{"Soldier", "Spacer", "Marine"} {
+		for seed := uint64(1); seed <= 40; seed++ {
+			c, err := chargen.Generate(chargen.Options{
+				Seed: seed, Career: career, Decider: chargen.DefaultPolicy{},
+			})
+			if err != nil {
+				t.Fatalf("%s seed %d: %v", career, seed, err)
+			}
+
+			for _, e := range c.Events {
+				if e.Kind != chargen.EventConsequence || e.Consequence.Kind != chargen.ConsequenceReserve {
+					continue
+				}
+
+				rank := e.Consequence.Skill
+				if rank == "" {
+					continue
+				}
+
+				named++
+
+				// The sheet's form is "Lt Colonel O5": a bare id carries
+				// no rank the reader can read.
+				if !strings.Contains(rank, " ") {
+					t.Errorf("%s seed %d: Reserve Rank recorded as %q, want a titled rank", career, seed, rank)
+				}
+			}
+		}
+	}
+
+	if named == 0 {
+		t.Fatal("no ranked Armed Forces career completed; the Reserve Rank went untested")
 	}
 }

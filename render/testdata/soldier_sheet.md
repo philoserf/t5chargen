@@ -14,7 +14,7 @@
 
 **Education**: College — did not graduate
 
-**Career**: Soldier (5 terms), Artillery, XS-3, MCG-1, SEH-1, Lt Colonel O5
+**Career**: Soldier (5 terms), Artillery, XS-3, MCG-1, SEH-1, Reserve Lt Colonel O5
 
 **Skills**: Actor-1, Admin-1, Fighter-10, Hostile Environ-2, Leader-3, Stealth-3, Tactics-6, Trader-1, Vacc Suit-3
 

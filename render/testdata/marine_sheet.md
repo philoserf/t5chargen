@@ -14,7 +14,7 @@
 
 **Education**: College, Major Athlete, Minor Broker — Honors BA
 
-**Career**: Marine (7 terms), Medical, XS-4, MCUF-3, Coronel O6
+**Career**: Marine (7 terms), Medical, XS-4, MCUF-3, Reserve Coronel O6
 
 **Skills**: Actor-1, Athlete-4, Broker-1, Fighter-15, Hostile Environ-3, Leader-8, Medic-1, Stealth-1, Survival-2, Tactics-6, Trader-1, Vacc Suit-1
 

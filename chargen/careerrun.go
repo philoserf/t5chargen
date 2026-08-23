@@ -243,8 +243,19 @@ func (r *careerRun) recordReserve() {
 
 	r.record.Reserve = true
 	r.log.Consequence(ConsequenceEvent{
-		Cause: r.entryCause, Kind: ConsequenceReserve, Career: r.def.Name, Skill: r.record.Rank,
+		Cause: r.entryCause, Kind: ConsequenceReserve, Career: r.def.Name, Skill: r.reserveRank(),
 	})
+}
+
+// reserveRank names the rank the Reserves preserve, in the form the
+// character sheet prints it ("Lt Colonel O5"): the title carries the rule's
+// meaning and the id alone ("O5") is unreadable on its own.
+func (r *careerRun) reserveRank() string {
+	if r.record.RankTitle == "" {
+		return r.record.Rank
+	}
+
+	return r.record.RankTitle + " " + r.record.Rank
 }
 
 // elapseTerm advances the clock by the term's four years, resolving any
@@ -1134,9 +1145,12 @@ func (r *careerRun) offerCareerChange() (bool, int, error) {
 		// First-listed is the printed default in the sense that matters:
 		// the Continue roll is what the page describes as the ordinary
 		// end of a term, and changing is the deviation from it.
-		Options:      []string{"Continue in " + r.def.Name, "Change careers"},
-		Cite:         "Book 1 p. 66 (Changing Careers)",
-		CareerEnding: true,
+		Options: []string{"Continue in " + r.def.Name, "Change careers"},
+		Cite:    "Book 1 p. 66 (Changing Careers)",
+		// CareerEnding is deliberately unset: it marks a choice whose
+		// *declined* branch ends the career, and here declining is what
+		// keeps the character in it. The accepted branch is the one that
+		// ends the career, which is the opposite stake.
 	})
 	if err != nil {
 		return false, 0, err
@@ -1180,7 +1194,12 @@ func eligibleForChange(character *Character, current string) []string {
 			continue
 		}
 
-		def, _, err := careerRegistry[name]()
+		entry, ok := careerRegistry[name]
+		if !ok {
+			continue
+		}
+
+		def, _, err := entry()
 		if err != nil || def.NoEntryByChange {
 			continue
 		}

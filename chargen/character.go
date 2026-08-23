@@ -494,8 +494,6 @@ func runCareer(forced string, roller *dice.Roller, log *Log, decider Decider, ch
 		options = []string{forced}
 	}
 
-	log.Step("Select Career", "Book 1 p. 72 chart E1 step D")
-
 	// The outer loop runs once per career served: a character who
 	// voluntarily leaves one selects another (p. 66). The inner loop is
 	// the To Begin failure path — "If both Begin and Retry fail, this
@@ -524,9 +522,15 @@ func runCareer(forced string, roller *dice.Roller, log *Log, decider Decider, ch
 
 // runCareerOnce selects a career and resolves it, retrying with the
 // remaining options while To Begin fails.
+//
+// The step header belongs here rather than to the caller: a character who
+// changes careers selects again, and a selection logged outside a step of
+// its own reads as part of the term he just left.
 func runCareerOnce(
 	options []string, roller *dice.Roller, log *Log, decider Decider, character *Character,
 ) (bool, termEnd, error) {
+	log.Step("Select Career", "Book 1 p. 72 chart E1 step D")
+
 	for len(options) > 0 {
 		chosen, chosenSeq, err := choose(log, decider, Choice{
 			ID:      ChooseCareer,
