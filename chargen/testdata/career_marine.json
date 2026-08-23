@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.20.0",
+  "schema_version": "0.21.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.21.0",
-  "policy_version": "0.13.0",
+  "engine_version": "0.22.0",
+  "policy_version": "0.14.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 529
@@ -159,6 +159,7 @@
   ],
   "waivers_attempted": 1,
   "life_stage": 7,
+  "fame": 9,
   "wound_badges": 3,
   "events": [
     {
@@ -4897,6 +4898,48 @@
         "kind": "reserve",
         "skill": "Coronel O6",
         "career": "Marine"
+      }
+    },
+    {
+      "seq": 348,
+      "kind": "step",
+      "step": {
+        "name": "Determine Fame",
+        "cite": "Book 1 p. 91 chart F"
+      }
+    },
+    {
+      "seq": 349,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Invoke the Fame Flux Event? (Fame 9 so far)",
+        "options": [
+          "Keep this Fame",
+          "Add Flux to Fame"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 91 chart F (The Fame Flux Event)"
+      }
+    },
+    {
+      "seq": 350,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 349,
+        "kind": "fame_computed",
+        "skill": "Continental",
+        "value": 9,
+        "mods": [
+          {
+            "name": "Marine Officer Rank",
+            "value": 6
+          },
+          {
+            "name": "Marine MCUF x1",
+            "value": 3
+          }
+        ]
       }
     }
   ]

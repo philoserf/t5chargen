@@ -15,8 +15,9 @@ func scoutOptions(seed uint64, decider chargen.Decider) chargen.Options {
 }
 
 // TestScoutInvariants sweeps forced-Scout seeds: CC pool membership
-// (chart 05: C1 C2 C3), Continue vs Int, Fame == Discoveries, wound-badge
-// accounting, and the begin-failure fallback to Citizen (p. 65).
+// (chart 05: C1 C2 C3), Continue vs Int, Fame priced from Discoveries
+// (chart F p. 91), wound-badge accounting, and the begin-failure fallback
+// to Citizen (p. 65).
 func TestScoutInvariants(t *testing.T) {
 	sawBeginFailure := false
 
@@ -58,9 +59,10 @@ func checkScoutRecord(t *testing.T, seed uint64, c chargen.Character, sawBeginFa
 		}
 	}
 
-	if c.Fame != scout.Discoveries {
-		t.Errorf("seed %d: fame %d != discoveries %d", seed, c.Fame, scout.Discoveries)
-	}
+	// "Scout Discoveries x4" (chart F p. 91). The contribution is checked
+	// rather than the total, which also carries the Fame Flux Event and
+	// the stacking limit — both tested where they belong.
+	checkFameSource(t, seed, c, "Scout Discoveries x4", scout.Discoveries*4)
 
 	checkScoutEvents(t, seed, c)
 }
@@ -266,5 +268,31 @@ func TestOnlyTheScoutChargesSanity(t *testing.T) {
 				}
 			}
 		})
+	}
+}
+
+// checkFameSource asserts one line of chart F's itemized calculation.
+// A source worth nothing is not recorded, so zero means absent.
+func checkFameSource(t *testing.T, seed uint64, c chargen.Character, source string, want int) {
+	t.Helper()
+
+	for _, e := range c.Events {
+		if e.Kind != chargen.EventConsequence || e.Consequence.Kind != chargen.ConsequenceFameComputed {
+			continue
+		}
+
+		for _, mod := range e.Consequence.Mods {
+			if mod.Name == source {
+				if mod.Value != want {
+					t.Errorf("seed %d: %s contributed %d, want %d", seed, source, mod.Value, want)
+				}
+
+				return
+			}
+		}
+	}
+
+	if want != 0 {
+		t.Errorf("seed %d: %s contributed nothing, want %d", seed, source, want)
 	}
 }

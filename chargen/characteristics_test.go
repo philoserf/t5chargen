@@ -1,6 +1,7 @@
 package chargen_test
 
 import (
+	"reflect"
 	"testing"
 
 	"github.com/philoserf/t5chargen/chargen"
@@ -77,7 +78,7 @@ func checkCharacteristicPair(t *testing.T, name string, value int, throw, conseq
 		Characteristic: name,
 		Value:          value,
 	}
-	if *consequence.Consequence != want {
+	if !reflect.DeepEqual(*consequence.Consequence, want) {
 		t.Errorf("%s consequence = %+v, want %+v", name, *consequence.Consequence, want)
 	}
 }

@@ -184,7 +184,4 @@ func (*scoutMechanics) retryReward(r *careerRun, mod int) (bool, int, error) {
 func (*scoutMechanics) discovery(r *careerRun, cause int) {
 	r.record.Discoveries++
 	r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceDiscovery, Value: r.record.Discoveries})
-
-	r.character.Fame++
-	r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceFameChange, Delta: 1, Value: r.character.Fame})
 }

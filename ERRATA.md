@@ -1430,3 +1430,95 @@ from the column positions — and the allocation is left to play.
 Vintage appreciation is deferred with it: "A Masterpiece increases in value
 about 1% per year (simple interest), but are subject to Flux (in percent)
 when sold" prices a sale, and character generation makes none.
+
+### I-63: Fame stacks to 20 as a cap, not a cliff (p. 91 chart F)
+
+"Fame Stacks. A character's Fame is the sum of all Fame points received to
+20; beyond 20, only the highest Fame applies."
+
+Read as: the sum applies up to 20, and a single accomplishment worth more
+than 20 carries past it. So Fame is the greater of the capped sum and the
+largest single source.
+
+The rival reading takes "beyond 20" to describe the total: once the sum
+passes 20 it collapses to the largest single source. The discriminating
+case is two accomplishments of 12. This reading gives 20; the rival gives
+12 — less Fame than the same character had after the first of them alone.
+No reading of a rule titled "Fame Stacks" should let an accomplishment
+subtract, and `TestStackIsMonotonic` holds that property over the whole
+range rather than trusting the argument.
+
+Implemented at `fame/fame.go` (`Stack`).
+
+### I-64: "Merchant Ship Owner = 1D" is deferred (p. 91 chart F; p. 68)
+
+Chart F gives a Merchant Fame for his rank and again for owning a ship.
+Ownership is not established during career resolution: a Merchant
+accumulates Ship Shares, and what they buy is settled at muster out, where
+chart S (p. 90) prices ships in shares.
+
+The ordering forecloses it. Muster out reads Fame — "He is allowed one
+additional roll if Fame 19+" (p. 68) — so Fame must be known before muster
+out runs, and ownership is not known until it has. Rolling 1D for a
+Merchant who merely holds shares would credit Fame for a ship he may never
+own.
+
+Deferred rather than guessed. The eligibility is recorded here so that
+whoever implements ship purchase knows Fame is waiting on it.
+
+### I-65: "Armed Forces Enlisted = no Fame" is read flat (p. 91 chart F)
+
+Chart F's Armed Forces block lists "Army / Marine / Navy: Officer Rank *"
+above six decorations with their multipliers, and footnotes the block
+"*Armed Forces Enlisted = no Fame."
+
+Read as: an enlisted character earns no Fame from that career at all —
+neither from rank, which he has none of, nor from his decorations.
+
+The rival reading is defensible and turns on where the asterisk sits: it
+is printed on the three "Officer Rank *" lines and nowhere else, so it
+could be scoping only those, leaving the medal lines to apply to anyone.
+That reading has something going for it — the chart's own Marine Sergeant
+Brett Bozeman, with Wound Badge-4 after four terms, is memorable enough
+that a reader expects him to be known for it.
+
+It is rejected because the footnote says what it says. "Enlisted = no
+Fame" is a flat statement, and reading it as narrower than its own words,
+on the strength of a typographical detail, is the kind of inference this
+file exists to avoid making silently.
+
+Implemented at `chargen/fame.go` (`armedForcesFame`).
+
+### I-66: "Imperial Noble Soc x1.5" rounds down (p. 91 chart F)
+
+Fame points are whole numbers everywhere else on the chart — "xN = N Fame
+points per occurrence" — and this is the only eligibility that can produce
+a half. An odd Social Standing gives one: Soc 11 yields 16.5.
+
+Read as: round down, which is how every other division in the rules
+resolves (the muster-out DMs "+Fame/3" and "+Fame/2", the Scout's Sanity
+"per TWO Terms"). Nothing on the page says otherwise, and rounding up
+would make an odd Soc worth more per point than an even one.
+
+Implemented at `chargen/fame.go` (`nobleFame`).
+
+### I-67: A Rogue's failed scheme is a failed Reward, and his infamy is separate (p. 91 chart F; p. 84 chart 10)
+
+Chart F prices "Rogue Successful Schemes x2" and "Rogue Failed Schemes
+x3", and chart 10 has two rolls that could decide which a scheme was: the
+Risk, whose failure imprisons, and the Reward, whose failure pays nothing.
+
+Read as: the Reward decides. Chart 10's own skill eligibility table uses
+exactly these words — "Failed Scheme 1 / Successful Scheme 4" — for the
+Reward outcome, and reading the same two terms differently on the facing
+page would be perverse.
+
+That leaves chart 10's "Fame +1 (actually Infamy)", which it awards on a
+Risk failure and chart F does not enumerate. It is recorded as the career's
+own tracked Fame — the same field chart 03 uses, and which chart F reads
+where it says "Entertainer detailed under Career" — and chart F adds it to
+the total. The two are not the same event: a Rogue can be caught on a
+scheme that still pays, and walk free from one that pays nothing.
+
+Implemented at `chargen/rogue.go` (`schemeTerm`, `imprison`) and
+`chargen/fame.go` (`rogueFame`).

@@ -116,12 +116,14 @@ func (*entertainerMechanics) chooseSpecialty(r *careerRun) (career.BeginTrack, e
 	return r.def.BeginTracks[chosen], nil
 }
 
-// setFame records a new Fame value on the career and the character.
+// setFame records a new Fame value on the career. It is the career's own
+// tracked value — its Continue target, and what chart F reads where it
+// says "Entertainer detailed under Career" (p. 91) — not the character's
+// Fame, which is calculated over the finished record.
 func (m *entertainerMechanics) setFame(r *careerRun, value, cause int) {
 	delta := value - m.fame
 	m.fame = value
 	r.record.Fame = value
-	r.character.Fame = value
 
 	r.log.Consequence(ConsequenceEvent{
 		Cause: cause, Kind: ConsequenceFameChange, Delta: delta, Value: value,

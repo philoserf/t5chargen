@@ -22,8 +22,10 @@
 
 **Skills**: ACV-15, Actor-15, Craftsman-15, Electronics-4, Trader-1
 
+**Status**: Fame 20 (Sector)
+
 ---
 
-Seed 177 (math/rand/v2-pcg) · schema 0.20.0 · engine 0.21.0 · policy none
+Seed 177 (math/rand/v2-pcg) · schema 0.21.0 · engine 0.22.0 · policy none
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.20.0",
+  "schema_version": "0.21.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.21.0",
+  "engine_version": "0.22.0",
   "policy_version": "none",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -159,6 +159,7 @@
   ],
   "waivers_attempted": 1,
   "life_stage": 7,
+  "fame": 2,
   "events": [
     {
       "seq": 1,
@@ -4616,6 +4617,44 @@
         "cause": 254,
         "kind": "career_ended",
         "career": "Functionary"
+      }
+    },
+    {
+      "seq": 282,
+      "kind": "step",
+      "step": {
+        "name": "Determine Fame",
+        "cite": "Book 1 p. 91 chart F"
+      }
+    },
+    {
+      "seq": 283,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Invoke the Fame Flux Event? (Fame 2 so far)",
+        "options": [
+          "Keep this Fame",
+          "Add Flux to Fame"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 91 chart F (The Fame Flux Event)"
+      }
+    },
+    {
+      "seq": 284,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 283,
+        "kind": "fame_computed",
+        "skill": "Close Family",
+        "value": 2,
+        "mods": [
+          {
+            "name": "Scholar Publications",
+            "value": 2
+          }
+        ]
       }
     }
   ]

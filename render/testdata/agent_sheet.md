@@ -18,8 +18,10 @@
 
 **Skills**: Actor-1, Animals-9, Athlete-1, Automotive-1, Biologics-14, Bureaucrat-13, Hostile Environ-12, Navigator-10, Survey-5, Survival-7, Trader-2
 
+**Status**: Fame 6 (City)
+
 ---
 
-Seed 1717 (math/rand/v2-pcg) · schema 0.20.0 · engine 0.21.0 · policy 0.13.0
+Seed 1717 (math/rand/v2-pcg) · schema 0.21.0 · engine 0.22.0 · policy 0.14.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

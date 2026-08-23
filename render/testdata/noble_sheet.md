@@ -18,8 +18,10 @@
 
 **Skills**: Actor-1, Advocate-3, Bureaucrat-3, Counsellor-1, Leader-9, Liaison-4, Trader-1
 
+**Status**: Fame 19 (Subsector)
+
 ---
 
-Seed 2978 (math/rand/v2-pcg) · schema 0.20.0 · engine 0.21.0 · policy 0.13.0
+Seed 2978 (math/rand/v2-pcg) · schema 0.21.0 · engine 0.22.0 · policy 0.14.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

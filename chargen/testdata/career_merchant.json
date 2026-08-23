@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.20.0",
+  "schema_version": "0.21.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.21.0",
-  "policy_version": "0.13.0",
+  "engine_version": "0.22.0",
+  "policy_version": "0.14.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 17
@@ -108,6 +108,7 @@
     }
   ],
   "life_stage": 5,
+  "fame": 3,
   "wound_badges": 1,
   "events": [
     {
@@ -2019,6 +2020,44 @@
         "cause": 134,
         "kind": "career_ended",
         "career": "Merchant"
+      }
+    },
+    {
+      "seq": 141,
+      "kind": "step",
+      "step": {
+        "name": "Determine Fame",
+        "cite": "Book 1 p. 91 chart F"
+      }
+    },
+    {
+      "seq": 142,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Invoke the Fame Flux Event? (Fame 3 so far)",
+        "options": [
+          "Keep this Fame",
+          "Add Flux to Fame"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 91 chart F (The Fame Flux Event)"
+      }
+    },
+    {
+      "seq": 143,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 142,
+        "kind": "fame_computed",
+        "skill": "Extended Family",
+        "value": 3,
+        "mods": [
+          {
+            "name": "Merchant Rank",
+            "value": 3
+          }
+        ]
       }
     }
   ]

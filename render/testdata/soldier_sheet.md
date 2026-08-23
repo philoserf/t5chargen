@@ -18,10 +18,10 @@
 
 **Skills**: Actor-1, Admin-1, Fighter-10, Hostile Environ-2, Leader-3, Stealth-3, Tactics-6, Trader-1, Vacc Suit-3
 
-**Status**: Wound Badges 2, Disabled
+**Status**: Fame 10 (World), Wound Badges 2, Disabled
 
 ---
 
-Seed 305 (math/rand/v2-pcg) · schema 0.20.0 · engine 0.21.0 · policy 0.13.0
+Seed 305 (math/rand/v2-pcg) · schema 0.21.0 · engine 0.22.0 · policy 0.14.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

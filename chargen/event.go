@@ -228,6 +228,12 @@ const (
 	// career owes; there is no value to total it against.
 	ConsequenceSanityMod ConsequenceKind = "sanity_mod"
 
+	// ConsequenceFameComputed records the Fame calculated over a finished
+	// character (chart F p. 91). Value is the level, Skill its printed
+	// descriptor, and Mods the priced accomplishments it stacks — the
+	// arithmetic the chart's own example shows ("Fame = 1 x 3 = 3").
+	ConsequenceFameComputed ConsequenceKind = "fame_computed"
+
 	// ConsequenceFameChange records a Fame change (chart 05: "Fame +1";
 	// the full Fame system, chart F p. 91, lands with milestone 4).
 	// Delta is the change, Value the new Fame.
@@ -326,6 +332,11 @@ type ConsequenceEvent struct {
 	Career         string          `json:"career,omitempty"`
 	Delta          int             `json:"delta,omitempty"`
 	Value          int             `json:"value,omitempty"`
+
+	// Mods itemizes a computed consequence's sources, as a throw's Mods
+	// itemize its target: chart F's Fame is a sum the record should show
+	// the working for (docs/PRD.md FR10).
+	Mods []Mod `json:"mods,omitempty"`
 }
 
 // Log accumulates the generation record in event order.
