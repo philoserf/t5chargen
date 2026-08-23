@@ -401,3 +401,10 @@ _Book 1 p. 87 chart 13 D_
 - #320 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #321 1D+8 = 1 = 9 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
   - #322 (from #321) Money, worth Cr35000
+
+## Muster Out: Entitlements
+
+_Book 1 p. 70 chart M1_
+
+- #324 player chose "Keep it (Cr120000 a year from age 66)" of [Keep it (Cr120000 a year from age 66), Cash out (Cr600000)]: Cash out the Functionary's Pension? — Book 1 p. 69 (Cashing Out)
+  - #325 (from #324) Functionary's Pension, Cr120000 a year from age 66

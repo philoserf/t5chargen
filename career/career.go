@@ -313,6 +313,23 @@ type MusterOutDM struct {
 	Divisor int `json:"divisor,omitempty"`
 }
 
+// MusterOutAutomatic is an award a career's own table D grants outright,
+// beyond chart M1's list: chart 13 prints two, "Automatic: Gold Watch
+// (Value= 100 x Terms as Functionary)" and "Automatic: Directorship if
+// Rank F6+" (p. 87).
+type MusterOutAutomatic struct {
+	ID   string `json:"id"`
+	Name string `json:"name"`
+
+	// CreditsPerTerm prices the Gold Watch by the terms served.
+	CreditsPerTerm int `json:"credits_per_term,omitempty"`
+
+	// MinimumRank gates the award on the rank ladder.
+	MinimumRank string `json:"minimum_rank,omitempty"`
+
+	Note string `json:"note,omitempty"`
+}
+
 // MusterOutRow is one row of a table D.
 type MusterOutRow struct {
 	Roll    int            `json:"roll"`
@@ -335,6 +352,10 @@ type MusterOut struct {
 	MoneyDM   MusterOutDM    `json:"money_dm"`
 	BenefitDM MusterOutDM    `json:"benefit_dm"`
 	PowerDM   *MusterOutDM   `json:"power_dm,omitempty"`
+
+	// Automatics are awards the career's own box grants outright, beyond
+	// chart M1's list.
+	Automatics []MusterOutAutomatic `json:"automatics,omitempty"`
 
 	// Note is the box's own footnote, where it has one.
 	Note string `json:"note,omitempty"`

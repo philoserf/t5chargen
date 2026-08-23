@@ -22,10 +22,12 @@
 
 **Benefits**: 1 High Passage, 1 StarPass
 
+**Automatics**: Fame
+
 **Status**: Fame 5 (Town)
 
 ---
 
-Seed 572 (math/rand/v2-pcg) · schema 0.23.0 · engine 0.24.0 · policy 0.15.0
+Seed 572 (math/rand/v2-pcg) · schema 0.24.0 · engine 0.25.0 · policy 0.16.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

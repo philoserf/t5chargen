@@ -20,10 +20,12 @@
 
 **Credits**: Cr450000
 
+**Automatics**: Fame, TAS Life Membership, Land Grants
+
 **Status**: Fame 20 (Sector), Wound Badges 2
 
 ---
 
-Seed 26 (math/rand/v2-pcg) · schema 0.23.0 · engine 0.24.0 · policy 0.15.0
+Seed 26 (math/rand/v2-pcg) · schema 0.24.0 · engine 0.25.0 · policy 0.16.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

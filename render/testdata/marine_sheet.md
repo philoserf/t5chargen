@@ -22,10 +22,16 @@
 
 **Benefits**: 1 Retirement x2
 
+**Automatics**: Personal Weapons, Fame
+
+**Reserve Pension**: Cr1600 a year from age 66
+
+**Officer Retirement**: Cr42000 a year from age 50
+
 **Status**: Fame 12 (World System), Wound Badges 3
 
 ---
 
-Seed 529 (math/rand/v2-pcg) · schema 0.23.0 · engine 0.24.0 · policy 0.15.0
+Seed 529 (math/rand/v2-pcg) · schema 0.24.0 · engine 0.25.0 · policy 0.16.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

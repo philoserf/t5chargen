@@ -376,7 +376,21 @@
     },
     "benefit_dm": {
       "kind": "officer_rank"
-    }
+    },
+    "automatics": [
+      {
+        "id": "gold_watch",
+        "name": "Gold Watch",
+        "credits_per_term": 100,
+        "note": "Automatic: Gold Watch (Value= 100 x Terms as Functionary)."
+      },
+      {
+        "id": "directorship",
+        "name": "Directorship",
+        "minimum_rank": "F6",
+        "note": "Automatic: Directorship if Rank F6+."
+      }
+    ]
   },
   "muster_out_m2": {
     "cite": "Book 1 p. 71 chart M2",

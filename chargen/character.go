@@ -20,18 +20,18 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.23.0"
+	SchemaVersion = "0.24.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.24.0"
+	EngineVersion = "0.25.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
-	PolicyVersion = "0.15.0"
+	PolicyVersion = "0.16.0"
 
 	// RNGAlgorithm names the recorded random stream: Go math/rand/v2 PCG,
 	// seeded as documented at dice.New. The exact string is compared on
@@ -128,6 +128,15 @@ type Character struct {
 	// Benefits are what muster out awarded, one entry per benefit
 	// received (chart M1 p. 70; the career tables D).
 	Benefits []BenefitRecord `json:"benefits,omitempty"`
+
+	// Automatics are what a character already owns at muster out,
+	// "Subject to Eligibility" (chart M1 p. 70).
+	Automatics []string `json:"automatics,omitempty"`
+
+	// Entitlements are the annual payments muster out settles: the four
+	// pensions from Life Stage 9, and the Armed Forces retirements from
+	// muster out itself (chart M1 p. 70; p. 69).
+	Entitlements []EntitlementRecord `json:"entitlements,omitempty"`
 
 	// Fame is the running Fame counter (chart 05 "Fame +1"; the full
 	// Fame system, chart F p. 91, lands with milestone 4).
@@ -344,6 +353,11 @@ type CareerRecord struct {
 	// Award-Winning publication counts as two.
 	Publications int `json:"publications,omitempty"`
 
+	// AwardWinningPublications counts only those, which Publications
+	// cannot be read back from (I-25). Chart M1's TAS Life Membership is
+	// the "Award-Winning Scholar's" (p. 67).
+	AwardWinningPublications int `json:"award_winning_publications,omitempty"`
+
 	// Tenured records the chart 02 Tenure grant, which gates promotion
 	// beyond Scholar3.
 	Tenured bool `json:"tenured,omitempty"`
@@ -364,6 +378,25 @@ type CareerRecord struct {
 	ShipShares int `json:"ship_shares,omitempty"`
 
 	Terms []TermRecord `json:"terms"`
+}
+
+// EntitlementRecord is one annual payment a character retires on.
+type EntitlementRecord struct {
+	ID   string `json:"id"`
+	Name string `json:"name"`
+
+	// AnnualCredits is what it pays each year, after any Pension x2 or
+	// Retirement x2 doubling: "Each doubling is of the original" (p. 68).
+	AnnualCredits int `json:"annual_credits"`
+
+	// FromAge is when payment begins. A pension "begins when a character
+	// reaches Life Stage 9 Retirement (= age 66 for Humans)"; the Armed
+	// Forces retirements begin at muster out (p. 69).
+	FromAge int `json:"from_age"`
+
+	// CashOut is the lump sum instead: "Any Entitlement can be cashed
+	// out for a lump sum equal to five years of payments" (p. 69).
+	CashOut int `json:"cash_out"`
 }
 
 // BenefitRecord is one muster-out award (chart M1 p. 70).
