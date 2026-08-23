@@ -11,9 +11,13 @@ package chargen
 // Roll for Risk against CC+ Mods. ... Roll for Reward against CC+
 // (opposite sign) Mods." (chart 05 box)
 //
+// Sanity decay — "reduce San= -1 for each TWO Terms served" — is recorded
+// rather than applied, because no Sanity value is generated during
+// character generation (p. 52): careerrun.go's recordSanityMod, driven by
+// the career's sanity_per_terms, interpretation I-47 in ERRATA.md.
+//
 // Deferred: Land Grant values and the Discovery grant economics (chart 05,
-// milestone 4 muster out); Sanity decay ("reduce San= -1 for each TWO
-// Terms served" — San is deferred with chart A); muster-out table D.
+// milestone 4 muster out); muster-out table D.
 
 import (
 	"fmt"

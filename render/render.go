@@ -124,7 +124,8 @@ func careerLine(record chargen.CareerRecord) string {
 
 // careerValues renders the values a career tracks of its own: the
 // Scholar's publications and Tenure, the Entertainer's specialty and
-// Talent, rank, the Scout's Discoveries, and the Merchant's Ship Shares.
+// Talent, rank, the Scout's Discoveries and pending Sanity modifier, and
+// the Merchant's Ship Shares.
 func careerValues(record chargen.CareerRecord) string {
 	var parts []string
 

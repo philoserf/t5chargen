@@ -582,8 +582,8 @@ func (d *Definition) validate() error {
 		return d.validateColumns()
 	}
 
-	if d.SkillsPerTerm < 1 {
-		return fmt.Errorf("%w: %q has %d skills per term", errBadDefinition, d.Name, d.SkillsPerTerm)
+	if err := d.validateTermCounts(); err != nil {
+		return err
 	}
 
 	if err := d.validateContinue(); err != nil {
@@ -611,6 +611,22 @@ func (d *Definition) validate() error {
 	}
 
 	return d.validateJobTable()
+}
+
+// validateTermCounts checks the counts a definition charges per term: the
+// skill eligibilities every career grants, and the terms per point of
+// Sanity where a chart charges some ("reduce San= -1 for each TWO Terms
+// served", chart 05 p. 79, the only career that prints such a rule).
+func (d *Definition) validateTermCounts() error {
+	if d.SkillsPerTerm < 1 {
+		return fmt.Errorf("%w: %q has %d skills per term", errBadDefinition, d.Name, d.SkillsPerTerm)
+	}
+
+	if d.SanityPerTerms < 0 {
+		return fmt.Errorf("%w: negative sanity per terms %d", errBadDefinition, d.SanityPerTerms)
+	}
+
+	return nil
 }
 
 // validateSchemes checks chart 10's Rogue Schemes table, so that SchemeAt
@@ -909,10 +925,6 @@ func (d *Definition) validateContinue() error {
 
 	if d.ContinueCharacteristic != "" && !characteristicNames[d.ContinueCharacteristic] {
 		return fmt.Errorf("%w: unknown continue characteristic %q", errBadDefinition, d.ContinueCharacteristic)
-	}
-
-	if d.SanityPerTerms < 0 {
-		return fmt.Errorf("%w: negative sanity per terms %d", errBadDefinition, d.SanityPerTerms)
 	}
 
 	return nil

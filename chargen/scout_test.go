@@ -4,6 +4,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/philoserf/t5chargen/career"
 	"github.com/philoserf/t5chargen/chargen"
 )
 
@@ -231,15 +232,17 @@ func TestScoutSanityModifier(t *testing.T) {
 
 // TestOnlyTheScoutChargesSanity holds the scope of the rule: chart 05 is
 // the only career page that prints one, so no other career may record a
-// reduction (p. 79).
+// reduction (p. 79). Swept over career.Available rather than a written-out
+// list, so a career added later is covered without editing this test.
 func TestOnlyTheScoutChargesSanity(t *testing.T) {
-	for _, career := range []string{
-		"Citizen", "Scholar", "Entertainer", "Merchant", "Noble",
-		"Soldier", "Spacer", "Marine", "Agent", "Rogue",
-	} {
-		t.Run(career, func(t *testing.T) {
+	for _, name := range career.Available() {
+		if name == "Scout" {
+			continue
+		}
+
+		t.Run(name, func(t *testing.T) {
 			for seed := uint64(1); seed <= 40; seed++ {
-				c := generate(t, chargen.Options{Seed: seed, Career: career})
+				c := generate(t, chargen.Options{Seed: seed, Career: name})
 				for _, record := range c.Careers {
 					if record.SanityMod != 0 {
 						t.Fatalf("seed %d: %s recorded San %+d", seed, record.Career, record.SanityMod)
