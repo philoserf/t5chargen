@@ -2,18 +2,26 @@ package chargen_test
 
 import (
 	"encoding/json"
+	"flag"
 	"os"
 	"testing"
 
 	"github.com/philoserf/t5chargen/chargen"
 )
 
-// TestGenerateGoldenJSON pins the full seed-1 character record against
-// testdata/seed1.json. This is the schema lock and part of the replay
-// contract: a diff here means the record format or the seeded generation
-// changed, and one of schema_version or engine_version must bump.
-func TestGenerateGoldenJSON(t *testing.T) {
-	c := generate(t, chargen.Options{Seed: 1})
+// update rewrites the golden fixtures instead of comparing against them:
+// `task goldens`, or `go test ./chargen -update`. The fixtures are the
+// engine's own output, compared byte for byte, so regenerating them is a
+// deliberate act that belongs in the same commit as the change that moved
+// them.
+var update = flag.Bool("update", false, "rewrite testdata golden files instead of comparing")
+
+// goldenJSON compares the record's canonical serialization against the
+// named fixture, or rewrites the fixture under -update. Marshalling lives
+// here and nowhere else so the writer and the comparison cannot disagree
+// about the bytes a fixture holds.
+func goldenJSON(t *testing.T, c chargen.Character, file string) {
+	t.Helper()
 
 	got, err := json.MarshalIndent(c, "", "  ")
 	if err != nil {
@@ -22,14 +30,30 @@ func TestGenerateGoldenJSON(t *testing.T) {
 
 	got = append(got, '\n')
 
-	want, err := os.ReadFile("testdata/seed1.json")
+	if *update {
+		if err := os.WriteFile(file, got, 0o600); err != nil {
+			t.Fatal(err)
+		}
+
+		return
+	}
+
+	want, err := os.ReadFile(file) //nolint:gosec // G304: fixed test-owned paths under testdata/.
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if string(got) != string(want) {
-		t.Errorf("seed 1 record differs from testdata/seed1.json:\n%s", got)
+		t.Errorf("record differs from %s:\n%s", file, got)
 	}
+}
+
+// TestGenerateGoldenJSON pins the full seed-1 character record against
+// testdata/seed1.json. This is the schema lock and part of the replay
+// contract: a diff here means the record format or the seeded generation
+// changed, and one of schema_version or engine_version must bump.
+func TestGenerateGoldenJSON(t *testing.T) {
+	goldenJSON(t, generate(t, chargen.Options{Seed: 1}), "testdata/seed1.json")
 }
 
 // TestCareerGoldens pins one full character record per implemented career
@@ -57,23 +81,7 @@ func TestCareerGoldens(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.career, func(t *testing.T) {
-			c := generate(t, chargen.Options{Seed: tt.seed, Career: tt.career})
-
-			got, err := json.MarshalIndent(c, "", "  ")
-			if err != nil {
-				t.Fatal(err)
-			}
-
-			got = append(got, '\n')
-
-			want, err := os.ReadFile(tt.file)
-			if err != nil {
-				t.Fatal(err)
-			}
-
-			if string(got) != string(want) {
-				t.Errorf("%s record differs from %s:\n%s", tt.career, tt.file, got)
-			}
+			goldenJSON(t, generate(t, chargen.Options{Seed: tt.seed, Career: tt.career}), tt.file)
 		})
 	}
 }
