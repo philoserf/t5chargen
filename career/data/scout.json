@@ -1,16 +1,8 @@
 {
   "name": "Scout",
   "cite": "Book 1 p. 79 chart 05",
-  "begin_checks": [
-    "Str",
-    "Dex",
-    "End"
-  ],
-  "controlling_characteristics": [
-    "Str",
-    "Dex",
-    "End"
-  ],
+  "begin_checks": ["Str", "Dex", "End"],
+  "controlling_characteristics": ["Str", "Dex", "End"],
   "retry_check": "Edu",
   "continue_characteristic": "Int",
   "skills_per_term": 8,

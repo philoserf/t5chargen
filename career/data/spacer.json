@@ -1,17 +1,11 @@
 {
   "name": "Spacer",
   "cite": "Book 1 p. 81 chart 07",
-  "controlling_characteristics": [
-    "Str",
-    "Dex",
-    "Int"
-  ],
+  "controlling_characteristics": ["Str", "Dex", "Int"],
   "continue_characteristic": "Str",
   "skills_per_term": 4,
   "skills_per_advancement": 1,
-  "begin_checks": [
-    "Int"
-  ],
+  "begin_checks": ["Int"],
   "armed_forces": {
     "branch_check": "Soc",
     "branch_cite": "Book 1 p. 81 chart 07 (Naval Branch)",
@@ -178,27 +172,21 @@
   "advancements": [
     {
       "name": "Officer Commission",
-      "from_classes": [
-        "enlisted"
-      ],
+      "from_classes": ["enlisted"],
       "to_rank": "O1",
       "target": "characteristic",
       "check": "Dex"
     },
     {
       "name": "Rating Promotion",
-      "from_classes": [
-        "enlisted"
-      ],
+      "from_classes": ["enlisted"],
       "target": "characteristic",
       "check": "Dex",
       "medal_mods": true
     },
     {
       "name": "Officer Promotion",
-      "from_classes": [
-        "officer"
-      ],
+      "from_classes": ["officer"],
       "target": "characteristic",
       "check": "Soc",
       "medal_mods": true
