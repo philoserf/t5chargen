@@ -238,7 +238,10 @@ func TestScholarContinueAddsPublications(t *testing.T) {
 // waived" (p. 76). A waived Continue failure carries the career into the
 // next term instead of ending it (interpretation I-22).
 func TestScholarContinueWaiver(t *testing.T) {
-	const continueWaiverSeed = 1
+	// Repinned when aging landed: aging consumes stream, so seed 1 no
+	// longer reaches a failed Continue. Seed 7 waives one and survives,
+	// which keeps the "career did not end there" assertion below meaningful.
+	const continueWaiverSeed = 7
 
 	c, err := chargen.Generate(chargen.Options{
 		Seed: continueWaiverSeed, Career: "Scholar", Decider: chargen.DefaultPolicy{},
@@ -248,7 +251,8 @@ func TestScholarContinueWaiver(t *testing.T) {
 	}
 
 	if waived := waivedContinues(t, c); waived == 0 {
-		t.Fatal("seed 1 no longer waives a failed Continue; the chart 02 Continue waiver is untested")
+		t.Fatalf("seed %d no longer waives a failed Continue; the chart 02 Continue waiver is untested",
+			continueWaiverSeed)
 	}
 
 	// The waiver negates the failure: the career did not end there.

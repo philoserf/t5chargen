@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/philoserf/t5chargen/chargen"
+	"github.com/philoserf/t5chargen/lifestage"
 )
 
 // Sheet renders the Markdown character sheet, modeled on the Character Card
@@ -34,7 +35,7 @@ func Sheet(c chargen.Character) string {
 		fmt.Fprintf(&b, "**Homeworld**: %s\n\n", c.Homeworld.Label())
 	}
 
-	fmt.Fprintf(&b, "**Age**: %d\n\n", c.Age)
+	fmt.Fprintf(&b, "**Age**: %d (%s)\n\n", c.Age, lifeStageName(c.LifeStage))
 
 	b.WriteString("| Str | Dex | End | Int | Edu | Soc |\n")
 	b.WriteString("| --- | --- | --- | --- | --- | --- |\n")
@@ -437,7 +438,7 @@ func consequenceInjuryText(c *chargen.ConsequenceEvent) string {
 	case chargen.ConsequenceDisabled:
 		return "disabled (" + c.Characteristic + " reduced by 4+); musters out at term end"
 	case chargen.ConsequenceDead:
-		return "DEAD (" + c.Characteristic + " reduced to zero)"
+		return consequenceDeadText(c)
 	case chargen.ConsequenceDiscovery:
 		return fmt.Sprintf("Discovery (total %d)", c.Value)
 	case chargen.ConsequenceFameChange:
@@ -451,6 +452,19 @@ func consequenceInjuryText(c *chargen.ConsequenceEvent) string {
 	}
 }
 
+// consequenceDeadText names the death's cause. Injury names the
+// characteristic it reduced ("If the Controlling Characteristic is reduced
+// to zero or less, the Character is dead", p. 65); aging names none ("The
+// second time three characteristics are reduced to 0, the character dies",
+// chart A p. 89).
+func consequenceDeadText(c *chargen.ConsequenceEvent) string {
+	if c.Characteristic == "" {
+		return fmt.Sprintf("DEAD at %d (the second extremely major illness)", c.Value)
+	}
+
+	return "DEAD (" + c.Characteristic + " reduced to zero)"
+}
+
 // consequenceCareerValueText renders the consequence kinds for the values a
 // career tracks of its own (chart 03's Fame and Talent, p. 77).
 //
@@ -459,6 +473,14 @@ func consequenceCareerValueText(c *chargen.ConsequenceEvent) string {
 	switch c.Kind {
 	case chargen.ConsequenceSanityMod:
 		return fmt.Sprintf("Sanity %+d when generated", c.Delta)
+	case chargen.ConsequenceAgingEffect:
+		return fmt.Sprintf("aging: %s %+d = %d", c.Characteristic, c.Delta, c.Value)
+	case chargen.ConsequenceCharacteristicReset:
+		return c.Characteristic + " reduced to zero, reset to 1"
+	case chargen.ConsequenceMajorIllness:
+		return fmt.Sprintf("major illness (%d characteristics at zero); four weeks recuperating", c.Value)
+	case chargen.ConsequenceExtremelyMajorIllness:
+		return fmt.Sprintf("extremely major illness (%d at zero); four months recuperating", c.Value)
 	case chargen.ConsequenceSpecialtySet:
 		return "specialty " + c.Skill
 	case chargen.ConsequenceTalentSet:
@@ -567,4 +589,20 @@ func joinDice(faces []int) string {
 	}
 
 	return strings.Join(parts, "+")
+}
+
+// lifeStageName renders the stage's printed name (chart A p. 89). An
+// unreadable table degrades to the number rather than failing the sheet:
+// the stage is context for the age, not the record.
+func lifeStageName(stage int) string {
+	table, err := lifestage.Load()
+	if err != nil {
+		return strconv.Itoa(stage)
+	}
+
+	if name := table.Name(stage); name != "" {
+		return name
+	}
+
+	return strconv.Itoa(stage)
 }

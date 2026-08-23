@@ -210,12 +210,17 @@ func TestCitizenEventIntegrity(t *testing.T) {
 	}
 }
 
+// mandatoryContinueSeed rolls a natural 2 on a Continue throw.
+// Repinned when aging landed: aging consumes stream, so the seed that
+// used to reach one no longer does.
+const mandatoryContinueSeed = 5
+
 // TestCitizenMandatoryContinue pins a seed whose career includes a
 // Continue roll of exactly 2: "If the Continue roll is 2 exactly, the
 // character is required to Continue" (p. 66). The term with the mandatory
 // continue must not be the career's last.
 func TestCitizenMandatoryContinue(t *testing.T) {
-	c := generate(t, chargen.Options{Seed: 3})
+	c := generate(t, chargen.Options{Seed: mandatoryContinueSeed})
 
 	found := false
 
@@ -233,7 +238,8 @@ func TestCitizenMandatoryContinue(t *testing.T) {
 	}
 
 	if !found {
-		t.Fatal("seed 3 no longer exercises mandatory continue; find and pin another seed")
+		t.Fatalf("seed %d no longer exercises mandatory continue; find and pin another seed",
+			mandatoryContinueSeed)
 	}
 }
 

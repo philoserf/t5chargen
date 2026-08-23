@@ -122,7 +122,10 @@ func (*scholarMechanics) resolveBeginThrow(r *careerRun, success bool, cause int
 	}
 
 	// "Each failed attempt ... takes one year" (p. 65).
-	r.character.advanceYears(1, r.log, cause)
+	if err := r.character.advanceYears(1, r.roller, r.log, cause); err != nil {
+		return false, err
+	}
+
 	r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceCareerNotBegun, Career: r.def.Name})
 
 	return false, nil

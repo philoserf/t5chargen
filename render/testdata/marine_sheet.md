@@ -2,26 +2,26 @@
 
 **Name**:
 
-**UPP**: B45586
+**UPP**: 733686
 
 **Homeworld**: Regina A788899-C (Ph Pa Ri)
 
-**Age**: 46
+**Age**: 50 (Senior)
 
 | Str | Dex | End | Int | Edu | Soc |
 | --- | --- | --- | --- | --- | --- |
-| 11 | 4 | 5 | 5 | 8 | 6 |
+| 7 | 3 | 3 | 6 | 8 | 6 |
 
 **Education**: College, Major Athlete, Minor Broker — Honors BA
 
-**Career**: Marine (6 terms), Medical, XS-4, MCUF-1, SEH-1, Lt Coronel O5
+**Career**: Marine (7 terms), Medical, XS-4, MCUF-3, Coronel O6
 
-**Skills**: Actor-1, Athlete-4, Broker-1, Fighter-15, Leader-5, Medic-1, Stealth-1, Survival-2, Tactics-8, Trader-1
+**Skills**: Actor-1, Athlete-4, Broker-1, Fighter-15, Hostile Environ-3, Leader-8, Medic-1, Stealth-1, Survival-2, Tactics-6, Trader-1, Vacc Suit-1
 
-**Status**: Wound Badges 1, Disabled
+**Status**: Wound Badges 3
 
 ---
 
-Seed 529 (math/rand/v2-pcg) · schema 0.16.0 · engine 0.17.0 · policy 0.11.0
+Seed 529 (math/rand/v2-pcg) · schema 0.17.0 · engine 0.18.0 · policy 0.11.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

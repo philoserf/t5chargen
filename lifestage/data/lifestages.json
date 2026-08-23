@@ -1,0 +1,23 @@
+{
+  "cite": "Book 1 p. 89 chart A (The Stages of Life)",
+  "infancy_years": 2,
+  "stage_years": 8,
+  "physical_stage": 5,
+  "mental_stage": 9,
+  "check_interval_years": 4,
+  "physical_characteristics": ["Str", "Dex", "End"],
+  "mental_characteristics": ["Int"],
+  "traditional_lifespan": 74,
+  "stages": [
+    { "number": 0, "name": "Infant", "first": 0, "last": 1 },
+    { "number": 1, "name": "Child", "first": 2, "last": 9 },
+    { "number": 2, "name": "Adolescent", "first": 10, "last": 17 },
+    { "number": 3, "name": "Young Adult", "first": 18, "last": 25 },
+    { "number": 4, "name": "Adult", "first": 26, "last": 33 },
+    { "number": 5, "name": "Peak", "first": 34, "last": 41 },
+    { "number": 6, "name": "Mid-Life", "first": 42, "last": 49 },
+    { "number": 7, "name": "Senior", "first": 50, "last": 57 },
+    { "number": 8, "name": "Elder", "first": 58, "last": 65 },
+    { "number": 9, "name": "Retirement", "first": 66, "last": 71 }
+  ]
+}

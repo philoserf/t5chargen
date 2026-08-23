@@ -1,21 +1,21 @@
 {
-  "schema_version": "0.16.0",
+  "schema_version": "0.17.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.17.0",
+  "engine_version": "0.18.0",
   "policy_version": "0.11.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 17
   },
   "characteristics": {
-    "str": 6,
+    "str": 5,
     "dex": 3,
     "end": 8,
     "int": 12,
     "edu": 5,
     "soc": 3
   },
-  "upp": "638C53",
+  "upp": "538C53",
   "homeworld": {
     "name": "Regina",
     "uwp": "A788899-C",
@@ -106,6 +106,7 @@
       ]
     }
   ],
+  "life_stage": 5,
   "wound_badges": 1,
   "events": [
     {
@@ -1900,6 +1901,62 @@
     },
     {
       "seq": 132,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          1
+        ],
+        "total": 3,
+        "target": 5,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
+      }
+    },
+    {
+      "seq": 133,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 132,
+        "kind": "aging_effect",
+        "characteristic": "Str",
+        "delta": -1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 134,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          2
+        ],
+        "total": 6,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
+      }
+    },
+    {
+      "seq": 135,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          3
+        ],
+        "total": 7,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
+      }
+    },
+    {
+      "seq": 136,
       "kind": "consequence",
       "consequence": {
         "cause": 130,

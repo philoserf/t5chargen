@@ -74,13 +74,7 @@ func TestRogueRiskFailureImprisonsRatherThanInjures(t *testing.T) {
 			t.Fatalf("seed %d: %v", seed, err)
 		}
 
-		if c.WoundBadges != 0 {
-			t.Errorf("seed %d: a Rogue took %d Wound Badges", seed, c.WoundBadges)
-		}
-
-		if c.Dead || c.Disabled {
-			t.Errorf("seed %d: a Rogue was disabled or killed at his own trade", seed)
-		}
+		assertUnharmedByHisTrade(t, seed, c)
 
 		for _, e := range c.Events {
 			if e.Kind == chargen.EventConsequence && e.Consequence.Kind == chargen.ConsequenceSentenced {
@@ -212,4 +206,27 @@ func prisonColumnChoices(c chargen.Character) []chargen.Event {
 	}
 
 	return found
+}
+
+// assertUnharmedByHisTrade holds interpretation I-41: chart 10's Risk row
+// prints no characteristic reduction, so a Rogue takes no Wound Badge and
+// cannot die at his own trade.
+//
+// Aging can still kill him, like anyone else (chart A p. 89), so the
+// death test asks which killed him: an injury death would also have left
+// a Wound Badge, which the first check forbids outright.
+func assertUnharmedByHisTrade(t *testing.T, seed uint64, c chargen.Character) {
+	t.Helper()
+
+	if c.WoundBadges != 0 {
+		t.Errorf("seed %d: a Rogue took %d Wound Badges", seed, c.WoundBadges)
+	}
+
+	if c.Disabled {
+		t.Errorf("seed %d: a Rogue was disabled at his own trade", seed)
+	}
+
+	if c.Dead && c.ExtremelyMajorIllnesses < 2 {
+		t.Errorf("seed %d: a Rogue was killed at his own trade", seed)
+	}
 }

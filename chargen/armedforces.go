@@ -92,7 +92,10 @@ func (m *armedForcesMechanics) begin(r *careerRun) (bool, error) {
 	seq := r.log.Throw(throw, nil, r.def.Cite+" (To Begin vs "+check+")")
 
 	if !throw.Success {
-		r.character.advanceYears(1, r.log, seq)
+		if err := r.character.advanceYears(1, r.roller, r.log, seq); err != nil {
+			return false, err
+		}
+
 		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerNotBegun, Career: r.def.Name})
 
 		return false, nil
