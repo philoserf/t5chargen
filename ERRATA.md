@@ -1137,15 +1137,29 @@ severe than three — indeed harmless, since no clause would match.
 ### I-50: Aging Checks fall on absolute ages, and illnesses cost no game years (p. 89 chart A)
 
 "Once Aging begins, it occurs every four years on the character's
-birthday." The engine has no birthdate: FR8's is cited to the Archive,
-which the ground rules exclude, and Book 1 prints no birthdate rule.
+birthday."
 
-Read as: the checks fall at ages 34, 38, 42 and so on — the four-year
-cadence anchored to the age Physical Aging begins at. Anchoring to
-absolute ages rather than to elapsed time matters because a failed career
-entry costs a single year (p. 65), which would otherwise knock a character
-permanently off the four-year grid and change how many checks a lifetime
-holds.
+This entry first justified itself on the claim that Book 1 prints no
+birthdate rule and FR8's only cite is the Archive the ground rules exclude.
+**That claim was false.** Book 1 prints the rule twice — p. 58 ("Date of
+Birth") sets the default current date at 001-1105 and says to subtract age
+from it, and p. 263 ("Birthdates") gives the Birth Date Generation table
+that fixes the day of the year. FR8 was miscited, which is not the same
+thing as unsourced, and the sweep that reported no rule missed both pages.
+
+The reading survives its own bad premise, on the second argument, which was
+always the load-bearing one. Read as: the checks fall at ages 34, 38, 42 and
+so on — the four-year cadence anchored to the age Physical Aging begins at.
+Anchoring to absolute ages rather than to elapsed time matters because a
+failed career entry costs a single year (p. 65), which would otherwise knock
+a character permanently off the four-year grid and change how many checks a
+lifetime holds.
+
+A birthdate does not disturb that. p. 58 puts the calculation at the end of
+character generation — "Until Character Generation is complete, Birthdate
+calculation may be deferred" — so the day of the year is known only after
+the last Aging Check has already been thrown, and could not have scheduled
+them even if the engine had wanted it to.
 
 Neither illness costs game years. Four weeks and four months are both
 shorter than the year, which is the finest unit the engine tracks. They

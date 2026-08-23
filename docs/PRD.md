@@ -43,7 +43,7 @@ _Verified at implementation (2026-08-20):_ the UWP alone does **not** suffice. C
 
 **FR6 — Aging.** Aging checks each term at life stage 5+ (age 34 for humans; chart A, p. 89).
 
-**FR7 — Muster out.** Fame determination, automatics, entitlements, money/benefit throws per career (charts M1–M2, pp. 70–71), including ship shares and land grants (pp. 88, 90).
+**FR7 — Muster out.** Fame determination, automatics, entitlements, money/benefit throws per career (charts M1–M2, pp. 70–71), including land grants (p. 88) and ship shares (chart S, p. 90).
 
 **FR8 — Character record.** Track name, birthdate (Archive: `Character Birthdate.pdf`), homeworld, career history term by term, ranks, medals, fame, money, benefits, and full skill list. The JSON record is the source of truth; the Markdown sheet is a render of it.
 

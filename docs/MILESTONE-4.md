@@ -8,9 +8,10 @@ finished record, and muster out counts up what he leaves with.
 **Not closed against the spec.** Two of the PRD's own requirements are
 unmet — FR7 names ship shares and land grants, FR8 names a birthdate — and
 the milestone cannot be called complete while its controlling document
-still asks for them. Both are decisions rather than work; see _Two things
-need a decision_ below. The exit criterion this milestone did meet is the
-machine-checked one: no row in `COVERAGE.md` says `deferred (M4)`.
+still asks for them. Both are being implemented; see _What the two
+outstanding rules turned out to be_ below. The exit criterion this milestone
+did meet is the machine-checked one: no row in `COVERAGE.md` says
+`deferred (M4)`.
 
 Cites are to Book 1, Print Edition 5.1.
 
@@ -40,24 +41,56 @@ because they were two reviewable things rather than one.
 ## Where it stands
 
 - All thirteen careers, 84 recorded interpretations, 34 choice points with
-  a policy row each, 255 tests over 14 packages, 31 golden fixtures.
+  a policy row each, 256 tests over 14 packages, 31 golden fixtures.
 - Schema 0.24.0, engine 0.26.0, policy 0.16.0.
 - No row in `COVERAGE.md` says `deferred (M4)`.
 
-## Two things need a decision
+## What the two outstanding rules turned out to be
 
-**Birthdate (FR8) cannot be implemented from an authoritative source.** Its
-only cite is the Archive, which the ground rules exclude, and the rulebook
-sweep found no birthdate rule in Book 1. Aging does not need one — the
-four-year cadence wants years-since-last-check, not a calendar date. The
-recommendation is to amend FR8 rather than implement from a forbidden
-source, and that is a PRD change rather than an engine one.
+This section said, until now, that both were decisions rather than work: that
+FR8's birthdate could not be implemented from an authoritative source, and
+that Land Grant and Ship Share values were out of scope. Neither held up. The
+sweep behind those claims missed pages, and the record here was wrong for
+long enough to be quoted back in an outside review.
 
-**Land Grant and Ship Share values stay uncomputed.** The counts are
-recorded and chart M1's per-TC rate is transcribed, but a grant's income
-needs the world it sits on and a share needs a ship from chart S — both
-out of scope by decision, and the geodesic Land Grant work belongs to the
-sibling `philoserf/traveller` repo.
+**Book 1 prints the birthdate rule, twice.** p. 58 ("Date of Birth") sets the
+default current date at 001-1105 and says to subtract the character's age
+from it; p. 263 ("Birthdates") gives the Birth Date Generation table — four
+consecutive dice into a 365-day table, rerolling on `RR` — and the worked
+example that produces Wonday 044-1075 for an age-30 character. FR8 cites the
+Archive, and a bad cite is not the same thing as no source. Implementing it
+consumes dice, so it moves every golden and bumps the engine version. The
+schedule is untouched: p. 58 defers the calculation to the end of character
+generation, after the last Aging Check has already been thrown, which is why
+interpretation I-50 survives losing its stated premise.
+
+**Land Grant income is printed and computable from what the record already
+holds.** p. 88: "An unimproved Land Grant generates income based on the Trade
+Classifications of the world and equal to Cr10,000 per TC annually (equal to
+Cr5,000 if there are no TCs)," and "The first hex in any grant is on the
+Noble's homeworld." Every character carries his homeworld's Trade
+Classifications, so the stated blocker — a grant needs a world we do not have
+— was false for the one hex the book sites on a world we do. p. 41 adds a
+companion hex per mainworld hex, and p. 88's own example prices exactly that
+pair: Cr20,000 for Sir Richard's two-TC homeworld hex, Cr5,000 for the
+companion minor world. The rate has been sitting in `benefit/data/benefits.json`
+as `credits_per_tc` since chart M1 landed, read by one test and no production
+code — the same transcribed-but-unwired shape this milestone hit three times
+already.
+
+**Ship Shares genuinely have no credit value, and that is the finding.** Book
+1 attaches no Cr figure to a share anywhere; one share buys 50 tons of ship
+from chart S (p. 90), so a 200-ton Free Trader takes four. FR7 asks for a
+value the book declines to give, and the honest close is to transcribe chart
+S and record what the shares reach rather than invent a price. Redemption
+itself stays out: I-64 already forecloses ownership at muster out on
+Fame-ordering grounds, and p. 90 says shares "may be saved for some future
+use."
+
+The per-title hex table on p. 88 (Gentleman one hex through Emperor 256) is
+deliberately not applied — it keys hexes on title where I-30 already chose
+box A's per-Soc-increase count, and reconciling the two reopens a settled
+interpretation.
 
 ## What the auto policy will not show you
 

@@ -138,8 +138,8 @@ type Character struct {
 	// muster out itself (chart M1 p. 70; p. 69).
 	Entitlements []EntitlementRecord `json:"entitlements,omitempty"`
 
-	// Fame is the running Fame counter (chart 05 "Fame +1"; the full
-	// Fame system, chart F p. 91, lands with milestone 4).
+	// Fame is the character's Fame, computed over the finished record at
+	// muster out rather than accumulated during it (chart F p. 91).
 	Fame int `json:"fame,omitempty"`
 
 	// WoundBadges counts Risk-failure wounds (p. 65).
