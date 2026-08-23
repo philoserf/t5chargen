@@ -828,6 +828,12 @@ func automaticsLine(c chargen.Character) string {
 		fmt.Fprintf(&line, "**Automatics**: %s\n\n", strings.Join(c.Automatics, ", "))
 	}
 
+	// Land Grant income is annual and is never money: the grant is
+	// retained at muster out, not sold (Book 1 p. 68).
+	if c.LandGrantIncome > 0 {
+		fmt.Fprintf(&line, "**Land Grants**: Cr%d a year\n\n", c.LandGrantIncome)
+	}
+
 	for _, e := range c.Entitlements {
 		fmt.Fprintf(&line, "**%s**: Cr%d a year from age %d\n\n", e.Name, e.AnnualCredits, e.FromAge)
 	}

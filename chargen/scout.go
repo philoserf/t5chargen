@@ -179,9 +179,18 @@ func (*scoutMechanics) retryReward(r *careerRun, mod int) (bool, int, error) {
 
 // discovery records a Reward success: "The Scout discovers a valuable new
 // world or a valuable feature on a known world (a Discovery), receives a
-// Land Grant, and Fame +1." (chart 05) Land Grant values are milestone-4
-// muster-out material.
+// Land Grant, and Fame +1." (chart 05)
+//
+// The grant is recorded as a grant, one per Discovery, rather than left for
+// muster out to infer from the Discovery count: p. 79 gives a Scout's grant
+// a different shape from a Noble's — "one World Hex on a non-Mainworld" — so
+// the two have to be counted in the same currency to be priced at all.
 func (*scoutMechanics) discovery(r *careerRun, cause int) {
 	r.record.Discoveries++
 	r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceDiscovery, Value: r.record.Discoveries})
+
+	r.record.LandGrants++
+	r.log.Consequence(ConsequenceEvent{
+		Cause: cause, Kind: ConsequenceLandGrant, Career: r.def.Name, Value: r.record.LandGrants,
+	})
 }

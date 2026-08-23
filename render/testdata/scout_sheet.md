@@ -14,7 +14,7 @@
 
 **Education**: University, Major Athlete, Minor Broker — Honors BA
 
-**Career**: Scout (6 terms), 6 Discoveries, San -3 when generated
+**Career**: Scout (6 terms), 6 Land Grants, 6 Discoveries, San -3 when generated
 
 **Skills**: Actor-1, Animals-7, Athlete-5, Broker-2, Hostile Environ-7, Navigator-9, Survey-7, Survival-7, Trader-1, Vacc Suit-11
 
@@ -22,10 +22,12 @@
 
 **Automatics**: Fame, TAS Life Membership, Land Grants
 
+**Land Grants**: Cr30000 a year
+
 **Status**: Fame 20 (Sector), Wound Badges 2
 
 ---
 
-Seed 26 (math/rand/v2-pcg) · schema 0.24.0 · engine 0.26.0 · policy 0.16.0
+Seed 26 (math/rand/v2-pcg) · schema 0.25.0 · engine 0.27.0 · policy 0.16.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

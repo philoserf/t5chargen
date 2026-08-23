@@ -37,7 +37,62 @@ func (r *musterOutRun) automatics() error {
 		}
 	}
 
+	// Land Grants are one of the Automatics, and the only one that earns
+	// anything, so what they earn is settled here with them.
+	return r.landGrantIncome()
+}
+
+// landGrantIncome prices what the character's Land Grants earn him each
+// year: "An unimproved Land Grant generates income based on the Trade
+// Classifications of the world and equal to Cr10,000 per TC annually (equal
+// to Cr5,000 if there are no TCs)" (p. 88).
+//
+// It is income, not money. p. 68: "Any character who has received a Land
+// Grant retains it at Mustering Out" — there is no clause selling one, and
+// nothing here touches Credits.
+//
+// A career that granted land and has no chart M1 layout is an error rather
+// than a quiet zero, on the same reasoning as eligibleFor: a third granting
+// career must not earn nothing unnoticed.
+func (r *musterOutRun) landGrantIncome() error {
+	grant, err := r.table.For(benefit.LandGrant)
+	if err != nil {
+		return fmt.Errorf("muster out: %w", err)
+	}
+
+	total := 0
+
+	for _, rec := range r.character.Careers {
+		if rec.LandGrants == 0 {
+			continue
+		}
+
+		hexes, ok := r.table.LandGrantHexesFor(rec.Career)
+		if !ok {
+			return fmt.Errorf("%w: land grant hexes for %q", errNotImplemented, rec.Career)
+		}
+
+		perGrant := hexes.HomeworldHexes*hexIncome(grant, len(r.character.Homeworld.TradeClassifications)) +
+			hexes.NoTCHexes*grant.NoTCAnnualCredits
+
+		total += rec.LandGrants * perGrant
+	}
+
+	r.character.LandGrantIncome = total
+
 	return nil
+}
+
+// hexIncome prices one hex by the world it sits on. The two rates are
+// alternatives, never a rate plus a base: p. 68's worked example is "a world
+// classified as Hi In Va with three TCs provides an income of Cr30,000 per
+// year", which is three times the rate and nothing else.
+func hexIncome(grant benefit.Benefit, tradeClassifications int) int {
+	if tradeClassifications == 0 {
+		return grant.NoTCAnnualCredits
+	}
+
+	return tradeClassifications * grant.CreditsPerTC
 }
 
 // eligibleFor reads chart M1's eligibility column against the record. An
@@ -71,12 +126,12 @@ func (r *musterOutRun) eligibleFor(id string) (bool, error) {
 
 // holdsSomething reads the Automatics whose eligibility is a count on the
 // record: "Land Grants — Nobles, Scouts" and "Masterpieces — Craftsman"
-// (chart M1 p. 70). A Scout's grants come one per Discovery: he "discovers
-// a valuable new world ... receives a Land Grant" (chart 05).
+// (chart M1 p. 70). Both careers record their grants in LandGrants; the
+// Scout's are one per Discovery (chart 05), counted at the Discovery.
 func (r *musterOutRun) holdsSomething(id string) (bool, error) {
 	switch id {
 	case "land_grants":
-		return r.totalOf(func(rec CareerRecord) int { return rec.LandGrants + rec.Discoveries }) > 0, nil
+		return r.totalOf(func(rec CareerRecord) int { return rec.LandGrants }) > 0, nil
 	case "masterpieces":
 		return r.totalOf(func(rec CareerRecord) int { return rec.Masterpieces }) > 0, nil
 	default:
