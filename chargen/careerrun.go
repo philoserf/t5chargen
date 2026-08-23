@@ -130,20 +130,47 @@ type careerRun struct {
 	record CareerRecord
 }
 
+// termEnd is how a term left the career.
+//
+// One value rather than a pair of flags because the four outcomes are
+// mutually exclusive and each sends the lifepath somewhere different:
+// another term, another career, adventuring, or nowhere.
+type termEnd int
+
+const (
+	// termContinues: the Continue throw succeeded, or a natural 2 made it
+	// mandatory (p. 66).
+	termContinues termEnd = iota
+
+	// termCareerEnded: "Failure ends Career Resolution: the character
+	// must begin adventuring" (p. 66). A disabled character who "Musters
+	// Out at Term end" (p. 69) ends here too.
+	termCareerEnded
+
+	// termCareerChanged: the character "voluntarily ending his service in
+	// the current career and selecting a different career for which he is
+	// eligible" (p. 66).
+	termCareerChanged
+
+	// termDied ends generation, not just the career (p. 65; chart A
+	// p. 89).
+	termDied
+)
+
 // runCareerByName resolves one career through the registry, reporting
 // whether the career began (a failed To Begin leaves a began:false record
-// and the caller offers the remaining careers, p. 65).
+// and the caller offers the remaining careers, p. 65) and how it ended.
 func runCareerByName(
 	name string, entryCause int, roller *dice.Roller, log *Log, decider Decider, character *Character,
-) (bool, error) {
+) (bool, termEnd, error) {
 	entry, ok := careerRegistry[name]
 	if !ok {
-		return false, fmt.Errorf("%w: %q", errUnregisteredCareer, name)
+		return false, termCareerEnded, fmt.Errorf("%w: %q", errUnregisteredCareer, name)
 	}
 
 	def, mechanics, err := entry()
 	if err != nil {
-		return false, err
+		return false, termCareerEnded, err
 	}
 
 	// The baseline is captured before mechanics.begin deliberately: a
@@ -169,33 +196,66 @@ func runCareerByName(
 
 	began, err := mechanics.begin(run)
 	if err != nil {
-		return false, err
+		return false, termCareerEnded, err
 	}
 
 	run.record.Began = began
 
 	if !began {
+		run.record.EndAge = character.Age
 		character.Careers = append(character.Careers, run.record)
 
-		return false, nil
+		return false, termCareerEnded, nil
 	}
 
-	for {
-		continued, err := run.term(len(run.record.Terms) + 1)
-		if err != nil {
-			return false, err
-		}
+	end := termContinues
 
-		if !continued {
-			break
+	for end == termContinues {
+		end, err = run.term(len(run.record.Terms) + 1)
+		if err != nil {
+			return false, termCareerEnded, err
 		}
 	}
 
 	run.recordSanityMod(entryCause)
+	run.recordReserve()
 
+	run.record.EndAge = character.Age
 	character.Careers = append(character.Careers, run.record)
 
-	return true, nil
+	return true, end, nil
+}
+
+// recordReserve enrols a character leaving the Armed Forces: "A character
+// who leaves a military, naval, or marine career is automatically in the
+// Reserves until retirement at Life Stage 9, at which point he or she
+// receives a Reserve Pension. A character in the Reserves maintains his or
+// her last held rank as a Reserve Rank" (p. 67).
+//
+// Which careers those are is a chart fact, so it lives in the career data.
+// Resigning — "A character may resign from the Reserves (Check Continue)"
+// — is deferred to interactive mode (interpretation I-55, ERRATA.md).
+// The pension itself is muster out's.
+func (r *careerRun) recordReserve() {
+	if !r.def.Reserves || r.character.Dead {
+		return
+	}
+
+	r.record.Reserve = true
+	r.log.Consequence(ConsequenceEvent{
+		Cause: r.entryCause, Kind: ConsequenceReserve, Career: r.def.Name, Skill: r.reserveRank(),
+	})
+}
+
+// reserveRank names the rank the Reserves preserve, in the form the
+// character sheet prints it ("Lt Colonel O5"): the title carries the rule's
+// meaning and the id alone ("O5") is unreadable on its own.
+func (r *careerRun) reserveRank() string {
+	if r.record.RankTitle == "" {
+		return r.record.Rank
+	}
+
+	return r.record.RankTitle + " " + r.record.Rank
 }
 
 // elapseTerm advances the clock by the term's four years, resolving any
@@ -204,64 +264,62 @@ func (r *careerRun) elapseTerm(cause int) error {
 	return r.character.advanceYears(TermYears, r.roller, r.log, cause)
 }
 
-// closeTerm ends the term and reports whether the career continues.
+// closeTerm ends the term and reports how, and which event to blame for
+// the ending (zero when continueRoll has already logged it).
 //
 // A disabled character "Musters Out at Term end" (chart 05 p. 79): the
 // term completes and its years pass, but there is no Continue throw, which
 // is what elapses them on an ordinary term.
-func (r *careerRun) closeTerm(outcome termOutcome) (bool, error) {
+//
+// A voluntary career change comes before the Continue throw, not instead
+// of a failed one: "A character may avoid the Continue roll (and its
+// possibility of Mandatory Continue) by voluntarily ending his service in
+// the current career" (p. 66). It costs no dice, and it still costs the
+// term its four years.
+func (r *careerRun) closeTerm(outcome termOutcome) (termEnd, int, error) {
 	if outcome.endCareer {
-		return false, r.elapseTerm(outcome.endCause)
+		return termCareerEnded, outcome.endCause, r.elapseTerm(outcome.endCause)
 	}
 
-	return r.continueRoll()
+	changed, cause, err := r.offerCareerChange()
+	if err != nil {
+		return termCareerEnded, 0, err
+	}
+
+	if changed {
+		return termCareerChanged, cause, r.elapseTerm(cause)
+	}
+
+	end, err := r.continueRoll()
+
+	return end, 0, err
 }
 
-// term resolves one 4-year term and reports whether the career continues.
-func (r *careerRun) term(number int) (bool, error) {
+// term resolves one 4-year term and reports how it ended.
+func (r *careerRun) term(number int) (termEnd, error) {
 	r.log.Step(r.def.Name+": Term "+strconv.Itoa(number), r.def.Cite)
 
 	cc, err := r.chooseCC()
 	if err != nil {
-		return false, err
+		return termCareerEnded, err
 	}
 
 	outcome, err := r.mechanics.resolveTerm(r, cc)
 	if err != nil {
-		return false, err
+		return termCareerEnded, err
 	}
 
 	if outcome.died {
-		// "the Character is dead" (p. 65): the term ends at the injury —
-		// no skills, no Continue. The years still pass: the Continue
-		// throw is what elapses them on an ordinary term, and this path
-		// never reaches it.
-		if err := r.elapseTerm(outcome.endCause); err != nil {
-			return false, err
-		}
-
-		r.record.Terms = append(r.record.Terms, TermRecord{
-			Term: number, ControllingCharacteristic: cc,
-		})
-
-		return false, nil
+		return termDied, r.diedInTerm(number, cc, outcome.endCause)
 	}
 
-	if err := r.termSkills(outcome.skillRolls, outcome.termColumns); err != nil {
-		return false, err
+	if err := r.termEligibilities(outcome); err != nil {
+		return termCareerEnded, err
 	}
 
-	if outcome.bonusRolls > 0 {
-		// Commission and promotion eligibilities are not restricted to
-		// the term's assignments (p. 65).
-		if err := r.termSkills(outcome.bonusRolls, nil); err != nil {
-			return false, err
-		}
-	}
-
-	continued, err := r.closeTerm(outcome)
+	end, endCause, err := r.closeTerm(outcome)
 	if err != nil {
-		return false, err
+		return termCareerEnded, err
 	}
 
 	// Aging resolves as the term's years pass, and can kill: "The second
@@ -269,17 +327,62 @@ func (r *careerRun) term(number int) (bool, error) {
 	// (chart A p. 89). A Continue throw already rolled cannot bring the
 	// character back to serve it.
 	if r.character.Dead {
-		continued = false
+		end = termDied
 	}
 
 	r.record.Terms = append(r.record.Terms, TermRecord{
 		Term:                      number,
 		ControllingCharacteristic: cc,
 		Success:                   outcome.success,
-		Continued:                 continued,
+		Continued:                 end == termContinues,
 	})
 
-	return continued, nil
+	// endCause is zero when continueRoll already logged the ending
+	// against the throw that failed; every other path leaves it to here,
+	// so a transcript never stops without saying the career did.
+	if end != termContinues && endCause != 0 {
+		r.endCareer(endCause)
+	}
+
+	return end, nil
+}
+
+// termEligibilities awards the term's skills. Commission and promotion
+// eligibilities are not restricted to the term's assignments (p. 65), so
+// they roll without the Operations column restriction.
+func (r *careerRun) termEligibilities(outcome termOutcome) error {
+	if err := r.termSkills(outcome.skillRolls, outcome.termColumns); err != nil {
+		return err
+	}
+
+	if outcome.bonusRolls == 0 {
+		return nil
+	}
+
+	return r.termSkills(outcome.bonusRolls, nil)
+}
+
+// diedInTerm closes a term the character did not survive: "the Character
+// is dead" (p. 65). No skills and no Continue, but the years still pass —
+// the Continue throw is what elapses them on an ordinary term, and this
+// path never reaches it (interpretation I-46).
+func (r *careerRun) diedInTerm(number int, cc string, cause int) error {
+	if err := r.elapseTerm(cause); err != nil {
+		return err
+	}
+
+	r.record.Terms = append(r.record.Terms, TermRecord{Term: number, ControllingCharacteristic: cc})
+	r.endCareer(cause)
+
+	return nil
+}
+
+// endCareer records that career resolution stopped here. Before this, only
+// the Continue-failure path said so: a disabled character's transcript
+// read "disabled, +4 years" and simply stopped, which a reader cannot tell
+// from a truncated log.
+func (r *careerRun) endCareer(cause int) {
+	r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceCareerEnded, Career: r.def.Name})
 }
 
 // chooseCC selects the term's controlling characteristic: "The player
@@ -735,7 +838,7 @@ func (r *careerRun) awardCharacteristic(name string, cause int) error {
 // career. Failure ends Career Resolution. ... If the Continue roll is 2
 // exactly, the character is required to Continue" (p. 66). Each term
 // elapses 4 years ("the 4-year Term", p. 66).
-func (r *careerRun) continueRoll() (bool, error) {
+func (r *careerRun) continueRoll() (termEnd, error) {
 	target, label := r.continueTarget()
 
 	bonus, mods, suffix := r.continueMod()
@@ -746,24 +849,24 @@ func (r *careerRun) continueRoll() (bool, error) {
 	seq := r.log.Throw(throw, mods, r.def.Cite+" ("+label+"; p. 66)")
 
 	if err := r.character.advanceYears(TermYears, r.roller, r.log, seq); err != nil {
-		return false, err
+		return termCareerEnded, err
 	}
 
 	// Aging killed him as the term's years passed (chart A p. 89). There
 	// is no Continue to be required or waived, and no career for him to
 	// leave: death ends career resolution (interpretation I-51).
 	if r.character.Dead {
-		return false, nil
+		return termDied, nil
 	}
 
 	if throw.Total == 2 {
 		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceMandatoryContinue})
 
-		return true, nil
+		return termContinues, nil
 	}
 
 	if throw.Success {
-		return true, nil
+		return termContinues, nil
 	}
 
 	if r.def.ContinueWaiver {
@@ -772,17 +875,17 @@ func (r *careerRun) continueRoll() (bool, error) {
 		// failure, so the career continues into the next term.
 		waived, err := r.waive(careerWaiver("Continue: the career would end", r.def.Cite, true), seq)
 		if err != nil {
-			return false, err
+			return termCareerEnded, err
 		}
 
 		if waived {
-			return true, nil
+			return termContinues, nil
 		}
 	}
 
 	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerEnded, Career: r.def.Name})
 
-	return false, nil
+	return termCareerEnded, nil
 }
 
 // continueTarget resolves what the Continue throw is rolled against, and
@@ -1013,4 +1116,96 @@ func (r *careerRun) recordSanityMod(cause int) {
 	r.log.Consequence(ConsequenceEvent{
 		Cause: cause, Kind: ConsequenceSanityMod, Career: r.def.Name, Delta: mod,
 	})
+}
+
+// offerCareerChange puts the p. 66 decision to the character at the end of
+// a term, before the Continue throw: "A character may avoid the Continue
+// roll (and its possibility of Mandatory Continue) by voluntarily ending
+// his service in the current career and selecting a different career for
+// which he is eligible."
+//
+// It reports whether he leaves, and the choice event that decided it.
+//
+// The offer is suppressed where the page forbids it, rather than offered
+// and refused, so the transcript never records a decision the character
+// could not make.
+func (r *careerRun) offerCareerChange() (bool, int, error) {
+	// "A Functionary or Noble cannot change to a new career."
+	if r.def.NoCareerChange || r.character.Dead {
+		return false, 0, nil
+	}
+
+	if len(eligibleForChange(r.character, r.def.Name)) == 0 {
+		return false, 0, nil
+	}
+
+	chosen, seq, err := choose(r.log, r.decider, Choice{
+		ID:     ChooseCareerChange,
+		Prompt: "Leave " + r.def.Name + " for another career?",
+		// First-listed is the printed default in the sense that matters:
+		// the Continue roll is what the page describes as the ordinary
+		// end of a term, and changing is the deviation from it.
+		Options: []string{"Continue in " + r.def.Name, "Change careers"},
+		Cite:    "Book 1 p. 66 (Changing Careers)",
+		// CareerEnding is deliberately unset: it marks a choice whose
+		// *declined* branch ends the career, and here declining is what
+		// keeps the character in it. The accepted branch is the one that
+		// ends the career, which is the opposite stake.
+	})
+	if err != nil {
+		return false, 0, err
+	}
+
+	if chosen == 0 {
+		return false, 0, nil
+	}
+
+	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerChanged, Career: r.def.Name})
+
+	return true, seq, nil
+}
+
+// eligibleForChange lists the careers a character may change into: "a
+// different career for which he is eligible" (p. 66).
+//
+// Excluded are the career he is in (the change is to a different one), any
+// career whose To Begin he has already failed ("If both Begin and Retry
+// fail, this career may not be used", p. 65, read as lifetime —
+// interpretation I-54), and Citizen ("A Character may not change to the
+// Citizen career", p. 66).
+//
+// A career he merely left is not excluded. p. 66 says "a different career",
+// which is different from the current one; nothing forbids returning to an
+// earlier one, and chart 10's "select any previous career" for a Scheme
+// presupposes that careers accumulate (interpretation I-53).
+func eligibleForChange(character *Character, current string) []string {
+	failed := make(map[string]bool, len(character.Careers))
+
+	for _, record := range character.Careers {
+		if !record.Began {
+			failed[record.Career] = true
+		}
+	}
+
+	eligible := make([]string, 0, len(careerRegistry))
+
+	for _, name := range career.Available() {
+		if name == current || failed[name] {
+			continue
+		}
+
+		entry, ok := careerRegistry[name]
+		if !ok {
+			continue
+		}
+
+		def, _, err := entry()
+		if err != nil || def.NoEntryByChange {
+			continue
+		}
+
+		eligible = append(eligible, name)
+	}
+
+	return eligible
 }

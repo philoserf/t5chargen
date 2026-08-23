@@ -107,223 +107,229 @@ _Book 1 p. 79 chart 05_
 - #82 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #83 1D = 3 = 3 — Book 1 p. 79 chart 05 table C, column Exploration
   - #84 (from #83) Hostile Environ +1 = Hostile Environ-1
-- #85 2D = 1+5 = 6 vs 10: success — Book 1 p. 79 chart 05 (Continue Int; p. 66)
-  - #86 (from #85) +4 years
+- #85 policy chose "Continue in Scout" of [Continue in Scout, Change careers]: Leave Scout for another career? — Book 1 p. 66 (Changing Careers)
+- #86 2D = 1+5 = 6 vs 10: success — Book 1 p. 79 chart 05 (Continue Int; p. 66)
+  - #87 (from #86) +4 years
 
 ## Scout: Term 2
 
 _Book 1 p. 79 chart 05_
 
-- #88 policy chose "End" of [Dex, End]: Select the term's controlling characteristic — Book 1 p. 65 (Risk and Reward: Select the CC)
-- #89 policy chose "Explorer Duty" of [Courier Duty, Explorer Duty]: Select the term's duty — Book 1 p. 79 (Courier Duty avoids Risk and Reward; chart 05 table B)
-- #90 policy chose "No Mod" of [No Mod, Caution +1, Caution +2, Caution +3, Caution +4, Caution +5, Caution +6, Caution +7, Caution +8, Caution +9, Bravery -1, Bravery -2, Bravery -3, Bravery -4, Bravery -5, Bravery -6, Bravery -7, Bravery -8, Bravery -9]: Select Caution, Bravery, or No Mod — Book 1 p. 65 (Caution, Bravery, or No Mod); chart 05 p. 79
-- #91 2D = 1+1 = 2 vs 7: success — Book 1 p. 79 chart 05 (Risk vs End+Mods)
-- #92 2D = 2+3 = 5 vs 7: success — Book 1 p. 79 chart 05 (Reward vs End+ opposite sign Mods)
-  - #93 (from #92) Discovery (total 2)
-  - #94 (from #92) Fame +1 = 2
-- #95 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #96 1D = 3 = 3 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #97 (from #96) Hostile Environ +1 = Hostile Environ-2
-- #98 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #99 1D = 1 = 1 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #100 (from #99) Survey +1 = Survey-1
-- #101 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #102 1D = 5 = 5 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #103 (from #102) Vacc Suit +1 = Vacc Suit-3
-- #104 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #105 1D = 5 = 5 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #106 (from #105) Vacc Suit +1 = Vacc Suit-4
-- #107 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #108 1D = 3 = 3 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #109 (from #108) Hostile Environ +1 = Hostile Environ-3
-- #110 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #111 1D = 5 = 5 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #112 (from #111) Vacc Suit +1 = Vacc Suit-5
-- #113 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #114 1D = 3 = 3 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #115 (from #114) Hostile Environ +1 = Hostile Environ-4
-- #116 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #117 1D = 3 = 3 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #118 (from #117) Hostile Environ +1 = Hostile Environ-5
-- #119 2D = 2+1 = 3 vs 10: success — Book 1 p. 79 chart 05 (Continue Int; p. 66)
-  - #120 (from #119) +4 years
+- #89 policy chose "End" of [Dex, End]: Select the term's controlling characteristic — Book 1 p. 65 (Risk and Reward: Select the CC)
+- #90 policy chose "Explorer Duty" of [Courier Duty, Explorer Duty]: Select the term's duty — Book 1 p. 79 (Courier Duty avoids Risk and Reward; chart 05 table B)
+- #91 policy chose "No Mod" of [No Mod, Caution +1, Caution +2, Caution +3, Caution +4, Caution +5, Caution +6, Caution +7, Caution +8, Caution +9, Bravery -1, Bravery -2, Bravery -3, Bravery -4, Bravery -5, Bravery -6, Bravery -7, Bravery -8, Bravery -9]: Select Caution, Bravery, or No Mod — Book 1 p. 65 (Caution, Bravery, or No Mod); chart 05 p. 79
+- #92 2D = 1+1 = 2 vs 7: success — Book 1 p. 79 chart 05 (Risk vs End+Mods)
+- #93 2D = 2+3 = 5 vs 7: success — Book 1 p. 79 chart 05 (Reward vs End+ opposite sign Mods)
+  - #94 (from #93) Discovery (total 2)
+  - #95 (from #93) Fame +1 = 2
+- #96 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #97 1D = 3 = 3 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #98 (from #97) Hostile Environ +1 = Hostile Environ-2
+- #99 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #100 1D = 1 = 1 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #101 (from #100) Survey +1 = Survey-1
+- #102 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #103 1D = 5 = 5 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #104 (from #103) Vacc Suit +1 = Vacc Suit-3
+- #105 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #106 1D = 5 = 5 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #107 (from #106) Vacc Suit +1 = Vacc Suit-4
+- #108 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #109 1D = 3 = 3 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #110 (from #109) Hostile Environ +1 = Hostile Environ-3
+- #111 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #112 1D = 5 = 5 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #113 (from #112) Vacc Suit +1 = Vacc Suit-5
+- #114 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #115 1D = 3 = 3 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #116 (from #115) Hostile Environ +1 = Hostile Environ-4
+- #117 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #118 1D = 3 = 3 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #119 (from #118) Hostile Environ +1 = Hostile Environ-5
+- #120 policy chose "Continue in Scout" of [Continue in Scout, Change careers]: Leave Scout for another career? — Book 1 p. 66 (Changing Careers)
+- #121 2D = 2+1 = 3 vs 10: success — Book 1 p. 79 chart 05 (Continue Int; p. 66)
+  - #122 (from #121) +4 years
 
 ## Scout: Term 3
 
 _Book 1 p. 79 chart 05_
 
-- #122 policy chose "Dex" of [Dex]: Select the term's controlling characteristic — Book 1 p. 65 (Risk and Reward: Select the CC)
-- #123 policy chose "Explorer Duty" of [Courier Duty, Explorer Duty]: Select the term's duty — Book 1 p. 79 (Courier Duty avoids Risk and Reward; chart 05 table B)
-- #124 policy chose "No Mod" of [No Mod, Caution +1, Caution +2, Caution +3, Caution +4, Caution +5, Caution +6, Caution +7, Caution +8, Caution +9, Bravery -1, Bravery -2, Bravery -3, Bravery -4, Bravery -5, Bravery -6, Bravery -7, Bravery -8, Bravery -9]: Select Caution, Bravery, or No Mod — Book 1 p. 65 (Caution, Bravery, or No Mod); chart 05 p. 79
-- #125 2D = 2+5 = 7 vs 5: failure — Book 1 p. 79 chart 05 (Risk vs Dex+Mods)
-- #126 Flux = 3+5 = -2 — Book 1 p. 79 chart 05 (Risk Failure: reduce CC by negative Mods and Flux)
-  - #127 (from #125) Dex -2 = 3
-  - #128 (from #125) Wound Badge (total 2)
-- #129 2D = 2+2 = 4 vs 5: success — Book 1 p. 79 chart 05 (Reward vs Dex+ opposite sign Mods)
-  - #130 (from #129) Discovery (total 3)
-  - #131 (from #129) Fame +1 = 3
-- #132 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #133 1D = 6 = 6 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #134 (from #133) Navigator +1 = Navigator-2
-- #135 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #136 1D = 4 = 4 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #137 (from #136) Animals +1 = Animals-4
-- #138 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #139 1D = 4 = 4 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #140 (from #139) Animals +1 = Animals-5
-- #141 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #142 1D = 5 = 5 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #143 (from #142) Vacc Suit +1 = Vacc Suit-6
-- #144 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #145 1D = 2 = 2 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #146 (from #145) Survival +1 = Survival-2
-- #147 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #148 1D = 2 = 2 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #149 (from #148) Survival +1 = Survival-3
-- #150 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #151 1D = 1 = 1 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #152 (from #151) Survey +1 = Survey-2
-- #153 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #154 1D = 5 = 5 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #155 (from #154) Vacc Suit +1 = Vacc Suit-7
-- #156 2D = 4+3 = 7 vs 10: success — Book 1 p. 79 chart 05 (Continue Int; p. 66)
-  - #157 (from #156) +4 years
-- #158 2D = 1+3 = 4 vs 5: success — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)
-  - #159 (from #158) aging: Str -1 = 5
-- #160 2D = 5+5 = 10 vs 5: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)
-- #161 2D = 3+6 = 9 vs 5: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)
+- #124 policy chose "Dex" of [Dex]: Select the term's controlling characteristic — Book 1 p. 65 (Risk and Reward: Select the CC)
+- #125 policy chose "Explorer Duty" of [Courier Duty, Explorer Duty]: Select the term's duty — Book 1 p. 79 (Courier Duty avoids Risk and Reward; chart 05 table B)
+- #126 policy chose "No Mod" of [No Mod, Caution +1, Caution +2, Caution +3, Caution +4, Caution +5, Caution +6, Caution +7, Caution +8, Caution +9, Bravery -1, Bravery -2, Bravery -3, Bravery -4, Bravery -5, Bravery -6, Bravery -7, Bravery -8, Bravery -9]: Select Caution, Bravery, or No Mod — Book 1 p. 65 (Caution, Bravery, or No Mod); chart 05 p. 79
+- #127 2D = 2+5 = 7 vs 5: failure — Book 1 p. 79 chart 05 (Risk vs Dex+Mods)
+- #128 Flux = 3+5 = -2 — Book 1 p. 79 chart 05 (Risk Failure: reduce CC by negative Mods and Flux)
+  - #129 (from #127) Dex -2 = 3
+  - #130 (from #127) Wound Badge (total 2)
+- #131 2D = 2+2 = 4 vs 5: success — Book 1 p. 79 chart 05 (Reward vs Dex+ opposite sign Mods)
+  - #132 (from #131) Discovery (total 3)
+  - #133 (from #131) Fame +1 = 3
+- #134 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #135 1D = 6 = 6 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #136 (from #135) Navigator +1 = Navigator-2
+- #137 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #138 1D = 4 = 4 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #139 (from #138) Animals +1 = Animals-4
+- #140 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #141 1D = 4 = 4 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #142 (from #141) Animals +1 = Animals-5
+- #143 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #144 1D = 5 = 5 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #145 (from #144) Vacc Suit +1 = Vacc Suit-6
+- #146 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #147 1D = 2 = 2 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #148 (from #147) Survival +1 = Survival-2
+- #149 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #150 1D = 2 = 2 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #151 (from #150) Survival +1 = Survival-3
+- #152 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #153 1D = 1 = 1 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #154 (from #153) Survey +1 = Survey-2
+- #155 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #156 1D = 5 = 5 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #157 (from #156) Vacc Suit +1 = Vacc Suit-7
+- #158 policy chose "Continue in Scout" of [Continue in Scout, Change careers]: Leave Scout for another career? — Book 1 p. 66 (Changing Careers)
+- #159 2D = 4+3 = 7 vs 10: success — Book 1 p. 79 chart 05 (Continue Int; p. 66)
+  - #160 (from #159) +4 years
+- #161 2D = 1+3 = 4 vs 5: success — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)
+  - #162 (from #161) aging: Str -1 = 5
+- #163 2D = 5+5 = 10 vs 5: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)
+- #164 2D = 3+6 = 9 vs 5: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)
 
 ## Scout: Term 4
 
 _Book 1 p. 79 chart 05_
 
-- #163 policy chose "End" of [Str, Dex, End]: Select the term's controlling characteristic — Book 1 p. 65 (Risk and Reward: Select the CC)
-- #164 policy chose "Explorer Duty" of [Courier Duty, Explorer Duty]: Select the term's duty — Book 1 p. 79 (Courier Duty avoids Risk and Reward; chart 05 table B)
-- #165 policy chose "No Mod" of [No Mod, Caution +1, Caution +2, Caution +3, Caution +4, Caution +5, Caution +6, Caution +7, Caution +8, Caution +9, Bravery -1, Bravery -2, Bravery -3, Bravery -4, Bravery -5, Bravery -6, Bravery -7, Bravery -8, Bravery -9]: Select Caution, Bravery, or No Mod — Book 1 p. 65 (Caution, Bravery, or No Mod); chart 05 p. 79
-- #166 2D = 6+5 = 11 vs 7: failure — Book 1 p. 79 chart 05 (Risk vs End+Mods)
-- #167 Flux = 5+3 = 2 — Book 1 p. 79 chart 05 (Risk Failure: reduce CC by negative Mods and Flux)
-- #168 2D = 5+3 = 8 vs 7: failure — Book 1 p. 79 chart 05 (Reward vs End+ opposite sign Mods)
-- #169 policy chose "Retry" of [Retry, Accept the failure]: Retry the Reward against Edu? — Book 1 p. 79 chart 05 (Retry R&R C5); interpretation I-8, ERRATA.md
-- #170 2D = 3+1 = 4 vs 10: success — Book 1 p. 79 chart 05 (Retry R&R vs Edu; interpretation I-8)
-  - #171 (from #170) Discovery (total 4)
-  - #172 (from #170) Fame +1 = 4
-- #173 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #174 1D = 6 = 6 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #175 (from #174) Navigator +1 = Navigator-3
+- #166 policy chose "End" of [Str, Dex, End]: Select the term's controlling characteristic — Book 1 p. 65 (Risk and Reward: Select the CC)
+- #167 policy chose "Explorer Duty" of [Courier Duty, Explorer Duty]: Select the term's duty — Book 1 p. 79 (Courier Duty avoids Risk and Reward; chart 05 table B)
+- #168 policy chose "No Mod" of [No Mod, Caution +1, Caution +2, Caution +3, Caution +4, Caution +5, Caution +6, Caution +7, Caution +8, Caution +9, Bravery -1, Bravery -2, Bravery -3, Bravery -4, Bravery -5, Bravery -6, Bravery -7, Bravery -8, Bravery -9]: Select Caution, Bravery, or No Mod — Book 1 p. 65 (Caution, Bravery, or No Mod); chart 05 p. 79
+- #169 2D = 6+5 = 11 vs 7: failure — Book 1 p. 79 chart 05 (Risk vs End+Mods)
+- #170 Flux = 5+3 = 2 — Book 1 p. 79 chart 05 (Risk Failure: reduce CC by negative Mods and Flux)
+- #171 2D = 5+3 = 8 vs 7: failure — Book 1 p. 79 chart 05 (Reward vs End+ opposite sign Mods)
+- #172 policy chose "Retry" of [Retry, Accept the failure]: Retry the Reward against Edu? — Book 1 p. 79 chart 05 (Retry R&R C5); interpretation I-8, ERRATA.md
+- #173 2D = 3+1 = 4 vs 10: success — Book 1 p. 79 chart 05 (Retry R&R vs Edu; interpretation I-8)
+  - #174 (from #173) Discovery (total 4)
+  - #175 (from #173) Fame +1 = 4
 - #176 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #177 1D = 6 = 6 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #178 (from #177) Navigator +1 = Navigator-4
+  - #178 (from #177) Navigator +1 = Navigator-3
 - #179 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #180 1D = 4 = 4 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #181 (from #180) Animals +1 = Animals-6
+- #180 1D = 6 = 6 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #181 (from #180) Navigator +1 = Navigator-4
 - #182 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #183 1D = 3 = 3 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #184 (from #183) Hostile Environ +1 = Hostile Environ-6
+- #183 1D = 4 = 4 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #184 (from #183) Animals +1 = Animals-6
 - #185 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #186 1D = 4 = 4 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #187 (from #186) Animals +1 = Animals-7
+- #186 1D = 3 = 3 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #187 (from #186) Hostile Environ +1 = Hostile Environ-6
 - #188 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #189 1D = 6 = 6 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #190 (from #189) Navigator +1 = Navigator-5
+- #189 1D = 4 = 4 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #190 (from #189) Animals +1 = Animals-7
 - #191 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #192 1D = 6 = 6 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #193 (from #192) Navigator +1 = Navigator-6
+  - #193 (from #192) Navigator +1 = Navigator-5
 - #194 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #195 1D = 1 = 1 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #196 (from #195) Survey +1 = Survey-3
-- #197 2D = 6+4 = 10 vs 10: success — Book 1 p. 79 chart 05 (Continue Int; p. 66)
-  - #198 (from #197) +4 years
-- #199 2D = 2+1 = 3 vs 5: success — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)
-  - #200 (from #199) aging: Str -1 = 4
-- #201 2D = 5+1 = 6 vs 5: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)
-- #202 2D = 3+3 = 6 vs 5: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)
+- #195 1D = 6 = 6 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #196 (from #195) Navigator +1 = Navigator-6
+- #197 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #198 1D = 1 = 1 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #199 (from #198) Survey +1 = Survey-3
+- #200 policy chose "Continue in Scout" of [Continue in Scout, Change careers]: Leave Scout for another career? — Book 1 p. 66 (Changing Careers)
+- #201 2D = 6+4 = 10 vs 10: success — Book 1 p. 79 chart 05 (Continue Int; p. 66)
+  - #202 (from #201) +4 years
+- #203 2D = 2+1 = 3 vs 5: success — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)
+  - #204 (from #203) aging: Str -1 = 4
+- #205 2D = 5+1 = 6 vs 5: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)
+- #206 2D = 3+3 = 6 vs 5: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)
 
 ## Scout: Term 5
 
 _Book 1 p. 79 chart 05_
 
-- #204 policy chose "Str" of [Str, Dex]: Select the term's controlling characteristic — Book 1 p. 65 (Risk and Reward: Select the CC)
-- #205 policy chose "Explorer Duty" of [Courier Duty, Explorer Duty]: Select the term's duty — Book 1 p. 79 (Courier Duty avoids Risk and Reward; chart 05 table B)
-- #206 policy chose "No Mod" of [No Mod, Caution +1, Caution +2, Caution +3, Caution +4, Caution +5, Caution +6, Caution +7, Caution +8, Caution +9, Bravery -1, Bravery -2, Bravery -3, Bravery -4, Bravery -5, Bravery -6, Bravery -7, Bravery -8, Bravery -9]: Select Caution, Bravery, or No Mod — Book 1 p. 65 (Caution, Bravery, or No Mod); chart 05 p. 79
-- #207 2D = 4+1 = 5 vs 4: failure — Book 1 p. 79 chart 05 (Risk vs Str+Mods)
-- #208 Flux = 4+4 = 0 — Book 1 p. 79 chart 05 (Risk Failure: reduce CC by negative Mods and Flux)
-- #209 2D = 1+3 = 4 vs 4: success — Book 1 p. 79 chart 05 (Reward vs Str+ opposite sign Mods)
-  - #210 (from #209) Discovery (total 5)
-  - #211 (from #209) Fame +1 = 5
-- #212 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #213 1D = 1 = 1 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #214 (from #213) Survey +1 = Survey-4
-- #215 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #216 1D = 5 = 5 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #217 (from #216) Vacc Suit +1 = Vacc Suit-8
-- #218 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #219 1D = 5 = 5 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #220 (from #219) Vacc Suit +1 = Vacc Suit-9
-- #221 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #222 1D = 2 = 2 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #223 (from #222) Survival +1 = Survival-4
-- #224 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #225 1D = 1 = 1 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #226 (from #225) Survey +1 = Survey-5
-- #227 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #228 1D = 2 = 2 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #229 (from #228) Survival +1 = Survival-5
-- #230 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #231 1D = 5 = 5 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #232 (from #231) Vacc Suit +1 = Vacc Suit-10
-- #233 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #234 1D = 1 = 1 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #235 (from #234) Survey +1 = Survey-6
-- #236 2D = 4+4 = 8 vs 10: success — Book 1 p. 79 chart 05 (Continue Int; p. 66)
-  - #237 (from #236) +4 years
-- #238 2D = 6+2 = 8 vs 6: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)
-- #239 2D = 6+5 = 11 vs 6: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)
-- #240 2D = 1+1 = 2 vs 6: success — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)
-  - #241 (from #240) aging: End -1 = 6
+- #208 policy chose "Str" of [Str, Dex]: Select the term's controlling characteristic — Book 1 p. 65 (Risk and Reward: Select the CC)
+- #209 policy chose "Explorer Duty" of [Courier Duty, Explorer Duty]: Select the term's duty — Book 1 p. 79 (Courier Duty avoids Risk and Reward; chart 05 table B)
+- #210 policy chose "No Mod" of [No Mod, Caution +1, Caution +2, Caution +3, Caution +4, Caution +5, Caution +6, Caution +7, Caution +8, Caution +9, Bravery -1, Bravery -2, Bravery -3, Bravery -4, Bravery -5, Bravery -6, Bravery -7, Bravery -8, Bravery -9]: Select Caution, Bravery, or No Mod — Book 1 p. 65 (Caution, Bravery, or No Mod); chart 05 p. 79
+- #211 2D = 4+1 = 5 vs 4: failure — Book 1 p. 79 chart 05 (Risk vs Str+Mods)
+- #212 Flux = 4+4 = 0 — Book 1 p. 79 chart 05 (Risk Failure: reduce CC by negative Mods and Flux)
+- #213 2D = 1+3 = 4 vs 4: success — Book 1 p. 79 chart 05 (Reward vs Str+ opposite sign Mods)
+  - #214 (from #213) Discovery (total 5)
+  - #215 (from #213) Fame +1 = 5
+- #216 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #217 1D = 1 = 1 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #218 (from #217) Survey +1 = Survey-4
+- #219 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #220 1D = 5 = 5 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #221 (from #220) Vacc Suit +1 = Vacc Suit-8
+- #222 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #223 1D = 5 = 5 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #224 (from #223) Vacc Suit +1 = Vacc Suit-9
+- #225 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #226 1D = 2 = 2 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #227 (from #226) Survival +1 = Survival-4
+- #228 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #229 1D = 1 = 1 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #230 (from #229) Survey +1 = Survey-5
+- #231 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #232 1D = 2 = 2 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #233 (from #232) Survival +1 = Survival-5
+- #234 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #235 1D = 5 = 5 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #236 (from #235) Vacc Suit +1 = Vacc Suit-10
+- #237 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #238 1D = 1 = 1 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #239 (from #238) Survey +1 = Survey-6
+- #240 policy chose "Continue in Scout" of [Continue in Scout, Change careers]: Leave Scout for another career? — Book 1 p. 66 (Changing Careers)
+- #241 2D = 4+4 = 8 vs 10: success — Book 1 p. 79 chart 05 (Continue Int; p. 66)
+  - #242 (from #241) +4 years
+- #243 2D = 6+2 = 8 vs 6: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)
+- #244 2D = 6+5 = 11 vs 6: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)
+- #245 2D = 1+1 = 2 vs 6: success — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)
+  - #246 (from #245) aging: End -1 = 6
 
 ## Scout: Term 6
 
 _Book 1 p. 79 chart 05_
 
-- #243 policy chose "Dex" of [Dex]: Select the term's controlling characteristic — Book 1 p. 65 (Risk and Reward: Select the CC)
-- #244 policy chose "Explorer Duty" of [Courier Duty, Explorer Duty]: Select the term's duty — Book 1 p. 79 (Courier Duty avoids Risk and Reward; chart 05 table B)
-- #245 policy chose "No Mod" of [No Mod, Caution +1, Caution +2, Caution +3, Caution +4, Caution +5, Caution +6, Caution +7, Caution +8, Caution +9, Bravery -1, Bravery -2, Bravery -3, Bravery -4, Bravery -5, Bravery -6, Bravery -7, Bravery -8, Bravery -9]: Select Caution, Bravery, or No Mod — Book 1 p. 65 (Caution, Bravery, or No Mod); chart 05 p. 79
-- #246 2D = 1+2 = 3 vs 3: success — Book 1 p. 79 chart 05 (Risk vs Dex+Mods)
-- #247 2D = 6+6 = 12 vs 3: failure — Book 1 p. 79 chart 05 (Reward vs Dex+ opposite sign Mods)
-- #248 policy chose "Retry" of [Retry, Accept the failure]: Retry the Reward against Edu? — Book 1 p. 79 chart 05 (Retry R&R C5); interpretation I-8, ERRATA.md
-- #249 2D = 6+1 = 7 vs 10: success — Book 1 p. 79 chart 05 (Retry R&R vs Edu; interpretation I-8)
-  - #250 (from #249) Discovery (total 6)
-  - #251 (from #249) Fame +1 = 6
-- #252 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #253 1D = 2 = 2 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #254 (from #253) Survival +1 = Survival-6
-- #255 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #256 1D = 1 = 1 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #257 (from #256) Survey +1 = Survey-7
-- #258 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #259 1D = 6 = 6 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #260 (from #259) Navigator +1 = Navigator-7
-- #261 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #262 1D = 6 = 6 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #263 (from #262) Navigator +1 = Navigator-8
-- #264 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #265 1D = 3 = 3 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #266 (from #265) Hostile Environ +1 = Hostile Environ-7
-- #267 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #268 1D = 2 = 2 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #269 (from #268) Survival +1 = Survival-7
-- #270 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #271 1D = 6 = 6 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #272 (from #271) Navigator +1 = Navigator-9
-- #273 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #274 1D = 5 = 5 — Book 1 p. 79 chart 05 table C, column Exploration
-  - #275 (from #274) Vacc Suit +1 = Vacc Suit-11
-- #276 2D = 5+6 = 11 vs 10: failure — Book 1 p. 79 chart 05 (Continue Int; p. 66)
-  - #277 (from #276) +4 years
-- #278 2D = 4+3 = 7 vs 6: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)
-- #279 2D = 1+2 = 3 vs 6: success — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)
-  - #280 (from #279) aging: Dex -1 = 2
-- #281 2D = 1+3 = 4 vs 6: success — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)
-  - #282 (from #281) aging: End -1 = 5
-  - #283 (from #276) career ended (Scout)
-  - #284 (from #46) Sanity -3 when generated
+- #248 policy chose "Dex" of [Dex]: Select the term's controlling characteristic — Book 1 p. 65 (Risk and Reward: Select the CC)
+- #249 policy chose "Explorer Duty" of [Courier Duty, Explorer Duty]: Select the term's duty — Book 1 p. 79 (Courier Duty avoids Risk and Reward; chart 05 table B)
+- #250 policy chose "No Mod" of [No Mod, Caution +1, Caution +2, Caution +3, Caution +4, Caution +5, Caution +6, Caution +7, Caution +8, Caution +9, Bravery -1, Bravery -2, Bravery -3, Bravery -4, Bravery -5, Bravery -6, Bravery -7, Bravery -8, Bravery -9]: Select Caution, Bravery, or No Mod — Book 1 p. 65 (Caution, Bravery, or No Mod); chart 05 p. 79
+- #251 2D = 1+2 = 3 vs 3: success — Book 1 p. 79 chart 05 (Risk vs Dex+Mods)
+- #252 2D = 6+6 = 12 vs 3: failure — Book 1 p. 79 chart 05 (Reward vs Dex+ opposite sign Mods)
+- #253 policy chose "Retry" of [Retry, Accept the failure]: Retry the Reward against Edu? — Book 1 p. 79 chart 05 (Retry R&R C5); interpretation I-8, ERRATA.md
+- #254 2D = 6+1 = 7 vs 10: success — Book 1 p. 79 chart 05 (Retry R&R vs Edu; interpretation I-8)
+  - #255 (from #254) Discovery (total 6)
+  - #256 (from #254) Fame +1 = 6
+- #257 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #258 1D = 2 = 2 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #259 (from #258) Survival +1 = Survival-6
+- #260 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #261 1D = 1 = 1 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #262 (from #261) Survey +1 = Survey-7
+- #263 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #264 1D = 6 = 6 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #265 (from #264) Navigator +1 = Navigator-7
+- #266 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #267 1D = 6 = 6 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #268 (from #267) Navigator +1 = Navigator-8
+- #269 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #270 1D = 3 = 3 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #271 (from #270) Hostile Environ +1 = Hostile Environ-7
+- #272 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #273 1D = 2 = 2 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #274 (from #273) Survival +1 = Survival-7
+- #275 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #276 1D = 6 = 6 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #277 (from #276) Navigator +1 = Navigator-9
+- #278 policy chose "Exploration" of [Personal, Academic, Courier, Exploration, Business, Vocation, Avocation]: Select a Scout Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #279 1D = 5 = 5 — Book 1 p. 79 chart 05 table C, column Exploration
+  - #280 (from #279) Vacc Suit +1 = Vacc Suit-11
+- #281 policy chose "Continue in Scout" of [Continue in Scout, Change careers]: Leave Scout for another career? — Book 1 p. 66 (Changing Careers)
+- #282 2D = 5+6 = 11 vs 10: failure — Book 1 p. 79 chart 05 (Continue Int; p. 66)
+  - #283 (from #282) +4 years
+- #284 2D = 4+3 = 7 vs 6: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)
+- #285 2D = 1+2 = 3 vs 6: success — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)
+  - #286 (from #285) aging: Dex -1 = 2
+- #287 2D = 1+3 = 4 vs 6: success — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)
+  - #288 (from #287) aging: End -1 = 5
+  - #289 (from #282) career ended (Scout)
+  - #290 (from #46) Sanity -3 when generated

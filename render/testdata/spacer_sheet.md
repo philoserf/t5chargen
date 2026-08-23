@@ -14,7 +14,7 @@
 
 **Education**: ED5 — graduated
 
-**Career**: Spacer (5 terms), Engineer, MCG-1, XS-1, MCUF-1, SEH-2, Lt Commander O4
+**Career**: Spacer (5 terms), Engineer, MCG-1, XS-1, MCUF-1, SEH-2, Reserve Lt Commander O4
 
 **Skills**: Actor-1, Admin-5, Astrogator-5, Comms-1, Diplomat-4, Engineer-1, Fighter-1, Language-1, Liaison-1, Pilot-1, Trader-1
 
@@ -22,6 +22,6 @@
 
 ---
 
-Seed 659 (math/rand/v2-pcg) · schema 0.17.0 · engine 0.18.0 · policy 0.11.0
+Seed 659 (math/rand/v2-pcg) · schema 0.18.0 · engine 0.19.0 · policy 0.12.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1
