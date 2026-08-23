@@ -1602,3 +1602,71 @@ the M-number. Recorded here because a non-monotonic Fame looks like a bug
 at the implementation site.
 
 Implemented at `chargen/fame.go` (`rankNumber`).
+
+### I-70: Chart 12 prints "Directorate" where every other chart prints "Directorship" (p. 86; p. 71)
+
+Chart 12's table D row 9 awards a "Directorate". Chart M1's Non-Financial
+list names a "Directorship", as do charts 01, 11 and 13, and p. 68 glosses
+only the latter: "A Directorship is an appointment to the Board of
+Directors of a large corporation."
+
+Read as: the same benefit. Nothing in the book defines a Directorate, and
+a benefit that appears once, in one cell, with no rules attached, is a
+spelling rather than a mechanic.
+
+The word is transcribed as printed alongside the resolved kind, so the
+cell says both what the page says and what the engine does with it. It
+appears twice — chart 12 and chart M2's reprint of it agree — so it is a
+consistent spelling, not a slip in one place.
+
+### I-71: Where chart M2 disagrees with a career page, the career page governs (p. 71; p. 67)
+
+Printed page 71 is chart M2, a consolidated reprint of all thirteen
+muster-out tables. It disagrees with six of the pages it reprints:
+
+- **02 Scholar** — M2 appends a twelfth row, Cr60,000 / TAS Fellow.
+- **03 Entertainer** — M2 stops at twelve rows where the career page has
+  thirteen, and its Money DM divides Fame by 5 where the career page
+  divides by 3.
+- **04 Citizen** — M2 has twelve rows: a new first row, Low Psg / Low Psg,
+  with the career page's eleven shifted down beneath it.
+- **10 Rogue** and **11 Noble** — M2 reads "+Terms" where both career
+  pages read "+Total Terms". p. 68 defines "+Terms" as terms in that
+  career; "+Total Terms" it never defines.
+- **13 Functionary** — M2 appends a twelfth row, Pension x2 / Knighthood.
+
+Read as: the career page governs, uniformly. The tiebreaker is printed
+prose rather than preference — "Each career is fully described on its own
+comprehensive page. Once the career is selected, turn to that page and
+resolve it according to the rules on that page" (p. 67) — and M2 is a
+convenience reprint of pages that instruction sends the reader to.
+
+The counter-argument is real and points the other way on two of the six:
+p. 68 defines "+Terms" with a worked example, and defines "+Total Terms"
+nowhere, so M2's wording is the one the book explains. It is set aside
+because a rule that holds the career page for rows and abandons it for DMs
+is two rules, and the first future conflict would reopen the argument. One
+rule, explainable in a sentence, revisable in one place.
+
+Both readings are transcribed. `TestM2DivergesExactlyWhereRecorded` pins
+the divergence set at exactly these six and fails if a later transcription
+resolves one or adds a seventh; `TestTheSevenTablesThatAgreeCarryNoReprint`
+holds the other half.
+
+### I-72: Fame is a table D benefit though chart M1 lists it only as an Automatic (p. 70; pp. 76-83)
+
+Chart M1 splits benefits into Financial and Non-Financial columns, and
+Fame appears in neither. It appears instead among the Automatics, where
+its eligibility is "any".
+
+But four career tables award it as an ordinary benefit cell: chart 02 and
+chart 03 at "Fame +1", chart 05 and chart 09 at "Fame +2".
+
+Read as: a benefit like the others, added to the vocabulary. A cell has to
+resolve to something, the chart names it, and chart F prices Fame for
+every career already. The alternative — treating those four cells as
+naming the Automatic — would make them award a character something he has
+by default, which is no award at all.
+
+The omission is chart M1's, and the vocabulary records it so a reader
+comparing the two lists finds the note rather than the gap.

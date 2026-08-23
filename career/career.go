@@ -16,6 +16,7 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/philoserf/t5chargen/benefit"
 	"github.com/philoserf/t5chargen/skill"
 )
 
@@ -159,6 +160,13 @@ type Definition struct {
 	// gained in the term earns (chart 06 table B: "Promotion 1").
 	SkillsPerAdvancement int `json:"skills_per_advancement,omitempty"`
 
+	// MusterOut is the career's table D, and MusterOutM2 the same table
+	// as chart M2 reprints it on p. 71 — present only for the six careers
+	// where the two disagree. The career page governs (interpretation
+	// I-71); M2 is transcribed so the disagreement is visible and pinned.
+	MusterOut   *MusterOut `json:"muster_out,omitempty"`
+	MusterOutM2 *MusterOut `json:"muster_out_m2,omitempty"`
+
 	// Masterpiece is chart 01's Creating A Masterpiece box (p. 75); nil
 	// for every other career.
 	Masterpiece *Masterpiece `json:"masterpiece,omitempty"`
@@ -271,6 +279,65 @@ type BeginTrack struct {
 
 	// Rank is the rank id entry confers.
 	Rank string `json:"rank,omitempty"`
+}
+
+// MusterOutCell is one cell of a career's table D: a benefit from the
+// chart M1 vocabulary, with whatever the cell adds to it.
+type MusterOutCell struct {
+	Kind benefit.Kind `json:"kind"`
+
+	// Detail names the characteristic a "Str +1" or "C5 +1" cell raises.
+	Detail string `json:"detail,omitempty"`
+
+	// Credits is what a money cell pays outright; Count is how many of a
+	// countable benefit the cell gives ("Ship Share", "Proxy (3)").
+	Credits int `json:"credits,omitempty"`
+	Count   int `json:"count,omitempty"`
+
+	// Dice rolls the count instead, for chart 11's "Proxy (2D)".
+	Dice int `json:"dice,omitempty"`
+
+	// Printed keeps a cell's wording where it differs from the
+	// vocabulary's name — chart 12 row 9 says "Directorate" where every
+	// other chart says "Directorship" (interpretation I-70).
+	Printed string `json:"printed,omitempty"`
+}
+
+// MusterOutDM is a table D column's DM line: "+Terms", "+ Officer Rank",
+// "+Fame/3". "The DMs on the Benefits Tables are optional (for Terms,
+// Fame, or other values). They may be partially applied" (p. 68).
+type MusterOutDM struct {
+	Kind string `json:"kind"`
+
+	// Divisor is the "/3" of "+Fame/3".
+	Divisor int `json:"divisor,omitempty"`
+}
+
+// MusterOutRow is one row of a table D.
+type MusterOutRow struct {
+	Roll    int            `json:"roll"`
+	Money   MusterOutCell  `json:"money"`
+	Benefit MusterOutCell  `json:"benefit"`
+	Power   *MusterOutCell `json:"power,omitempty"`
+}
+
+// MusterOut is a career's table D. "Use the Mustering Out Table
+// corresponding to the Career for the time spent in that career" (p. 68).
+type MusterOut struct {
+	Cite string `json:"cite"`
+
+	// Label is the box header as printed, which is not uniform: chart 01
+	// heads it "D CRAFTSMAN" and chart 03 "D MUSTER OUT BENEFITS", where
+	// the other eleven say "D MUSTER OUT".
+	Label string `json:"label"`
+
+	Rows      []MusterOutRow `json:"rows"`
+	MoneyDM   MusterOutDM    `json:"money_dm"`
+	BenefitDM MusterOutDM    `json:"benefit_dm"`
+	PowerDM   *MusterOutDM   `json:"power_dm,omitempty"`
+
+	// Note is the box's own footnote, where it has one.
+	Note string `json:"note,omitempty"`
 }
 
 // Prerequisite is a condition a character must already meet to enter a
@@ -725,6 +792,10 @@ func (d *Definition) validate() error {
 func (d *Definition) validateTermCounts() error {
 	if d.SkillsPerTerm < 1 {
 		return fmt.Errorf("%w: %q has %d skills per term", errBadDefinition, d.Name, d.SkillsPerTerm)
+	}
+
+	if err := d.validateMusterOut(); err != nil {
+		return err
 	}
 
 	if d.SanityPerTerms < 0 {
@@ -1399,3 +1470,57 @@ func ByName(name string) (*Definition, error) {
 
 // ErrUnknownCareer reports a name absent from Available.
 var ErrUnknownCareer = errors.New("career: unknown career")
+
+// validateMusterOut checks a career's table D, and the chart M2 reprint
+// where it carries one, so the engine can index rows unconditionally.
+func (d *Definition) validateMusterOut() error {
+	for _, t := range []*MusterOut{d.MusterOut, d.MusterOutM2} {
+		if t == nil {
+			continue
+		}
+
+		if len(t.Rows) == 0 {
+			return fmt.Errorf("%w: %q has an empty muster-out table", errBadDefinition, d.Name)
+		}
+
+		for i, row := range t.Rows {
+			// A table D is read with 1D plus DMs, so its rows must run
+			// from 1 without a gap.
+			if row.Roll != i+1 {
+				return fmt.Errorf("%w: %q muster-out row %d is numbered %d",
+					errBadDefinition, d.Name, i+1, row.Roll)
+			}
+
+			for _, cell := range []*MusterOutCell{&row.Money, &row.Benefit, row.Power} {
+				if cell == nil {
+					continue
+				}
+
+				if err := validateMusterOutCell(d.Name, row.Roll, *cell); err != nil {
+					return err
+				}
+			}
+		}
+	}
+
+	return nil
+}
+
+// validateMusterOutCell checks one cell against the chart M1 vocabulary.
+func validateMusterOutCell(career string, roll int, cell MusterOutCell) error {
+	table, err := benefit.Load()
+	if err != nil {
+		return fmt.Errorf("muster out: %w", err)
+	}
+
+	if _, err := table.For(cell.Kind); err != nil {
+		return fmt.Errorf("%w: %q row %d: %w", errBadDefinition, career, roll, err)
+	}
+
+	if cell.Kind == benefit.Characteristic && !characteristicNames[cell.Detail] {
+		return fmt.Errorf("%w: %q row %d raises %q, which is not a characteristic",
+			errBadDefinition, career, roll, cell.Detail)
+	}
+
+	return nil
+}

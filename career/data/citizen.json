@@ -237,5 +237,266 @@
       ]
     }
   ],
-  "skills_per_term": 4
+  "skills_per_term": 4,
+  "muster_out": {
+    "cite": "Book 1 p. 78 chart 04 D",
+    "label": "D MUSTER OUT",
+    "rows": [
+      {
+        "roll": 1,
+        "money": {
+          "kind": "low_passage"
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Str"
+        }
+      },
+      {
+        "roll": 2,
+        "money": {
+          "kind": "low_passage"
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Str"
+        }
+      },
+      {
+        "roll": 3,
+        "money": {
+          "kind": "middle_passage"
+        },
+        "benefit": {
+          "kind": "wafer_jack"
+        }
+      },
+      {
+        "roll": 4,
+        "money": {
+          "kind": "high_passage"
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Edu"
+        }
+      },
+      {
+        "roll": 5,
+        "money": {
+          "kind": "money",
+          "credits": 15000
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Str"
+        }
+      },
+      {
+        "roll": 6,
+        "money": {
+          "kind": "star_passage"
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Dex"
+        }
+      },
+      {
+        "roll": 7,
+        "money": {
+          "kind": "money",
+          "credits": 25000
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "End"
+        }
+      },
+      {
+        "roll": 8,
+        "money": {
+          "kind": "money",
+          "credits": 30000
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Int"
+        }
+      },
+      {
+        "roll": 9,
+        "money": {
+          "kind": "money",
+          "credits": 35000
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Soc"
+        }
+      },
+      {
+        "roll": 10,
+        "money": {
+          "kind": "money",
+          "credits": 40000
+        },
+        "benefit": {
+          "kind": "tas_fellowship"
+        }
+      },
+      {
+        "roll": 11,
+        "money": {
+          "kind": "money",
+          "credits": 50000
+        },
+        "benefit": {
+          "kind": "ship_shares",
+          "count": 1
+        }
+      }
+    ],
+    "money_dm": {
+      "kind": "terms"
+    },
+    "benefit_dm": {
+      "kind": "terms"
+    }
+  },
+  "muster_out_m2": {
+    "cite": "Book 1 p. 71 chart M2",
+    "label": "M2 Muster Out Tables",
+    "rows": [
+      {
+        "roll": 1,
+        "money": {
+          "kind": "low_passage"
+        },
+        "benefit": {
+          "kind": "low_passage"
+        }
+      },
+      {
+        "roll": 2,
+        "money": {
+          "kind": "low_passage"
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Str"
+        }
+      },
+      {
+        "roll": 3,
+        "money": {
+          "kind": "low_passage"
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Str"
+        }
+      },
+      {
+        "roll": 4,
+        "money": {
+          "kind": "middle_passage"
+        },
+        "benefit": {
+          "kind": "wafer_jack"
+        }
+      },
+      {
+        "roll": 5,
+        "money": {
+          "kind": "high_passage"
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Edu"
+        }
+      },
+      {
+        "roll": 6,
+        "money": {
+          "kind": "money",
+          "credits": 15000
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Str"
+        }
+      },
+      {
+        "roll": 7,
+        "money": {
+          "kind": "star_passage"
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Dex"
+        }
+      },
+      {
+        "roll": 8,
+        "money": {
+          "kind": "money",
+          "credits": 25000
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "End"
+        }
+      },
+      {
+        "roll": 9,
+        "money": {
+          "kind": "money",
+          "credits": 30000
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Int"
+        }
+      },
+      {
+        "roll": 10,
+        "money": {
+          "kind": "money",
+          "credits": 35000
+        },
+        "benefit": {
+          "kind": "characteristic",
+          "detail": "Soc"
+        }
+      },
+      {
+        "roll": 11,
+        "money": {
+          "kind": "money",
+          "credits": 40000
+        },
+        "benefit": {
+          "kind": "tas_fellowship"
+        }
+      },
+      {
+        "roll": 12,
+        "money": {
+          "kind": "money",
+          "credits": 50000
+        },
+        "benefit": {
+          "kind": "ship_shares",
+          "count": 1
+        }
+      }
+    ],
+    "money_dm": {
+      "kind": "terms"
+    },
+    "benefit_dm": {
+      "kind": "terms"
+    }
+  }
 }

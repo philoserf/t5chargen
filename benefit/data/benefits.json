@@ -115,6 +115,12 @@
       "credits_per_tc": 10000,
       "no_tc_annual_credits": 5000,
       "note": "A token annual profit: Cr10,000 per Trade Classification, or Cr5,000 on a world with none."
+    },
+    {
+      "kind": "fame",
+      "name": "Fame",
+      "class": "non_financial",
+      "note": "Chart M1 lists Fame among the Automatics rather than in either Benefits column, but three career tables award it as a benefit cell \u2014 chart 02 and chart 03 at Fame +1, chart 05 and chart 09 at Fame +2 (interpretation I-72)."
     }
   ],
   "entitlements": [
