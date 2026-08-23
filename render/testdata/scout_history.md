@@ -229,3 +229,4 @@ _Book 1 p. 79 chart 05_
 - #192 2D = 6+6 = 12 vs 10: failure — Book 1 p. 79 chart 05 (Continue Int; p. 66)
   - #193 (from #192) +4 years
   - #194 (from #192) career ended (Scout)
+  - #195 (from #46) Sanity -2 when generated

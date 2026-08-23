@@ -98,6 +98,7 @@ func TestLoadValidation(t *testing.T) {
 		{"zero continue target", strings.Replace(valid, `"continue_target": 10`, `"continue_target": 0`, 1) + table},
 		{"unmissable continue target", strings.Replace(valid, `"continue_target": 10`, `"continue_target": 12`, 1) + table},
 		{"zero skills per term", strings.Replace(valid, `"skills_per_term": 4`, `"skills_per_term": 0`, 1) + table},
+		{"negative sanity per terms", valid + `, "sanity_per_terms": -1` + table},
 		{"bad characteristic", strings.Replace(valid, `["Str"]`, `["Sta"]`, 1) + table},
 		{
 			"unknown cell kind",
