@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.20.0",
+  "schema_version": "0.22.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.21.0",
+  "engine_version": "0.23.0",
   "policy_version": "none",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -149,6 +149,7 @@
   ],
   "waivers_attempted": 1,
   "life_stage": 8,
+  "fame": 20,
   "events": [
     {
       "seq": 1,
@@ -5145,6 +5146,56 @@
         "cause": 328,
         "kind": "career_ended",
         "career": "Craftsman"
+      }
+    },
+    {
+      "seq": 335,
+      "kind": "step",
+      "step": {
+        "name": "Determine Fame",
+        "cite": "Book 1 p. 91 chart F"
+      }
+    },
+    {
+      "seq": 336,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Invoke the Fame Flux Event? (Fame 20 so far)",
+        "options": [
+          "Keep this Fame",
+          "Add Flux to Fame"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 91 chart F (The Fame Flux Event)"
+      }
+    },
+    {
+      "seq": 337,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 336,
+        "kind": "fame_computed",
+        "skill": "Sector",
+        "value": 20,
+        "mods": [
+          {
+            "name": "Scholar Rank",
+            "value": 2
+          },
+          {
+            "name": "Scholar Publications",
+            "value": 1
+          },
+          {
+            "name": "Craftsman Masterpieces x3",
+            "value": 12
+          },
+          {
+            "name": "Craftsman Perfect Masterpieces x5",
+            "value": 10
+          }
+        ]
       }
     }
   ]

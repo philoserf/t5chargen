@@ -331,9 +331,25 @@ func (*agentMechanics) mission(r *careerRun, cc string) (termOutcome, error) {
 	outcome.success = true
 	r.record.Commendations++
 
+	// "If the Reward Roll Succeeds, subtract the Reward Roll from the
+	// Controlling Characteristic (ignore any Mods) and record the
+	// Commendation in the format shown on the Commendation Table:
+	// <Undercover Career> Commendation-N. N= C-R" (chart F p. 91).
+	//
+	// The value uses the unmodified characteristic, as the page says,
+	// and the raw Reward roll — the same shape as the Medals table's
+	// "unmodified Reward roll" on the facing column.
+	award := Award{
+		Code:  r.record.UndercoverCareer,
+		Name:  r.record.UndercoverCareer + " Commendation",
+		Count: 1,
+		Mod:   value - reward.Total,
+	}
+	r.record.CommendationAwards = append(r.record.CommendationAwards, award)
+
 	r.log.Consequence(ConsequenceEvent{
 		Cause: rewardSeq, Kind: ConsequenceCommendation,
-		Career: r.def.Name, Value: r.record.Commendations,
+		Career: r.def.Name, Skill: award.Name, Value: r.record.Commendations, Delta: award.Mod,
 	})
 
 	return outcome, nil

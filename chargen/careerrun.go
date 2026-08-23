@@ -1136,7 +1136,11 @@ func (r *careerRun) injury(cc string, mod, cause int, cite string) (bool, bool) 
 		return true, false
 	}
 
+	// The lifetime total, and the career's own: chart F prices an Armed
+	// Forces officer's Wound Badges at x1 each (p. 91), which needs the
+	// badges attributable to the career that took them.
 	r.character.WoundBadges++
+	r.record.WoundBadges++
 	r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceWoundBadge, Value: r.character.WoundBadges})
 
 	if -delta >= 4 {
