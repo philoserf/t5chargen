@@ -18,10 +18,10 @@
 
 **Skills**: Actor-1, Athlete-5, Broker-15, Computer-12, Fighter-8, JOT-9, Teacher-15, Trader-4
 
-**Status**: Fame 36 (All Reality), DEAD
+**Status**: Fame 20 (Sector), DEAD
 
 ---
 
-Seed 39 (math/rand/v2-pcg) · schema 0.21.0 · engine 0.22.0 · policy 0.14.0
+Seed 39 (math/rand/v2-pcg) · schema 0.22.0 · engine 0.23.0 · policy 0.14.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

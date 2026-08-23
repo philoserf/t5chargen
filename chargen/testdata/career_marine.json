@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.21.0",
+  "schema_version": "0.22.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.22.0",
+  "engine_version": "0.23.0",
   "policy_version": "0.14.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -111,6 +111,7 @@
         }
       ],
       "service_badges": 4,
+      "wound_badges": 3,
       "terms": [
         {
           "term": 1,
@@ -159,7 +160,7 @@
   ],
   "waivers_attempted": 1,
   "life_stage": 7,
-  "fame": 9,
+  "fame": 12,
   "wound_badges": 3,
   "events": [
     {
@@ -4913,7 +4914,7 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Invoke the Fame Flux Event? (Fame 9 so far)",
+        "prompt": "Invoke the Fame Flux Event? (Fame 12 so far)",
         "options": [
           "Keep this Fame",
           "Add Flux to Fame"
@@ -4928,12 +4929,16 @@
       "consequence": {
         "cause": 349,
         "kind": "fame_computed",
-        "skill": "Continental",
-        "value": 9,
+        "skill": "World System",
+        "value": 12,
         "mods": [
           {
             "name": "Marine Officer Rank",
             "value": 6
+          },
+          {
+            "name": "Marine WB x1",
+            "value": 3
           },
           {
             "name": "Marine MCUF x1",

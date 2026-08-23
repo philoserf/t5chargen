@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.21.0",
+  "schema_version": "0.22.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.22.0",
+  "engine_version": "0.23.0",
   "policy_version": "0.14.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -101,6 +101,7 @@
         }
       ],
       "service_badges": 2,
+      "wound_badges": 2,
       "terms": [
         {
           "term": 1,
@@ -137,7 +138,7 @@
   ],
   "waivers_attempted": 1,
   "life_stage": 5,
-  "fame": 10,
+  "fame": 12,
   "wound_badges": 2,
   "disabled": true,
   "events": [
@@ -3191,7 +3192,7 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Invoke the Fame Flux Event? (Fame 10 so far)",
+        "prompt": "Invoke the Fame Flux Event? (Fame 12 so far)",
         "options": [
           "Keep this Fame",
           "Add Flux to Fame"
@@ -3206,12 +3207,16 @@
       "consequence": {
         "cause": 229,
         "kind": "fame_computed",
-        "skill": "World",
-        "value": 10,
+        "skill": "World System",
+        "value": 12,
         "mods": [
           {
             "name": "Soldier Officer Rank",
             "value": 5
+          },
+          {
+            "name": "Soldier WB x1",
+            "value": 2
           },
           {
             "name": "Soldier MCG x2",

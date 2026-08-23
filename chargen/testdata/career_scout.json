@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.21.0",
+  "schema_version": "0.22.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.22.0",
+  "engine_version": "0.23.0",
   "policy_version": "0.14.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -86,6 +86,7 @@
       "discoveries": 6,
       "end_age": 46,
       "sanity_mod": -3,
+      "wound_badges": 2,
       "terms": [
         {
           "term": 1,
@@ -127,7 +128,7 @@
     }
   ],
   "life_stage": 6,
-  "fame": 24,
+  "fame": 20,
   "wound_badges": 2,
   "events": [
     {
@@ -4107,8 +4108,8 @@
       "consequence": {
         "cause": 286,
         "kind": "fame_computed",
-        "skill": "Empire",
-        "value": 24,
+        "skill": "Sector",
+        "value": 20,
         "mods": [
           {
             "name": "Scout Discoveries x4",

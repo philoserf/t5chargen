@@ -333,4 +333,4 @@ _Book 1 p. 79 chart 05_
 _Book 1 p. 91 chart F_
 
 - #286 policy chose "Keep this Fame" of [Keep this Fame, Add Flux to Fame]: Invoke the Fame Flux Event? (Fame 20 so far) — Book 1 p. 91 chart F (The Fame Flux Event)
-  - #287 (from #286) Fame 24 (Empire) = Scout Discoveries x4 +24
+  - #287 (from #286) Fame 20 (Sector) = Scout Discoveries x4 +24

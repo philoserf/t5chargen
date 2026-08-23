@@ -113,3 +113,26 @@ func TestMedalPoints(t *testing.T) {
 		t.Error("an unknown code is priced")
 	}
 }
+
+// TestStackUnitIsTheOccurrence pins interpretation I-63's second half:
+// "xN = N Fame points per occurrence", so a line's occurrences stack as
+// separate points rather than as one large source.
+func TestStackUnitIsTheOccurrence(t *testing.T) {
+	table := load(t)
+
+	// A Rogue with twelve failed schemes: twelve points of 3.
+	twelve := make([]int, 12)
+	for i := range twelve {
+		twelve[i] = 3
+	}
+
+	if got := table.Stack(twelve); got != 20 {
+		t.Errorf("twelve failed schemes stack to %d, want the limit of 20", got)
+	}
+
+	// The same 36 points as one outright value carries past the limit,
+	// which is what the escape clause is for.
+	if got := table.Stack([]int{36}); got != 36 {
+		t.Errorf("a single source of 36 gives %d, want 36", got)
+	}
+}

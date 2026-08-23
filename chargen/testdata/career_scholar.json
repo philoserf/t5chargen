@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.21.0",
+  "schema_version": "0.22.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.22.0",
+  "engine_version": "0.23.0",
   "policy_version": "0.14.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -86,6 +86,7 @@
       "end_age": 71,
       "rank": "S6",
       "rank_title": "Distinguished Professor",
+      "wound_badges": 1,
       "publications": 8,
       "tenured": true,
       "terms": [

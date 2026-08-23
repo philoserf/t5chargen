@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.21.0",
+  "schema_version": "0.22.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.22.0",
+  "engine_version": "0.23.0",
   "policy_version": "0.14.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -192,7 +192,7 @@
   "life_stage": 9,
   "major_illnesses": 2,
   "extremely_major_illnesses": 2,
-  "fame": 36,
+  "fame": 20,
   "dead": true,
   "events": [
     {
@@ -7669,8 +7669,8 @@
       "consequence": {
         "cause": 527,
         "kind": "fame_computed",
-        "skill": "All Reality",
-        "value": 36,
+        "skill": "Sector",
+        "value": 20,
         "mods": [
           {
             "name": "Rogue Successful Schemes x2",

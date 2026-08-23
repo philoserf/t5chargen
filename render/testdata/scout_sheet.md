@@ -18,10 +18,10 @@
 
 **Skills**: Actor-1, Animals-7, Athlete-5, Broker-2, Hostile Environ-7, Navigator-9, Survey-7, Survival-7, Trader-1, Vacc Suit-11
 
-**Status**: Fame 24 (Empire), Wound Badges 2
+**Status**: Fame 20 (Sector), Wound Badges 2
 
 ---
 
-Seed 26 (math/rand/v2-pcg) · schema 0.21.0 · engine 0.22.0 · policy 0.14.0
+Seed 26 (math/rand/v2-pcg) · schema 0.22.0 · engine 0.23.0 · policy 0.14.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

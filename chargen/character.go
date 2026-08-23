@@ -19,14 +19,14 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.21.0"
+	SchemaVersion = "0.22.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.22.0"
+	EngineVersion = "0.23.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
@@ -297,6 +297,14 @@ type CareerRecord struct {
 	Branch        string  `json:"branch,omitempty"`
 	Medals        []Award `json:"medals,omitempty"`
 	ServiceBadges int     `json:"service_badges,omitempty"`
+
+	// WoundBadges counts this career's Risk-failure wounds: "If the
+	// Soldier, Spacer, or Marines Risk Roll fails, the character is
+	// wounded and receives a Wound Badge (WB)" (p. 91). The character
+	// carries the lifetime total across every career; chart F prices the
+	// Armed Forces career's own, at x1 per badge, so the count has to be
+	// attributable to the career that took them.
+	WoundBadges int `json:"wound_badges,omitempty"`
 
 	// Exiled, TimesExiled, and SuccessfulIntrigues are the Noble's state
 	// (chart 11, p. 85): "Exile is a banishment to the edges of the empire

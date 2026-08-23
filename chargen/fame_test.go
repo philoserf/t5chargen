@@ -27,7 +27,10 @@ func fameSources(c chargen.Character) map[string]int {
 // "based on a variety of accomplishments" priced once over the finished
 // record (chart F p. 91), not a counter three careers increment.
 //
-// Every character's Fame must equal what its own itemization stacks to.
+// Every character's Fame must equal what its own itemization stacks to,
+// plus the Flux Event: the stacking limit governs "the sum of all Fame
+// points received", and the Flux is added to the Fame those points stack
+// to ("add Flux to Fame"), not stacked with them.
 func TestFameIsCalculatedNotAccumulated(t *testing.T) {
 	table, err := fame.Load()
 	if err != nil {
@@ -37,7 +40,10 @@ func TestFameIsCalculatedNotAccumulated(t *testing.T) {
 	for seed := uint64(1); seed <= 300; seed++ {
 		c := generate(t, chargen.Options{Seed: seed})
 
-		var points []int
+		var (
+			points []int
+			flux   int
+		)
 
 		for _, e := range c.Events {
 			if e.Kind != chargen.EventConsequence ||
@@ -46,13 +52,130 @@ func TestFameIsCalculatedNotAccumulated(t *testing.T) {
 			}
 
 			for _, mod := range e.Consequence.Mods {
+				if mod.Name == "Fame Flux Event" {
+					flux = mod.Value
+
+					continue
+				}
+
 				points = append(points, mod.Value)
 			}
 		}
 
-		if want := table.Stack(points); c.Fame != want {
+		if want := max(table.Stack(points)+flux, 0); c.Fame != want {
 			t.Fatalf("seed %d: Fame %d, but its sources stack to %d", seed, c.Fame, want)
 		}
+	}
+}
+
+// TestFameFluxCanLose holds the property the stacking limit must not
+// swallow: the Fame Flux Event is a gamble, so a negative Flux has to cost
+// the character Fame even when one eligibility dominates his total. Before
+// the Flux was applied after stacking, "beyond 20, only the highest Fame
+// applies" absorbed the loss and the gamble was free.
+func TestFameFluxCanLose(t *testing.T) {
+	drawn, cost := 0, 0
+
+	for _, forced := range []string{"Scout", "Scholar", "Noble", "Rogue", "Merchant"} {
+		for seed := uint64(1); seed <= 200; seed++ {
+			c := generate(t, chargen.Options{Seed: seed, Career: forced})
+
+			sources := fameSources(c)
+
+			flux, ok := sources["Fame Flux Event"]
+			if !ok || flux >= 0 {
+				continue
+			}
+
+			drawn++
+
+			base := 0
+
+			for name, value := range sources {
+				if name != "Fame Flux Event" {
+					base += value
+				}
+			}
+
+			if c.Fame < min(base, 20) {
+				cost++
+			} else {
+				t.Errorf("%s seed %d: Flux %d left Fame at %d with a base of %d",
+					forced, seed, flux, c.Fame, base)
+			}
+		}
+	}
+
+	if drawn == 0 || cost == 0 {
+		t.Errorf("saw %d negative Flux draws, %d of which cost Fame; both must be positive", drawn, cost)
+	}
+}
+
+// TestNegativeCareerFameDoesNotSubtract pins interpretation I-68: chart
+// 03's Fame is a Flux-driven running level that can end below zero, and a
+// career the character is not known for contributes nothing to chart F
+// rather than subtracting from the rest. Seed 144 ends its Entertainer
+// career at Fame -2; before the clamp it left the character at Fame 0,
+// with the "If NO other eligibility, 1D" fallback suppressed by the
+// negative entry.
+func TestNegativeCareerFameDoesNotSubtract(t *testing.T) {
+	for _, seed := range []uint64{144, 885, 1525} {
+		c := generate(t, chargen.Options{Seed: seed, Career: "Entertainer"})
+
+		record, ok := begunRecord(c, "Entertainer")
+		if !ok || record.Fame >= 0 {
+			t.Fatalf("seed %d: the fixture expects an Entertainer ending below Fame 0, got %d (begun %v)",
+				seed, record.Fame, ok)
+		}
+
+		if got, ok := fameSources(c)["Entertainer Fame"]; ok {
+			t.Errorf("seed %d: a career at Fame %d contributed %d", seed, record.Fame, got)
+		}
+
+		if c.Fame < 1 {
+			t.Errorf("seed %d: Fame %d; the 1D no-eligibility fallback should have fired", seed, c.Fame)
+		}
+	}
+}
+
+// TestWoundBadgesEarnFame pins "Wound Badge WB x1" (chart F's Armed Forces
+// block). A Wound Badge is awarded by the Risk failure, not the Reward
+// success, so it is not in Medals; it is still priced. An enlisted
+// character earns nothing for his, which is interpretation I-65.
+func TestWoundBadgesEarnFame(t *testing.T) {
+	officers := 0
+
+	for _, service := range []string{"Soldier", "Spacer", "Marine"} {
+		for seed := uint64(1); seed <= 120; seed++ {
+			c := generate(t, chargen.Options{Seed: seed, Career: service})
+
+			record, ok := begunRecord(c, service)
+			if !ok || record.WoundBadges == 0 {
+				continue
+			}
+
+			got, priced := fameSources(c)[service+" WB x1"]
+
+			rank, isOfficer := record.Rank, record.Rank != "" && record.Rank[0] == 'O'
+			if !isOfficer {
+				if priced {
+					t.Errorf("%s seed %d: rank %q earned %d Fame for Wound Badges", service, seed, rank, got)
+				}
+
+				continue
+			}
+
+			officers++
+
+			if got != record.WoundBadges {
+				t.Errorf("%s seed %d: %d Wound Badges contributed %d Fame, want %d",
+					service, seed, record.WoundBadges, got, record.WoundBadges)
+			}
+		}
+	}
+
+	if officers == 0 {
+		t.Error("no wounded officer in the sweep; the Wound Badge line went untested")
 	}
 }
 

@@ -26,6 +26,28 @@ import (
 type famePoints struct {
 	source string
 	points int
+
+	// unit is one occurrence's worth, which is what "the highest Fame"
+	// compares (interpretation I-63). For a "xN" line the chart states it
+	// outright — "xN = N Fame points per occurrence" — so a Scout's six
+	// Discoveries are six units of 4, not one of 24. For a line that
+	// names a value outright ("=Rank", "Soc x1.5") the whole is the unit.
+	unit int
+}
+
+// units expands a priced line into the individual Fame points it is made
+// of, which is what chart F's stacking rule operates on.
+func (f famePoints) units() []int {
+	if f.unit <= 0 {
+		return []int{f.points}
+	}
+
+	out := make([]int, 0, f.points/f.unit)
+	for total := 0; total+f.unit <= f.points; total += f.unit {
+		out = append(out, f.unit)
+	}
+
+	return out
 }
 
 // computeFame prices every accomplishment on the record and stacks them.
@@ -59,30 +81,41 @@ func computeFame(c *Character, roller *dice.Roller, log *Log, decider Decider) e
 		earned = append(earned, famePoints{source: "no other eligibility", points: roll.Total})
 	}
 
+	points := make([]int, 0, len(earned))
+	mods := make([]Mod, 0, len(earned)+1)
+
+	for _, e := range earned {
+		// The transcript shows one line per eligibility; the stacking
+		// rule works on the individual Fame points those lines are made
+		// of (interpretation I-63).
+		points = append(points, e.units()...)
+		mods = append(mods, Mod{Name: e.source, Value: e.points})
+	}
+
+	// Stack the accomplishments before the Flux Event. The limit governs
+	// "the sum of all Fame points received", and Flux is not one of them:
+	// the chart says "add Flux to Fame", so it applies to the Fame those
+	// points stack to. Stacking it alongside them would let the "only the
+	// highest Fame applies" clause swallow a loss whenever one eligibility
+	// dominates the total, and a symmetric gamble would only ever pay.
+	base := table.Stack(points)
+
 	// "The Fame Flux Event. Any character may choose (once during
 	// Character Generation or after adventuring begins) to add Flux to
 	// Fame." Offered here because it is the last thing that can change
 	// the total, and because a calculation over a finished record has no
 	// throw of its own to name as the cause of what it computes
 	// (docs/PRD.md FR10).
-	flux, cause, err := offerFameFlux(table, earned, roller, log, decider)
+	flux, cause, err := offerFameFlux(table, base, roller, log, decider)
 	if err != nil {
 		return err
 	}
 
 	if flux != 0 {
-		earned = append(earned, famePoints{source: "Fame Flux Event", points: flux})
+		mods = append(mods, Mod{Name: "Fame Flux Event", Value: flux})
 	}
 
-	points := make([]int, 0, len(earned))
-	mods := make([]Mod, 0, len(earned))
-
-	for _, e := range earned {
-		points = append(points, e.points)
-		mods = append(mods, Mod{Name: e.source, Value: e.points})
-	}
-
-	c.Fame = max(table.Stack(points), 0)
+	c.Fame = max(base+flux, 0)
 	log.Consequence(ConsequenceEvent{
 		Cause: cause, Kind: ConsequenceFameComputed,
 		Value: c.Fame, Skill: table.Descriptor(c.Fame), Mods: mods,
@@ -95,21 +128,16 @@ func computeFame(c *Character, roller *dice.Roller, log *Log, decider Decider) e
 // reports the Flux it won or lost, and the choice event to hang the
 // computed Fame from.
 //
-// The base total is offered as a score so a policy can weigh the gamble
-// without recomputing it: Flux is symmetric, so the only thing it can buy
-// is crossing a threshold that matters — and p. 68's "one additional roll
-// if Fame 19+" is the one this milestone knows about.
+// The stacked Fame so far is offered as a score so a policy can weigh the
+// gamble without recomputing it: Flux is symmetric, so the only thing it
+// can buy is crossing a threshold that matters — and p. 68's "one
+// additional roll if Fame 19+" is the one this milestone knows about.
 func offerFameFlux(
-	table *fame.Table, earned []famePoints, roller *dice.Roller, log *Log, decider Decider,
+	table *fame.Table, base int, roller *dice.Roller, log *Log, decider Decider,
 ) (int, int, error) {
-	base := 0
-	for _, e := range earned {
-		base += e.points
-	}
-
 	chosen, seq, err := choose(log, decider, Choice{
 		ID:      ChooseFameFlux,
-		Prompt:  "Invoke the Fame Flux Event? (Fame " + strconv.Itoa(min(base, table.StackLimit)) + " so far)",
+		Prompt:  "Invoke the Fame Flux Event? (Fame " + strconv.Itoa(base) + " so far)",
 		Options: []string{"Keep this Fame", "Add Flux to Fame"},
 		Scores:  []int{base, base},
 		Cite:    table.Cite + " (The Fame Flux Event)",
@@ -133,9 +161,13 @@ func offerFameFlux(
 func careerFame(table *fame.Table, record CareerRecord, def *career.Definition, c *Character) []famePoints {
 	var earned []famePoints
 
-	add := func(source string, points int) {
+	// add records a line worth points in total, made of units of `unit`
+	// each; unit 0 means the line is a single amount.
+	add := func(source string, points, unit int) {
 		if points != 0 {
-			earned = append(earned, famePoints{source: record.Career + " " + source, points: points})
+			earned = append(earned, famePoints{
+				source: record.Career + " " + source, points: points, unit: unit,
+			})
 		}
 	}
 
@@ -143,18 +175,18 @@ func careerFame(table *fame.Table, record CareerRecord, def *career.Definition, 
 	case "Craftsman":
 		// "Craftsman Masterpieces x3 / Craftsman Perfect Masterpieces x5".
 		// A Perfect Masterpiece is counted in both, being a Masterpiece.
-		add("Masterpieces x3", record.Masterpieces*3)
-		add("Perfect Masterpieces x5", record.PerfectMasterpieces*5)
+		add("Masterpieces x3", record.Masterpieces*3, 3)
+		add("Perfect Masterpieces x5", record.PerfectMasterpieces*5, 5)
 	case "Scholar":
 		// "Scholar =Rank / Scholar =Publications".
-		add("Rank", rankNumber(record.Rank))
-		add("Publications", record.Publications)
+		add("Rank", rankNumber(record.Rank), 0)
+		add("Publications", record.Publications, 0)
 	case "Rogue":
 		rogueFame(add, record)
 	case "Noble":
 		// "Imperial Noble Soc x1.5 / Imperial Noble Per Exile +1".
-		add("Soc x1.5", nobleFame(table, c.Characteristics.Soc))
-		add("per Exile", record.TimesExiled)
+		add("Soc x1.5", nobleFame(table, c.Characteristics.Soc), 0)
+		add("per Exile", record.TimesExiled, 1)
 	default:
 		singleLineFame(add, record)
 		// Spacer, Soldier, Marine; the Functionary earns none.
@@ -167,33 +199,37 @@ func careerFame(table *fame.Table, record CareerRecord, def *career.Definition, 
 // singleLineFame prices the careers chart F gives one eligibility each,
 // and the two it gives none: "Citizen no intrinsic Fame", and the
 // Functionary, which the chart does not list at all.
-func singleLineFame(add func(string, int), record CareerRecord) {
+func singleLineFame(add func(string, int, int), record CareerRecord) {
 	switch record.Career {
 	case "Entertainer":
 		// "Entertainer detailed under Career" (chart 03 tracks its own).
-		add("Fame", record.Fame)
+		// Chart 03's Fame is a Flux-driven running level that can fall
+		// below zero; a career the character ended unknown for
+		// contributes nothing rather than subtracting from the others
+		// (interpretation I-68).
+		add("Fame", max(record.Fame, 0), 0)
 	case "Scout":
 		// "Scout Discoveries x4".
-		add("Discoveries x4", record.Discoveries*4)
+		add("Discoveries x4", record.Discoveries*4, 4)
 	case "Merchant":
 		// "Merchant =Rank". "Merchant Ship Owner = 1D" is deferred:
 		// ownership is settled at muster out (interpretation I-64).
-		add("Rank", rankNumber(record.Rank))
+		add("Rank", rankNumber(record.Rank), 0)
 	case "Agent":
 		// "Agent =Number of Commendations".
-		add("Commendations", record.Commendations)
+		add("Commendations", record.Commendations, 0)
 	}
 }
 
 // rogueFame prices chart F's two Rogue lines and chart 10's infamy.
-func rogueFame(add func(string, int), record CareerRecord) {
+func rogueFame(add func(string, int, int), record CareerRecord) {
 	// "Rogue Successful Schemes x2 / Rogue Failed Schemes x3" (chart F).
-	add("Successful Schemes x2", record.SuccessfulSchemes*2)
-	add("Failed Schemes x3", record.FailedSchemes*3)
+	add("Successful Schemes x2", record.SuccessfulSchemes*2, 2)
+	add("Failed Schemes x3", record.FailedSchemes*3, 3)
 
 	// "Fame +1 (actually Infamy)" per imprisonment (chart 10 p. 84),
 	// which chart F does not enumerate (interpretation I-67).
-	add("Infamy", record.Fame)
+	add("Infamy", record.Fame, 1)
 }
 
 // armedForcesFame prices "Army / Marine / Navy: Officer Rank *" and the
@@ -213,7 +249,29 @@ func armedForcesFame(table *fame.Table, record CareerRecord, def *career.Definit
 		return nil
 	}
 
-	earned := []famePoints{{source: record.Career + " Officer Rank", points: rankNumber(record.Rank)}}
+	var earned []famePoints
+
+	// add records a line worth points in total, made of units of `unit`
+	// each; unit 0 means the line is a single amount.
+	add := func(source string, points, unit int) {
+		if points != 0 {
+			earned = append(earned, famePoints{
+				source: record.Career + " " + source, points: points, unit: unit,
+			})
+		}
+	}
+
+	add("Officer Rank", rankNumber(record.Rank), 0)
+
+	// "Wound Badge WB x1." A Wound Badge is not a Medal — the Risk
+	// failure awards it, not the Reward success ("If the Soldier, Spacer,
+	// or Marines Risk Roll fails, the character is wounded and receives a
+	// Wound Badge (WB)", p. 91) — so it is counted on the record rather
+	// than listed in Medals, and priced here from the same Armed Forces
+	// block of chart F.
+	if points, priced := table.MedalPoints(woundBadgeCode); priced {
+		add(woundBadgeCode+" x"+strconv.Itoa(points), record.WoundBadges*points, points)
+	}
 
 	for _, award := range record.Medals {
 		points, priced := table.MedalPoints(award.Code)
@@ -222,14 +280,15 @@ func armedForcesFame(table *fame.Table, record CareerRecord, def *career.Definit
 			continue
 		}
 
-		earned = append(earned, famePoints{
-			source: record.Career + " " + award.Code + " x" + strconv.Itoa(points),
-			points: award.Count * points,
-		})
+		add(award.Code+" x"+strconv.Itoa(points), award.Count*points, points)
 	}
 
 	return earned
 }
+
+// woundBadgeCode is chart F's code for the Wound Badge ("Wound Badge WB
+// x1"), which the Medals table prices alongside the decorations.
+const woundBadgeCode = "WB"
 
 // nobleFame prices "Imperial Noble Soc x1.5". The chart prints no rounding
 // rule for the half point; it rounds down (interpretation I-66).

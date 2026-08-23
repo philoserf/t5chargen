@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.21.0",
+  "schema_version": "0.22.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.22.0",
+  "engine_version": "0.23.0",
   "policy_version": "0.14.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -115,6 +115,7 @@
         }
       ],
       "service_badges": 3,
+      "wound_badges": 2,
       "terms": [
         {
           "term": 1,
@@ -150,7 +151,7 @@
     }
   ],
   "life_stage": 5,
-  "fame": 13,
+  "fame": 18,
   "wound_badges": 2,
   "disabled": true,
   "events": [
@@ -3216,27 +3217,44 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Invoke the Fame Flux Event? (Fame 13 so far)",
+        "prompt": "Invoke the Fame Flux Event? (Fame 15 so far)",
         "options": [
           "Keep this Fame",
           "Add Flux to Fame"
         ],
-        "chosen": 0,
+        "chosen": 1,
         "cite": "Book 1 p. 91 chart F (The Fame Flux Event)"
       }
     },
     {
       "seq": 230,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          6,
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 91 chart F (The Fame Flux Event)"
+      }
+    },
+    {
+      "seq": 231,
       "kind": "consequence",
       "consequence": {
         "cause": 229,
         "kind": "fame_computed",
-        "skill": "Inner System",
-        "value": 13,
+        "skill": "Many Systems",
+        "value": 18,
         "mods": [
           {
             "name": "Spacer Officer Rank",
             "value": 4
+          },
+          {
+            "name": "Spacer WB x1",
+            "value": 2
           },
           {
             "name": "Spacer MCG x2",
@@ -3249,6 +3267,10 @@
           {
             "name": "Spacer SEH x3",
             "value": 6
+          },
+          {
+            "name": "Fame Flux Event",
+            "value": 3
           }
         ]
       }

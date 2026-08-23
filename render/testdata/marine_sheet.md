@@ -18,10 +18,10 @@
 
 **Skills**: Actor-1, Athlete-4, Broker-1, Fighter-15, Hostile Environ-3, Leader-8, Medic-1, Stealth-1, Survival-2, Tactics-6, Trader-1, Vacc Suit-1
 
-**Status**: Fame 9 (Continental), Wound Badges 3
+**Status**: Fame 12 (World System), Wound Badges 3
 
 ---
 
-Seed 529 (math/rand/v2-pcg) · schema 0.21.0 · engine 0.22.0 · policy 0.14.0
+Seed 529 (math/rand/v2-pcg) · schema 0.22.0 · engine 0.23.0 · policy 0.14.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1
