@@ -1,0 +1,68 @@
+{
+  "cite": "Book 1 p. 90 chart S (Ship Shares)",
+  "tons_per_share": 50,
+  "tons_per_share_cite": "\"one Share acquires 50 tons of the ship (thus, a 200-ton Free Trader requires 4 Ship Shares to acquire full control)\" (p. 90)",
+  "ships": [
+    {
+      "name": "Scout",
+      "tons": 100,
+      "jump": 2,
+      "maneuver": 2,
+      "qsp": "S-AL22",
+      "shares": 2,
+      "cost_mcr": 70.4
+    },
+    {
+      "name": "Lab Ship",
+      "tons": 400,
+      "jump": 2,
+      "maneuver": 1,
+      "qsp": "L-DC12",
+      "shares": 8,
+      "loan_shares": 8,
+      "cost_mcr": 77.0
+    },
+    {
+      "name": "Lab Launch",
+      "tons": 20,
+      "jump": 0,
+      "maneuver": 2,
+      "carried": true
+    },
+    {
+      "name": "Free Trader",
+      "tons": 200,
+      "jump": 1,
+      "maneuver": 1,
+      "qsp": "A-BS11",
+      "shares": 4,
+      "loan_shares": 4,
+      "cost_mcr": 60.1
+    },
+    {
+      "name": "Yacht",
+      "tons": 200,
+      "jump": 1,
+      "maneuver": 1,
+      "qsp": "Y-EU42",
+      "shares": 4,
+      "cost_mcr": 100.0
+    },
+    {
+      "name": "Close Escort",
+      "tons": 400,
+      "jump": 3,
+      "maneuver": 4,
+      "qsp": "CE-CU44",
+      "shares": 8,
+      "cost_mcr": 116.0
+    },
+    {
+      "name": "Escort Gig",
+      "tons": 20,
+      "jump": 0,
+      "maneuver": 4,
+      "carried": true
+    }
+  ]
+}

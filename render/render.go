@@ -12,6 +12,7 @@ import (
 	"github.com/philoserf/t5chargen/chargen"
 	"github.com/philoserf/t5chargen/fame"
 	"github.com/philoserf/t5chargen/lifestage"
+	"github.com/philoserf/t5chargen/ship"
 )
 
 // Sheet renders the Markdown character sheet, modeled on the Character Card
@@ -819,6 +820,30 @@ func entitlementText(c *chargen.ConsequenceEvent) string {
 	return fmt.Sprintf("%s, Cr%d a year from age %d", c.Skill, c.Delta, c.Value)
 }
 
+// shipSharesLine renders the shares and what chart S says they reach.
+// Shares are never money — Book 1 prices ships in shares and never prices
+// a share (p. 90, interpretation I-84) — so this is the only figure there
+// is to give.
+func shipSharesLine(shares int) string {
+	if shares == 0 {
+		return ""
+	}
+
+	line := fmt.Sprintf("**Ship Shares**: %d", shares)
+
+	if table, err := ship.Load(); err == nil {
+		if best, ok := table.Largest(shares); ok {
+			line += fmt.Sprintf(", enough for a %d-ton %s (%d)", best.Tons, best.Name, best.Shares)
+
+			if spare := shares - best.Shares; spare > 0 {
+				line += fmt.Sprintf(" with %d to spare", spare)
+			}
+		}
+	}
+
+	return line + "\n\n"
+}
+
 // automaticsLine renders what a character already owns at muster out
 // (chart M1's Automatics, p. 70), and the pensions he retires on.
 func automaticsLine(c chargen.Character) string {
@@ -832,6 +857,10 @@ func automaticsLine(c chargen.Character) string {
 	// retained at muster out, not sold (Book 1 p. 68).
 	if c.LandGrantIncome > 0 {
 		fmt.Fprintf(&line, "**Land Grants**: Cr%d a year\n\n", c.LandGrantIncome)
+	}
+
+	if s := shipSharesLine(c.ShipShares); s != "" {
+		line.WriteString(s)
 	}
 
 	for _, e := range c.Entitlements {
