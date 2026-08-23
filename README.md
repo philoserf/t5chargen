@@ -34,13 +34,16 @@ What works today:
   schema/engine/policy versions, ruleset), rendered as a Markdown character
   sheet or a generation-record transcript.
 
-Not yet implemented: interactive mode, batch generation, the replay
-verifier, and the formal JSON Schema — all milestone 5. Two rules are also
-outstanding against the spec — FR8's birthdate and FR7's Land Grant and Ship
-Share values — and both are being implemented rather than deferred. An
-earlier draft of this section called them decisions rather than code, on the
-strength of a rulebook sweep that missed the pages; see
-[docs/MILESTONE-4.md](docs/MILESTONE-4.md).
+Milestones 1 to 4 are complete: the lifepath runs from characteristics
+through education, all thirteen careers, aging, career changes, fame and
+muster out to a birthdate. Not yet implemented: interactive mode, batch
+generation, the replay verifier, and the formal JSON Schema — all milestone 5.
+
+An earlier draft of this section listed FR7's Land Grant and Ship Share
+values and FR8's birthdate as deferred against the spec, on the strength of
+a rulebook sweep that missed the pages. Both are implemented now, and
+[docs/MILESTONE-4.md](docs/MILESTONE-4.md) records what the sweep got
+wrong.
 
 [COVERAGE.md](COVERAGE.md) maps every implemented rule to its page cite and
 lists the deferrals; [ERRATA.md](ERRATA.md) records deliberate
