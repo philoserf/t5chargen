@@ -12,7 +12,7 @@ The spec is [docs/PRD.md](docs/PRD.md). Milestones 1 (foundations), 2
 (pre-career: homeworld skills, education), 3 (careers) and 4 (the rest of
 the lifepath) are complete. A character runs end to end: characteristics,
 homeworld, education, all thirteen careers with aging and career changes,
-Fame, and muster out.
+Fame, muster out, and a birthdate.
 
 What works today:
 
@@ -34,10 +34,8 @@ What works today:
   schema/engine/policy versions, ruleset), rendered as a Markdown character
   sheet or a generation-record transcript.
 
-Milestones 1 to 4 are complete: the lifepath runs from characteristics
-through education, all thirteen careers, aging, career changes, fame and
-muster out to a birthdate. Not yet implemented: interactive mode, batch
-generation, the replay verifier, and the formal JSON Schema — all milestone 5.
+Not yet implemented: interactive mode, batch generation, the replay
+verifier, and the formal JSON Schema — all milestone 5.
 
 An earlier draft of this section listed FR7's Land Grant and Ship Share
 values and FR8's birthdate as deferred against the spec, on the strength of
