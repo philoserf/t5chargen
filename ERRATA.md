@@ -1024,11 +1024,13 @@ reaches, so such a term silently elapsed no time at all.
 
 Implemented at `chargen/careerrun.go` (`term`).
 
-### I-46: A term ending in death still elapses its four years (p. 66; p. 65)
+### I-46: A term ending in death still elapses its four years (p. 66; p. 65; p. 69)
 
 "If the Controlling Characteristic is reduced to zero or less, the
-Character is dead" (p. 65). Book 1 prints no rule for the character's age
-at death, and the engine's finest unit of time is the year.
+Character is dead" (p. 65). Book 1's dedicated paragraph on the subject,
+"Dying During Character Generation" (p. 69), adds only that "all efforts
+in this particular character creation process are lost" — it fixes no age
+for the death, and the engine's finest unit of time is the year.
 
 Read as: the term elapses in full, for the same reason as I-45 — the term
 is T5's atom of career time, and the engine has no sub-term clock to
@@ -1036,9 +1038,10 @@ report a death partway through one.
 
 The rival reading is defensible and is named here rather than dismissed:
 a character who dies did not finish the term, so the term might cost
-nothing. It is rejected because it reports a character who dies in his
-first term as dying at 18 — the instant he entered the career — which is
-a worse answer than rounding to the term the book already treats as
-indivisible.
+nothing, and p. 69's "all efforts ... are lost" can be read as saying the
+record is discarded and its age never asked for. It is rejected because
+it reports a character who dies in his first term as dying at 18 — the
+instant he entered the career — which is a worse answer than rounding to
+the term the book already treats as indivisible.
 
 Implemented at `chargen/careerrun.go` (`term`).
