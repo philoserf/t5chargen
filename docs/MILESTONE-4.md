@@ -1,9 +1,16 @@
 # Milestone 4 — the rest of the lifepath
 
-Complete. A character now runs from characteristics to muster out: aging
-bounds the careers, career changes chain them, all thirteen charts are
-implemented, Fame is calculated over the finished record, and muster out
-counts up what he leaves with.
+The lifepath is implemented end to end. A character runs from
+characteristics to muster out: aging bounds the careers, career changes
+chain them, all thirteen charts are in, Fame is calculated over the
+finished record, and muster out counts up what he leaves with.
+
+**Not closed against the spec.** Two of the PRD's own requirements are
+unmet — FR7 names ship shares and land grants, FR8 names a birthdate — and
+the milestone cannot be called complete while its controlling document
+still asks for them. Both are decisions rather than work; see _Two things
+need a decision_ below. The exit criterion this milestone did meet is the
+machine-checked one: no row in `COVERAGE.md` says `deferred (M4)`.
 
 Cites are to Book 1, Print Edition 5.1.
 

@@ -1686,23 +1686,32 @@ preference dressed as a rule.
 The roll is a character's rather than a career's, so it is added once
 across the whole muster out rather than once per career.
 
-### I-74: A duplicate benefit is rerolled once, not until it differs (p. 69)
+### I-74: A duplicate benefit is rerolled until it differs, or until the table has nothing else (p. 69)
 
 "A result that duplicates a previous (unwanted or unusable) benefit may be
 rerolled until a different benefit is received, for example: Wafer Jack,
 TAS Member, Knighthood."
 
-Read as: one reroll. "Until a different benefit is received" describes an
-unbounded loop, and the engine takes a single throw instead; if that throw
-duplicates the benefit again, it stands.
+Read as written: until, not once. The engine rerolls while the result
+repeats something already held.
 
-The deviation is deliberate. The reroll is permissive ("may be rerolled"),
-so declining it is inside the rule, and a loop over a column whose high
-rows are all one kind — which the DMs make the likely landing place — has
-no printed stopping condition. A bounded reroll is the smaller departure
-from the page than a bound invented for it.
+What the rule does not say is what to do when it cannot be satisfied, and
+the tables make that reachable. The throw is 1D plus a DM, clamped to the
+last row, so it can only land on a span of six rows or fewer; a character
+whose DM carries that whole span onto rows holding the same duplicate has
+no different benefit to receive, and "until" would never end. The loop
+therefore stops when every row the dice can reach repeats something held —
+the one case where the duplicate stands.
 
-Implemented at `chargen/musterout.go` (`rerollable`, `roll`).
+The question is what the reachable rows offer, not whether they differ
+from each other: a span of three different held duplicates differs plenty
+and still has nothing to give. Getting that wrong is not a rounding error
+but a hang, which is how it was found.
+
+Recorded because the engine rerolled exactly once first, which is a
+different rule, and because a Citizen sweep never shows the difference: it
+produces single rerolls in quantity and consecutive ones not at all. Chart
+02's Benefits column runs twelve deep on seed 72.
 
 ### I-75: "+ Officer Rank" counts the number beside the rank, on either ladder (p. 68; charts 06, 08, 10, 12)
 

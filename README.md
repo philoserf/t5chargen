@@ -8,10 +8,11 @@ Go module: `github.com/philoserf/t5chargen`. Standard library only.
 
 ## Status
 
-The spec is [docs/PRD.md](docs/PRD.md). Milestones 1 (foundations) and 2
-(pre-career: homeworld skills, education) are complete; milestone 3 (careers)
-is in progress with 11 of 13 careers playable — every career reachable
-as a first career.
+The spec is [docs/PRD.md](docs/PRD.md). Milestones 1 (foundations), 2
+(pre-career: homeworld skills, education), 3 (careers) and 4 (the rest of
+the lifepath) are complete. A character runs end to end: characteristics,
+homeworld, education, all thirteen careers with aging and career changes,
+Fame, and muster out.
 
 What works today:
 
@@ -33,11 +34,16 @@ What works today:
   schema/engine/policy versions, ruleset), rendered as a Markdown character
   sheet or a generation-record transcript.
 
-Not yet implemented: Craftsman and Functionary (neither reachable as a
-first career, both gated on career changes), aging, career changes, muster out
-and benefits, fame processing, interactive mode, batch generation, and the
-replay verifier. [COVERAGE.md](COVERAGE.md) maps every implemented rule to its
-page cite and lists the deferrals; [ERRATA.md](ERRATA.md) records deliberate
+Not yet implemented: interactive mode, batch generation, the replay
+verifier, and the formal JSON Schema — all milestone 5. Two rules stay
+deferred against the spec and want a decision rather than code: FR8's
+birthdate, whose only cite is a source the ground rules exclude, and FR7's
+Land Grant and Ship Share values, which need the world a grant sits on and
+the ship a share buys. [docs/MILESTONE-4.md](docs/MILESTONE-4.md) states
+both.
+
+[COVERAGE.md](COVERAGE.md) maps every implemented rule to its page cite and
+lists the deferrals; [ERRATA.md](ERRATA.md) records deliberate
 interpretations where the printed rules are ambiguous.
 
 ## Usage
