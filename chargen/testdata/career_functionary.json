@@ -159,14 +159,13 @@
   ],
   "waivers_attempted": 1,
   "life_stage": 7,
-  "credits": 36000,
+  "credits": 35000,
   "benefits": [
     {
       "kind": "low_passage",
       "name": "Low Passage",
       "career": "Scholar",
-      "count": 1,
-      "credits": 1000
+      "count": 1
     },
     {
       "kind": "pension_doubling",
@@ -4765,7 +4764,6 @@
         "kind": "benefit",
         "skill": "Low Passage",
         "career": "Scholar",
-        "delta": 1000,
         "value": 1
       }
     },

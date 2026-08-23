@@ -479,7 +479,7 @@ _Book 1 p. 75 chart 01 D_
 - #378 player chose "Money" of [Money, Benefits]: Which column for this Craftsman muster-out roll? — Book 1 p. 68 (Which Column?)
 - #379 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #380 1D+5 = 1 = 6 — Book 1 p. 75 chart 01 D (Money column, 1D+5)
-  - #381 (from #380) StarPass, worth Cr250000
+  - #381 (from #380) StarPass
 - #382 player chose "Money" of [Money, Benefits]: Which column for this Craftsman muster-out roll? — Book 1 p. 68 (Which Column?)
 - #383 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #384 1D+5 = 2 = 7 — Book 1 p. 75 chart 01 D (Money column, 1D+5)

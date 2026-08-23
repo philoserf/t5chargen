@@ -539,10 +539,20 @@ func afterCareers(c *Character, roller *dice.Roller, log *Log, decider Decider) 
 		return err
 	}
 
-	log.Step("Muster Out", "Book 1 p. 67; chart M1 p. 70")
+	// "Mustering Out counts up the character's belongings ... and notes
+	// them as assets for the adventuring situations to come" (p. 67). A
+	// dead character has none, and p. 69 is blunter: "the Character is
+	// dead (and all efforts in this particular character creation
+	// process are lost)". The record is kept — that much of the sentence
+	// the engine declines, I-51 — but nothing is added to it, and the
+	// step is not opened for a section that would hold nothing
+	// (interpretation I-77).
+	if !c.Dead {
+		log.Step("Muster Out", "Book 1 p. 67; chart M1 p. 70")
 
-	if err := musterOut(c, roller, log, decider); err != nil {
-		return err
+		if err := musterOut(c, roller, log, decider); err != nil {
+			return err
+		}
 	}
 
 	return c.finalize(log)

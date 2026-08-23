@@ -116,14 +116,13 @@
     }
   ],
   "life_stage": 5,
-  "credits": 310000,
+  "credits": 50000,
   "benefits": [
     {
       "kind": "high_passage",
       "name": "High Passage",
       "career": "Entertainer",
-      "count": 1,
-      "credits": 10000
+      "count": 1
     },
     {
       "kind": "money",
@@ -141,8 +140,7 @@
       "kind": "star_passage",
       "name": "StarPass",
       "career": "Entertainer",
-      "count": 1,
-      "credits": 250000
+      "count": 1
     }
   ],
   "fame": 5,
@@ -2130,7 +2128,6 @@
         "kind": "benefit",
         "skill": "High Passage",
         "career": "Entertainer",
-        "delta": 10000,
         "value": 1
       }
     },
@@ -2287,7 +2284,6 @@
         "kind": "benefit",
         "skill": "StarPass",
         "career": "Entertainer",
-        "delta": 250000,
         "value": 1
       }
     }

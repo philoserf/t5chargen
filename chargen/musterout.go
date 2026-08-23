@@ -19,6 +19,7 @@ package chargen
 
 import (
 	"fmt"
+	"slices"
 	"strconv"
 
 	"github.com/philoserf/t5chargen/benefit"
@@ -28,6 +29,10 @@ import (
 
 // benefitDice is the throw: "Roll 1D + DMs" (p. 68).
 const benefitDice = 1
+
+// officerRankClass is the rank class the Armed Forces ladders and chart
+// 06's give their commissioned ranks.
+const officerRankClass = "officer"
 
 // fameBonusRoll is the Fame that earns one: "He is allowed one additional
 // roll if Fame 19+" (p. 68).
@@ -150,7 +155,7 @@ func (r *musterOutRun) career(record *CareerRecord, def *career.Definition, roll
 func (r *musterOutRun) roll(record *CareerRecord, def *career.Definition) error {
 	table := def.MusterOut
 
-	column, _, err := r.chooseColumn(record.Career)
+	column, _, err := r.chooseColumn(def)
 	if err != nil {
 		return err
 	}
@@ -173,7 +178,7 @@ func (r *musterOutRun) roll(record *CareerRecord, def *career.Definition) error 
 		cell, roll = r.throw(table, column, dm)
 	}
 
-	return r.award(record.Career, cell, roll)
+	return r.award(record, def, cell, roll)
 }
 
 // throw rolls 1D + DM against a column and returns the cell it lands on.
@@ -200,16 +205,20 @@ func (r *musterOutRun) throw(
 
 // chooseColumn puts p. 68's per-roll decision: "Which Column? Character
 // may select either the Money column or Benefits column for each roll."
-// Chart 11 adds a third, Power, which only the Noble has.
-func (r *musterOutRun) chooseColumn(careerName string) (string, int, error) {
+// Chart 11 adds a third, Power, which only the Noble has — read off the
+// table rather than off the career's name, so the third column is offered
+// exactly where the data prints one (validateMusterOutRow ties a row's
+// Power cell to the column's DM line, so an offered Power column always
+// has a cell to land on).
+func (r *musterOutRun) chooseColumn(def *career.Definition) (string, int, error) {
 	options := []string{"Money", "Benefits"}
-	if careerName == "Noble" {
+	if def.MusterOut.PowerDM != nil {
 		options = append(options, "Power")
 	}
 
 	chosen, seq, err := choose(r.log, r.decider, Choice{
 		ID:      ChooseBenefitColumn,
-		Prompt:  "Which column for this " + careerName + " muster-out roll?",
+		Prompt:  "Which column for this " + def.Name + " muster-out roll?",
 		Options: options,
 		Cite:    "Book 1 p. 68 (Which Column?)",
 	})
@@ -273,6 +282,10 @@ func (r *musterOutRun) dmValue(record *CareerRecord, dm career.MusterOutDM) int 
 	case "total_terms":
 		return totalTerms(r.character)
 	case "officer_rank", "scholar_rank":
+		// The number printed beside the rank's title, on whichever ladder
+		// the character stands: an enlisted S4 counts 4, as I-68 reads
+		// the same DM on chart 06 and as the Knighthood's officers-only
+		// clause requires (interpretation I-75).
 		return rankNumber(record.Rank)
 	case "commendations":
 		return record.Commendations
@@ -298,22 +311,32 @@ func (r *musterOutRun) functionaryTerms(careerName string) int {
 }
 
 // award applies what a cell gives and records it.
-func (r *musterOutRun) award(careerName string, cell career.MusterOutCell, cause int) error {
+//
+// Only a Money cell pays credits. p. 68 prices the rest — "StarPass ... has
+// a value of Cr250,000" — but that is what one is worth if the character
+// sells it, and cashing out is its own step: crediting a passage as money
+// would both spend a ticket he still holds and count it twice, once in the
+// money and once in the benefits.
+func (r *musterOutRun) award(
+	record *CareerRecord, def *career.Definition, cell career.MusterOutCell, cause int,
+) error {
 	entry, err := r.table.For(cell.Kind)
 	if err != nil {
 		return fmt.Errorf("muster out: %w", err)
 	}
 
-	got := BenefitRecord{Kind: cell.Kind, Name: entry.Name, Career: careerName, Detail: cell.Detail}
+	got := BenefitRecord{Kind: cell.Kind, Name: entry.Name, Career: def.Name, Detail: cell.Detail}
 
 	//nolint:exhaustive // Deliberately partitioned: default covers the rest.
 	switch cell.Kind {
 	case benefit.Money:
 		got.Credits = cell.Credits
 	case benefit.Characteristic:
-		return r.awardCharacteristic(careerName, cell, cause)
+		return r.awardCharacteristic(def, entry, cell, cause)
 	case benefit.Knighthood:
-		return r.awardKnighthood(careerName, entry, cause)
+		return r.awardKnighthood(record, def, entry, cause)
+	case benefit.Fame:
+		return r.awardFame(def, entry, cell, cause)
 	default:
 		got.Count = max(cell.Count, 1)
 
@@ -323,11 +346,32 @@ func (r *musterOutRun) award(careerName string, cell career.MusterOutCell, cause
 
 			got.Count = roll.Total
 		}
-
-		got.Credits = entry.Credits * got.Count
 	}
 
 	r.record(got, cause)
+
+	return nil
+}
+
+// awardFame applies a "Fame +1" or "Fame +2" cell (charts 02, 03, 05 and
+// 09 box D; interpretation I-72). A Fame cell has to move the counter or
+// it awards nothing at all, which is the reading I-72 rejects. It is added
+// to the Fame chart F has already computed (p. 91), muster out running
+// after that step, so a Fame DM taken later in the same muster out sees
+// the raised figure.
+func (r *musterOutRun) awardFame(
+	def *career.Definition, entry benefit.Benefit, cell career.MusterOutCell, cause int,
+) error {
+	got := max(cell.Count, 1)
+
+	r.record(BenefitRecord{
+		Kind: benefit.Fame, Name: entry.Name, Career: def.Name, Count: got,
+	}, cause)
+
+	r.character.Fame += got
+	r.log.Consequence(ConsequenceEvent{
+		Cause: cause, Kind: ConsequenceFameChange, Delta: got, Value: r.character.Fame,
+	})
 
 	return nil
 }
@@ -349,12 +393,9 @@ func (r *musterOutRun) record(got BenefitRecord, cause int) {
 // characteristic above 15, that benefit is lost." The Caste clause — "If
 // the improvement is C6+1 and for the character C6= Caste, the benefit is
 // lost" — cannot arise for a human (docs/PRD.md non-goals).
-func (r *musterOutRun) awardCharacteristic(careerName string, cell career.MusterOutCell, cause int) error {
-	entry, err := r.table.For(cell.Kind)
-	if err != nil {
-		return fmt.Errorf("muster out: %w", err)
-	}
-
+func (r *musterOutRun) awardCharacteristic(
+	def *career.Definition, entry benefit.Benefit, cell career.MusterOutCell, cause int,
+) error {
 	value, ok := characteristicValue(&r.character.Characteristics, cell.Detail)
 	if !ok {
 		return fmt.Errorf("%w: %q", errUnknownCharacteristic, cell.Detail)
@@ -372,7 +413,7 @@ func (r *musterOutRun) awardCharacteristic(careerName string, cell career.Muster
 
 	awardCharacteristicAndLog(r.character, r.log, cell.Detail, 1, cause)
 	r.record(BenefitRecord{
-		Kind: cell.Kind, Name: entry.Name, Career: careerName, Detail: cell.Detail, Count: 1,
+		Kind: cell.Kind, Name: entry.Name, Career: def.Name, Detail: cell.Detail, Count: 1,
 	}, cause)
 
 	return nil
@@ -382,19 +423,16 @@ func (r *musterOutRun) awardCharacteristic(careerName string, cell career.Muster
 // value of Soc to B; if the character is already Soc 11+, he receives Soc
 // +1 instead" and "In the Spacer, Soldier, and Marine careers, Knighthood
 // is only available to Officers. A non-officer receives Soc +1".
-func (r *musterOutRun) awardKnighthood(careerName string, entry benefit.Benefit, cause int) error {
+func (r *musterOutRun) awardKnighthood(
+	record *CareerRecord, def *career.Definition, entry benefit.Benefit, cause int,
+) error {
 	soc, _ := characteristicValue(&r.character.Characteristics, "Soc")
 
 	knight := true
 
-	for _, restricted := range entry.OfficersOnlyCareers {
-		if restricted != careerName {
-			continue
-		}
-
-		if record := r.careerRecord(careerName); record == nil || !isOfficer(record) {
-			knight = false
-		}
+	if slices.Contains(entry.OfficersOnlyCareers, def.Name) {
+		rank, ok := def.RankByID(record.Rank)
+		knight = ok && rank.Class == officerRankClass
 	}
 
 	// A non-officer, or a character already at the floor, takes the
@@ -407,6 +445,15 @@ func (r *musterOutRun) awardKnighthood(careerName string, entry benefit.Benefit,
 
 		awardCharacteristicAndLog(r.character, r.log, "Soc", bonus, cause)
 
+		// A Soc that cannot rise takes the benefit with it: "If a benefit
+		// elevates a characteristic above 15, that benefit is lost"
+		// (p. 68). awardCharacteristicAndLog logs the loss; nothing is
+		// recorded, so the sheet does not credit a Social Standing the
+		// character never received.
+		if soc+bonus > CharacteristicMax {
+			return nil
+		}
+
 		// What he received is the Social Standing, so that is what the
 		// record says: "A non-officer receives Soc +1", and a character
 		// already at the floor "receives Soc +1 instead" (p. 68).
@@ -417,7 +464,7 @@ func (r *musterOutRun) awardKnighthood(careerName string, entry benefit.Benefit,
 
 		r.record(BenefitRecord{
 			Kind: benefit.Characteristic, Name: characteristic.Name,
-			Career: careerName, Detail: "Soc", Count: bonus,
+			Career: def.Name, Detail: "Soc", Count: bonus,
 		}, cause)
 
 		return nil
@@ -425,25 +472,8 @@ func (r *musterOutRun) awardKnighthood(careerName string, entry benefit.Benefit,
 
 	awardCharacteristicAndLog(r.character, r.log, "Soc", entry.SocFloor-soc, cause)
 	r.record(BenefitRecord{
-		Kind: benefit.Knighthood, Name: entry.Name, Career: careerName, Count: 1,
+		Kind: benefit.Knighthood, Name: entry.Name, Career: def.Name, Count: 1,
 	}, cause)
 
 	return nil
-}
-
-// careerRecord finds the character's record for a career by name.
-func (r *musterOutRun) careerRecord(name string) *CareerRecord {
-	for i := range r.character.Careers {
-		if r.character.Careers[i].Career == name && r.character.Careers[i].Began {
-			return &r.character.Careers[i]
-		}
-	}
-
-	return nil
-}
-
-// isOfficer reports whether a career record ended on the officer ladder,
-// whose rank ids chart 07, 08 and 12 number with an O.
-func isOfficer(record *CareerRecord) bool {
-	return record.Rank != "" && record.Rank[0] == 'O'
 }

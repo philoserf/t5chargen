@@ -22,7 +22,7 @@
 
 **Skills**: ACV-15, Actor-15, Craftsman-15, Electronics-4, Trader-1
 
-**Credits**: Cr575000
+**Credits**: Cr325000
 
 **Benefits**: 1 StarPass
 

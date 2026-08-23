@@ -18,8 +18,6 @@
 
 **Skills**: Actor-1, Animals-4, Astrogator-9, Athlete-15, Broker-2, Bureaucrat-11, Hostile Environ-8, Survey-7, Survival-10, Trader-1
 
-**Credits**: Cr530000
-
 **Status**: Fame 19 (Subsector), Wound Badges 1, DEAD
 
 ---

@@ -18,7 +18,7 @@
 
 **Skills**: ACV-2, Actor-1, Admin-2, Animals-2, Athlete-3, Broker-3, Bureaucrat-1, Chef-4, Computer-1, Trader-1
 
-**Credits**: Cr280000
+**Credits**: Cr30000
 
 **Benefits**: 1 StarPass
 

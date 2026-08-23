@@ -363,7 +363,7 @@ _Book 1 p. 76 chart 02 D_
 
 - #287 player chose "Money" of [Money, Benefits]: Which column for this Scholar muster-out roll? — Book 1 p. 68 (Which Column?)
 - #288 1D = 2 = 2 — Book 1 p. 76 chart 02 D (Money column, 1D+0)
-  - #289 (from #288) Low Passage, worth Cr1000
+  - #289 (from #288) Low Passage
 
 ## Muster Out: Functionary
 

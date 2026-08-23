@@ -20,7 +20,7 @@
 
 **Skills**: ACV-5, Actor-10, Admin-1, Archeology-3, Astrogator-1, Biologics-7, Bureaucrat-12, Hostile Environ-1, Leader-8, Survey-1, Trader-1
 
-**Credits**: Cr36000
+**Credits**: Cr35000
 
 **Benefits**: 1 Low Passage, 7 Pension x2s
 

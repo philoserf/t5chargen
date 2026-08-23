@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/philoserf/t5chargen/benefit"
 	"github.com/philoserf/t5chargen/chargen"
 	"github.com/philoserf/t5chargen/fame"
 	"github.com/philoserf/t5chargen/lifestage"
@@ -770,6 +771,11 @@ func benefitsLine(c chargen.Character) string {
 	order := make([]string, 0, len(c.Benefits))
 
 	for _, got := range c.Benefits {
+		// Money is the credits line above, not a benefit to list again.
+		if got.Kind == benefit.Money {
+			continue
+		}
+
 		name := got.Name
 		if got.Detail != "" {
 			name += " (" + got.Detail + ")"
@@ -782,14 +788,8 @@ func benefitsLine(c chargen.Character) string {
 		counts[name] += max(got.Count, 1)
 	}
 
-	// Money is the credits line above, not a benefit to list again.
 	parts := make([]string, 0, len(order))
-
 	for _, name := range order {
-		if name == "Money" {
-			continue
-		}
-
 		parts = append(parts, plural(counts[name], name))
 	}
 

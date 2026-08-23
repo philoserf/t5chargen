@@ -140,7 +140,7 @@ _Book 1 p. 78 chart 04 D_
 - #99 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
 - #100 policy chose "+2" of [+0, +1, +2]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #101 1D+2 = 4 = 6 — Book 1 p. 78 chart 04 D (Money column, 1D+2)
-  - #102 (from #101) StarPass, worth Cr250000
+  - #102 (from #101) StarPass
 - #103 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
 - #104 policy chose "+2" of [+0, +1, +2]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #105 1D+2 = 6 = 8 — Book 1 p. 78 chart 04 D (Money column, 1D+2)

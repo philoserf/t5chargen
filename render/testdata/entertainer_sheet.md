@@ -18,7 +18,7 @@
 
 **Skills**: Actor-1, Animals-4, Athlete-5, Broker-2, Bureaucrat-4, Hostile Environ-2, Navigator-2, Survey-1, Survival-3, Trader-1
 
-**Credits**: Cr310000
+**Credits**: Cr50000
 
 **Benefits**: 1 High Passage, 1 StarPass
 

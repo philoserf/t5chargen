@@ -149,7 +149,7 @@
   ],
   "waivers_attempted": 1,
   "life_stage": 8,
-  "credits": 575000,
+  "credits": 325000,
   "benefits": [
     {
       "kind": "money",
@@ -209,8 +209,7 @@
       "kind": "star_passage",
       "name": "StarPass",
       "career": "Craftsman",
-      "count": 1,
-      "credits": 250000
+      "count": 1
     },
     {
       "kind": "money",
@@ -5849,7 +5848,6 @@
         "kind": "benefit",
         "skill": "StarPass",
         "career": "Craftsman",
-        "delta": 250000,
         "value": 1
       }
     },

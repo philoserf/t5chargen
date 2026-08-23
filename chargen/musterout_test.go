@@ -58,6 +58,15 @@ func assertRollCount(t *testing.T, seed uint64, decider chargen.Decider) {
 		t.Fatalf("seed %d: %v", seed, err)
 	}
 
+	// A dead character does not muster out at all (I-77).
+	if c.Dead {
+		if len(c.Benefits) != 0 {
+			t.Fatalf("seed %d: a dead character took %d benefits", seed, len(c.Benefits))
+		}
+
+		return
+	}
+
 	want := 0
 
 	for _, record := range c.Careers {
@@ -391,4 +400,136 @@ func countSubstitutions(t *testing.T, name string, seed uint64, c chargen.Charac
 	}
 
 	return got
+}
+
+// TestFameBenefitRaisesFame pins interpretation I-72: charts 02, 03, 05 and
+// 09 award "Fame +1" or "Fame +2" as a table D benefit cell, and a cell
+// that moved nothing would award "something he has by default, which is no
+// award at all".
+func TestFameBenefitRaisesFame(t *testing.T) {
+	awarded := 0
+
+	// The four careers whose table D prints a Fame cell (charts 02, 03,
+	// 05 and 09); the auto policy never opens with most of them.
+	for _, name := range []string{"Scholar", "Entertainer", "Scout", "Agent"} {
+		for seed := uint64(1); seed <= 120; seed++ {
+			c, err := chargen.Generate(chargen.Options{
+				Seed: seed, Career: name, Decider: benefitsColumn{},
+			})
+			if err != nil {
+				t.Fatalf("%s seed %d: %v", name, seed, err)
+			}
+
+			from := benefitsOf(c)[benefit.Fame]
+			if from > 0 {
+				awarded++
+			}
+
+			if want := computedFame(c) + from; c.Fame != want {
+				t.Fatalf("%s seed %d: Fame %d, want %d (chart F %d plus %d awarded at muster out)",
+					name, seed, c.Fame, want, computedFame(c), from)
+			}
+		}
+	}
+
+	if awarded == 0 {
+		t.Fatal("no Fame benefit awarded: the cell was never exercised")
+	}
+}
+
+// computedFame reads the Fame chart F calculated, before muster out added
+// to it.
+func computedFame(c chargen.Character) int {
+	for _, e := range c.Events {
+		if e.Kind == chargen.EventConsequence &&
+			e.Consequence.Kind == chargen.ConsequenceFameComputed {
+			return e.Consequence.Value
+		}
+	}
+
+	return 0
+}
+
+// TestBenefitsAreHeldNotSold pins interpretation I-76: chart M1 prices the
+// passages and the Proxy, but a value is what a benefit is worth, not what
+// it pays. Only the Money column pays credits.
+//
+// The engine did the other thing first, and a Craftsman showed Cr575,000
+// of which Cr250,000 was an unsold StarPass his own sheet also listed
+// among his benefits.
+func TestBenefitsAreHeldNotSold(t *testing.T) {
+	held := 0
+
+	// Both deciders. The passages and StarPass — the priced benefits that
+	// are not cash — sit in the Money column, which only the auto policy
+	// takes, and they are what the engine cashed out by mistake.
+	for _, decider := range []chargen.Decider{chargen.DefaultPolicy{}, benefitsColumn{}} {
+		held += assertHeldNotSold(t, decider)
+	}
+
+	if held == 0 {
+		t.Error("no priced benefit was held; the rule went untested")
+	}
+}
+
+// assertHeldNotSold checks that a character's credits come only from Money
+// cells, and reports how many priced benefits he holds unsold.
+func assertHeldNotSold(t *testing.T, decider chargen.Decider) int {
+	t.Helper()
+
+	held := 0
+
+	for seed := uint64(1); seed <= 300; seed++ {
+		c, err := chargen.Generate(chargen.Options{Seed: seed, Decider: decider})
+		if err != nil {
+			t.Fatalf("seed %d: %v", seed, err)
+		}
+
+		paid := 0
+
+		for _, got := range c.Benefits {
+			if got.Kind == benefit.Money {
+				paid += got.Credits
+
+				continue
+			}
+
+			held++
+
+			if got.Credits != 0 {
+				t.Errorf("seed %d: a held %s was cashed out for Cr%d", seed, got.Name, got.Credits)
+			}
+		}
+
+		if c.Credits != paid {
+			t.Errorf("seed %d: Cr%d in credits from Cr%d of money cells", seed, c.Credits, paid)
+		}
+	}
+
+	return held
+}
+
+// TestTheDeadDoNotMusterOut pins interpretation I-77. Muster out notes
+// "assets for the adventuring situations to come" (p. 67), and a character
+// who died in generation has none.
+func TestTheDeadDoNotMusterOut(t *testing.T) {
+	dead := 0
+
+	for seed := uint64(1); seed <= 400; seed++ {
+		c := generate(t, chargen.Options{Seed: seed})
+		if !c.Dead {
+			continue
+		}
+
+		dead++
+
+		if c.Credits != 0 || len(c.Benefits) != 0 {
+			t.Errorf("seed %d: a dead character mustered out with Cr%d and %d benefits",
+				seed, c.Credits, len(c.Benefits))
+		}
+	}
+
+	if dead == 0 {
+		t.Error("nobody died in the sweep; the rule went untested")
+	}
 }

@@ -18,8 +18,6 @@
 
 **Skills**: Actor-1, Athlete-5, Broker-15, Computer-12, Fighter-8, JOT-9, Teacher-15, Trader-4
 
-**Credits**: Cr1620000
-
 **Status**: Fame 20 (Sector), DEAD
 
 ---
