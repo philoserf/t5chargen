@@ -200,6 +200,20 @@
       "eligibility": "Craftsman"
     }
   ],
+  "land_grant_hexes": [
+    {
+      "career": "Noble",
+      "homeworld_hexes": 1,
+      "no_tc_hexes": 1,
+      "cite": "p. 88: \"The first hex in any grant is on the Noble's homeworld.\" p. 41: \"For each Terrain Hex granted on the Mainworld in a system, the Holder is awarded a Terrain Hex on another world in the system.\""
+    },
+    {
+      "career": "Scout",
+      "homeworld_hexes": 0,
+      "no_tc_hexes": 1,
+      "cite": "p. 79: \"Each Discovery confers a Land Grant of one World Hex on a non-Mainworld within the Imperium.\""
+    }
+  ],
   "forbidden_knowledge": [
     {
       "roll": 1,

@@ -152,12 +152,41 @@ type ForbiddenSkill struct {
 	Note  string `json:"note"`
 }
 
+// LandGrantHexes says where one career's Land Grant hexes sit, which is
+// the whole of what decides their income: a hex is priced by the Trade
+// Classifications of the world it is on (p. 88), so the income question is
+// which worlds the grant covers.
+//
+// The two granting careers differ, and the difference is printed. A Noble's
+// grant starts at home — "The first hex in any grant is on the Noble's
+// homeworld" (p. 88) — and p. 41 adds one more: "For each Terrain Hex
+// granted on the Mainworld in a system, the Holder is awarded a Terrain Hex
+// on another world in the system." A Scout's does not: "Each Discovery
+// confers a Land Grant of one World Hex on a non-Mainworld within the
+// Imperium" (p. 79).
+type LandGrantHexes struct {
+	Career string `json:"career"`
+
+	// HomeworldHexes are hexes on the character's own homeworld, priced
+	// by its Trade Classifications, which the record carries.
+	HomeworldHexes int `json:"homeworld_hexes"`
+
+	// NoTCHexes are hexes on worlds the record does not name, priced at
+	// the no-TC floor (interpretation I-82, ERRATA.md).
+	NoTCHexes int `json:"no_tc_hexes"`
+
+	Cite string `json:"cite"`
+}
+
 // Table is chart M1.
 type Table struct {
 	Cite         string        `json:"cite"`
 	Kinds        []Benefit     `json:"kinds"`
 	Entitlements []Entitlement `json:"entitlements"`
 	Automatics   []Automatic   `json:"automatics"`
+
+	// LandGrantHexes carries one entry per career that grants land.
+	LandGrantHexes []LandGrantHexes `json:"land_grant_hexes"`
 
 	// CashOutYears: "Any Entitlement can be cashed out for a lump sum"
 	// of this many years' payments (p. 69).
@@ -213,6 +242,17 @@ func (t *Table) Entitlement(id string) (Entitlement, bool) {
 	return Entitlement{}, false
 }
 
+// LandGrantHexesFor returns how one career's grants are laid out.
+func (t *Table) LandGrantHexesFor(career string) (LandGrantHexes, bool) {
+	for _, h := range t.LandGrantHexes {
+		if h.Career == career {
+			return h, true
+		}
+	}
+
+	return LandGrantHexes{}, false
+}
+
 // ForbiddenSkillAt returns the skill a 1D roll grants (chart M1).
 func (t *Table) ForbiddenSkillAt(roll int) (ForbiddenSkill, bool) {
 	for _, f := range t.ForbiddenKnowledge {
@@ -238,7 +278,40 @@ func (t *Table) validate() error {
 		return err
 	}
 
+	if err := t.validateLandGrantHexes(); err != nil {
+		return err
+	}
+
 	return t.validateEntitlements()
+}
+
+// validateLandGrantHexes checks every granting career is named once and
+// actually holds ground. A grant covering no hexes would earn nothing,
+// which is not a reading any of pp. 41, 79 or 88 supports.
+func (t *Table) validateLandGrantHexes() error {
+	if len(t.LandGrantHexes) == 0 {
+		return fmt.Errorf("%w: no land grant hexes", errBadTable)
+	}
+
+	seen := make(map[string]bool, len(t.LandGrantHexes))
+
+	for _, h := range t.LandGrantHexes {
+		if h.Career == "" || h.Cite == "" {
+			return fmt.Errorf("%w: land grant hexes for %q are incomplete", errBadTable, h.Career)
+		}
+
+		if seen[h.Career] {
+			return fmt.Errorf("%w: land grant hexes for %q listed twice", errBadTable, h.Career)
+		}
+
+		seen[h.Career] = true
+
+		if h.HomeworldHexes < 0 || h.NoTCHexes < 0 || h.HomeworldHexes+h.NoTCHexes == 0 {
+			return fmt.Errorf("%w: land grant for %q covers no hexes", errBadTable, h.Career)
+		}
+	}
+
+	return nil
 }
 
 // validateAutomatics checks "Automatics (Subject to Eligibility)" is named

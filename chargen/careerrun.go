@@ -599,9 +599,12 @@ func (r *careerRun) awardOpenCell(kind career.EntryKind) error {
 
 	if kind == career.EntryCapital {
 		// "Capital*** = World Knowledge (of world of highest held noble
-		// Land Grant)" (chart 11 p. 85): the Land Grant worlds land with
-		// muster out (docs/PRD.md milestone 4).
-		return fmt.Errorf("%w: Capital cell needs the Land Grant worlds", errNotImplemented)
+		// Land Grant)" (chart 11 p. 85). Grant income is priced now, but
+		// "highest held" ranks grants against each other, which needs the
+		// per-title hex table interpretation I-83 declines to apply — and
+		// no chart in Book 1 awards a World Knowledge, so there is no
+		// naming convention to follow either.
+		return fmt.Errorf("%w: Capital cell needs a ranking of Land Grants", errNotImplemented)
 	}
 
 	return r.awardFromGroup(kind)
