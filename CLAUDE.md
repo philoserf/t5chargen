@@ -53,6 +53,11 @@ what a character record looks like. Prose that quotes the printed rules
 must escape T5's literal asterisks (`"+F +F\* +F\*"`), or prettier reads
 them as emphasis and rewrites the quote.
 
+Never edit a fixture by hand. Regenerate them with `task goldens`, which
+rewrites the fixtures and then runs the full gate. A fixture is only
+allowed to move when a change was meant to move it, so read the diff
+before committing it.
+
 ## Layout
 
 - `cmd/t5chargen` — CLI (subcommands: new, batch, render, replay).
