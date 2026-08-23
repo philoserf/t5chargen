@@ -1925,3 +1925,35 @@ Recorded rather than left implicit because the table is right there beside
 the income rule this engine does implement, and its absence would otherwise
 read as an oversight. Applying it means reopening I-30, which is a decision
 about the count and not about the money.
+
+### I-84: Book 1 attaches no credit value to a Ship Share (p. 90; p. 69; p. 68)
+
+Chart S prices ships in shares and never prices a share: "one Share
+acquires 50 tons of the ship (thus, a 200-ton Free Trader requires 4 Ship
+Shares to acquire full control)." p. 69 adds only that a share "may be
+redeemed upon Mustering Out, or it may be retained and redeemed at some
+later date."
+
+Read as: the omission is deliberate, not a gap for the engine to fill.
+p. 68 prices the benefits it means to price, to the credit — a StarPass at
+Cr250,000, a Low Passage at Cr1,000 — and gives a share no figure on any of
+the four pages that discuss one. Chart S's own MCr column prices the ship,
+not the share, and the page converts between the two currencies nowhere.
+
+So a share is recorded as a share and valued in tons of ship. PRD FR7 asks
+for "ship shares and land grants" among the things muster out settles; what
+Book 1 supplies for a share is a redemption rate, and FR7 is amended to say
+so rather than the engine inventing a price the rules withhold.
+
+Redeeming the shares for an actual ship stays unimplemented, on two
+grounds. I-64 already forecloses it at muster out: Fame is read there — "He
+is allowed one additional roll if Fame 19+" (p. 68) — so Fame must be known
+before muster out runs, and a Merchant's ship is not known until it has.
+And p. 90 makes the purchase an act of play rather than of character
+generation: the shares "become available immediately, or the eligibility
+may be saved for some future use", and "Characters may pool their ship
+shares ... the majority share holder determines the ship type selected",
+which is a decision among players and not one the generator can make.
+
+Implemented at `ship` (chart S) and `render` (`shipSharesLine`), which
+reports the count and the largest ship it reaches.

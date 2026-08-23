@@ -22,10 +22,12 @@
 
 **Automatics**: Fame
 
+**Ship Shares**: 10, enough for a 400-ton Lab Ship (8) with 2 to spare
+
 **Status**: Fame 3 (Extended Family), Wound Badges 1
 
 ---
 
-Seed 17 (math/rand/v2-pcg) · schema 0.25.0 · engine 0.27.0 · policy 0.16.0
+Seed 17 (math/rand/v2-pcg) · schema 0.26.0 · engine 0.27.0 · policy 0.16.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

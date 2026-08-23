@@ -20,7 +20,7 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.25.0"
+	SchemaVersion = "0.26.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
@@ -132,6 +132,16 @@ type Character struct {
 	// Automatics are what a character already owns at muster out,
 	// "Subject to Eligibility" (chart M1 p. 70).
 	Automatics []string `json:"automatics,omitempty"`
+
+	// ShipShares is every share the character holds, from both places
+	// they come from: the Rewards a Merchant or Rogue accumulated during
+	// a career, and the Benefits column cells muster out awarded. p. 69
+	// and p. 80 describe the same thing — "a fractional ownership in a
+	// starship", redeemable toward a ship — so they are one pool.
+	//
+	// Book 1 attaches no credit value to a share; chart S (p. 90) prices
+	// ships in shares (interpretation I-84, ERRATA.md).
+	ShipShares int `json:"ship_shares,omitempty"`
 
 	// LandGrantIncome is the annual profit his Land Grants produce
 	// (p. 88). It is deliberately not Credits: a grant is retained, not

@@ -37,9 +37,32 @@ func (r *musterOutRun) automatics() error {
 		}
 	}
 
+	r.shipShares()
+
 	// Land Grants are one of the Automatics, and the only one that earns
 	// anything, so what they earn is settled here with them.
 	return r.landGrantIncome()
+}
+
+// shipShares pools every share the character holds. A Merchant's Rewards
+// are "redeemable toward ownership of a ship upon mustering out" (p. 80)
+// and a Benefits-column share "may be redeemed upon Mustering Out, or it
+// may be retained and redeemed at some later date" (p. 69): the same
+// fractional ownership, reached two ways, so chart S reads one total.
+func (r *musterOutRun) shipShares() {
+	total := 0
+
+	for _, rec := range r.character.Careers {
+		total += rec.ShipShares
+	}
+
+	for _, b := range r.character.Benefits {
+		if b.Kind == benefit.ShipShares {
+			total += b.Count
+		}
+	}
+
+	r.character.ShipShares = total
 }
 
 // landGrantIncome prices what the character's Land Grants earn him each

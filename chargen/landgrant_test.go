@@ -7,6 +7,7 @@ package chargen_test
 import (
 	"testing"
 
+	"github.com/philoserf/t5chargen/benefit"
 	"github.com/philoserf/t5chargen/chargen"
 )
 
@@ -137,5 +138,49 @@ func TestALandGrantIsIncomeAndNotMoney(t *testing.T) {
 
 	if checked == 0 {
 		t.Fatal("no Scout in 200 seeds held a grant without an entitlement; the test proves nothing")
+	}
+}
+
+// TestShipSharesPoolBothLedgers checks the two places a share comes from
+// add up. A Merchant's Rewards are "redeemable toward ownership of a ship
+// upon mustering out" (p. 80) and a Benefits-column share is the same
+// fractional ownership (p. 69), so the character's total is both.
+func TestShipSharesPoolBothLedgers(t *testing.T) {
+	t.Parallel()
+
+	checked := 0
+
+	for seed := uint64(1); seed <= 300; seed++ {
+		c := generate(t, chargen.Options{Seed: seed, Career: "Merchant", Decider: benefitsColumn{}})
+		if c.Dead {
+			continue
+		}
+
+		fromCareers, fromBenefits := 0, 0
+
+		for _, rec := range c.Careers {
+			fromCareers += rec.ShipShares
+		}
+
+		for _, b := range c.Benefits {
+			if b.Kind == benefit.ShipShares {
+				fromBenefits += b.Count
+			}
+		}
+
+		if fromCareers == 0 || fromBenefits == 0 {
+			continue // only a character drawing on both proves anything
+		}
+
+		checked++
+
+		if want := fromCareers + fromBenefits; c.ShipShares != want {
+			t.Fatalf("seed %d: %d career shares and %d benefit shares total %d, want %d",
+				seed, fromCareers, fromBenefits, c.ShipShares, want)
+		}
+	}
+
+	if checked == 0 {
+		t.Fatal("no Merchant in 300 seeds drew shares from both ledgers; the test proves nothing")
 	}
 }
