@@ -1,0 +1,7 @@
+# Generated fixtures. These are the engine's own output, compared byte for
+# byte by the golden tests (chargen/testdata/*.json is json.MarshalIndent,
+# render/testdata/*.md is the renderer's Markdown). Reformatting them makes
+# the tests fail and, worse, would let a formatter rather than the engine
+# decide what a character record looks like.
+chargen/testdata/
+render/testdata/

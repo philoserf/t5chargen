@@ -11,9 +11,7 @@
       },
       "apply_check": [],
       "duration_years": 0,
-      "pass_check": [
-        "Int"
-      ],
+      "pass_check": ["Int"],
       "rolls": 1,
       "graduation_edu": 5,
       "implemented": true
@@ -26,14 +24,9 @@
         "kind": "edu_min",
         "value": 5
       },
-      "apply_check": [
-        "Int"
-      ],
+      "apply_check": ["Int"],
       "duration_years": 1,
-      "pass_check": [
-        "Int",
-        "Edu"
-      ],
+      "pass_check": ["Int", "Edu"],
       "rolls": 1,
       "majors_from": "school",
       "implemented": true
@@ -47,9 +40,7 @@
       },
       "apply_check": [],
       "duration_years": 0,
-      "pass_check": [
-        "Tra"
-      ],
+      "pass_check": ["Tra"],
       "rolls": 1,
       "implemented": true
     },
@@ -60,14 +51,9 @@
       "prerequisite": {
         "kind": "c5_is_tra"
       },
-      "apply_check": [
-        "Int"
-      ],
+      "apply_check": ["Int"],
       "duration_years": 1,
-      "pass_check": [
-        "Int",
-        "Tra"
-      ],
+      "pass_check": ["Int", "Tra"],
       "rolls": 1,
       "implemented": false
     },
@@ -79,13 +65,9 @@
         "kind": "tra_min",
         "value": 5
       },
-      "apply_check": [
-        "Int"
-      ],
+      "apply_check": ["Int"],
       "duration_years": 1,
-      "pass_check": [
-        "Tra"
-      ],
+      "pass_check": ["Tra"],
       "rolls": 1,
       "majors_from": "school",
       "implemented": false
@@ -98,15 +80,9 @@
         "kind": "edu_min",
         "value": 5
       },
-      "apply_check": [
-        "Int",
-        "Edu"
-      ],
+      "apply_check": ["Int", "Edu"],
       "duration_years": 4,
-      "pass_check": [
-        "Int",
-        "Edu"
-      ],
+      "pass_check": ["Int", "Edu"],
       "rolls": 4,
       "graduation_edu": 8,
       "graduation_degree": "BA",
@@ -121,15 +97,9 @@
         "kind": "edu_min",
         "value": 7
       },
-      "apply_check": [
-        "Int",
-        "Edu"
-      ],
+      "apply_check": ["Int", "Edu"],
       "duration_years": 4,
-      "pass_check": [
-        "Int",
-        "Edu"
-      ],
+      "pass_check": ["Int", "Edu"],
       "rolls": 4,
       "graduation_edu": 9,
       "graduation_degree": "BA",
@@ -144,15 +114,9 @@
         "kind": "edu_min",
         "value": 6
       },
-      "apply_check": [
-        "Int",
-        "Edu"
-      ],
+      "apply_check": ["Int", "Edu"],
       "duration_years": 4,
-      "pass_check": [
-        "Int",
-        "Edu"
-      ],
+      "pass_check": ["Int", "Edu"],
       "rolls": 4,
       "graduation_edu": 8,
       "graduation_degree": "BA Officer1",
@@ -167,15 +131,9 @@
         "kind": "degree",
         "value_name": "BA"
       },
-      "apply_check": [
-        "Int",
-        "Edu"
-      ],
+      "apply_check": ["Int", "Edu"],
       "duration_years": 2,
-      "pass_check": [
-        "Int",
-        "Edu"
-      ],
+      "pass_check": ["Int", "Edu"],
       "rolls": 2,
       "graduation_edu": 9,
       "graduation_degree": "MA",
@@ -190,15 +148,9 @@
         "kind": "degree",
         "value_name": "MA"
       },
-      "apply_check": [
-        "Int",
-        "Edu"
-      ],
+      "apply_check": ["Int", "Edu"],
       "duration_years": 2,
-      "pass_check": [
-        "Int",
-        "Edu"
-      ],
+      "pass_check": ["Int", "Edu"],
       "rolls": 2,
       "graduation_edu": 12,
       "graduation_degree": "Professor",
@@ -213,15 +165,9 @@
         "kind": "degree",
         "value_name": "Honors BA"
       },
-      "apply_check": [
-        "Int",
-        "Edu"
-      ],
+      "apply_check": ["Int", "Edu"],
       "duration_years": 4,
-      "pass_check": [
-        "Int",
-        "Edu"
-      ],
+      "pass_check": ["Int", "Edu"],
       "rolls": 4,
       "graduation_edu": 10,
       "graduation_degree": "Doctor",
@@ -235,15 +181,9 @@
         "kind": "degree",
         "value_name": "Honors BA"
       },
-      "apply_check": [
-        "Int",
-        "Edu"
-      ],
+      "apply_check": ["Int", "Edu"],
       "duration_years": 2,
-      "pass_check": [
-        "Int",
-        "Edu"
-      ],
+      "pass_check": ["Int", "Edu"],
       "rolls": 2,
       "graduation_edu": 10,
       "graduation_degree": "Attorney",
@@ -258,10 +198,7 @@
       },
       "apply_check": [],
       "duration_years": 1,
-      "pass_check": [
-        "Dex",
-        "End"
-      ],
+      "pass_check": ["Dex", "End"],
       "rolls": 1,
       "implemented": false
     },
@@ -274,10 +211,7 @@
       },
       "apply_check": [],
       "duration_years": 0,
-      "pass_check": [
-        "Int",
-        "Edu"
-      ],
+      "pass_check": ["Int", "Edu"],
       "rolls": 1,
       "graduation_degree": "Army Officer1",
       "implemented": false
@@ -291,10 +225,7 @@
       },
       "apply_check": [],
       "duration_years": 0,
-      "pass_check": [
-        "Int",
-        "Edu"
-      ],
+      "pass_check": ["Int", "Edu"],
       "rolls": 1,
       "graduation_degree": "Navy Officer1",
       "implemented": false
@@ -309,9 +240,7 @@
       },
       "apply_check": [],
       "duration_years": 1,
-      "pass_check": [
-        "Dex"
-      ],
+      "pass_check": ["Dex"],
       "rolls": 1,
       "graduation_degree": "Flight Branch",
       "implemented": false
@@ -323,15 +252,9 @@
       "prerequisite": {
         "kind": "assigned"
       },
-      "apply_check": [
-        "Int",
-        "Edu"
-      ],
+      "apply_check": ["Int", "Edu"],
       "duration_years": 1,
-      "pass_check": [
-        "Int",
-        "Edu"
-      ],
+      "pass_check": ["Int", "Edu"],
       "rolls": 1,
       "implemented": false
     }
