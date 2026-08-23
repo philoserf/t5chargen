@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.23.0",
+  "schema_version": "0.24.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.24.0",
-  "policy_version": "0.15.0",
+  "engine_version": "0.25.0",
+  "policy_version": "0.16.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 17
@@ -135,6 +135,9 @@
       "career": "Merchant",
       "credits": 25000
     }
+  ],
+  "automatics": [
+    "Fame"
   ],
   "fame": 3,
   "wound_badges": 1,

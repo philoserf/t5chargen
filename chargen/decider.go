@@ -16,6 +16,11 @@ const (
 	// eligible".
 	ChooseCareerChange ChoiceID = "change_career"
 
+	// ChooseCashOut offers p. 69's alternative to an annual payment:
+	// "Any Entitlement can be cashed out for a lump sum equal to five
+	// years of payments".
+	ChooseCashOut ChoiceID = "cash_out_entitlement"
+
 	// ChooseBenefitColumn is p. 68's per-roll decision: "Which Column?
 	// Character may select either the Money column or Benefits column
 	// for each roll." Chart 11 adds a third, Power.

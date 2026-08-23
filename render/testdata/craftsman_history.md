@@ -484,3 +484,10 @@ _Book 1 p. 75 chart 01 D_
 - #383 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #384 1D+5 = 2 = 7 — Book 1 p. 75 chart 01 D (Money column, 1D+5)
   - #385 (from #384) Money, worth Cr25000
+
+## Muster Out: Entitlements
+
+_Book 1 p. 70 chart M1_
+
+- #387 player chose "Keep it (Cr5000 a year from age 66)" of [Keep it (Cr5000 a year from age 66), Cash out (Cr25000)]: Cash out the Citizen's Pension? — Book 1 p. 69 (Cashing Out)
+  - #388 (from #387) Citizen's Pension, Cr5000 a year from age 66

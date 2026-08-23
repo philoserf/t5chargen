@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.23.0",
+  "schema_version": "0.24.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.24.0",
-  "policy_version": "0.15.0",
+  "engine_version": "0.25.0",
+  "policy_version": "0.16.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 305
@@ -224,6 +224,28 @@
       "name": "Money",
       "career": "Soldier",
       "credits": 60000
+    }
+  ],
+  "automatics": [
+    "Personal Weapons",
+    "Medal",
+    "Fame",
+    "TAS Life Membership"
+  ],
+  "entitlements": [
+    {
+      "id": "reserve_pension",
+      "name": "Reserve Pension",
+      "annual_credits": 2700,
+      "from_age": 66,
+      "cash_out": 13500
+    },
+    {
+      "id": "officer_retirement",
+      "name": "Officer Retirement",
+      "annual_credits": 45000,
+      "from_age": 39,
+      "cash_out": 225000
     }
   ],
   "fame": 12,
@@ -4115,6 +4137,64 @@
         "skill": "Money",
         "career": "Soldier",
         "delta": 60000
+      }
+    },
+    {
+      "seq": 289,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out: Entitlements",
+        "cite": "Book 1 p. 70 chart M1"
+      }
+    },
+    {
+      "seq": 290,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Cash out the Reserve Pension?",
+        "options": [
+          "Keep it (Cr2700 a year from age 66)",
+          "Cash out (Cr13500)"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 69 (Cashing Out)"
+      }
+    },
+    {
+      "seq": 291,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 290,
+        "kind": "entitlement",
+        "skill": "Reserve Pension",
+        "delta": 2700,
+        "value": 66
+      }
+    },
+    {
+      "seq": 292,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Cash out the Officer Retirement?",
+        "options": [
+          "Keep it (Cr45000 a year from age 39)",
+          "Cash out (Cr225000)"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 69 (Cashing Out)"
+      }
+    },
+    {
+      "seq": 293,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 292,
+        "kind": "entitlement",
+        "skill": "Officer Retirement",
+        "delta": 45000,
+        "value": 39
       }
     }
   ]

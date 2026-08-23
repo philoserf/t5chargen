@@ -20,12 +20,18 @@
 
 **Credits**: Cr630000
 
-**Benefits**: 2 Retirement x2s
+**Benefits**: 2 Retirement x2
+
+**Automatics**: Personal Weapons, Medal, Fame, TAS Life Membership
+
+**Reserve Pension**: Cr2700 a year from age 66
+
+**Officer Retirement**: Cr45000 a year from age 39
 
 **Status**: Fame 12 (World System), Wound Badges 2, Disabled
 
 ---
 
-Seed 305 (math/rand/v2-pcg) · schema 0.23.0 · engine 0.24.0 · policy 0.15.0
+Seed 305 (math/rand/v2-pcg) · schema 0.24.0 · engine 0.25.0 · policy 0.16.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

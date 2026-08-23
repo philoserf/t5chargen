@@ -105,10 +105,26 @@ func musterOut(c *Character, roller *dice.Roller, log *Log, decider Decider) err
 			return err
 		}
 
+		run.careerAutomatics(record, def)
+
 		bonus = 0
 	}
 
-	return nil
+	// The Rogue's payoff is money he already has: "Payoff= V x (1+CC-R+
+	// Mods)" (chart 10 p. 84), counted up here with the rest.
+	for _, record := range c.Careers {
+		c.Credits += record.SchemePayoff
+	}
+
+	// The Automatics are read off the finished record rather than rolled
+	// for, so they are recorded like the UPP and the Life Stage and emit
+	// no events: there is no throw or choice to name as their cause
+	// (docs/PRD.md FR10).
+	if err := run.automatics(); err != nil {
+		return err
+	}
+
+	return run.entitlements()
 }
 
 // rollsFor counts a career's muster-out rolls: "A character is allowed one
