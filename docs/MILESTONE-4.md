@@ -1,132 +1,124 @@
 # Milestone 4 — the rest of the lifepath
 
-Milestone 3 closed with every career reachable from a standing start
-implemented. What remains between a career record and a finished character
-is this milestone: aging, career changes, the last two careers, fame, and
-muster out.
+The lifepath is implemented end to end. A character runs from
+characteristics to muster out: aging bounds the careers, career changes
+chain them, all thirteen charts are in, Fame is calculated over the
+finished record, and muster out counts up what he leaves with.
 
-Cites are to Book 1, Print Edition 5.1. Every page named here was read
-before this plan was written; nothing below is from memory.
+**Not closed against the spec.** Two of the PRD's own requirements are
+unmet — FR7 names ship shares and land grants, FR8 names a birthdate — and
+the milestone cannot be called complete while its controlling document
+still asks for them. Both are being implemented; see _What the two
+outstanding rules turned out to be_ below. The exit criterion this milestone
+did meet is the machine-checked one: no row in `COVERAGE.md` says
+`deferred (M4)`.
 
-## Three findings that shape the work
+Cites are to Book 1, Print Edition 5.1.
 
-**Sanity is defined on p. 52.** Chart 05 gives the Scout "reduce San = -1
-for each TWO Terms served", which COVERAGE deferred because "chart A
-defers it". That was well-founded, and an earlier draft of this document
-wrongly called it false: **two charts are labelled A**, and the one on
-p. 56 does say "Defer rolling for Psi and Sanity until later". What no
-chart A does is define the characteristic. The CS Sanity section on p. 52
-does, and it is the page that matters here — because "Characters do not
-generate Sanity until it is first called for" is what lets the Scout's
-reduction be recorded as a pending modifier rather than applied to a value
-that must first be rolled. The deferral was superseded, not mistaken.
+## What shipped
 
-One genuine over-read stands: the COVERAGE row folding Sanity into the
-PRD's Psionics non-goal, which names "Psionics, clones, chimeras, robots,
-artificials" and says nothing about Sanity.
+Twelve pull requests, in the order they landed.
 
-**Printed p. 71 is a second chart, M2 Muster Out Tables** — a consolidated
-reprint of all thirteen career table Ds that contradicts six career pages
-(Citizen shifted a row, Scholar and Functionary each gain a twelfth row,
-the Entertainer differs in both row count and DM divisor, and Rogue and
-Noble read "+Total Terms" against M2's "+Terms").
+|                        |                                                                                                                    |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Golden regeneration    | `task goldens`, because twenty-five fixtures move repeatedly and hand-copying is where an unreviewed byte slips in |
+| Age advance            | one site instead of nine, and the fix that a term ending in death or disability still costs its four years         |
+| Sanity                 | chart 05's Scout rule recorded as a pending modifier, since p. 52 withholds the value                              |
+| Aging (chart A)        | Life Stages, `2D < Life Stage`, the zero cascade — and death that ends the lifepath                                |
+| Career changes (p. 66) | the Reserves, and the one line that held a character to a single career                                            |
+| Functionary (chart 13) | Office Politics, which is the term and the Continue both                                                           |
+| Craftsman (chart 01)   | Master Points and Masterpieces — the thirteenth career                                                             |
+| Fame (chart F)         | calculated, not accumulated                                                                                        |
+| Chart M1               | the muster-out benefit vocabulary, typed                                                                           |
+| The thirteen table Ds  | plus a guard pinning the chart M2 conflict                                                                         |
+| Muster out, benefits   | the rolls and what they award                                                                                      |
+| Muster out, the rest   | Automatics, Entitlements, and the Rogue's payoff                                                                   |
 
-**`Character.Age` is write-only in the engine.** The only read anywhere is
-the renderer printing it. No throw depends on age today, which is what
-makes the age restructure aging requires provable rather than merely
-tested.
+Where the plan said ten chunks, twelve shipped: the muster-out data split
+at the vocabulary line and the procedure at the automatics line, both
+because they were two reviewable things rather than one.
 
-## The authority question
+## Where it stands
 
-Where chart M2 disagrees with a career page, **the career page governs**.
-The tiebreaker is printed prose on p. 67, not a preference: "Each career
-is fully described on its own comprehensive page. Once the career is
-selected, turn to that page and resolve it according to the rules on that
-page." M2 is a convenience reprint.
+- All thirteen careers, 84 recorded interpretations, 34 choice points with
+  a policy row each, 256 tests over 14 packages, 31 golden fixtures.
+- Schema 0.24.0, engine 0.26.0, policy 0.16.0.
+- No row in `COVERAGE.md` says `deferred (M4)`.
 
-Each career's table D is therefore transcribed into that career's own JSON
-file, alongside the rest of its chart, and a loader guard test asserts the
-divergence set against M2 is exactly the six documented conflicts — so a
-seventh, or a silently resolved one, fails the build rather than passing
-unnoticed.
+## What the two outstanding rules turned out to be
 
-The counter-argument is real and belongs in the record: p. 68 _defines_
-"+Terms" as terms in that career, with a worked example, while "+Total
-Terms" is defined nowhere. The uniform rule is still preferred, because
-honouring the career page for rows and abandoning it for DMs invites
-exactly the per-table arguing the rule exists to prevent.
+This section said, until now, that both were decisions rather than work: that
+FR8's birthdate could not be implemented from an authoritative source, and
+that Land Grant and Ship Share values were out of scope. Neither held up. The
+sweep behind those claims missed pages, and the record here was wrong for
+long enough to be quoted back in an outside review.
 
-## Sequence
+**Book 1 prints the birthdate rule, twice.** p. 58 ("Date of Birth") sets the
+default current date at 001-1105 and says to subtract the character's age
+from it; p. 263 ("Birthdates") gives the Birth Date Generation table — four
+consecutive dice into a 365-day table, rerolling on `RR` — and the worked
+example that produces Wonday 044-1075 for an age-30 character. FR8 cites the
+Archive, and a bad cite is not the same thing as no source. Implementing it
+consumes dice, so it moves every golden and bumps the engine version. The
+schedule is untouched: p. 58 defers the calculation to the end of character
+generation, after the last Aging Check has already been thrown, which is why
+interpretation I-50 survives losing its stated premise.
 
-Aging first; muster out last. The middle ordering puts fame **after**
-Craftsman, which is a change from this document's first draft: chart F
-multiplies Craftsman Masterpieces, so fame written earlier would be
-written against counters that do not exist, and p. 68's "one additional
-roll if Fame 19+" makes fame an input to muster out. Fame late satisfies
-both.
+**Land Grant income is printed and computable from what the record already
+holds.** p. 88: "An unimproved Land Grant generates income based on the Trade
+Classifications of the world and equal to Cr10,000 per TC annually (equal to
+Cr5,000 if there are no TCs)," and "The first hex in any grant is on the
+Noble's homeworld." Every character carries his homeworld's Trade
+Classifications, so the stated blocker — a grant needs a world we do not have
+— was false for the one hex the book sites on a world we do. p. 41 adds a
+companion hex per mainworld hex, and p. 88's own example prices exactly that
+pair: Cr20,000 for Sir Richard's two-TC homeworld hex, Cr5,000 for the
+companion minor world. The rate has been sitting in `benefit/data/benefits.json`
+as `credits_per_tc` since chart M1 landed, read by one test and no production
+code — the same transcribed-but-unwired shape this milestone hit three times
+already.
 
-1. **Golden regeneration.** Twenty-five fixtures move repeatedly this
-   milestone and regeneration is manual today. A `-update` flag on the
-   existing comparisons, reusing the same serialization expression so a
-   formatting divergence is impossible by construction.
-2. **Centralize age advance.** `Age += TermYears` lives inside
-   `continueRoll`, which is skipped when a character dies or is disabled,
-   so those terms elapse zero years. Both paths always end the career, so
-   appending the missing advance renumbers nothing: exactly six fixtures
-   move, and any other movement is a bug.
-3. **Sanity.** Record the modifier; do not roll the value. p. 52 forbids
-   generating it before it is called for, and rolling would consume stream
-   for a mechanic v1 never uses.
-4. **Aging** (chart A, p. 89). Life Stages, the `2D < Life Stage` check
-   the character wants to fail, the reduction, and the zero cascade. Needs
-   a strict-less-than dice helper: the package has `<=`, `<=`-with-
-   auto-failure, and `>=`, but no `<`. This is where age stops being
-   write-only.
-5. **Career changes** (p. 66) and the Reserves. The plumbing is three
-   levels deep, and `character.go`'s `if err != nil || began` is the single
-   line confining a character to one career.
-6. **Functionary** (chart 13). Its skills table is already transcribed as
-   a reference career for the Agent's Undercover table, so only box A and
-   Office Politics remain.
-7. **Craftsman** (chart 01). Untranscribed entirely: the 9D Master Points
-   throw and its box-versus-prose conflict, QREBS, Masterpieces, and the
-   "New Trade" cells.
-8. **Fame** (chart F, p. 91). Fame is calculated, not accumulated — the
-   chart's own example is "Rogue with one Failed Scheme ... has Fame = 1 x
-   3 = 3". `Character.Fame` becomes derived; `CareerRecord.Fame` stays,
-   because it is the Entertainer's tracked value and its Continue target,
-   and chart F defers to it.
-9. **Muster out, data.** Split at the vocabulary line: chart M1 and the
-   typed benefit vocabulary first, then the thirteen table Ds transcribed
-   against it. A reviewer of the transcription then has no design question
-   to adjudicate.
-10. **Muster out, procedure.** One step, post-lifepath — p. 68's rule that
-    Functionary terms join an _earlier_ career's DM means a career's roll
-    depends on careers served after it, and the worked example runs three
-    careers and musters out once.
+**Ship Shares genuinely have no credit value, and that is the finding.** Book
+1 attaches no Cr figure to a share anywhere; one share buys 50 tons of ship
+from chart S (p. 90), so a 200-ton Free Trader takes four. FR7 asks for a
+value the book declines to give, and the honest close is to transcribe chart
+S and record what the shares reach rather than invent a price. Redemption
+itself stays out: I-64 already forecloses ownership at muster out on
+Fame-ordering grounds, and p. 90 says shares "may be saved for some future
+use."
 
-## Deferred, and why
+The per-title hex table on p. 88 (Gentleman one hex through Emperor 256) is
+deliberately not applied — it keys hexes on title where I-30 already chose
+box A's per-Soc-increase count, and reconciling the two reopens a settled
+interpretation.
 
-- **Birthdate** (FR8) cannot be implemented from an authoritative source.
-  Its only cite is the Archive, which the ground rules exclude, and the
-  rulebook sweep found no birthdate rule in Book 1. Aging does not need
-  it: the four-year cadence wants years-since-last-check, not a calendar
-  date. FR8 should be amended rather than implemented from the Archive.
-- **Land Grant hexes and ship selection.** Grants and shares are recorded
-  and valued; the geodesic hex economics and chart S ship selection stay
-  with the sibling `philoserf/traveller` repo.
-- **Reserve resignation.** The default policy would never resign, so the
-  Check would be dead stream in every generated character. It becomes a
-  real choice in interactive mode.
-- **Clone Aging**, a Relict/Guest/Med mechanic outside the human core
-  lifepath.
+## What the auto policy will not show you
 
-FR4 also cites career changes as "Archive: `Changing Careers.pdf`"; the
-rule is in Book 1 on p. 66 and the cite should move to the printed page.
+Three limitations are the documented tie-break working as written, not
+defects, and each is recorded in `POLICY.md`:
+
+- No auto-generated character changes careers, so every one has a single
+  career and Craftsman and Functionary are unreachable. Their fixtures are
+  generated with a test Decider and carry `policy_version: "none"`.
+- No auto-generated character takes the Benefits column at muster out, so
+  none receives a Knighthood or a characteristic improvement. They muster
+  out with money and passages.
+- Chart 04's fixed "Continue 10-" does not degrade as characteristics
+  fall, so a Citizen can still serve into his hundreds until aging kills
+  him. Faithful to the page; the real bound is voluntary muster out.
+
+## Still deferred
+
+Later Education (it suspends a career term, which interactive mode is the
+place for); chart 11's Capital cell and the Rogue selecting a previous
+career as a Scheme, both of which need scope this milestone declined;
+Clone Aging and the Caste clause, outside the human core lifepath; QREBS
+allocation and Vintage Masterpiece appreciation, which price a sale that
+generation never makes.
 
 ## Not in this milestone
 
 Interactive mode, batch generation, the replay verifier, and the formal
-JSON Schema are milestone 5. The schema's deferral is dated in
-docs/PRD.md and turns on the record shape settling, which muster out is
-the last thing to disturb.
+JSON Schema are milestone 5. The schema's deferral turned on the record
+shape settling, and muster out was the last thing to disturb it — so that
+is now unblocked.

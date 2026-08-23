@@ -533,3 +533,107 @@ func TestTheDeadDoNotMusterOut(t *testing.T) {
 		t.Error("nobody died in the sweep; the rule went untested")
 	}
 }
+
+// TestNoDuplicateBenefitSurvivesAReroll pins p. 69's rule as it is
+// written: "may be rerolled until a different benefit is received", not
+// rerolled once and then accepted.
+//
+// The invariant is checkable on every character, which the reroll itself
+// is not: a broad sweep produces single rerolls in quantity and
+// consecutive ones almost never, so counting rerolls proves nothing. What
+// the rule guarantees is the outcome — a character never ends holding two
+// of a benefit that is worth nothing twice, unless the rows his throw
+// could reach had nothing else to give.
+func TestNoDuplicateBenefitSurvivesAReroll(t *testing.T) {
+	held := 0
+
+	for _, decider := range []chargen.Decider{chargen.DefaultPolicy{}, benefitsColumn{}} {
+		for seed := uint64(1); seed <= 400; seed++ {
+			c, err := chargen.Generate(chargen.Options{Seed: seed, Decider: decider})
+			if err != nil {
+				t.Fatalf("seed %d: %v", seed, err)
+			}
+
+			counts := map[benefit.Kind]int{}
+
+			for _, got := range c.Benefits {
+				counts[got.Kind]++
+			}
+
+			for _, kind := range []benefit.Kind{
+				benefit.WaferJack, benefit.TASLife, benefit.TASFellowship,
+				benefit.Knighthood, benefit.LifeInsurance,
+			} {
+				if counts[kind] > 1 && !exhaustedItsTable(c, kind) {
+					t.Errorf("seed %d: %d of %s, which is worth nothing twice", seed, counts[kind], kind)
+				}
+
+				if counts[kind] == 1 {
+					held++
+				}
+			}
+		}
+	}
+
+	if held == 0 {
+		t.Error("no rerollable benefit was ever awarded; the rule went untested")
+	}
+
+	assertRerollsUntilDifferent(t)
+}
+
+// assertRerollsUntilDifferent pins the loop itself. A duplicate is
+// rerolled "until a different benefit is received" (p. 69), so a run of
+// consecutive rerolls must be possible; rerolling once and accepting the
+// second duplicate would cap every run at one.
+//
+// Pinned rather than swept for: a Citizen sweep produces single rerolls in
+// quantity and consecutive ones never, which is how rerolling once passed
+// unnoticed. Chart 02's Benefits column repeats its rerollable cells often
+// enough that seed 72 runs twelve deep.
+func assertRerollsUntilDifferent(t *testing.T) {
+	t.Helper()
+
+	c, err := chargen.Generate(chargen.Options{Seed: 72, Career: "Scholar", Decider: benefitsColumn{}})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	run, longest := 0, 0
+
+	for _, e := range c.Events {
+		if e.Kind != chargen.EventConsequence {
+			continue
+		}
+
+		if e.Consequence.Kind == chargen.ConsequenceBenefitLost &&
+			e.Consequence.Skill != "" && e.Consequence.Characteristic == "" {
+			run++
+			longest = max(longest, run)
+
+			continue
+		}
+
+		run = 0
+	}
+
+	if longest < 2 {
+		t.Errorf("the pinned seed's longest reroll run is %d; the rule rerolls until the benefit differs, "+
+			"so a run of two must be reachable", longest)
+	}
+}
+
+// exhaustedItsTable reports whether the character's log shows a reroll
+// span that ran out of alternatives — the one case where p. 69's rule has
+// nothing left to give and a duplicate stands (I-74).
+func exhaustedItsTable(c chargen.Character, kind benefit.Kind) bool {
+	for _, e := range c.Events {
+		if e.Kind == chargen.EventConsequence &&
+			e.Consequence.Kind == chargen.ConsequenceBenefitLost &&
+			e.Consequence.Skill == string(kind) {
+			return true
+		}
+	}
+
+	return false
+}
