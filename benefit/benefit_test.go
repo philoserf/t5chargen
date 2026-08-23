@@ -2,7 +2,10 @@ package benefit_test
 
 import (
 	"errors"
+	"slices"
 	"testing"
+
+	"github.com/philoserf/t5chargen/career"
 
 	"github.com/philoserf/t5chargen/benefit"
 	"github.com/philoserf/t5chargen/skill"
@@ -78,8 +81,14 @@ func TestLandGrantIncome(t *testing.T) {
 		t.Errorf("a Land Grant pays Cr%d per TC, want Cr10,000", grant.CreditsPerTC)
 	}
 
-	if grant.AnnualCredits != 5_000 {
-		t.Errorf("a Land Grant with no TCs pays Cr%d, want Cr5,000", grant.AnnualCredits)
+	if grant.NoTCAnnualCredits != 5_000 {
+		t.Errorf("a Land Grant with no TCs pays Cr%d, want Cr5,000", grant.NoTCAnnualCredits)
+	}
+
+	// The no-TC figure stands in for the per-TC income rather than
+	// topping it up, so a Land Grant carries no unconditional annual.
+	if grant.AnnualCredits != 0 {
+		t.Errorf("a Land Grant pays Cr%d a year on top of its TCs, want nothing", grant.AnnualCredits)
 	}
 
 	if got := grant.CreditsPerTC * 3; got != 30_000 {
@@ -177,11 +186,73 @@ func TestAutomaticsAreTranscribed(t *testing.T) {
 		t.Errorf("chart M1 lists %d automatics, want %d", len(table.Automatics), len(want))
 	}
 
+	got := make(map[string]string, len(table.Automatics))
+
 	for _, a := range table.Automatics {
-		if got, ok := want[a.ID]; !ok {
-			t.Errorf("unexpected automatic %q", a.ID)
-		} else if a.Eligibility != got {
-			t.Errorf("%s is eligible for %q, want %q", a.ID, a.Eligibility, got)
+		if _, ok := got[a.ID]; ok {
+			t.Errorf("automatic %q is listed twice", a.ID)
+		}
+
+		got[a.ID] = a.Eligibility
+	}
+
+	// Compare both ways: counting the rows is not enough, since a
+	// duplicated row hides a missing one.
+	for id, eligibility := range want {
+		switch have, ok := got[id]; {
+		case !ok:
+			t.Errorf("chart M1 automatic %q is missing", id)
+		case have != eligibility:
+			t.Errorf("%s is eligible for %q, want %q", id, have, eligibility)
+		}
+	}
+
+	for id := range got {
+		if _, ok := want[id]; !ok {
+			t.Errorf("unexpected automatic %q", id)
+		}
+	}
+}
+
+// TestBenefitColumns pins which of chart M1's two columns each kind sits
+// in. Load-time validation only checks a kind falls in one of them, so
+// without this a Knighthood filed as Financial would ship unnoticed.
+func TestBenefitColumns(t *testing.T) {
+	table := load(t)
+
+	want := map[benefit.Kind]benefit.Class{
+		benefit.Money:              benefit.Financial,
+		benefit.StarPassage:        benefit.Financial,
+		benefit.HighPassage:        benefit.Financial,
+		benefit.MiddlePassage:      benefit.Financial,
+		benefit.LowPassage:         benefit.Financial,
+		benefit.PensionDoubling:    benefit.Financial,
+		benefit.RetirementDoubling: benefit.Financial,
+
+		benefit.Characteristic:     benefit.NonFinancial,
+		benefit.WaferJack:          benefit.NonFinancial,
+		benefit.ForbiddenKnowledge: benefit.NonFinancial,
+		benefit.Knighthood:         benefit.NonFinancial,
+		benefit.Directorship:       benefit.NonFinancial,
+		benefit.Proxy:              benefit.NonFinancial,
+		benefit.LifeInsurance:      benefit.NonFinancial,
+		benefit.TASFellowship:      benefit.NonFinancial,
+		benefit.TASLife:            benefit.NonFinancial,
+		benefit.ShipShares:         benefit.NonFinancial,
+		// LandGrant is deliberately absent: chart M1 prints it as an
+		// Automatic, not in either Benefits column.
+	}
+
+	for kind, class := range want {
+		b, err := table.For(kind)
+		if err != nil {
+			t.Errorf("%s: %v", kind, err)
+
+			continue
+		}
+
+		if b.Class != class {
+			t.Errorf("%s is %s, want the chart's %s column", kind, b.Class, class)
 		}
 	}
 }
@@ -193,5 +264,46 @@ func TestUnknownKind(t *testing.T) {
 
 	if _, err := table.For("a knighthood of the realm"); !errors.Is(err, benefit.ErrUnknownKind) {
 		t.Errorf("an unknown kind gave %v, want ErrUnknownKind", err)
+	}
+}
+
+// TestKnighthoodArithmetic pins p. 68's three clauses as data rather than
+// as prose. The note beside them was wrong twice before this test existed
+// — it had a Soc-11+ character keep his Social Standing, and dropped the
+// non-officer substitution — and a note cannot fail a build.
+func TestKnighthoodArithmetic(t *testing.T) {
+	table := load(t)
+
+	k, err := table.For(benefit.Knighthood)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// "A Knighthood raises any value of Soc to B" — B is 11 in eHex.
+	if k.SocFloor != 11 {
+		t.Errorf("a Knighthood raises Soc to %d, want 11 (B)", k.SocFloor)
+	}
+
+	// "if the character is already Soc 11+, he receives Soc +1 instead".
+	if k.AboveFloorBonus != 1 {
+		t.Errorf("a Soc-11+ character receives Soc +%d, want +1", k.AboveFloorBonus)
+	}
+
+	// "In the Spacer, Soldier, and Marine careers, Knighthood is only
+	// available to Officers. A non-officer receives Soc +1".
+	want := []string{"Spacer", "Soldier", "Marine"}
+	if !slices.Equal(k.OfficersOnlyCareers, want) {
+		t.Errorf("Knighthood is officers-only in %v, want %v", k.OfficersOnlyCareers, want)
+	}
+
+	if k.NonOfficerBonus != 1 {
+		t.Errorf("a non-officer receives Soc +%d, want +1", k.NonOfficerBonus)
+	}
+
+	// The careers named must be careers.
+	for _, name := range k.OfficersOnlyCareers {
+		if !slices.Contains(career.Available(), name) {
+			t.Errorf("Knighthood names %q, which is not a career", name)
+		}
 	}
 }

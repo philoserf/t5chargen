@@ -64,7 +64,11 @@
       "kind": "knighthood",
       "name": "Knighthood",
       "class": "non_financial",
-      "note": "Raises any value of Soc to B; a character already higher keeps his. In the Spacer, Soldier and Marine careers it is for Officers only."
+      "note": "Raises any value of Soc to B; a character already Soc 11+ receives Soc +1 instead. In the Spacer, Soldier and Marine careers it is available to Officers only: a non-officer receives Soc +1 (even if it advances Soc to 11 or beyond).",
+      "soc_floor": 11,
+      "above_floor_bonus": 1,
+      "officers_only_careers": ["Spacer", "Soldier", "Marine"],
+      "non_officer_bonus": 1
     },
     {
       "kind": "directorship",
@@ -84,18 +88,19 @@
       "kind": "life_insurance",
       "name": "Life Insurance",
       "class": "non_financial",
-      "note": "The premium is MCr1 to start a policy and Cr100,000 to update."
+      "note": "Archives a personality scan and DNA sample at muster out; on notice of death it enables a Clone and implantation of the archived personality. Unless updated, the clone reverts to the memories and skills recorded at muster out. It may also be purchased: MCr1 to start a policy, Cr100,000 to update."
     },
     {
       "kind": "tas_fellowship",
       "name": "TAS Fellowship",
       "class": "non_financial",
-      "note": "A temporary membership in the Travellers' Aid Society: one week of accommodations and one High Passage per month after award."
+      "note": "A temporary membership in the Travellers' Aid Society: one week of accommodations and one High Passage per month, accumulating if not taken. The grant expires four years after award, and accumulated benefits expire with it."
     },
     {
       "kind": "tas_life",
       "name": "TAS Life Membership",
-      "class": "non_financial"
+      "class": "non_financial",
+      "note": "One week of free accommodations and one free High Passage per month, for life. It can be purchased for MCr1 and cannot generally be sold."
     },
     {
       "kind": "ship_shares",
@@ -107,8 +112,8 @@
       "kind": "land_grant",
       "name": "Land Grant",
       "class": "non_financial",
-      "annual_credits": 5000,
       "credits_per_tc": 10000,
+      "no_tc_annual_credits": 5000,
       "note": "A token annual profit: Cr10,000 per Trade Classification, or Cr5,000 on a world with none."
     }
   ],
@@ -123,6 +128,7 @@
       "id": "functionary_pension",
       "name": "Functionary's Pension",
       "annual_credits": 15000,
+      "note": "Replaces a Citizen's Pension, if any (p. 69).",
       "from_life_stage": 9
     },
     {

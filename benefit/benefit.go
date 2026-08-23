@@ -71,14 +71,37 @@ type Benefit struct {
 	// it: "StarPass ... has a value of Cr250,000".
 	Credits int `json:"credits,omitempty"`
 
-	// AnnualCredits is what it pays each year instead: "A Directorship
-	// provides an annual payment of Cr36,000".
+	// AnnualCredits is what it pays each year instead, unconditionally:
+	// "A Directorship provides an annual payment of Cr36,000".
 	AnnualCredits int `json:"annual_credits,omitempty"`
 
 	// CreditsPerTC prices a Land Grant by the world it sits on: "Cr10,000
-	// per TC Trade Classification ... A Land Grant on a World with no TCs
-	// generates Cr5,000 per year" (p. 68), the latter in AnnualCredits.
+	// per TC Trade Classification" (p. 68). It is the whole income, not a
+	// bonus on top of anything: a world with three TCs pays the page's
+	// Cr30,000, not Cr30,000 plus a base.
 	CreditsPerTC int `json:"credits_per_tc,omitempty"`
+
+	// NoTCAnnualCredits is the floor for the TC-priced case alone: "A
+	// Land Grant on a World with no TCs generates Cr5,000 per year"
+	// (p. 68). It applies instead of CreditsPerTC, never alongside it.
+	NoTCAnnualCredits int `json:"no_tc_annual_credits,omitempty"`
+
+	// SocFloor, AboveFloorBonus, OfficersOnlyCareers and
+	// NonOfficerBonus carry the Knighthood's arithmetic, which is the one
+	// benefit whose award depends on the character and the career: "A
+	// Knighthood raises any value of Soc to B; if the character is
+	// already Soc 11+, he receives Soc +1 instead" and "In the Spacer,
+	// Soldier, and Marine careers, Knighthood is only available to
+	// Officers. A non-officer receives Soc +1" (p. 68).
+	//
+	// They are fields rather than prose because a note cannot be tested
+	// and this one was wrong twice before it was: it had a Soc-11+
+	// character keeping his Social Standing, and omitted the non-officer
+	// substitution entirely.
+	SocFloor            int      `json:"soc_floor,omitempty"`
+	AboveFloorBonus     int      `json:"above_floor_bonus,omitempty"`
+	OfficersOnlyCareers []string `json:"officers_only_careers,omitempty"`
+	NonOfficerBonus     int      `json:"non_officer_bonus,omitempty"`
 
 	// Note is the page's own gloss, kept so a reader need not go back to
 	// the book to know what a Wafer Jack is.
@@ -104,6 +127,11 @@ type Entitlement struct {
 	// MinimumTerms is the Armed Forces bar: "(based on minimum 4 terms
 	// Army Navy Marines)".
 	MinimumTerms int `json:"minimum_terms,omitempty"`
+
+	// Note is the page's own gloss on how the entitlement interacts with
+	// the others: "a Functionary receives Cr15,000 per year (which
+	// replaces a Citizen's pension, if any)" (p. 69).
+	Note string `json:"note,omitempty"`
 }
 
 // Automatic is one row of "Automatics (Subject to Eligibility)".
@@ -202,32 +230,83 @@ func (t *Table) validate() error {
 		return fmt.Errorf("%w: non-positive cash-out years", errBadTable)
 	}
 
-	if len(t.Automatics) == 0 {
-		return fmt.Errorf("%w: no automatics", errBadTable)
+	if err := t.validateAutomatics(); err != nil {
+		return err
 	}
 
 	return t.validateEntitlements()
 }
 
+// validateAutomatics checks "Automatics (Subject to Eligibility)" is named
+// and unambiguous, as the kinds are.
+func (t *Table) validateAutomatics() error {
+	if len(t.Automatics) == 0 {
+		return fmt.Errorf("%w: no automatics", errBadTable)
+	}
+
+	seen := make(map[string]bool, len(t.Automatics))
+
+	for _, a := range t.Automatics {
+		if a.ID == "" || a.Name == "" || a.Eligibility == "" {
+			return fmt.Errorf("%w: automatic %q is incomplete", errBadTable, a.ID)
+		}
+
+		if seen[a.ID] {
+			return fmt.Errorf("%w: automatic %q listed twice", errBadTable, a.ID)
+		}
+
+		seen[a.ID] = true
+	}
+
+	return nil
+}
+
 // validateEntitlements checks chart M1's two Entitlements blocks and its
 // Forbidden Knowledge table.
 func (t *Table) validateEntitlements() error {
+	seen := make(map[string]bool, len(t.Entitlements))
+
 	for _, e := range t.Entitlements {
 		if e.ID == "" || e.Name == "" {
 			return fmt.Errorf("%w: entitlement %q is unnamed", errBadTable, e.ID)
 		}
+
+		if seen[e.ID] {
+			return fmt.Errorf("%w: entitlement %q listed twice", errBadTable, e.ID)
+		}
+
+		seen[e.ID] = true
 
 		if e.AnnualCredits == 0 && e.CreditsPerYear == 0 && e.CreditsPerTerm == 0 {
 			return fmt.Errorf("%w: entitlement %q pays nothing", errBadTable, e.ID)
 		}
 	}
 
-	// The Forbidden Knowledge table is rolled with 1D, so it needs a row
-	// for every face.
+	return t.validateForbiddenKnowledge()
+}
+
+// validateForbiddenKnowledge checks chart M1's 1D table: exactly one row
+// per face, since ForbiddenSkillAt answers with the first match.
+func (t *Table) validateForbiddenKnowledge() error {
+	rows := make(map[int]int, len(t.ForbiddenKnowledge))
+	for _, f := range t.ForbiddenKnowledge {
+		rows[f.Roll]++
+	}
+
 	for roll := 1; roll <= 6; roll++ {
-		if _, ok := t.ForbiddenSkillAt(roll); !ok {
+		switch rows[roll] {
+		case 1:
+		case 0:
 			return fmt.Errorf("%w: no Forbidden Knowledge for a roll of %d", errBadTable, roll)
+		default:
+			return fmt.Errorf("%w: %d Forbidden Knowledge rows for a roll of %d",
+				errBadTable, rows[roll], roll)
 		}
+	}
+
+	if len(t.ForbiddenKnowledge) != 6 {
+		return fmt.Errorf("%w: the 1D Forbidden Knowledge table has %d rows",
+			errBadTable, len(t.ForbiddenKnowledge))
 	}
 
 	return nil
@@ -253,15 +332,34 @@ func (t *Table) validateKinds() error {
 		}
 	}
 
-	// Every kind the engine names must be in the data.
-	for _, kind := range []Kind{
+	return closedVocabulary(seen)
+}
+
+// closedVocabulary checks the vocabulary is closed in both directions:
+// every kind the engine names must be in the data, and the data may not
+// smuggle in a name the engine does not know — For would otherwise
+// resolve it, and nothing could act on what came back.
+func closedVocabulary(seen map[Kind]bool) error {
+	declared := []Kind{
 		Money, StarPassage, HighPassage, MiddlePassage, LowPassage,
 		PensionDoubling, RetirementDoubling, Characteristic, WaferJack,
 		ForbiddenKnowledge, Knighthood, Directorship, Proxy, LifeInsurance,
 		TASFellowship, TASLife, ShipShares, LandGrant,
-	} {
+	}
+
+	known := make(map[Kind]bool, len(declared))
+
+	for _, kind := range declared {
+		known[kind] = true
+
 		if !seen[kind] {
 			return fmt.Errorf("%w: %q is declared but absent from the table", errBadTable, kind)
+		}
+	}
+
+	for kind := range seen {
+		if !known[kind] {
+			return fmt.Errorf("%w: %q is in the table but not the vocabulary", errBadTable, kind)
 		}
 	}
 
