@@ -1,6 +1,7 @@
 package chargen_test
 
 import (
+	"errors"
 	"strings"
 	"testing"
 
@@ -74,17 +75,25 @@ func TestFunctionaryGolden(t *testing.T) {
 // the box that states the same bar in words. A character with no prior
 // service throws against zero and cannot succeed.
 func TestFunctionaryNeedsAPriorCareer(t *testing.T) {
-	c, err := chargen.Generate(chargen.Options{
+	// Forcing it is refused rather than entered and failed: the rules
+	// deny the request, and saying so beats returning a character with
+	// no career and no explanation.
+	_, err := chargen.Generate(chargen.Options{
 		Seed: 1, Career: "Functionary", Decider: chargen.DefaultPolicy{},
 	})
+	if !errors.Is(err, chargen.ErrCareerUnavailable) {
+		t.Fatalf("forcing Functionary gave %v, want ErrCareerUnavailable", err)
+	}
+
+	// The bar is also the throw: "To Begin Total Terms x3" against no
+	// prior service is a target of zero.
+	def, err := career.Functionary()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	for _, record := range c.Careers {
-		if record.Career == "Functionary" && record.Began {
-			t.Fatal("a Functionary career began with no prior terms")
-		}
+	if def.BeginTotalTermsMultiplier == 0 {
+		t.Error("chart 13 multiplies Total Terms and the definition does not")
 	}
 }
 

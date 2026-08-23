@@ -19,14 +19,14 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.19.0"
+	SchemaVersion = "0.20.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.20.0"
+	EngineVersion = "0.21.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
@@ -219,6 +219,13 @@ type CareerRecord struct {
 
 	// Discoveries counts Scout Reward successes (chart 05, p. 79).
 	Discoveries int `json:"discoveries,omitempty"`
+
+	// Masterpieces and PerfectMasterpieces count what a Craftsman
+	// created: "A Perfect Masterpiece has 55 or more Master Points"
+	// (chart 01 p. 75). Chart F multiplies them for Fame, and muster out
+	// prices them.
+	Masterpieces        int `json:"masterpieces,omitempty"`
+	PerfectMasterpieces int `json:"perfect_masterpieces,omitempty"`
 
 	// AssociatedCareer is the prior career a Functionary position belongs
 	// to (chart 13 p. 87). Muster out adds this career's terms to that
@@ -473,6 +480,12 @@ func Generate(opts Options) (Character, error) {
 	return character, nil
 }
 
+// ErrCareerUnavailable reports a forced career the character cannot
+// enter: chart 01's entry is automatic only "if TWO skill-6 and
+// Craftsman-1" (p. 75), and chart 13's "is never a first career" (p. 87).
+// The career exists; this character may not open a lifepath with it.
+var ErrCareerUnavailable = errors.New("career unavailable to this character")
+
 // ErrUnknownCareer reports a forced career that is not implemented; the
 // CLI matches it to distinguish usage errors from operational ones.
 var ErrUnknownCareer = errors.New("unknown career")
@@ -489,21 +502,18 @@ var errBadChoice = errors.New("invalid choice")
 // resolves the selected career through the careerRegistry (careerrun.go);
 // registered careers grow with docs/PRD.md milestone 3.
 func runCareer(forced string, roller *dice.Roller, log *Log, decider Decider, character *Character) error {
-	// "Functionary is never a first career" (chart 13 p. 87), so the
-	// lifepath opens on FirstCareers; a forced career may still name one
-	// the lifepath cannot open with, which the To Begin then decides.
-	options, err := career.FirstCareers()
+	// The lifepath opens on the careers this character is eligible to
+	// start: "Functionary is never a first career" (chart 13 p. 87), and
+	// chart 01's entry is automatic only "if TWO skill-6 and
+	// Craftsman-1" (p. 75), which a character leaving education never has.
+	options, err := eligibleCareers(character, "", true)
 	if err != nil {
-		return fmt.Errorf("first careers: %w", err)
+		return err
 	}
 
-	if forced != "" {
-		if !slices.Contains(career.Available(), forced) {
-			return fmt.Errorf("%w: %q (available: %s)",
-				ErrUnknownCareer, forced, strings.Join(career.Available(), ", "))
-		}
-
-		options = []string{forced}
+	options, err = forcedCareer(forced, options)
+	if err != nil {
+		return err
 	}
 
 	// The outer loop runs once per career served: a character who
@@ -525,11 +535,39 @@ func runCareer(forced string, roller *dice.Roller, log *Log, decider Decider, ch
 			return nil
 		}
 
-		options = eligibleForChange(character, character.Careers[len(character.Careers)-1].Career)
+		options, err = eligibleForChange(character, character.Careers[len(character.Careers)-1].Career)
+		if err != nil {
+			return err
+		}
+
 		if len(options) == 0 {
 			return nil
 		}
 	}
+}
+
+// forcedCareer narrows the options to a career named on the command line,
+// which may be one the lifepath could not have opened with on its own.
+func forcedCareer(forced string, options []string) ([]string, error) {
+	if forced == "" {
+		return options, nil
+	}
+
+	if !slices.Contains(career.Available(), forced) {
+		return nil, fmt.Errorf("%w: %q (available: %s)",
+			ErrUnknownCareer, forced, strings.Join(career.Available(), ", "))
+	}
+
+	// A career the lifepath could not have opened with is refused rather
+	// than entered: chart 01's automatic entry is conditional (p. 75) and
+	// chart 13's career "is never a first career" (p. 87). Forcing one is
+	// a request the rules deny, not an engine fault.
+	if !slices.Contains(options, forced) {
+		return nil, fmt.Errorf("%w: %q cannot be a first career (available: %s)",
+			ErrCareerUnavailable, forced, strings.Join(options, ", "))
+	}
+
+	return []string{forced}, nil
 }
 
 // runCareerOnce selects a career and resolves it, retrying with the

@@ -1,6 +1,7 @@
 package chargen_test
 
 import (
+	"errors"
 	"strings"
 	"testing"
 
@@ -242,7 +243,22 @@ func TestOnlyTheScoutChargesSanity(t *testing.T) {
 
 		t.Run(name, func(t *testing.T) {
 			for seed := uint64(1); seed <= 40; seed++ {
-				c := generate(t, chargen.Options{Seed: seed, Career: name})
+				c, err := chargen.Generate(chargen.Options{
+					Seed: seed, Career: name, Decider: chargen.DefaultPolicy{},
+				})
+
+				// Craftsman and Functionary cannot open a lifepath
+				// (p. 75, p. 87), so forcing one is refused rather than
+				// generating a character. Nothing to check, and nothing
+				// wrong.
+				if errors.Is(err, chargen.ErrCareerUnavailable) {
+					t.Skipf("%s cannot be a first career", name)
+				}
+
+				if err != nil {
+					t.Fatalf("seed %d: %v", seed, err)
+				}
+
 				for _, record := range c.Careers {
 					if record.SanityMod != 0 {
 						t.Fatalf("seed %d: %s recorded San %+d", seed, record.Career, record.SanityMod)

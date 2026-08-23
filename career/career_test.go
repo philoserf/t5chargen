@@ -228,3 +228,22 @@ func TestCitizenJobTable(t *testing.T) {
 		}
 	}
 }
+
+// TestByNameCoversAvailable holds the loader map against the career list.
+// A career in Available with no loader makes ByName fail for it, and
+// FirstCareers fail outright — which is how Craftsman was briefly absent
+// from every option list with nothing to show for it.
+func TestByNameCoversAvailable(t *testing.T) {
+	for _, name := range career.Available() {
+		def, err := career.ByName(name)
+		if err != nil {
+			t.Errorf("%s: %v", name, err)
+
+			continue
+		}
+
+		if def.Name != name {
+			t.Errorf("ByName(%q) loaded %q", name, def.Name)
+		}
+	}
+}
