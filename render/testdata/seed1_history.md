@@ -152,3 +152,10 @@ _Book 1 p. 70 chart M1_
 
 - #108 policy chose "Keep it (Cr5000 a year from age 66)" of [Keep it (Cr5000 a year from age 66), Cash out (Cr25000)]: Cash out the Citizen's Pension? — Book 1 p. 69 (Cashing Out)
   - #109 (from #108) Citizen's Pension, Cr5000 a year from age 66
+
+## Record the Character's Birthdate
+
+_Book 1 p. 58; p. 263_
+
+- #111 4D = 3+4+6+2 = 15 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
+  - #112 (from #111) born Thirday 060-1075

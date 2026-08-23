@@ -290,9 +290,12 @@ const (
 
 	// ConsequenceElevated records an Elevation to the next Noble rank
 	// (chart 11); ConsequenceLandGrant records the Land Grant a Soc
-	// increase awards.
+	// increase or a Scout Discovery awards; ConsequenceBirthdate records
+	// the day the character was born (p. 58; p. 263), which is the last
+	// thing generation settles.
 	ConsequenceElevated  ConsequenceKind = "elevated"
 	ConsequenceLandGrant ConsequenceKind = "land_grant"
+	ConsequenceBirthdate ConsequenceKind = "birthdate"
 
 	// ConsequencePublication records a Scholar Publication success
 	// (chart 02, p. 76); an Award-Winning publication has Delta 2.
@@ -339,8 +342,13 @@ type ConsequenceEvent struct {
 	Characteristic string          `json:"characteristic,omitempty"` // Str, Dex, End, Int, Edu, Soc
 	Skill          string          `json:"skill,omitempty"`
 	Career         string          `json:"career,omitempty"`
-	Delta          int             `json:"delta,omitempty"`
-	Value          int             `json:"value,omitempty"`
+
+	// Detail carries a consequence whose value is neither a skill nor a
+	// number, as BenefitRecord.Detail does for an award.
+	Detail string `json:"detail,omitempty"`
+
+	Delta int `json:"delta,omitempty"`
+	Value int `json:"value,omitempty"`
 
 	// Mods itemizes a computed consequence's sources, as a throw's Mods
 	// itemize its target: chart F's Fame is a sum the record should show

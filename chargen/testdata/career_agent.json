@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.26.0",
+  "schema_version": "0.27.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.27.0",
+  "engine_version": "0.28.0",
   "policy_version": "0.16.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -227,6 +227,7 @@
     }
   ],
   "waivers_attempted": 1,
+  "birthdate": "Wonday 044-1021",
   "life_stage": 9,
   "credits": 1980000,
   "benefits": [
@@ -9988,6 +9989,39 @@
         "skill": "Money",
         "career": "Agent",
         "delta": 90000
+      }
+    },
+    {
+      "seq": 630,
+      "kind": "step",
+      "step": {
+        "name": "Record the Character's Birthdate",
+        "cite": "Book 1 p. 58; p. 263"
+      }
+    },
+    {
+      "seq": 631,
+      "kind": "throw",
+      "throw": {
+        "expr": "4D",
+        "dice": [
+          3,
+          2,
+          2,
+          2
+        ],
+        "total": 9,
+        "cite": "Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)"
+      }
+    },
+    {
+      "seq": 632,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 631,
+        "kind": "birthdate",
+        "detail": "Wonday 044-1021",
+        "value": 1021
       }
     }
   ]

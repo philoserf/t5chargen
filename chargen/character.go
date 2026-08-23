@@ -20,14 +20,14 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.26.0"
+	SchemaVersion = "0.27.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.27.0"
+	EngineVersion = "0.28.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
@@ -110,6 +110,13 @@ type Character struct {
 	// not, lifetime ("Mod minus number of previous waivers rolled
 	// (successful or not)", p. 59).
 	WaiversAttempted int `json:"waivers_attempted,omitempty"`
+
+	// Birthdate is the day the character was born, on the Imperial
+	// Calendar, as p. 263 writes one: "Sigg's birthdate is Wonday
+	// 044-1075." It is settled last (p. 58) and derives from the age, so
+	// it schedules nothing: the Aging Checks fall on absolute ages
+	// (interpretation I-50).
+	Birthdate string `json:"birthdate,omitempty"`
 
 	// LifeStage is the stage the character's age falls in (chart A p. 89),
 	// stored derived like UPP so a record can be read without the table.
@@ -511,6 +518,12 @@ type Options struct {
 	// rejected, never silently repaired.
 	Homeworld world.Homeworld
 
+	// CurrentYear is the Imperial year generation ends in, which fixes
+	// the birth year: "The Referee provides the current date of the
+	// beginning of adventuring" (p. 58). Zero takes the page's own
+	// default, calendar.DefaultYear.
+	CurrentYear int
+
 	// Decider resolves every choice point. Required: silently
 	// substituting the default policy would misrepresent who decided —
 	// auto callers pass DefaultPolicy{} explicitly.
@@ -574,7 +587,7 @@ func Generate(opts Options) (Character, error) {
 	// Fame is calculated over the finished record, not accumulated
 	// (chart F p. 91), and muster out reads it — "one additional roll if
 	// Fame 19+" (p. 68).
-	if err := afterCareers(&character, roller, &log, opts.Decider); err != nil {
+	if err := afterCareers(&character, roller, &log, opts.Decider, opts.CurrentYear); err != nil {
 		return Character{}, err
 	}
 
@@ -583,7 +596,7 @@ func Generate(opts Options) (Character, error) {
 
 // afterCareers runs checklist step E and what follows it: Fame, which
 // muster out reads (p. 68), then muster out itself (p. 67).
-func afterCareers(c *Character, roller *dice.Roller, log *Log, decider Decider) error {
+func afterCareers(c *Character, roller *dice.Roller, log *Log, decider Decider, currentYear int) error {
 	log.Step("Determine Fame", "Book 1 p. 91 chart F")
 
 	if err := computeFame(c, roller, log, decider); err != nil {
@@ -604,6 +617,12 @@ func afterCareers(c *Character, roller *dice.Roller, log *Log, decider Decider) 
 		if err := musterOut(c, roller, log, decider); err != nil {
 			return err
 		}
+	}
+
+	// Last, because p. 58 puts it last and because it reads the age that
+	// muster out is the final chance to change.
+	if err := c.birthdate(roller, log, currentYear); err != nil {
+		return err
 	}
 
 	return c.finalize(log)

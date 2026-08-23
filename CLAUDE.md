@@ -65,3 +65,12 @@ before committing it.
 - `chargen` — engine; consumes a `Decider` for all choice points.
 - `career` — data-driven career definitions.
 - `render` — character sheet and history transcript output.
+
+The rest are one embedded chart or vocabulary each, loaded through the same
+`go:embed` plus `sync.OnceValues` pattern with load-time validation:
+`benefit` (chart M1), `calendar` (the Imperial Calendar and Birth Date
+Generation, pp. 262-263), `career` (charts 01-13), `education` (chart C),
+`ehex` (the extended hex digits), `fame` (chart F), `lifestage` (chart A's
+stages), `medal`, `ship` (chart S), `skill` (chart MS) and `world`
+(chart B). `docs` is test-only: it holds the guards that keep COVERAGE.md,
+ERRATA.md and POLICY.md honest.

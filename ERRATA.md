@@ -1957,3 +1957,43 @@ which is a decision among players and not one the generator can make.
 
 Implemented at `ship` (chart S) and `render` (`shipSharesLine`), which
 reports the count and the largest ship it reaches.
+
+### I-85: The Alternative Birthdate Option is not implemented (p. 263)
+
+"Alternative Birthdate Option. Use the Player's actual Birth Date to
+determine the day of the year for the Character's Birthdate. Dagin's
+birthday is March 6: his Imperial calendar birthdate is (Jan=31)+(Feb=28)+6
+= Wonday 065."
+
+Not implemented, and not for want of clarity — the rule is plain and its
+two worked examples both check out against the calendar. It takes an input
+the engine cannot accept. A player's birthday is a fact about a person
+outside the record, and the determinism contract (docs/PRD.md) requires
+every value to come from the seed or from a recorded choice, so a birthdate
+sourced from the world outside would not replay.
+
+The printed table is implemented and is the rule's own default. The
+alternative remains available to a referee, who can simply write the day on
+the sheet; nothing downstream reads the birthdate.
+
+### I-86: Every character gets a birthdate, the dead included (p. 263; p. 58)
+
+"Every character has a birthdate, used to track chronological age, to help
+produce an understanding of the passage of time, and as a trigger to
+acquiring experience" (p. 263).
+
+Read as written: every character. This differs from muster out, which a
+character who died in generation does not reach (interpretation I-77), and
+the difference is in the two rules. Muster out "counts up the character's
+belongings ... as assets for the adventuring situations to come" and a dead
+character has none; a birthdate is a fact about when he was born, and dying
+does not unmake it.
+
+The arithmetic still works for him. Birth year is the current year less the
+age, and a character killed by aging can record an age past the year he
+died (interpretation I-52) — his birthdate is computed from the age the
+record carries, which is the only age there is.
+
+The step therefore runs outside the `if !c.Dead` that guards muster out,
+and every golden fixture carries a birthdate including the two whose
+characters died.

@@ -8,6 +8,8 @@
 
 **Age**: 90 (Retirement)
 
+**Born**: Wonday 058-1015
+
 | Str | Dex | End | Int | Edu | Soc |
 | --- | --- | --- | --- | --- | --- |
 | 1 | 1 | 1 | 9 | 8 | 12 |
@@ -22,6 +24,6 @@
 
 ---
 
-Seed 39 (math/rand/v2-pcg) · schema 0.26.0 · engine 0.27.0 · policy 0.16.0
+Seed 39 (math/rand/v2-pcg) · schema 0.27.0 · engine 0.28.0 · policy 0.16.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1
