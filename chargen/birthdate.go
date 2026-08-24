@@ -4,11 +4,16 @@ package chargen
 // thing generation produces.
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/philoserf/t5chargen/calendar"
 	"github.com/philoserf/t5chargen/dice"
 )
+
+// ErrCurrentYear reports a current year that cannot yield a birthdate:
+// negative, or earlier than the character's own age.
+var ErrCurrentYear = errors.New("current year cannot yield a birth year")
 
 // birthdateDice is the throw p. 263 calls for: "Roll four consecutive dice
 // to determine the specific day/date of the year." They are read as four
@@ -34,10 +39,26 @@ func (c *Character) birthdate(roller *dice.Roller, log *Log, currentYear int) er
 	}
 
 	// "The default date (if this information is not otherwise provided)
-	// is 001-1105" (p. 58).
+	// is 001-1105" (p. 58). Zero is "not provided" here, the same way the
+	// all-zero Homeworld takes the tool-owned default (docs/PRD.md FR2);
+	// the CLI rejects an explicitly typed 0 rather than reading it as the
+	// default, since a referee who types a year means it.
 	year := currentYear
 	if year == 0 {
 		year = calendar.DefaultYear
+	}
+
+	if year < 0 {
+		return fmt.Errorf("%w: current year %d", ErrCurrentYear, year)
+	}
+
+	// "subtract the character's age at muster out from 1105 to determine
+	// his birth year" (p. 58). A current year the character has outlived
+	// is not a date the calendar can express, and repairing it would mint
+	// a birthdate that is not one.
+	if year-c.Age < 1 {
+		return fmt.Errorf("%w: age %d in year %d leaves birth year %d",
+			ErrCurrentYear, c.Age, year, year-c.Age)
 	}
 
 	log.Step("Record the Character's Birthdate", "Book 1 p. 58; p. 263")

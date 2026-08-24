@@ -553,6 +553,17 @@ type UndercoverRow struct {
 	JobTable bool `json:"job_table,omitempty"`
 }
 
+// undercoverA and undercoverB are chart 09's two index dice: A is 1D
+// halved into three bands, B is a plain 1D.
+const (
+	undercoverA = 3
+	undercoverB = 6
+)
+
+// maxUndercoverTitles is what the C column can reach. chargen rolls it with
+// a 1D, so a seventh title would be transcribed and unreachable.
+const maxUndercoverTitles = 6
+
 // UndercoverAt returns the assignment for die faces a and b.
 func (u *Undercover) UndercoverAt(a, b int) (UndercoverRow, bool) {
 	for _, row := range u.Rows {
@@ -799,7 +810,7 @@ func (d *Definition) validate() error {
 		return err
 	}
 
-	if err := d.validateSchemes(); err != nil {
+	if err := d.validateAgentAndRogue(); err != nil {
 		return err
 	}
 
@@ -1499,6 +1510,70 @@ var ErrUnknownCareer = errors.New("career: unknown career")
 var musterOutDMKinds = map[string]bool{
 	"terms": true, "total_terms": true, "commendations": true,
 	"officer_rank": true, "scholar_rank": true, "fame": true,
+}
+
+// validateAgentAndRogue checks the two career-specific sub-tables that
+// belong to one career each: chart 09's Undercover Assignment and chart
+// 10's Schemes.
+func (d *Definition) validateAgentAndRogue() error {
+	if err := d.validateUndercover(); err != nil {
+		return err
+	}
+
+	return d.validateSchemes()
+}
+
+// validateUndercover checks chart 09's Assignment table, which UndercoverAt
+// scans linearly: a gap answers "no such assignment" and a duplicate
+// silently answers with the first, so both have to be impossible.
+func (d *Definition) validateUndercover() error {
+	if d.Undercover == nil {
+		return nil
+	}
+
+	seen := make(map[[2]int]bool, undercoverA*undercoverB)
+
+	for _, row := range d.Undercover.Rows {
+		if row.A < 1 || row.A > undercoverA || row.B < 1 || row.B > undercoverB {
+			return fmt.Errorf("%w: undercover row A=%d B=%d is off the table", errBadDefinition, row.A, row.B)
+		}
+
+		if seen[[2]int{row.A, row.B}] {
+			return fmt.Errorf("%w: undercover row A=%d B=%d listed twice", errBadDefinition, row.A, row.B)
+		}
+
+		seen[[2]int{row.A, row.B}] = true
+
+		if err := row.validate(); err != nil {
+			return err
+		}
+	}
+
+	if len(seen) != undercoverA*undercoverB {
+		return fmt.Errorf("%w: undercover table has %d of %d assignments",
+			errBadDefinition, len(seen), undercoverA*undercoverB)
+	}
+
+	return nil
+}
+
+// validate checks one undercover assignment.
+func (r UndercoverRow) validate() error {
+	if r.Career == "" || r.Source == "" {
+		return fmt.Errorf("%w: undercover row A=%d B=%d is unnamed", errBadDefinition, r.A, r.B)
+	}
+
+	// A row may legitimately offer no title at all — the JobTable rows
+	// print a roll instruction instead (interpretation I-39), and chart
+	// 09's Functionary row prints none (interpretation I-38). The bound
+	// that matters is the other one: the C column is rolled with a 1D, so
+	// a seventh title would be transcribed and unreachable.
+	if len(r.Titles) > maxUndercoverTitles {
+		return fmt.Errorf("%w: undercover row A=%d B=%d offers %d titles, more than a 1D reaches (%d)",
+			errBadDefinition, r.A, r.B, len(r.Titles), maxUndercoverTitles)
+	}
+
+	return nil
 }
 
 // validateMusterOut checks a career's table D, and the chart M2 reprint

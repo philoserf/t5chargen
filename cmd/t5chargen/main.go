@@ -121,6 +121,10 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 		return exitUsage
 	}
 
+	if code := checkCurrentYear(*currentYear, stderr); code != exitOK {
+		return code
+	}
+
 	if err := resolveSeed(flags, seed, seedFn); err != nil {
 		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
 
@@ -198,6 +202,21 @@ func resolveSeed(flags *flag.FlagSet, seed *uint64, seedFn func() (uint64, error
 	*seed = drawn
 
 	return nil
+}
+
+// checkCurrentYear rejects a year that is not one. The engine reads a zero
+// CurrentYear as "not provided" and takes p. 58's default, the way an
+// all-zero Homeworld takes the tool-owned one; a referee who typed a year
+// meant it, so an explicit 0 is a usage error here rather than a silent
+// fallback to 1105.
+func checkCurrentYear(year int, stderr io.Writer) int {
+	if year >= 1 {
+		return exitOK
+	}
+
+	fmt.Fprintf(stderr, "t5chargen new: --current-year %d is not an Imperial year\n%s", year, usage)
+
+	return exitUsage
 }
 
 // parseHomeworldFlag splits a --homeworld value into a Homeworld: the
