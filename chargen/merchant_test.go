@@ -21,7 +21,10 @@ func (d trackDecider) Choose(c chargen.Choice) (int, error) {
 		}
 	}
 
-	return 0, nil
+	// Everything else defers to the auto policy rather than answering 0.
+	// A bare 0 is an answer about list position, so this fake used to
+	// change what it tested whenever a chart's option list grew.
+	return autoPolicy(c)
 }
 
 func (trackDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
@@ -56,7 +59,7 @@ func firstRankSet(c chargen.Character) string {
 
 // TestMerchantBeginTracks verifies each chart 06 entry path lands on its
 // own starting rank: "To Begin 4th Officer Int / To Begin Spacehand Dex /
-// To Begin Temp Auto" (p. 80). Seed 1 begins on all three.
+// To Begin Temp Auto" (p. 80). Seed 0 begins on all three.
 func TestMerchantBeginTracks(t *testing.T) {
 	tests := []struct {
 		track string
@@ -70,9 +73,9 @@ func TestMerchantBeginTracks(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.track, func(t *testing.T) {
-			c, record := merchantRun(t, 1, trackDecider{track: tt.track})
+			c, record := merchantRun(t, 0, trackDecider{track: tt.track})
 			if !record.Began {
-				t.Fatalf("the %s track did not begin at seed 1", tt.track)
+				t.Fatalf("the %s track did not begin at seed 0", tt.track)
 			}
 
 			if got := firstRankSet(c); got != tt.title {

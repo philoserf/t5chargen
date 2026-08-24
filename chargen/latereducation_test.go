@@ -43,11 +43,22 @@ func (*schoolAt) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 type schoolAlways struct{}
 
 func (schoolAlways) Choose(c chargen.Choice) (int, error) {
-	if c.ID == chargen.ChooseLaterEducation && len(c.Options) > 1 {
-		return 1, nil
+	if c.ID != chargen.ChooseLaterEducation {
+		return autoPolicy(c)
 	}
 
-	return autoPolicy(c)
+	// Index 0 is serving the term. Among the programs, take the first the
+	// character actually qualifies for: chart C's rows are all offered
+	// now, and reaching for one he falls short of turns the choice into a
+	// Prerequisite waiver he will usually lose, which tests the wrong
+	// rule.
+	for i := 1; i < len(c.Options); i++ {
+		if i < len(c.Scores) && c.Scores[i] == 1 {
+			return i, nil
+		}
+	}
+
+	return 0, nil
 }
 
 func (schoolAlways) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }

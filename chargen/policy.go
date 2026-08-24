@@ -51,7 +51,7 @@ func chooseNamed(c Choice) (int, bool) {
 		// POLICY.md: No Mod.
 		return indexOrFirst(c.Options, "No Mod"), true
 	case ChooseEducation:
-		return chooseEducationProgram(c.Options), true
+		return chooseEducationProgram(c), true
 	case ChooseCareer:
 		// POLICY.md: Citizen by name. The alternatives are listed in
 		// chart order, so first-listed would hand the default career to
@@ -64,16 +64,17 @@ func chooseNamed(c Choice) (int, bool) {
 	}
 }
 
-// declineUnlessCareerEnding applies POLICY.md's waiver rule: attempt only
-// where the un-waived outcome ends the career. The stake is carried on the
-// Choice rather than inferred from its prompt, so rewording a reason
-// cannot silently change generated characters.
-func declineUnlessCareerEnding(c Choice) int {
-	if c.CareerEnding {
-		return 0
+// declineUnlessAtStake applies POLICY.md's waiver rule for both kinds: the
+// engine marks the attempt with 1 where refusing ends the career, the
+// process or the admission, and 0 where it costs only a status. The stake
+// is carried on the Choice rather than inferred from its prompt, so
+// rewording a reason cannot silently change generated characters.
+func declineUnlessAtStake(c Choice) int {
+	if len(c.Scores) > 0 && c.Scores[0] == 0 {
+		return 1
 	}
 
-	return 1
+	return 0
 }
 
 // chooseOnScore applies the POLICY.md rules that turn on the engine's
@@ -113,8 +114,31 @@ const comebackThreshold = 7
 // (interpretation I-94), but the policy is choosing for Edu and the
 // Academy graduates at Edu=8 — below University, level with the College it
 // would displace.
-func chooseEducationProgram(options []string) int {
-	return preferredIndex(options, []string{"University", "College", "ED5"}, len(options)-1)
+func chooseEducationProgram(c Choice) int {
+	// Chart C's rows are all offered now, qualifying or not, so the
+	// preference is taken over the ones the character actually meets: the
+	// engine marks those with a Score of 1 (education.go, offeredPrograms).
+	// Reaching for a row he falls short of would spend a waiver from the
+	// pool education and the careers share (I-22) on a program the policy
+	// picked only because it was listed.
+	qualifying := make([]string, 0, len(c.Options))
+
+	for i, option := range c.Options {
+		if i < len(c.Scores) && c.Scores[i] == 1 {
+			qualifying = append(qualifying, option)
+		}
+	}
+
+	// The engine always scores "None" 1, so there is at least one
+	// qualifying row; the guard keeps the policy total (it never refuses,
+	// and it must never panic) against a Choice that carries no Scores.
+	if len(qualifying) == 0 {
+		return len(c.Options) - 1
+	}
+
+	want := preferredIndex(qualifying, []string{"University", "College", "ED5"}, len(qualifying)-1)
+
+	return indexOrFirst(c.Options, qualifying[want])
 }
 
 // preferredIndex returns the index of the first present preference, or the
@@ -170,12 +194,16 @@ func (DefaultPolicy) decide(c Choice) int {
 		return minScoreIndex(c)
 	case ChooseElevationFlux, ChooseComeback:
 		return chooseOnScore(c)
-	case ChooseCareerWaiver:
-		// POLICY.md: waive only a career-ending outcome. Waivers share one
-		// decaying pool with education (I-22), so spending one on a
-		// rejected publication makes the next harder for no lasting gain.
-		return declineUnlessCareerEnding(c)
-	case ChooseHonors, ChooseWaiver, ChooseRetry, ChooseAdvancement, ChooseSpecialty,
+	case ChooseWaiver, ChooseCareerWaiver:
+		// POLICY.md: waive what is at stake. Both waiver rules reduce to
+		// that — a career waiver is spent only where the un-waived branch
+		// ends the career, an educational one only where refusing ends
+		// the process or the admission rather than costing a status.
+		// Waivers decay for every attempt out of one pool shared with the
+		// careers (I-22), so a waiver spent on nothing at risk makes the
+		// next real one harder.
+		return declineUnlessAtStake(c)
+	case ChooseHonors, ChooseRetry, ChooseAdvancement, ChooseSpecialty,
 		ChooseOptionalFlux, ChooseBeginTrack, ChooseTenure:
 		// POLICY.md: always attempt (index 0). Honors failure has no
 		// effect (p. 59); waiver attempts burn future waiver odds (Mod

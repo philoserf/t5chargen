@@ -31,6 +31,8 @@ func goldenJSON(t *testing.T, c chargen.Character, file string) {
 	got = append(got, '\n')
 
 	if *update {
+		requireVersionBump(t, file, got)
+
 		if err := os.WriteFile(file, got, 0o600); err != nil {
 			t.Fatal(err)
 		}
@@ -46,6 +48,90 @@ func goldenJSON(t *testing.T, c chargen.Character, file string) {
 	if string(got) != string(want) {
 		t.Errorf("record differs from %s:\n%s", file, got)
 	}
+}
+
+// requireVersionBump enforces the rule the replay contract depends on: a
+// regeneration that changes anything replay recomputes must carry a new
+// engine_version.
+//
+// It exists because the rule was stated and then missed twice in one
+// milestone. Replay excludes policy_version from its provenance check by
+// design — recorded choices are reapplied, so the policy is never consulted
+// — which leaves engine_version as the only gate. Miss the bump and an old
+// record passes checkProvenance and then dies somewhere in compareEvents:
+// one such record reported `"change_career": recorded the answer 3, outside
+// the 2 options` at event 60, blaming a career choice for a build mismatch.
+//
+// Changing which option the policy picks is a policy change and needs no
+// engine bump, so a differing `chosen` is normalised away. Changing what
+// the engine presents or rolls is an engine change, and is not.
+func requireVersionBump(t *testing.T, file string, got []byte) {
+	t.Helper()
+
+	want, err := os.ReadFile(file) //nolint:gosec // G304: fixed test-owned paths under testdata/.
+	if err != nil {
+		return // a new fixture has nothing to bump against
+	}
+
+	if string(got) == string(want) {
+		return
+	}
+
+	before, after := replayShape(t, want), replayShape(t, got)
+	if before == after {
+		return // only the policy's answers moved
+	}
+
+	if oldVersion := versionOf(t, want); oldVersion == chargen.EngineVersion {
+		t.Fatalf("%s changes what replay recomputes while engine_version stays %q.\n"+
+			"Bump chargen.EngineVersion: without it a record from the previous build passes the "+
+			"provenance check and then diverges at some arbitrary event, which describes nothing.",
+			file, oldVersion)
+	}
+}
+
+// replayShape reduces a record to what replay recomputes: the provenance
+// versions and the policy's own answers are removed, so what remains is
+// the engine's behaviour.
+func replayShape(t *testing.T, data []byte) string {
+	t.Helper()
+
+	var record map[string]any
+	if err := json.Unmarshal(data, &record); err != nil {
+		t.Fatal(err)
+	}
+
+	delete(record, "engine_version")
+	delete(record, "policy_version")
+
+	events, _ := record["events"].([]any)
+	for _, event := range events {
+		if choice, ok := event.(map[string]any)["choice"].(map[string]any); ok {
+			choice["chosen"] = 0
+		}
+	}
+
+	shape, err := json.Marshal(record)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	return string(shape)
+}
+
+// versionOf reads a stored fixture's engine_version.
+func versionOf(t *testing.T, data []byte) string {
+	t.Helper()
+
+	var record struct {
+		EngineVersion string `json:"engine_version"`
+	}
+
+	if err := json.Unmarshal(data, &record); err != nil {
+		t.Fatal(err)
+	}
+
+	return record.EngineVersion
 }
 
 // TestGenerateGoldenJSON pins the full seed-1 character record against

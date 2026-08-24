@@ -42,24 +42,49 @@ func (r *careerRun) laterEducation() (bool, error) {
 		return false, fmt.Errorf("later education: %w", err)
 	}
 
-	qualifying, names := qualifyingPrograms(programs, r.character)
-	if len(qualifying) == 0 {
+	offered, names, qualified := offeredPrograms(programs, r.character)
+	if len(offered) == 0 {
 		return false, nil
 	}
 
 	options := append([]string{serveTheTerm + r.def.Name}, names...)
+	scores := append([]int{1}, qualified...)
 
 	chosen, seq, err := choose(r.log, r.decider, Choice{
 		ID:      ChooseLaterEducation,
 		Prompt:  "Suspend the term to return to school?",
 		Options: options,
+		Scores:  scores,
 		Cite:    "Book 1 p. 59 (Later Education or Training); chart C p. 60",
 	})
 	if err != nil || chosen == 0 {
 		return false, err
 	}
 
-	return r.attendMidCareer(qualifying[chosen-1], seq)
+	// "The character may apply for any Educational Institution or
+	// Training" (p. 59) — any, so a serving character may reach past what
+	// he qualifies for and try the Prerequisite waiver, exactly as he may
+	// before a career.
+	program := offered[chosen-1]
+	if scores[chosen] == 0 {
+		waived, err := prerequisiteWaived(r.log, r.decider, r.roller, r.character, program)
+		if err != nil {
+			return false, err
+		}
+
+		if !waived {
+			// The attempt is recorded even though nothing came of it
+			// (I-95), the same as the refused applicant
+			// attendMidCareer records. The term is not suspended: the
+			// substitution is conditional on being accepted (I-89).
+			r.character.Education = append(r.character.Education,
+				EducationRecord{Program: program.Name})
+
+			return false, nil
+		}
+	}
+
+	return r.attendMidCareer(program, seq)
 }
 
 // attendMidCareer runs one chart C process in place of a career term.
