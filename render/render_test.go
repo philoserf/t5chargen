@@ -78,6 +78,19 @@ func TestHistoryGolden(t *testing.T) {
 // TestScoutGoldens pin the Scout sheet and transcript: the career whose
 // record exercises the status line (Fame, Wound Badges), Discoveries, and
 // the injury consequences.
+// TestSpacerHistoryGolden pins the transcript of a career that attends an
+// assigned school (p. 59). Seed 659's Spacer is sent to ANM School in five
+// separate terms, so the fixture holds the shape a mid-term school makes:
+// the term's step, the school's step, and the term's step reopened.
+//
+// It exists because the first implementation reparented everything after a
+// school heading into it — the term's Risk & Reward, its skills and its
+// Continue all rendered as though they had happened at school — and no
+// history fixture covered a military career, so nothing moved.
+func TestSpacerHistoryGolden(t *testing.T) {
+	golden(t, render.History(generate(t, chargen.Options{Seed: 659, Career: "Spacer"})), "testdata/spacer_history.md")
+}
+
 func TestScoutSheetGolden(t *testing.T) {
 	golden(t, render.Sheet(generate(t, chargen.Options{Seed: 26, Career: "Scout"})), "testdata/scout_sheet.md")
 }

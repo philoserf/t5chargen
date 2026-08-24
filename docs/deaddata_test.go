@@ -13,6 +13,16 @@ package docs_test
 // precisely so the data records what the page says, and some belong to a
 // rule that is deliberately deferred. The gate is that a field is one of
 // those two things *on purpose*, named here with a reason.
+//
+// Known limitation, demonstrated rather than hypothetical: the search is
+// by field *name*, so a field passes whenever any type anywhere shares its
+// name with a field that is read. career.Operation.Implemented sat unread
+// through two milestones because education.Program.Implemented is read,
+// and it took a code review rather than this gate to find it. Closing that
+// needs type resolution rather than a name search, which is a bigger
+// change than the gate is worth today — but a field with a common name is
+// weakly covered here, and reviewing one should not stop at "the gate is
+// green".
 
 import (
 	"fmt"

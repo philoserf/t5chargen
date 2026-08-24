@@ -432,7 +432,7 @@ func (*serviceThenFunctionary) Kind() chargen.DeciderKind { return chargen.Decid
 // of an Armed Forces career into the Functionary; a sweep produces none,
 // and this test skipped silently until it was pinned.
 func TestADoublingBelongsToItsCareer(t *testing.T) {
-	for _, seed := range []uint64{55, 176, 295} {
+	for _, seed := range []uint64{48, 55, 295} {
 		assertDoublingStaysHome(t, seed)
 	}
 }

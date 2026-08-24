@@ -2141,3 +2141,81 @@ Implemented at `chargen/careerrun.go` (`term`) and
 `chargen/latereducation.go`, pinned by `TestLaterEducationSuspendsResolution`,
 `TestLaterEducationIsNotATermServed` and
 `TestLaterEducationDeathEndsTheLifepath`.
+
+### I-91: An assigned school is attended inside the term and costs no extra years (p. 59; charts 07, 08, 12; chart C p. 60)
+
+"Some schools are attended during career resolution (assigned as part of
+career resolution)" (p. 59). That sentence follows Later Education and
+describes a different thing: not a term given over to schooling, but a
+school the career hands the character while he serves.
+
+Chart C gives ANM School and Command College a Duration of 1 year each, and
+the question is whether that year is added to the term or is one of its
+four. It is one of its four. ANM School arrives as an Operations
+assignment, and the Operations rolls are what the term is spent doing;
+Command College is sited by its own footnote as "in Year 1 of next Term",
+which places it inside a term rather than beside one. Neither sentence
+describes a character who serves four years and studies a fifth.
+
+So an assigned school runs with the education process's year-charging
+suppressed, and the term charges its four as always. The contrast with
+Later Education is exact and deliberate: that one substitutes "for the
+entire term" and costs all four (I-88), because there the term is what is
+being replaced.
+
+One consequence of siting the school inside a term: Command College waits
+for a term that is actually served. "In Year 1 of next Term (if Continue)"
+names a term, and a term suspended for Later Education is "not a term
+served" (I-90) — there is no Year 1 of service to hold the college in. So
+an officer who takes the footnote and then suspends the following term
+attends Command College in the next term he serves, rather than losing it.
+
+Implemented at `chargen/assignedschool.go` (`attendAssignedSchool`, setting
+`eduRun.withinTerm`) and `chargen/armedforces.go` (the `commandCollege`
+flag, read in `resolveTerm` and so never reached by a suspended term),
+pinned by `TestAnAssignedSchoolCostsNoExtraYears`.
+
+### I-92: An assigned school selects no Major or Minor (p. 59; chart C p. 60)
+
+"The character attending an Educational Institution must select a Major and
+a Minor from the appropriate Skill and Knowledge list" (p. 59).
+
+Neither assigned school takes one. Chart C files ANM School and Command
+College under Military rather than under the Educational Institutions the
+sentence names, and — the stronger reason — what the two rows provide is
+stated outright: "Knowledge-2 from School=ANM" and "2x Skill-1". Neither
+reads a Major or a Minor, so a Major selected at an assigned school would
+change nothing about the character.
+
+Presenting two choices that cannot affect the outcome would put noise in
+the record and two more indices in the replay stream for no rule. The
+Major and Minor a character already carries are untouched: "A character's
+current Major and Minor are the most recent ones selected" (p. 59) speaks
+of institutions that ask for them, and an assigned school does not ask.
+
+Implemented at `chargen/assignedschool.go` (`attendAssignedSchool`, which
+does not call `selectMajors`).
+
+### I-93: ANM School is resolved once per term and after the four Operations rolls (charts 07, 08, 12; p. 66)
+
+"Rolls 4 times per Term for Operations; select the highest Mod of the
+four" (chart 08), and "Resolve ANM School using Education".
+
+Two things the charts leave open.
+
+**When.** The four rolls are one block: they determine the term's
+assignments and the Mod applied to Risk and Reward (p. 66). Resolving the
+school between them would interleave its Admission and Pass/Fail throws
+with the assignment rolls, splitting a block the rule treats as a unit and
+making the transcript harder to walk. The school is resolved once the four
+are known.
+
+**How many times.** The assignment can come up more than once in the four
+rolls. It is resolved once regardless. Chart C gives ANM School a Duration
+of one year and the term has four; a character sent four times would spend
+the whole term at a school the chart sizes at a quarter of it, and the
+Operations block describes one term's assignment pattern rather than four
+separate postings.
+
+Implemented at `chargen/armedforces.go` (`operations`), pinned by
+`TestANMSchoolIsResolvedAsEducation`.

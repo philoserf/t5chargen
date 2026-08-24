@@ -100,8 +100,7 @@
       },
       {
         "name": "ANM School",
-        "mod": 0,
-        "implemented": false
+        "mod": 0
       },
       {
         "name": "Shore Duty",
@@ -171,7 +170,8 @@
       "id": "O4",
       "class": "officer",
       "title": "Lt Commander",
-      "auto_skill": "Pilot"
+      "auto_skill": "Pilot",
+      "command_college": true
     },
     {
       "id": "O5",

@@ -200,7 +200,7 @@
       "duration_years": 1,
       "pass_check": ["Dex", "End"],
       "rolls": 1,
-      "implemented": false
+      "implemented": true
     },
     {
       "id": "otc",
@@ -256,7 +256,7 @@
       "duration_years": 1,
       "pass_check": ["Int", "Edu"],
       "rolls": 1,
-      "implemented": false
+      "implemented": true
     }
   ],
   "skills": [

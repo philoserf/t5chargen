@@ -36,6 +36,26 @@ type eduRun struct {
 	checkName    string // the chosen Pass/Fail characteristic
 	lastThrowSeq int    // anchors graduation consequences
 	record       EducationRecord
+
+	// withinTerm marks a school the career assigned, which is sited
+	// inside a term the character is already spending and so charges no
+	// years of its own (p. 59, interpretation I-91).
+	withinTerm bool
+
+	// firstReceipt applies the career's first-receipt rule to an award
+	// stated as a level ("Knowledge-2"): the stated level the first time,
+	// one level after that. Nil outside a career, where nothing has been
+	// received yet.
+	firstReceipt func(name string, levels int) int
+}
+
+// receipt applies the first-receipt rule where one is in force.
+func (r *eduRun) receipt(name string, levels int) int {
+	if r.firstReceipt == nil {
+		return levels
+	}
+
+	return r.firstReceipt(name, levels)
 }
 
 // runEducation performs checklist step C.
@@ -338,7 +358,7 @@ func (r *eduRun) passFailYear() (bool, bool, error) {
 // elapseYear advances age by one year for timed programs (chart C
 // Duration; ED5 and Apprenticeship take "no time").
 func (r *eduRun) elapseYear(cause int) error {
-	if r.program.DurationYears == 0 {
+	if r.program.DurationYears == 0 || r.withinTerm {
 		return nil
 	}
 
@@ -355,6 +375,10 @@ func (r *eduRun) awardPass(cause int) error {
 		awardSkillAndLog(r.record.Major, r.majorRate(r.record.Major, 2), cause, r.log, r.character)
 	case "apprenticeship":
 		return r.awardApprenticeship()
+	case anmSchoolID:
+		return r.awardANMKnowledge()
+	case commandCollegeID:
+		return r.awardCommandCollege()
 	case "college", "university", "academy":
 		// "Major+1 per Pass and Minor+1 per 2 Passes".
 		awardSkillAndLog(r.record.Major, r.majorRate(r.record.Major, 1), cause, r.log, r.character)
@@ -378,6 +402,63 @@ func (r *eduRun) majorRate(name string, levels int) int {
 
 	return levels
 }
+
+// awardANMKnowledge resolves "Knowledge-2 from School=ANM" (chart C
+// p. 60). ANM is Army-Navy-Marine, so the source is those three columns of
+// the Available Skills matrix, narrowed to entries the Master Skill List
+// calls Knowledges — the row asks for a Knowledge, and taking it at its
+// word keeps the award clear of the unresolved question about awarding a
+// bare container skill (p. 134).
+func (r *eduRun) awardANMKnowledge() error {
+	names, err := education.ANMKnowledges()
+	if err != nil {
+		return fmt.Errorf("education: %w", err)
+	}
+
+	chosen, seq, err := choose(r.log, r.decider, Choice{
+		ID:      ChooseSkill,
+		Prompt:  "Select the ANM School Knowledge",
+		Options: names,
+		Cite:    "Book 1 p. 60 chart C (ANM School Provides Knowledge-2 from School=ANM)",
+	})
+	if err != nil {
+		return err
+	}
+
+	awardSkillAndLog(names[chosen], r.receipt(names[chosen], 2), seq, r.log, r.character)
+
+	return nil
+}
+
+// awardCommandCollege resolves "2x Skill-1" (chart C p. 60). The row names
+// no source, so the selection is the full Available Skills matrix — the
+// same reading interpretation I-7 gives the Apprenticeship's unqualified
+// "Skill+4", and for the same reason: the chart states no list.
+func (r *eduRun) awardCommandCollege() error {
+	names, err := education.AllSkillNames()
+	if err != nil {
+		return fmt.Errorf("education: %w", err)
+	}
+
+	for range commandCollegeSkills {
+		chosen, seq, err := choose(r.log, r.decider, Choice{
+			ID:      ChooseSkill,
+			Prompt:  "Select a Command College skill",
+			Options: names,
+			Cite:    "Book 1 p. 60 chart C (Command College Provides 2x Skill-1)",
+		})
+		if err != nil {
+			return err
+		}
+
+		awardSkillAndLog(names[chosen], r.receipt(names[chosen], 1), seq, r.log, r.character)
+	}
+
+	return nil
+}
+
+// commandCollegeSkills is the "2x" of "2x Skill-1" (chart C p. 60).
+const commandCollegeSkills = 2
 
 // awardApprenticeship resolves "Skill+4 or Knowledge+4": the skill is
 // chosen from the full Available Skills matrix (interpretation I-7,

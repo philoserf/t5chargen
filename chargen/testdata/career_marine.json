@@ -1,7 +1,7 @@
 {
   "schema_version": "0.28.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.28.0",
+  "engine_version": "0.29.0",
   "policy_version": "0.17.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -12,14 +12,14 @@
     "current_year": 1105
   },
   "characteristics": {
-    "str": 7,
+    "str": 10,
     "dex": 3,
-    "end": 3,
-    "int": 6,
+    "end": 4,
+    "int": 0,
     "edu": 8,
     "soc": 6
   },
-  "upp": "733686",
+  "upp": "A34086",
   "homeworld": {
     "name": "Regina",
     "uwp": "A788899-C",
@@ -29,7 +29,7 @@
       "Ri"
     ]
   },
-  "age": 50,
+  "age": 54,
   "education": [
     {
       "program": "College",
@@ -39,12 +39,26 @@
       "graduated": true,
       "honors": true,
       "degree": "Honors BA"
+    },
+    {
+      "program": "ANM School",
+      "passes": 0,
+      "graduated": false
+    },
+    {
+      "program": "Command College",
+      "passes": 1,
+      "graduated": true
     }
   ],
   "skills": [
     {
       "name": "Actor",
       "level": 1
+    },
+    {
+      "name": "Admin",
+      "level": 2
     },
     {
       "name": "Athlete",
@@ -59,35 +73,31 @@
       "level": 15
     },
     {
-      "name": "Hostile Environ",
-      "level": 3
+      "name": "Heavy Weapons",
+      "level": 1
+    },
+    {
+      "name": "Language",
+      "level": 2
     },
     {
       "name": "Leader",
-      "level": 8
+      "level": 9
     },
     {
       "name": "Medic",
       "level": 1
     },
     {
-      "name": "Stealth",
-      "level": 1
-    },
-    {
       "name": "Survival",
-      "level": 2
+      "level": 1
     },
     {
       "name": "Tactics",
-      "level": 6
+      "level": 4
     },
     {
       "name": "Trader",
-      "level": 1
-    },
-    {
-      "name": "Vacc Suit",
       "level": 1
     }
   ],
@@ -95,10 +105,9 @@
     {
       "career": "Marine",
       "began": true,
-      "end_age": 50,
-      "reserve": true,
-      "rank": "O6",
-      "rank_title": "Coronel",
+      "end_age": 54,
+      "rank": "O5",
+      "rank_title": "Lt Coronel",
       "branch": "Medical",
       "medals": [
         {
@@ -108,14 +117,26 @@
           "mod": 1
         },
         {
+          "code": "MCG",
+          "name": "Medal for Conspicuous Gallantry",
+          "count": 1,
+          "mod": 3
+        },
+        {
           "code": "MCUF",
           "name": "Meritorious Conduct Under Fire",
-          "count": 3,
+          "count": 1,
           "mod": 2
+        },
+        {
+          "code": "SEH",
+          "name": "Starburst for Extreme Heroism",
+          "count": 1,
+          "mod": 4
         }
       ],
-      "service_badges": 4,
-      "wound_badges": 3,
+      "service_badges": 5,
+      "wound_badges": 2,
       "terms": [
         {
           "term": 1,
@@ -157,81 +178,23 @@
           "term": 7,
           "controlling_characteristic": "Str",
           "success": true,
+          "continued": true
+        },
+        {
+          "term": 8,
+          "controlling_characteristic": "Int",
+          "success": false,
           "continued": false
         }
       ]
     }
   ],
-  "waivers_attempted": 1,
-  "birthdate": "Forday 124-1055",
+  "waivers_attempted": 2,
+  "birthdate": "Sixday 329-1051",
   "life_stage": 7,
-  "credits": 360000,
-  "benefits": [
-    {
-      "kind": "money",
-      "name": "Money",
-      "career": "Marine",
-      "credits": 60000
-    },
-    {
-      "kind": "money",
-      "name": "Money",
-      "career": "Marine",
-      "credits": 60000
-    },
-    {
-      "kind": "money",
-      "name": "Money",
-      "career": "Marine",
-      "credits": 60000
-    },
-    {
-      "kind": "money",
-      "name": "Money",
-      "career": "Marine",
-      "credits": 60000
-    },
-    {
-      "kind": "money",
-      "name": "Money",
-      "career": "Marine",
-      "credits": 60000
-    },
-    {
-      "kind": "retirement_doubling",
-      "name": "Retirement x2",
-      "career": "Marine",
-      "count": 1
-    },
-    {
-      "kind": "money",
-      "name": "Money",
-      "career": "Marine",
-      "credits": 60000
-    }
-  ],
-  "automatics": [
-    "Personal Weapons",
-    "Fame"
-  ],
-  "entitlements": [
-    {
-      "id": "reserve_pension",
-      "name": "Reserve Pension",
-      "annual_credits": 1600,
-      "from_age": 66,
-      "cash_out": 8000
-    },
-    {
-      "id": "officer_retirement",
-      "name": "Officer Retirement",
-      "annual_credits": 42000,
-      "from_age": 50,
-      "cash_out": 210000
-    }
-  ],
-  "fame": 12,
-  "wound_badges": 3,
+  "fame": 13,
+  "wound_badges": 2,
+  "dead": true,
   "events": [
     {
       "seq": 1,
@@ -1102,6 +1065,86 @@
     },
     {
       "seq": 66,
+      "kind": "step",
+      "step": {
+        "name": "Assigned school: ANM School",
+        "cite": "Book 1 p. 59; chart C p. 60"
+      }
+    },
+    {
+      "seq": 67,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the characteristic to check",
+        "options": [
+          "Dex",
+          "End"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
+      }
+    },
+    {
+      "seq": 68,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          4
+        ],
+        "total": 8,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 60 chart C (ANM School Pass/Fail Check End)"
+      }
+    },
+    {
+      "seq": 69,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Attempt an Educational Waiver? (pass/fail failed)",
+        "options": [
+          "Attempt waiver",
+          "Accept the result"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Educational Waivers)"
+      }
+    },
+    {
+      "seq": 70,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          2
+        ],
+        "total": 8,
+        "target": 5,
+        "success": false,
+        "mods": [
+          {
+            "name": "previous waivers",
+            "value": -1
+          }
+        ],
+        "cite": "Book 1 p. 59 (Waiver: Check Soc, Mod minus previous waivers)"
+      }
+    },
+    {
+      "seq": 71,
+      "kind": "step",
+      "step": {
+        "name": "Marine: Term 1",
+        "cite": "Book 1 p. 86 chart 12"
+      }
+    },
+    {
+      "seq": 72,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1132,15 +1175,15 @@
       }
     },
     {
-      "seq": 67,
+      "seq": 73,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          4,
+          3,
           4
         ],
-        "total": 8,
+        "total": 7,
         "target": 9,
         "success": true,
         "mods": [
@@ -1157,25 +1200,25 @@
       }
     },
     {
-      "seq": 68,
+      "seq": 74,
       "kind": "consequence",
       "consequence": {
-        "cause": 67,
+        "cause": 73,
         "kind": "service_badge",
         "career": "Marine",
         "value": 1
       }
     },
     {
-      "seq": 69,
+      "seq": 75,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          6,
-          2
+          2,
+          1
         ],
-        "total": 8,
+        "total": 3,
         "target": 13,
         "success": true,
         "mods": [
@@ -1192,10 +1235,10 @@
       }
     },
     {
-      "seq": 70,
+      "seq": 76,
       "kind": "consequence",
       "consequence": {
-        "cause": 69,
+        "cause": 75,
         "kind": "medal",
         "skill": "XS",
         "career": "Marine",
@@ -1203,7 +1246,7 @@
       }
     },
     {
-      "seq": 71,
+      "seq": 77,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1217,22 +1260,22 @@
       }
     },
     {
-      "seq": 72,
+      "seq": 78,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          3,
-          4
+          6,
+          6
         ],
-        "total": 7,
+        "total": 12,
         "target": 5,
         "success": false,
         "cite": "Book 1 p. 86 chart 12 (Officer Commission vs End)"
       }
     },
     {
-      "seq": 73,
+      "seq": 79,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1246,15 +1289,15 @@
       }
     },
     {
-      "seq": 74,
+      "seq": 80,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
           2,
-          1
+          2
         ],
-        "total": 3,
+        "total": 4,
         "target": 12,
         "success": true,
         "mods": [
@@ -1267,87 +1310,13 @@
       }
     },
     {
-      "seq": 75,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 74,
-        "kind": "rank_set",
-        "skill": "Lance Corporal",
-        "career": "Marine"
-      }
-    },
-    {
-      "seq": 76,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Mission"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 77,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 86 chart 12 table C, column Mission"
-      }
-    },
-    {
-      "seq": 78,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 77,
-        "kind": "skill_awarded",
-        "skill": "Fighter",
-        "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 79,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Mission"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 80,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 86 chart 12 table C, column Mission"
-      }
-    },
-    {
       "seq": 81,
       "kind": "consequence",
       "consequence": {
         "cause": 80,
-        "kind": "skill_awarded",
-        "skill": "Fighter",
-        "delta": 1,
-        "value": 3
+        "kind": "rank_set",
+        "skill": "Lance Corporal",
+        "career": "Marine"
       }
     },
     {
@@ -1370,9 +1339,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          2
+          3
         ],
-        "total": 2,
+        "total": 3,
         "cite": "Book 1 p. 86 chart 12 table C, column Mission"
       }
     },
@@ -1382,7 +1351,7 @@
       "consequence": {
         "cause": 83,
         "kind": "skill_awarded",
-        "skill": "Survival",
+        "skill": "Language",
         "delta": 1,
         "value": 1
       }
@@ -1407,56 +1376,14 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          2
+          1
         ],
-        "total": 2,
+        "total": 1,
         "cite": "Book 1 p. 86 chart 12 table C, column Mission"
       }
     },
     {
       "seq": 87,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 86,
-        "kind": "skill_awarded",
-        "skill": "Survival",
-        "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 88,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Garrison",
-          "Combat",
-          "Peacekeeper",
-          "Occupation",
-          "Mission",
-          "Technical"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 89,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
-      }
-    },
-    {
-      "seq": 90,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1474,14 +1401,51 @@
       }
     },
     {
+      "seq": 88,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 87,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 89,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Mission"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 90,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 86 chart 12 table C, column Mission"
+      }
+    },
+    {
       "seq": 91,
       "kind": "consequence",
       "consequence": {
         "cause": 90,
         "kind": "skill_awarded",
-        "skill": "Fighter",
+        "skill": "Survival",
         "delta": 1,
-        "value": 4
+        "value": 1
       }
     },
     {
@@ -1489,28 +1453,25 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Leave Marine for another career?",
+        "prompt": "Select a Marine Skills column",
         "options": [
-          "Continue in Marine",
-          "Change careers"
+          "Personal",
+          "Mission"
         ],
-        "chosen": 0,
-        "cite": "Book 1 p. 66 (Changing Careers)"
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 93,
       "kind": "throw",
       "throw": {
-        "expr": "2D",
+        "expr": "1D",
         "dice": [
-          1,
-          2
+          5
         ],
-        "total": 3,
-        "target": 11,
-        "success": true,
-        "cite": "Book 1 p. 86 chart 12 (Continue Str; p. 66)"
+        "total": 5,
+        "cite": "Book 1 p. 86 chart 12 table C, column Mission"
       }
     },
     {
@@ -1518,444 +1479,14 @@
       "kind": "consequence",
       "consequence": {
         "cause": 93,
-        "kind": "years_elapsed",
-        "value": 4
+        "kind": "skill_awarded",
+        "skill": "Leader",
+        "delta": 1,
+        "value": 1
       }
     },
     {
       "seq": 95,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Suspend the term to return to school?",
-        "options": [
-          "Serve the term in Marine",
-          "Trade School",
-          "Apprenticeship",
-          "College",
-          "University",
-          "Service Academy"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
-      }
-    },
-    {
-      "seq": 96,
-      "kind": "step",
-      "step": {
-        "name": "Marine: Term 2",
-        "cite": "Book 1 p. 86 chart 12"
-      }
-    },
-    {
-      "seq": 97,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Int"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 98,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
-      }
-    },
-    {
-      "seq": 99,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 98,
-        "kind": "operation",
-        "skill": "Garrison",
-        "career": "Marine"
-      }
-    },
-    {
-      "seq": 100,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
-      }
-    },
-    {
-      "seq": 101,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 100,
-        "kind": "operation",
-        "skill": "Garrison",
-        "career": "Marine"
-      }
-    },
-    {
-      "seq": 102,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
-      }
-    },
-    {
-      "seq": 103,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 102,
-        "kind": "operation",
-        "skill": "Garrison",
-        "career": "Marine"
-      }
-    },
-    {
-      "seq": 104,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
-      }
-    },
-    {
-      "seq": 105,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 104,
-        "kind": "operation",
-        "skill": "Peace Keeper",
-        "career": "Marine",
-        "value": 1
-      }
-    },
-    {
-      "seq": 106,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select Caution, Bravery, or No Mod",
-        "options": [
-          "No Mod",
-          "Caution +1",
-          "Caution +2",
-          "Caution +3",
-          "Caution +4",
-          "Caution +5",
-          "Caution +6",
-          "Caution +7",
-          "Caution +8",
-          "Caution +9",
-          "Bravery -1",
-          "Bravery -2",
-          "Bravery -3",
-          "Bravery -4",
-          "Bravery -5",
-          "Bravery -6",
-          "Bravery -7",
-          "Bravery -8",
-          "Bravery -9"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 86 chart 12"
-      }
-    },
-    {
-      "seq": 107,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          2
-        ],
-        "total": 7,
-        "target": 8,
-        "success": true,
-        "mods": [
-          {
-            "name": "Branch",
-            "value": 0
-          },
-          {
-            "name": "Operations",
-            "value": -1
-          }
-        ],
-        "cite": "Book 1 p. 86 chart 12 (Risk vs Int+Mods)"
-      }
-    },
-    {
-      "seq": 108,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 107,
-        "kind": "service_badge",
-        "career": "Marine",
-        "value": 2
-      }
-    },
-    {
-      "seq": 109,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          2
-        ],
-        "total": 6,
-        "target": 10,
-        "success": true,
-        "mods": [
-          {
-            "name": "Branch",
-            "value": 0
-          },
-          {
-            "name": "Operations",
-            "value": 1
-          }
-        ],
-        "cite": "Book 1 p. 86 chart 12 (Reward vs Int+ opposite sign Mods)"
-      }
-    },
-    {
-      "seq": 110,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 109,
-        "kind": "medal",
-        "skill": "XS",
-        "career": "Marine",
-        "value": 2
-      }
-    },
-    {
-      "seq": 111,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Attempt Officer Commission?",
-        "options": [
-          "Attempt Officer Commission",
-          "Decline"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 86 chart 12 (Officer Commission)"
-      }
-    },
-    {
-      "seq": 112,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          4
-        ],
-        "total": 5,
-        "target": 5,
-        "success": true,
-        "cite": "Book 1 p. 86 chart 12 (Officer Commission vs End)"
-      }
-    },
-    {
-      "seq": 113,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 112,
-        "kind": "rank_set",
-        "skill": "2nd Lieutenant",
-        "career": "Marine"
-      }
-    },
-    {
-      "seq": 114,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 112,
-        "kind": "skill_awarded",
-        "skill": "Leader",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 115,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Garrison",
-          "Peacekeeper"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 116,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 86 chart 12 table C, column Peacekeeper"
-      }
-    },
-    {
-      "seq": 117,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 116,
-        "kind": "skill_awarded",
-        "skill": "Tactics",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 118,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Garrison",
-          "Peacekeeper"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 119,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 86 chart 12 table C, column Peacekeeper"
-      }
-    },
-    {
-      "seq": 120,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 119,
-        "kind": "skill_awarded",
-        "skill": "Leader",
-        "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 121,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Garrison",
-          "Peacekeeper"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 122,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 86 chart 12 table C, column Peacekeeper"
-      }
-    },
-    {
-      "seq": 123,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 122,
-        "kind": "skill_awarded",
-        "skill": "Leader",
-        "delta": 1,
-        "value": 3
-      }
-    },
-    {
-      "seq": 124,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Garrison",
-          "Peacekeeper"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 125,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 86 chart 12 table C, column Peacekeeper"
-      }
-    },
-    {
-      "seq": 126,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 125,
-        "kind": "skill_awarded",
-        "skill": "Stealth",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 127,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1974,30 +1505,30 @@
       }
     },
     {
-      "seq": 128,
+      "seq": 96,
       "kind": "throw",
       "throw": {
         "expr": "1D",
         "dice": [
-          6
+          5
         ],
-        "total": 6,
+        "total": 5,
         "cite": "Book 1 p. 86 chart 12 table C, column Combat"
       }
     },
     {
-      "seq": 129,
+      "seq": 97,
       "kind": "consequence",
       "consequence": {
-        "cause": 128,
+        "cause": 96,
         "kind": "skill_awarded",
-        "skill": "Tactics",
+        "skill": "Leader",
         "delta": 1,
         "value": 2
       }
     },
     {
-      "seq": 130,
+      "seq": 98,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2011,31 +1542,31 @@
       }
     },
     {
-      "seq": 131,
+      "seq": 99,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          2,
-          2
+          6,
+          3
         ],
-        "total": 4,
+        "total": 9,
         "target": 11,
         "success": true,
         "cite": "Book 1 p. 86 chart 12 (Continue Str; p. 66)"
       }
     },
     {
-      "seq": 132,
+      "seq": 100,
       "kind": "consequence",
       "consequence": {
-        "cause": 131,
+        "cause": 99,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 133,
+      "seq": 101,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2053,21 +1584,20 @@
       }
     },
     {
-      "seq": 134,
+      "seq": 102,
       "kind": "step",
       "step": {
-        "name": "Marine: Term 3",
+        "name": "Marine: Term 2",
         "cite": "Book 1 p. 86 chart 12"
       }
     },
     {
-      "seq": 135,
+      "seq": 103,
       "kind": "choice",
       "choice": {
         "decider": "policy",
         "prompt": "Select the term's controlling characteristic",
         "options": [
-          "Str",
           "Int"
         ],
         "chosen": 0,
@@ -2075,7 +1605,52 @@
       }
     },
     {
-      "seq": 136,
+      "seq": 104,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 105,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 104,
+        "kind": "operation",
+        "skill": "Garrison",
+        "career": "Marine"
+      }
+    },
+    {
+      "seq": 106,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 107,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 106,
+        "kind": "operation",
+        "skill": "Combat",
+        "career": "Marine",
+        "value": 3
+      }
+    },
+    {
+      "seq": 108,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2087,10 +1662,10 @@
       }
     },
     {
-      "seq": 137,
+      "seq": 109,
       "kind": "consequence",
       "consequence": {
-        "cause": 136,
+        "cause": 108,
         "kind": "operation",
         "skill": "Mission",
         "career": "Marine",
@@ -2098,29 +1673,7 @@
       }
     },
     {
-      "seq": 138,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
-      }
-    },
-    {
-      "seq": 139,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 138,
-        "kind": "operation",
-        "skill": "Garrison",
-        "career": "Marine"
-      }
-    },
-    {
-      "seq": 140,
+      "seq": 110,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2132,10 +1685,10 @@
       }
     },
     {
-      "seq": 141,
+      "seq": 111,
       "kind": "consequence",
       "consequence": {
-        "cause": 140,
+        "cause": 110,
         "kind": "operation",
         "skill": "Combat",
         "career": "Marine",
@@ -2143,30 +1696,7 @@
       }
     },
     {
-      "seq": 142,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
-      }
-    },
-    {
-      "seq": 143,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 142,
-        "kind": "operation",
-        "skill": "Combat",
-        "career": "Marine",
-        "value": 3
-      }
-    },
-    {
-      "seq": 144,
+      "seq": 112,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2197,7 +1727,393 @@
       }
     },
     {
-      "seq": 145,
+      "seq": 113,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          4
+        ],
+        "total": 5,
+        "target": 6,
+        "success": true,
+        "mods": [
+          {
+            "name": "Branch",
+            "value": 0
+          },
+          {
+            "name": "Operations",
+            "value": -3
+          }
+        ],
+        "cite": "Book 1 p. 86 chart 12 (Risk vs Int+Mods)"
+      }
+    },
+    {
+      "seq": 114,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 113,
+        "kind": "service_badge",
+        "career": "Marine",
+        "value": 2
+      }
+    },
+    {
+      "seq": 115,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          5
+        ],
+        "total": 11,
+        "target": 12,
+        "success": true,
+        "mods": [
+          {
+            "name": "Branch",
+            "value": 0
+          },
+          {
+            "name": "Operations",
+            "value": 3
+          }
+        ],
+        "cite": "Book 1 p. 86 chart 12 (Reward vs Int+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 116,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 115,
+        "kind": "medal",
+        "skill": "MCG",
+        "career": "Marine",
+        "value": 1
+      }
+    },
+    {
+      "seq": 117,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Attempt Officer Commission?",
+        "options": [
+          "Attempt Officer Commission",
+          "Decline"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 86 chart 12 (Officer Commission)"
+      }
+    },
+    {
+      "seq": 118,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          4
+        ],
+        "total": 9,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 86 chart 12 (Officer Commission vs End)"
+      }
+    },
+    {
+      "seq": 119,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Attempt Enlisted Promotion?",
+        "options": [
+          "Attempt Enlisted Promotion",
+          "Decline"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 86 chart 12 (Enlisted Promotion)"
+      }
+    },
+    {
+      "seq": 120,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          2
+        ],
+        "total": 8,
+        "target": 15,
+        "success": true,
+        "mods": [
+          {
+            "name": "Medals",
+            "value": 4
+          }
+        ],
+        "cite": "Book 1 p. 86 chart 12 (Enlisted Promotion vs Str)"
+      }
+    },
+    {
+      "seq": 121,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 120,
+        "kind": "rank_set",
+        "skill": "Sergeant",
+        "career": "Marine"
+      }
+    },
+    {
+      "seq": 122,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 120,
+        "kind": "skill_awarded",
+        "skill": "Heavy Weapons",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 123,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Garrison",
+          "Combat",
+          "Mission"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 124,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 125,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 124,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 126,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Garrison",
+          "Combat",
+          "Mission"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 127,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 128,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Soldier Skill",
+        "options": [
+          "Fighter",
+          "Forward Observer",
+          "Heavy Weapons",
+          "Navigator",
+          "Recon",
+          "Sapper"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 86 chart 12 table C; Book 1 p. 132 chart MS"
+      }
+    },
+    {
+      "seq": 129,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 128,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 130,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Garrison",
+          "Combat",
+          "Mission"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 131,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 132,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 131,
+        "kind": "skill_awarded",
+        "skill": "Tactics",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 133,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Garrison",
+          "Combat",
+          "Mission"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 134,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 135,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 134,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 136,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Garrison",
+          "Combat",
+          "Peacekeeper",
+          "Occupation",
+          "Mission",
+          "Technical"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 137,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 138,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 137,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 139,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Marine for another career?",
+        "options": [
+          "Continue in Marine",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 140,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2206,6 +2122,192 @@
           1
         ],
         "total": 4,
+        "target": 11,
+        "success": true,
+        "cite": "Book 1 p. 86 chart 12 (Continue Str; p. 66)"
+      }
+    },
+    {
+      "seq": 141,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 140,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 142,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Marine",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 143,
+      "kind": "step",
+      "step": {
+        "name": "Marine: Term 3",
+        "cite": "Book 1 p. 86 chart 12"
+      }
+    },
+    {
+      "seq": 144,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": [
+          "Str",
+          "Int"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 145,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 146,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 145,
+        "kind": "operation",
+        "skill": "Combat",
+        "career": "Marine",
+        "value": 3
+      }
+    },
+    {
+      "seq": 147,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 148,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 147,
+        "kind": "operation",
+        "skill": "Garrison",
+        "career": "Marine"
+      }
+    },
+    {
+      "seq": 149,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 150,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 149,
+        "kind": "operation",
+        "skill": "Peace Keeper",
+        "career": "Marine",
+        "value": 1
+      }
+    },
+    {
+      "seq": 151,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 152,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 151,
+        "kind": "operation",
+        "skill": "Peace Keeper",
+        "career": "Marine",
+        "value": 1
+      }
+    },
+    {
+      "seq": 153,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 86 chart 12"
+      }
+    },
+    {
+      "seq": 154,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          1
+        ],
+        "total": 5,
         "target": 8,
         "success": true,
         "mods": [
@@ -2222,25 +2324,25 @@
       }
     },
     {
-      "seq": 146,
+      "seq": 155,
       "kind": "consequence",
       "consequence": {
-        "cause": 145,
+        "cause": 154,
         "kind": "service_badge",
         "career": "Marine",
         "value": 3
       }
     },
     {
-      "seq": 147,
+      "seq": 156,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          2,
-          6
+          6,
+          4
         ],
-        "total": 8,
+        "total": 10,
         "target": 14,
         "success": true,
         "mods": [
@@ -2257,10 +2359,10 @@
       }
     },
     {
-      "seq": 148,
+      "seq": 157,
       "kind": "consequence",
       "consequence": {
-        "cause": 147,
+        "cause": 156,
         "kind": "medal",
         "skill": "MCUF",
         "career": "Marine",
@@ -2268,181 +2370,51 @@
       }
     },
     {
-      "seq": 149,
+      "seq": 158,
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Attempt Officer Promotion?",
+        "prompt": "Attempt Officer Commission?",
         "options": [
-          "Attempt Officer Promotion",
+          "Attempt Officer Commission",
           "Decline"
         ],
         "chosen": 0,
-        "cite": "Book 1 p. 86 chart 12 (Officer Promotion)"
-      }
-    },
-    {
-      "seq": 150,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          3,
-          3
-        ],
-        "total": 6,
-        "target": 13,
-        "success": true,
-        "mods": [
-          {
-            "name": "Medals",
-            "value": 4
-          }
-        ],
-        "cite": "Book 1 p. 86 chart 12 (Officer Promotion vs Int)"
-      }
-    },
-    {
-      "seq": 151,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 150,
-        "kind": "rank_set",
-        "skill": "1st Lieutenant",
-        "career": "Marine"
-      }
-    },
-    {
-      "seq": 152,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Mission",
-          "Garrison",
-          "Combat"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 153,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
-      }
-    },
-    {
-      "seq": 154,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Soldier Skill",
-        "options": [
-          "Fighter",
-          "Forward Observer",
-          "Heavy Weapons",
-          "Navigator",
-          "Recon",
-          "Sapper"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 86 chart 12 table C; Book 1 p. 132 chart MS"
-      }
-    },
-    {
-      "seq": 155,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 154,
-        "kind": "skill_awarded",
-        "skill": "Fighter",
-        "delta": 1,
-        "value": 5
-      }
-    },
-    {
-      "seq": 156,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Mission",
-          "Garrison",
-          "Combat"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 157,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
-      }
-    },
-    {
-      "seq": 158,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 157,
-        "kind": "skill_awarded",
-        "skill": "Fighter",
-        "delta": 1,
-        "value": 6
+        "cite": "Book 1 p. 86 chart 12 (Officer Commission)"
       }
     },
     {
       "seq": 159,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Mission",
-          "Garrison",
-          "Combat"
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          1
         ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+        "total": 3,
+        "target": 5,
+        "success": true,
+        "cite": "Book 1 p. 86 chart 12 (Officer Commission vs End)"
       }
     },
     {
       "seq": 160,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 159,
+        "kind": "rank_set",
+        "skill": "2nd Lieutenant",
+        "career": "Marine"
       }
     },
     {
       "seq": 161,
       "kind": "consequence",
       "consequence": {
-        "cause": 160,
+        "cause": 159,
         "kind": "skill_awarded",
-        "skill": "Tactics",
+        "skill": "Leader",
         "delta": 1,
         "value": 3
       }
@@ -2455,11 +2427,11 @@
         "prompt": "Select a Marine Skills column",
         "options": [
           "Personal",
-          "Mission",
+          "Combat",
           "Garrison",
-          "Combat"
+          "Peacekeeper"
         ],
-        "chosen": 3,
+        "chosen": 1,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
@@ -2512,14 +2484,11 @@
         "prompt": "Select a Marine Skills column",
         "options": [
           "Personal",
-          "Garrison",
           "Combat",
-          "Peacekeeper",
-          "Occupation",
-          "Mission",
-          "Technical"
+          "Garrison",
+          "Peacekeeper"
         ],
-        "chosen": 2,
+        "chosen": 1,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
@@ -2551,6 +2520,144 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Combat",
+          "Garrison",
+          "Peacekeeper"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 170,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 171,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 170,
+        "kind": "skill_awarded",
+        "skill": "Leader",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 172,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Combat",
+          "Garrison",
+          "Peacekeeper"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 173,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 174,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 173,
+        "kind": "skill_awarded",
+        "skill": "Leader",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 175,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Garrison",
+          "Combat",
+          "Peacekeeper",
+          "Occupation",
+          "Mission",
+          "Technical"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 176,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 177,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Soldier Skill",
+        "options": [
+          "Fighter",
+          "Forward Observer",
+          "Heavy Weapons",
+          "Navigator",
+          "Recon",
+          "Sapper"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 86 chart 12 table C; Book 1 p. 132 chart MS"
+      }
+    },
+    {
+      "seq": 178,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 177,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 9
+      }
+    },
+    {
+      "seq": 179,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
         "prompt": "Leave Marine for another career?",
         "options": [
           "Continue in Marine",
@@ -2561,61 +2668,7 @@
       }
     },
     {
-      "seq": 170,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          4
-        ],
-        "total": 5,
-        "target": 11,
-        "success": true,
-        "cite": "Book 1 p. 86 chart 12 (Continue Str; p. 66)"
-      }
-    },
-    {
-      "seq": 171,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 170,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 172,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          5
-        ],
-        "total": 7,
-        "target": 5,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
-      }
-    },
-    {
-      "seq": 173,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          4
-        ],
-        "total": 9,
-        "target": 5,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
-      }
-    },
-    {
-      "seq": 174,
+      "seq": 180,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2624,24 +2677,67 @@
           1
         ],
         "total": 3,
-        "target": 5,
+        "target": 11,
         "success": true,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
+        "cite": "Book 1 p. 86 chart 12 (Continue Str; p. 66)"
       }
     },
     {
-      "seq": 175,
+      "seq": 181,
       "kind": "consequence",
       "consequence": {
-        "cause": 174,
-        "kind": "aging_effect",
-        "characteristic": "End",
-        "delta": -1,
+        "cause": 180,
+        "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 176,
+      "seq": 182,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          6
+        ],
+        "total": 11,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
+      }
+    },
+    {
+      "seq": 183,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          2
+        ],
+        "total": 8,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
+      }
+    },
+    {
+      "seq": 184,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          6
+        ],
+        "total": 12,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
+      }
+    },
+    {
+      "seq": 185,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2659,7 +2755,7 @@
       }
     },
     {
-      "seq": 177,
+      "seq": 186,
       "kind": "step",
       "step": {
         "name": "Marine: Term 4",
@@ -2667,7 +2763,7 @@
       }
     },
     {
-      "seq": 178,
+      "seq": 187,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2680,29 +2776,7 @@
       }
     },
     {
-      "seq": 179,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
-      }
-    },
-    {
-      "seq": 180,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 179,
-        "kind": "operation",
-        "skill": "Garrison",
-        "career": "Marine"
-      }
-    },
-    {
-      "seq": 181,
+      "seq": 188,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2714,39 +2788,63 @@
       }
     },
     {
-      "seq": 182,
+      "seq": 189,
       "kind": "consequence",
       "consequence": {
-        "cause": 181,
+        "cause": 188,
         "kind": "operation",
         "skill": "Garrison",
         "career": "Marine"
       }
     },
     {
-      "seq": 183,
+      "seq": 190,
       "kind": "throw",
       "throw": {
         "expr": "1D",
         "dice": [
-          6
+          4
         ],
-        "total": 6,
+        "total": 4,
         "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
       }
     },
     {
-      "seq": 184,
+      "seq": 191,
       "kind": "consequence",
       "consequence": {
-        "cause": 183,
+        "cause": 190,
         "kind": "operation",
-        "skill": "Garrison",
-        "career": "Marine"
+        "skill": "Mission",
+        "career": "Marine",
+        "value": 2
       }
     },
     {
-      "seq": 185,
+      "seq": 192,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 193,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 192,
+        "kind": "operation",
+        "skill": "Peace Keeper",
+        "career": "Marine",
+        "value": 1
+      }
+    },
+    {
+      "seq": 194,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2758,10 +2856,10 @@
       }
     },
     {
-      "seq": 186,
+      "seq": 195,
       "kind": "consequence",
       "consequence": {
-        "cause": 185,
+        "cause": 194,
         "kind": "operation",
         "skill": "Combat",
         "career": "Marine",
@@ -2769,7 +2867,7 @@
       }
     },
     {
-      "seq": 187,
+      "seq": 196,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2800,15 +2898,15 @@
       }
     },
     {
-      "seq": 188,
+      "seq": 197,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          6,
-          6
+          3,
+          4
         ],
-        "total": 12,
+        "total": 7,
         "target": 6,
         "success": false,
         "mods": [
@@ -2825,48 +2923,48 @@
       }
     },
     {
-      "seq": 189,
+      "seq": 198,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
         "dice": [
-          6,
-          4
+          3,
+          3
         ],
-        "total": 2,
+        "total": 0,
         "cite": "Book 1 p. 86 chart 12 (Failure: reduce CC by negative Mods and Flux)"
       }
     },
     {
-      "seq": 190,
+      "seq": 199,
       "kind": "consequence",
       "consequence": {
-        "cause": 188,
+        "cause": 197,
         "kind": "characteristic_change",
         "characteristic": "Int",
-        "delta": -1,
-        "value": 8
+        "delta": -3,
+        "value": 6
       }
     },
     {
-      "seq": 191,
+      "seq": 200,
       "kind": "consequence",
       "consequence": {
-        "cause": 188,
+        "cause": 197,
         "kind": "wound_badge",
         "value": 1
       }
     },
     {
-      "seq": 192,
+      "seq": 201,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          3,
+          2,
           2
         ],
-        "total": 5,
+        "total": 4,
         "target": 12,
         "success": true,
         "mods": [
@@ -2883,18 +2981,18 @@
       }
     },
     {
-      "seq": 193,
+      "seq": 202,
       "kind": "consequence",
       "consequence": {
-        "cause": 192,
+        "cause": 201,
         "kind": "medal",
         "skill": "XS",
         "career": "Marine",
-        "value": 3
+        "value": 2
       }
     },
     {
-      "seq": 194,
+      "seq": 203,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2908,184 +3006,63 @@
       }
     },
     {
-      "seq": 195,
+      "seq": 204,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          3,
-          4
+          2,
+          3
         ],
-        "total": 7,
+        "total": 5,
         "target": 13,
         "success": true,
         "mods": [
           {
             "name": "Medals",
-            "value": 5
+            "value": 7
           }
         ],
         "cite": "Book 1 p. 86 chart 12 (Officer Promotion vs Int)"
       }
     },
     {
-      "seq": 196,
+      "seq": 205,
       "kind": "consequence",
       "consequence": {
-        "cause": 195,
+        "cause": 204,
         "kind": "rank_set",
-        "skill": "Captain",
+        "skill": "1st Lieutenant",
         "career": "Marine"
       }
     },
     {
-      "seq": 197,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Garrison",
-          "Combat"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 198,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
-      }
-    },
-    {
-      "seq": 199,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Soldier Skill",
-        "options": [
-          "Fighter",
-          "Forward Observer",
-          "Heavy Weapons",
-          "Navigator",
-          "Recon",
-          "Sapper"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 86 chart 12 table C; Book 1 p. 132 chart MS"
-      }
-    },
-    {
-      "seq": 200,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 199,
-        "kind": "skill_awarded",
-        "skill": "Fighter",
-        "delta": 1,
-        "value": 9
-      }
-    },
-    {
-      "seq": 201,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Garrison",
-          "Combat"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 202,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
-      }
-    },
-    {
-      "seq": 203,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Soldier Skill",
-        "options": [
-          "Fighter",
-          "Forward Observer",
-          "Heavy Weapons",
-          "Navigator",
-          "Recon",
-          "Sapper"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 86 chart 12 table C; Book 1 p. 132 chart MS"
-      }
-    },
-    {
-      "seq": 204,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 203,
-        "kind": "skill_awarded",
-        "skill": "Fighter",
-        "delta": 1,
-        "value": 10
-      }
-    },
-    {
-      "seq": 205,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Garrison",
-          "Combat"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
       "seq": 206,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Garrison",
+          "Mission",
+          "Peacekeeper",
+          "Combat"
         ],
-        "total": 2,
-        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 207,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 206,
-        "kind": "skill_awarded",
-        "skill": "Fighter",
-        "delta": 1,
-        "value": 11
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
       }
     },
     {
@@ -3093,33 +3070,122 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select a Marine Skills column",
+        "prompt": "Select a Soldier Skill",
         "options": [
-          "Personal",
-          "Garrison",
-          "Combat"
+          "Fighter",
+          "Forward Observer",
+          "Heavy Weapons",
+          "Navigator",
+          "Recon",
+          "Sapper"
         ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+        "chosen": 0,
+        "cite": "Book 1 p. 86 chart 12 table C; Book 1 p. 132 chart MS"
       }
     },
     {
       "seq": 209,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 208,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 10
       }
     },
     {
       "seq": 210,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Garrison",
+          "Mission",
+          "Peacekeeper",
+          "Combat"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 211,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 212,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Soldier Skill",
+        "options": [
+          "Fighter",
+          "Forward Observer",
+          "Heavy Weapons",
+          "Navigator",
+          "Recon",
+          "Sapper"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 86 chart 12 table C; Book 1 p. 132 chart MS"
+      }
+    },
+    {
+      "seq": 213,
       "kind": "consequence",
       "consequence": {
-        "cause": 209,
+        "cause": 212,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 11
+      }
+    },
+    {
+      "seq": 214,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Garrison",
+          "Mission",
+          "Peacekeeper",
+          "Combat"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 215,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 216,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 215,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -3127,7 +3193,65 @@
       }
     },
     {
-      "seq": 211,
+      "seq": 217,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Garrison",
+          "Mission",
+          "Peacekeeper",
+          "Combat"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 218,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 219,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Soldier Skill",
+        "options": [
+          "Fighter",
+          "Forward Observer",
+          "Heavy Weapons",
+          "Navigator",
+          "Recon",
+          "Sapper"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 86 chart 12 table C; Book 1 p. 132 chart MS"
+      }
+    },
+    {
+      "seq": 220,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 219,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 13
+      }
+    },
+    {
+      "seq": 221,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3146,30 +3270,30 @@
       }
     },
     {
-      "seq": 212,
+      "seq": 222,
       "kind": "throw",
       "throw": {
         "expr": "1D",
         "dice": [
-          2
+          6
         ],
-        "total": 2,
+        "total": 6,
         "cite": "Book 1 p. 86 chart 12 table C, column Combat"
       }
     },
     {
-      "seq": 213,
+      "seq": 223,
       "kind": "consequence",
       "consequence": {
-        "cause": 212,
+        "cause": 222,
         "kind": "skill_awarded",
-        "skill": "Fighter",
+        "skill": "Tactics",
         "delta": 1,
-        "value": 13
+        "value": 2
       }
     },
     {
-      "seq": 214,
+      "seq": 224,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3183,72 +3307,7 @@
       }
     },
     {
-      "seq": 215,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          3,
-          4
-        ],
-        "total": 7,
-        "target": 11,
-        "success": true,
-        "cite": "Book 1 p. 86 chart 12 (Continue Str; p. 66)"
-      }
-    },
-    {
-      "seq": 216,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 215,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 217,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          3,
-          1
-        ],
-        "total": 4,
-        "target": 5,
-        "success": true,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
-      }
-    },
-    {
-      "seq": 218,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 217,
-        "kind": "aging_effect",
-        "characteristic": "Str",
-        "delta": -1,
-        "value": 10
-      }
-    },
-    {
-      "seq": 219,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          3,
-          6
-        ],
-        "total": 9,
-        "target": 5,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
-      }
-    },
-    {
-      "seq": 220,
+      "seq": 225,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3257,13 +3316,67 @@
           4
         ],
         "total": 9,
+        "target": 11,
+        "success": true,
+        "cite": "Book 1 p. 86 chart 12 (Continue Str; p. 66)"
+      }
+    },
+    {
+      "seq": 226,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 225,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 227,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          2
+        ],
+        "total": 6,
         "target": 5,
         "success": false,
         "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
       }
     },
     {
-      "seq": 221,
+      "seq": 228,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          6
+        ],
+        "total": 8,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
+      }
+    },
+    {
+      "seq": 229,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          2
+        ],
+        "total": 5,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
+      }
+    },
+    {
+      "seq": 230,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3281,7 +3394,7 @@
       }
     },
     {
-      "seq": 222,
+      "seq": 231,
       "kind": "step",
       "step": {
         "name": "Marine: Term 5",
@@ -3289,7 +3402,7 @@
       }
     },
     {
-      "seq": 223,
+      "seq": 232,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3303,76 +3416,7 @@
       }
     },
     {
-      "seq": 224,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
-      }
-    },
-    {
-      "seq": 225,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 224,
-        "kind": "operation",
-        "skill": "Mission",
-        "career": "Marine",
-        "value": 2
-      }
-    },
-    {
-      "seq": 226,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
-      }
-    },
-    {
-      "seq": 227,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 226,
-        "kind": "operation",
-        "skill": "Combat",
-        "career": "Marine",
-        "value": 3
-      }
-    },
-    {
-      "seq": 228,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
-      }
-    },
-    {
-      "seq": 229,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 228,
-        "kind": "operation",
-        "skill": "Combat",
-        "career": "Marine",
-        "value": 3
-      }
-    },
-    {
-      "seq": 230,
+      "seq": 233,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3384,17 +3428,85 @@
       }
     },
     {
-      "seq": 231,
+      "seq": 234,
       "kind": "consequence",
       "consequence": {
-        "cause": 230,
+        "cause": 233,
         "kind": "operation",
         "skill": "Garrison",
         "career": "Marine"
       }
     },
     {
-      "seq": 232,
+      "seq": 235,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 236,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 235,
+        "kind": "operation",
+        "skill": "Combat",
+        "career": "Marine",
+        "value": 3
+      }
+    },
+    {
+      "seq": 237,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 238,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 237,
+        "kind": "operation",
+        "skill": "Garrison",
+        "career": "Marine"
+      }
+    },
+    {
+      "seq": 239,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 240,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 239,
+        "kind": "operation",
+        "skill": "Peace Keeper",
+        "career": "Marine",
+        "value": 1
+      }
+    },
+    {
+      "seq": 241,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3425,16 +3537,16 @@
       }
     },
     {
-      "seq": 233,
+      "seq": 242,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          3,
-          2
+          4,
+          1
         ],
         "total": 5,
-        "target": 7,
+        "target": 8,
         "success": true,
         "mods": [
           {
@@ -3450,26 +3562,26 @@
       }
     },
     {
-      "seq": 234,
+      "seq": 243,
       "kind": "consequence",
       "consequence": {
-        "cause": 233,
+        "cause": 242,
         "kind": "service_badge",
         "career": "Marine",
         "value": 4
       }
     },
     {
-      "seq": 235,
+      "seq": 244,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
           6,
-          2
+          5
         ],
-        "total": 8,
-        "target": 13,
+        "total": 11,
+        "target": 14,
         "success": true,
         "mods": [
           {
@@ -3485,18 +3597,18 @@
       }
     },
     {
-      "seq": 236,
+      "seq": 245,
       "kind": "consequence",
       "consequence": {
-        "cause": 235,
+        "cause": 244,
         "kind": "medal",
-        "skill": "MCUF",
+        "skill": "SEH",
         "career": "Marine",
-        "value": 2
+        "value": 1
       }
     },
     {
-      "seq": 237,
+      "seq": 246,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3510,65 +3622,132 @@
       }
     },
     {
-      "seq": 238,
+      "seq": 247,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          5,
-          3
+          2,
+          1
         ],
-        "total": 8,
-        "target": 15,
+        "total": 3,
+        "target": 17,
         "success": true,
         "mods": [
           {
             "name": "Medals",
-            "value": 7
+            "value": 11
           }
         ],
         "cite": "Book 1 p. 86 chart 12 (Officer Promotion vs Int)"
       }
     },
     {
-      "seq": 239,
+      "seq": 248,
       "kind": "consequence",
       "consequence": {
-        "cause": 238,
+        "cause": 247,
         "kind": "rank_set",
-        "skill": "Force Commander",
+        "skill": "Captain",
         "career": "Marine"
       }
     },
     {
-      "seq": 240,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 238,
-        "kind": "skill_awarded",
-        "skill": "Tactics",
-        "delta": 1,
-        "value": 4
-      }
-    },
-    {
-      "seq": 241,
+      "seq": 249,
       "kind": "choice",
       "choice": {
         "decider": "policy",
         "prompt": "Select a Marine Skills column",
         "options": [
           "Personal",
-          "Mission",
+          "Garrison",
           "Combat",
-          "Garrison"
+          "Peacekeeper"
         ],
         "chosen": 2,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
-      "seq": 242,
+      "seq": 250,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 251,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 250,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 14
+      }
+    },
+    {
+      "seq": 252,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Garrison",
+          "Combat",
+          "Peacekeeper"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 253,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 254,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 253,
+        "kind": "skill_awarded",
+        "skill": "Fighter",
+        "delta": 1,
+        "value": 15
+      }
+    },
+    {
+      "seq": 255,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Garrison",
+          "Combat",
+          "Peacekeeper"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 256,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3580,7 +3759,7 @@
       }
     },
     {
-      "seq": 243,
+      "seq": 257,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3598,112 +3777,32 @@
       }
     },
     {
-      "seq": 244,
+      "seq": 258,
       "kind": "consequence",
       "consequence": {
-        "cause": 243,
-        "kind": "skill_awarded",
-        "skill": "Fighter",
-        "delta": 1,
-        "value": 14
+        "cause": 257,
+        "kind": "no_award",
+        "skill": "Fighter"
       }
     },
     {
-      "seq": 245,
+      "seq": 259,
       "kind": "choice",
       "choice": {
         "decider": "policy",
         "prompt": "Select a Marine Skills column",
         "options": [
           "Personal",
-          "Mission",
+          "Garrison",
           "Combat",
-          "Garrison"
+          "Peacekeeper"
         ],
         "chosen": 2,
         "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
-      "seq": 246,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
-      }
-    },
-    {
-      "seq": 247,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 246,
-        "kind": "skill_awarded",
-        "skill": "Fighter",
-        "delta": 1,
-        "value": 15
-      }
-    },
-    {
-      "seq": 248,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Mission",
-          "Combat",
-          "Garrison"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 249,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
-      }
-    },
-    {
-      "seq": 250,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 249,
-        "kind": "skill_awarded",
-        "skill": "Tactics",
-        "delta": 1,
-        "value": 5
-      }
-    },
-    {
-      "seq": 251,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Mission",
-          "Combat",
-          "Garrison"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 252,
+      "seq": 260,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3715,18 +3814,18 @@
       }
     },
     {
-      "seq": 253,
+      "seq": 261,
       "kind": "consequence",
       "consequence": {
-        "cause": 252,
+        "cause": 260,
         "kind": "skill_awarded",
         "skill": "Leader",
         "delta": 1,
-        "value": 4
+        "value": 6
       }
     },
     {
-      "seq": 254,
+      "seq": 262,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3745,28 +3844,30 @@
       }
     },
     {
-      "seq": 255,
+      "seq": 263,
       "kind": "throw",
       "throw": {
         "expr": "1D",
         "dice": [
-          2
+          5
         ],
-        "total": 2,
+        "total": 5,
         "cite": "Book 1 p. 86 chart 12 table C, column Combat"
       }
     },
     {
-      "seq": 256,
+      "seq": 264,
       "kind": "consequence",
       "consequence": {
-        "cause": 255,
-        "kind": "no_award",
-        "skill": "Fighter"
+        "cause": 263,
+        "kind": "skill_awarded",
+        "skill": "Leader",
+        "delta": 1,
+        "value": 7
       }
     },
     {
-      "seq": 257,
+      "seq": 265,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3780,72 +3881,7 @@
       }
     },
     {
-      "seq": 258,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          1
-        ],
-        "total": 2,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 86 chart 12 (Continue Str; p. 66)"
-      }
-    },
-    {
-      "seq": 259,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 258,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 260,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          4
-        ],
-        "total": 5,
-        "target": 6,
-        "success": true,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)"
-      }
-    },
-    {
-      "seq": 261,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 260,
-        "kind": "aging_effect",
-        "characteristic": "Str",
-        "delta": -1,
-        "value": 9
-      }
-    },
-    {
-      "seq": 262,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          5
-        ],
-        "total": 10,
-        "target": 6,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)"
-      }
-    },
-    {
-      "seq": 263,
+      "seq": 266,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3854,21 +3890,67 @@
           6
         ],
         "total": 8,
+        "target": 11,
+        "success": true,
+        "cite": "Book 1 p. 86 chart 12 (Continue Str; p. 66)"
+      }
+    },
+    {
+      "seq": 267,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 266,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 268,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          4
+        ],
+        "total": 7,
         "target": 6,
         "success": false,
         "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)"
       }
     },
     {
-      "seq": 264,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 258,
-        "kind": "mandatory_continue"
+      "seq": 269,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          6
+        ],
+        "total": 10,
+        "target": 6,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)"
       }
     },
     {
-      "seq": 265,
+      "seq": 270,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          6
+        ],
+        "total": 11,
+        "target": 6,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)"
+      }
+    },
+    {
+      "seq": 271,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3886,7 +3968,7 @@
       }
     },
     {
-      "seq": 266,
+      "seq": 272,
       "kind": "step",
       "step": {
         "name": "Marine: Term 6",
@@ -3894,7 +3976,7 @@
       }
     },
     {
-      "seq": 267,
+      "seq": 273,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3907,76 +3989,76 @@
       }
     },
     {
-      "seq": 268,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
-      }
-    },
-    {
-      "seq": 269,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 268,
-        "kind": "operation",
-        "skill": "Peace Keeper",
-        "career": "Marine",
-        "value": 1
-      }
-    },
-    {
-      "seq": 270,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
-      }
-    },
-    {
-      "seq": 271,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 270,
-        "kind": "operation",
-        "skill": "Mission",
-        "career": "Marine",
-        "value": 2
-      }
-    },
-    {
-      "seq": 272,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
-      }
-    },
-    {
-      "seq": 273,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 272,
-        "kind": "operation",
-        "skill": "Mission",
-        "career": "Marine",
-        "value": 2
-      }
-    },
-    {
       "seq": 274,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 275,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 274,
+        "kind": "operation",
+        "skill": "Mission",
+        "career": "Marine",
+        "value": 2
+      }
+    },
+    {
+      "seq": 276,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 277,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 276,
+        "kind": "operation",
+        "skill": "Mission",
+        "career": "Marine",
+        "value": 2
+      }
+    },
+    {
+      "seq": 278,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 279,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 278,
+        "kind": "operation",
+        "skill": "Combat",
+        "career": "Marine",
+        "value": 3
+      }
+    },
+    {
+      "seq": 280,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3988,17 +4070,17 @@
       }
     },
     {
-      "seq": 275,
+      "seq": 281,
       "kind": "consequence",
       "consequence": {
-        "cause": 274,
+        "cause": 280,
         "kind": "operation",
         "skill": "Garrison",
         "career": "Marine"
       }
     },
     {
-      "seq": 276,
+      "seq": 282,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4029,16 +4111,1599 @@
       }
     },
     {
-      "seq": 277,
+      "seq": 283,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          4
+        ],
+        "total": 5,
+        "target": 3,
+        "success": false,
+        "mods": [
+          {
+            "name": "Branch",
+            "value": 0
+          },
+          {
+            "name": "Operations",
+            "value": -3
+          }
+        ],
+        "cite": "Book 1 p. 86 chart 12 (Risk vs Int+Mods)"
+      }
+    },
+    {
+      "seq": 284,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [
+          3,
+          3
+        ],
+        "total": 0,
+        "cite": "Book 1 p. 86 chart 12 (Failure: reduce CC by negative Mods and Flux)"
+      }
+    },
+    {
+      "seq": 285,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 283,
+        "kind": "characteristic_change",
+        "characteristic": "Int",
+        "delta": -3,
+        "value": 3
+      }
+    },
+    {
+      "seq": 286,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 283,
+        "kind": "wound_badge",
+        "value": 2
+      }
+    },
+    {
+      "seq": 287,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          1
+        ],
+        "total": 4,
+        "target": 9,
+        "success": true,
+        "mods": [
+          {
+            "name": "Branch",
+            "value": 0
+          },
+          {
+            "name": "Operations",
+            "value": 3
+          }
+        ],
+        "cite": "Book 1 p. 86 chart 12 (Reward vs Int+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 288,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 287,
+        "kind": "medal",
+        "skill": "XS",
+        "career": "Marine",
+        "value": 3
+      }
+    },
+    {
+      "seq": 289,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Attempt Officer Promotion?",
+        "options": [
+          "Attempt Officer Promotion",
+          "Decline"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 86 chart 12 (Officer Promotion)"
+      }
+    },
+    {
+      "seq": 290,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          2
+        ],
+        "total": 8,
+        "target": 15,
+        "success": true,
+        "mods": [
+          {
+            "name": "Medals",
+            "value": 12
+          }
+        ],
+        "cite": "Book 1 p. 86 chart 12 (Officer Promotion vs Int)"
+      }
+    },
+    {
+      "seq": 291,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 290,
+        "kind": "rank_set",
+        "skill": "Force Commander",
+        "career": "Marine"
+      }
+    },
+    {
+      "seq": 292,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 290,
+        "kind": "skill_awarded",
+        "skill": "Tactics",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 293,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Mission",
+          "Combat",
+          "Garrison"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 294,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 295,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 294,
+        "kind": "no_award",
+        "skill": "Fighter"
+      }
+    },
+    {
+      "seq": 296,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Mission",
+          "Combat",
+          "Garrison"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 297,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 298,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 297,
+        "kind": "skill_awarded",
+        "skill": "Leader",
+        "delta": 1,
+        "value": 8
+      }
+    },
+    {
+      "seq": 299,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Mission",
+          "Combat",
+          "Garrison"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 300,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 301,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Soldier Skill",
+        "options": [
+          "Fighter",
+          "Forward Observer",
+          "Heavy Weapons",
+          "Navigator",
+          "Recon",
+          "Sapper"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 86 chart 12 table C; Book 1 p. 132 chart MS"
+      }
+    },
+    {
+      "seq": 302,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 301,
+        "kind": "no_award",
+        "skill": "Fighter"
+      }
+    },
+    {
+      "seq": 303,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Mission",
+          "Combat",
+          "Garrison"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 304,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 305,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Soldier Skill",
+        "options": [
+          "Fighter",
+          "Forward Observer",
+          "Heavy Weapons",
+          "Navigator",
+          "Recon",
+          "Sapper"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 86 chart 12 table C; Book 1 p. 132 chart MS"
+      }
+    },
+    {
+      "seq": 306,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 305,
+        "kind": "no_award",
+        "skill": "Fighter"
+      }
+    },
+    {
+      "seq": 307,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Garrison",
+          "Combat",
+          "Peacekeeper",
+          "Occupation",
+          "Mission",
+          "Technical"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 308,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 309,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 308,
+        "kind": "skill_awarded",
+        "skill": "Tactics",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 310,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Marine for another career?",
+        "options": [
+          "Continue in Marine",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 311,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          1
+        ],
+        "total": 3,
+        "target": 11,
+        "success": true,
+        "cite": "Book 1 p. 86 chart 12 (Continue Str; p. 66)"
+      }
+    },
+    {
+      "seq": 312,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 311,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 313,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          3
+        ],
+        "total": 5,
+        "target": 6,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)"
+      }
+    },
+    {
+      "seq": 314,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 313,
+        "kind": "aging_effect",
+        "characteristic": "Str",
+        "delta": -1,
+        "value": 10
+      }
+    },
+    {
+      "seq": 315,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          4
+        ],
+        "total": 8,
+        "target": 6,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)"
+      }
+    },
+    {
+      "seq": 316,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          5
+        ],
+        "total": 9,
+        "target": 6,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)"
+      }
+    },
+    {
+      "seq": 317,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Marine",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 318,
+      "kind": "step",
+      "step": {
+        "name": "Marine: Term 7",
+        "cite": "Book 1 p. 86 chart 12"
+      }
+    },
+    {
+      "seq": 319,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": [
+          "Str",
+          "Int"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 320,
+      "kind": "step",
+      "step": {
+        "name": "Assigned school: Command College",
+        "cite": "Book 1 p. 59; chart C p. 60"
+      }
+    },
+    {
+      "seq": 321,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the characteristic to check",
+        "options": [
+          "Int",
+          "Edu"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
+      }
+    },
+    {
+      "seq": 322,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          2
+        ],
+        "total": 5,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (Command College To Apply Check Edu)"
+      }
+    },
+    {
+      "seq": 323,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the characteristic to check",
+        "options": [
+          "Int",
+          "Edu"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
+      }
+    },
+    {
+      "seq": 324,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
           5,
+          2
+        ],
+        "total": 7,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (Command College Pass/Fail Check Edu)"
+      }
+    },
+    {
+      "seq": 325,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Command College skill",
+        "options": [
+          "Admin",
+          "Advocate",
+          "Animals",
+          "Athlete",
+          "Broker",
+          "Bureaucrat",
+          "Comms",
+          "Computer",
+          "Counsellor",
+          "Designer",
+          "Diplomat",
+          "Driver",
+          "Explosives",
+          "Fleet Tactics",
+          "Flyer",
+          "Forensics",
+          "Gambler",
+          "High-G",
+          "Hostile Environ",
+          "JOT",
+          "Language",
+          "Leader",
+          "Liaison",
+          "Naval Architect",
+          "Seafarer",
+          "Stealth",
+          "Strategy",
+          "Streetwise",
+          "Survey",
+          "Survival",
+          "Tactics",
+          "Teacher",
+          "Trader",
+          "Vacc Suit",
+          "Zero-G",
+          "Astrogator",
+          "Engineer",
+          "Gunner",
+          "Medic",
+          "Pilot",
+          "Sensors",
+          "Steward",
+          "Fighter",
+          "Forward Observer",
+          "Heavy Weapons",
+          "Navigator",
+          "Recon",
+          "Sapper",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "ACV",
+          "Automotive",
+          "Driver: Grav",
+          "Legged",
+          "Mole",
+          "Tracked",
+          "Wheeled",
+          "Battle Dress",
+          "Beams",
+          "Blades",
+          "Exotics",
+          "Slug Throwers",
+          "Sprays",
+          "Unarmed",
+          "Jump Drives",
+          "Life Support",
+          "Maneuver Drive",
+          "Power Systems",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology",
+          "Aeronautics",
+          "Flapper",
+          "Flyer: Grav",
+          "LTA",
+          "Rotor",
+          "Winged",
+          "Bay Weapons",
+          "Ortillery",
+          "Screens",
+          "Spines",
+          "Turrets",
+          "Small Craft",
+          "Spacecraft ACS",
+          "Spacecraft BCS",
+          "Rider",
+          "Teamster",
+          "Trainer",
+          "Aquanautics",
+          "Seafarer: Grav",
+          "Boat",
+          "Ship",
+          "Sub",
+          "Artillery",
+          "Launcher",
+          "Ordnance",
+          "WMD"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 60 chart C (Command College Provides 2x Skill-1)"
+      }
+    },
+    {
+      "seq": 326,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 325,
+        "kind": "skill_awarded",
+        "skill": "Admin",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 327,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Command College skill",
+        "options": [
+          "Admin",
+          "Advocate",
+          "Animals",
+          "Athlete",
+          "Broker",
+          "Bureaucrat",
+          "Comms",
+          "Computer",
+          "Counsellor",
+          "Designer",
+          "Diplomat",
+          "Driver",
+          "Explosives",
+          "Fleet Tactics",
+          "Flyer",
+          "Forensics",
+          "Gambler",
+          "High-G",
+          "Hostile Environ",
+          "JOT",
+          "Language",
+          "Leader",
+          "Liaison",
+          "Naval Architect",
+          "Seafarer",
+          "Stealth",
+          "Strategy",
+          "Streetwise",
+          "Survey",
+          "Survival",
+          "Tactics",
+          "Teacher",
+          "Trader",
+          "Vacc Suit",
+          "Zero-G",
+          "Astrogator",
+          "Engineer",
+          "Gunner",
+          "Medic",
+          "Pilot",
+          "Sensors",
+          "Steward",
+          "Fighter",
+          "Forward Observer",
+          "Heavy Weapons",
+          "Navigator",
+          "Recon",
+          "Sapper",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "ACV",
+          "Automotive",
+          "Driver: Grav",
+          "Legged",
+          "Mole",
+          "Tracked",
+          "Wheeled",
+          "Battle Dress",
+          "Beams",
+          "Blades",
+          "Exotics",
+          "Slug Throwers",
+          "Sprays",
+          "Unarmed",
+          "Jump Drives",
+          "Life Support",
+          "Maneuver Drive",
+          "Power Systems",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology",
+          "Aeronautics",
+          "Flapper",
+          "Flyer: Grav",
+          "LTA",
+          "Rotor",
+          "Winged",
+          "Bay Weapons",
+          "Ortillery",
+          "Screens",
+          "Spines",
+          "Turrets",
+          "Small Craft",
+          "Spacecraft ACS",
+          "Spacecraft BCS",
+          "Rider",
+          "Teamster",
+          "Trainer",
+          "Aquanautics",
+          "Seafarer: Grav",
+          "Boat",
+          "Ship",
+          "Sub",
+          "Artillery",
+          "Launcher",
+          "Ordnance",
+          "WMD"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 60 chart C (Command College Provides 2x Skill-1)"
+      }
+    },
+    {
+      "seq": 328,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 327,
+        "kind": "skill_awarded",
+        "skill": "Admin",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 329,
+      "kind": "step",
+      "step": {
+        "name": "Marine: Term 7",
+        "cite": "Book 1 p. 86 chart 12"
+      }
+    },
+    {
+      "seq": 330,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 331,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 330,
+        "kind": "operation",
+        "skill": "Garrison",
+        "career": "Marine"
+      }
+    },
+    {
+      "seq": 332,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
           6
         ],
+        "total": 6,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 333,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 332,
+        "kind": "operation",
+        "skill": "Garrison",
+        "career": "Marine"
+      }
+    },
+    {
+      "seq": 334,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 335,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 334,
+        "kind": "operation",
+        "skill": "Mission",
+        "career": "Marine",
+        "value": 2
+      }
+    },
+    {
+      "seq": 336,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 337,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 336,
+        "kind": "operation",
+        "skill": "Garrison",
+        "career": "Marine"
+      }
+    },
+    {
+      "seq": 338,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 86 chart 12"
+      }
+    },
+    {
+      "seq": 339,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          5
+        ],
+        "total": 6,
+        "target": 8,
+        "success": true,
+        "mods": [
+          {
+            "name": "Branch",
+            "value": 0
+          },
+          {
+            "name": "Operations",
+            "value": -2
+          }
+        ],
+        "cite": "Book 1 p. 86 chart 12 (Risk vs Str+Mods)"
+      }
+    },
+    {
+      "seq": 340,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 339,
+        "kind": "service_badge",
+        "career": "Marine",
+        "value": 5
+      }
+    },
+    {
+      "seq": 341,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          2
+        ],
+        "total": 7,
+        "target": 12,
+        "success": true,
+        "mods": [
+          {
+            "name": "Branch",
+            "value": 0
+          },
+          {
+            "name": "Operations",
+            "value": 2
+          }
+        ],
+        "cite": "Book 1 p. 86 chart 12 (Reward vs Str+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 342,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 341,
+        "kind": "medal",
+        "skill": "XS",
+        "career": "Marine",
+        "value": 4
+      }
+    },
+    {
+      "seq": 343,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Attempt Officer Promotion?",
+        "options": [
+          "Attempt Officer Promotion",
+          "Decline"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 86 chart 12 (Officer Promotion)"
+      }
+    },
+    {
+      "seq": 344,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          4
+        ],
+        "total": 10,
+        "target": 16,
+        "success": true,
+        "mods": [
+          {
+            "name": "Medals",
+            "value": 13
+          }
+        ],
+        "cite": "Book 1 p. 86 chart 12 (Officer Promotion vs Int)"
+      }
+    },
+    {
+      "seq": 345,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 344,
+        "kind": "rank_set",
+        "skill": "Lt Coronel",
+        "career": "Marine"
+      }
+    },
+    {
+      "seq": 346,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Garrison",
+          "Mission"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 347,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 86 chart 12 table C, column Mission"
+      }
+    },
+    {
+      "seq": 348,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 347,
+        "kind": "no_award",
+        "skill": "Fighter"
+      }
+    },
+    {
+      "seq": 349,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Garrison",
+          "Mission"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 350,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 86 chart 12 table C, column Mission"
+      }
+    },
+    {
+      "seq": 351,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Soldier Skill",
+        "options": [
+          "Fighter",
+          "Forward Observer",
+          "Heavy Weapons",
+          "Navigator",
+          "Recon",
+          "Sapper"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 86 chart 12 table C; Book 1 p. 132 chart MS"
+      }
+    },
+    {
+      "seq": 352,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 351,
+        "kind": "no_award",
+        "skill": "Fighter"
+      }
+    },
+    {
+      "seq": 353,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Garrison",
+          "Mission"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 354,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 86 chart 12 table C, column Mission"
+      }
+    },
+    {
+      "seq": 355,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 354,
+        "kind": "skill_awarded",
+        "skill": "Language",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 356,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Garrison",
+          "Mission"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 357,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 86 chart 12 table C, column Mission"
+      }
+    },
+    {
+      "seq": 358,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 357,
+        "kind": "skill_awarded",
+        "skill": "Leader",
+        "delta": 1,
+        "value": 9
+      }
+    },
+    {
+      "seq": 359,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Marine Skills column",
+        "options": [
+          "Personal",
+          "Garrison",
+          "Combat",
+          "Peacekeeper",
+          "Occupation",
+          "Mission",
+          "Technical"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 360,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
+      }
+    },
+    {
+      "seq": 361,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 360,
+        "kind": "no_award",
+        "skill": "Fighter"
+      }
+    },
+    {
+      "seq": 362,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Marine for another career?",
+        "options": [
+          "Continue in Marine",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 363,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          6
+        ],
+        "total": 10,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 86 chart 12 (Continue Str; p. 66)"
+      }
+    },
+    {
+      "seq": 364,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 363,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 365,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          5
+        ],
         "total": 11,
-        "target": 6,
+        "target": 7,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 50)"
+      }
+    },
+    {
+      "seq": 366,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          1
+        ],
+        "total": 5,
+        "target": 7,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 50)"
+      }
+    },
+    {
+      "seq": 367,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 366,
+        "kind": "aging_effect",
+        "characteristic": "Dex",
+        "delta": -1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 368,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          1
+        ],
+        "total": 5,
+        "target": 7,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 50)"
+      }
+    },
+    {
+      "seq": 369,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 368,
+        "kind": "aging_effect",
+        "characteristic": "End",
+        "delta": -1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 370,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Marine",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 371,
+      "kind": "step",
+      "step": {
+        "name": "Marine: Term 8",
+        "cite": "Book 1 p. 86 chart 12"
+      }
+    },
+    {
+      "seq": 372,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": [
+          "Int"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 373,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 374,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 373,
+        "kind": "operation",
+        "skill": "Peace Keeper",
+        "career": "Marine",
+        "value": 1
+      }
+    },
+    {
+      "seq": 375,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 376,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 375,
+        "kind": "operation",
+        "skill": "Mission",
+        "career": "Marine",
+        "value": 2
+      }
+    },
+    {
+      "seq": 377,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 378,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 377,
+        "kind": "operation",
+        "skill": "Mission",
+        "career": "Marine",
+        "value": 2
+      }
+    },
+    {
+      "seq": 379,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
+      }
+    },
+    {
+      "seq": 380,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 379,
+        "kind": "operation",
+        "skill": "Peace Keeper",
+        "career": "Marine",
+        "value": 1
+      }
+    },
+    {
+      "seq": 381,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 86 chart 12"
+      }
+    },
+    {
+      "seq": 382,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          1
+        ],
+        "total": 5,
+        "target": 1,
         "success": false,
         "mods": [
           {
@@ -4054,1051 +5719,57 @@
       }
     },
     {
-      "seq": 278,
+      "seq": 383,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
         "dice": [
-          4,
-          4
+          2,
+          3
         ],
-        "total": 0,
+        "total": -1,
         "cite": "Book 1 p. 86 chart 12 (Failure: reduce CC by negative Mods and Flux)"
       }
     },
     {
-      "seq": 279,
+      "seq": 384,
       "kind": "consequence",
       "consequence": {
-        "cause": 277,
+        "cause": 382,
         "kind": "characteristic_change",
         "characteristic": "Int",
-        "delta": -2,
-        "value": 6
+        "delta": -3
       }
     },
     {
-      "seq": 280,
+      "seq": 385,
       "kind": "consequence",
       "consequence": {
-        "cause": 277,
-        "kind": "wound_badge",
-        "value": 2
+        "cause": 382,
+        "kind": "dead",
+        "characteristic": "Int"
       }
     },
     {
-      "seq": 281,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          6
-        ],
-        "total": 8,
-        "target": 10,
-        "success": true,
-        "mods": [
-          {
-            "name": "Branch",
-            "value": 0
-          },
-          {
-            "name": "Operations",
-            "value": 2
-          }
-        ],
-        "cite": "Book 1 p. 86 chart 12 (Reward vs Int+ opposite sign Mods)"
-      }
-    },
-    {
-      "seq": 282,
+      "seq": 386,
       "kind": "consequence",
       "consequence": {
-        "cause": 281,
-        "kind": "medal",
-        "skill": "MCUF",
-        "career": "Marine",
-        "value": 3
-      }
-    },
-    {
-      "seq": 283,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Attempt Officer Promotion?",
-        "options": [
-          "Attempt Officer Promotion",
-          "Decline"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 86 chart 12 (Officer Promotion)"
-      }
-    },
-    {
-      "seq": 284,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          4
-        ],
-        "total": 5,
-        "target": 15,
-        "success": true,
-        "mods": [
-          {
-            "name": "Medals",
-            "value": 9
-          }
-        ],
-        "cite": "Book 1 p. 86 chart 12 (Officer Promotion vs Int)"
-      }
-    },
-    {
-      "seq": 285,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 284,
-        "kind": "rank_set",
-        "skill": "Lt Coronel",
-        "career": "Marine"
-      }
-    },
-    {
-      "seq": 286,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Peacekeeper",
-          "Mission",
-          "Garrison"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 287,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 86 chart 12 table C, column Peacekeeper"
-      }
-    },
-    {
-      "seq": 288,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 287,
-        "kind": "skill_awarded",
-        "skill": "Hostile Environ",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 289,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Peacekeeper",
-          "Mission",
-          "Garrison"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 290,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 86 chart 12 table C, column Peacekeeper"
-      }
-    },
-    {
-      "seq": 291,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 290,
-        "kind": "skill_awarded",
-        "skill": "Hostile Environ",
-        "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 292,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Peacekeeper",
-          "Mission",
-          "Garrison"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 293,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 86 chart 12 table C, column Peacekeeper"
-      }
-    },
-    {
-      "seq": 294,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 293,
-        "kind": "skill_awarded",
-        "skill": "Hostile Environ",
-        "delta": 1,
-        "value": 3
-      }
-    },
-    {
-      "seq": 295,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Peacekeeper",
-          "Mission",
-          "Garrison"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 296,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 86 chart 12 table C, column Peacekeeper"
-      }
-    },
-    {
-      "seq": 297,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 296,
-        "kind": "skill_awarded",
-        "skill": "Vacc Suit",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 298,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Garrison",
-          "Combat",
-          "Peacekeeper",
-          "Occupation",
-          "Mission",
-          "Technical"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 299,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
-      }
-    },
-    {
-      "seq": 300,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 299,
-        "kind": "skill_awarded",
-        "skill": "Tactics",
-        "delta": 1,
-        "value": 6
-      }
-    },
-    {
-      "seq": 301,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Leave Marine for another career?",
-        "options": [
-          "Continue in Marine",
-          "Change careers"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 66 (Changing Careers)"
-      }
-    },
-    {
-      "seq": 302,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          2
-        ],
-        "total": 4,
-        "target": 9,
-        "success": true,
-        "cite": "Book 1 p. 86 chart 12 (Continue Str; p. 66)"
-      }
-    },
-    {
-      "seq": 303,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 302,
+        "cause": 382,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 304,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          3
-        ],
-        "total": 8,
-        "target": 6,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)"
-      }
-    },
-    {
-      "seq": 305,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          6
-        ],
-        "total": 10,
-        "target": 6,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)"
-      }
-    },
-    {
-      "seq": 306,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          1
-        ],
-        "total": 3,
-        "target": 6,
-        "success": true,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)"
-      }
-    },
-    {
-      "seq": 307,
+      "seq": 387,
       "kind": "consequence",
       "consequence": {
-        "cause": 306,
-        "kind": "aging_effect",
-        "characteristic": "End",
-        "delta": -1,
-        "value": 3
-      }
-    },
-    {
-      "seq": 308,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Suspend the term to return to school?",
-        "options": [
-          "Serve the term in Marine",
-          "Trade School",
-          "Apprenticeship",
-          "College",
-          "University",
-          "Service Academy"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
-      }
-    },
-    {
-      "seq": 309,
-      "kind": "step",
-      "step": {
-        "name": "Marine: Term 7",
-        "cite": "Book 1 p. 86 chart 12"
-      }
-    },
-    {
-      "seq": 310,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Str",
-          "Int"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 311,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
-      }
-    },
-    {
-      "seq": 312,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 311,
-        "kind": "operation",
-        "skill": "Combat",
-        "career": "Marine",
-        "value": 3
-      }
-    },
-    {
-      "seq": 313,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
-      }
-    },
-    {
-      "seq": 314,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 313,
-        "kind": "operation",
-        "skill": "Peace Keeper",
-        "career": "Marine",
-        "value": 1
-      }
-    },
-    {
-      "seq": 315,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
-      }
-    },
-    {
-      "seq": 316,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 315,
-        "kind": "operation",
-        "skill": "Mission",
-        "career": "Marine",
-        "value": 2
-      }
-    },
-    {
-      "seq": 317,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 86 chart 12 (Marine Operations)"
-      }
-    },
-    {
-      "seq": 318,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 317,
-        "kind": "operation",
-        "skill": "Mission",
-        "career": "Marine",
-        "value": 2
-      }
-    },
-    {
-      "seq": 319,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select Caution, Bravery, or No Mod",
-        "options": [
-          "No Mod",
-          "Caution +1",
-          "Caution +2",
-          "Caution +3",
-          "Caution +4",
-          "Caution +5",
-          "Caution +6",
-          "Caution +7",
-          "Caution +8",
-          "Caution +9",
-          "Bravery -1",
-          "Bravery -2",
-          "Bravery -3",
-          "Bravery -4",
-          "Bravery -5",
-          "Bravery -6",
-          "Bravery -7",
-          "Bravery -8",
-          "Bravery -9"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); Book 1 p. 86 chart 12"
-      }
-    },
-    {
-      "seq": 320,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          5
-        ],
-        "total": 9,
-        "target": 6,
-        "success": false,
-        "mods": [
-          {
-            "name": "Branch",
-            "value": 0
-          },
-          {
-            "name": "Operations",
-            "value": -3
-          }
-        ],
-        "cite": "Book 1 p. 86 chart 12 (Risk vs Str+Mods)"
-      }
-    },
-    {
-      "seq": 321,
-      "kind": "throw",
-      "throw": {
-        "expr": "Flux",
-        "dice": [
-          3,
-          2
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 86 chart 12 (Failure: reduce CC by negative Mods and Flux)"
-      }
-    },
-    {
-      "seq": 322,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 320,
-        "kind": "characteristic_change",
-        "characteristic": "Str",
-        "delta": -2,
-        "value": 7
-      }
-    },
-    {
-      "seq": 323,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 320,
-        "kind": "wound_badge",
-        "value": 3
-      }
-    },
-    {
-      "seq": 324,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          2
-        ],
-        "total": 7,
-        "target": 12,
-        "success": true,
-        "mods": [
-          {
-            "name": "Branch",
-            "value": 0
-          },
-          {
-            "name": "Operations",
-            "value": 3
-          }
-        ],
-        "cite": "Book 1 p. 86 chart 12 (Reward vs Str+ opposite sign Mods)"
-      }
-    },
-    {
-      "seq": 325,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 324,
-        "kind": "medal",
-        "skill": "XS",
-        "career": "Marine",
-        "value": 4
-      }
-    },
-    {
-      "seq": 326,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Attempt Officer Promotion?",
-        "options": [
-          "Attempt Officer Promotion",
-          "Decline"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 86 chart 12 (Officer Promotion)"
-      }
-    },
-    {
-      "seq": 327,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          6
-        ],
-        "total": 11,
-        "target": 16,
-        "success": true,
-        "mods": [
-          {
-            "name": "Medals",
-            "value": 10
-          }
-        ],
-        "cite": "Book 1 p. 86 chart 12 (Officer Promotion vs Int)"
-      }
-    },
-    {
-      "seq": 328,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 327,
-        "kind": "rank_set",
-        "skill": "Coronel",
-        "career": "Marine"
-      }
-    },
-    {
-      "seq": 329,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 327,
-        "kind": "skill_awarded",
-        "skill": "Leader",
-        "delta": 1,
-        "value": 5
-      }
-    },
-    {
-      "seq": 330,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Combat",
-          "Peacekeeper",
-          "Mission"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 331,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
-      }
-    },
-    {
-      "seq": 332,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Soldier Skill",
-        "options": [
-          "Fighter",
-          "Forward Observer",
-          "Heavy Weapons",
-          "Navigator",
-          "Recon",
-          "Sapper"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 86 chart 12 table C; Book 1 p. 132 chart MS"
-      }
-    },
-    {
-      "seq": 333,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 332,
-        "kind": "no_award",
-        "skill": "Fighter"
-      }
-    },
-    {
-      "seq": 334,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Combat",
-          "Peacekeeper",
-          "Mission"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 335,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
-      }
-    },
-    {
-      "seq": 336,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 335,
-        "kind": "skill_awarded",
-        "skill": "Leader",
-        "delta": 1,
-        "value": 6
-      }
-    },
-    {
-      "seq": 337,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Combat",
-          "Peacekeeper",
-          "Mission"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 338,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
-      }
-    },
-    {
-      "seq": 339,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 338,
-        "kind": "no_award",
-        "skill": "Fighter"
-      }
-    },
-    {
-      "seq": 340,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Combat",
-          "Peacekeeper",
-          "Mission"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 341,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
-      }
-    },
-    {
-      "seq": 342,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 341,
-        "kind": "skill_awarded",
-        "skill": "Leader",
-        "delta": 1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 343,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Marine Skills column",
-        "options": [
-          "Personal",
-          "Garrison",
-          "Combat",
-          "Peacekeeper",
-          "Occupation",
-          "Mission",
-          "Technical"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 344,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 86 chart 12 table C, column Combat"
-      }
-    },
-    {
-      "seq": 345,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 344,
-        "kind": "skill_awarded",
-        "skill": "Leader",
-        "delta": 1,
-        "value": 8
-      }
-    },
-    {
-      "seq": 346,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Leave Marine for another career?",
-        "options": [
-          "Continue in Marine",
-          "Change careers"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 66 (Changing Careers)"
-      }
-    },
-    {
-      "seq": 347,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          6
-        ],
-        "total": 8,
-        "target": 7,
-        "success": false,
-        "cite": "Book 1 p. 86 chart 12 (Continue Str; p. 66)"
-      }
-    },
-    {
-      "seq": 348,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 347,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 349,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          6
-        ],
-        "total": 10,
-        "target": 7,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 50)"
-      }
-    },
-    {
-      "seq": 350,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          3
-        ],
-        "total": 4,
-        "target": 7,
-        "success": true,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 50)"
-      }
-    },
-    {
-      "seq": 351,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 350,
-        "kind": "aging_effect",
-        "characteristic": "Dex",
-        "delta": -1,
-        "value": 3
-      }
-    },
-    {
-      "seq": 352,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          2
-        ],
-        "total": 7,
-        "target": 7,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 50)"
-      }
-    },
-    {
-      "seq": 353,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 347,
+        "cause": 382,
         "kind": "career_ended",
         "career": "Marine"
       }
     },
     {
-      "seq": 354,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 46,
-        "kind": "reserve",
-        "skill": "Coronel O6",
-        "career": "Marine"
-      }
-    },
-    {
-      "seq": 355,
+      "seq": 388,
       "kind": "step",
       "step": {
         "name": "Determine Fame",
@@ -5106,11 +5777,11 @@
       }
     },
     {
-      "seq": 356,
+      "seq": 389,
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Invoke the Fame Flux Event? (Fame 12 so far)",
+        "prompt": "Invoke the Fame Flux Event? (Fame 13 so far)",
         "options": [
           "Keep this Fame",
           "Add Flux to Fame"
@@ -5120,511 +5791,39 @@
       }
     },
     {
-      "seq": 357,
+      "seq": 390,
       "kind": "consequence",
       "consequence": {
-        "cause": 356,
+        "cause": 389,
         "kind": "fame_computed",
-        "skill": "World System",
-        "value": 12,
+        "skill": "Inner System",
+        "value": 13,
         "mods": [
           {
             "name": "Marine Officer Rank",
-            "value": 6
+            "value": 5
           },
           {
             "name": "Marine WB x1",
-            "value": 3
+            "value": 2
+          },
+          {
+            "name": "Marine MCG x2",
+            "value": 2
           },
           {
             "name": "Marine MCUF x1",
+            "value": 1
+          },
+          {
+            "name": "Marine SEH x3",
             "value": 3
           }
         ]
       }
     },
     {
-      "seq": 358,
-      "kind": "step",
-      "step": {
-        "name": "Muster Out",
-        "cite": "Book 1 p. 67; chart M1 p. 70"
-      }
-    },
-    {
-      "seq": 359,
-      "kind": "step",
-      "step": {
-        "name": "Muster Out: Marine",
-        "cite": "Book 1 p. 86 chart 12 D"
-      }
-    },
-    {
-      "seq": 360,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Marine muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 361,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7"
-        ],
-        "chosen": 7,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 362,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+7",
-        "dice": [
-          4
-        ],
-        "mod": 7,
-        "total": 11,
-        "cite": "Book 1 p. 86 chart 12 D (Money column, 1D+7)"
-      }
-    },
-    {
-      "seq": 363,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 362,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Marine",
-        "delta": 60000
-      }
-    },
-    {
-      "seq": 364,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Marine muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 365,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7"
-        ],
-        "chosen": 7,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 366,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+7",
-        "dice": [
-          6
-        ],
-        "mod": 7,
-        "total": 13,
-        "cite": "Book 1 p. 86 chart 12 D (Money column, 1D+7)"
-      }
-    },
-    {
-      "seq": 367,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 366,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Marine",
-        "delta": 60000
-      }
-    },
-    {
-      "seq": 368,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Marine muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 369,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7"
-        ],
-        "chosen": 7,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 370,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+7",
-        "dice": [
-          6
-        ],
-        "mod": 7,
-        "total": 13,
-        "cite": "Book 1 p. 86 chart 12 D (Money column, 1D+7)"
-      }
-    },
-    {
-      "seq": 371,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 370,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Marine",
-        "delta": 60000
-      }
-    },
-    {
-      "seq": 372,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Marine muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 373,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7"
-        ],
-        "chosen": 7,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 374,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+7",
-        "dice": [
-          5
-        ],
-        "mod": 7,
-        "total": 12,
-        "cite": "Book 1 p. 86 chart 12 D (Money column, 1D+7)"
-      }
-    },
-    {
-      "seq": 375,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 374,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Marine",
-        "delta": 60000
-      }
-    },
-    {
-      "seq": 376,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Marine muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 377,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7"
-        ],
-        "chosen": 7,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 378,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+7",
-        "dice": [
-          4
-        ],
-        "mod": 7,
-        "total": 11,
-        "cite": "Book 1 p. 86 chart 12 D (Money column, 1D+7)"
-      }
-    },
-    {
-      "seq": 379,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 378,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Marine",
-        "delta": 60000
-      }
-    },
-    {
-      "seq": 380,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Marine muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 381,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7"
-        ],
-        "chosen": 7,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 382,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+7",
-        "dice": [
-          1
-        ],
-        "mod": 7,
-        "total": 8,
-        "cite": "Book 1 p. 86 chart 12 D (Money column, 1D+7)"
-      }
-    },
-    {
-      "seq": 383,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 382,
-        "kind": "benefit",
-        "skill": "Retirement x2",
-        "career": "Marine",
-        "value": 1
-      }
-    },
-    {
-      "seq": 384,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Marine muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 385,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7"
-        ],
-        "chosen": 7,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 386,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+7",
-        "dice": [
-          4
-        ],
-        "mod": 7,
-        "total": 11,
-        "cite": "Book 1 p. 86 chart 12 D (Money column, 1D+7)"
-      }
-    },
-    {
-      "seq": 387,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 386,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Marine",
-        "delta": 60000
-      }
-    },
-    {
-      "seq": 388,
-      "kind": "step",
-      "step": {
-        "name": "Muster Out: Entitlements",
-        "cite": "Book 1 p. 70 chart M1"
-      }
-    },
-    {
-      "seq": 389,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Cash out the Reserve Pension?",
-        "options": [
-          "Keep it (Cr1600 a year from age 66)",
-          "Cash out (Cr8000)"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 69 (Cashing Out)"
-      }
-    },
-    {
-      "seq": 390,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 389,
-        "kind": "entitlement",
-        "skill": "Reserve Pension",
-        "delta": 1600,
-        "value": 66
-      }
-    },
-    {
       "seq": 391,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Cash out the Officer Retirement?",
-        "options": [
-          "Keep it (Cr42000 a year from age 50)",
-          "Cash out (Cr210000)"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 69 (Cashing Out)"
-      }
-    },
-    {
-      "seq": 392,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 391,
-        "kind": "entitlement",
-        "skill": "Officer Retirement",
-        "delta": 42000,
-        "value": 50
-      }
-    },
-    {
-      "seq": 393,
       "kind": "step",
       "step": {
         "name": "Record the Character's Birthdate",
@@ -5632,28 +5831,28 @@
       }
     },
     {
-      "seq": 394,
+      "seq": 392,
       "kind": "throw",
       "throw": {
         "expr": "4D",
         "dice": [
+          6,
           1,
-          3,
-          4,
-          4
+          5,
+          5
         ],
-        "total": 12,
+        "total": 17,
         "cite": "Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)"
       }
     },
     {
-      "seq": 395,
+      "seq": 393,
       "kind": "consequence",
       "consequence": {
-        "cause": 394,
+        "cause": 392,
         "kind": "birthdate",
-        "detail": "Forday 124-1055",
-        "value": 1055
+        "detail": "Sixday 329-1051",
+        "value": 1051
       }
     }
   ]

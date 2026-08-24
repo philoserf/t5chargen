@@ -244,6 +244,30 @@ func Majors(inst Institution) ([]string, error) {
 	return skillNames(func(s SkillRow) bool { return s.flag(inst) })
 }
 
+// ANMKnowledges returns the Knowledges ANM School may award: "Knowledge-2
+// from School=ANM" (chart C p. 60). ANM is Army-Navy-Marine, so the source
+// is the A, N and M columns of the Available Skills matrix taken together,
+// narrowed to the entries the Master Skill List calls Knowledges — which
+// is what the row asks for, and what keeps the award clear of the open
+// question about awarding a bare container skill (COVERAGE.md, p. 134).
+// The returned slice is fresh per call.
+func ANMKnowledges() ([]string, error) {
+	names, err := skillNames(func(s SkillRow) bool { return s.Army || s.Navy || s.Marine })
+	if err != nil {
+		return nil, err
+	}
+
+	knowledges := make([]string, 0, len(names))
+
+	for _, name := range names {
+		if entry, ok := skill.Lookup(name); ok && entry.Kind == skill.KindKnowledge {
+			knowledges = append(knowledges, name)
+		}
+	}
+
+	return knowledges, nil
+}
+
 // AllSkillNames returns every matrix skill name in chart order,
 // deduplicated — the unrestricted Apprenticeship selection list
 // (interpretation I-7, ERRATA.md). The returned slice is fresh per call.

@@ -433,6 +433,13 @@ type Rank struct {
 	// "Automatic Skills by Rank"); empty for ranks with none.
 	AutoSkill string `json:"auto_skill,omitempty"`
 
+	// CommandCollege carries the asterisk the military charts print
+	// against one officer rank: "*Command College in Year 1 of next Term
+	// (if Continue)" (chart 07 Lt Commander, chart 08 Major, chart 12
+	// Force Commander). The footnote is chart data, so it is transcribed
+	// against the row it is printed on rather than keyed to "O4" in code.
+	CommandCollege bool `json:"command_college,omitempty"`
+
 	// Soc is the Social Standing a rank carries, where the ladder is keyed
 	// to it ("Nobles begin with rank equal to their Social Standing",
 	// p. 65). Consecutive rows may share one value: "A character elevated
@@ -651,12 +658,6 @@ type Operation struct {
 	// differs from the operation's own name (chart 07's Patrol and Strike
 	// both open "Patrol/Strike"); empty means the name itself.
 	Column string `json:"column,omitempty"`
-
-	// Implemented is false for the ANM School assignment, whose schooling
-	// is "resolved as Education" (chart 08) and lands with Later Education
-	// (docs/PRD.md milestone 4). The assignment still happens and still
-	// contributes its Mod.
-	Implemented *bool `json:"implemented,omitempty"`
 }
 
 // BranchAt returns the Branch for a 1D roll plus modifiers, clamped to the

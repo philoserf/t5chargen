@@ -96,8 +96,7 @@
       },
       {
         "name": "ANM School",
-        "mod": 0,
-        "implemented": false
+        "mod": 0
       },
       {
         "name": "Combat",
@@ -176,7 +175,8 @@
       "id": "O4",
       "class": "officer",
       "title": "Force Commander",
-      "auto_skill": "Tactics"
+      "auto_skill": "Tactics",
+      "command_college": true
     },
     {
       "id": "O5",

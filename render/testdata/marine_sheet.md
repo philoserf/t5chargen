@@ -2,38 +2,32 @@
 
 **Name**:
 
-**UPP**: 733686
+**UPP**: A34086
 
 **Homeworld**: Regina A788899-C (Ph Pa Ri)
 
-**Age**: 50 (Senior)
+**Age**: 54 (Senior)
 
-**Born**: Forday 124-1055
+**Born**: Sixday 329-1051
 
 | Str | Dex | End | Int | Edu | Soc |
 | --- | --- | --- | --- | --- | --- |
-| 7 | 3 | 3 | 6 | 8 | 6 |
+| 10 | 3 | 4 | 0 | 8 | 6 |
 
 **Education**: College, Major Athlete, Minor Broker — Honors BA
 
-**Career**: Marine (7 terms), Medical, XS-4, MCUF-3, Reserve Coronel O6
+**Education**: ANM School — did not graduate
 
-**Skills**: Actor-1, Athlete-4, Broker-1, Fighter-15, Hostile Environ-3, Leader-8, Medic-1, Stealth-1, Survival-2, Tactics-6, Trader-1, Vacc Suit-1
+**Education**: Command College — graduated
 
-**Credits**: Cr360000
+**Career**: Marine (8 terms), Medical, XS-4, MCG-1, MCUF-1, SEH-1, Lt Coronel O5
 
-**Benefits**: 1 Retirement x2
+**Skills**: Actor-1, Admin-2, Athlete-4, Broker-1, Fighter-15, Heavy Weapons-1, Language-2, Leader-9, Medic-1, Survival-1, Tactics-4, Trader-1
 
-**Automatics**: Personal Weapons, Fame
-
-**Reserve Pension**: Cr1600 a year from age 66
-
-**Officer Retirement**: Cr42000 a year from age 50
-
-**Status**: Fame 12 (World System), Wound Badges 3
+**Status**: Fame 13 (Inner System), Wound Badges 2, DEAD
 
 ---
 
-Seed 529 (math/rand/v2-pcg) · schema 0.28.0 · engine 0.28.0 · policy 0.17.0
+Seed 529 (math/rand/v2-pcg) · schema 0.28.0 · engine 0.29.0 · policy 0.17.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1
