@@ -221,6 +221,26 @@ func namesAStep(t *testing.T, career string, seed uint64, e chargen.Event, kinds
 	return false
 }
 
+// causeSweepOptions asks for one career of the sweep.
+//
+// Two careers cannot open a lifepath and so cannot be forced by name.
+// craftsmanPath reaches chart 01, which the auto policy cannot
+// (interpretation I-60) — and chart 01 holds two of I-87's three
+// step-caused consequences. functionaryPath reaches chart 13, whose
+// "Continue Office Politics" is the one career path that continues a term
+// with no Continue throw, and so the one that reads termOutcome.endCause on
+// a term nothing went wrong in.
+func causeSweepOptions(career string, seed uint64) chargen.Options {
+	switch career {
+	case "Citizen":
+		return chargen.Options{Seed: seed, Decider: &craftsmanPath{}}
+	case "Functionary":
+		return chargen.Options{Seed: seed, Decider: functionaryPath{first: "Scholar"}}
+	default:
+		return chargen.Options{Seed: seed, Career: career}
+	}
+}
+
 // TestEveryConsequenceNamesItsCause walks generated records and pins FR10's
 // causality invariant, in the form the amendment leaves it: a consequence
 // names a throw, a choice, or — where no throw or choice produced it — the
@@ -232,21 +252,15 @@ func namesAStep(t *testing.T, career string, seed uint64, e chargen.Event, kinds
 func TestEveryConsequenceNamesItsCause(t *testing.T) {
 	t.Parallel()
 
-	careers := []string{"Citizen", "Scout", "Rogue", "Merchant", "Soldier", "Scholar", "Noble", "Agent"}
+	careers := []string{
+		"Citizen", "Scout", "Rogue", "Merchant", "Soldier", "Spacer",
+		"Marine", "Scholar", "Noble", "Entertainer", "Agent", "Functionary",
+	}
 	steps, total := 0, 0
 
 	for _, career := range careers {
 		for seed := uint64(1); seed <= 40; seed++ {
-			// craftsmanPath reaches chart 01, which the auto policy cannot
-			// (interpretation I-60) — and chart 01 holds two of I-87's three
-			// step-caused consequences. Without it the sweep exercises only
-			// the Rogue's.
-			opts := chargen.Options{Seed: seed, Career: career}
-			if career == "Citizen" {
-				opts = chargen.Options{Seed: seed, Decider: &craftsmanPath{}}
-			}
-
-			c := generate(t, opts)
+			c := generate(t, causeSweepOptions(career, seed))
 
 			kinds := make(map[int]chargen.EventKind, len(c.Events))
 			for _, e := range c.Events {

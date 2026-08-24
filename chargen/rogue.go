@@ -113,6 +113,10 @@ func (m *rogueMechanics) resolveTerm(r *careerRun, cc string) (termOutcome, erro
 // Skills table column 1 or 2 only. Receives ONLY Prison Skills (not Term
 // or Scheme Skills)." (chart 10 table B) One term serves any sentence, the
 // chart's maximum being four years (interpretation I-43, ERRATA.md).
+//
+// The sentence was set by a Risk failure in an earlier term, so there is
+// no throw here for the imprisonment to hang from; it names this step
+// instead (interpretation I-87, ERRATA.md).
 func (*rogueMechanics) prisonTerm(r *careerRun) termOutcome {
 	served := r.record.PrisonYears
 	r.record.PrisonYears = 0
