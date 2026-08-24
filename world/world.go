@@ -30,6 +30,13 @@ type Homeworld struct {
 	Name string `json:"name,omitempty"` // display name; optional for supplied worlds
 	UWP  string `json:"uwp"`
 
+	// DeepSpace marks the one chart B cell that names no world: "Born In
+	// Deep Space" (p. 56, interpretation I-97). It is the only homeworld
+	// permitted to carry no UWP, and it is set by the chart rather than
+	// by a caller — trade classifications without a UWP remain a partial
+	// world and are still rejected (docs/PRD.md FR2).
+	DeepSpace bool `json:"deep_space,omitempty"`
+
 	// TradeClassifications drive the homeworld skill grants (p. 58), in
 	// chart order. They are supplied with the world (chart B's own list
 	// carries them per world); they are not derived from the UWP.
@@ -54,17 +61,27 @@ func Default() (Homeworld, error) {
 
 // Label renders the homeworld for display and choice events: the name (when
 // there is one), the UWP, and the trade classifications.
+// Assembled from the parts that are present rather than by appending to
+// whatever came before: chart B's deep space cell carries no UWP (I-97),
+// and a homeworld with no name either would otherwise open its label with
+// the separator space — which lands in the character sheet and in the
+// permanent choice event.
 func (h Homeworld) Label() string {
-	label := h.UWP
+	var parts []string
+
 	if h.Name != "" {
-		label = h.Name + " " + h.UWP
+		parts = append(parts, h.Name)
+	}
+
+	if h.UWP != "" {
+		parts = append(parts, h.UWP)
 	}
 
 	if len(h.TradeClassifications) > 0 {
-		label += " (" + strings.Join(h.TradeClassifications, " ") + ")"
+		parts = append(parts, "("+strings.Join(h.TradeClassifications, " ")+")")
 	}
 
-	return label
+	return strings.Join(parts, " ")
 }
 
 // Validate checks a homeworld is well-formed: a valid UWP and known,
@@ -74,7 +91,15 @@ func (h Homeworld) Label() string {
 // invalid input, rejected rather than silently deduplicated or
 // double-granted (docs/PRD.md FR2).
 func (h Homeworld) Validate() error {
-	if err := ValidateUWP(h.UWP); err != nil {
+	// Chart B's last cell is "Born In Deep Space" and names no world, so
+	// it carries no UWP (p. 56, interpretation I-97). Only that cell may
+	// omit one, and it says so outright: trade classifications without a
+	// UWP are still the partial world docs/PRD.md FR2 refuses.
+	if !h.DeepSpace {
+		if err := ValidateUWP(h.UWP); err != nil {
+			return err
+		}
+	} else if err := h.validateDeepSpace(); err != nil {
 		return err
 	}
 
@@ -312,3 +337,30 @@ func TradeChoices() ([]string, error) {
 
 	return t.OneTrade, nil
 }
+
+// validateDeepSpace holds the deep space mark to what chart B's cell
+// actually is. The mark exempts a homeworld from carrying a UWP, so
+// without this it is a way to skip validation by asserting it: a
+// hand-written record claiming deep space with arbitrary trade
+// classifications would pass.
+//
+// A deep space birth carries Ds and no UWP, which is what the book shows
+// twice over — chart B's cell prints exactly that, and p. 58 says such a
+// character "naturally learns the skills Zero-G and Vacc Suit", which is
+// the Ds grant. Requiring it is reading the cell, not inventing a rule.
+func (h Homeworld) validateDeepSpace() error {
+	if h.UWP != "" {
+		return fmt.Errorf("%w: a deep space birth carries the UWP %q", ErrInvalidUWP, h.UWP)
+	}
+
+	if !slices.Contains(h.TradeClassifications, deepSpaceTC) {
+		return fmt.Errorf("%w: a deep space birth without the %s trade classification",
+			ErrInvalidUWP, deepSpaceTC)
+	}
+
+	return nil
+}
+
+// deepSpaceTC is chart B's trade classification for a world that is not
+// one: "Ds Deep Space — Vacc Suit +Zero-G" (p. 56).
+const deepSpaceTC = "Ds"

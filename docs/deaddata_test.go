@@ -42,13 +42,15 @@ import (
 // case the reason names where that deferral is recorded.
 var unreadOnPurpose = map[string]string{
 	// Transcription: recorded because the page prints it.
-	"Note":                "chart M1's gloss on each benefit; prose for a reader, not a rule",
+	"Note":                "chart M1's gloss on a benefit, chart B's \"Born In Deep Space\"; prose, not a rule",
 	"Instruction":         "p. 263's \"Roll four consecutive dice\"; the procedure is in Go",
 	"Printed":             "a cell's printed wording where it differs from the vocabulary — I-70 keeps both",
 	"TonsPerShareCite":    "the p. 90 sentence the tonnage invariant checks against",
 	"Last":                "the last year chart A prints for a stage; Of derives it from First — I-48",
 	"TraditionalLifespan": "\"The traditional lifespan for humans is 74 years\"; flavor, and the page says so",
 	"QSP":                 "chart S's Quick Ship Profile; ship design is out of scope",
+	"Hex":                 "chart B's world location; it identifies the world on the page, and no rule reads it",
+	"Sector":              "chart B's world location; see Hex",
 	"Jump":                "chart S's J column; no rule in chargen reads a ship's performance",
 	"Maneuver":            "chart S's G column; as Jump",
 	"CostMCr":             "chart S prices the ship in megacredits; a share has no credit value — interpretation I-84",

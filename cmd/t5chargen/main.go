@@ -34,10 +34,10 @@ const (
 )
 
 const usage = `usage:
-  t5chargen new --auto [--seed N] [--name X] [--career citizen] [--homeworld "UWP TC..."]
+  t5chargen new --auto [--seed N] [--name X] [--career citizen] [--homeworld "UWP TC..."|random]
                 [--current-year 1105] [-o file] [--force]
   t5chargen batch --count N --auto [--seed N] [--name X] [--career citizen]
-                  [--homeworld "UWP TC..."] [--current-year 1105] [-o dir/|file.jsonl] [--force]
+                  [--homeworld "UWP TC..."|random] [--current-year 1105] [-o dir/|file.jsonl] [--force]
   t5chargen render [--format md] [--history] character.json
   t5chargen replay character.json
 `
@@ -109,9 +109,7 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 	seed := flags.Uint64("seed", 0, "RNG seed (default: drawn from OS entropy)")
 	name := flags.String("name", "", "character name (blank by default)")
 	careerFlag := flags.String("career", "", "force the first career")
-	homeworldFlag := flags.String("homeworld", "",
-		`homeworld as "UWP" or "UWP TC TC..." (for example "A788899-C Ph Pa Ri"); `+
-			`skills come from the trade classifications, so a bare UWP grants none (default: Regina)`)
+	homeworldFlag := flags.String("homeworld", "", homeworldUsage)
 	currentYear := flags.Int("current-year", calendar.DefaultYear,
 		"Imperial year adventuring begins in, which fixes the birth year (Book 1 p. 58)")
 	auto := flags.Bool("auto", false, "apply the fixed default policy (POLICY.md) to every choice")
@@ -147,14 +145,7 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 		return exitError
 	}
 
-	character, err := chargen.Generate(chargen.Options{
-		Seed:        *seed,
-		Name:        *name,
-		Career:      canonicalCareer(*careerFlag),
-		Homeworld:   parseHomeworldFlag(*homeworldFlag),
-		CurrentYear: *currentYear,
-		Decider:     chargen.DefaultPolicy{},
-	})
+	character, err := chargen.Generate(generateOptions(*seed, *name, *careerFlag, *homeworldFlag, *currentYear))
 	if err != nil {
 		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
 
@@ -179,9 +170,7 @@ func runBatch(args []string, seedFn func() (uint64, error), stdout, stderr io.Wr
 	seed := flags.Uint64("seed", 0, "base RNG seed; member i uses base+i (default: drawn from OS entropy)")
 	name := flags.String("name", "", "character name, applied to every member (blank by default)")
 	careerFlag := flags.String("career", "", "force the first career")
-	homeworldFlag := flags.String("homeworld", "",
-		`homeworld as "UWP" or "UWP TC TC..." (for example "A788899-C Ph Pa Ri"); `+
-			`skills come from the trade classifications, so a bare UWP grants none (default: Regina)`)
+	homeworldFlag := flags.String("homeworld", "", homeworldUsage)
 	currentYear := flags.Int("current-year", calendar.DefaultYear,
 		"Imperial year adventuring begins in, which fixes the birth year (Book 1 p. 58)")
 	auto := flags.Bool("auto", false, "required: batch has no interactive mode")
@@ -204,13 +193,8 @@ func runBatch(args []string, seedFn func() (uint64, error), stdout, stderr io.Wr
 		return exitError
 	}
 
-	characters, err := generateBatch(*count, *seed, chargen.Options{
-		Name:        *name,
-		Career:      canonicalCareer(*careerFlag),
-		Homeworld:   parseHomeworldFlag(*homeworldFlag),
-		CurrentYear: *currentYear,
-		Decider:     chargen.DefaultPolicy{},
-	})
+	characters, err := generateBatch(*count, *seed,
+		generateOptions(*seed, *name, *careerFlag, *homeworldFlag, *currentYear))
 	if err != nil {
 		fmt.Fprintf(stderr, "t5chargen batch: %v\n", err)
 
@@ -407,6 +391,21 @@ func batchPath(dir string, character chargen.Character) string {
 	return filepath.Join(dir, fmt.Sprintf("character-%d.json", character.RNG.Seed))
 }
 
+// generateOptions assembles the engine options the flags describe, shared
+// by new and batch so the two cannot drift apart in how they read them.
+// batch passes the base seed and generateBatch replaces it per member.
+func generateOptions(seed uint64, name, careerFlag, homeworldFlag string, currentYear int) chargen.Options {
+	return chargen.Options{
+		Seed:          seed,
+		Name:          name,
+		Career:        canonicalCareer(careerFlag),
+		Homeworld:     parseHomeworldFlag(homeworldFlag),
+		RollHomeworld: isRandomHomeworld(homeworldFlag),
+		CurrentYear:   currentYear,
+		Decider:       chargen.DefaultPolicy{},
+	}
+}
+
 // emitRecord marshals the record and writes it to stdout or the output
 // file.
 func emitRecord(character chargen.Character, out string, force bool, stdout, stderr io.Writer) int {
@@ -477,10 +476,32 @@ func checkCurrentYear(cmd string, year int, stderr io.Writer) int {
 	return exitUsage
 }
 
+// randomHomeworld is the --homeworld value that determines the world on
+// chart B rather than naming one: "Select or determine a Homeworld"
+// (p. 56).
+const randomHomeworld = "random"
+
+// homeworldUsage documents --homeworld for both new and batch. Shared so
+// the flag cannot be described one way and accepted another: batch reads
+// it through the same generateOptions.
+const homeworldUsage = `homeworld as "UWP" or "UWP TC TC..." ` +
+	`(for example "A788899-C Ph Pa Ri"), or "` + randomHomeworld +
+	`" to determine it on chart B; skills come from the trade ` +
+	`classifications, so a bare UWP grants none (default: Regina)`
+
+// isRandomHomeworld reports whether the flag asks for a chart B roll.
+func isRandomHomeworld(flag string) bool {
+	return strings.EqualFold(strings.TrimSpace(flag), randomHomeworld)
+}
+
 // parseHomeworldFlag splits a --homeworld value into a Homeworld: the
 // first field is the UWP, the rest are trade classifications. Validation
 // is the engine's; an empty flag leaves the zero value for the default.
 func parseHomeworldFlag(value string) world.Homeworld {
+	if isRandomHomeworld(value) {
+		return world.Homeworld{} // determined on chart B, not supplied
+	}
+
 	fields := strings.Fields(value)
 	if len(fields) == 0 {
 		return world.Homeworld{}

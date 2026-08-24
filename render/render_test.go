@@ -11,6 +11,7 @@ import (
 
 	"github.com/philoserf/t5chargen/chargen"
 	"github.com/philoserf/t5chargen/render"
+	"github.com/philoserf/t5chargen/world"
 )
 
 // update rewrites the golden fixtures instead of comparing against them:
@@ -163,6 +164,30 @@ func TestSheetWithName(t *testing.T) {
 
 	if strings.Contains(sheet, " \n") {
 		t.Error("sheet contains trailing whitespace")
+	}
+}
+
+// TestSheetDeepSpaceHomeworld verifies the card still names a homeworld
+// that carries no UWP. Chart B's last cell is "Born In Deep Space" and
+// gives no world, hex or UWP (p. 56, ERRATA I-97); keying the line off the
+// UWP dropped the homeworld from the sheet of every character born there,
+// while the transcript still showed the roll and its two skill grants.
+func TestSheetDeepSpaceHomeworld(t *testing.T) {
+	deepSpace, err := world.At(6, 6)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	sheet := render.Sheet(generate(t, chargen.Options{Seed: 1, Homeworld: deepSpace}))
+
+	if !strings.Contains(sheet, "**Homeworld**: Space (Ds)\n") {
+		t.Errorf("sheet missing the deep space homeworld line:\n%s", sheet)
+	}
+
+	// And the line is still omitted when there is no homeworld at all,
+	// which is what the UWP check used to buy.
+	if bare := render.Sheet(chargen.Character{}); strings.Contains(bare, "**Homeworld**") {
+		t.Errorf("empty record renders a homeworld line:\n%s", bare)
 	}
 }
 

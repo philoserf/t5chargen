@@ -9,20 +9,54 @@ package chargen
 import (
 	"fmt"
 
+	"github.com/philoserf/t5chargen/dice"
 	"github.com/philoserf/t5chargen/world"
 )
+
+// rollHomeworld determines the homeworld on chart B's world list:
+// "Homeworld. Select or determine a Homeworld" (p. 56). The chart is
+// indexed by two dice read in order, D1 then D2, so they are rolled and
+// logged separately rather than summed — a 3 and a 4 is not a 4 and a 3.
+func rollHomeworld(roller *dice.Roller, log *Log) (world.Homeworld, error) {
+	cite := "Book 1 p. 56 chart B (Select a Homeworld: D1 D2)"
+
+	d1 := roller.Roll(1)
+	log.Roll(d1, cite)
+
+	d2 := roller.Roll(1)
+	log.Roll(d2, cite)
+
+	homeworld, err := world.At(d1.Total, d2.Total)
+	if err != nil {
+		return world.Homeworld{}, fmt.Errorf("homeworld: %w", err)
+	}
+
+	return homeworld, nil
+}
 
 // runHomeworld performs checklist step B: validates and records the
 // homeworld, then grants its trade-classification skills. The homeworld
 // arrives assigned (docs/PRD.md FR2: a supplied UWP or the tool-owned
 // default); the assignment is logged as a choice event so the skill
 // consequences have a cause and interactive selection has its seam.
-func runHomeworld(homeworld world.Homeworld, log *Log, decider Decider, character *Character) error {
+func runHomeworld(
+	homeworld world.Homeworld, roll bool, roller *dice.Roller,
+	log *Log, decider Decider, character *Character,
+) error {
+	log.Step("Determine A Homeworld", "Book 1 p. 72 chart E1 step B")
+
+	if roll {
+		rolled, err := rollHomeworld(roller, log)
+		if err != nil {
+			return err
+		}
+
+		homeworld = rolled
+	}
+
 	if err := homeworld.Validate(); err != nil {
 		return fmt.Errorf("homeworld: %w", err)
 	}
-
-	log.Step("Determine A Homeworld", "Book 1 p. 72 chart E1 step B")
 
 	_, seq, err := choose(log, decider, Choice{
 		ID:      ChooseHomeworld,
@@ -124,8 +158,14 @@ func awardSkillAndLog(name string, levels, cause int, log *Log, character *Chara
 // all-zero struct. A partially-populated homeworld (TCs or a name without
 // a UWP) falls through to validation and is rejected, never silently
 // repaired (FR2).
+//
+// The deep space mark counts as populated: it is a claim about the world
+// (p. 56, interpretation I-97), so a homeworld carrying nothing but the
+// mark is a partial deep space birth and is rejected by validateDeepSpace,
+// not quietly turned into Regina.
 func homeworldOrDefault(homeworld world.Homeworld) (world.Homeworld, error) {
-	if homeworld.UWP == "" && homeworld.Name == "" && len(homeworld.TradeClassifications) == 0 {
+	if homeworld.UWP == "" && homeworld.Name == "" &&
+		len(homeworld.TradeClassifications) == 0 && !homeworld.DeepSpace {
 		d, err := world.Default()
 		if err != nil {
 			return world.Homeworld{}, fmt.Errorf("homeworld: %w", err)
