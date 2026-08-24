@@ -76,10 +76,16 @@ func run(args []string, seedFn func() (uint64, error), stdout, stderr io.Writer)
 
 // isUsageError reports whether a generation failure is the caller's
 // fault rather than the engine's. The engine is the single validator for
-// careers, UWPs, and trade classifications.
+// careers, UWPs, trade classifications, and the current year.
+//
+// checkCurrentYear catches the years that are not years at all, but a year
+// the character has outlived is only knowable once the age is (birthdate.go
+// runs last), so that one comes back from the engine — and it is still the
+// caller's --current-year that is wrong.
 func isUsageError(err error) bool {
 	return errors.Is(err, chargen.ErrUnknownCareer) ||
 		errors.Is(err, chargen.ErrCareerUnavailable) ||
+		errors.Is(err, chargen.ErrCurrentYear) ||
 		errors.Is(err, world.ErrInvalidUWP) ||
 		errors.Is(err, world.ErrUnknownTC) ||
 		errors.Is(err, world.ErrDuplicateTC)
@@ -119,6 +125,10 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 		fmt.Fprintln(stderr, "t5chargen new: interactive mode is not yet implemented (milestone 5); use --auto")
 
 		return exitUsage
+	}
+
+	if code := checkCurrentYear(*currentYear, stderr); code != exitOK {
+		return code
 	}
 
 	if err := resolveSeed(flags, seed, seedFn); err != nil {
@@ -198,6 +208,21 @@ func resolveSeed(flags *flag.FlagSet, seed *uint64, seedFn func() (uint64, error
 	*seed = drawn
 
 	return nil
+}
+
+// checkCurrentYear rejects a year that is not one. The engine reads a zero
+// CurrentYear as "not provided" and takes p. 58's default, the way an
+// all-zero Homeworld takes the tool-owned one; a referee who typed a year
+// meant it, so an explicit 0 is a usage error here rather than a silent
+// fallback to 1105.
+func checkCurrentYear(year int, stderr io.Writer) int {
+	if year >= 1 {
+		return exitOK
+	}
+
+	fmt.Fprintf(stderr, "t5chargen new: --current-year %d is not an Imperial year\n%s", year, usage)
+
+	return exitUsage
 }
 
 // parseHomeworldFlag splits a --homeworld value into a Homeworld: the

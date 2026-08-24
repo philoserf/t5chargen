@@ -271,10 +271,18 @@ func plural(n int, noun string) string {
 	}
 
 	switch {
-	case noun == "Discovery":
-		noun = "Discoveries"
 	case strings.HasSuffix(noun, "x2"):
 		// The chart already spells the count into the name.
+	case strings.HasSuffix(noun, "ss"), strings.HasSuffix(noun, "ch"), strings.HasSuffix(noun, "sh"),
+		strings.HasSuffix(noun, "x"), strings.HasSuffix(noun, "z"):
+		// A sibilant takes -es. Chart M1's "StarPass" — and this must
+		// precede the already-plural case, which it also matches.
+		noun += "es"
+	case strings.HasSuffix(noun, "s"):
+		// Already plural on the chart: "Ship Shares".
+	case strings.HasSuffix(noun, "y"):
+		// "Discovery", and chart M1's "Proxy".
+		noun = strings.TrimSuffix(noun, "y") + "ies"
 	default:
 		noun += "s"
 	}

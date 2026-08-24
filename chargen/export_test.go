@@ -36,3 +36,8 @@ func RegistryDefinitionNames() (map[string]string, error) {
 func LoadUndercoverCareer(source string) (*career.Definition, error) {
 	return loadUndercoverCareer(source)
 }
+
+// ScoutDuties exports chart 05's duty labels. They are a Go literal and
+// their skill eligibility is a JSON map, so only a test can hold the two
+// key sets together.
+var ScoutDuties = scoutDuties

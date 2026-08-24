@@ -15,6 +15,10 @@ package docs_test
 // those two things *on purpose*, named here with a reason.
 
 import (
+	"fmt"
+	"go/ast"
+	"go/parser"
+	"go/token"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -46,6 +50,15 @@ var unreadOnPurpose = map[string]string{
 	// award a bare container skill is a separate open question, noted in
 	// COVERAGE.md.
 	"KnowledgeOnly": "explains why a chart C row is shaped as it is; the matrix columns are what award a skill",
+
+	// Transcription that exists so the data can check itself. Each of
+	// these is read by a validator and nothing else, which is exactly the
+	// shape this gate reports — and here it is the intent.
+	"TonsPerShare": "chart S's \"one Share acquires 50 tons\"; the rate every priced row is checked against",
+	"LoanShares":   "chart S's Loan? column; loaning a ship is play, not chargen — interpretation I-84",
+	"Carried":      "marks the Lab Launch and Escort Gig, which come with a ship rather than being bought",
+	"Eligibility":  "chart M1's eligibility prose; eligibleFor keys off the row id, not the text",
+	"MusterOutM2":  "chart M2, transcribed so its disagreement with the career pages is visible — I-71",
 
 	// Deferred rules, each recorded in COVERAGE.md.
 	"Law":       "chart C's Law School column; the program is data-only (implemented: false)",
@@ -156,8 +169,27 @@ func chartPackages(t *testing.T) []string {
 	return packages
 }
 
-// productionSource concatenates every non-test Go file in the module, so a
-// field read anywhere counts as read.
+// productionSource concatenates every non-test Go file in the module with
+// the bodies of its validate* functions removed, so a field counts as read
+// only when something other than its own validator reads it.
+//
+// Dropping the validators is the whole point. "Transcribed from the page,
+// validated at load, and then read by nothing" is the bug class this file
+// exists for, so a field mentioned only inside validateX is the bug, not a
+// reader of it — and counting it as a reader let chart M2's entire
+// transcription pass unremarked.
+//
+// Dropping whole data packages instead would be wrong: chart data is
+// legitimately read by accessors that live beside it and that the rule
+// packages call — ship.Ships by Largest, lifestage.Stages by Of,
+// benefit.Kinds by For, education.College by flag. Excluding those packages
+// reports thirty-six fields, nearly all of them false.
+//
+// The remaining known imprecision is the other way: the regex matches on
+// the Go field name, so a chart field sharing a common name with a
+// character-record field (Name, Value) counts as read wherever that other
+// field is read. Matching on the JSON tag would close it and is a larger
+// change than the hole it leaves.
 func productionSource(t *testing.T) string {
 	t.Helper()
 
@@ -172,12 +204,12 @@ func productionSource(t *testing.T) string {
 			return nil
 		}
 
-		body, err := os.ReadFile(path) //nolint:gosec // G304: the module's own tree.
+		body, err := readOutsideValidators(path)
 		if err != nil {
-			return err //nolint:wrapcheck // walked back to the caller, which names the module.
+			return err
 		}
 
-		source.Write(body)
+		source.WriteString(body)
 
 		return nil
 	})
@@ -186,4 +218,39 @@ func productionSource(t *testing.T) string {
 	}
 
 	return source.String()
+}
+
+// readOutsideValidators returns a file's source with every validate*
+// function body blanked out. It parses rather than brace-matching, because
+// a brace inside a string literal or a comment would defeat the latter.
+func readOutsideValidators(path string) (string, error) {
+	body, err := os.ReadFile(path) //nolint:gosec // G304: the module's own tree.
+	if err != nil {
+		return "", fmt.Errorf("reading %s: %w", path, err)
+	}
+
+	file, err := parser.ParseFile(token.NewFileSet(), path, body, parser.SkipObjectResolution)
+	if err != nil {
+		return "", fmt.Errorf("parsing %s: %w", path, err)
+	}
+
+	kept := make([]byte, len(body))
+	copy(kept, body)
+
+	for _, decl := range file.Decls {
+		fn, ok := decl.(*ast.FuncDecl)
+		if !ok || fn.Body == nil || !strings.HasPrefix(fn.Name.Name, "validate") {
+			continue
+		}
+
+		// Blank the body in place, preserving offsets so a later decl's
+		// positions stay valid.
+		for i := fn.Body.Pos() - 1; i < fn.Body.End()-1 && int(i) < len(kept); i++ {
+			if kept[i] != '\n' {
+				kept[i] = ' '
+			}
+		}
+	}
+
+	return string(kept), nil
 }

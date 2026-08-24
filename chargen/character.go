@@ -10,6 +10,7 @@ import (
 	"github.com/philoserf/t5chargen/career"
 	"github.com/philoserf/t5chargen/dice"
 	"github.com/philoserf/t5chargen/lifestage"
+	"github.com/philoserf/t5chargen/skill"
 	"github.com/philoserf/t5chargen/world"
 )
 
@@ -543,6 +544,10 @@ func Generate(opts Options) (Character, error) {
 		return Character{}, errNoDecider
 	}
 
+	if err := checkSharedData(); err != nil {
+		return Character{}, err
+	}
+
 	roller := dice.New(opts.Seed)
 
 	var log Log
@@ -643,6 +648,28 @@ func (c *Character) finalize(log *Log) error {
 
 	c.LifeStage = stages.Of(c.Age)
 	c.Events = log.Events()
+
+	return nil
+}
+
+// checkSharedData loads the two registries that several open-selection
+// cells read through helpers with no error return, so a fault in either is
+// reported once, before any dice are rolled.
+//
+// Without this, a broken Citizen transcription surfaces at whichever cell
+// first wants Citizen Life Skills, as "not implemented until education/
+// skill milestones" — sending the reader to COVERAGE.md for a deferral that
+// does not exist instead of to the data file that is broken. The same
+// lesson is recorded for careers that will not load: "A definition that
+// will not load is a build fault, not an ineligible career".
+func checkSharedData() error {
+	if _, err := career.Citizen(); err != nil {
+		return fmt.Errorf("citizen life skills: %w", err)
+	}
+
+	if err := skill.Err(); err != nil {
+		return fmt.Errorf("master skill list: %w", err)
+	}
 
 	return nil
 }
