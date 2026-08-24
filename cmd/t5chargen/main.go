@@ -1,9 +1,10 @@
 // Command t5chargen generates Traveller5 characters. See docs/PRD.md.
 //
-// Implemented subcommands: new, render, replay. Planned: batch.
+// Implemented subcommands: new, batch, render, replay.
 package main
 
 import (
+	"bytes"
 	"crypto/rand"
 	"encoding/binary"
 	"encoding/json"
@@ -12,6 +13,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/philoserf/t5chargen/calendar"
@@ -34,6 +36,8 @@ const (
 const usage = `usage:
   t5chargen new --auto [--seed N] [--name X] [--career citizen] [--homeworld "UWP TC..."]
                 [--current-year 1105] [-o file] [--force]
+  t5chargen batch --count N --auto [--seed N] [--career citizen] [--homeworld "UWP TC..."]
+                  [--current-year 1105] [-o dir|file.jsonl] [--force]
   t5chargen render character.json [--format md] [--history]
   t5chargen replay character.json
 `
@@ -67,6 +71,8 @@ func run(args []string, seedFn func() (uint64, error), stdout, stderr io.Writer)
 	switch args[0] {
 	case "new":
 		return runNew(args[1:], seedFn, stdout, stderr)
+	case "batch":
+		return runBatch(args[1:], seedFn, stdout, stderr)
 	case "render":
 		return runRender(args[1:], stdout, stderr)
 	case "replay":
@@ -160,6 +166,195 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 	}
 
 	return emitRecord(character, *out, *force, stdout, stderr)
+}
+
+// runBatch generates a run of characters for NPC use: "batch emits JSONL
+// (or one file per character with -o dir), requires --auto, and derives
+// each member's seed from the base seed + index, recorded in each record"
+// (docs/PRD.md, CLI sketch).
+func runBatch(args []string, seedFn func() (uint64, error), stdout, stderr io.Writer) int {
+	flags := flag.NewFlagSet("batch", flag.ContinueOnError)
+	flags.SetOutput(stderr)
+	count := flags.Int("count", 0, "how many characters to generate")
+	seed := flags.Uint64("seed", 0, "base RNG seed; member i uses base+i (default: drawn from OS entropy)")
+	name := flags.String("name", "", "character name, applied to every member (blank by default)")
+	careerFlag := flags.String("career", "", "force the first career")
+	homeworldFlag := flags.String("homeworld", "",
+		`homeworld as "UWP" or "UWP TC TC..." (for example "A788899-C Ph Pa Ri"); `+
+			`skills come from the trade classifications, so a bare UWP grants none (default: Regina)`)
+	currentYear := flags.Int("current-year", calendar.DefaultYear,
+		"Imperial year adventuring begins in, which fixes the birth year (Book 1 p. 58)")
+	auto := flags.Bool("auto", false, "required: batch has no interactive mode")
+	out := flags.String("o", "", "output directory (one file per character) or .jsonl file (default: JSONL on stdout)")
+	force := flags.Bool("force", false, "overwrite existing output files")
+
+	if err := flags.Parse(args); err != nil {
+		return exitUsage
+	}
+
+	if code := checkBatchFlags(flags, *count, *auto, *currentYear, stderr); code != exitOK {
+		return code
+	}
+
+	if err := resolveSeed(flags, seed, seedFn); err != nil {
+		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
+
+		return exitError
+	}
+
+	characters, err := generateBatch(*count, *seed, chargen.Options{
+		Name:        *name,
+		Career:      canonicalCareer(*careerFlag),
+		Homeworld:   parseHomeworldFlag(*homeworldFlag),
+		CurrentYear: *currentYear,
+		Decider:     chargen.DefaultPolicy{},
+	})
+	if err != nil {
+		fmt.Fprintf(stderr, "t5chargen batch: %v\n", err)
+
+		if isUsageError(err) {
+			return exitUsage
+		}
+
+		return exitError
+	}
+
+	return emitBatch(characters, *out, *force, stdout, stderr)
+}
+
+// checkBatchFlags validates the flags batch does not share with new.
+func checkBatchFlags(flags *flag.FlagSet, count int, auto bool, currentYear int, stderr io.Writer) int {
+	if flags.NArg() != 0 {
+		fmt.Fprintf(stderr, "t5chargen batch: unexpected arguments %q (use -o for output)\n%s", flags.Args(), usage)
+
+		return exitUsage
+	}
+
+	// "batch ... requires --auto" (docs/PRD.md, CLI sketch). Unlike new,
+	// this is not a milestone deferral: a run of characters has nobody to
+	// ask, so the flag is the caller acknowledging the policy decides.
+	if !auto {
+		fmt.Fprintln(stderr, "t5chargen batch: --auto is required (a batch has nobody to ask)")
+
+		return exitUsage
+	}
+
+	if count < 1 {
+		fmt.Fprintf(stderr, "t5chargen batch: --count %d is not a number of characters\n", count)
+
+		return exitUsage
+	}
+
+	return checkCurrentYear(currentYear, stderr)
+}
+
+// generateBatch derives each member's seed from the base seed plus its
+// index, so every member is independently replayable from the record it
+// lands in — the seed it was generated from is the seed it reports.
+//
+// Nothing is written until every member has generated. A batch that fails
+// halfway is a batch that did not happen, rather than a directory holding
+// some of what was asked for.
+func generateBatch(count int, base uint64, opts chargen.Options) ([]chargen.Character, error) {
+	characters := make([]chargen.Character, 0, count)
+
+	for i := range count {
+		opts.Seed = base + uint64(i)
+
+		character, err := chargen.Generate(opts)
+		if err != nil {
+			return nil, fmt.Errorf("character %d of %d (seed %d): %w", i+1, count, opts.Seed, err)
+		}
+
+		characters = append(characters, character)
+	}
+
+	return characters, nil
+}
+
+// emitBatch writes the run as JSONL, or as one file per character when -o
+// names an existing directory. A directory is detected rather than
+// declared: the PRD spells the flag "-o dir|file.jsonl", so the path
+// itself says which was meant.
+func emitBatch(characters []chargen.Character, out string, force bool, stdout, stderr io.Writer) int {
+	if info, err := os.Stat(out); out != "" && err == nil && info.IsDir() {
+		return emitBatchFiles(characters, out, force, stderr)
+	}
+
+	var buf bytes.Buffer
+
+	for _, character := range characters {
+		// One record per line, so the stream stays greppable and a
+		// consumer can read it a character at a time.
+		line, err := json.Marshal(character)
+		if err != nil {
+			fmt.Fprintf(stderr, "t5chargen batch: encoding seed %d: %v\n", character.RNG.Seed, err)
+
+			return exitError
+		}
+
+		buf.Write(line)
+		buf.WriteByte('\n')
+	}
+
+	var err error
+	if out == "" {
+		_, err = stdout.Write(buf.Bytes())
+	} else {
+		err = writeFile(out, buf.Bytes(), force)
+	}
+
+	if err != nil {
+		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
+
+		return exitError
+	}
+
+	return exitOK
+}
+
+// emitBatchFiles writes one indented record per character, named for the
+// seed that produced it so the file says how to reproduce itself.
+//
+// Every path is checked before any is written. Writing them one at a time
+// would leave a directory holding the first half of a run that failed on
+// the tenth file — the same reason generateBatch finishes before anything
+// is emitted. The check races anything else writing the directory
+// meanwhile, which is why writeFile still refuses on its own with O_EXCL;
+// this pass is so the common case fails before it has made a mess.
+func emitBatchFiles(characters []chargen.Character, dir string, force bool, stderr io.Writer) int {
+	if !force {
+		for _, character := range characters {
+			path := batchPath(dir, character)
+			if _, err := os.Stat(path); err == nil {
+				fmt.Fprintf(stderr, "t5chargen: %s: %v\n", path, errExists)
+
+				return exitError
+			}
+		}
+	}
+
+	for _, character := range characters {
+		data, err := json.MarshalIndent(character, "", "  ")
+		if err != nil {
+			fmt.Fprintf(stderr, "t5chargen batch: encoding seed %d: %v\n", character.RNG.Seed, err)
+
+			return exitError
+		}
+
+		if err := writeFile(batchPath(dir, character), append(data, '\n'), force); err != nil {
+			fmt.Fprintf(stderr, "t5chargen: %v\n", err)
+
+			return exitError
+		}
+	}
+
+	return exitOK
+}
+
+// batchPath names a batch member's file for the seed that produced it.
+func batchPath(dir string, character chargen.Character) string {
+	return filepath.Join(dir, fmt.Sprintf("character-%d.json", character.RNG.Seed))
 }
 
 // emitRecord marshals the record and writes it to stdout or the output
