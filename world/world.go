@@ -93,8 +93,8 @@ func (h Homeworld) Validate() error {
 		if err := ValidateUWP(h.UWP); err != nil {
 			return err
 		}
-	} else if h.UWP != "" {
-		return fmt.Errorf("%w: a deep space birth carries the UWP %q", ErrInvalidUWP, h.UWP)
+	} else if err := h.validateDeepSpace(); err != nil {
+		return err
 	}
 
 	seen := make(map[string]bool, len(h.TradeClassifications))
@@ -331,3 +331,30 @@ func TradeChoices() ([]string, error) {
 
 	return t.OneTrade, nil
 }
+
+// validateDeepSpace holds the deep space mark to what chart B's cell
+// actually is. The mark exempts a homeworld from carrying a UWP, so
+// without this it is a way to skip validation by asserting it: a
+// hand-written record claiming deep space with arbitrary trade
+// classifications would pass.
+//
+// A deep space birth carries Ds and no UWP, which is what the book shows
+// twice over — chart B's cell prints exactly that, and p. 58 says such a
+// character "naturally learns the skills Zero-G and Vacc Suit", which is
+// the Ds grant. Requiring it is reading the cell, not inventing a rule.
+func (h Homeworld) validateDeepSpace() error {
+	if h.UWP != "" {
+		return fmt.Errorf("%w: a deep space birth carries the UWP %q", ErrInvalidUWP, h.UWP)
+	}
+
+	if !slices.Contains(h.TradeClassifications, deepSpaceTC) {
+		return fmt.Errorf("%w: a deep space birth without the %s trade classification",
+			ErrInvalidUWP, deepSpaceTC)
+	}
+
+	return nil
+}
+
+// deepSpaceTC is chart B's trade classification for a world that is not
+// one: "Ds Deep Space — Vacc Suit +Zero-G" (p. 56).
+const deepSpaceTC = "Ds"

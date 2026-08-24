@@ -42,7 +42,7 @@ import (
 // case the reason names where that deferral is recorded.
 var unreadOnPurpose = map[string]string{
 	// Transcription: recorded because the page prints it.
-	"Note":                "chart M1's gloss on each benefit; prose for a reader, not a rule",
+	"Note":                "chart M1's gloss on a benefit, chart B's \"Born In Deep Space\"; prose, not a rule",
 	"Instruction":         "p. 263's \"Roll four consecutive dice\"; the procedure is in Go",
 	"Printed":             "a cell's printed wording where it differs from the vocabulary — I-70 keeps both",
 	"TonsPerShareCite":    "the p. 90 sentence the tonnage invariant checks against",

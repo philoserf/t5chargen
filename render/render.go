@@ -34,8 +34,12 @@ func Sheet(c chargen.Character) string {
 
 	fmt.Fprintf(&b, "**UPP**: %s\n\n", c.UPP)
 
-	if c.Homeworld.UWP != "" {
-		fmt.Fprintf(&b, "**Homeworld**: %s\n\n", c.Homeworld.Label())
+	// Keyed off the label rather than the UWP: chart B's last cell is
+	// "Born In Deep Space" and carries none (p. 56, ERRATA I-97), and a
+	// homeworld the sheet drops is one the character still has. The zero
+	// homeworld labels empty and is still omitted.
+	if label := c.Homeworld.Label(); label != "" {
+		fmt.Fprintf(&b, "**Homeworld**: %s\n\n", label)
 	}
 
 	b.WriteString(ageLines(c))

@@ -2369,12 +2369,28 @@ FR2's guarantee conditional on nobody exercising it.
 
 So the cell says outright what it is: a homeworld carries a `deep_space`
 mark, set by the chart and by nothing else, and only a marked one may omit
-its UWP. A marked one carrying a UWP is an error too — the mark is a claim
-about the world, not a licence to skip validation.
+its UWP.
+
+The mark is then held to what the cell is, because otherwise it is a way
+to skip validation by asserting it — a record claiming deep space with any
+trade classifications at all would pass. A marked homeworld must carry no
+UWP and must carry `Ds`, which is what the book shows twice: chart B's cell
+prints exactly that pair, and p. 58 says such a character "naturally learns
+the skills Zero-G and Vacc Suit", which is the `Ds` grant. Requiring it is
+reading the cell rather than inventing a rule.
 
 The transcription is validated against the same distinction: a cell that
 names a world must carry a UWP, and the cell that names none must not
 pretend to.
+
+The prose counts the same chance differently: "A very few characters are
+born offworld (roll 2 on 2D)" (p. 58). Two dice summing to 2 is one
+outcome in thirty-six, which is exactly what the chart's single deep space
+cell is worth, so the page agrees with itself on how often and not on
+where — read as a sum, deep space would sit at 1 1, where the chart prints
+Alell. The chart governs: "Select or determine a Homeworld" (p. 56) reads
+it as D1 then D2, not as a total, and the prose is taken as the statement
+of frequency it reads like.
 
 Implemented at `world/homeworlds.go` (`ChartBWorld.validate`,
 `ChartBWorld.Homeworld`) and `world/world.go` (`Homeworld.Validate`),

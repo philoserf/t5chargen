@@ -95,10 +95,21 @@ func TestDeepSpaceHasNoUWP(t *testing.T) {
 		}
 	}
 
-	// And the mark is a claim about the world, not a licence: a marked
-	// homeworld carrying a UWP is an error too.
-	marked := world.Homeworld{Name: "Space", UWP: "A788899-C", DeepSpace: true, TradeClassifications: []string{"Ds"}}
-	if err := marked.Validate(); err == nil {
-		t.Error("a deep space birth with a UWP validated")
+	// And the mark is a claim about the world, not a licence to skip
+	// validation by asserting it. A marked homeworld must be what chart
+	// B's cell is: no UWP, and the Ds trade classification that carries
+	// the Zero-G and Vacc Suit p. 58 says such a character learns.
+	for name, bad := range map[string]world.Homeworld{
+		"carrying a UWP": {
+			Name: "Space", UWP: "A788899-C", DeepSpace: true, TradeClassifications: []string{"Ds"},
+		},
+		"without Ds": {
+			Name: "Space", DeepSpace: true, TradeClassifications: []string{"In"},
+		},
+		"with no trade classifications": {Name: "Space", DeepSpace: true},
+	} {
+		if err := bad.Validate(); err == nil {
+			t.Errorf("a deep space birth %s validated", name)
+		}
 	}
 }

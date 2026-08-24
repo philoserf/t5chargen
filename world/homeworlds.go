@@ -10,6 +10,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"slices"
 	"sync"
 )
 
@@ -20,9 +21,16 @@ var homeworldsJSON []byte
 // are empty for the one cell that names no world, which marks itself
 // (interpretation I-97).
 type ChartBWorld struct {
-	D1   int    `json:"d1"`
-	D2   int    `json:"d2"`
+	D1 int `json:"d1"`
+	D2 int `json:"d2"`
+
+	// Code is the chart's own one-character row code, "A" through "0".
+	// Transcription: the page prints a Code column, and no rule reads it.
+	// docs/deaddata_test.go cannot excuse it — the gate matches by field
+	// name and Award.Code is read in production, so this field passes the
+	// gate for the wrong reason and is documented here instead.
 	Code string `json:"code"`
+
 	Name string `json:"name"`
 
 	Hex    string `json:"hex,omitempty"`
@@ -101,7 +109,9 @@ func (t *chartBTable) validate() error {
 const diceFaces = 6
 
 // ChartB returns the world list in chart order. The returned slice is
-// fresh per call.
+// fresh per call, trade classifications included: the parsed table is a
+// process-wide singleton, so handing out its own slices would let one
+// caller's mutation reach every later lookup.
 func ChartB() ([]ChartBWorld, error) {
 	t, err := chartB()
 	if err != nil {
@@ -109,7 +119,11 @@ func ChartB() ([]ChartBWorld, error) {
 	}
 
 	worlds := make([]ChartBWorld, len(t.Worlds))
-	copy(worlds, t.Worlds)
+
+	for i, w := range t.Worlds {
+		w.TradeClassifications = slices.Clone(w.TradeClassifications)
+		worlds[i] = w
+	}
 
 	return worlds, nil
 }
