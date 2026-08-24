@@ -61,21 +61,27 @@ func Default() (Homeworld, error) {
 
 // Label renders the homeworld for display and choice events: the name (when
 // there is one), the UWP, and the trade classifications.
+// Assembled from the parts that are present rather than by appending to
+// whatever came before: chart B's deep space cell carries no UWP (I-97),
+// and a homeworld with no name either would otherwise open its label with
+// the separator space — which lands in the character sheet and in the
+// permanent choice event.
 func (h Homeworld) Label() string {
-	label := h.UWP
+	var parts []string
 
-	switch {
-	case h.Name != "" && h.UWP != "":
-		label = h.Name + " " + h.UWP
-	case h.Name != "":
-		label = h.Name
+	if h.Name != "" {
+		parts = append(parts, h.Name)
+	}
+
+	if h.UWP != "" {
+		parts = append(parts, h.UWP)
 	}
 
 	if len(h.TradeClassifications) > 0 {
-		label += " (" + strings.Join(h.TradeClassifications, " ") + ")"
+		parts = append(parts, "("+strings.Join(h.TradeClassifications, " ")+")")
 	}
 
-	return label
+	return strings.Join(parts, " ")
 }
 
 // Validate checks a homeworld is well-formed: a valid UWP and known,

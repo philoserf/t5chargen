@@ -148,3 +148,38 @@ func TestDefault(t *testing.T) {
 		t.Errorf("Label() = %q, want %q", got, want)
 	}
 }
+
+// TestLabelJoinsOnlyThePartsThatArePresent verifies the label never opens
+// with a separator space. A deep space birth carries no UWP (p. 56,
+// interpretation I-97) and need not carry a name either, and the label
+// reaches both the character sheet and the permanent choice event.
+func TestLabelJoinsOnlyThePartsThatArePresent(t *testing.T) {
+	for _, tc := range []struct {
+		name string
+		h    world.Homeworld
+		want string
+	}{
+		{name: "empty", h: world.Homeworld{}, want: ""},
+		{name: "bare UWP", h: world.Homeworld{UWP: "C200423-7"}, want: "C200423-7"},
+		{
+			name: "UWP and TCs",
+			h:    world.Homeworld{UWP: "C200423-7", TradeClassifications: []string{"Va", "Ni"}},
+			want: "C200423-7 (Va Ni)",
+		},
+		{name: "name only", h: world.Homeworld{Name: "Space"}, want: "Space"},
+		{
+			name: "deep space",
+			h:    world.Homeworld{Name: "Space", DeepSpace: true, TradeClassifications: []string{"Ds"}},
+			want: "Space (Ds)",
+		},
+		{
+			name: "deep space without a name",
+			h:    world.Homeworld{DeepSpace: true, TradeClassifications: []string{"Ds"}},
+			want: "(Ds)",
+		},
+	} {
+		if got := tc.h.Label(); got != tc.want {
+			t.Errorf("%s: Label() = %q, want %q", tc.name, got, tc.want)
+		}
+	}
+}

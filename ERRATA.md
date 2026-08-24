@@ -2392,8 +2392,14 @@ Alell. The chart governs: "Select or determine a Homeworld" (p. 56) reads
 it as D1 then D2, not as a total, and the prose is taken as the statement
 of frequency it reads like.
 
+The mark also counts as a supplied homeworld. FR2's default substitution
+fires only for the all-zero struct, so a homeworld carrying nothing but the
+mark is a partial deep space birth and is rejected rather than quietly
+turned into Regina.
+
 Implemented at `world/homeworlds.go` (`ChartBWorld.validate`,
-`ChartBWorld.Homeworld`) and `world/world.go` (`Homeworld.Validate`),
-pinned by `TestDeepSpaceHasNoUWP`, `TestDeepSpaceBirthGrantsItsSkills` and
-the partial-homeworld case of `TestHomeworldErrors`, which is what caught
-the first reading.
+`ChartBWorld.Homeworld`), `world/world.go` (`Homeworld.Validate`) and
+`chargen/homeworld.go` (`homeworldOrDefault`), pinned by
+`TestDeepSpaceHasNoUWP`, `TestDeepSpaceBirthGrantsItsSkills` and the
+partial-homeworld cases of `TestHomeworldErrors`, which is what caught the
+first reading.

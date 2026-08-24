@@ -105,6 +105,18 @@ func TestHomeworldErrors(t *testing.T) {
 	if !errors.Is(err, world.ErrInvalidUWP) {
 		t.Errorf("partial homeworld error = %v, want ErrInvalidUWP", err)
 	}
+
+	// A deep space mark and nothing else is a partial deep space birth,
+	// not "no homeworld supplied": it must be rejected rather than turned
+	// into the default (docs/PRD.md FR2; p. 56, interpretation I-97).
+	_, err = chargen.Generate(chargen.Options{
+		Seed:      1,
+		Decider:   chargen.DefaultPolicy{},
+		Homeworld: world.Homeworld{DeepSpace: true},
+	})
+	if !errors.Is(err, world.ErrInvalidUWP) {
+		t.Errorf("bare deep space mark error = %v, want ErrInvalidUWP", err)
+	}
 }
 
 // TestHomeworldStreamNeutral verifies the homeworld step consumes no dice:

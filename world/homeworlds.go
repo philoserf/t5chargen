@@ -159,23 +159,14 @@ func (w ChartBWorld) validate() error {
 		return fmt.Errorf("%w: cell %d %d names no world or no trade classifications", errBadWorldList, w.D1, w.D2)
 	}
 
-	// A cell that names a world must carry its UWP; the one that names
-	// none must not pretend to (I-97).
-	if (w.UWP == "") != w.DeepSpace {
-		return fmt.Errorf("%w: %q has UWP %q and deep_space %v, which disagree",
-			errBadWorldList, w.Name, w.UWP, w.DeepSpace)
-	}
-
-	if w.UWP != "" {
-		if err := ValidateUWP(w.UWP); err != nil {
-			return fmt.Errorf("%w: %q: %w", errBadWorldList, w.Name, err)
-		}
-	}
-
-	for _, tc := range w.TradeClassifications {
-		if _, err := GrantFor(tc); err != nil {
-			return fmt.Errorf("%w: %q: %w", errBadWorldList, w.Name, err)
-		}
+	// The rest is what the engine holds any homeworld to, so the cell is
+	// checked against that rule rather than against a second copy of it:
+	// a valid UWP, known and unrepeated trade classifications, and the
+	// deep space cell carrying no UWP and the Ds that grants its skills
+	// (I-97). Read at load time so a bad transcription fails here rather
+	// than at whichever generation happens to roll the cell.
+	if err := w.Homeworld().Validate(); err != nil {
+		return fmt.Errorf("%w: cell %d %d (%q): %w", errBadWorldList, w.D1, w.D2, w.Name, err)
 	}
 
 	return nil

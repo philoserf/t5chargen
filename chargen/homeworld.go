@@ -158,8 +158,14 @@ func awardSkillAndLog(name string, levels, cause int, log *Log, character *Chara
 // all-zero struct. A partially-populated homeworld (TCs or a name without
 // a UWP) falls through to validation and is rejected, never silently
 // repaired (FR2).
+//
+// The deep space mark counts as populated: it is a claim about the world
+// (p. 56, interpretation I-97), so a homeworld carrying nothing but the
+// mark is a partial deep space birth and is rejected by validateDeepSpace,
+// not quietly turned into Regina.
 func homeworldOrDefault(homeworld world.Homeworld) (world.Homeworld, error) {
-	if homeworld.UWP == "" && homeworld.Name == "" && len(homeworld.TradeClassifications) == 0 {
+	if homeworld.UWP == "" && homeworld.Name == "" &&
+		len(homeworld.TradeClassifications) == 0 && !homeworld.DeepSpace {
 		d, err := world.Default()
 		if err != nil {
 			return world.Homeworld{}, fmt.Errorf("homeworld: %w", err)
