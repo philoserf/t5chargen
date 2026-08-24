@@ -647,7 +647,7 @@ func TestAbandonedSessionWritesNothing(t *testing.T) {
 
 	// Two answers and then the player leaves, so the session gets under
 	// way before it is abandoned.
-	script := strings.NewReader("1\n1\nq\n")
+	script := strings.NewReader("1\n1\nq\ny\n")
 	if code := run([]string{"new", "--seed", "1", "-o", record}, noSeed(t), script, &stdout, &stderr); code != exitError {
 		t.Fatalf("abandoned session: exit %d, want %d", code, exitError)
 	}

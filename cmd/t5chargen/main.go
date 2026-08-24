@@ -35,8 +35,9 @@ const (
 )
 
 const usage = `usage:
-  t5chargen new --auto [--seed N] [--name X] [--career citizen] [--homeworld "UWP TC..."|random]
+  t5chargen new [--auto] [--seed N] [--name X] [--career citizen] [--homeworld "UWP TC..."|random]
                 [--current-year 1105] [-o file] [--force]
+                (without --auto the player answers each choice; --auto applies POLICY.md)
   t5chargen batch --count N --auto [--seed N] [--name X] [--career citizen]
                   [--homeworld "UWP TC..."|random] [--current-year 1105] [-o dir/|file.jsonl] [--force]
   t5chargen render [--format md] [--history] character.json

@@ -64,6 +64,33 @@ func TestRejectsAnswersOutsideTheList(t *testing.T) {
 	}
 }
 
+// TestASignedAnswerIsNotAnIndex verifies the benefit DM menu, whose
+// options are printed "+0", "+1", "+2". A player copying the option he
+// wants must not silently get the one above it: strconv.Atoi reads "+2"
+// as 2, which is the third option's index only by accident. A signed
+// answer is a search term, and the search shows the option under its own
+// number.
+func TestASignedAnswerIsNotAnIndex(t *testing.T) {
+	dm := chargen.Choice{
+		ID:      chargen.ChooseBenefitDM,
+		Prompt:  "How much of the DM to apply?",
+		Options: []string{"+0", "+1", "+2", "+3"},
+	}
+
+	index, out, err := ask(t, "+2\n3\n", dm)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if index != 2 {
+		t.Errorf("chose index %d, want 2 — %q was read as an option number", index, "+2")
+	}
+
+	if !strings.Contains(out, "3  +2") {
+		t.Errorf("the searched option was not listed under its own number:\n%s", out)
+	}
+}
+
 // TestSingleOptionIsNotAQuestion verifies a choice with one option is
 // answered without asking. The engine presents some choices that way as a
 // seam rather than a decision — an assigned homeworld is the standing
@@ -149,9 +176,10 @@ func TestLongListsAreNotDumped(t *testing.T) {
 // wrongly rather than one that stopped replying.
 func TestAbandonment(t *testing.T) {
 	for name, script := range map[string]string{
-		"input ends": "",
-		"quit":       "q\n",
-		"quit upper": "Q\n",
+		"input ends":           "",
+		"quit confirmed":       "q\ny\n",
+		"quit confirmed upper": "Q\nY\n",
+		"quit then input ends": "q\n",
 	} {
 		_, _, err := ask(t, script, threeWay)
 		if !errors.Is(err, interactive.ErrAbandoned) {
@@ -167,7 +195,7 @@ func TestAbandonment(t *testing.T) {
 func TestAbandonmentReachesTheEngine(t *testing.T) {
 	_, err := chargen.Generate(chargen.Options{
 		Seed:    1,
-		Decider: interactive.New(strings.NewReader("q\n"), &strings.Builder{}),
+		Decider: interactive.New(strings.NewReader("q\ny\n"), &strings.Builder{}),
 	})
 
 	if !errors.Is(err, interactive.ErrAbandoned) {
@@ -264,5 +292,55 @@ func TestScoresAreShownOnlyWhenNamed(t *testing.T) {
 
 	if strings.Contains(out, "[") {
 		t.Errorf("an unnamed score was shown as a bare number:\n%s", out)
+	}
+}
+
+// TestQuitIsConfirmed verifies a mistyped abandon does not throw the
+// session away. The prompt invites text to search, single letters are a
+// natural way to search a hundred entries, and abandoning leaves no output
+// file at all — so it asks first, and anything but confirmation carries on.
+func TestQuitIsConfirmed(t *testing.T) {
+	index, out, err := ask(t, "q\nn\n2\n", threeWay)
+	if err != nil {
+		t.Fatalf("a declined abandon ended the session: %v", err)
+	}
+
+	if index != 1 {
+		t.Errorf("chose index %d, want the 2 typed after declining to abandon", index)
+	}
+
+	if !strings.Contains(out, "Abandon?") {
+		t.Errorf("no confirmation was asked:\n%s", out)
+	}
+}
+
+// TestSignedAnswersAreNotOptionNumbers verifies an answer is read as an
+// option number only when it is one.
+//
+// The muster-out DM menu prints its options as "+0 +1 +2 +3". A player
+// copying the one he wants types "+2" — and strconv.Atoi accepts a leading
+// sign, so that used to select index 2, the *third* option, handing him +1
+// and recording it as his own choice with no error. A wrong answer
+// attributed to the player is worse than a rejected one.
+func TestSignedAnswersAreNotOptionNumbers(t *testing.T) {
+	dm := chargen.Choice{
+		ID:      chargen.ChooseBenefitDM,
+		Prompt:  "How much of the DM to apply?",
+		Options: []string{"+0", "+1", "+2", "+3"},
+	}
+
+	index, out, err := ask(t, "+2\n3\n", dm)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if index != 2 {
+		t.Errorf("chose index %d (%q), want the 3 typed after the search", index, dm.Options[index])
+	}
+
+	// "+2" is a search, and it matches its own option, listed under its
+	// own number so the player can see which one it is.
+	if !strings.Contains(out, "  3  +2") {
+		t.Errorf("the signed answer was not shown as a search hit:\n%s", out)
 	}
 }

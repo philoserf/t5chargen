@@ -516,7 +516,11 @@ func (r *careerRun) chooseCC() (string, error) {
 		Prompt:  "Select the term's controlling characteristic",
 		Options: slices.Clone(r.availableCCs),
 		Scores:  scores,
-		Cite:    "Book 1 p. 65 (Risk and Reward: Select the CC)",
+		// The one score that needs no gloss: each option is a
+		// characteristic and its score is that characteristic's current
+		// value, which is what a player choosing a CC is reaching for.
+		ScoreLabel: "now",
+		Cite:       "Book 1 p. 65 (Risk and Reward: Select the CC)",
 	})
 	if err != nil {
 		return "", err

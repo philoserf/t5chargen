@@ -34,8 +34,9 @@ const pageSize = 12
 
 // The single-character answers that are not option numbers.
 const (
-	quitAnswer = "q"
-	listAnswer = "?"
+	quitAnswer    = "q"
+	listAnswer    = "?"
+	confirmAnswer = "y"
 )
 
 // Decider asks a person to resolve each choice point.
@@ -75,19 +76,59 @@ func (d *Decider) Choose(c chargen.Choice) (int, error) {
 			return 0, err
 		}
 
-		switch {
-		case answer == "" || answer == listAnswer:
-			d.present(c, "")
-		case strings.EqualFold(answer, quitAnswer):
-			return 0, fmt.Errorf("%w at %q", ErrAbandoned, c.ID)
-		default:
-			if index, ok := parseIndex(answer, len(c.Options)); ok {
-				return index, nil
-			}
-
-			d.filter(c, answer)
+		index, done, err := d.resolve(c, answer)
+		if done || err != nil {
+			return index, err
 		}
 	}
+}
+
+// resolve acts on one answer, reporting the index where the answer chose
+// one and whether the choice is settled.
+func (d *Decider) resolve(c chargen.Choice, answer string) (int, bool, error) {
+	switch {
+	case answer == "" || answer == listAnswer:
+		d.present(c, "")
+	case strings.EqualFold(answer, quitAnswer):
+		abandoned, err := d.confirmAbandon(c)
+		if err != nil || abandoned {
+			return 0, true, err
+		}
+
+		d.present(c, "")
+	default:
+		if index, ok := parseIndex(answer, len(c.Options)); ok {
+			return index, true, nil
+		}
+
+		d.filter(c, answer)
+	}
+
+	return 0, false, nil
+}
+
+// confirmAbandon asks before throwing the session away.
+//
+// The prompt invites typing text to search, single letters are a natural
+// way to search a list of a hundred, and abandoning is irreversible: the
+// PRD requires an interrupted session to leave no output file, so a
+// mistyped "q" would silently discard a whole lifepath. The confirmation
+// costs a keystroke and is the difference between a typo and a loss.
+//
+// The end of input still abandons at once. There is nobody left to ask.
+func (d *Decider) confirmAbandon(c chargen.Choice) (bool, error) {
+	fmt.Fprintf(d.out, "  Abandon? Everything generated so far is lost. (%s to confirm)\n", confirmAnswer)
+
+	answer, err := d.read()
+	if err != nil {
+		return false, err
+	}
+
+	if !strings.EqualFold(answer, confirmAnswer) {
+		return false, nil
+	}
+
+	return true, fmt.Errorf("%w at %q", ErrAbandoned, c.ID)
 }
 
 // read takes one line of input, treating the end of it as abandonment: a
@@ -107,8 +148,17 @@ func (d *Decider) read() (string, error) {
 	return strings.TrimSpace(d.in.Text()), nil
 }
 
-// parseIndex reads an answer as a 1-based option number.
+// parseIndex reads an answer as a 1-based option number. Only bare digits
+// count: strconv.Atoi would read "+2" as 2, and the benefit DM menu lists
+// its options as "+0", "+1", "+2", so a player copying the option he wants
+// would silently select the one above it. A signed answer falls through to
+// the filter instead, which matches it against the option text and shows
+// it under its own number.
 func parseIndex(answer string, options int) (int, bool) {
+	if answer == "" || strings.TrimLeft(answer, "0123456789") != "" {
+		return 0, false
+	}
+
 	n, err := strconv.Atoi(answer)
 	if err != nil || n < 1 || n > options {
 		return 0, false
