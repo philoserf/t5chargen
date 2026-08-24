@@ -53,9 +53,20 @@ career entry itself (a To Begin outcome, milestone 3) are career receipts:
 the baseline is captured before the begin seam runs, so they demote a
 later determination.
 
+Scope (extended 2026-08-23, with Later Education): levels earned at school
+during a suspended term (p. 59, I-90) are education, not career receipts —
+for the same reason homeworld grants are not, and with more force, since a
+suspended term is not career resolution at all. The career-entry baseline
+is raised by whatever the schooling awarded, so a mid-career Apprenticeship
+in the skill a later Job or Hobby determination happens to land on does not
+demote that determination to Skill-1. Raised rather than reset: a genuine
+career receipt of the same skill in an earlier term still demotes.
+
 Implemented at `chargen/careerrun.go` (`careerRun.firstReceiptLevels`,
 against the career-entry baseline `entryLevels`; career-generic since the
-runner extraction, applying to every registered career).
+runner extraction, applying to every registered career) and
+`chargen/latereducation.go` (`creditSchooling`), pinned by
+`TestLaterEducationIsNotACareerReceipt`.
 
 ### I-3: Hobby selection excludes the determined Job (p. 78)
 
@@ -2031,3 +2042,102 @@ naming sequence zero refers to no event at all, and
 
 Implemented at `chargen/rogue.go` (`prisonTerm`), `chargen/craftsman.go`
 (`attempt`) and `chargen/careerrun.go` (`awardNewTrade`).
+
+### I-88: A suspended term costs the term's four years, not the program's duration (p. 59)
+
+"At the beginning of any term, the character may apply for any Educational
+Institution or Training, and if accepted substitutes that process for the
+entire term" (p. 59).
+
+The two readings differ whenever the program is shorter than a term. Trade
+School is one Pass/Fail year; a term is four. Read as the program's
+duration, a character could take Trade School for one year and serve the
+remaining three, getting the schooling almost free. Read as the term, the
+whole four-year slot is given over.
+
+The term is the object the sentence replaces — "substitutes that process
+**for the entire term**" — so the term is what is spent. A one-year Trade
+School costs four years, and a College that fails its Pass/Fail in the
+second year is not refunded the other two: the term was given over, not
+rented by the year.
+
+The process charges its own years as it goes, exactly as it does before a
+career, and what remains of the term is charged against the choice that
+spent it. Nothing is charged twice.
+
+Implemented at `chargen/latereducation.go` (`attendMidCareer`), pinned by
+`TestLaterEducationSubstitutesTheTerm` on Trade School, where the two
+readings differ by three years.
+
+### I-89: A refused applicant serves the term, having already lost a year to the refusal (p. 59)
+
+Substitution is conditional: "and **if accepted** substitutes that process
+for the entire term" (p. 59). A character who applies and is refused has not
+been accepted, so nothing is substituted and the term is served.
+
+He is still out the year the application cost: "A failure disallows
+admission and consumes one year" (p. 59). That sentence is about the
+application, not about the term, so the two compose — the cycle costs five
+years, one for the refusal and four for the term he then serves.
+
+That is harsh, and it is what the two sentences say. The alternative, losing
+the term to a school that never admitted him, is worse and has no textual
+support at all: the term is substituted only on acceptance.
+
+It also matters mechanically, and more than the text alone suggests. A
+refused application means a term is served, which means a Continue throw is
+made — so a character who applies every term is not thereby immune to his
+career ending, which is half of why the lifepath terminates (see I-90).
+
+The other reading does not merely mispay the years: it hangs. Mutating the
+engine so a refusal suspends the term anyway makes generation loop forever
+on a decider that always applies. Apprenticeship has no prerequisite and
+takes no time (chart C Duration), so a refused Apprenticeship under that
+reading would cost nothing and consume the term, and nothing would ever
+advance the clock toward the aging that has to end the lifepath. The
+printed reading is also the terminating one.
+
+Implemented at `chargen/latereducation.go` (`attendMidCareer`, the
+unadmitted return), pinned by `TestLaterEducationTerminates`.
+
+### I-90: Suspending a term suspends the Continue throw with the rest of resolution (p. 59)
+
+"Characters may **suspend career resolution** to return to school or
+training" (p. 59). The Continue throw is part of career resolution, so a
+suspended term throws no Continue, just as it runs no Risk/Reward and awards
+no career skills.
+
+The consequence is worth stating plainly: a character at school cannot have
+his career end that term. The rule hands the player a way to sit out a term
+he would rather not throw for, and that is a real effect of the printed
+sentence rather than an oversight in reading it.
+
+A suspended term is also not a term served. No TermRecord is appended, so it
+counts toward neither the muster-out benefit rolls nor the pensions, both of
+which count terms (`len(record.Terms)`). A character is not paid for service
+he spent at school.
+
+The lifepath still terminates, but only because the engine reads death at
+the right place, and this entry first claimed otherwise. The years pass
+whether they are spent serving or studying, so aging arrives on schedule and
+kills (chart A p. 89); and an application may be refused, which serves the
+term and throws its Continue after all (I-89). Both were true as written.
+What was missing was the check: a character who died at school was never
+noticed, and since aging stops checking once Dead is set, a lifepath that
+outlived its own death could not end at all. Seed 111 hung. The sweep that
+was said to pin the claim ran over five seeds and did not reach it — five
+seeds is an anecdote, not a sweep, and `TestLaterEducationTerminates` now
+runs 150.
+
+That death has to be read where the term loop resumes, and not only where a
+term was served. Aging kills at school as readily as in service, and the
+refused applicant's lost year passes too, so the loop checks once the offer
+is resolved, whichever way it went: a corpse is not offered school again,
+and does not serve the term he applied out of. The check is load-bearing
+rather than tidy — once a character is dead, aging stops checking, so a
+loop that survives the death has nothing left that can ever end it.
+
+Implemented at `chargen/careerrun.go` (`term`) and
+`chargen/latereducation.go`, pinned by `TestLaterEducationSuspendsResolution`,
+`TestLaterEducationIsNotATermServed` and
+`TestLaterEducationDeathEndsTheLifepath`.

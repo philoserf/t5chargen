@@ -192,12 +192,16 @@ func (DefaultPolicy) decide(c Choice) int {
 		// multiplies a payoff the Reward roll may never earn, while the
 		// row itself changes nothing about the odds.
 		return 0
-	case ChooseCareerChange:
-		// POLICY.md: decline. The change is offered before the Continue
-		// throw is known, so it trades a career in hand for a To Begin
-		// that may fail and end resolution outright (p. 66, p. 65), and
-		// aging now bounds the mandatory-continue tail the change exists
-		// to avoid.
+	case ChooseCareerChange, ChooseLaterEducation:
+		// POLICY.md: decline both (index 0), for the same reason in two
+		// shapes — the term or career in hand is worth more than what is
+		// offered for it. A career change is offered before the Continue
+		// throw is known, so it trades a career for a To Begin that may
+		// fail and end resolution outright (p. 66, p. 65). Later
+		// Education trades a term of career for a term of school the
+		// policy cannot value, and the offer recurs every term, so a
+		// policy that accepted would school every character until aging
+		// killed him (p. 59).
 		return 0
 	case ChooseHobby, ChooseHomeworld, ChooseArt, ChooseTrade,
 		ChooseService, ChooseMajor, ChooseMinor, ChooseSkill,

@@ -584,6 +584,24 @@
     },
     {
       "seq": 29,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Citizen",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 30,
       "kind": "step",
       "step": {
         "name": "Citizen: Term 1",
@@ -591,7 +609,7 @@
       }
     },
     {
-      "seq": 30,
+      "seq": 31,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -607,7 +625,7 @@
       }
     },
     {
-      "seq": 31,
+      "seq": 32,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -622,7 +640,7 @@
       }
     },
     {
-      "seq": 32,
+      "seq": 33,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -630,18 +648,6 @@
           2
         ],
         "total": 2,
-        "cite": "Book 1 p. 78 chart 04 table E (roll A reroll if \u003e3, then B, then C)"
-      }
-    },
-    {
-      "seq": 33,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
         "cite": "Book 1 p. 78 chart 04 table E (roll A reroll if \u003e3, then B, then C)"
       }
     },
@@ -659,18 +665,30 @@
     },
     {
       "seq": 35,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 34,
-        "kind": "job_set",
-        "skill": "Electronics"
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 78 chart 04 table E (roll A reroll if \u003e3, then B, then C)"
       }
     },
     {
       "seq": 36,
       "kind": "consequence",
       "consequence": {
-        "cause": 34,
+        "cause": 35,
+        "kind": "job_set",
+        "skill": "Electronics"
+      }
+    },
+    {
+      "seq": 37,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 35,
         "kind": "skill_awarded",
         "skill": "Electronics",
         "delta": 4,
@@ -678,7 +696,7 @@
       }
     },
     {
-      "seq": 37,
+      "seq": 38,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -697,7 +715,7 @@
       }
     },
     {
-      "seq": 38,
+      "seq": 39,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -709,7 +727,7 @@
       }
     },
     {
-      "seq": 39,
+      "seq": 40,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -731,10 +749,10 @@
       }
     },
     {
-      "seq": 40,
+      "seq": 41,
       "kind": "consequence",
       "consequence": {
-        "cause": 39,
+        "cause": 40,
         "kind": "skill_awarded",
         "skill": "Craftsman",
         "delta": 1,
@@ -742,7 +760,7 @@
       }
     },
     {
-      "seq": 41,
+      "seq": 42,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -761,7 +779,7 @@
       }
     },
     {
-      "seq": 42,
+      "seq": 43,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -773,15 +791,15 @@
       }
     },
     {
-      "seq": 43,
+      "seq": 44,
       "kind": "consequence",
       "consequence": {
-        "cause": 42,
+        "cause": 43,
         "kind": "benefit_lost"
       }
     },
     {
-      "seq": 44,
+      "seq": 45,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -800,7 +818,7 @@
       }
     },
     {
-      "seq": 45,
+      "seq": 46,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -812,7 +830,7 @@
       }
     },
     {
-      "seq": 46,
+      "seq": 47,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -834,10 +852,10 @@
       }
     },
     {
-      "seq": 47,
+      "seq": 48,
       "kind": "consequence",
       "consequence": {
-        "cause": 46,
+        "cause": 47,
         "kind": "skill_awarded",
         "skill": "Craftsman",
         "delta": 1,
@@ -845,7 +863,7 @@
       }
     },
     {
-      "seq": 48,
+      "seq": 49,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -864,7 +882,7 @@
       }
     },
     {
-      "seq": 49,
+      "seq": 50,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -876,7 +894,7 @@
       }
     },
     {
-      "seq": 50,
+      "seq": 51,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -898,10 +916,10 @@
       }
     },
     {
-      "seq": 51,
+      "seq": 52,
       "kind": "consequence",
       "consequence": {
-        "cause": 50,
+        "cause": 51,
         "kind": "skill_awarded",
         "skill": "Craftsman",
         "delta": 1,
@@ -909,7 +927,7 @@
       }
     },
     {
-      "seq": 52,
+      "seq": 53,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -923,7 +941,7 @@
       }
     },
     {
-      "seq": 53,
+      "seq": 54,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -938,16 +956,34 @@
       }
     },
     {
-      "seq": 54,
+      "seq": 55,
       "kind": "consequence",
       "consequence": {
-        "cause": 53,
+        "cause": 54,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 55,
+      "seq": 56,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Citizen",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 57,
       "kind": "step",
       "step": {
         "name": "Citizen: Term 2",
@@ -955,7 +991,7 @@
       }
     },
     {
-      "seq": 56,
+      "seq": 58,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -970,7 +1006,7 @@
       }
     },
     {
-      "seq": 57,
+      "seq": 59,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -985,15 +1021,15 @@
       }
     },
     {
-      "seq": 58,
+      "seq": 60,
       "kind": "consequence",
       "consequence": {
-        "cause": 57,
+        "cause": 59,
         "kind": "no_award"
       }
     },
     {
-      "seq": 59,
+      "seq": 61,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -1012,7 +1048,7 @@
       }
     },
     {
-      "seq": 60,
+      "seq": 62,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1024,15 +1060,15 @@
       }
     },
     {
-      "seq": 61,
+      "seq": 63,
       "kind": "consequence",
       "consequence": {
-        "cause": 60,
+        "cause": 62,
         "kind": "benefit_lost"
       }
     },
     {
-      "seq": 62,
+      "seq": 64,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -1051,7 +1087,7 @@
       }
     },
     {
-      "seq": 63,
+      "seq": 65,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1063,54 +1099,15 @@
       }
     },
     {
-      "seq": 64,
+      "seq": 66,
       "kind": "consequence",
       "consequence": {
-        "cause": 63,
+        "cause": 65,
         "kind": "benefit_lost"
-      }
-    },
-    {
-      "seq": 65,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 66,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 78 chart 04 table C, column Academic"
       }
     },
     {
       "seq": 67,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 66,
-        "kind": "benefit_lost"
-      }
-    },
-    {
-      "seq": 68,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -1129,7 +1126,7 @@
       }
     },
     {
-      "seq": 69,
+      "seq": 68,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1141,15 +1138,54 @@
       }
     },
     {
-      "seq": 70,
+      "seq": 69,
       "kind": "consequence",
       "consequence": {
-        "cause": 69,
+        "cause": 68,
         "kind": "benefit_lost"
       }
     },
     {
+      "seq": 70,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Select a Citizen Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
       "seq": 71,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 78 chart 04 table C, column Academic"
+      }
+    },
+    {
+      "seq": 72,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 71,
+        "kind": "benefit_lost"
+      }
+    },
+    {
+      "seq": 73,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -1163,7 +1199,7 @@
       }
     },
     {
-      "seq": 72,
+      "seq": 74,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1178,16 +1214,34 @@
       }
     },
     {
-      "seq": 73,
+      "seq": 75,
       "kind": "consequence",
       "consequence": {
-        "cause": 72,
+        "cause": 74,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 74,
+      "seq": 76,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Citizen",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 77,
       "kind": "step",
       "step": {
         "name": "Citizen: Term 3",
@@ -1195,7 +1249,7 @@
       }
     },
     {
-      "seq": 75,
+      "seq": 78,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -1209,7 +1263,7 @@
       }
     },
     {
-      "seq": 76,
+      "seq": 79,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1224,7 +1278,7 @@
       }
     },
     {
-      "seq": 77,
+      "seq": 80,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -1339,62 +1393,23 @@
       }
     },
     {
-      "seq": 78,
+      "seq": 81,
       "kind": "consequence",
       "consequence": {
-        "cause": 77,
+        "cause": 80,
         "kind": "hobby_set",
         "skill": "ACV"
-      }
-    },
-    {
-      "seq": 79,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 77,
-        "kind": "skill_awarded",
-        "skill": "ACV",
-        "delta": 2,
-        "value": 2
-      }
-    },
-    {
-      "seq": 80,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Select a Citizen Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 81,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 78 chart 04 table C, column Academic"
       }
     },
     {
       "seq": 82,
       "kind": "consequence",
       "consequence": {
-        "cause": 81,
-        "kind": "benefit_lost"
+        "cause": 80,
+        "kind": "skill_awarded",
+        "skill": "ACV",
+        "delta": 2,
+        "value": 2
       }
     },
     {
@@ -1422,9 +1437,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          3
+          2
         ],
-        "total": 3,
+        "total": 2,
         "cite": "Book 1 p. 78 chart 04 table C, column Academic"
       }
     },
@@ -1461,9 +1476,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          1
+          3
         ],
-        "total": 1,
+        "total": 3,
         "cite": "Book 1 p. 78 chart 04 table C, column Academic"
       }
     },
@@ -1500,9 +1515,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          4
+          1
         ],
-        "total": 4,
+        "total": 1,
         "cite": "Book 1 p. 78 chart 04 table C, column Academic"
       }
     },
@@ -1516,88 +1531,6 @@
     },
     {
       "seq": 92,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Leave Citizen for another career?",
-        "options": [
-          "Continue in Citizen",
-          "Change careers"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 66 (Changing Careers)"
-      }
-    },
-    {
-      "seq": 93,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          3
-        ],
-        "total": 4,
-        "target": 10,
-        "success": true,
-        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
-      }
-    },
-    {
-      "seq": 94,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 93,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 95,
-      "kind": "step",
-      "step": {
-        "name": "Citizen: Term 4",
-        "cite": "Book 1 p. 78 chart 04"
-      }
-    },
-    {
-      "seq": 96,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Int"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 97,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          4
-        ],
-        "total": 8,
-        "target": 5,
-        "success": false,
-        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs Int, no mods per p. 65)"
-      }
-    },
-    {
-      "seq": 98,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 97,
-        "kind": "no_award"
-      }
-    },
-    {
-      "seq": 99,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -1616,37 +1549,115 @@
       }
     },
     {
-      "seq": 100,
+      "seq": 93,
       "kind": "throw",
       "throw": {
         "expr": "1D",
         "dice": [
-          5
+          4
         ],
-        "total": 5,
+        "total": 4,
         "cite": "Book 1 p. 78 chart 04 table C, column Academic"
       }
     },
     {
-      "seq": 101,
+      "seq": 94,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 93,
+        "kind": "benefit_lost"
+      }
+    },
+    {
+      "seq": 95,
       "kind": "choice",
       "choice": {
         "decider": "player",
-        "prompt": "Select One Trade",
+        "prompt": "Leave Citizen for another career?",
         "options": [
-          "Biologics",
-          "Craftsman",
-          "Electronics",
-          "Fluidics",
-          "Gravitics",
-          "Magnetics",
-          "Mechanic",
-          "Photonics",
-          "Polymers",
-          "Programmer"
+          "Continue in Citizen",
+          "Change careers"
         ],
-        "chosen": 1,
-        "cite": "Book 1 p. 78 chart 04 table C; Book 1 p. 132 chart MS"
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 96,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          3
+        ],
+        "total": 4,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 78 chart 04 (Continue 10-; p. 66)"
+      }
+    },
+    {
+      "seq": 97,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 96,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 98,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Citizen",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 99,
+      "kind": "step",
+      "step": {
+        "name": "Citizen: Term 4",
+        "cite": "Book 1 p. 78 chart 04"
+      }
+    },
+    {
+      "seq": 100,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Select the term's controlling characteristic",
+        "options": [
+          "Int"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 101,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          4
+        ],
+        "total": 8,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 78 chart 04 (Citizen Life vs Int, no mods per p. 65)"
       }
     },
     {
@@ -1654,10 +1665,7 @@
       "kind": "consequence",
       "consequence": {
         "cause": 101,
-        "kind": "skill_awarded",
-        "skill": "Craftsman",
-        "delta": 1,
-        "value": 4
+        "kind": "no_award"
       }
     },
     {
@@ -1721,7 +1729,7 @@
         "kind": "skill_awarded",
         "skill": "Craftsman",
         "delta": 1,
-        "value": 5
+        "value": 4
       }
     },
     {
@@ -1749,22 +1757,47 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          4
+          5
         ],
-        "total": 4,
+        "total": 5,
         "cite": "Book 1 p. 78 chart 04 table C, column Academic"
       }
     },
     {
       "seq": 109,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 108,
-        "kind": "benefit_lost"
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Select One Trade",
+        "options": [
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 78 chart 04 table C; Book 1 p. 132 chart MS"
       }
     },
     {
       "seq": 110,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 109,
+        "kind": "skill_awarded",
+        "skill": "Craftsman",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 111,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -1783,7 +1816,46 @@
       }
     },
     {
-      "seq": 111,
+      "seq": 112,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 78 chart 04 table C, column Academic"
+      }
+    },
+    {
+      "seq": 113,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 112,
+        "kind": "benefit_lost"
+      }
+    },
+    {
+      "seq": 114,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Select a Citizen Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 115,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1795,15 +1867,15 @@
       }
     },
     {
-      "seq": 112,
+      "seq": 116,
       "kind": "consequence",
       "consequence": {
-        "cause": 111,
+        "cause": 115,
         "kind": "benefit_lost"
       }
     },
     {
-      "seq": 113,
+      "seq": 117,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -1817,25 +1889,25 @@
       }
     },
     {
-      "seq": 114,
+      "seq": 118,
       "kind": "consequence",
       "consequence": {
-        "cause": 113,
+        "cause": 117,
         "kind": "career_changed",
         "career": "Citizen"
       }
     },
     {
-      "seq": 115,
+      "seq": 119,
       "kind": "consequence",
       "consequence": {
-        "cause": 113,
+        "cause": 117,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 116,
+      "seq": 120,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1850,7 +1922,7 @@
       }
     },
     {
-      "seq": 117,
+      "seq": 121,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1865,7 +1937,7 @@
       }
     },
     {
-      "seq": 118,
+      "seq": 122,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1880,10 +1952,10 @@
       }
     },
     {
-      "seq": 119,
+      "seq": 123,
       "kind": "consequence",
       "consequence": {
-        "cause": 118,
+        "cause": 122,
         "kind": "aging_effect",
         "characteristic": "End",
         "delta": -1,
@@ -1891,16 +1963,16 @@
       }
     },
     {
-      "seq": 120,
+      "seq": 124,
       "kind": "consequence",
       "consequence": {
-        "cause": 113,
+        "cause": 117,
         "kind": "career_ended",
         "career": "Citizen"
       }
     },
     {
-      "seq": 121,
+      "seq": 125,
       "kind": "step",
       "step": {
         "name": "Select Career",
@@ -1908,7 +1980,7 @@
       }
     },
     {
-      "seq": 122,
+      "seq": 126,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -1931,7 +2003,7 @@
       }
     },
     {
-      "seq": 123,
+      "seq": 127,
       "kind": "step",
       "step": {
         "name": "Scholar: To Begin",
@@ -1939,17 +2011,17 @@
       }
     },
     {
-      "seq": 124,
+      "seq": 128,
       "kind": "consequence",
       "consequence": {
-        "cause": 122,
+        "cause": 126,
         "kind": "rank_set",
         "skill": "Lecturer",
         "career": "Scholar"
       }
     },
     {
-      "seq": 125,
+      "seq": 129,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -2104,16 +2176,16 @@
       }
     },
     {
-      "seq": 126,
+      "seq": 130,
       "kind": "consequence",
       "consequence": {
-        "cause": 125,
+        "cause": 129,
         "kind": "major_set",
         "skill": "ACV"
       }
     },
     {
-      "seq": 127,
+      "seq": 131,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -2267,16 +2339,34 @@
       }
     },
     {
-      "seq": 128,
+      "seq": 132,
       "kind": "consequence",
       "consequence": {
-        "cause": 127,
+        "cause": 131,
         "kind": "minor_set",
         "skill": "Actor"
       }
     },
     {
-      "seq": 129,
+      "seq": 133,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Scholar",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 134,
       "kind": "step",
       "step": {
         "name": "Scholar: Term 1",
@@ -2284,7 +2374,7 @@
       }
     },
     {
-      "seq": 130,
+      "seq": 135,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -2300,7 +2390,7 @@
       }
     },
     {
-      "seq": 131,
+      "seq": 136,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -2331,7 +2421,7 @@
       }
     },
     {
-      "seq": 132,
+      "seq": 137,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2346,10 +2436,10 @@
       }
     },
     {
-      "seq": 133,
+      "seq": 138,
       "kind": "consequence",
       "consequence": {
-        "cause": 132,
+        "cause": 137,
         "kind": "skill_awarded",
         "skill": "ACV",
         "delta": 2,
@@ -2357,7 +2447,7 @@
       }
     },
     {
-      "seq": 134,
+      "seq": 139,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2372,17 +2462,17 @@
       }
     },
     {
-      "seq": 135,
+      "seq": 140,
       "kind": "consequence",
       "consequence": {
-        "cause": 134,
+        "cause": 139,
         "kind": "publication",
         "delta": 1,
         "value": 1
       }
     },
     {
-      "seq": 136,
+      "seq": 141,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2403,17 +2493,17 @@
       }
     },
     {
-      "seq": 137,
+      "seq": 142,
       "kind": "consequence",
       "consequence": {
-        "cause": 136,
+        "cause": 141,
         "kind": "rank_set",
         "skill": "Instructor",
         "career": "Scholar"
       }
     },
     {
-      "seq": 138,
+      "seq": 143,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -2434,7 +2524,7 @@
       }
     },
     {
-      "seq": 139,
+      "seq": 144,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2446,7 +2536,7 @@
       }
     },
     {
-      "seq": 140,
+      "seq": 145,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -2468,10 +2558,10 @@
       }
     },
     {
-      "seq": 141,
+      "seq": 146,
       "kind": "consequence",
       "consequence": {
-        "cause": 140,
+        "cause": 145,
         "kind": "skill_awarded",
         "skill": "Craftsman",
         "delta": 1,
@@ -2479,7 +2569,7 @@
       }
     },
     {
-      "seq": 142,
+      "seq": 147,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -2500,7 +2590,7 @@
       }
     },
     {
-      "seq": 143,
+      "seq": 148,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2512,10 +2602,10 @@
       }
     },
     {
-      "seq": 144,
+      "seq": 149,
       "kind": "consequence",
       "consequence": {
-        "cause": 143,
+        "cause": 148,
         "kind": "skill_awarded",
         "skill": "Actor",
         "delta": 1,
@@ -2523,7 +2613,7 @@
       }
     },
     {
-      "seq": 145,
+      "seq": 150,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -2544,7 +2634,7 @@
       }
     },
     {
-      "seq": 146,
+      "seq": 151,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2556,10 +2646,10 @@
       }
     },
     {
-      "seq": 147,
+      "seq": 152,
       "kind": "consequence",
       "consequence": {
-        "cause": 146,
+        "cause": 151,
         "kind": "skill_awarded",
         "skill": "ACV",
         "delta": 1,
@@ -2567,7 +2657,7 @@
       }
     },
     {
-      "seq": 148,
+      "seq": 153,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -2588,7 +2678,7 @@
       }
     },
     {
-      "seq": 149,
+      "seq": 154,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2600,7 +2690,7 @@
       }
     },
     {
-      "seq": 150,
+      "seq": 155,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -2622,10 +2712,10 @@
       }
     },
     {
-      "seq": 151,
+      "seq": 156,
       "kind": "consequence",
       "consequence": {
-        "cause": 150,
+        "cause": 155,
         "kind": "skill_awarded",
         "skill": "Craftsman",
         "delta": 1,
@@ -2633,7 +2723,7 @@
       }
     },
     {
-      "seq": 152,
+      "seq": 157,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -2654,7 +2744,7 @@
       }
     },
     {
-      "seq": 153,
+      "seq": 158,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2666,10 +2756,10 @@
       }
     },
     {
-      "seq": 154,
+      "seq": 159,
       "kind": "consequence",
       "consequence": {
-        "cause": 153,
+        "cause": 158,
         "kind": "skill_awarded",
         "skill": "ACV",
         "delta": 1,
@@ -2677,7 +2767,7 @@
       }
     },
     {
-      "seq": 155,
+      "seq": 160,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -2691,25 +2781,25 @@
       }
     },
     {
-      "seq": 156,
+      "seq": 161,
       "kind": "consequence",
       "consequence": {
-        "cause": 155,
+        "cause": 160,
         "kind": "career_changed",
         "career": "Scholar"
       }
     },
     {
-      "seq": 157,
+      "seq": 162,
       "kind": "consequence",
       "consequence": {
-        "cause": 155,
+        "cause": 160,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 158,
+      "seq": 163,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2724,7 +2814,7 @@
       }
     },
     {
-      "seq": 159,
+      "seq": 164,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2739,7 +2829,7 @@
       }
     },
     {
-      "seq": 160,
+      "seq": 165,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2754,16 +2844,16 @@
       }
     },
     {
-      "seq": 161,
+      "seq": 166,
       "kind": "consequence",
       "consequence": {
-        "cause": 155,
+        "cause": 160,
         "kind": "career_ended",
         "career": "Scholar"
       }
     },
     {
-      "seq": 162,
+      "seq": 167,
       "kind": "step",
       "step": {
         "name": "Select Career",
@@ -2771,7 +2861,7 @@
       }
     },
     {
-      "seq": 163,
+      "seq": 168,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -2794,7 +2884,7 @@
       }
     },
     {
-      "seq": 164,
+      "seq": 169,
       "kind": "step",
       "step": {
         "name": "Craftsman: To Begin (Automatic)",
@@ -2802,7 +2892,25 @@
       }
     },
     {
-      "seq": 165,
+      "seq": 170,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Craftsman",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 171,
       "kind": "step",
       "step": {
         "name": "Craftsman: Term 1",
@@ -2810,7 +2918,7 @@
       }
     },
     {
-      "seq": 166,
+      "seq": 172,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -2826,7 +2934,7 @@
       }
     },
     {
-      "seq": 167,
+      "seq": 173,
       "kind": "step",
       "step": {
         "name": "Craftsman: too few Master Points to attempt a Masterpiece",
@@ -2834,108 +2942,24 @@
       }
     },
     {
-      "seq": 168,
+      "seq": 174,
       "kind": "consequence",
       "consequence": {
-        "cause": 167,
+        "cause": 173,
         "kind": "no_award",
         "career": "Craftsman",
         "value": 39
       }
     },
     {
-      "seq": 169,
+      "seq": 175,
       "kind": "consequence",
       "consequence": {
-        "cause": 167,
+        "cause": 173,
         "kind": "skill_awarded",
         "skill": "Craftsman",
         "delta": 1,
         "value": 8
-      }
-    },
-    {
-      "seq": 170,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Select a Craftsman Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 171,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 75 chart 01 table C, column Academic"
-      }
-    },
-    {
-      "seq": 172,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 171,
-        "kind": "skill_awarded",
-        "skill": "Actor",
-        "delta": 1,
-        "value": 3
-      }
-    },
-    {
-      "seq": 173,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Select a Craftsman Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 174,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 75 chart 01 table C, column Academic"
-      }
-    },
-    {
-      "seq": 175,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 174,
-        "kind": "skill_awarded",
-        "skill": "Actor",
-        "delta": 1,
-        "value": 4
       }
     },
     {
@@ -2963,9 +2987,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          4
+          3
         ],
-        "total": 4,
+        "total": 3,
         "cite": "Book 1 p. 75 chart 01 table C, column Academic"
       }
     },
@@ -2977,7 +3001,7 @@
         "kind": "skill_awarded",
         "skill": "Actor",
         "delta": 1,
-        "value": 5
+        "value": 3
       }
     },
     {
@@ -3005,6 +3029,90 @@
       "throw": {
         "expr": "1D",
         "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 75 chart 01 table C, column Academic"
+      }
+    },
+    {
+      "seq": 181,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 180,
+        "kind": "skill_awarded",
+        "skill": "Actor",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 182,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Select a Craftsman Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 183,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 75 chart 01 table C, column Academic"
+      }
+    },
+    {
+      "seq": 184,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 183,
+        "kind": "skill_awarded",
+        "skill": "Actor",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 185,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Select a Craftsman Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 186,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
           5
         ],
         "total": 5,
@@ -3012,7 +3120,7 @@
       }
     },
     {
-      "seq": 181,
+      "seq": 187,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -3034,10 +3142,10 @@
       }
     },
     {
-      "seq": 182,
+      "seq": 188,
       "kind": "consequence",
       "consequence": {
-        "cause": 181,
+        "cause": 187,
         "kind": "skill_awarded",
         "skill": "Craftsman",
         "delta": 1,
@@ -3045,7 +3153,7 @@
       }
     },
     {
-      "seq": 183,
+      "seq": 189,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -3064,7 +3172,7 @@
       }
     },
     {
-      "seq": 184,
+      "seq": 190,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3076,10 +3184,10 @@
       }
     },
     {
-      "seq": 185,
+      "seq": 191,
       "kind": "consequence",
       "consequence": {
-        "cause": 184,
+        "cause": 190,
         "kind": "skill_awarded",
         "skill": "ACV",
         "delta": 1,
@@ -3087,7 +3195,7 @@
       }
     },
     {
-      "seq": 186,
+      "seq": 192,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -3101,7 +3209,7 @@
       }
     },
     {
-      "seq": 187,
+      "seq": 193,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3116,16 +3224,16 @@
       }
     },
     {
-      "seq": 188,
+      "seq": 194,
       "kind": "consequence",
       "consequence": {
-        "cause": 187,
+        "cause": 193,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 189,
+      "seq": 195,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3140,7 +3248,7 @@
       }
     },
     {
-      "seq": 190,
+      "seq": 196,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3155,7 +3263,7 @@
       }
     },
     {
-      "seq": 191,
+      "seq": 197,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3170,7 +3278,25 @@
       }
     },
     {
-      "seq": 192,
+      "seq": 198,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Craftsman",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 199,
       "kind": "step",
       "step": {
         "name": "Craftsman: Term 2",
@@ -3178,7 +3304,7 @@
       }
     },
     {
-      "seq": 193,
+      "seq": 200,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -3193,7 +3319,7 @@
       }
     },
     {
-      "seq": 194,
+      "seq": 201,
       "kind": "throw",
       "throw": {
         "expr": "9D",
@@ -3229,10 +3355,10 @@
       }
     },
     {
-      "seq": 195,
+      "seq": 202,
       "kind": "consequence",
       "consequence": {
-        "cause": 194,
+        "cause": 201,
         "kind": "masterpiece",
         "career": "Craftsman",
         "delta": 170000,
@@ -3240,10 +3366,10 @@
       }
     },
     {
-      "seq": 196,
+      "seq": 203,
       "kind": "consequence",
       "consequence": {
-        "cause": 194,
+        "cause": 201,
         "kind": "skill_awarded",
         "skill": "Craftsman",
         "delta": 1,
@@ -3251,7 +3377,7 @@
       }
     },
     {
-      "seq": 197,
+      "seq": 204,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -3270,7 +3396,7 @@
       }
     },
     {
-      "seq": 198,
+      "seq": 205,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3282,10 +3408,10 @@
       }
     },
     {
-      "seq": 199,
+      "seq": 206,
       "kind": "consequence",
       "consequence": {
-        "cause": 198,
+        "cause": 205,
         "kind": "skill_awarded",
         "skill": "Actor",
         "delta": 1,
@@ -3293,7 +3419,7 @@
       }
     },
     {
-      "seq": 200,
+      "seq": 207,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -3312,7 +3438,7 @@
       }
     },
     {
-      "seq": 201,
+      "seq": 208,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3321,112 +3447,6 @@
         ],
         "total": 3,
         "cite": "Book 1 p. 75 chart 01 table C, column Academic"
-      }
-    },
-    {
-      "seq": 202,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 201,
-        "kind": "skill_awarded",
-        "skill": "Actor",
-        "delta": 1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 203,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Select a Craftsman Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 204,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 75 chart 01 table C, column Academic"
-      }
-    },
-    {
-      "seq": 205,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 204,
-        "kind": "skill_awarded",
-        "skill": "Actor",
-        "delta": 1,
-        "value": 8
-      }
-    },
-    {
-      "seq": 206,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Select a Craftsman Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 207,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 75 chart 01 table C, column Academic"
-      }
-    },
-    {
-      "seq": 208,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Select One Trade",
-        "options": [
-          "Biologics",
-          "Craftsman",
-          "Electronics",
-          "Fluidics",
-          "Gravitics",
-          "Magnetics",
-          "Mechanic",
-          "Photonics",
-          "Polymers",
-          "Programmer"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 75 chart 01 table C; Book 1 p. 132 chart MS"
       }
     },
     {
@@ -3435,9 +3455,9 @@
       "consequence": {
         "cause": 208,
         "kind": "skill_awarded",
-        "skill": "Craftsman",
+        "skill": "Actor",
         "delta": 1,
-        "value": 11
+        "value": 7
       }
     },
     {
@@ -3465,14 +3485,56 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          6
+          4
         ],
-        "total": 6,
+        "total": 4,
         "cite": "Book 1 p. 75 chart 01 table C, column Academic"
       }
     },
     {
       "seq": 212,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 211,
+        "kind": "skill_awarded",
+        "skill": "Actor",
+        "delta": 1,
+        "value": 8
+      }
+    },
+    {
+      "seq": 213,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Select a Craftsman Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 214,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 75 chart 01 table C, column Academic"
+      }
+    },
+    {
+      "seq": 215,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -3494,56 +3556,14 @@
       }
     },
     {
-      "seq": 213,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 212,
-        "kind": "skill_awarded",
-        "skill": "Craftsman",
-        "delta": 1,
-        "value": 12
-      }
-    },
-    {
-      "seq": 214,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Select a Craftsman Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 215,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 75 chart 01 table C, column Academic"
-      }
-    },
-    {
       "seq": 216,
       "kind": "consequence",
       "consequence": {
         "cause": 215,
         "kind": "skill_awarded",
-        "skill": "ACV",
+        "skill": "Craftsman",
         "delta": 1,
-        "value": 8
+        "value": 11
       }
     },
     {
@@ -3571,6 +3591,112 @@
       "throw": {
         "expr": "1D",
         "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 75 chart 01 table C, column Academic"
+      }
+    },
+    {
+      "seq": 219,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Select One Trade",
+        "options": [
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 75 chart 01 table C; Book 1 p. 132 chart MS"
+      }
+    },
+    {
+      "seq": 220,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 219,
+        "kind": "skill_awarded",
+        "skill": "Craftsman",
+        "delta": 1,
+        "value": 12
+      }
+    },
+    {
+      "seq": 221,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Select a Craftsman Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 222,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 75 chart 01 table C, column Academic"
+      }
+    },
+    {
+      "seq": 223,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 222,
+        "kind": "skill_awarded",
+        "skill": "ACV",
+        "delta": 1,
+        "value": 8
+      }
+    },
+    {
+      "seq": 224,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Select a Craftsman Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 225,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
           3
         ],
         "total": 3,
@@ -3578,10 +3704,10 @@
       }
     },
     {
-      "seq": 219,
+      "seq": 226,
       "kind": "consequence",
       "consequence": {
-        "cause": 218,
+        "cause": 225,
         "kind": "skill_awarded",
         "skill": "Actor",
         "delta": 1,
@@ -3589,7 +3715,7 @@
       }
     },
     {
-      "seq": 220,
+      "seq": 227,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -3603,7 +3729,7 @@
       }
     },
     {
-      "seq": 221,
+      "seq": 228,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3618,16 +3744,16 @@
       }
     },
     {
-      "seq": 222,
+      "seq": 229,
       "kind": "consequence",
       "consequence": {
-        "cause": 221,
+        "cause": 228,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 223,
+      "seq": 230,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3642,10 +3768,10 @@
       }
     },
     {
-      "seq": 224,
+      "seq": 231,
       "kind": "consequence",
       "consequence": {
-        "cause": 223,
+        "cause": 230,
         "kind": "aging_effect",
         "characteristic": "Str",
         "delta": -1,
@@ -3653,7 +3779,7 @@
       }
     },
     {
-      "seq": 225,
+      "seq": 232,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3668,7 +3794,7 @@
       }
     },
     {
-      "seq": 226,
+      "seq": 233,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3683,10 +3809,10 @@
       }
     },
     {
-      "seq": 227,
+      "seq": 234,
       "kind": "consequence",
       "consequence": {
-        "cause": 226,
+        "cause": 233,
         "kind": "aging_effect",
         "characteristic": "End",
         "delta": -1,
@@ -3694,7 +3820,25 @@
       }
     },
     {
-      "seq": 228,
+      "seq": 235,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Craftsman",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 236,
       "kind": "step",
       "step": {
         "name": "Craftsman: Term 3",
@@ -3702,7 +3846,7 @@
       }
     },
     {
-      "seq": 229,
+      "seq": 237,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -3716,7 +3860,7 @@
       }
     },
     {
-      "seq": 230,
+      "seq": 238,
       "kind": "throw",
       "throw": {
         "expr": "9D",
@@ -3752,10 +3896,10 @@
       }
     },
     {
-      "seq": 231,
+      "seq": 239,
       "kind": "consequence",
       "consequence": {
-        "cause": 230,
+        "cause": 238,
         "kind": "masterpiece",
         "career": "Craftsman",
         "delta": 280000,
@@ -3763,10 +3907,10 @@
       }
     },
     {
-      "seq": 232,
+      "seq": 240,
       "kind": "consequence",
       "consequence": {
-        "cause": 230,
+        "cause": 238,
         "kind": "skill_awarded",
         "skill": "Craftsman",
         "delta": 1,
@@ -3774,7 +3918,7 @@
       }
     },
     {
-      "seq": 233,
+      "seq": 241,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -3793,7 +3937,7 @@
       }
     },
     {
-      "seq": 234,
+      "seq": 242,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3805,7 +3949,7 @@
       }
     },
     {
-      "seq": 235,
+      "seq": 243,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -3827,10 +3971,10 @@
       }
     },
     {
-      "seq": 236,
+      "seq": 244,
       "kind": "consequence",
       "consequence": {
-        "cause": 235,
+        "cause": 243,
         "kind": "skill_awarded",
         "skill": "Craftsman",
         "delta": 1,
@@ -3838,7 +3982,7 @@
       }
     },
     {
-      "seq": 237,
+      "seq": 245,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -3857,7 +4001,7 @@
       }
     },
     {
-      "seq": 238,
+      "seq": 246,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3869,10 +4013,10 @@
       }
     },
     {
-      "seq": 239,
+      "seq": 247,
       "kind": "consequence",
       "consequence": {
-        "cause": 238,
+        "cause": 246,
         "kind": "skill_awarded",
         "skill": "ACV",
         "delta": 1,
@@ -3880,7 +4024,7 @@
       }
     },
     {
-      "seq": 240,
+      "seq": 248,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -3899,7 +4043,7 @@
       }
     },
     {
-      "seq": 241,
+      "seq": 249,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3911,7 +4055,7 @@
       }
     },
     {
-      "seq": 242,
+      "seq": 250,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -3933,10 +4077,10 @@
       }
     },
     {
-      "seq": 243,
+      "seq": 251,
       "kind": "consequence",
       "consequence": {
-        "cause": 242,
+        "cause": 250,
         "kind": "skill_awarded",
         "skill": "Craftsman",
         "delta": 1,
@@ -3944,7 +4088,7 @@
       }
     },
     {
-      "seq": 244,
+      "seq": 252,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -3963,7 +4107,7 @@
       }
     },
     {
-      "seq": 245,
+      "seq": 253,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3975,10 +4119,10 @@
       }
     },
     {
-      "seq": 246,
+      "seq": 254,
       "kind": "consequence",
       "consequence": {
-        "cause": 245,
+        "cause": 253,
         "kind": "skill_awarded",
         "skill": "Actor",
         "delta": 1,
@@ -3986,7 +4130,7 @@
       }
     },
     {
-      "seq": 247,
+      "seq": 255,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -4005,7 +4149,7 @@
       }
     },
     {
-      "seq": 248,
+      "seq": 256,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4017,10 +4161,10 @@
       }
     },
     {
-      "seq": 249,
+      "seq": 257,
       "kind": "consequence",
       "consequence": {
-        "cause": 248,
+        "cause": 256,
         "kind": "skill_awarded",
         "skill": "ACV",
         "delta": 1,
@@ -4028,7 +4172,7 @@
       }
     },
     {
-      "seq": 250,
+      "seq": 258,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -4047,7 +4191,7 @@
       }
     },
     {
-      "seq": 251,
+      "seq": 259,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4059,10 +4203,10 @@
       }
     },
     {
-      "seq": 252,
+      "seq": 260,
       "kind": "consequence",
       "consequence": {
-        "cause": 251,
+        "cause": 259,
         "kind": "skill_awarded",
         "skill": "Actor",
         "delta": 1,
@@ -4070,7 +4214,7 @@
       }
     },
     {
-      "seq": 253,
+      "seq": 261,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -4089,7 +4233,7 @@
       }
     },
     {
-      "seq": 254,
+      "seq": 262,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4101,10 +4245,10 @@
       }
     },
     {
-      "seq": 255,
+      "seq": 263,
       "kind": "consequence",
       "consequence": {
-        "cause": 254,
+        "cause": 262,
         "kind": "skill_awarded",
         "skill": "ACV",
         "delta": 1,
@@ -4112,7 +4256,7 @@
       }
     },
     {
-      "seq": 256,
+      "seq": 264,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -4126,7 +4270,7 @@
       }
     },
     {
-      "seq": 257,
+      "seq": 265,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4141,16 +4285,16 @@
       }
     },
     {
-      "seq": 258,
+      "seq": 266,
       "kind": "consequence",
       "consequence": {
-        "cause": 257,
+        "cause": 265,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 259,
+      "seq": 267,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4165,10 +4309,10 @@
       }
     },
     {
-      "seq": 260,
+      "seq": 268,
       "kind": "consequence",
       "consequence": {
-        "cause": 259,
+        "cause": 267,
         "kind": "aging_effect",
         "characteristic": "Str",
         "delta": -1,
@@ -4176,7 +4320,7 @@
       }
     },
     {
-      "seq": 261,
+      "seq": 269,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4191,10 +4335,10 @@
       }
     },
     {
-      "seq": 262,
+      "seq": 270,
       "kind": "consequence",
       "consequence": {
-        "cause": 261,
+        "cause": 269,
         "kind": "aging_effect",
         "characteristic": "Dex",
         "delta": -1,
@@ -4202,7 +4346,7 @@
       }
     },
     {
-      "seq": 263,
+      "seq": 271,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4217,7 +4361,25 @@
       }
     },
     {
-      "seq": 264,
+      "seq": 272,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Craftsman",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 273,
       "kind": "step",
       "step": {
         "name": "Craftsman: Term 4",
@@ -4225,7 +4387,7 @@
       }
     },
     {
-      "seq": 265,
+      "seq": 274,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -4238,7 +4400,7 @@
       }
     },
     {
-      "seq": 266,
+      "seq": 275,
       "kind": "throw",
       "throw": {
         "expr": "9D",
@@ -4274,10 +4436,10 @@
       }
     },
     {
-      "seq": 267,
+      "seq": 276,
       "kind": "consequence",
       "consequence": {
-        "cause": 266,
+        "cause": 275,
         "kind": "masterpiece",
         "career": "Craftsman",
         "delta": 680000,
@@ -4285,16 +4447,16 @@
       }
     },
     {
-      "seq": 268,
+      "seq": 277,
       "kind": "consequence",
       "consequence": {
-        "cause": 266,
+        "cause": 275,
         "kind": "no_award",
         "skill": "Craftsman"
       }
     },
     {
-      "seq": 269,
+      "seq": 278,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -4313,7 +4475,7 @@
       }
     },
     {
-      "seq": 270,
+      "seq": 279,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4325,7 +4487,7 @@
       }
     },
     {
-      "seq": 271,
+      "seq": 280,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -4347,16 +4509,16 @@
       }
     },
     {
-      "seq": 272,
+      "seq": 281,
       "kind": "consequence",
       "consequence": {
-        "cause": 271,
+        "cause": 280,
         "kind": "no_award",
         "skill": "Craftsman"
       }
     },
     {
-      "seq": 273,
+      "seq": 282,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -4375,7 +4537,7 @@
       }
     },
     {
-      "seq": 274,
+      "seq": 283,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4387,10 +4549,10 @@
       }
     },
     {
-      "seq": 275,
+      "seq": 284,
       "kind": "consequence",
       "consequence": {
-        "cause": 274,
+        "cause": 283,
         "kind": "skill_awarded",
         "skill": "Actor",
         "delta": 1,
@@ -4398,7 +4560,7 @@
       }
     },
     {
-      "seq": 276,
+      "seq": 285,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -4417,7 +4579,7 @@
       }
     },
     {
-      "seq": 277,
+      "seq": 286,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4429,7 +4591,7 @@
       }
     },
     {
-      "seq": 278,
+      "seq": 287,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -4451,138 +4613,12 @@
       }
     },
     {
-      "seq": 279,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 278,
-        "kind": "no_award",
-        "skill": "Craftsman"
-      }
-    },
-    {
-      "seq": 280,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Select a Craftsman Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 281,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 75 chart 01 table C, column Academic"
-      }
-    },
-    {
-      "seq": 282,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 281,
-        "kind": "skill_awarded",
-        "skill": "Actor",
-        "delta": 1,
-        "value": 13
-      }
-    },
-    {
-      "seq": 283,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Select a Craftsman Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 284,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 75 chart 01 table C, column Academic"
-      }
-    },
-    {
-      "seq": 285,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 284,
-        "kind": "skill_awarded",
-        "skill": "Actor",
-        "delta": 1,
-        "value": 14
-      }
-    },
-    {
-      "seq": 286,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Select a Craftsman Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 287,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 75 chart 01 table C, column Academic"
-      }
-    },
-    {
       "seq": 288,
       "kind": "consequence",
       "consequence": {
         "cause": 287,
-        "kind": "skill_awarded",
-        "skill": "ACV",
-        "delta": 1,
-        "value": 12
+        "kind": "no_award",
+        "skill": "Craftsman"
       }
     },
     {
@@ -4610,9 +4646,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          4
+          3
         ],
-        "total": 4,
+        "total": 3,
         "cite": "Book 1 p. 75 chart 01 table C, column Academic"
       }
     },
@@ -4624,11 +4660,137 @@
         "kind": "skill_awarded",
         "skill": "Actor",
         "delta": 1,
-        "value": 15
+        "value": 13
       }
     },
     {
       "seq": 292,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Select a Craftsman Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 293,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 75 chart 01 table C, column Academic"
+      }
+    },
+    {
+      "seq": 294,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 293,
+        "kind": "skill_awarded",
+        "skill": "Actor",
+        "delta": 1,
+        "value": 14
+      }
+    },
+    {
+      "seq": 295,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Select a Craftsman Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 296,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 75 chart 01 table C, column Academic"
+      }
+    },
+    {
+      "seq": 297,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 296,
+        "kind": "skill_awarded",
+        "skill": "ACV",
+        "delta": 1,
+        "value": 12
+      }
+    },
+    {
+      "seq": 298,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Select a Craftsman Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 299,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 75 chart 01 table C, column Academic"
+      }
+    },
+    {
+      "seq": 300,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 299,
+        "kind": "skill_awarded",
+        "skill": "Actor",
+        "delta": 1,
+        "value": 15
+      }
+    },
+    {
+      "seq": 301,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -4642,7 +4804,7 @@
       }
     },
     {
-      "seq": 293,
+      "seq": 302,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4657,16 +4819,16 @@
       }
     },
     {
-      "seq": 294,
+      "seq": 303,
       "kind": "consequence",
       "consequence": {
-        "cause": 293,
+        "cause": 302,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 295,
+      "seq": 304,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4681,10 +4843,10 @@
       }
     },
     {
-      "seq": 296,
+      "seq": 305,
       "kind": "consequence",
       "consequence": {
-        "cause": 295,
+        "cause": 304,
         "kind": "aging_effect",
         "characteristic": "Str",
         "delta": -1,
@@ -4692,7 +4854,7 @@
       }
     },
     {
-      "seq": 297,
+      "seq": 306,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4707,7 +4869,7 @@
       }
     },
     {
-      "seq": 298,
+      "seq": 307,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4722,7 +4884,25 @@
       }
     },
     {
-      "seq": 299,
+      "seq": 308,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Craftsman",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 309,
       "kind": "step",
       "step": {
         "name": "Craftsman: Term 5",
@@ -4730,7 +4910,7 @@
       }
     },
     {
-      "seq": 300,
+      "seq": 310,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -4746,7 +4926,7 @@
       }
     },
     {
-      "seq": 301,
+      "seq": 311,
       "kind": "throw",
       "throw": {
         "expr": "9D",
@@ -4782,10 +4962,10 @@
       }
     },
     {
-      "seq": 302,
+      "seq": 312,
       "kind": "consequence",
       "consequence": {
-        "cause": 301,
+        "cause": 311,
         "kind": "masterpiece",
         "career": "Craftsman",
         "delta": 760000,
@@ -4793,156 +4973,12 @@
       }
     },
     {
-      "seq": 303,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 301,
-        "kind": "no_award",
-        "skill": "Craftsman"
-      }
-    },
-    {
-      "seq": 304,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Select a Craftsman Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 305,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 75 chart 01 table C, column Academic"
-      }
-    },
-    {
-      "seq": 306,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 305,
-        "kind": "no_award",
-        "skill": "Actor"
-      }
-    },
-    {
-      "seq": 307,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Select a Craftsman Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 308,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 75 chart 01 table C, column Academic"
-      }
-    },
-    {
-      "seq": 309,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Select One Trade",
-        "options": [
-          "Biologics",
-          "Craftsman",
-          "Electronics",
-          "Fluidics",
-          "Gravitics",
-          "Magnetics",
-          "Mechanic",
-          "Photonics",
-          "Polymers",
-          "Programmer"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 75 chart 01 table C; Book 1 p. 132 chart MS"
-      }
-    },
-    {
-      "seq": 310,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 309,
-        "kind": "no_award",
-        "skill": "Craftsman"
-      }
-    },
-    {
-      "seq": 311,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Select a Craftsman Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 312,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 75 chart 01 table C, column Academic"
-      }
-    },
-    {
       "seq": 313,
       "kind": "consequence",
       "consequence": {
-        "cause": 312,
-        "kind": "skill_awarded",
-        "skill": "ACV",
-        "delta": 1,
-        "value": 13
+        "cause": 311,
+        "kind": "no_award",
+        "skill": "Craftsman"
       }
     },
     {
@@ -4970,9 +5006,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          1
+          3
         ],
-        "total": 1,
+        "total": 3,
         "cite": "Book 1 p. 75 chart 01 table C, column Academic"
       }
     },
@@ -4981,10 +5017,8 @@
       "kind": "consequence",
       "consequence": {
         "cause": 315,
-        "kind": "skill_awarded",
-        "skill": "ACV",
-        "delta": 1,
-        "value": 14
+        "kind": "no_award",
+        "skill": "Actor"
       }
     },
     {
@@ -5012,9 +5046,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          6
+          5
         ],
-        "total": 6,
+        "total": 5,
         "cite": "Book 1 p. 75 chart 01 table C, column Academic"
       }
     },
@@ -5074,9 +5108,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          1
+          2
         ],
-        "total": 1,
+        "total": 2,
         "cite": "Book 1 p. 75 chart 01 table C, column Academic"
       }
     },
@@ -5088,7 +5122,7 @@
         "kind": "skill_awarded",
         "skill": "ACV",
         "delta": 1,
-        "value": 15
+        "value": 13
       }
     },
     {
@@ -5116,9 +5150,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          3
+          1
         ],
-        "total": 3,
+        "total": 1,
         "cite": "Book 1 p. 75 chart 01 table C, column Academic"
       }
     },
@@ -5127,12 +5161,158 @@
       "kind": "consequence",
       "consequence": {
         "cause": 325,
+        "kind": "skill_awarded",
+        "skill": "ACV",
+        "delta": 1,
+        "value": 14
+      }
+    },
+    {
+      "seq": 327,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Select a Craftsman Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 328,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 75 chart 01 table C, column Academic"
+      }
+    },
+    {
+      "seq": 329,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Select One Trade",
+        "options": [
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 75 chart 01 table C; Book 1 p. 132 chart MS"
+      }
+    },
+    {
+      "seq": 330,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 329,
+        "kind": "no_award",
+        "skill": "Craftsman"
+      }
+    },
+    {
+      "seq": 331,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Select a Craftsman Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 332,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 75 chart 01 table C, column Academic"
+      }
+    },
+    {
+      "seq": 333,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 332,
+        "kind": "skill_awarded",
+        "skill": "ACV",
+        "delta": 1,
+        "value": 15
+      }
+    },
+    {
+      "seq": 334,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Select a Craftsman Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 335,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 75 chart 01 table C, column Academic"
+      }
+    },
+    {
+      "seq": 336,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 335,
         "kind": "no_award",
         "skill": "Actor"
       }
     },
     {
-      "seq": 327,
+      "seq": 337,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5146,7 +5326,7 @@
       }
     },
     {
-      "seq": 328,
+      "seq": 338,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -5161,16 +5341,16 @@
       }
     },
     {
-      "seq": 329,
+      "seq": 339,
       "kind": "consequence",
       "consequence": {
-        "cause": 328,
+        "cause": 338,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 330,
+      "seq": 340,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -5185,10 +5365,10 @@
       }
     },
     {
-      "seq": 331,
+      "seq": 341,
       "kind": "consequence",
       "consequence": {
-        "cause": 330,
+        "cause": 340,
         "kind": "aging_effect",
         "characteristic": "Str",
         "delta": -1,
@@ -5196,7 +5376,7 @@
       }
     },
     {
-      "seq": 332,
+      "seq": 342,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -5211,7 +5391,7 @@
       }
     },
     {
-      "seq": 333,
+      "seq": 343,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -5226,16 +5406,16 @@
       }
     },
     {
-      "seq": 334,
+      "seq": 344,
       "kind": "consequence",
       "consequence": {
-        "cause": 328,
+        "cause": 338,
         "kind": "career_ended",
         "career": "Craftsman"
       }
     },
     {
-      "seq": 335,
+      "seq": 345,
       "kind": "step",
       "step": {
         "name": "Determine Fame",
@@ -5243,7 +5423,7 @@
       }
     },
     {
-      "seq": 336,
+      "seq": 346,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5257,10 +5437,10 @@
       }
     },
     {
-      "seq": 337,
+      "seq": 347,
       "kind": "consequence",
       "consequence": {
-        "cause": 336,
+        "cause": 346,
         "kind": "fame_computed",
         "skill": "Sector",
         "value": 20,
@@ -5285,7 +5465,7 @@
       }
     },
     {
-      "seq": 338,
+      "seq": 348,
       "kind": "step",
       "step": {
         "name": "Muster Out",
@@ -5293,7 +5473,7 @@
       }
     },
     {
-      "seq": 339,
+      "seq": 349,
       "kind": "step",
       "step": {
         "name": "Muster Out: Citizen",
@@ -5301,7 +5481,7 @@
       }
     },
     {
-      "seq": 340,
+      "seq": 350,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5315,7 +5495,7 @@
       }
     },
     {
-      "seq": 341,
+      "seq": 351,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5332,7 +5512,7 @@
       }
     },
     {
-      "seq": 342,
+      "seq": 352,
       "kind": "throw",
       "throw": {
         "expr": "1D+4",
@@ -5345,10 +5525,10 @@
       }
     },
     {
-      "seq": 343,
+      "seq": 353,
       "kind": "consequence",
       "consequence": {
-        "cause": 342,
+        "cause": 352,
         "kind": "benefit",
         "skill": "Money",
         "career": "Citizen",
@@ -5356,7 +5536,7 @@
       }
     },
     {
-      "seq": 344,
+      "seq": 354,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5370,7 +5550,7 @@
       }
     },
     {
-      "seq": 345,
+      "seq": 355,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5387,7 +5567,7 @@
       }
     },
     {
-      "seq": 346,
+      "seq": 356,
       "kind": "throw",
       "throw": {
         "expr": "1D+4",
@@ -5400,10 +5580,10 @@
       }
     },
     {
-      "seq": 347,
+      "seq": 357,
       "kind": "consequence",
       "consequence": {
-        "cause": 346,
+        "cause": 356,
         "kind": "benefit",
         "skill": "Money",
         "career": "Citizen",
@@ -5411,7 +5591,7 @@
       }
     },
     {
-      "seq": 348,
+      "seq": 358,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5425,7 +5605,7 @@
       }
     },
     {
-      "seq": 349,
+      "seq": 359,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5442,7 +5622,7 @@
       }
     },
     {
-      "seq": 350,
+      "seq": 360,
       "kind": "throw",
       "throw": {
         "expr": "1D+4",
@@ -5455,10 +5635,10 @@
       }
     },
     {
-      "seq": 351,
+      "seq": 361,
       "kind": "consequence",
       "consequence": {
-        "cause": 350,
+        "cause": 360,
         "kind": "benefit",
         "skill": "Money",
         "career": "Citizen",
@@ -5466,182 +5646,58 @@
       }
     },
     {
-      "seq": 352,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Which column for this Citizen muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 353,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "How much of the terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4"
-        ],
-        "chosen": 4,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 354,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+4",
-        "dice": [
-          5
-        ],
-        "mod": 4,
-        "total": 9,
-        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+4)"
-      }
-    },
-    {
-      "seq": 355,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 354,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Citizen",
-        "delta": 35000
-      }
-    },
-    {
-      "seq": 356,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Which column for this Citizen muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 357,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "How much of the terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4"
-        ],
-        "chosen": 4,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 358,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+4",
-        "dice": [
-          5
-        ],
-        "mod": 4,
-        "total": 9,
-        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+4)"
-      }
-    },
-    {
-      "seq": 359,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 358,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Citizen",
-        "delta": 35000
-      }
-    },
-    {
-      "seq": 360,
-      "kind": "step",
-      "step": {
-        "name": "Muster Out: Scholar",
-        "cite": "Book 1 p. 76 chart 02 D"
-      }
-    },
-    {
-      "seq": 361,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Which column for this Scholar muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
       "seq": 362,
       "kind": "choice",
       "choice": {
         "decider": "player",
-        "prompt": "How much of the scholar_rank DM to apply?",
+        "prompt": "Which column for this Citizen muster-out roll?",
         "options": [
-          "+0",
-          "+1",
-          "+2"
+          "Money",
+          "Benefits"
         ],
-        "chosen": 2,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
       }
     },
     {
       "seq": 363,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+2",
-        "dice": [
-          6
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4"
         ],
-        "mod": 2,
-        "total": 8,
-        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+2)"
+        "chosen": 4,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
       }
     },
     {
       "seq": 364,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 363,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Scholar",
-        "delta": 30000
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+4",
+        "dice": [
+          5
+        ],
+        "mod": 4,
+        "total": 9,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+4)"
       }
     },
     {
       "seq": 365,
-      "kind": "step",
-      "step": {
-        "name": "Muster Out: Craftsman",
-        "cite": "Book 1 p. 75 chart 01 D"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 364,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Citizen",
+        "delta": 35000
       }
     },
     {
@@ -5649,7 +5705,7 @@
       "kind": "choice",
       "choice": {
         "decider": "player",
-        "prompt": "Which column for this Craftsman muster-out roll?",
+        "prompt": "Which column for this Citizen muster-out roll?",
         "options": [
           "Money",
           "Benefits"
@@ -5669,6 +5725,130 @@
           "+1",
           "+2",
           "+3",
+          "+4"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 368,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+4",
+        "dice": [
+          5
+        ],
+        "mod": 4,
+        "total": 9,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+4)"
+      }
+    },
+    {
+      "seq": 369,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 368,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Citizen",
+        "delta": 35000
+      }
+    },
+    {
+      "seq": 370,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out: Scholar",
+        "cite": "Book 1 p. 76 chart 02 D"
+      }
+    },
+    {
+      "seq": 371,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 372,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the scholar_rank DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 373,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+2",
+        "dice": [
+          6
+        ],
+        "mod": 2,
+        "total": 8,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+2)"
+      }
+    },
+    {
+      "seq": 374,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 373,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scholar",
+        "delta": 30000
+      }
+    },
+    {
+      "seq": 375,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out: Craftsman",
+        "cite": "Book 1 p. 75 chart 01 D"
+      }
+    },
+    {
+      "seq": 376,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Craftsman muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 377,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
           "+4",
           "+5"
         ],
@@ -5677,7 +5857,7 @@
       }
     },
     {
-      "seq": 368,
+      "seq": 378,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -5690,10 +5870,10 @@
       }
     },
     {
-      "seq": 369,
+      "seq": 379,
       "kind": "consequence",
       "consequence": {
-        "cause": 368,
+        "cause": 378,
         "kind": "benefit",
         "skill": "Money",
         "career": "Craftsman",
@@ -5701,7 +5881,7 @@
       }
     },
     {
-      "seq": 370,
+      "seq": 380,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5715,7 +5895,7 @@
       }
     },
     {
-      "seq": 371,
+      "seq": 381,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5733,7 +5913,7 @@
       }
     },
     {
-      "seq": 372,
+      "seq": 382,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -5746,10 +5926,10 @@
       }
     },
     {
-      "seq": 373,
+      "seq": 383,
       "kind": "consequence",
       "consequence": {
-        "cause": 372,
+        "cause": 382,
         "kind": "benefit",
         "skill": "Money",
         "career": "Craftsman",
@@ -5757,7 +5937,7 @@
       }
     },
     {
-      "seq": 374,
+      "seq": 384,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5771,7 +5951,7 @@
       }
     },
     {
-      "seq": 375,
+      "seq": 385,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5789,7 +5969,7 @@
       }
     },
     {
-      "seq": 376,
+      "seq": 386,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -5802,10 +5982,10 @@
       }
     },
     {
-      "seq": 377,
+      "seq": 387,
       "kind": "consequence",
       "consequence": {
-        "cause": 376,
+        "cause": 386,
         "kind": "benefit",
         "skill": "Money",
         "career": "Craftsman",
@@ -5813,7 +5993,7 @@
       }
     },
     {
-      "seq": 378,
+      "seq": 388,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5827,7 +6007,7 @@
       }
     },
     {
-      "seq": 379,
+      "seq": 389,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5845,7 +6025,7 @@
       }
     },
     {
-      "seq": 380,
+      "seq": 390,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -5858,10 +6038,10 @@
       }
     },
     {
-      "seq": 381,
+      "seq": 391,
       "kind": "consequence",
       "consequence": {
-        "cause": 380,
+        "cause": 390,
         "kind": "benefit",
         "skill": "StarPass",
         "career": "Craftsman",
@@ -5869,7 +6049,7 @@
       }
     },
     {
-      "seq": 382,
+      "seq": 392,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5883,7 +6063,7 @@
       }
     },
     {
-      "seq": 383,
+      "seq": 393,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5901,7 +6081,7 @@
       }
     },
     {
-      "seq": 384,
+      "seq": 394,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -5914,10 +6094,10 @@
       }
     },
     {
-      "seq": 385,
+      "seq": 395,
       "kind": "consequence",
       "consequence": {
-        "cause": 384,
+        "cause": 394,
         "kind": "benefit",
         "skill": "Money",
         "career": "Craftsman",
@@ -5925,7 +6105,7 @@
       }
     },
     {
-      "seq": 386,
+      "seq": 396,
       "kind": "step",
       "step": {
         "name": "Muster Out: Entitlements",
@@ -5933,7 +6113,7 @@
       }
     },
     {
-      "seq": 387,
+      "seq": 397,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5947,10 +6127,10 @@
       }
     },
     {
-      "seq": 388,
+      "seq": 398,
       "kind": "consequence",
       "consequence": {
-        "cause": 387,
+        "cause": 397,
         "kind": "entitlement",
         "skill": "Citizen's Pension",
         "delta": 5000,
@@ -5958,7 +6138,7 @@
       }
     },
     {
-      "seq": 389,
+      "seq": 399,
       "kind": "step",
       "step": {
         "name": "Record the Character's Birthdate",
@@ -5966,7 +6146,7 @@
       }
     },
     {
-      "seq": 390,
+      "seq": 400,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -5981,7 +6161,7 @@
       }
     },
     {
-      "seq": 391,
+      "seq": 401,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -5996,10 +6176,10 @@
       }
     },
     {
-      "seq": 392,
+      "seq": 402,
       "kind": "consequence",
       "consequence": {
-        "cause": 391,
+        "cause": 401,
         "kind": "birthdate",
         "detail": "Forday 264-1046",
         "value": 1046

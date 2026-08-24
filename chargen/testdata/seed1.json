@@ -2,7 +2,7 @@
   "schema_version": "0.28.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
   "engine_version": "0.28.0",
-  "policy_version": "0.16.0",
+  "policy_version": "0.17.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 1
@@ -784,6 +784,24 @@
     },
     {
       "seq": 47,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Citizen",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 48,
       "kind": "step",
       "step": {
         "name": "Citizen: Term 1",
@@ -791,7 +809,7 @@
       }
     },
     {
-      "seq": 48,
+      "seq": 49,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -807,7 +825,7 @@
       }
     },
     {
-      "seq": 49,
+      "seq": 50,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -822,7 +840,7 @@
       }
     },
     {
-      "seq": 50,
+      "seq": 51,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -830,18 +848,6 @@
           4
         ],
         "total": 4,
-        "cite": "Book 1 p. 78 chart 04 table E (roll A reroll if \u003e3, then B, then C)"
-      }
-    },
-    {
-      "seq": 51,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
         "cite": "Book 1 p. 78 chart 04 table E (roll A reroll if \u003e3, then B, then C)"
       }
     },
@@ -851,9 +857,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          5
+          1
         ],
-        "total": 5,
+        "total": 1,
         "cite": "Book 1 p. 78 chart 04 table E (roll A reroll if \u003e3, then B, then C)"
       }
     },
@@ -863,6 +869,18 @@
       "throw": {
         "expr": "1D",
         "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 78 chart 04 table E (roll A reroll if \u003e3, then B, then C)"
+      }
+    },
+    {
+      "seq": 54,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
           1
         ],
         "total": 1,
@@ -870,19 +888,19 @@
       }
     },
     {
-      "seq": 54,
+      "seq": 55,
       "kind": "consequence",
       "consequence": {
-        "cause": 53,
+        "cause": 54,
         "kind": "job_set",
         "skill": "Chef"
       }
     },
     {
-      "seq": 55,
+      "seq": 56,
       "kind": "consequence",
       "consequence": {
-        "cause": 53,
+        "cause": 54,
         "kind": "skill_awarded",
         "skill": "Chef",
         "delta": 4,
@@ -890,7 +908,7 @@
       }
     },
     {
-      "seq": 56,
+      "seq": 57,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -909,7 +927,7 @@
       }
     },
     {
-      "seq": 57,
+      "seq": 58,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -921,10 +939,10 @@
       }
     },
     {
-      "seq": 58,
+      "seq": 59,
       "kind": "consequence",
       "consequence": {
-        "cause": 57,
+        "cause": 58,
         "kind": "skill_awarded",
         "skill": "Admin",
         "delta": 1,
@@ -932,7 +950,7 @@
       }
     },
     {
-      "seq": 59,
+      "seq": 60,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -951,7 +969,7 @@
       }
     },
     {
-      "seq": 60,
+      "seq": 61,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -963,10 +981,10 @@
       }
     },
     {
-      "seq": 61,
+      "seq": 62,
       "kind": "consequence",
       "consequence": {
-        "cause": 60,
+        "cause": 61,
         "kind": "skill_awarded",
         "skill": "Admin",
         "delta": 1,
@@ -974,7 +992,7 @@
       }
     },
     {
-      "seq": 62,
+      "seq": 63,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -993,7 +1011,7 @@
       }
     },
     {
-      "seq": 63,
+      "seq": 64,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1005,10 +1023,10 @@
       }
     },
     {
-      "seq": 64,
+      "seq": 65,
       "kind": "consequence",
       "consequence": {
-        "cause": 63,
+        "cause": 64,
         "kind": "skill_awarded",
         "skill": "Animals",
         "delta": 1,
@@ -1016,7 +1034,7 @@
       }
     },
     {
-      "seq": 65,
+      "seq": 66,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1035,7 +1053,7 @@
       }
     },
     {
-      "seq": 66,
+      "seq": 67,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1047,10 +1065,10 @@
       }
     },
     {
-      "seq": 67,
+      "seq": 68,
       "kind": "consequence",
       "consequence": {
-        "cause": 66,
+        "cause": 67,
         "kind": "skill_awarded",
         "skill": "Bureaucrat",
         "delta": 1,
@@ -1058,7 +1076,7 @@
       }
     },
     {
-      "seq": 68,
+      "seq": 69,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1072,7 +1090,7 @@
       }
     },
     {
-      "seq": 69,
+      "seq": 70,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1087,16 +1105,34 @@
       }
     },
     {
-      "seq": 70,
+      "seq": 71,
       "kind": "consequence",
       "consequence": {
-        "cause": 69,
+        "cause": 70,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 71,
+      "seq": 72,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Citizen",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 73,
       "kind": "step",
       "step": {
         "name": "Citizen: Term 2",
@@ -1104,7 +1140,7 @@
       }
     },
     {
-      "seq": 72,
+      "seq": 74,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1119,7 +1155,7 @@
       }
     },
     {
-      "seq": 73,
+      "seq": 75,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1134,7 +1170,7 @@
       }
     },
     {
-      "seq": 74,
+      "seq": 76,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1249,19 +1285,19 @@
       }
     },
     {
-      "seq": 75,
+      "seq": 77,
       "kind": "consequence",
       "consequence": {
-        "cause": 74,
+        "cause": 76,
         "kind": "hobby_set",
         "skill": "ACV"
       }
     },
     {
-      "seq": 76,
+      "seq": 78,
       "kind": "consequence",
       "consequence": {
-        "cause": 74,
+        "cause": 76,
         "kind": "skill_awarded",
         "skill": "ACV",
         "delta": 2,
@@ -1269,7 +1305,7 @@
       }
     },
     {
-      "seq": 77,
+      "seq": 79,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1288,7 +1324,7 @@
       }
     },
     {
-      "seq": 78,
+      "seq": 80,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1300,10 +1336,10 @@
       }
     },
     {
-      "seq": 79,
+      "seq": 81,
       "kind": "consequence",
       "consequence": {
-        "cause": 78,
+        "cause": 80,
         "kind": "skill_awarded",
         "skill": "Computer",
         "delta": 1,
@@ -1311,7 +1347,7 @@
       }
     },
     {
-      "seq": 80,
+      "seq": 82,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1330,7 +1366,7 @@
       }
     },
     {
-      "seq": 81,
+      "seq": 83,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1342,10 +1378,10 @@
       }
     },
     {
-      "seq": 82,
+      "seq": 84,
       "kind": "consequence",
       "consequence": {
-        "cause": 81,
+        "cause": 83,
         "kind": "skill_awarded",
         "skill": "Animals",
         "delta": 1,
@@ -1353,7 +1389,7 @@
       }
     },
     {
-      "seq": 83,
+      "seq": 85,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1372,7 +1408,7 @@
       }
     },
     {
-      "seq": 84,
+      "seq": 86,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1384,10 +1420,10 @@
       }
     },
     {
-      "seq": 85,
+      "seq": 87,
       "kind": "consequence",
       "consequence": {
-        "cause": 84,
+        "cause": 86,
         "kind": "skill_awarded",
         "skill": "Broker",
         "delta": 1,
@@ -1395,7 +1431,7 @@
       }
     },
     {
-      "seq": 86,
+      "seq": 88,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1414,7 +1450,7 @@
       }
     },
     {
-      "seq": 87,
+      "seq": 89,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1426,10 +1462,10 @@
       }
     },
     {
-      "seq": 88,
+      "seq": 90,
       "kind": "consequence",
       "consequence": {
-        "cause": 87,
+        "cause": 89,
         "kind": "skill_awarded",
         "skill": "Broker",
         "delta": 1,
@@ -1437,7 +1473,7 @@
       }
     },
     {
-      "seq": 89,
+      "seq": 91,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1451,7 +1487,7 @@
       }
     },
     {
-      "seq": 90,
+      "seq": 92,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1466,25 +1502,25 @@
       }
     },
     {
-      "seq": 91,
+      "seq": 93,
       "kind": "consequence",
       "consequence": {
-        "cause": 90,
+        "cause": 92,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 92,
+      "seq": 94,
       "kind": "consequence",
       "consequence": {
-        "cause": 90,
+        "cause": 92,
         "kind": "career_ended",
         "career": "Citizen"
       }
     },
     {
-      "seq": 93,
+      "seq": 95,
       "kind": "step",
       "step": {
         "name": "Determine Fame",
@@ -1492,7 +1528,7 @@
       }
     },
     {
-      "seq": 94,
+      "seq": 96,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1504,7 +1540,7 @@
       }
     },
     {
-      "seq": 95,
+      "seq": 97,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1518,10 +1554,10 @@
       }
     },
     {
-      "seq": 96,
+      "seq": 98,
       "kind": "consequence",
       "consequence": {
-        "cause": 95,
+        "cause": 97,
         "kind": "fame_computed",
         "skill": "Extended Family",
         "value": 3,
@@ -1534,7 +1570,7 @@
       }
     },
     {
-      "seq": 97,
+      "seq": 99,
       "kind": "step",
       "step": {
         "name": "Muster Out",
@@ -1542,7 +1578,7 @@
       }
     },
     {
-      "seq": 98,
+      "seq": 100,
       "kind": "step",
       "step": {
         "name": "Muster Out: Citizen",
@@ -1550,7 +1586,7 @@
       }
     },
     {
-      "seq": 99,
+      "seq": 101,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1564,7 +1600,7 @@
       }
     },
     {
-      "seq": 100,
+      "seq": 102,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1579,7 +1615,7 @@
       }
     },
     {
-      "seq": 101,
+      "seq": 103,
       "kind": "throw",
       "throw": {
         "expr": "1D+2",
@@ -1592,10 +1628,10 @@
       }
     },
     {
-      "seq": 102,
+      "seq": 104,
       "kind": "consequence",
       "consequence": {
-        "cause": 101,
+        "cause": 103,
         "kind": "benefit",
         "skill": "StarPass",
         "career": "Citizen",
@@ -1603,7 +1639,7 @@
       }
     },
     {
-      "seq": 103,
+      "seq": 105,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1617,7 +1653,7 @@
       }
     },
     {
-      "seq": 104,
+      "seq": 106,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1632,7 +1668,7 @@
       }
     },
     {
-      "seq": 105,
+      "seq": 107,
       "kind": "throw",
       "throw": {
         "expr": "1D+2",
@@ -1645,10 +1681,10 @@
       }
     },
     {
-      "seq": 106,
+      "seq": 108,
       "kind": "consequence",
       "consequence": {
-        "cause": 105,
+        "cause": 107,
         "kind": "benefit",
         "skill": "Money",
         "career": "Citizen",
@@ -1656,7 +1692,7 @@
       }
     },
     {
-      "seq": 107,
+      "seq": 109,
       "kind": "step",
       "step": {
         "name": "Muster Out: Entitlements",
@@ -1664,7 +1700,7 @@
       }
     },
     {
-      "seq": 108,
+      "seq": 110,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1678,10 +1714,10 @@
       }
     },
     {
-      "seq": 109,
+      "seq": 111,
       "kind": "consequence",
       "consequence": {
-        "cause": 108,
+        "cause": 110,
         "kind": "entitlement",
         "skill": "Citizen's Pension",
         "delta": 5000,
@@ -1689,7 +1725,7 @@
       }
     },
     {
-      "seq": 110,
+      "seq": 112,
       "kind": "step",
       "step": {
         "name": "Record the Character's Birthdate",
@@ -1697,7 +1733,7 @@
       }
     },
     {
-      "seq": 111,
+      "seq": 113,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -1712,10 +1748,10 @@
       }
     },
     {
-      "seq": 112,
+      "seq": 114,
       "kind": "consequence",
       "consequence": {
-        "cause": 111,
+        "cause": 113,
         "kind": "birthdate",
         "detail": "Thirday 060-1075",
         "value": 1075

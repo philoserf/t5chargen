@@ -65,68 +65,70 @@ _Book 1 p. 72 chart E1 step D_
 
 _Book 1 p. 72 chart E1 panel 04_
 
+- #47 policy chose "Serve the term in Citizen" of [Serve the term in Citizen, Trade School, Apprenticeship, College, University, Service Academy]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Citizen: Term 1
 
 _Book 1 p. 78 chart 04_
 
-- #48 policy chose "Dex" of [Str, Dex, End, Int]: Select the term's controlling characteristic — Book 1 p. 65 (Risk and Reward: Select the CC)
-- #49 2D = 6+2 = 8 vs 12: success — Book 1 p. 78 chart 04 (Citizen Life vs Dex, no mods per p. 65)
-- #50 1D = 4 = 4 — Book 1 p. 78 chart 04 table E (roll A reroll if >3, then B, then C)
-- #51 1D = 1 = 1 — Book 1 p. 78 chart 04 table E (roll A reroll if >3, then B, then C)
-- #52 1D = 5 = 5 — Book 1 p. 78 chart 04 table E (roll A reroll if >3, then B, then C)
-- #53 1D = 1 = 1 — Book 1 p. 78 chart 04 table E (roll A reroll if >3, then B, then C)
-  - #54 (from #53) Job = Chef
-  - #55 (from #53) Chef +4 = Chef-4
-- #56 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #57 1D = 1 = 1 — Book 1 p. 78 chart 04 table C, column General
-  - #58 (from #57) Admin +1 = Admin-1
-- #59 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #60 1D = 1 = 1 — Book 1 p. 78 chart 04 table C, column General
-  - #61 (from #60) Admin +1 = Admin-2
-- #62 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #63 1D = 4 = 4 — Book 1 p. 78 chart 04 table C, column General
-  - #64 (from #63) Animals +1 = Animals-1
-- #65 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #66 1D = 5 = 5 — Book 1 p. 78 chart 04 table C, column General
-  - #67 (from #66) Bureaucrat +1 = Bureaucrat-1
-- #68 policy chose "Continue in Citizen" of [Continue in Citizen, Change careers]: Leave Citizen for another career? — Book 1 p. 66 (Changing Careers)
-- #69 2D = 3+2 = 5 vs 10: success — Book 1 p. 78 chart 04 (Continue 10-; p. 66)
-  - #70 (from #69) +4 years
+- #49 policy chose "Dex" of [Str, Dex, End, Int]: Select the term's controlling characteristic — Book 1 p. 65 (Risk and Reward: Select the CC)
+- #50 2D = 6+2 = 8 vs 12: success — Book 1 p. 78 chart 04 (Citizen Life vs Dex, no mods per p. 65)
+- #51 1D = 4 = 4 — Book 1 p. 78 chart 04 table E (roll A reroll if >3, then B, then C)
+- #52 1D = 1 = 1 — Book 1 p. 78 chart 04 table E (roll A reroll if >3, then B, then C)
+- #53 1D = 5 = 5 — Book 1 p. 78 chart 04 table E (roll A reroll if >3, then B, then C)
+- #54 1D = 1 = 1 — Book 1 p. 78 chart 04 table E (roll A reroll if >3, then B, then C)
+  - #55 (from #54) Job = Chef
+  - #56 (from #54) Chef +4 = Chef-4
+- #57 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #58 1D = 1 = 1 — Book 1 p. 78 chart 04 table C, column General
+  - #59 (from #58) Admin +1 = Admin-1
+- #60 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #61 1D = 1 = 1 — Book 1 p. 78 chart 04 table C, column General
+  - #62 (from #61) Admin +1 = Admin-2
+- #63 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #64 1D = 4 = 4 — Book 1 p. 78 chart 04 table C, column General
+  - #65 (from #64) Animals +1 = Animals-1
+- #66 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #67 1D = 5 = 5 — Book 1 p. 78 chart 04 table C, column General
+  - #68 (from #67) Bureaucrat +1 = Bureaucrat-1
+- #69 policy chose "Continue in Citizen" of [Continue in Citizen, Change careers]: Leave Citizen for another career? — Book 1 p. 66 (Changing Careers)
+- #70 2D = 3+2 = 5 vs 10: success — Book 1 p. 78 chart 04 (Continue 10-; p. 66)
+  - #71 (from #70) +4 years
+- #72 policy chose "Serve the term in Citizen" of [Serve the term in Citizen, Trade School, Apprenticeship, College, University, Service Academy]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Citizen: Term 2
 
 _Book 1 p. 78 chart 04_
 
-- #72 policy chose "End" of [Str, End, Int]: Select the term's controlling characteristic — Book 1 p. 65 (Risk and Reward: Select the CC)
-- #73 2D = 4+2 = 6 vs 8: success — Book 1 p. 78 chart 04 (Citizen Life vs End, no mods per p. 65)
-- #74 policy chose "ACV" of [ACV, Comms, High-G, Steward, Ordnance, Naval Architect, JOT, Rider, Sensors, Forward Observer, Survival, Streetwise, LTA, Spines, Flapper, Seafarer, Astrogator, WMD, Leader, Tracked, Engineer, Computer, Navigator, Survey, Animals, Fluidics, Bay Weapons, Explosives, Mole, Dancer, Tactics, Launcher, Magnetics, Jump Drives, Grav, Artist, Turrets, Teamster, Photonics, Counsellor, Boat, Legged, Teacher, Designer, Vacc Suit, Sub, Ship, Sapper, Unarmed, Artillery, Aeronautics, Winged, Driver, Exotics, Language, Craftsman, Aquanautics, Recon, Gunner, Stealth, Musician, Gravitics, Battle Dress, Actor, Blades, Trainer, Strategy, Forensics, Electronics, Flyer, Zero-G, Maneuver Drive, Biologics, Hostile Environ, Pilot, Author, Liaison, Polymers, Ortillery, Power Systems, Rotor, Broker, Athlete, Advocate, Automotive, Life Support, Admin, Trader, Fighter, Bureaucrat, Slug Throwers, Beams, Sprays, Wheeled, Diplomat, Heavy Weapons, Fleet Tactics, Medic, Gambler, Screens, Mechanic, Programmer, Spacecraft]: Select a Hobby from Citizen Skills and Knowledges — Book 1 p. 78 chart 04 (Second Success provides a Hobby)
-  - #75 (from #74) Hobby = ACV
-  - #76 (from #74) ACV +2 = ACV-2
-- #77 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #78 1D = 3 = 3 — Book 1 p. 78 chart 04 table C, column General
-  - #79 (from #78) Computer +1 = Computer-1
-- #80 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #81 1D = 4 = 4 — Book 1 p. 78 chart 04 table C, column General
-  - #82 (from #81) Animals +1 = Animals-2
-- #83 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #84 1D = 2 = 2 — Book 1 p. 78 chart 04 table C, column General
-  - #85 (from #84) Broker +1 = Broker-2
-- #86 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
-- #87 1D = 2 = 2 — Book 1 p. 78 chart 04 table C, column General
-  - #88 (from #87) Broker +1 = Broker-3
-- #89 policy chose "Continue in Citizen" of [Continue in Citizen, Change careers]: Leave Citizen for another career? — Book 1 p. 66 (Changing Careers)
-- #90 2D = 6+6 = 12 vs 10: failure — Book 1 p. 78 chart 04 (Continue 10-; p. 66)
-  - #91 (from #90) +4 years
-  - #92 (from #90) career ended (Citizen)
+- #74 policy chose "End" of [Str, End, Int]: Select the term's controlling characteristic — Book 1 p. 65 (Risk and Reward: Select the CC)
+- #75 2D = 4+2 = 6 vs 8: success — Book 1 p. 78 chart 04 (Citizen Life vs End, no mods per p. 65)
+- #76 policy chose "ACV" of [ACV, Comms, High-G, Steward, Ordnance, Naval Architect, JOT, Rider, Sensors, Forward Observer, Survival, Streetwise, LTA, Spines, Flapper, Seafarer, Astrogator, WMD, Leader, Tracked, Engineer, Computer, Navigator, Survey, Animals, Fluidics, Bay Weapons, Explosives, Mole, Dancer, Tactics, Launcher, Magnetics, Jump Drives, Grav, Artist, Turrets, Teamster, Photonics, Counsellor, Boat, Legged, Teacher, Designer, Vacc Suit, Sub, Ship, Sapper, Unarmed, Artillery, Aeronautics, Winged, Driver, Exotics, Language, Craftsman, Aquanautics, Recon, Gunner, Stealth, Musician, Gravitics, Battle Dress, Actor, Blades, Trainer, Strategy, Forensics, Electronics, Flyer, Zero-G, Maneuver Drive, Biologics, Hostile Environ, Pilot, Author, Liaison, Polymers, Ortillery, Power Systems, Rotor, Broker, Athlete, Advocate, Automotive, Life Support, Admin, Trader, Fighter, Bureaucrat, Slug Throwers, Beams, Sprays, Wheeled, Diplomat, Heavy Weapons, Fleet Tactics, Medic, Gambler, Screens, Mechanic, Programmer, Spacecraft]: Select a Hobby from Citizen Skills and Knowledges — Book 1 p. 78 chart 04 (Second Success provides a Hobby)
+  - #77 (from #76) Hobby = ACV
+  - #78 (from #76) ACV +2 = ACV-2
+- #79 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #80 1D = 3 = 3 — Book 1 p. 78 chart 04 table C, column General
+  - #81 (from #80) Computer +1 = Computer-1
+- #82 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #83 1D = 4 = 4 — Book 1 p. 78 chart 04 table C, column General
+  - #84 (from #83) Animals +1 = Animals-2
+- #85 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #86 1D = 2 = 2 — Book 1 p. 78 chart 04 table C, column General
+  - #87 (from #86) Broker +1 = Broker-2
+- #88 policy chose "General" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Citizen Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
+- #89 1D = 2 = 2 — Book 1 p. 78 chart 04 table C, column General
+  - #90 (from #89) Broker +1 = Broker-3
+- #91 policy chose "Continue in Citizen" of [Continue in Citizen, Change careers]: Leave Citizen for another career? — Book 1 p. 66 (Changing Careers)
+- #92 2D = 6+6 = 12 vs 10: failure — Book 1 p. 78 chart 04 (Continue 10-; p. 66)
+  - #93 (from #92) +4 years
+  - #94 (from #92) career ended (Citizen)
 
 ## Determine Fame
 
 _Book 1 p. 91 chart F_
 
-- #94 1D = 3 = 3 — Book 1 p. 91 chart F (If NO other eligibility, 1D)
-- #95 policy chose "Keep this Fame" of [Keep this Fame, Add Flux to Fame]: Invoke the Fame Flux Event? (Fame 3 so far) — Book 1 p. 91 chart F (The Fame Flux Event)
-  - #96 (from #95) Fame 3 (Extended Family) = no other eligibility +3
+- #96 1D = 3 = 3 — Book 1 p. 91 chart F (If NO other eligibility, 1D)
+- #97 policy chose "Keep this Fame" of [Keep this Fame, Add Flux to Fame]: Invoke the Fame Flux Event? (Fame 3 so far) — Book 1 p. 91 chart F (The Fame Flux Event)
+  - #98 (from #97) Fame 3 (Extended Family) = no other eligibility +3
 
 ## Muster Out
 
@@ -137,25 +139,25 @@ _Book 1 p. 67; chart M1 p. 70_
 
 _Book 1 p. 78 chart 04 D_
 
-- #99 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #100 policy chose "+2" of [+0, +1, +2]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #101 1D+2 = 4 = 6 — Book 1 p. 78 chart 04 D (Money column, 1D+2)
-  - #102 (from #101) StarPass
-- #103 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #104 policy chose "+2" of [+0, +1, +2]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #105 1D+2 = 6 = 8 — Book 1 p. 78 chart 04 D (Money column, 1D+2)
-  - #106 (from #105) Money, worth Cr30000
+- #101 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #102 policy chose "+2" of [+0, +1, +2]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #103 1D+2 = 4 = 6 — Book 1 p. 78 chart 04 D (Money column, 1D+2)
+  - #104 (from #103) StarPass
+- #105 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #106 policy chose "+2" of [+0, +1, +2]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #107 1D+2 = 6 = 8 — Book 1 p. 78 chart 04 D (Money column, 1D+2)
+  - #108 (from #107) Money, worth Cr30000
 
 ## Muster Out: Entitlements
 
 _Book 1 p. 70 chart M1_
 
-- #108 policy chose "Keep it (Cr5000 a year from age 66)" of [Keep it (Cr5000 a year from age 66), Cash out (Cr25000)]: Cash out the Citizen's Pension? — Book 1 p. 69 (Cashing Out)
-  - #109 (from #108) Citizen's Pension, Cr5000 a year from age 66
+- #110 policy chose "Keep it (Cr5000 a year from age 66)" of [Keep it (Cr5000 a year from age 66), Cash out (Cr25000)]: Cash out the Citizen's Pension? — Book 1 p. 69 (Cashing Out)
+  - #111 (from #110) Citizen's Pension, Cr5000 a year from age 66
 
 ## Record the Character's Birthdate
 
 _Book 1 p. 58; p. 263_
 
-- #111 4D = 3+4+6+2 = 15 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
-  - #112 (from #111) born Thirday 060-1075
+- #113 4D = 3+4+6+2 = 15 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
+  - #114 (from #113) born Thirday 060-1075

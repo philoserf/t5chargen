@@ -2,7 +2,7 @@
   "schema_version": "0.28.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
   "engine_version": "0.28.0",
-  "policy_version": "0.16.0",
+  "policy_version": "0.17.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 305
@@ -665,6 +665,22 @@
     },
     {
       "seq": 35,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Soldier",
+          "Trade School",
+          "Apprenticeship",
+          "College"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 36,
       "kind": "step",
       "step": {
         "name": "Soldier: Term 1",
@@ -672,7 +688,7 @@
       }
     },
     {
-      "seq": 36,
+      "seq": 37,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -687,7 +703,7 @@
       }
     },
     {
-      "seq": 37,
+      "seq": 38,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -699,10 +715,10 @@
       }
     },
     {
-      "seq": 38,
+      "seq": 39,
       "kind": "consequence",
       "consequence": {
-        "cause": 37,
+        "cause": 38,
         "kind": "operation",
         "skill": "Combat",
         "career": "Soldier",
@@ -710,7 +726,7 @@
       }
     },
     {
-      "seq": 39,
+      "seq": 40,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -722,10 +738,10 @@
       }
     },
     {
-      "seq": 40,
+      "seq": 41,
       "kind": "consequence",
       "consequence": {
-        "cause": 39,
+        "cause": 40,
         "kind": "operation",
         "skill": "Mission",
         "career": "Soldier",
@@ -733,7 +749,7 @@
       }
     },
     {
-      "seq": 41,
+      "seq": 42,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -745,17 +761,17 @@
       }
     },
     {
-      "seq": 42,
+      "seq": 43,
       "kind": "consequence",
       "consequence": {
-        "cause": 41,
+        "cause": 42,
         "kind": "operation",
         "skill": "Base",
         "career": "Soldier"
       }
     },
     {
-      "seq": 43,
+      "seq": 44,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -767,10 +783,10 @@
       }
     },
     {
-      "seq": 44,
+      "seq": 45,
       "kind": "consequence",
       "consequence": {
-        "cause": 43,
+        "cause": 44,
         "kind": "operation",
         "skill": "Peace Keeper",
         "career": "Soldier",
@@ -778,7 +794,7 @@
       }
     },
     {
-      "seq": 45,
+      "seq": 46,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -809,7 +825,7 @@
       }
     },
     {
-      "seq": 46,
+      "seq": 47,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -834,17 +850,17 @@
       }
     },
     {
-      "seq": 47,
+      "seq": 48,
       "kind": "consequence",
       "consequence": {
-        "cause": 46,
+        "cause": 47,
         "kind": "service_badge",
         "career": "Soldier",
         "value": 1
       }
     },
     {
-      "seq": 48,
+      "seq": 49,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -869,10 +885,10 @@
       }
     },
     {
-      "seq": 49,
+      "seq": 50,
       "kind": "consequence",
       "consequence": {
-        "cause": 48,
+        "cause": 49,
         "kind": "medal",
         "skill": "XS",
         "career": "Soldier",
@@ -880,7 +896,7 @@
       }
     },
     {
-      "seq": 50,
+      "seq": 51,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -894,7 +910,7 @@
       }
     },
     {
-      "seq": 51,
+      "seq": 52,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -909,20 +925,20 @@
       }
     },
     {
-      "seq": 52,
+      "seq": 53,
       "kind": "consequence",
       "consequence": {
-        "cause": 51,
+        "cause": 52,
         "kind": "rank_set",
         "skill": "2nd Lieutenant",
         "career": "Soldier"
       }
     },
     {
-      "seq": 53,
+      "seq": 54,
       "kind": "consequence",
       "consequence": {
-        "cause": 51,
+        "cause": 52,
         "kind": "skill_awarded",
         "skill": "Leader",
         "delta": 1,
@@ -930,7 +946,7 @@
       }
     },
     {
-      "seq": 54,
+      "seq": 55,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -947,7 +963,7 @@
       }
     },
     {
-      "seq": 55,
+      "seq": 56,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -959,10 +975,10 @@
       }
     },
     {
-      "seq": 56,
+      "seq": 57,
       "kind": "consequence",
       "consequence": {
-        "cause": 55,
+        "cause": 56,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -970,7 +986,7 @@
       }
     },
     {
-      "seq": 57,
+      "seq": 58,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -987,7 +1003,7 @@
       }
     },
     {
-      "seq": 58,
+      "seq": 59,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -999,10 +1015,10 @@
       }
     },
     {
-      "seq": 59,
+      "seq": 60,
       "kind": "consequence",
       "consequence": {
-        "cause": 58,
+        "cause": 59,
         "kind": "skill_awarded",
         "skill": "Vacc Suit",
         "delta": 1,
@@ -1010,7 +1026,7 @@
       }
     },
     {
-      "seq": 60,
+      "seq": 61,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1027,7 +1043,7 @@
       }
     },
     {
-      "seq": 61,
+      "seq": 62,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1039,10 +1055,10 @@
       }
     },
     {
-      "seq": 62,
+      "seq": 63,
       "kind": "consequence",
       "consequence": {
-        "cause": 61,
+        "cause": 62,
         "kind": "skill_awarded",
         "skill": "Tactics",
         "delta": 1,
@@ -1050,7 +1066,7 @@
       }
     },
     {
-      "seq": 63,
+      "seq": 64,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1067,7 +1083,7 @@
       }
     },
     {
-      "seq": 64,
+      "seq": 65,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1079,10 +1095,10 @@
       }
     },
     {
-      "seq": 65,
+      "seq": 66,
       "kind": "consequence",
       "consequence": {
-        "cause": 64,
+        "cause": 65,
         "kind": "skill_awarded",
         "skill": "Leader",
         "delta": 1,
@@ -1090,7 +1106,7 @@
       }
     },
     {
-      "seq": 66,
+      "seq": 67,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1109,7 +1125,7 @@
       }
     },
     {
-      "seq": 67,
+      "seq": 68,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1121,10 +1137,10 @@
       }
     },
     {
-      "seq": 68,
+      "seq": 69,
       "kind": "consequence",
       "consequence": {
-        "cause": 67,
+        "cause": 68,
         "kind": "skill_awarded",
         "skill": "Tactics",
         "delta": 1,
@@ -1132,7 +1148,7 @@
       }
     },
     {
-      "seq": 69,
+      "seq": 70,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1146,7 +1162,7 @@
       }
     },
     {
-      "seq": 70,
+      "seq": 71,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1161,16 +1177,32 @@
       }
     },
     {
-      "seq": 71,
+      "seq": 72,
       "kind": "consequence",
       "consequence": {
-        "cause": 70,
+        "cause": 71,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 72,
+      "seq": 73,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Soldier",
+          "Trade School",
+          "Apprenticeship",
+          "College"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 74,
       "kind": "step",
       "step": {
         "name": "Soldier: Term 2",
@@ -1178,7 +1210,7 @@
       }
     },
     {
-      "seq": 73,
+      "seq": 75,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1192,7 +1224,7 @@
       }
     },
     {
-      "seq": 74,
+      "seq": 76,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1204,17 +1236,17 @@
       }
     },
     {
-      "seq": 75,
+      "seq": 77,
       "kind": "consequence",
       "consequence": {
-        "cause": 74,
+        "cause": 76,
         "kind": "operation",
         "skill": "Base",
         "career": "Soldier"
       }
     },
     {
-      "seq": 76,
+      "seq": 78,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1226,10 +1258,10 @@
       }
     },
     {
-      "seq": 77,
+      "seq": 79,
       "kind": "consequence",
       "consequence": {
-        "cause": 76,
+        "cause": 78,
         "kind": "operation",
         "skill": "Mission",
         "career": "Soldier",
@@ -1237,7 +1269,7 @@
       }
     },
     {
-      "seq": 78,
+      "seq": 80,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1249,17 +1281,17 @@
       }
     },
     {
-      "seq": 79,
+      "seq": 81,
       "kind": "consequence",
       "consequence": {
-        "cause": 78,
+        "cause": 80,
         "kind": "operation",
         "skill": "Base",
         "career": "Soldier"
       }
     },
     {
-      "seq": 80,
+      "seq": 82,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1271,10 +1303,10 @@
       }
     },
     {
-      "seq": 81,
+      "seq": 83,
       "kind": "consequence",
       "consequence": {
-        "cause": 80,
+        "cause": 82,
         "kind": "operation",
         "skill": "Combat",
         "career": "Soldier",
@@ -1282,7 +1314,7 @@
       }
     },
     {
-      "seq": 82,
+      "seq": 84,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1313,7 +1345,7 @@
       }
     },
     {
-      "seq": 83,
+      "seq": 85,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1338,7 +1370,7 @@
       }
     },
     {
-      "seq": 84,
+      "seq": 86,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -1351,7 +1383,7 @@
       }
     },
     {
-      "seq": 85,
+      "seq": 87,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1376,10 +1408,10 @@
       }
     },
     {
-      "seq": 86,
+      "seq": 88,
       "kind": "consequence",
       "consequence": {
-        "cause": 85,
+        "cause": 87,
         "kind": "medal",
         "skill": "XS",
         "career": "Soldier",
@@ -1387,7 +1419,7 @@
       }
     },
     {
-      "seq": 87,
+      "seq": 89,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1401,7 +1433,7 @@
       }
     },
     {
-      "seq": 88,
+      "seq": 90,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1422,17 +1454,17 @@
       }
     },
     {
-      "seq": 89,
+      "seq": 91,
       "kind": "consequence",
       "consequence": {
-        "cause": 88,
+        "cause": 90,
         "kind": "rank_set",
         "skill": "1st Lieutenant",
         "career": "Soldier"
       }
     },
     {
-      "seq": 90,
+      "seq": 92,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1448,7 +1480,7 @@
       }
     },
     {
-      "seq": 91,
+      "seq": 93,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1460,10 +1492,10 @@
       }
     },
     {
-      "seq": 92,
+      "seq": 94,
       "kind": "consequence",
       "consequence": {
-        "cause": 91,
+        "cause": 93,
         "kind": "skill_awarded",
         "skill": "Vacc Suit",
         "delta": 1,
@@ -1471,7 +1503,7 @@
       }
     },
     {
-      "seq": 93,
+      "seq": 95,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1487,7 +1519,7 @@
       }
     },
     {
-      "seq": 94,
+      "seq": 96,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1499,10 +1531,10 @@
       }
     },
     {
-      "seq": 95,
+      "seq": 97,
       "kind": "consequence",
       "consequence": {
-        "cause": 94,
+        "cause": 96,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -1510,7 +1542,7 @@
       }
     },
     {
-      "seq": 96,
+      "seq": 98,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1526,7 +1558,7 @@
       }
     },
     {
-      "seq": 97,
+      "seq": 99,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1538,10 +1570,10 @@
       }
     },
     {
-      "seq": 98,
+      "seq": 100,
       "kind": "consequence",
       "consequence": {
-        "cause": 97,
+        "cause": 99,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -1549,7 +1581,7 @@
       }
     },
     {
-      "seq": 99,
+      "seq": 101,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1565,7 +1597,7 @@
       }
     },
     {
-      "seq": 100,
+      "seq": 102,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1577,10 +1609,10 @@
       }
     },
     {
-      "seq": 101,
+      "seq": 103,
       "kind": "consequence",
       "consequence": {
-        "cause": 100,
+        "cause": 102,
         "kind": "skill_awarded",
         "skill": "Stealth",
         "delta": 1,
@@ -1588,7 +1620,7 @@
       }
     },
     {
-      "seq": 102,
+      "seq": 104,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1607,7 +1639,7 @@
       }
     },
     {
-      "seq": 103,
+      "seq": 105,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1619,10 +1651,10 @@
       }
     },
     {
-      "seq": 104,
+      "seq": 106,
       "kind": "consequence",
       "consequence": {
-        "cause": 103,
+        "cause": 105,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -1630,7 +1662,7 @@
       }
     },
     {
-      "seq": 105,
+      "seq": 107,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1644,7 +1676,7 @@
       }
     },
     {
-      "seq": 106,
+      "seq": 108,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1659,16 +1691,32 @@
       }
     },
     {
-      "seq": 107,
+      "seq": 109,
       "kind": "consequence",
       "consequence": {
-        "cause": 106,
+        "cause": 108,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 108,
+      "seq": 110,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Soldier",
+          "Trade School",
+          "Apprenticeship",
+          "College"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 111,
       "kind": "step",
       "step": {
         "name": "Soldier: Term 3",
@@ -1676,7 +1724,7 @@
       }
     },
     {
-      "seq": 109,
+      "seq": 112,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1689,7 +1737,7 @@
       }
     },
     {
-      "seq": 110,
+      "seq": 113,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1701,17 +1749,17 @@
       }
     },
     {
-      "seq": 111,
+      "seq": 114,
       "kind": "consequence",
       "consequence": {
-        "cause": 110,
+        "cause": 113,
         "kind": "operation",
         "skill": "Base",
         "career": "Soldier"
       }
     },
     {
-      "seq": 112,
+      "seq": 115,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1723,10 +1771,10 @@
       }
     },
     {
-      "seq": 113,
+      "seq": 116,
       "kind": "consequence",
       "consequence": {
-        "cause": 112,
+        "cause": 115,
         "kind": "operation",
         "skill": "Combat",
         "career": "Soldier",
@@ -1734,7 +1782,7 @@
       }
     },
     {
-      "seq": 114,
+      "seq": 117,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1746,10 +1794,10 @@
       }
     },
     {
-      "seq": 115,
+      "seq": 118,
       "kind": "consequence",
       "consequence": {
-        "cause": 114,
+        "cause": 117,
         "kind": "operation",
         "skill": "Peace Keeper",
         "career": "Soldier",
@@ -1757,7 +1805,7 @@
       }
     },
     {
-      "seq": 116,
+      "seq": 119,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1769,17 +1817,17 @@
       }
     },
     {
-      "seq": 117,
+      "seq": 120,
       "kind": "consequence",
       "consequence": {
-        "cause": 116,
+        "cause": 119,
         "kind": "operation",
         "skill": "Base",
         "career": "Soldier"
       }
     },
     {
-      "seq": 118,
+      "seq": 121,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1810,7 +1858,7 @@
       }
     },
     {
-      "seq": 119,
+      "seq": 122,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1835,7 +1883,7 @@
       }
     },
     {
-      "seq": 120,
+      "seq": 123,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -1848,10 +1896,10 @@
       }
     },
     {
-      "seq": 121,
+      "seq": 124,
       "kind": "consequence",
       "consequence": {
-        "cause": 119,
+        "cause": 122,
         "kind": "characteristic_change",
         "characteristic": "Int",
         "delta": -3,
@@ -1859,16 +1907,16 @@
       }
     },
     {
-      "seq": 122,
+      "seq": 125,
       "kind": "consequence",
       "consequence": {
-        "cause": 119,
+        "cause": 122,
         "kind": "wound_badge",
         "value": 1
       }
     },
     {
-      "seq": 123,
+      "seq": 126,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1893,10 +1941,10 @@
       }
     },
     {
-      "seq": 124,
+      "seq": 127,
       "kind": "consequence",
       "consequence": {
-        "cause": 123,
+        "cause": 126,
         "kind": "medal",
         "skill": "MCG",
         "career": "Soldier",
@@ -1904,7 +1952,7 @@
       }
     },
     {
-      "seq": 125,
+      "seq": 128,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1918,7 +1966,7 @@
       }
     },
     {
-      "seq": 126,
+      "seq": 129,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1939,52 +1987,13 @@
       }
     },
     {
-      "seq": 127,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 126,
-        "kind": "rank_set",
-        "skill": "Captain",
-        "career": "Soldier"
-      }
-    },
-    {
-      "seq": 128,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Soldier Skills column",
-        "options": [
-          "Personal",
-          "Base",
-          "Combat",
-          "Peacekeeper"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 129,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 82 chart 08 table C, column Combat"
-      }
-    },
-    {
       "seq": 130,
       "kind": "consequence",
       "consequence": {
         "cause": 129,
-        "kind": "skill_awarded",
-        "skill": "Tactics",
-        "delta": 1,
-        "value": 3
+        "kind": "rank_set",
+        "skill": "Captain",
+        "career": "Soldier"
       }
     },
     {
@@ -2009,9 +2018,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          3
+          6
         ],
-        "total": 3,
+        "total": 6,
         "cite": "Book 1 p. 82 chart 08 table C, column Combat"
       }
     },
@@ -2021,9 +2030,9 @@
       "consequence": {
         "cause": 132,
         "kind": "skill_awarded",
-        "skill": "Fighter",
+        "skill": "Tactics",
         "delta": 1,
-        "value": 6
+        "value": 3
       }
     },
     {
@@ -2048,9 +2057,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          6
+          3
         ],
-        "total": 6,
+        "total": 3,
         "cite": "Book 1 p. 82 chart 08 table C, column Combat"
       }
     },
@@ -2060,9 +2069,9 @@
       "consequence": {
         "cause": 135,
         "kind": "skill_awarded",
-        "skill": "Tactics",
+        "skill": "Fighter",
         "delta": 1,
-        "value": 4
+        "value": 6
       }
     },
     {
@@ -2087,9 +2096,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          1
+          6
         ],
-        "total": 1,
+        "total": 6,
         "cite": "Book 1 p. 82 chart 08 table C, column Combat"
       }
     },
@@ -2099,13 +2108,52 @@
       "consequence": {
         "cause": 138,
         "kind": "skill_awarded",
+        "skill": "Tactics",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 140,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Soldier Skills column",
+        "options": [
+          "Personal",
+          "Base",
+          "Combat",
+          "Peacekeeper"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 141,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 82 chart 08 table C, column Combat"
+      }
+    },
+    {
+      "seq": 142,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 141,
+        "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
         "value": 7
       }
     },
     {
-      "seq": 140,
+      "seq": 143,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2124,7 +2172,7 @@
       }
     },
     {
-      "seq": 141,
+      "seq": 144,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2136,10 +2184,10 @@
       }
     },
     {
-      "seq": 142,
+      "seq": 145,
       "kind": "consequence",
       "consequence": {
-        "cause": 141,
+        "cause": 144,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -2147,7 +2195,7 @@
       }
     },
     {
-      "seq": 143,
+      "seq": 146,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2161,7 +2209,7 @@
       }
     },
     {
-      "seq": 144,
+      "seq": 147,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2176,16 +2224,32 @@
       }
     },
     {
-      "seq": 145,
+      "seq": 148,
       "kind": "consequence",
       "consequence": {
-        "cause": 144,
+        "cause": 147,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 146,
+      "seq": 149,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Soldier",
+          "Trade School",
+          "Apprenticeship",
+          "College"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 150,
       "kind": "step",
       "step": {
         "name": "Soldier: Term 4",
@@ -2193,7 +2257,7 @@
       }
     },
     {
-      "seq": 147,
+      "seq": 151,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2208,7 +2272,7 @@
       }
     },
     {
-      "seq": 148,
+      "seq": 152,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2216,51 +2280,6 @@
           5
         ],
         "total": 5,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
-      }
-    },
-    {
-      "seq": 149,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 148,
-        "kind": "operation",
-        "skill": "Base",
-        "career": "Soldier"
-      }
-    },
-    {
-      "seq": 150,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
-      }
-    },
-    {
-      "seq": 151,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 150,
-        "kind": "operation",
-        "skill": "Peace Keeper",
-        "career": "Soldier",
-        "value": 1
-      }
-    },
-    {
-      "seq": 152,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
         "cite": "Book 1 p. 82 chart 08 (Army Operations)"
       }
     },
@@ -2280,9 +2299,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          6
+          2
         ],
-        "total": 6,
+        "total": 2,
         "cite": "Book 1 p. 82 chart 08 (Army Operations)"
       }
     },
@@ -2292,12 +2311,57 @@
       "consequence": {
         "cause": 154,
         "kind": "operation",
+        "skill": "Peace Keeper",
+        "career": "Soldier",
+        "value": 1
+      }
+    },
+    {
+      "seq": 156,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
+      }
+    },
+    {
+      "seq": 157,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 156,
+        "kind": "operation",
         "skill": "Base",
         "career": "Soldier"
       }
     },
     {
-      "seq": 156,
+      "seq": 158,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 82 chart 08 (Army Operations)"
+      }
+    },
+    {
+      "seq": 159,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 158,
+        "kind": "operation",
+        "skill": "Base",
+        "career": "Soldier"
+      }
+    },
+    {
+      "seq": 160,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2328,7 +2392,7 @@
       }
     },
     {
-      "seq": 157,
+      "seq": 161,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2353,17 +2417,17 @@
       }
     },
     {
-      "seq": 158,
+      "seq": 162,
       "kind": "consequence",
       "consequence": {
-        "cause": 157,
+        "cause": 161,
         "kind": "service_badge",
         "career": "Soldier",
         "value": 2
       }
     },
     {
-      "seq": 159,
+      "seq": 163,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2388,10 +2452,10 @@
       }
     },
     {
-      "seq": 160,
+      "seq": 164,
       "kind": "consequence",
       "consequence": {
-        "cause": 159,
+        "cause": 163,
         "kind": "medal",
         "skill": "SEH",
         "career": "Soldier",
@@ -2399,7 +2463,7 @@
       }
     },
     {
-      "seq": 161,
+      "seq": 165,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2413,7 +2477,7 @@
       }
     },
     {
-      "seq": 162,
+      "seq": 166,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2434,20 +2498,20 @@
       }
     },
     {
-      "seq": 163,
+      "seq": 167,
       "kind": "consequence",
       "consequence": {
-        "cause": 162,
+        "cause": 166,
         "kind": "rank_set",
         "skill": "Major",
         "career": "Soldier"
       }
     },
     {
-      "seq": 164,
+      "seq": 168,
       "kind": "consequence",
       "consequence": {
-        "cause": 162,
+        "cause": 166,
         "kind": "skill_awarded",
         "skill": "Tactics",
         "delta": 1,
@@ -2455,7 +2519,7 @@
       }
     },
     {
-      "seq": 165,
+      "seq": 169,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2470,7 +2534,7 @@
       }
     },
     {
-      "seq": 166,
+      "seq": 170,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2482,10 +2546,10 @@
       }
     },
     {
-      "seq": 167,
+      "seq": 171,
       "kind": "consequence",
       "consequence": {
-        "cause": 166,
+        "cause": 170,
         "kind": "skill_awarded",
         "skill": "Admin",
         "delta": 1,
@@ -2493,7 +2557,7 @@
       }
     },
     {
-      "seq": 168,
+      "seq": 172,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2508,7 +2572,7 @@
       }
     },
     {
-      "seq": 169,
+      "seq": 173,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2520,10 +2584,10 @@
       }
     },
     {
-      "seq": 170,
+      "seq": 174,
       "kind": "consequence",
       "consequence": {
-        "cause": 169,
+        "cause": 173,
         "kind": "skill_awarded",
         "skill": "Hostile Environ",
         "delta": 1,
@@ -2531,7 +2595,7 @@
       }
     },
     {
-      "seq": 171,
+      "seq": 175,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2546,7 +2610,7 @@
       }
     },
     {
-      "seq": 172,
+      "seq": 176,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2558,10 +2622,10 @@
       }
     },
     {
-      "seq": 173,
+      "seq": 177,
       "kind": "consequence",
       "consequence": {
-        "cause": 172,
+        "cause": 176,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -2569,7 +2633,7 @@
       }
     },
     {
-      "seq": 174,
+      "seq": 178,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2584,7 +2648,7 @@
       }
     },
     {
-      "seq": 175,
+      "seq": 179,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2596,10 +2660,10 @@
       }
     },
     {
-      "seq": 176,
+      "seq": 180,
       "kind": "consequence",
       "consequence": {
-        "cause": 175,
+        "cause": 179,
         "kind": "skill_awarded",
         "skill": "Hostile Environ",
         "delta": 1,
@@ -2607,7 +2671,7 @@
       }
     },
     {
-      "seq": 177,
+      "seq": 181,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2626,7 +2690,7 @@
       }
     },
     {
-      "seq": 178,
+      "seq": 182,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2638,10 +2702,10 @@
       }
     },
     {
-      "seq": 179,
+      "seq": 183,
       "kind": "consequence",
       "consequence": {
-        "cause": 178,
+        "cause": 182,
         "kind": "skill_awarded",
         "skill": "Stealth",
         "delta": 1,
@@ -2649,7 +2713,7 @@
       }
     },
     {
-      "seq": 180,
+      "seq": 184,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2663,7 +2727,7 @@
       }
     },
     {
-      "seq": 181,
+      "seq": 185,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2678,16 +2742,16 @@
       }
     },
     {
-      "seq": 182,
+      "seq": 186,
       "kind": "consequence",
       "consequence": {
-        "cause": 181,
+        "cause": 185,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 183,
+      "seq": 187,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2702,7 +2766,7 @@
       }
     },
     {
-      "seq": 184,
+      "seq": 188,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2717,7 +2781,7 @@
       }
     },
     {
-      "seq": 185,
+      "seq": 189,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2732,7 +2796,23 @@
       }
     },
     {
-      "seq": 186,
+      "seq": 190,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Soldier",
+          "Trade School",
+          "Apprenticeship",
+          "College"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 191,
       "kind": "step",
       "step": {
         "name": "Soldier: Term 5",
@@ -2740,7 +2820,7 @@
       }
     },
     {
-      "seq": 187,
+      "seq": 192,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2754,7 +2834,7 @@
       }
     },
     {
-      "seq": 188,
+      "seq": 193,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2766,10 +2846,10 @@
       }
     },
     {
-      "seq": 189,
+      "seq": 194,
       "kind": "consequence",
       "consequence": {
-        "cause": 188,
+        "cause": 193,
         "kind": "operation",
         "skill": "Peace Keeper",
         "career": "Soldier",
@@ -2777,7 +2857,7 @@
       }
     },
     {
-      "seq": 190,
+      "seq": 195,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2789,10 +2869,10 @@
       }
     },
     {
-      "seq": 191,
+      "seq": 196,
       "kind": "consequence",
       "consequence": {
-        "cause": 190,
+        "cause": 195,
         "kind": "operation",
         "skill": "Peace Keeper",
         "career": "Soldier",
@@ -2800,7 +2880,7 @@
       }
     },
     {
-      "seq": 192,
+      "seq": 197,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2812,17 +2892,17 @@
       }
     },
     {
-      "seq": 193,
+      "seq": 198,
       "kind": "consequence",
       "consequence": {
-        "cause": 192,
+        "cause": 197,
         "kind": "operation",
         "skill": "Base",
         "career": "Soldier"
       }
     },
     {
-      "seq": 194,
+      "seq": 199,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2834,10 +2914,10 @@
       }
     },
     {
-      "seq": 195,
+      "seq": 200,
       "kind": "consequence",
       "consequence": {
-        "cause": 194,
+        "cause": 199,
         "kind": "operation",
         "skill": "Combat",
         "career": "Soldier",
@@ -2845,7 +2925,7 @@
       }
     },
     {
-      "seq": 196,
+      "seq": 201,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2876,7 +2956,7 @@
       }
     },
     {
-      "seq": 197,
+      "seq": 202,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2901,7 +2981,7 @@
       }
     },
     {
-      "seq": 198,
+      "seq": 203,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -2914,10 +2994,10 @@
       }
     },
     {
-      "seq": 199,
+      "seq": 204,
       "kind": "consequence",
       "consequence": {
-        "cause": 197,
+        "cause": 202,
         "kind": "characteristic_change",
         "characteristic": "Str",
         "delta": -9,
@@ -2925,25 +3005,25 @@
       }
     },
     {
-      "seq": 200,
+      "seq": 205,
       "kind": "consequence",
       "consequence": {
-        "cause": 197,
+        "cause": 202,
         "kind": "wound_badge",
         "value": 2
       }
     },
     {
-      "seq": 201,
+      "seq": 206,
       "kind": "consequence",
       "consequence": {
-        "cause": 197,
+        "cause": 202,
         "kind": "disabled",
         "characteristic": "Str"
       }
     },
     {
-      "seq": 202,
+      "seq": 207,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2968,10 +3048,10 @@
       }
     },
     {
-      "seq": 203,
+      "seq": 208,
       "kind": "consequence",
       "consequence": {
-        "cause": 202,
+        "cause": 207,
         "kind": "medal",
         "skill": "XS",
         "career": "Soldier",
@@ -2979,7 +3059,7 @@
       }
     },
     {
-      "seq": 204,
+      "seq": 209,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2993,7 +3073,7 @@
       }
     },
     {
-      "seq": 205,
+      "seq": 210,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3014,17 +3094,17 @@
       }
     },
     {
-      "seq": 206,
+      "seq": 211,
       "kind": "consequence",
       "consequence": {
-        "cause": 205,
+        "cause": 210,
         "kind": "rank_set",
         "skill": "Lt Colonel",
         "career": "Soldier"
       }
     },
     {
-      "seq": 207,
+      "seq": 212,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3040,7 +3120,7 @@
       }
     },
     {
-      "seq": 208,
+      "seq": 213,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3052,10 +3132,10 @@
       }
     },
     {
-      "seq": 209,
+      "seq": 214,
       "kind": "consequence",
       "consequence": {
-        "cause": 208,
+        "cause": 213,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -3063,7 +3143,7 @@
       }
     },
     {
-      "seq": 210,
+      "seq": 215,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3079,7 +3159,7 @@
       }
     },
     {
-      "seq": 211,
+      "seq": 216,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3091,10 +3171,10 @@
       }
     },
     {
-      "seq": 212,
+      "seq": 217,
       "kind": "consequence",
       "consequence": {
-        "cause": 211,
+        "cause": 216,
         "kind": "skill_awarded",
         "skill": "Vacc Suit",
         "delta": 1,
@@ -3102,7 +3182,7 @@
       }
     },
     {
-      "seq": 213,
+      "seq": 218,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3118,7 +3198,7 @@
       }
     },
     {
-      "seq": 214,
+      "seq": 219,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3130,10 +3210,10 @@
       }
     },
     {
-      "seq": 215,
+      "seq": 220,
       "kind": "consequence",
       "consequence": {
-        "cause": 214,
+        "cause": 219,
         "kind": "skill_awarded",
         "skill": "Stealth",
         "delta": 1,
@@ -3141,7 +3221,7 @@
       }
     },
     {
-      "seq": 216,
+      "seq": 221,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3157,7 +3237,7 @@
       }
     },
     {
-      "seq": 217,
+      "seq": 222,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3169,10 +3249,10 @@
       }
     },
     {
-      "seq": 218,
+      "seq": 223,
       "kind": "consequence",
       "consequence": {
-        "cause": 217,
+        "cause": 222,
         "kind": "skill_awarded",
         "skill": "Tactics",
         "delta": 1,
@@ -3180,7 +3260,7 @@
       }
     },
     {
-      "seq": 219,
+      "seq": 224,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3199,7 +3279,7 @@
       }
     },
     {
-      "seq": 220,
+      "seq": 225,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3211,10 +3291,10 @@
       }
     },
     {
-      "seq": 221,
+      "seq": 226,
       "kind": "consequence",
       "consequence": {
-        "cause": 220,
+        "cause": 225,
         "kind": "skill_awarded",
         "skill": "Leader",
         "delta": 1,
@@ -3222,16 +3302,16 @@
       }
     },
     {
-      "seq": 222,
+      "seq": 227,
       "kind": "consequence",
       "consequence": {
-        "cause": 197,
+        "cause": 202,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 223,
+      "seq": 228,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3246,7 +3326,7 @@
       }
     },
     {
-      "seq": 224,
+      "seq": 229,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3261,7 +3341,7 @@
       }
     },
     {
-      "seq": 225,
+      "seq": 230,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3276,16 +3356,16 @@
       }
     },
     {
-      "seq": 226,
+      "seq": 231,
       "kind": "consequence",
       "consequence": {
-        "cause": 197,
+        "cause": 202,
         "kind": "career_ended",
         "career": "Soldier"
       }
     },
     {
-      "seq": 227,
+      "seq": 232,
       "kind": "consequence",
       "consequence": {
         "cause": 27,
@@ -3295,7 +3375,7 @@
       }
     },
     {
-      "seq": 228,
+      "seq": 233,
       "kind": "step",
       "step": {
         "name": "Determine Fame",
@@ -3303,7 +3383,7 @@
       }
     },
     {
-      "seq": 229,
+      "seq": 234,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3317,10 +3397,10 @@
       }
     },
     {
-      "seq": 230,
+      "seq": 235,
       "kind": "consequence",
       "consequence": {
-        "cause": 229,
+        "cause": 234,
         "kind": "fame_computed",
         "skill": "World System",
         "value": 12,
@@ -3345,7 +3425,7 @@
       }
     },
     {
-      "seq": 231,
+      "seq": 236,
       "kind": "step",
       "step": {
         "name": "Muster Out",
@@ -3353,7 +3433,7 @@
       }
     },
     {
-      "seq": 232,
+      "seq": 237,
       "kind": "step",
       "step": {
         "name": "Muster Out: Soldier",
@@ -3361,7 +3441,7 @@
       }
     },
     {
-      "seq": 233,
+      "seq": 238,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3375,7 +3455,7 @@
       }
     },
     {
-      "seq": 234,
+      "seq": 239,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3393,7 +3473,7 @@
       }
     },
     {
-      "seq": 235,
+      "seq": 240,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -3406,84 +3486,14 @@
       }
     },
     {
-      "seq": 236,
+      "seq": 241,
       "kind": "consequence",
       "consequence": {
-        "cause": 235,
+        "cause": 240,
         "kind": "benefit",
         "skill": "Money",
         "career": "Soldier",
         "delta": 40000
-      }
-    },
-    {
-      "seq": 237,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Soldier muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 238,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5"
-        ],
-        "chosen": 5,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 239,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+5",
-        "dice": [
-          4
-        ],
-        "mod": 5,
-        "total": 9,
-        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
-      }
-    },
-    {
-      "seq": 240,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 239,
-        "kind": "benefit",
-        "skill": "Retirement x2",
-        "career": "Soldier",
-        "value": 1
-      }
-    },
-    {
-      "seq": 241,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Soldier muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
       }
     },
     {
@@ -3491,413 +3501,35 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "How much of the terms DM to apply?",
+        "prompt": "Which column for this Soldier muster-out roll?",
         "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5"
+          "Money",
+          "Benefits"
         ],
-        "chosen": 5,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
       }
     },
     {
       "seq": 243,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+5",
-        "dice": [
-          2
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
         ],
-        "mod": 5,
-        "total": 7,
-        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
       }
     },
     {
       "seq": 244,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 243,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Soldier",
-        "delta": 50000
-      }
-    },
-    {
-      "seq": 245,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Soldier muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 246,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5"
-        ],
-        "chosen": 5,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 247,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+5",
-        "dice": [
-          6
-        ],
-        "mod": 5,
-        "total": 11,
-        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
-      }
-    },
-    {
-      "seq": 248,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 247,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Soldier",
-        "delta": 60000
-      }
-    },
-    {
-      "seq": 249,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Soldier muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 250,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5"
-        ],
-        "chosen": 5,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 251,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+5",
-        "dice": [
-          5
-        ],
-        "mod": 5,
-        "total": 10,
-        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
-      }
-    },
-    {
-      "seq": 252,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 251,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Soldier",
-        "delta": 60000
-      }
-    },
-    {
-      "seq": 253,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Soldier muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 254,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5"
-        ],
-        "chosen": 5,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 255,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+5",
-        "dice": [
-          2
-        ],
-        "mod": 5,
-        "total": 7,
-        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
-      }
-    },
-    {
-      "seq": 256,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 255,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Soldier",
-        "delta": 50000
-      }
-    },
-    {
-      "seq": 257,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Soldier muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 258,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5"
-        ],
-        "chosen": 5,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 259,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+5",
-        "dice": [
-          2
-        ],
-        "mod": 5,
-        "total": 7,
-        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
-      }
-    },
-    {
-      "seq": 260,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 259,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Soldier",
-        "delta": 50000
-      }
-    },
-    {
-      "seq": 261,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Soldier muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 262,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5"
-        ],
-        "chosen": 5,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 263,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+5",
-        "dice": [
-          1
-        ],
-        "mod": 5,
-        "total": 6,
-        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
-      }
-    },
-    {
-      "seq": 264,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 263,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Soldier",
-        "delta": 40000
-      }
-    },
-    {
-      "seq": 265,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Soldier muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 266,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5"
-        ],
-        "chosen": 5,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 267,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+5",
-        "dice": [
-          6
-        ],
-        "mod": 5,
-        "total": 11,
-        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
-      }
-    },
-    {
-      "seq": 268,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 267,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Soldier",
-        "delta": 60000
-      }
-    },
-    {
-      "seq": 269,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Soldier muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 270,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5"
-        ],
-        "chosen": 5,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 271,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -3910,10 +3542,10 @@
       }
     },
     {
-      "seq": 272,
+      "seq": 245,
       "kind": "consequence",
       "consequence": {
-        "cause": 271,
+        "cause": 244,
         "kind": "benefit",
         "skill": "Retirement x2",
         "career": "Soldier",
@@ -3921,7 +3553,7 @@
       }
     },
     {
-      "seq": 273,
+      "seq": 246,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3932,6 +3564,384 @@
         ],
         "chosen": 0,
         "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 247,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 248,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          2
+        ],
+        "mod": 5,
+        "total": 7,
+        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 249,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 248,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Soldier",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 250,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 251,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 252,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          6
+        ],
+        "mod": 5,
+        "total": 11,
+        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 253,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 252,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Soldier",
+        "delta": 60000
+      }
+    },
+    {
+      "seq": 254,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 255,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 256,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          5
+        ],
+        "mod": 5,
+        "total": 10,
+        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 257,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 256,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Soldier",
+        "delta": 60000
+      }
+    },
+    {
+      "seq": 258,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 259,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 260,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          2
+        ],
+        "mod": 5,
+        "total": 7,
+        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 261,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 260,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Soldier",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 262,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 263,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 264,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          2
+        ],
+        "mod": 5,
+        "total": 7,
+        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 265,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 264,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Soldier",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 266,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 267,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 268,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          1
+        ],
+        "mod": 5,
+        "total": 6,
+        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 269,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 268,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Soldier",
+        "delta": 40000
+      }
+    },
+    {
+      "seq": 270,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 271,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 272,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          6
+        ],
+        "mod": 5,
+        "total": 11,
+        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 273,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 272,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Soldier",
+        "delta": 60000
       }
     },
     {
@@ -3939,6 +3949,20 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 275,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
         "prompt": "How much of the terms DM to apply?",
         "options": [
           "+0",
@@ -3953,41 +3977,27 @@
       }
     },
     {
-      "seq": 275,
+      "seq": 276,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
         "dice": [
-          2
+          4
         ],
         "mod": 5,
-        "total": 7,
+        "total": 9,
         "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
       }
     },
     {
-      "seq": 276,
+      "seq": 277,
       "kind": "consequence",
       "consequence": {
-        "cause": 275,
+        "cause": 276,
         "kind": "benefit",
-        "skill": "Money",
+        "skill": "Retirement x2",
         "career": "Soldier",
-        "delta": 50000
-      }
-    },
-    {
-      "seq": 277,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Soldier muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
+        "value": 1
       }
     },
     {
@@ -3995,6 +4005,20 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 279,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
         "prompt": "How much of the terms DM to apply?",
         "options": [
           "+0",
@@ -4009,7 +4033,7 @@
       }
     },
     {
-      "seq": 279,
+      "seq": 280,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -4022,10 +4046,10 @@
       }
     },
     {
-      "seq": 280,
+      "seq": 281,
       "kind": "consequence",
       "consequence": {
-        "cause": 279,
+        "cause": 280,
         "kind": "benefit",
         "skill": "Money",
         "career": "Soldier",
@@ -4033,7 +4057,7 @@
       }
     },
     {
-      "seq": 281,
+      "seq": 282,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4047,7 +4071,7 @@
       }
     },
     {
-      "seq": 282,
+      "seq": 283,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4065,41 +4089,27 @@
       }
     },
     {
-      "seq": 283,
+      "seq": 284,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
         "dice": [
-          5
+          2
         ],
         "mod": 5,
-        "total": 10,
+        "total": 7,
         "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
       }
     },
     {
-      "seq": 284,
+      "seq": 285,
       "kind": "consequence",
       "consequence": {
-        "cause": 283,
+        "cause": 284,
         "kind": "benefit",
         "skill": "Money",
         "career": "Soldier",
-        "delta": 60000
-      }
-    },
-    {
-      "seq": 285,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Soldier muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
+        "delta": 50000
       }
     },
     {
@@ -4107,6 +4117,20 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 287,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
         "prompt": "How much of the terms DM to apply?",
         "options": [
           "+0",
@@ -4121,7 +4145,7 @@
       }
     },
     {
-      "seq": 287,
+      "seq": 288,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -4134,10 +4158,10 @@
       }
     },
     {
-      "seq": 288,
+      "seq": 289,
       "kind": "consequence",
       "consequence": {
-        "cause": 287,
+        "cause": 288,
         "kind": "benefit",
         "skill": "Money",
         "career": "Soldier",
@@ -4145,7 +4169,63 @@
       }
     },
     {
-      "seq": 289,
+      "seq": 290,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Soldier muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 291,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 292,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          5
+        ],
+        "mod": 5,
+        "total": 10,
+        "cite": "Book 1 p. 82 chart 08 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 293,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 292,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Soldier",
+        "delta": 60000
+      }
+    },
+    {
+      "seq": 294,
       "kind": "step",
       "step": {
         "name": "Muster Out: Entitlements",
@@ -4153,7 +4233,7 @@
       }
     },
     {
-      "seq": 290,
+      "seq": 295,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4167,10 +4247,10 @@
       }
     },
     {
-      "seq": 291,
+      "seq": 296,
       "kind": "consequence",
       "consequence": {
-        "cause": 290,
+        "cause": 295,
         "kind": "entitlement",
         "skill": "Reserve Pension",
         "delta": 2700,
@@ -4178,7 +4258,7 @@
       }
     },
     {
-      "seq": 292,
+      "seq": 297,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4192,10 +4272,10 @@
       }
     },
     {
-      "seq": 293,
+      "seq": 298,
       "kind": "consequence",
       "consequence": {
-        "cause": 292,
+        "cause": 297,
         "kind": "entitlement",
         "skill": "Officer Retirement",
         "delta": 45000,
@@ -4203,7 +4283,7 @@
       }
     },
     {
-      "seq": 294,
+      "seq": 299,
       "kind": "step",
       "step": {
         "name": "Record the Character's Birthdate",
@@ -4211,7 +4291,7 @@
       }
     },
     {
-      "seq": 295,
+      "seq": 300,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -4226,10 +4306,10 @@
       }
     },
     {
-      "seq": 296,
+      "seq": 301,
       "kind": "consequence",
       "consequence": {
-        "cause": 295,
+        "cause": 300,
         "kind": "birthdate",
         "detail": "Thirday 130-1066",
         "value": 1066

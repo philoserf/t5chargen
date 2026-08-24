@@ -145,6 +145,18 @@ type careerRun struct {
 	record CareerRecord
 }
 
+// heldSkillLevels snapshots the levels a character currently holds, by
+// skill name. Absent skills read as zero from the map, which is the level
+// they are held at.
+func heldSkillLevels(character *Character) map[string]int {
+	levels := make(map[string]int, len(character.Skills))
+	for _, held := range character.Skills {
+		levels[held.Name] = held.Level
+	}
+
+	return levels
+}
+
 // termEnd is how a term left the career.
 //
 // One value rather than a pair of flags because the four outcomes are
@@ -192,10 +204,7 @@ func runCareerByName(
 	// skill granted during career entry (a To Begin outcome, milestone 3)
 	// is a career receipt under interpretation I-2 (ERRATA.md) and demotes
 	// a later Job/Hobby determination of the same skill to a later receipt.
-	entryLevels := make(map[string]int, len(character.Skills))
-	for _, held := range character.Skills {
-		entryLevels[held.Name] = held.Level
-	}
+	entryLevels := heldSkillLevels(character)
 
 	run := &careerRun{
 		def:         def,
@@ -329,8 +338,38 @@ func (r *careerRun) closeTerm(outcome termOutcome) (termEnd, int, error) {
 	return end, 0, err
 }
 
-// term resolves one 4-year term and reports how it ended.
+// term resolves one term: either the character suspends it for school
+// (p. 59) or he serves it.
+//
+// The offer comes before the term's own step, because "at the beginning of
+// any term" is where the rule puts it and because a suspended term is not
+// a term of the career — it must not open one in the transcript.
 func (r *careerRun) term(number int) (termEnd, error) {
+	suspended, err := r.laterEducation()
+	if err != nil {
+		return termCareerEnded, err
+	}
+
+	// Aging kills at school as readily as in service: the years pass
+	// either way (chart A p. 89), and the refused applicant's lost year
+	// (interpretation I-89) passes too. Either death ends the lifepath
+	// here, exactly as serveTerm ends it for a term served — a corpse
+	// must not be offered school again, nor serve the term he applied
+	// out of. Without this the loop is unbounded: once Dead is set,
+	// ageEffects stops checking, so nothing else can ever end it.
+	if r.character.Dead {
+		return termDied, nil
+	}
+
+	if suspended {
+		return termContinues, nil
+	}
+
+	return r.serveTerm(number)
+}
+
+// serveTerm resolves one served 4-year term and reports how it ended.
+func (r *careerRun) serveTerm(number int) (termEnd, error) {
 	r.log.Step(r.def.Name+": Term "+strconv.Itoa(number), r.def.Cite)
 
 	cc, err := r.chooseCC()
