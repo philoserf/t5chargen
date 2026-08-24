@@ -586,7 +586,10 @@ func runRender(args []string, stdout, stderr io.Writer) int {
 	switch *format {
 	case "md":
 	case "txt":
-		fmt.Fprintln(stderr, "t5chargen render: format txt is not yet implemented")
+		// Deferred rather than pending: what it buys over Markdown is
+		// the emphasis markers stripped, which is not yet worth a second
+		// set of golden sheets (COVERAGE.md, milestone 6).
+		fmt.Fprintln(stderr, "t5chargen render: format txt is deferred to milestone 6; md is the only format")
 
 		return exitError
 	default:

@@ -578,6 +578,14 @@ player each choice point and records that he answered
 option lists the policy indexes, so a session a person drove replays like
 any other record.
 
+`render --format txt` is the one thing in the PRD's CLI sketch that still
+refuses. It was taken into milestone 5 deliberately — it is in the sketch,
+and the usage string had drifted from it — and then not built, which is a
+scope miss rather than a decision. It belongs to no numbered requirement:
+the milestone bullet does not name it, and Markdown is already readable in
+a terminal, so what it buys is output with the emphasis markers stripped.
+Deferred (M6) until that is worth a second set of golden sheets.
+
 ## Cross-cutting interpretations
 
 I-1 … I-30 in ERRATA.md, each referenced from its row above. The I-4
