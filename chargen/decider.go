@@ -168,23 +168,18 @@ const (
 
 // Choice is one choice point presented to a Decider. Options are listed in
 // the order the rule presents them (first-listed order in Book 1). Scores,
-// when non-nil, are engine-provided decision aids parallel to Options (for
-// example the current characteristic values behind a controlling-
-// characteristic choice); they are not part of the printed rule and are not
-// recorded in the event log.
+// when non-nil, are engine-provided decision aids parallel to Options — the
+// current characteristic values behind a controlling-characteristic choice,
+// or what refusing a waiver would cost (POLICY.md). They are not part of
+// the printed rule and are not recorded in the event log, so a policy can
+// weigh a stake without reading the prompt text and rewording a prompt
+// cannot change a generated character.
 type Choice struct {
 	ID      ChoiceID
 	Prompt  string
 	Options []string
 	Scores  []int
 	Cite    string
-
-	// CareerEnding marks a choice whose declined branch ends the career —
-	// a waiver on a failed Continue or To Begin (chart 02 Waivers, p. 76).
-	// It is engine-provided decision data, like Scores: not part of the
-	// printed rule and not recorded in the event log, so a policy can
-	// weigh the stake without reading the prompt text.
-	CareerEnding bool
 }
 
 // Decider resolves choice points. Interactive play and the auto-mode

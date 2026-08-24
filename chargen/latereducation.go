@@ -68,8 +68,19 @@ func (r *careerRun) laterEducation() (bool, error) {
 	program := offered[chosen-1]
 	if scores[chosen] == 0 {
 		waived, err := prerequisiteWaived(r.log, r.decider, r.roller, r.character, program)
-		if err != nil || !waived {
+		if err != nil {
 			return false, err
+		}
+
+		if !waived {
+			// The attempt is recorded even though nothing came of it
+			// (I-95), the same as the refused applicant
+			// attendMidCareer records. The term is not suspended: the
+			// substitution is conditional on being accepted (I-89).
+			r.character.Education = append(r.character.Education,
+				EducationRecord{Program: program.Name})
+
+			return false, nil
 		}
 	}
 

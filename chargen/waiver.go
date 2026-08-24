@@ -72,7 +72,7 @@ func honorsWaiverPrompt() waiverPrompt {
 // careerWaiver names a career-chart waiver-able event; chartCite is the
 // chart printing the Waivers box (chart 02 p. 76 is the only one in v1).
 // careerEnding marks the outcomes that would end the career, which the
-// auto policy weighs through Choice.CareerEnding rather than by reading
+// auto policy weighs through the Choice's stake Score rather than by reading
 // the prompt text.
 func careerWaiver(reason, chartCite string, careerEnding bool) waiverPrompt {
 	return waiverPrompt{
@@ -89,10 +89,9 @@ func offerWaiver(
 	log *Log, decider Decider, roller *dice.Roller, character *Character, p waiverPrompt,
 ) (bool, error) {
 	chosen, _, err := choose(log, decider, Choice{
-		ID:           p.id,
-		Prompt:       p.prompt,
-		CareerEnding: p.careerEnding,
-		Options:      []string{"Attempt waiver", "Accept the result"},
+		ID:      p.id,
+		Prompt:  p.prompt,
+		Options: []string{"Attempt waiver", "Accept the result"},
 		// What refusing costs: 1 where it ends the career, the process or
 		// the admission, 0 where it costs only a status. Both waiver
 		// rules turn on this one number (POLICY.md), which is why the

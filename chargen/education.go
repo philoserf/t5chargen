@@ -544,10 +544,11 @@ func (r *eduRun) awardApprenticeship() error {
 	return nil
 }
 
-// honors offers the optional extra roll (an honors failure is not offered
-// a waiver in v1 — see the waiver doc comment): "success confers one level of his
+// honors offers the optional extra roll: "success confers one level of his
 // Major and confers Honors status. Failure has no effect." (p. 59) Only
-// programs with a Major carry Honors.
+// programs with a Major carry Honors. A failure is offered the fourth
+// p. 59 waiver, which buys the status and not the level (honorsWaiver,
+// interpretation I-96).
 func (r *eduRun) honors() error {
 	if r.record.Major == "" || r.program.ID == "apprenticeship" {
 		return nil

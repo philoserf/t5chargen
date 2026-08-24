@@ -129,6 +129,13 @@ func chooseEducationProgram(c Choice) int {
 		}
 	}
 
+	// The engine always scores "None" 1, so there is at least one
+	// qualifying row; the guard keeps the policy total (it never refuses,
+	// and it must never panic) against a Choice that carries no Scores.
+	if len(qualifying) == 0 {
+		return len(c.Options) - 1
+	}
+
 	want := preferredIndex(qualifying, []string{"University", "College", "ED5"}, len(qualifying)-1)
 
 	return indexOrFirst(c.Options, qualifying[want])

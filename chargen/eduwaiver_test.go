@@ -55,47 +55,27 @@ func waiverPrompts(c chargen.Character) []string {
 // the rows the character already qualified for — a waiver with nothing to
 // waive.
 func TestPrerequisiteWaiverIsOffered(t *testing.T) {
-	// University wants Edu 7+. Sweep until a character falls short of it
-	// and reaches for it anyway.
-	found := false
-
-	for seed := range uint64(60) {
-		c, err := chargen.Generate(chargen.Options{
-			Seed: seed, Decider: reachPast{program: "University", waive: true},
-		})
-		if err != nil {
-			continue
-		}
-
-		if c.Characteristics.Edu >= universityEdu {
-			continue
-		}
-
-		found = true
-
-		var prerequisite bool
-
-		for _, prompt := range waiverPrompts(c) {
-			if strings.Contains(prompt, "prerequisite for University not met") {
-				prerequisite = true
-			}
-		}
-
-		if !prerequisite {
-			t.Errorf("seed %d has Edu %d and chose University, but was offered no Prerequisite waiver",
-				seed, c.Characteristics.Edu)
-		}
-
-		break
+	seed, ok := shortOfUniversity(t)
+	if !ok {
+		t.Fatal("no seed in range falls short of University; the case is not being tested")
 	}
 
-	if !found {
-		t.Error("no seed in range falls short of University; the case is not being tested")
+	c := generate(t, chargen.Options{
+		Seed: seed, Decider: reachPast{program: "University", waive: true},
+	})
+
+	var prerequisite bool
+
+	for _, prompt := range waiverPrompts(c) {
+		if strings.Contains(prompt, "prerequisite for University not met") {
+			prerequisite = true
+		}
+	}
+
+	if !prerequisite {
+		t.Errorf("seed %d falls short of University and chose it, but was offered no Prerequisite waiver", seed)
 	}
 }
-
-// universityEdu is chart C's University prerequisite (p. 60).
-const universityEdu = 7
 
 // TestPrerequisiteWaiverGatesAdmission verifies the waiver decides whether
 // the unqualified applicant gets in at all. Refusing it ends the attempt
@@ -118,20 +98,34 @@ func TestPrerequisiteWaiverGatesAdmission(t *testing.T) {
 		t.Errorf("a refused prerequisite cost %d years before the career; it should cost none", years)
 	}
 
-	record := declined.Education[len(declined.Education)-1]
+	// Index 0 is checklist step C's own record: it runs before any
+	// career, so a school a later career assigns cannot displace it.
+	record := declined.Education[0]
 	if record.Program != "University" || record.Passes != 0 || record.Graduated {
 		t.Errorf("the record of a refused prerequisite is %+v, want an attempt with nothing earned", record)
 	}
 }
 
 // shortOfUniversity finds a seed whose character does not meet chart C's
-// University prerequisite.
+// University prerequisite at the moment step C asks.
+//
+// The final Edu cannot answer that: Aging decrements mental
+// characteristics from Life Stage 5 on (chart A, p. 89), so a graduate who
+// qualified at 18 can finish below the prerequisite he met. The auto
+// policy takes University whenever the character qualifies for it (and
+// reachPast defers to that policy for every choice before the education
+// one, so the two runs are identical up to it) — so a policy run that did
+// not attend University is exactly a character who fell short.
 func shortOfUniversity(t *testing.T) (uint64, bool) {
 	t.Helper()
 
 	for seed := range uint64(60) {
 		c, err := chargen.Generate(chargen.Options{Seed: seed, Decider: chargen.DefaultPolicy{}})
-		if err == nil && c.Characteristics.Edu < universityEdu {
+		if err != nil {
+			continue
+		}
+
+		if len(c.Education) == 0 || c.Education[0].Program != "University" {
 			return seed, true
 		}
 	}
@@ -148,7 +142,7 @@ func TestHonorsWaiverBuysTheStatusOnly(t *testing.T) {
 	// is the case: status without the level.
 	c := generate(t, chargen.Options{Seed: 1, Decider: reachPast{program: "College", waive: true}})
 
-	record := c.Education[len(c.Education)-1]
+	record := c.Education[0]
 	if !record.Honors {
 		t.Fatalf("seed 1 no longer reaches a waived Honors; %+v", record)
 	}

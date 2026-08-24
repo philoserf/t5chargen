@@ -1315,7 +1315,7 @@ func (r *careerRun) offerCareerChange() (bool, int, error) {
 		// end of a term, and changing is the deviation from it.
 		Options: []string{"Continue in " + r.def.Name, "Change careers"},
 		Cite:    "Book 1 p. 66 (Changing Careers)",
-		// CareerEnding is deliberately unset: it marks a choice whose
+		// No stake Score: the waiver rule's stake marks a choice whose
 		// *declined* branch ends the career, and here declining is what
 		// keeps the character in it. The accepted branch is the one that
 		// ends the career, which is the opposite stake.
