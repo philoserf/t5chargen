@@ -10,8 +10,9 @@ package chargen
 // benefits." (p. 59)
 //
 // v1 implements the docs/PRD.md FR3 programs; unimplemented chart C rows
-// are never offered. Later Education (suspending a career term, p. 59) is
-// deferred with career changes (milestone 4).
+// are never offered. Later Education — the same process, entered at the
+// beginning of a career term instead of before the career (p. 59) — is in
+// latereducation.go.
 
 import (
 	"fmt"
@@ -91,17 +92,7 @@ func chooseProgram(log *Log, decider Decider, character *Character) (education.P
 		return education.Program{}, false, fmt.Errorf("education: %w", err)
 	}
 
-	var qualifying []education.Program
-
-	options := []string{}
-
-	for _, p := range programs {
-		if p.Implemented && prereqMet(p, character) {
-			qualifying = append(qualifying, p)
-			options = append(options, p.Name)
-		}
-	}
-
+	qualifying, options := qualifyingPrograms(programs, character)
 	options = append(options, noEducation)
 
 	chosen, _, err := choose(log, decider, Choice{
@@ -119,6 +110,26 @@ func chooseProgram(log *Log, decider Decider, character *Character) (education.P
 	}
 
 	return qualifying[chosen], false, nil
+}
+
+// qualifyingPrograms filters chart C to the implemented rows this
+// character meets the prerequisite for, returning them alongside their
+// names in chart order. Shared with Later Education (p. 59), which offers
+// the same institutions at the beginning of a term.
+func qualifyingPrograms(programs []education.Program, character *Character) ([]education.Program, []string) {
+	var (
+		qualifying []education.Program
+		options    []string
+	)
+
+	for _, p := range programs {
+		if p.Implemented && prereqMet(p, character) {
+			qualifying = append(qualifying, p)
+			options = append(options, p.Name)
+		}
+	}
+
+	return qualifying, options
 }
 
 // prereqMet evaluates a chart C prerequisite for a v1 human character.

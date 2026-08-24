@@ -329,8 +329,27 @@ func (r *careerRun) closeTerm(outcome termOutcome) (termEnd, int, error) {
 	return end, 0, err
 }
 
-// term resolves one 4-year term and reports how it ended.
+// term resolves one term: either the character suspends it for school
+// (p. 59) or he serves it.
+//
+// The offer comes before the term's own step, because "at the beginning of
+// any term" is where the rule puts it and because a suspended term is not
+// a term of the career — it must not open one in the transcript.
 func (r *careerRun) term(number int) (termEnd, error) {
+	suspended, err := r.laterEducation()
+	if err != nil {
+		return termCareerEnded, err
+	}
+
+	if suspended {
+		return termContinues, nil
+	}
+
+	return r.serveTerm(number)
+}
+
+// serveTerm resolves one served 4-year term and reports how it ended.
+func (r *careerRun) serveTerm(number int) (termEnd, error) {
 	r.log.Step(r.def.Name+": Term "+strconv.Itoa(number), r.def.Cite)
 
 	cc, err := r.chooseCC()

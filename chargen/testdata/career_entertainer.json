@@ -2,7 +2,7 @@
   "schema_version": "0.28.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
   "engine_version": "0.28.0",
-  "policy_version": "0.16.0",
+  "policy_version": "0.17.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 572
@@ -879,6 +879,24 @@
     },
     {
       "seq": 55,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Entertainer",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 56,
       "kind": "step",
       "step": {
         "name": "Entertainer: Term 1",
@@ -886,7 +904,7 @@
       }
     },
     {
-      "seq": 56,
+      "seq": 57,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -905,7 +923,7 @@
       }
     },
     {
-      "seq": 57,
+      "seq": 58,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -917,10 +935,10 @@
       }
     },
     {
-      "seq": 58,
+      "seq": 59,
       "kind": "consequence",
       "consequence": {
-        "cause": 57,
+        "cause": 58,
         "kind": "skill_awarded",
         "skill": "Hostile Environ",
         "delta": 1,
@@ -928,7 +946,7 @@
       }
     },
     {
-      "seq": 59,
+      "seq": 60,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -947,7 +965,7 @@
       }
     },
     {
-      "seq": 60,
+      "seq": 61,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -959,10 +977,10 @@
       }
     },
     {
-      "seq": 61,
+      "seq": 62,
       "kind": "consequence",
       "consequence": {
-        "cause": 60,
+        "cause": 61,
         "kind": "skill_awarded",
         "skill": "Animals",
         "delta": 1,
@@ -970,7 +988,7 @@
       }
     },
     {
-      "seq": 62,
+      "seq": 63,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -989,7 +1007,7 @@
       }
     },
     {
-      "seq": 63,
+      "seq": 64,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1001,10 +1019,10 @@
       }
     },
     {
-      "seq": 64,
+      "seq": 65,
       "kind": "consequence",
       "consequence": {
-        "cause": 63,
+        "cause": 64,
         "kind": "skill_awarded",
         "skill": "Survey",
         "delta": 1,
@@ -1012,7 +1030,7 @@
       }
     },
     {
-      "seq": 65,
+      "seq": 66,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1031,7 +1049,7 @@
       }
     },
     {
-      "seq": 66,
+      "seq": 67,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1043,10 +1061,10 @@
       }
     },
     {
-      "seq": 67,
+      "seq": 68,
       "kind": "consequence",
       "consequence": {
-        "cause": 66,
+        "cause": 67,
         "kind": "skill_awarded",
         "skill": "Animals",
         "delta": 1,
@@ -1054,7 +1072,7 @@
       }
     },
     {
-      "seq": 68,
+      "seq": 69,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1068,7 +1086,7 @@
       }
     },
     {
-      "seq": 69,
+      "seq": 70,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1083,16 +1101,34 @@
       }
     },
     {
-      "seq": 70,
+      "seq": 71,
       "kind": "consequence",
       "consequence": {
-        "cause": 69,
+        "cause": 70,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 71,
+      "seq": 72,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Entertainer",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 73,
       "kind": "step",
       "step": {
         "name": "Entertainer: Term 2",
@@ -1100,7 +1136,7 @@
       }
     },
     {
-      "seq": 72,
+      "seq": 74,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1114,7 +1150,7 @@
       }
     },
     {
-      "seq": 73,
+      "seq": 75,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1127,25 +1163,25 @@
       }
     },
     {
-      "seq": 74,
+      "seq": 76,
       "kind": "consequence",
       "consequence": {
-        "cause": 73,
+        "cause": 75,
         "kind": "comeback",
         "value": 6
       }
     },
     {
-      "seq": 75,
+      "seq": 77,
       "kind": "consequence",
       "consequence": {
-        "cause": 73,
+        "cause": 75,
         "kind": "fame_change",
         "value": 6
       }
     },
     {
-      "seq": 76,
+      "seq": 78,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1164,7 +1200,7 @@
       }
     },
     {
-      "seq": 77,
+      "seq": 79,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1176,10 +1212,10 @@
       }
     },
     {
-      "seq": 78,
+      "seq": 80,
       "kind": "consequence",
       "consequence": {
-        "cause": 77,
+        "cause": 79,
         "kind": "skill_awarded",
         "skill": "Survival",
         "delta": 1,
@@ -1187,7 +1223,7 @@
       }
     },
     {
-      "seq": 79,
+      "seq": 81,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1206,7 +1242,7 @@
       }
     },
     {
-      "seq": 80,
+      "seq": 82,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1218,10 +1254,10 @@
       }
     },
     {
-      "seq": 81,
+      "seq": 83,
       "kind": "consequence",
       "consequence": {
-        "cause": 80,
+        "cause": 82,
         "kind": "skill_awarded",
         "skill": "Bureaucrat",
         "delta": 1,
@@ -1229,7 +1265,7 @@
       }
     },
     {
-      "seq": 82,
+      "seq": 84,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1248,7 +1284,7 @@
       }
     },
     {
-      "seq": 83,
+      "seq": 85,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1260,10 +1296,10 @@
       }
     },
     {
-      "seq": 84,
+      "seq": 86,
       "kind": "consequence",
       "consequence": {
-        "cause": 83,
+        "cause": 85,
         "kind": "skill_awarded",
         "skill": "Navigator",
         "delta": 1,
@@ -1271,7 +1307,7 @@
       }
     },
     {
-      "seq": 85,
+      "seq": 87,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1290,7 +1326,7 @@
       }
     },
     {
-      "seq": 86,
+      "seq": 88,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1302,10 +1338,10 @@
       }
     },
     {
-      "seq": 87,
+      "seq": 89,
       "kind": "consequence",
       "consequence": {
-        "cause": 86,
+        "cause": 88,
         "kind": "skill_awarded",
         "skill": "Bureaucrat",
         "delta": 1,
@@ -1313,7 +1349,7 @@
       }
     },
     {
-      "seq": 88,
+      "seq": 90,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1327,7 +1363,7 @@
       }
     },
     {
-      "seq": 89,
+      "seq": 91,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1342,16 +1378,34 @@
       }
     },
     {
-      "seq": 90,
+      "seq": 92,
       "kind": "consequence",
       "consequence": {
-        "cause": 89,
+        "cause": 91,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 91,
+      "seq": 93,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Entertainer",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 94,
       "kind": "step",
       "step": {
         "name": "Entertainer: Term 3",
@@ -1359,7 +1413,7 @@
       }
     },
     {
-      "seq": 92,
+      "seq": 95,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1373,7 +1427,7 @@
       }
     },
     {
-      "seq": 93,
+      "seq": 96,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1386,64 +1440,22 @@
       }
     },
     {
-      "seq": 94,
+      "seq": 97,
       "kind": "consequence",
       "consequence": {
-        "cause": 93,
+        "cause": 96,
         "kind": "comeback",
         "value": 8
-      }
-    },
-    {
-      "seq": 95,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 93,
-        "kind": "fame_change",
-        "delta": 2,
-        "value": 8
-      }
-    },
-    {
-      "seq": 96,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select an Entertainer Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 97,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 77 chart 03 table C, column General"
       }
     },
     {
       "seq": 98,
       "kind": "consequence",
       "consequence": {
-        "cause": 97,
-        "kind": "skill_awarded",
-        "skill": "Animals",
-        "delta": 1,
-        "value": 3
+        "cause": 96,
+        "kind": "fame_change",
+        "delta": 2,
+        "value": 8
       }
     },
     {
@@ -1485,7 +1497,7 @@
         "kind": "skill_awarded",
         "skill": "Animals",
         "delta": 1,
-        "value": 4
+        "value": 3
       }
     },
     {
@@ -1513,9 +1525,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          3
+          4
         ],
-        "total": 3,
+        "total": 4,
         "cite": "Book 1 p. 77 chart 03 table C, column General"
       }
     },
@@ -1525,9 +1537,9 @@
       "consequence": {
         "cause": 103,
         "kind": "skill_awarded",
-        "skill": "Hostile Environ",
+        "skill": "Animals",
         "delta": 1,
-        "value": 2
+        "value": 4
       }
     },
     {
@@ -1555,9 +1567,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          6
+          3
         ],
-        "total": 6,
+        "total": 3,
         "cite": "Book 1 p. 77 chart 03 table C, column General"
       }
     },
@@ -1567,13 +1579,55 @@
       "consequence": {
         "cause": 106,
         "kind": "skill_awarded",
-        "skill": "Navigator",
+        "skill": "Hostile Environ",
         "delta": 1,
         "value": 2
       }
     },
     {
       "seq": 108,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Entertainer Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 109,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 77 chart 03 table C, column General"
+      }
+    },
+    {
+      "seq": 110,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 109,
+        "kind": "skill_awarded",
+        "skill": "Navigator",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 111,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1587,7 +1641,7 @@
       }
     },
     {
-      "seq": 109,
+      "seq": 112,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1602,16 +1656,16 @@
       }
     },
     {
-      "seq": 110,
+      "seq": 113,
       "kind": "consequence",
       "consequence": {
-        "cause": 109,
+        "cause": 112,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 111,
+      "seq": 114,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1626,7 +1680,7 @@
       }
     },
     {
-      "seq": 112,
+      "seq": 115,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1641,7 +1695,7 @@
       }
     },
     {
-      "seq": 113,
+      "seq": 116,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1656,7 +1710,25 @@
       }
     },
     {
-      "seq": 114,
+      "seq": 117,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Entertainer",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 118,
       "kind": "step",
       "step": {
         "name": "Entertainer: Term 4",
@@ -1664,7 +1736,7 @@
       }
     },
     {
-      "seq": 115,
+      "seq": 119,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1678,7 +1750,7 @@
       }
     },
     {
-      "seq": 116,
+      "seq": 120,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -1691,17 +1763,17 @@
       }
     },
     {
-      "seq": 117,
+      "seq": 121,
       "kind": "consequence",
       "consequence": {
-        "cause": 116,
+        "cause": 120,
         "kind": "fame_change",
         "delta": -4,
         "value": 4
       }
     },
     {
-      "seq": 118,
+      "seq": 122,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1715,7 +1787,7 @@
       }
     },
     {
-      "seq": 119,
+      "seq": 123,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -1728,16 +1800,16 @@
       }
     },
     {
-      "seq": 120,
+      "seq": 124,
       "kind": "consequence",
       "consequence": {
-        "cause": 119,
+        "cause": 123,
         "kind": "fame_change",
         "value": 4
       }
     },
     {
-      "seq": 121,
+      "seq": 125,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1751,7 +1823,7 @@
       }
     },
     {
-      "seq": 122,
+      "seq": 126,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -1764,17 +1836,17 @@
       }
     },
     {
-      "seq": 123,
+      "seq": 127,
       "kind": "consequence",
       "consequence": {
-        "cause": 122,
+        "cause": 126,
         "kind": "fame_change",
         "delta": 1,
         "value": 5
       }
     },
     {
-      "seq": 124,
+      "seq": 128,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1793,7 +1865,7 @@
       }
     },
     {
-      "seq": 125,
+      "seq": 129,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1805,10 +1877,10 @@
       }
     },
     {
-      "seq": 126,
+      "seq": 130,
       "kind": "consequence",
       "consequence": {
-        "cause": 125,
+        "cause": 129,
         "kind": "skill_awarded",
         "skill": "Bureaucrat",
         "delta": 1,
@@ -1816,7 +1888,7 @@
       }
     },
     {
-      "seq": 127,
+      "seq": 131,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1835,7 +1907,7 @@
       }
     },
     {
-      "seq": 128,
+      "seq": 132,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1847,10 +1919,10 @@
       }
     },
     {
-      "seq": 129,
+      "seq": 133,
       "kind": "consequence",
       "consequence": {
-        "cause": 128,
+        "cause": 132,
         "kind": "skill_awarded",
         "skill": "Survival",
         "delta": 1,
@@ -1858,7 +1930,7 @@
       }
     },
     {
-      "seq": 130,
+      "seq": 134,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1877,7 +1949,7 @@
       }
     },
     {
-      "seq": 131,
+      "seq": 135,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1889,10 +1961,10 @@
       }
     },
     {
-      "seq": 132,
+      "seq": 136,
       "kind": "consequence",
       "consequence": {
-        "cause": 131,
+        "cause": 135,
         "kind": "skill_awarded",
         "skill": "Bureaucrat",
         "delta": 1,
@@ -1900,7 +1972,7 @@
       }
     },
     {
-      "seq": 133,
+      "seq": 137,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1919,7 +1991,7 @@
       }
     },
     {
-      "seq": 134,
+      "seq": 138,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1931,10 +2003,10 @@
       }
     },
     {
-      "seq": 135,
+      "seq": 139,
       "kind": "consequence",
       "consequence": {
-        "cause": 134,
+        "cause": 138,
         "kind": "skill_awarded",
         "skill": "Survival",
         "delta": 1,
@@ -1942,7 +2014,7 @@
       }
     },
     {
-      "seq": 136,
+      "seq": 140,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1956,7 +2028,7 @@
       }
     },
     {
-      "seq": 137,
+      "seq": 141,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1971,16 +2043,16 @@
       }
     },
     {
-      "seq": 138,
+      "seq": 142,
       "kind": "consequence",
       "consequence": {
-        "cause": 137,
+        "cause": 141,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 139,
+      "seq": 143,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1995,7 +2067,7 @@
       }
     },
     {
-      "seq": 140,
+      "seq": 144,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2010,7 +2082,7 @@
       }
     },
     {
-      "seq": 141,
+      "seq": 145,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2025,16 +2097,16 @@
       }
     },
     {
-      "seq": 142,
+      "seq": 146,
       "kind": "consequence",
       "consequence": {
-        "cause": 137,
+        "cause": 141,
         "kind": "career_ended",
         "career": "Entertainer"
       }
     },
     {
-      "seq": 143,
+      "seq": 147,
       "kind": "step",
       "step": {
         "name": "Determine Fame",
@@ -2042,7 +2114,7 @@
       }
     },
     {
-      "seq": 144,
+      "seq": 148,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2056,10 +2128,10 @@
       }
     },
     {
-      "seq": 145,
+      "seq": 149,
       "kind": "consequence",
       "consequence": {
-        "cause": 144,
+        "cause": 148,
         "kind": "fame_computed",
         "skill": "Town",
         "value": 5,
@@ -2072,7 +2144,7 @@
       }
     },
     {
-      "seq": 146,
+      "seq": 150,
       "kind": "step",
       "step": {
         "name": "Muster Out",
@@ -2080,63 +2152,11 @@
       }
     },
     {
-      "seq": 147,
+      "seq": 151,
       "kind": "step",
       "step": {
         "name": "Muster Out: Entertainer",
         "cite": "Book 1 p. 77 chart 03 D"
-      }
-    },
-    {
-      "seq": 148,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Entertainer muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 149,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the fame DM to apply?",
-        "options": [
-          "+0",
-          "+1"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 150,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+1",
-        "dice": [
-          3
-        ],
-        "mod": 1,
-        "total": 4,
-        "cite": "Book 1 p. 77 chart 03 D (Money column, 1D+1)"
-      }
-    },
-    {
-      "seq": 151,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 150,
-        "kind": "benefit",
-        "skill": "High Passage",
-        "career": "Entertainer",
-        "value": 1
       }
     },
     {
@@ -2173,10 +2193,10 @@
       "throw": {
         "expr": "1D+1",
         "dice": [
-          6
+          3
         ],
         "mod": 1,
-        "total": 7,
+        "total": 4,
         "cite": "Book 1 p. 77 chart 03 D (Money column, 1D+1)"
       }
     },
@@ -2186,9 +2206,9 @@
       "consequence": {
         "cause": 154,
         "kind": "benefit",
-        "skill": "Money",
+        "skill": "High Passage",
         "career": "Entertainer",
-        "delta": 25000
+        "value": 1
       }
     },
     {
@@ -2277,10 +2297,10 @@
       "throw": {
         "expr": "1D+1",
         "dice": [
-          5
+          6
         ],
         "mod": 1,
-        "total": 6,
+        "total": 7,
         "cite": "Book 1 p. 77 chart 03 D (Money column, 1D+1)"
       }
     },
@@ -2290,13 +2310,65 @@
       "consequence": {
         "cause": 162,
         "kind": "benefit",
+        "skill": "Money",
+        "career": "Entertainer",
+        "delta": 25000
+      }
+    },
+    {
+      "seq": 164,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Entertainer muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 165,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the fame DM to apply?",
+        "options": [
+          "+0",
+          "+1"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 166,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+1",
+        "dice": [
+          5
+        ],
+        "mod": 1,
+        "total": 6,
+        "cite": "Book 1 p. 77 chart 03 D (Money column, 1D+1)"
+      }
+    },
+    {
+      "seq": 167,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 166,
+        "kind": "benefit",
         "skill": "StarPass",
         "career": "Entertainer",
         "value": 1
       }
     },
     {
-      "seq": 164,
+      "seq": 168,
       "kind": "step",
       "step": {
         "name": "Record the Character's Birthdate",
@@ -2304,7 +2376,7 @@
       }
     },
     {
-      "seq": 165,
+      "seq": 169,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -2319,7 +2391,7 @@
       }
     },
     {
-      "seq": 166,
+      "seq": 170,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -2334,10 +2406,10 @@
       }
     },
     {
-      "seq": 167,
+      "seq": 171,
       "kind": "consequence",
       "consequence": {
-        "cause": 166,
+        "cause": 170,
         "kind": "birthdate",
         "detail": "Sixday 056-1067",
         "value": 1067

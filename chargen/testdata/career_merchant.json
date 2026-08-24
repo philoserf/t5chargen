@@ -2,7 +2,7 @@
   "schema_version": "0.28.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
   "engine_version": "0.28.0",
-  "policy_version": "0.16.0",
+  "policy_version": "0.17.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 17
@@ -486,6 +486,22 @@
     },
     {
       "seq": 30,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Merchant",
+          "Trade School",
+          "Apprenticeship",
+          "College"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 31,
       "kind": "step",
       "step": {
         "name": "Merchant: Term 1",
@@ -493,7 +509,7 @@
       }
     },
     {
-      "seq": 31,
+      "seq": 32,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -509,7 +525,7 @@
       }
     },
     {
-      "seq": 32,
+      "seq": 33,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -540,7 +556,7 @@
       }
     },
     {
-      "seq": 33,
+      "seq": 34,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -555,7 +571,7 @@
       }
     },
     {
-      "seq": 34,
+      "seq": 35,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -570,17 +586,17 @@
       }
     },
     {
-      "seq": 35,
+      "seq": 36,
       "kind": "consequence",
       "consequence": {
-        "cause": 34,
+        "cause": 35,
         "kind": "ship_shares",
         "delta": 1,
         "value": 1
       }
     },
     {
-      "seq": 36,
+      "seq": 37,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -594,7 +610,7 @@
       }
     },
     {
-      "seq": 37,
+      "seq": 38,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -615,7 +631,7 @@
       }
     },
     {
-      "seq": 38,
+      "seq": 39,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -634,7 +650,7 @@
       }
     },
     {
-      "seq": 39,
+      "seq": 40,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -646,10 +662,10 @@
       }
     },
     {
-      "seq": 40,
+      "seq": 41,
       "kind": "consequence",
       "consequence": {
-        "cause": 39,
+        "cause": 40,
         "kind": "skill_awarded",
         "skill": "Steward",
         "delta": 1,
@@ -657,7 +673,7 @@
       }
     },
     {
-      "seq": 41,
+      "seq": 42,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -676,7 +692,7 @@
       }
     },
     {
-      "seq": 42,
+      "seq": 43,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -688,10 +704,10 @@
       }
     },
     {
-      "seq": 43,
+      "seq": 44,
       "kind": "consequence",
       "consequence": {
-        "cause": 42,
+        "cause": 43,
         "kind": "skill_awarded",
         "skill": "Computer",
         "delta": 1,
@@ -699,7 +715,7 @@
       }
     },
     {
-      "seq": 44,
+      "seq": 45,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -718,7 +734,7 @@
       }
     },
     {
-      "seq": 45,
+      "seq": 46,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -730,10 +746,10 @@
       }
     },
     {
-      "seq": 46,
+      "seq": 47,
       "kind": "consequence",
       "consequence": {
-        "cause": 45,
+        "cause": 46,
         "kind": "skill_awarded",
         "skill": "Comms",
         "delta": 1,
@@ -741,7 +757,7 @@
       }
     },
     {
-      "seq": 47,
+      "seq": 48,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -760,7 +776,7 @@
       }
     },
     {
-      "seq": 48,
+      "seq": 49,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -772,10 +788,10 @@
       }
     },
     {
-      "seq": 49,
+      "seq": 50,
       "kind": "consequence",
       "consequence": {
-        "cause": 48,
+        "cause": 49,
         "kind": "skill_awarded",
         "skill": "Advocate",
         "delta": 1,
@@ -783,7 +799,7 @@
       }
     },
     {
-      "seq": 50,
+      "seq": 51,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -797,7 +813,7 @@
       }
     },
     {
-      "seq": 51,
+      "seq": 52,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -812,16 +828,32 @@
       }
     },
     {
-      "seq": 52,
+      "seq": 53,
       "kind": "consequence",
       "consequence": {
-        "cause": 51,
+        "cause": 52,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 53,
+      "seq": 54,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Merchant",
+          "Trade School",
+          "Apprenticeship",
+          "College"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 55,
       "kind": "step",
       "step": {
         "name": "Merchant: Term 2",
@@ -829,7 +861,7 @@
       }
     },
     {
-      "seq": 54,
+      "seq": 56,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -844,7 +876,7 @@
       }
     },
     {
-      "seq": 55,
+      "seq": 57,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -875,7 +907,7 @@
       }
     },
     {
-      "seq": 56,
+      "seq": 58,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -890,7 +922,7 @@
       }
     },
     {
-      "seq": 57,
+      "seq": 59,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -905,17 +937,17 @@
       }
     },
     {
-      "seq": 58,
+      "seq": 60,
       "kind": "consequence",
       "consequence": {
-        "cause": 57,
+        "cause": 59,
         "kind": "ship_shares",
         "delta": 2,
         "value": 3
       }
     },
     {
-      "seq": 59,
+      "seq": 61,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -929,7 +961,7 @@
       }
     },
     {
-      "seq": 60,
+      "seq": 62,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -950,7 +982,7 @@
       }
     },
     {
-      "seq": 61,
+      "seq": 63,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -969,7 +1001,7 @@
       }
     },
     {
-      "seq": 62,
+      "seq": 64,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -981,10 +1013,10 @@
       }
     },
     {
-      "seq": 63,
+      "seq": 65,
       "kind": "consequence",
       "consequence": {
-        "cause": 62,
+        "cause": 64,
         "kind": "skill_awarded",
         "skill": "Advocate",
         "delta": 1,
@@ -992,7 +1024,7 @@
       }
     },
     {
-      "seq": 64,
+      "seq": 66,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1011,7 +1043,7 @@
       }
     },
     {
-      "seq": 65,
+      "seq": 67,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1023,10 +1055,10 @@
       }
     },
     {
-      "seq": 66,
+      "seq": 68,
       "kind": "consequence",
       "consequence": {
-        "cause": 65,
+        "cause": 67,
         "kind": "skill_awarded",
         "skill": "Steward",
         "delta": 1,
@@ -1034,7 +1066,7 @@
       }
     },
     {
-      "seq": 67,
+      "seq": 69,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1053,7 +1085,7 @@
       }
     },
     {
-      "seq": 68,
+      "seq": 70,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1065,10 +1097,10 @@
       }
     },
     {
-      "seq": 69,
+      "seq": 71,
       "kind": "consequence",
       "consequence": {
-        "cause": 68,
+        "cause": 70,
         "kind": "skill_awarded",
         "skill": "Steward",
         "delta": 1,
@@ -1076,7 +1108,7 @@
       }
     },
     {
-      "seq": 70,
+      "seq": 72,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1095,7 +1127,7 @@
       }
     },
     {
-      "seq": 71,
+      "seq": 73,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1107,10 +1139,10 @@
       }
     },
     {
-      "seq": 72,
+      "seq": 74,
       "kind": "consequence",
       "consequence": {
-        "cause": 71,
+        "cause": 73,
         "kind": "skill_awarded",
         "skill": "Steward",
         "delta": 1,
@@ -1118,7 +1150,7 @@
       }
     },
     {
-      "seq": 73,
+      "seq": 75,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1132,7 +1164,7 @@
       }
     },
     {
-      "seq": 74,
+      "seq": 76,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1147,16 +1179,32 @@
       }
     },
     {
-      "seq": 75,
+      "seq": 77,
       "kind": "consequence",
       "consequence": {
-        "cause": 74,
+        "cause": 76,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 76,
+      "seq": 78,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Merchant",
+          "Trade School",
+          "Apprenticeship",
+          "College"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 79,
       "kind": "step",
       "step": {
         "name": "Merchant: Term 3",
@@ -1164,7 +1212,7 @@
       }
     },
     {
-      "seq": 77,
+      "seq": 80,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1178,7 +1226,7 @@
       }
     },
     {
-      "seq": 78,
+      "seq": 81,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1209,7 +1257,7 @@
       }
     },
     {
-      "seq": 79,
+      "seq": 82,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1224,7 +1272,7 @@
       }
     },
     {
-      "seq": 80,
+      "seq": 83,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -1237,10 +1285,10 @@
       }
     },
     {
-      "seq": 81,
+      "seq": 84,
       "kind": "consequence",
       "consequence": {
-        "cause": 79,
+        "cause": 82,
         "kind": "characteristic_change",
         "characteristic": "Str",
         "delta": -1,
@@ -1248,16 +1296,16 @@
       }
     },
     {
-      "seq": 82,
+      "seq": 85,
       "kind": "consequence",
       "consequence": {
-        "cause": 79,
+        "cause": 82,
         "kind": "wound_badge",
         "value": 1
       }
     },
     {
-      "seq": 83,
+      "seq": 86,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1272,17 +1320,17 @@
       }
     },
     {
-      "seq": 84,
+      "seq": 87,
       "kind": "consequence",
       "consequence": {
-        "cause": 83,
+        "cause": 86,
         "kind": "ship_shares",
         "delta": 3,
         "value": 6
       }
     },
     {
-      "seq": 85,
+      "seq": 88,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1296,7 +1344,7 @@
       }
     },
     {
-      "seq": 86,
+      "seq": 89,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1317,64 +1365,22 @@
       }
     },
     {
-      "seq": 87,
+      "seq": 90,
       "kind": "consequence",
       "consequence": {
-        "cause": 86,
+        "cause": 89,
         "kind": "rank_set",
         "skill": "Third Officer",
         "career": "Merchant"
       }
     },
     {
-      "seq": 88,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 86,
-        "kind": "skill_awarded",
-        "skill": "Engineer",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 89,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Merchant Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Space Travel",
-          "Trade",
-          "Business",
-          "Vocation",
-          "Technical"
-        ],
-        "chosen": 4,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 90,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 80 chart 06 table C, column Business"
-      }
-    },
-    {
       "seq": 91,
       "kind": "consequence",
       "consequence": {
-        "cause": 90,
+        "cause": 89,
         "kind": "skill_awarded",
-        "skill": "Driver",
+        "skill": "Engineer",
         "delta": 1,
         "value": 1
       }
@@ -1404,9 +1410,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          6
+          3
         ],
-        "total": 6,
+        "total": 3,
         "cite": "Book 1 p. 80 chart 06 table C, column Business"
       }
     },
@@ -1416,9 +1422,9 @@
       "consequence": {
         "cause": 93,
         "kind": "skill_awarded",
-        "skill": "Comms",
+        "skill": "Driver",
         "delta": 1,
-        "value": 2
+        "value": 1
       }
     },
     {
@@ -1446,9 +1452,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          2
+          6
         ],
-        "total": 2,
+        "total": 6,
         "cite": "Book 1 p. 80 chart 06 table C, column Business"
       }
     },
@@ -1458,7 +1464,7 @@
       "consequence": {
         "cause": 96,
         "kind": "skill_awarded",
-        "skill": "Trader",
+        "skill": "Comms",
         "delta": 1,
         "value": 2
       }
@@ -1488,9 +1494,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          3
+          2
         ],
-        "total": 3,
+        "total": 2,
         "cite": "Book 1 p. 80 chart 06 table C, column Business"
       }
     },
@@ -1500,7 +1506,7 @@
       "consequence": {
         "cause": 99,
         "kind": "skill_awarded",
-        "skill": "Driver",
+        "skill": "Trader",
         "delta": 1,
         "value": 2
       }
@@ -1530,9 +1536,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          6
+          3
         ],
-        "total": 6,
+        "total": 3,
         "cite": "Book 1 p. 80 chart 06 table C, column Business"
       }
     },
@@ -1542,13 +1548,55 @@
       "consequence": {
         "cause": 102,
         "kind": "skill_awarded",
+        "skill": "Driver",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 104,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Merchant Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Space Travel",
+          "Trade",
+          "Business",
+          "Vocation",
+          "Technical"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 105,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 80 chart 06 table C, column Business"
+      }
+    },
+    {
+      "seq": 106,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 105,
+        "kind": "skill_awarded",
         "skill": "Comms",
         "delta": 1,
         "value": 3
       }
     },
     {
-      "seq": 104,
+      "seq": 107,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1562,7 +1610,7 @@
       }
     },
     {
-      "seq": 105,
+      "seq": 108,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1577,16 +1625,32 @@
       }
     },
     {
-      "seq": 106,
+      "seq": 109,
       "kind": "consequence",
       "consequence": {
-        "cause": 105,
+        "cause": 108,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 107,
+      "seq": 110,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Merchant",
+          "Trade School",
+          "Apprenticeship",
+          "College"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 111,
       "kind": "step",
       "step": {
         "name": "Merchant: Term 4",
@@ -1594,7 +1658,7 @@
       }
     },
     {
-      "seq": 108,
+      "seq": 112,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1607,7 +1671,7 @@
       }
     },
     {
-      "seq": 109,
+      "seq": 113,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1638,7 +1702,7 @@
       }
     },
     {
-      "seq": 110,
+      "seq": 114,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1653,7 +1717,7 @@
       }
     },
     {
-      "seq": 111,
+      "seq": 115,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -1666,7 +1730,7 @@
       }
     },
     {
-      "seq": 112,
+      "seq": 116,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1681,17 +1745,17 @@
       }
     },
     {
-      "seq": 113,
+      "seq": 117,
       "kind": "consequence",
       "consequence": {
-        "cause": 112,
+        "cause": 116,
         "kind": "ship_shares",
         "delta": 4,
         "value": 10
       }
     },
     {
-      "seq": 114,
+      "seq": 118,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1705,7 +1769,7 @@
       }
     },
     {
-      "seq": 115,
+      "seq": 119,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1726,20 +1790,20 @@
       }
     },
     {
-      "seq": 116,
+      "seq": 120,
       "kind": "consequence",
       "consequence": {
-        "cause": 115,
+        "cause": 119,
         "kind": "rank_set",
         "skill": "Second Officer",
         "career": "Merchant"
       }
     },
     {
-      "seq": 117,
+      "seq": 121,
       "kind": "consequence",
       "consequence": {
-        "cause": 115,
+        "cause": 119,
         "kind": "skill_awarded",
         "skill": "Astrogator",
         "delta": 1,
@@ -1747,7 +1811,7 @@
       }
     },
     {
-      "seq": 118,
+      "seq": 122,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1766,7 +1830,7 @@
       }
     },
     {
-      "seq": 119,
+      "seq": 123,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1778,10 +1842,10 @@
       }
     },
     {
-      "seq": 120,
+      "seq": 124,
       "kind": "consequence",
       "consequence": {
-        "cause": 119,
+        "cause": 123,
         "kind": "skill_awarded",
         "skill": "Advocate",
         "delta": 1,
@@ -1789,7 +1853,7 @@
       }
     },
     {
-      "seq": 121,
+      "seq": 125,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1808,7 +1872,7 @@
       }
     },
     {
-      "seq": 122,
+      "seq": 126,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1820,10 +1884,10 @@
       }
     },
     {
-      "seq": 123,
+      "seq": 127,
       "kind": "consequence",
       "consequence": {
-        "cause": 122,
+        "cause": 126,
         "kind": "skill_awarded",
         "skill": "Computer",
         "delta": 1,
@@ -1831,7 +1895,7 @@
       }
     },
     {
-      "seq": 124,
+      "seq": 128,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1850,7 +1914,7 @@
       }
     },
     {
-      "seq": 125,
+      "seq": 129,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1862,10 +1926,10 @@
       }
     },
     {
-      "seq": 126,
+      "seq": 130,
       "kind": "consequence",
       "consequence": {
-        "cause": 125,
+        "cause": 129,
         "kind": "skill_awarded",
         "skill": "Trader",
         "delta": 1,
@@ -1873,7 +1937,7 @@
       }
     },
     {
-      "seq": 127,
+      "seq": 131,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1892,7 +1956,7 @@
       }
     },
     {
-      "seq": 128,
+      "seq": 132,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1904,10 +1968,10 @@
       }
     },
     {
-      "seq": 129,
+      "seq": 133,
       "kind": "consequence",
       "consequence": {
-        "cause": 128,
+        "cause": 132,
         "kind": "skill_awarded",
         "skill": "Computer",
         "delta": 1,
@@ -1915,7 +1979,7 @@
       }
     },
     {
-      "seq": 130,
+      "seq": 134,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1934,7 +1998,7 @@
       }
     },
     {
-      "seq": 131,
+      "seq": 135,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1946,10 +2010,10 @@
       }
     },
     {
-      "seq": 132,
+      "seq": 136,
       "kind": "consequence",
       "consequence": {
-        "cause": 131,
+        "cause": 135,
         "kind": "skill_awarded",
         "skill": "Advocate",
         "delta": 1,
@@ -1957,7 +2021,7 @@
       }
     },
     {
-      "seq": 133,
+      "seq": 137,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1971,7 +2035,7 @@
       }
     },
     {
-      "seq": 134,
+      "seq": 138,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1986,16 +2050,16 @@
       }
     },
     {
-      "seq": 135,
+      "seq": 139,
       "kind": "consequence",
       "consequence": {
-        "cause": 134,
+        "cause": 138,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 136,
+      "seq": 140,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2010,10 +2074,10 @@
       }
     },
     {
-      "seq": 137,
+      "seq": 141,
       "kind": "consequence",
       "consequence": {
-        "cause": 136,
+        "cause": 140,
         "kind": "aging_effect",
         "characteristic": "Str",
         "delta": -1,
@@ -2021,7 +2085,7 @@
       }
     },
     {
-      "seq": 138,
+      "seq": 142,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2036,7 +2100,7 @@
       }
     },
     {
-      "seq": 139,
+      "seq": 143,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2051,16 +2115,16 @@
       }
     },
     {
-      "seq": 140,
+      "seq": 144,
       "kind": "consequence",
       "consequence": {
-        "cause": 134,
+        "cause": 138,
         "kind": "career_ended",
         "career": "Merchant"
       }
     },
     {
-      "seq": 141,
+      "seq": 145,
       "kind": "step",
       "step": {
         "name": "Determine Fame",
@@ -2068,7 +2132,7 @@
       }
     },
     {
-      "seq": 142,
+      "seq": 146,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2082,10 +2146,10 @@
       }
     },
     {
-      "seq": 143,
+      "seq": 147,
       "kind": "consequence",
       "consequence": {
-        "cause": 142,
+        "cause": 146,
         "kind": "fame_computed",
         "skill": "Extended Family",
         "value": 3,
@@ -2098,7 +2162,7 @@
       }
     },
     {
-      "seq": 144,
+      "seq": 148,
       "kind": "step",
       "step": {
         "name": "Muster Out",
@@ -2106,66 +2170,11 @@
       }
     },
     {
-      "seq": 145,
+      "seq": 149,
       "kind": "step",
       "step": {
         "name": "Muster Out: Merchant",
         "cite": "Book 1 p. 80 chart 06 D"
-      }
-    },
-    {
-      "seq": 146,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Merchant muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 147,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4"
-        ],
-        "chosen": 4,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 148,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+4",
-        "dice": [
-          5
-        ],
-        "mod": 4,
-        "total": 9,
-        "cite": "Book 1 p. 80 chart 06 D (Money column, 1D+4)"
-      }
-    },
-    {
-      "seq": 149,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 148,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Merchant",
-        "delta": 35000
       }
     },
     {
@@ -2260,10 +2269,10 @@
       "throw": {
         "expr": "1D+4",
         "dice": [
-          3
+          5
         ],
         "mod": 4,
-        "total": 7,
+        "total": 9,
         "cite": "Book 1 p. 80 chart 06 D (Money column, 1D+4)"
       }
     },
@@ -2275,7 +2284,7 @@
         "kind": "benefit",
         "skill": "Money",
         "career": "Merchant",
-        "delta": 25000
+        "delta": 35000
       }
     },
     {
@@ -2335,6 +2344,61 @@
     },
     {
       "seq": 162,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Merchant muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 163,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 164,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+4",
+        "dice": [
+          3
+        ],
+        "mod": 4,
+        "total": 7,
+        "cite": "Book 1 p. 80 chart 06 D (Money column, 1D+4)"
+      }
+    },
+    {
+      "seq": 165,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 164,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Merchant",
+        "delta": 25000
+      }
+    },
+    {
+      "seq": 166,
       "kind": "step",
       "step": {
         "name": "Record the Character's Birthdate",
@@ -2342,7 +2406,7 @@
       }
     },
     {
-      "seq": 163,
+      "seq": 167,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -2357,10 +2421,10 @@
       }
     },
     {
-      "seq": 164,
+      "seq": 168,
       "kind": "consequence",
       "consequence": {
-        "cause": 163,
+        "cause": 167,
         "kind": "birthdate",
         "detail": "Senday 295-1071",
         "value": 1071

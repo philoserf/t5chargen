@@ -2031,3 +2031,87 @@ naming sequence zero refers to no event at all, and
 
 Implemented at `chargen/rogue.go` (`prisonTerm`), `chargen/craftsman.go`
 (`attempt`) and `chargen/careerrun.go` (`awardNewTrade`).
+
+### I-88: A suspended term costs the term's four years, not the program's duration (p. 59)
+
+"At the beginning of any term, the character may apply for any Educational
+Institution or Training, and if accepted substitutes that process for the
+entire term" (p. 59).
+
+The two readings differ whenever the program is shorter than a term. Trade
+School is one Pass/Fail year; a term is four. Read as the program's
+duration, a character could take Trade School for one year and serve the
+remaining three, getting the schooling almost free. Read as the term, the
+whole four-year slot is given over.
+
+The term is the object the sentence replaces — "substitutes that process
+**for the entire term**" — so the term is what is spent. A one-year Trade
+School costs four years, and a College that fails its Pass/Fail in the
+second year is not refunded the other two: the term was given over, not
+rented by the year.
+
+The process charges its own years as it goes, exactly as it does before a
+career, and what remains of the term is charged against the choice that
+spent it. Nothing is charged twice.
+
+Implemented at `chargen/latereducation.go` (`attendMidCareer`), pinned by
+`TestLaterEducationSubstitutesTheTerm` on Trade School, where the two
+readings differ by three years.
+
+### I-89: A refused applicant serves the term, having already lost a year to the refusal (p. 59)
+
+Substitution is conditional: "and **if accepted** substitutes that process
+for the entire term" (p. 59). A character who applies and is refused has not
+been accepted, so nothing is substituted and the term is served.
+
+He is still out the year the application cost: "A failure disallows
+admission and consumes one year" (p. 59). That sentence is about the
+application, not about the term, so the two compose — the cycle costs five
+years, one for the refusal and four for the term he then serves.
+
+That is harsh, and it is what the two sentences say. The alternative, losing
+the term to a school that never admitted him, is worse and has no textual
+support at all: the term is substituted only on acceptance.
+
+It also matters mechanically, and more than the text alone suggests. A
+refused application means a term is served, which means a Continue throw is
+made — so a character who applies every term is not thereby immune to his
+career ending, which is half of why the lifepath terminates (see I-90).
+
+The other reading does not merely mispay the years: it hangs. Mutating the
+engine so a refusal suspends the term anyway makes generation loop forever
+on a decider that always applies. Apprenticeship has no prerequisite and
+takes no time (chart C Duration), so a refused Apprenticeship under that
+reading would cost nothing and consume the term, and nothing would ever
+advance the clock toward the aging that has to end the lifepath. The
+printed reading is also the terminating one.
+
+Implemented at `chargen/latereducation.go` (`attendMidCareer`, the
+unadmitted return), pinned by `TestLaterEducationTerminates`.
+
+### I-90: Suspending a term suspends the Continue throw with the rest of resolution (p. 59)
+
+"Characters may **suspend career resolution** to return to school or
+training" (p. 59). The Continue throw is part of career resolution, so a
+suspended term throws no Continue, just as it runs no Risk/Reward and awards
+no career skills.
+
+The consequence is worth stating plainly: a character at school cannot have
+his career end that term. The rule hands the player a way to sit out a term
+he would rather not throw for, and that is a real effect of the printed
+sentence rather than an oversight in reading it.
+
+A suspended term is also not a term served. No TermRecord is appended, so it
+counts toward neither the muster-out benefit rolls nor the pensions, both of
+which count terms (`len(record.Terms)`). A character is not paid for service
+he spent at school.
+
+The lifepath still terminates. The years pass whether they are spent serving
+or studying, so aging arrives on schedule and kills (chart A p. 89); and an
+application may be refused, which serves the term and throws its Continue
+after all (I-89). `TestLaterEducationTerminates` pins both, on a decider
+that accepts schooling at every offer it is given.
+
+Implemented at `chargen/careerrun.go` (`term`) and
+`chargen/latereducation.go`, pinned by `TestLaterEducationSuspendsResolution`
+and `TestLaterEducationIsNotATermServed`.

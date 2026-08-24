@@ -158,6 +158,12 @@ const (
 	// attempt ("Temp may attempt Officer Commission and Rating
 	// Promotion", chart 06 p. 80).
 	ChooseAdvancement ChoiceID = "attempt_advancement"
+
+	// ChooseLaterEducation offers the p. 59 suspension: "At the beginning
+	// of any term, the character may apply for any Educational Institution
+	// or Training, and if accepted substitutes that process for the entire
+	// term".
+	ChooseLaterEducation ChoiceID = "apply_later_education"
 )
 
 // Choice is one choice point presented to a Decider. Options are listed in
