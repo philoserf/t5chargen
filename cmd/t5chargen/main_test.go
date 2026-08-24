@@ -726,6 +726,40 @@ func run3(t *testing.T, args []string, stdout, stderr *bytes.Buffer) int {
 	return run(args, noSeed(t), noInput(), stdout, stderr)
 }
 
+// TestUnreadableInputsSayWhy verifies the two ways a path can hold no
+// record say which one it is. Both are things batch's own output invites:
+// it writes a directory as readily as a file, and an interrupted run
+// leaves an empty one. Neither should be reported against "record 1" of
+// something that holds no records.
+func TestUnreadableInputsSayWhy(t *testing.T) {
+	dir := t.TempDir()
+
+	empty := filepath.Join(dir, "empty.jsonl")
+	if err := os.WriteFile(empty, nil, 0o600); err != nil {
+		t.Fatal(err)
+	}
+
+	for _, tc := range []struct{ name, path, want string }{
+		{name: "a directory", path: dir, want: "is a directory"},
+		{name: "an empty file", path: empty, want: "no t5chargen character records"},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			var out, errOut bytes.Buffer
+			if code := run3(t, []string{"replay", tc.path}, &out, &errOut); code != exitError {
+				t.Fatalf("exit %d, want %d", code, exitError)
+			}
+
+			if !strings.Contains(errOut.String(), tc.want) {
+				t.Errorf("said %q, want it to mention %q", strings.TrimSpace(errOut.String()), tc.want)
+			}
+
+			if strings.Contains(errOut.String(), "record 1") {
+				t.Errorf("blamed a record that does not exist: %s", strings.TrimSpace(errOut.String()))
+			}
+		})
+	}
+}
+
 // TestAPartlyBrokenRunNamesTheRecord verifies a run that goes wrong says
 // which of its records did. "Record 2 of 3" is actionable where a parse
 // error about the whole file is not.

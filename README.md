@@ -64,8 +64,9 @@ t5chargen render char.json                    # Markdown character sheet
 t5chargen render --history char.json          # generation-record transcript
 t5chargen replay char.json                    # verify the record reproduces itself
 t5chargen batch --count 20 --auto -o npcs/    # a run of NPCs, one file each
-t5chargen batch --count 20 --auto -o npcs.jsonl # or one file, a record a line
-t5chargen replay npcs.jsonl                   # render and replay read either
+t5chargen batch --count 20 --auto -o npcs.jsonl  # or one file, a record a line
+t5chargen replay npcs.jsonl                   # a JSONL run replays record by record
+t5chargen render npcs/character-1.json        # a directory's files are read one at a time
 ```
 
 `new` requires `--auto` (interactive mode is planned). Optional flags:

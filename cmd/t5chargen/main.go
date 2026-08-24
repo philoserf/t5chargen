@@ -648,14 +648,16 @@ func runReplay(args []string, stdout, stderr io.Writer) int {
 	}
 
 	for i, character := range characters {
+		name := recordName(flags.Arg(0), i, len(characters))
+
 		if _, err := chargen.Replay(character); err != nil {
-			fmt.Fprintf(stderr, "t5chargen replay: %s: %v\n", recordName(flags.Arg(0), i, characters), err)
+			fmt.Fprintf(stderr, "t5chargen replay: %s: %v\n", name, err)
 
 			return exitError
 		}
 
 		fmt.Fprintf(stdout, "replayed %s: %d events reproduced from seed %d\n",
-			recordName(flags.Arg(0), i, characters), len(character.Events), character.RNG.Seed)
+			name, len(character.Events), character.RNG.Seed)
 	}
 
 	return exitOK
@@ -663,22 +665,29 @@ func runReplay(args []string, stdout, stderr io.Writer) int {
 
 // recordName names one record for a message: the file where it holds a
 // single character, and the file and position where it holds a run.
-func recordName(path string, i int, characters []chargen.Character) string {
-	if len(characters) == 1 {
+func recordName(path string, i, count int) string {
+	if count == 1 {
 		return path
 	}
 
-	return fmt.Sprintf("%s record %d of %d", path, i+1, len(characters))
+	return fmt.Sprintf("%s record %d of %d", path, i+1, count)
 }
 
 // errExists reports an output file that already exists ("Existing files are
 // never overwritten without --force", docs/PRD.md CLI sketch).
 var errExists = errors.New("exists; use --force to overwrite")
 
+// errIsDirectory reports a directory where a record was wanted — the
+// other shape batch writes, named one file at a time.
+var errIsDirectory = errors.New("is a directory; name one of the records inside it")
+
 // errNotCharacter reports JSON that parsed but is not a character record.
 var errNotCharacter = errors.New("not a t5chargen character record (no schema_version)")
 
-// readCharacter loads and minimally validates a character record.
+// errNoRecords reports a file that held no JSON at all, which is a
+// different mistake from a record that parsed and was the wrong shape.
+var errNoRecords = errors.New("no t5chargen character records in file")
+
 // readCharacters loads a file as a run of character records.
 //
 // One record and a run of them are the same thing here, a run of one,
@@ -690,6 +699,16 @@ func readCharacters(path string) ([]chargen.Character, error) {
 	file, err := os.Open(path) //nolint:gosec // G304: user-supplied input path is the CLI contract.
 	if err != nil {
 		return nil, fmt.Errorf("reading %s: %w", path, err)
+	}
+
+	// batch writes a directory of records as readily as a file of them,
+	// so one will be handed to these commands. Saying that plainly beats
+	// letting the decoder report a read failure against "record 1" of
+	// something that holds no records at all.
+	if info, err := file.Stat(); err == nil && info.IsDir() {
+		_ = file.Close()
+
+		return nil, fmt.Errorf("%s: %w", path, errIsDirectory)
 	}
 
 	defer func() { _ = file.Close() }()
@@ -704,7 +723,7 @@ func readCharacters(path string) ([]chargen.Character, error) {
 		switch err := decoder.Decode(&character); {
 		case errors.Is(err, io.EOF):
 			if len(characters) == 0 {
-				return nil, fmt.Errorf("parsing %s: %w", path, errNotCharacter)
+				return nil, fmt.Errorf("parsing %s: %w", path, errNoRecords)
 			}
 
 			return characters, nil
