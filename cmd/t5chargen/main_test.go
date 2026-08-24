@@ -490,6 +490,27 @@ func TestBatchDirectory(t *testing.T) {
 	}
 }
 
+// TestBatchDirectoryTrailingSlash verifies -o with a trailing separator is
+// taken as a directory and created. Without this the README's own example
+// (`-o npcs/`) fails on a fresh checkout, and the same path without the
+// slash silently writes the whole run into one file named npcs.
+func TestBatchDirectoryTrailingSlash(t *testing.T) {
+	dir := filepath.Join(t.TempDir(), "npcs") + string(os.PathSeparator)
+
+	var stdout, stderr bytes.Buffer
+	if code := run([]string{"batch", "--count", "2", "--auto", "--seed", "300", "-o", dir},
+		noSeed(t), &stdout, &stderr); code != exitOK {
+		t.Fatalf("batch -o npcs/: exit %d, stderr: %s", code, stderr.String())
+	}
+
+	for _, seed := range []int{300, 301} {
+		path := filepath.Join(dir, fmt.Sprintf("character-%d.json", seed))
+		if _, err := os.Stat(path); err != nil {
+			t.Errorf("batch -o npcs/ did not write %s", filepath.Base(path))
+		}
+	}
+}
+
 // TestBatchWritesNothingOnConflict verifies a batch that cannot write every
 // file writes none of them. Writing until the conflict would leave a
 // directory holding part of a run that failed, which is worse than the

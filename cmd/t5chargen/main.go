@@ -36,8 +36,8 @@ const (
 const usage = `usage:
   t5chargen new --auto [--seed N] [--name X] [--career citizen] [--homeworld "UWP TC..."]
                 [--current-year 1105] [-o file] [--force]
-  t5chargen batch --count N --auto [--seed N] [--career citizen] [--homeworld "UWP TC..."]
-                  [--current-year 1105] [-o dir|file.jsonl] [--force]
+  t5chargen batch --count N --auto [--seed N] [--name X] [--career citizen]
+                  [--homeworld "UWP TC..."] [--current-year 1105] [-o dir/|file.jsonl] [--force]
   t5chargen render character.json [--format md] [--history]
   t5chargen replay character.json
 `
@@ -137,7 +137,7 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 		return exitUsage
 	}
 
-	if code := checkCurrentYear(*currentYear, stderr); code != exitOK {
+	if code := checkCurrentYear("new", *currentYear, stderr); code != exitOK {
 		return code
 	}
 
@@ -185,7 +185,9 @@ func runBatch(args []string, seedFn func() (uint64, error), stdout, stderr io.Wr
 	currentYear := flags.Int("current-year", calendar.DefaultYear,
 		"Imperial year adventuring begins in, which fixes the birth year (Book 1 p. 58)")
 	auto := flags.Bool("auto", false, "required: batch has no interactive mode")
-	out := flags.String("o", "", "output directory (one file per character) or .jsonl file (default: JSONL on stdout)")
+	out := flags.String("o", "",
+		"output directory, named with a trailing / and created if missing (one file per character), "+
+			"or a .jsonl file (default: JSONL on stdout)")
 	force := flags.Bool("force", false, "overwrite existing output files")
 
 	if err := flags.Parse(args); err != nil {
@@ -245,8 +247,12 @@ func checkBatchFlags(flags *flag.FlagSet, count int, auto bool, currentYear int,
 		return exitUsage
 	}
 
-	return checkCurrentYear(currentYear, stderr)
+	return checkCurrentYear("batch", currentYear, stderr)
 }
+
+// batchAllocHint bounds generateBatch's initial allocation. It is not a
+// limit on --count: the slice grows past it.
+const batchAllocHint = 1024
 
 // generateBatch derives each member's seed from the base seed plus its
 // index, so every member is independently replayable from the record it
@@ -256,7 +262,14 @@ func checkBatchFlags(flags *flag.FlagSet, count int, auto bool, currentYear int,
 // halfway is a batch that did not happen, rather than a directory holding
 // some of what was asked for.
 func generateBatch(count int, base uint64, opts chargen.Options) ([]chargen.Character, error) {
-	characters := make([]chargen.Character, 0, count)
+	// The capacity hint is bounded, not --count itself: a cap on the count
+	// would be a limit docs/PRD.md does not state, and this repo does not
+	// invent those. What is bounded is the request — a mistyped
+	// --count 100000000000 asks for a 54 TB reservation, which macOS
+	// happily grants lazily and a system without overcommit refuses
+	// outright. Neither is a thing to ask for, and the slice grows to
+	// whatever a real run needs.
+	characters := make([]chargen.Character, 0, min(count, batchAllocHint))
 
 	for i := range count {
 		opts.Seed = base + uint64(i)
@@ -273,12 +286,18 @@ func generateBatch(count int, base uint64, opts chargen.Options) ([]chargen.Char
 }
 
 // emitBatch writes the run as JSONL, or as one file per character when -o
-// names an existing directory. A directory is detected rather than
-// declared: the PRD spells the flag "-o dir|file.jsonl", so the path
-// itself says which was meant.
+// names a directory. The PRD spells the flag "-o dir|file.jsonl", so the
+// path itself says which was meant: see batchDir.
 func emitBatch(characters []chargen.Character, out string, force bool, stdout, stderr io.Writer) int {
-	if info, err := os.Stat(out); out != "" && err == nil && info.IsDir() {
-		return emitBatchFiles(characters, out, force, stderr)
+	dir, isDir, err := batchDir(out)
+	if err != nil {
+		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
+
+		return exitError
+	}
+
+	if isDir {
+		return emitBatchFiles(characters, dir, force, stderr)
 	}
 
 	var buf bytes.Buffer
@@ -297,7 +316,6 @@ func emitBatch(characters []chargen.Character, out string, force bool, stdout, s
 		buf.WriteByte('\n')
 	}
 
-	var err error
 	if out == "" {
 		_, err = stdout.Write(buf.Bytes())
 	} else {
@@ -350,6 +368,38 @@ func emitBatchFiles(characters []chargen.Character, dir string, force bool, stde
 	}
 
 	return exitOK
+}
+
+// batchDir decides whether -o named the "dir" or the "file.jsonl" half of
+// the PRD's "-o dir|file.jsonl", and reports the directory when it is the
+// former.
+//
+// An existing directory is one. So is any path written with a trailing
+// separator: "-o npcs/" is the caller declaring a directory, and a
+// declaration is honoured by creating it rather than refused for not
+// existing yet — otherwise the flag would only work for a directory the
+// caller had already made, and "-o npcs" (no slash, nothing there) would
+// quietly deposit the whole run in a single file named npcs.
+func batchDir(out string) (string, bool, error) {
+	if out == "" {
+		return "", false, nil
+	}
+
+	if os.IsPathSeparator(out[len(out)-1]) {
+		dir := filepath.Clean(out)
+		//nolint:gosec // G301: an output directory the caller named; 0755 matches mkdir(1).
+		if err := os.MkdirAll(dir, 0o755); err != nil {
+			return "", false, fmt.Errorf("creating %s: %w", dir, err)
+		}
+
+		return dir, true, nil
+	}
+
+	if info, err := os.Stat(out); err == nil && info.IsDir() {
+		return out, true, nil
+	}
+
+	return out, false, nil
 }
 
 // batchPath names a batch member's file for the seed that produced it.
@@ -414,12 +464,15 @@ func resolveSeed(flags *flag.FlagSet, seed *uint64, seedFn func() (uint64, error
 // all-zero Homeworld takes the tool-owned one; a referee who typed a year
 // meant it, so an explicit 0 is a usage error here rather than a silent
 // fallback to 1105.
-func checkCurrentYear(year int, stderr io.Writer) int {
+//
+// cmd names the subcommand that read the flag, because new and batch both
+// take --current-year and the diagnostic has to say which one refused.
+func checkCurrentYear(cmd string, year int, stderr io.Writer) int {
 	if year >= 1 {
 		return exitOK
 	}
 
-	fmt.Fprintf(stderr, "t5chargen new: --current-year %d is not an Imperial year\n%s", year, usage)
+	fmt.Fprintf(stderr, "t5chargen %s: --current-year %d is not an Imperial year\n%s", cmd, year, usage)
 
 	return exitUsage
 }
