@@ -332,9 +332,9 @@ func TestScholarWaiverPolicy(t *testing.T) {
 // rejected on its own roll but rescued by a Waiver, whose roll can still
 // sit inside the Award-Winning margin because Caution raises the
 // characteristic above the target.
-type cautiousWaiverDecider struct{ chargen.DefaultPolicy }
+type cautiousWaiverDecider struct{}
 
-func (d cautiousWaiverDecider) Choose(c chargen.Choice) (int, error) {
+func (cautiousWaiverDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseCareerWaiver {
 		return 0, nil
 	}

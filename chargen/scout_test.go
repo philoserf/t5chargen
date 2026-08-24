@@ -96,9 +96,9 @@ func checkScoutEvents(t *testing.T, seed uint64, c chargen.Character) {
 
 // braveryDecider is the default policy except it always selects Bravery -9
 // (guaranteeing a 4+ reduction on any Risk failure) and Explorer Duty.
-type braveryDecider struct{ chargen.DefaultPolicy }
+type braveryDecider struct{}
 
-func (d braveryDecider) Choose(c chargen.Choice) (int, error) {
+func (braveryDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseRiskMod {
 		for i, option := range c.Options {
 			if option == "Bravery -9" {
@@ -183,9 +183,9 @@ func TestScoutBeginFallback(t *testing.T) {
 }
 
 // scoutFirstDecider prefers the Scout career, otherwise the default policy.
-type scoutFirstDecider struct{ chargen.DefaultPolicy }
+type scoutFirstDecider struct{}
 
-func (d scoutFirstDecider) Choose(c chargen.Choice) (int, error) {
+func (scoutFirstDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseCareer {
 		for i, option := range c.Options {
 			if option == "Scout" {

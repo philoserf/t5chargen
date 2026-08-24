@@ -101,9 +101,9 @@ func TestAmbiguousChartCellsResolveByChoice(t *testing.T) {
 // one is offered, and otherwise defers to the auto policy so the rest of
 // the run matches the pinned seeds. It reaches the case the policy cannot:
 // a Hobby label that resolves onto the Job.
-type hobbyLabelDecider struct{ chargen.DefaultPolicy }
+type hobbyLabelDecider struct{}
 
-func (d hobbyLabelDecider) Choose(c chargen.Choice) (int, error) {
+func (hobbyLabelDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseHobby {
 		for _, label := range []string{"Spacecraft", "Grav"} {
 			if i := slices.Index(c.Options, label); i >= 0 {

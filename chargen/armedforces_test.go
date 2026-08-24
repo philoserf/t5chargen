@@ -311,9 +311,9 @@ func findMod(mods []chargen.Mod, name string) (chargen.Mod, bool) {
 
 // cautionDecider is the default policy except it always selects Caution
 // +1, the positive Risk Mod the injury rule must ignore.
-type cautionDecider struct{ chargen.DefaultPolicy }
+type cautionDecider struct{}
 
-func (d cautionDecider) Choose(c chargen.Choice) (int, error) {
+func (cautionDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseRiskMod {
 		if i := slices.Index(c.Options, "Caution +1"); i >= 0 {
 			return i, nil
@@ -422,8 +422,6 @@ func soldierInjuryDelta(e chargen.Event) int {
 // I-36), so the names it asks for are enlisted ones; it reaches the rows
 // the policy cannot, which takes the lowest Branch Mod.
 type branchDecider struct {
-	chargen.DefaultPolicy
-
 	name string
 }
 
