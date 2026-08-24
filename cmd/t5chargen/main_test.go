@@ -294,27 +294,17 @@ func TestRenderGoldens(t *testing.T) {
 
 // TestErrors verifies exit codes: 1 for operational errors, 2 for usage
 // errors.
-func TestErrors(t *testing.T) {
-	garbage := filepath.Join(t.TempDir(), "garbage.json")
-	if err := os.WriteFile(garbage, []byte("not json"), 0o600); err != nil {
-		t.Fatal(err)
-	}
+// errorCase is one CLI invocation and the exit code it must produce.
+type errorCase struct {
+	name string
+	args []string
+	code int
+}
 
-	noSchema := filepath.Join(t.TempDir(), "noschema.json")
-	if err := os.WriteFile(noSchema, []byte(`{"upp":"777777"}`), 0o600); err != nil {
-		t.Fatal(err)
-	}
-
-	foreign := filepath.Join(t.TempDir(), "foreign.json")
-	if err := os.WriteFile(foreign, []byte(`{"schema_version":"0.0.1"}`), 0o600); err != nil {
-		t.Fatal(err)
-	}
-
-	tests := []struct {
-		name string
-		args []string
-		code int
-	}{
+// errorCases enumerates the exit-code contract: 1 for operational
+// errors, 2 for usage errors.
+func errorCases(garbage, noSchema, foreign string) []errorCase {
+	return []errorCase{
 		{"no arguments", nil, exitUsage},
 		{"unknown subcommand", []string{"bogus"}, exitUsage},
 		{"unknown flag", []string{"new", "--bogus"}, exitUsage},
@@ -342,6 +332,13 @@ func TestErrors(t *testing.T) {
 		{"render non-record", []string{"render", noSchema}, exitError},
 		{"render txt deferred", []string{"render", "--format", "txt", noSchema}, exitError},
 		{"render unknown format", []string{"render", "--format", "html", noSchema}, exitUsage},
+		{"batch without --auto", []string{"batch", "--count", "2"}, exitUsage},
+		{"batch without --count", []string{"batch", "--auto"}, exitUsage},
+		{"batch negative count", []string{"batch", "--auto", "--count", "-2"}, exitUsage},
+		{"batch stray arguments", []string{"batch", "--auto", "--count", "2", "out.jsonl"}, exitUsage},
+		{"batch unknown career", []string{"batch", "--auto", "--count", "2", "--career", "bogus"}, exitUsage},
+		{"batch career unavailable", []string{"batch", "--auto", "--count", "2", "--career", "Craftsman"}, exitUsage},
+		{"batch outlived current year", []string{"batch", "--auto", "--count", "2", "--current-year", "30"}, exitUsage},
 		{"replay without file", []string{"replay"}, exitUsage},
 		{"replay stray arguments", []string{"replay", noSchema, "extra"}, exitUsage},
 		{"replay missing file", []string{"replay", "does-not-exist.json"}, exitError},
@@ -351,6 +348,25 @@ func TestErrors(t *testing.T) {
 		// command worked and the answer is no.
 		{"replay a foreign record", []string{"replay", foreign}, exitError},
 	}
+}
+
+func TestErrors(t *testing.T) {
+	garbage := filepath.Join(t.TempDir(), "garbage.json")
+	if err := os.WriteFile(garbage, []byte("not json"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+
+	noSchema := filepath.Join(t.TempDir(), "noschema.json")
+	if err := os.WriteFile(noSchema, []byte(`{"upp":"777777"}`), 0o600); err != nil {
+		t.Fatal(err)
+	}
+
+	foreign := filepath.Join(t.TempDir(), "foreign.json")
+	if err := os.WriteFile(foreign, []byte(`{"schema_version":"0.0.1"}`), 0o600); err != nil {
+		t.Fatal(err)
+	}
+
+	tests := errorCases(garbage, noSchema, foreign)
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -360,5 +376,169 @@ func TestErrors(t *testing.T) {
 				t.Errorf("exit %d, want %d (stderr: %s)", code, tt.code, stderr.String())
 			}
 		})
+	}
+}
+
+// readJSONL parses a batch's JSONL output.
+func readJSONL(t *testing.T, out string) []chargen.Character {
+	t.Helper()
+
+	var characters []chargen.Character
+
+	for line := range strings.SplitSeq(strings.TrimSuffix(out, "\n"), "\n") {
+		var character chargen.Character
+		if err := json.Unmarshal([]byte(line), &character); err != nil {
+			t.Fatalf("batch emitted a line that is not a record: %v", err)
+		}
+
+		characters = append(characters, character)
+	}
+
+	return characters
+}
+
+// runBatchOK runs a batch and fails the test if it does not succeed.
+func runBatchOK(t *testing.T, args ...string) string {
+	t.Helper()
+
+	var stdout, stderr bytes.Buffer
+	if code := run(args, noSeed(t), &stdout, &stderr); code != exitOK {
+		t.Fatalf("batch: exit %d, stderr: %s", code, stderr.String())
+	}
+
+	return stdout.String()
+}
+
+// TestBatchDerivesSeeds verifies the seed rule the PRD states: "derives
+// each member's seed from the base seed + index, recorded in each record".
+// The recorded seed is the point — it is what makes a member replayable
+// from the line it lands in.
+func TestBatchDerivesSeeds(t *testing.T) {
+	characters := readJSONL(t, runBatchOK(t, "batch", "--count", "4", "--auto", "--seed", "100"))
+
+	if len(characters) != 4 {
+		t.Fatalf("batch --count 4 emitted %d records", len(characters))
+	}
+
+	for i, character := range characters {
+		if want := uint64(100 + i); character.RNG.Seed != want {
+			t.Errorf("member %d records seed %d, want %d", i, character.RNG.Seed, want)
+		}
+	}
+}
+
+// TestBatchMembersReplay verifies every member of a batch verifies on its
+// own. A batch record that cannot be replayed is not a character record;
+// this is the property the seed derivation exists to preserve.
+func TestBatchMembersReplay(t *testing.T) {
+	for _, character := range readJSONL(t, runBatchOK(t, "batch", "--count", "5", "--auto", "--seed", "700")) {
+		if _, err := chargen.Replay(character); err != nil {
+			t.Errorf("batch member with seed %d does not replay: %v", character.RNG.Seed, err)
+		}
+	}
+}
+
+// TestBatchEmitsTheDead verifies a character who died during generation
+// still reaches the output. Interpretation I-51 leaves open whether "all
+// efforts are lost" governs the tool's output; a batch that silently
+// dropped members would make --count a lie, so the record is emitted with
+// its dead flag set and the caller decides.
+func TestBatchEmitsTheDead(t *testing.T) {
+	characters := readJSONL(t, runBatchOK(t, "batch", "--count", "30", "--auto", "--seed", "1"))
+
+	if len(characters) != 30 {
+		t.Fatalf("batch --count 30 emitted %d records", len(characters))
+	}
+
+	dead := 0
+
+	for _, character := range characters {
+		if character.Dead {
+			dead++
+		}
+	}
+
+	// Not a Skip: a skip here would pass silently the day the seed range
+	// stops reaching a death, and the test would then be asserting
+	// nothing about the behaviour it names.
+	if dead == 0 {
+		t.Error("no member of this run died, so this test no longer exercises a dead character; " +
+			"widen the count or repin the seed")
+	}
+}
+
+// TestBatchDirectory verifies -o dir writes one file per character, named
+// for the seed that produced it.
+func TestBatchDirectory(t *testing.T) {
+	dir := t.TempDir()
+
+	var stdout, stderr bytes.Buffer
+	if code := run([]string{"batch", "--count", "3", "--auto", "--seed", "100", "-o", dir},
+		noSeed(t), &stdout, &stderr); code != exitOK {
+		t.Fatalf("batch -o dir: exit %d, stderr: %s", code, stderr.String())
+	}
+
+	if stdout.Len() != 0 {
+		t.Errorf("batch -o dir also wrote to stdout: %s", stdout.String())
+	}
+
+	for _, seed := range []int{100, 101, 102} {
+		path := filepath.Join(dir, fmt.Sprintf("character-%d.json", seed))
+		if _, err := os.Stat(path); err != nil {
+			t.Errorf("batch -o dir did not write %s", filepath.Base(path))
+		}
+	}
+}
+
+// TestBatchDirectoryTrailingSlash verifies -o with a trailing separator is
+// taken as a directory and created. Without this the README's own example
+// (`-o npcs/`) fails on a fresh checkout, and the same path without the
+// slash silently writes the whole run into one file named npcs.
+func TestBatchDirectoryTrailingSlash(t *testing.T) {
+	dir := filepath.Join(t.TempDir(), "npcs") + string(os.PathSeparator)
+
+	var stdout, stderr bytes.Buffer
+	if code := run([]string{"batch", "--count", "2", "--auto", "--seed", "300", "-o", dir},
+		noSeed(t), &stdout, &stderr); code != exitOK {
+		t.Fatalf("batch -o npcs/: exit %d, stderr: %s", code, stderr.String())
+	}
+
+	for _, seed := range []int{300, 301} {
+		path := filepath.Join(dir, fmt.Sprintf("character-%d.json", seed))
+		if _, err := os.Stat(path); err != nil {
+			t.Errorf("batch -o npcs/ did not write %s", filepath.Base(path))
+		}
+	}
+}
+
+// TestBatchWritesNothingOnConflict verifies a batch that cannot write every
+// file writes none of them. Writing until the conflict would leave a
+// directory holding part of a run that failed, which is worse than the
+// failure: the caller cannot tell it from a run that succeeded.
+func TestBatchWritesNothingOnConflict(t *testing.T) {
+	dir := t.TempDir()
+
+	// Seed the conflict on the last member, so a naive implementation has
+	// already written the first two by the time it notices.
+	blocker := filepath.Join(dir, "character-102.json")
+	if err := os.WriteFile(blocker, []byte("{}"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+
+	var stdout, stderr bytes.Buffer
+	if code := run([]string{"batch", "--count", "3", "--auto", "--seed", "100", "-o", dir},
+		noSeed(t), &stdout, &stderr); code != exitError {
+		t.Fatalf("batch over an existing file: exit %d, want %d", code, exitError)
+	}
+
+	for _, seed := range []int{100, 101} {
+		path := filepath.Join(dir, fmt.Sprintf("character-%d.json", seed))
+		if _, err := os.Stat(path); err == nil {
+			t.Errorf("batch wrote %s despite refusing the run", filepath.Base(path))
+		}
+	}
+
+	if data, err := os.ReadFile(blocker); err != nil || string(data) != "{}" { //nolint:gosec // a temp path the test wrote
+		t.Errorf("batch overwrote the existing file without --force")
 	}
 }

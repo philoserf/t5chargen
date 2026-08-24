@@ -34,8 +34,8 @@ What works today:
   schema/engine/policy versions, ruleset), rendered as a Markdown character
   sheet or a generation-record transcript.
 
-Not yet implemented: interactive mode, batch generation, and the formal
-JSON Schema — all milestone 5. The replay verifier landed:
+Not yet implemented: interactive mode and the formal JSON Schema — both
+milestone 5. Batch generation and the replay verifier landed:
 `t5chargen replay character.json` re-runs a record from its own file and
 exits non-zero at the first event that disagrees.
 
@@ -56,6 +56,7 @@ t5chargen new --auto --seed 42 -o char.json   # generate a character record
 t5chargen render char.json                    # Markdown character sheet
 t5chargen render char.json --history          # generation-record transcript
 t5chargen replay char.json                    # verify the record reproduces itself
+t5chargen batch --count 20 --auto -o npcs/    # a run of NPCs, one file each
 ```
 
 `new` requires `--auto` (interactive mode is planned). Optional flags:
