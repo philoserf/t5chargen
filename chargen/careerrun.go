@@ -33,6 +33,10 @@ var errBadCareerData = errors.New("career data does not match its mechanics")
 // errUnknownRank reports a rank id absent from the career's rank table.
 var errUnknownRank = errors.New("unknown rank")
 
+// errUnknownProgram reports a career assigning a chart C row that is not
+// transcribed, which is a data fault rather than a rules one.
+var errUnknownProgram = errors.New("unknown education program")
+
 // errUnknownAdvancementTarget reports an advancement target form the
 // engine does not implement.
 var errUnknownAdvancementTarget = errors.New("unknown advancement target")

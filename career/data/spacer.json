@@ -171,7 +171,8 @@
       "id": "O4",
       "class": "officer",
       "title": "Lt Commander",
-      "auto_skill": "Pilot"
+      "auto_skill": "Pilot",
+      "command_college": true
     },
     {
       "id": "O5",

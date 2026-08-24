@@ -16,12 +16,12 @@ package chargen
 // table is p. 70). Medals modify later promotion throws; Wound Badges do
 // not (interpretation I-31, ERRATA.md).
 //
-// Deferred: the ANM School assignment's schooling, "resolved as Education"
-// (charts 07, 08), and the Command College a service's flag-rank footnote
-// sends its officers to (chart 07's Lt Commander, chart 08's Major), both
-// mid-career schooling that lands with Later Education (docs/PRD.md
-// milestone 4); the branch changes of interpretation I-34; the Reserves
-// (p. 66); the Service Academy's Officer1 entry linkage.
+// The ANM School assignment and the Command College a flag-rank footnote
+// sends its officers to are both resolved as Education, in
+// assignedschool.go.
+//
+// Deferred: the branch changes of interpretation I-34; the Service
+// Academy's Officer1 entry linkage.
 
 import (
 	"fmt"
@@ -35,6 +35,12 @@ import (
 // the Armed Forces careers.
 type armedForcesMechanics struct {
 	rank string
+
+	// commandCollege is set when the rank just entered carries the
+	// flag-rank footnote, and read at the beginning of the next term:
+	// "Command College in Year 1 of next Term (if Continue)" (chart 07's
+	// Lt Commander, chart 08's Major, chart 12's Force Commander).
+	commandCollege bool
 
 	// branch is the row rolled or chosen; its officer or enlisted side is
 	// resolved against the current rank, so a commission moves a Naval
@@ -269,6 +275,12 @@ func (m *armedForcesMechanics) enterRank(r *careerRun, id string, cause int) err
 		Cause: cause, Kind: ConsequenceRankSet, Career: r.def.Name, Skill: rank.Title,
 	})
 
+	// The flag-rank footnote sends the officer to Command College next
+	// term, not this one.
+	if rank.CommandCollege {
+		m.commandCollege = true
+	}
+
 	// A commission can move the character to the branch's officer side
 	// ("for Spacers, Crew becomes Line", p. 66), so the branch follows the
 	// rank as soon as it changes.
@@ -300,7 +312,22 @@ func (m *armedForcesMechanics) enterRank(r *careerRun, id string, cause int) err
 // resolveTerm rolls the term's assignments, runs Risk & Reward with their
 // Mods, then the commission and promotion attempts.
 func (m *armedForcesMechanics) resolveTerm(r *careerRun, cc string) (termOutcome, error) {
-	columns, opsMod := m.operations(r)
+	// "Command College in Year 1 of next Term (if Continue)": the term
+	// the footnote points at is this one, and Year 1 of it is here,
+	// before the term's assignments are rolled. Reaching this term at all
+	// is the "if Continue".
+	if m.commandCollege {
+		m.commandCollege = false
+
+		if err := r.attendAssignedSchool(commandCollegeID); err != nil {
+			return termOutcome{}, err
+		}
+	}
+
+	columns, opsMod, err := m.operations(r)
+	if err != nil {
+		return termOutcome{}, err
+	}
 
 	outcome, err := m.riskAndReward(r, cc, opsMod)
 	if err != nil || outcome.died {
@@ -323,7 +350,7 @@ func (m *armedForcesMechanics) resolveTerm(r *careerRun, cc string) (termOutcome
 // open and the highest of their Mods: "Roll for Assignment four times per
 // Term ... Determine the highest value for the Term: applied to Risk and
 // Reward" (p. 66).
-func (m *armedForcesMechanics) operations(r *careerRun) ([]string, int) {
+func (m *armedForcesMechanics) operations(r *careerRun) ([]string, int, error) {
 	forces := r.def.ArmedForces
 
 	dm := m.eduDM(r)
@@ -334,6 +361,7 @@ func (m *armedForcesMechanics) operations(r *careerRun) ([]string, int) {
 	// "Column 1-Personal Skills may always be rolled" (p. 65).
 	columns := []string{r.def.SkillColumns[0].Name}
 	highest := 0
+	anm := false
 
 	for range forces.OperationsPerTerm {
 		roll := r.roller.Roll(1)
@@ -347,6 +375,7 @@ func (m *armedForcesMechanics) operations(r *careerRun) ([]string, int) {
 		})
 
 		highest = max(highest, operation.Mod)
+		anm = anm || operation.Name == anmSchoolOperation
 
 		column := operation.Column
 		if column == "" {
@@ -358,8 +387,24 @@ func (m *armedForcesMechanics) operations(r *careerRun) ([]string, int) {
 		}
 	}
 
-	return columns, highest
+	// "Resolve ANM School using Education" (charts 07, 08, 12), after the
+	// four assignment rolls rather than in the middle of them: the four
+	// are one block that determines the term's assignments and its Mod
+	// (p. 66), and interleaving a school's own throws would split it.
+	// Once per term, however many of the four land on it — the school is
+	// a year of the term, and chart C gives it one (interpretation I-93).
+	if anm {
+		if err := r.attendAssignedSchool(anmSchoolID); err != nil {
+			return nil, 0, err
+		}
+	}
+
+	return columns, highest, nil
 }
+
+// anmSchoolOperation is the assignment name the Operations tables print
+// (charts 07, 08, 12).
+const anmSchoolOperation = "ANM School"
 
 // riskAndReward runs the chart 08 box with the Branch and Operations Mods,
 // which are "negative against the Risk Roll and positive against the

@@ -175,7 +175,8 @@
       "id": "O4",
       "class": "officer",
       "title": "Major",
-      "auto_skill": "Tactics"
+      "auto_skill": "Tactics",
+      "command_college": true
     },
     {
       "id": "O5",

@@ -433,6 +433,13 @@ type Rank struct {
 	// "Automatic Skills by Rank"); empty for ranks with none.
 	AutoSkill string `json:"auto_skill,omitempty"`
 
+	// CommandCollege carries the asterisk the military charts print
+	// against one officer rank: "*Command College in Year 1 of next Term
+	// (if Continue)" (chart 07 Lt Commander, chart 08 Major, chart 12
+	// Force Commander). The footnote is chart data, so it is transcribed
+	// against the row it is printed on rather than keyed to "O4" in code.
+	CommandCollege bool `json:"command_college,omitempty"`
+
 	// Soc is the Social Standing a rank carries, where the ladder is keyed
 	// to it ("Nobles begin with rank equal to their Social Standing",
 	// p. 65). Consecutive rows may share one value: "A character elevated
