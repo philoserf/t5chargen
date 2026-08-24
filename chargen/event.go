@@ -409,6 +409,7 @@ func (e Event) clone() Event {
 
 	if e.Consequence != nil {
 		consequence := *e.Consequence
+		consequence.Mods = slices.Clone(consequence.Mods)
 		e.Consequence = &consequence
 	}
 
@@ -469,8 +470,11 @@ func (l *Log) Choice(choice ChoiceEvent) int {
 }
 
 // Consequence records an effect of the throw or choice at sequence number
-// cause, and returns its own sequence number.
+// cause, and returns its own sequence number. The Mods are copied, as a
+// throw's are: the caller's slice cannot alias the stored record.
 func (l *Log) Consequence(consequence ConsequenceEvent) int {
+	consequence.Mods = slices.Clone(consequence.Mods)
+
 	return l.append(Event{Kind: EventConsequence, Consequence: &consequence})
 }
 

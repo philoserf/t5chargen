@@ -629,6 +629,9 @@ func (r *careerRun) awardNewTrade() error {
 		// "if all are already held; this benefit is lost". Skill names
 		// the exhausted group, so the transcript says which benefit was
 		// lost rather than falling through to the Major/Minor wording.
+		// The exhaustion is the sum of every prior award and no throw
+		// produced it, so the consequence names this step instead
+		// (interpretation I-87, ERRATA.md).
 		seq := r.log.Step("New Trade: every Trade is already held", r.def.Cite)
 		r.log.Consequence(ConsequenceEvent{
 			Cause: seq, Kind: ConsequenceBenefitLost, Career: r.def.Name, Skill: "Trade",

@@ -56,9 +56,11 @@ const TermYears = 4
 // (chart A, p. 89), which is a rule about the passage of time and not
 // about any of the particular events that pass it.
 //
-// cause is the throw or choice that consumed the time, never a step
-// (docs/PRD.md FR10). The Aging Checks the span crosses carry their own
-// throws as causes.
+// cause is the throw or choice that consumed the time, never a step. FR10
+// allows a step cause where no throw or choice produced the consequence
+// (interpretation I-87); elapsed years are not such a case — something
+// always consumes the time — so this site holds to the stricter rule. The
+// Aging Checks the span crosses carry their own throws as causes.
 func (c *Character) advanceYears(years int, roller *dice.Roller, log *Log, cause int) error {
 	from := c.Age
 

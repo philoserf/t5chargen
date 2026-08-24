@@ -139,6 +139,14 @@ func TestLogIsolation(t *testing.T) {
 	log.Throw(roller.Throw(2, 8), []chargen.Mod{{Name: "m", Value: 1}}, "cite")
 	log.Choice(chargen.ChoiceEvent{Decider: chargen.DeciderPolicy, Options: []string{"a", "b"}, Chosen: 1})
 
+	// A consequence carrying Mods, which chart F's computed Fame does
+	// (chargen/fame.go). Without one the Consequence payload is copied by
+	// value and its slice aliasing goes unexercised.
+	consequenceMods := []chargen.Mod{{Name: "Rank", Value: 3}}
+	log.Consequence(chargen.ConsequenceEvent{
+		Cause: 1, Kind: chargen.ConsequenceFameComputed, Value: 3, Mods: consequenceMods,
+	})
+
 	before, err := json.Marshal(log.Events())
 	if err != nil {
 		t.Fatal(err)
@@ -155,6 +163,8 @@ func TestLogIsolation(t *testing.T) {
 	snapshot[1].Throw.Mods[0].Value = 99
 	snapshot[2].Choice.Options[0] = "mutated"
 	snapshot[2].Consequence = &chargen.ConsequenceEvent{}
+	consequenceMods[0].Value = 99
+	snapshot[3].Consequence.Mods[0].Value = 99
 
 	after, err := json.Marshal(log.Events())
 	if err != nil {
@@ -191,4 +201,95 @@ func TestEventJSONShape(t *testing.T) {
 	if string(data) != want {
 		t.Errorf("events JSON =\n%s\nwant\n%s", data, want)
 	}
+}
+
+// namesAStep checks one consequence's cause and reports whether it named a
+// step, failing the test if it named anything else.
+func namesAStep(t *testing.T, career string, seed uint64, e chargen.Event, kinds map[int]chargen.EventKind) bool {
+	t.Helper()
+
+	switch kinds[e.Consequence.Cause] { //nolint:exhaustive // the rest are faults, named below
+	case chargen.EventThrow, chargen.EventChoice:
+		return false
+	case chargen.EventStep:
+		return true
+	}
+
+	t.Fatalf("%s seed %d: consequence %q names seq %d, which is %q",
+		career, seed, e.Consequence.Kind, e.Consequence.Cause, kinds[e.Consequence.Cause])
+
+	return false
+}
+
+// causeSweepOptions asks for one career of the sweep.
+//
+// Two careers cannot open a lifepath and so cannot be forced by name.
+// craftsmanPath reaches chart 01, which the auto policy cannot
+// (interpretation I-60) — and chart 01 holds two of I-87's three
+// step-caused consequences. functionaryPath reaches chart 13, whose
+// "Continue Office Politics" is the one career path that continues a term
+// with no Continue throw, and so the one that reads termOutcome.endCause on
+// a term nothing went wrong in.
+func causeSweepOptions(career string, seed uint64) chargen.Options {
+	switch career {
+	case "Citizen":
+		return chargen.Options{Seed: seed, Decider: &craftsmanPath{}}
+	case "Functionary":
+		return chargen.Options{Seed: seed, Decider: functionaryPath{first: "Scholar"}}
+	default:
+		return chargen.Options{Seed: seed, Career: career}
+	}
+}
+
+// TestEveryConsequenceNamesItsCause walks generated records and pins FR10's
+// causality invariant, in the form the amendment leaves it: a consequence
+// names a throw, a choice, or — where no throw or choice produced it — the
+// step that established the state (interpretation I-87).
+//
+// The half that is not a formality is the last: a cause of zero names no
+// event at all. Nothing asserted it before, and a career whose mechanics
+// leave a term's governing throw unset would emit one for every term.
+func TestEveryConsequenceNamesItsCause(t *testing.T) {
+	t.Parallel()
+
+	careers := []string{
+		"Citizen", "Scout", "Rogue", "Merchant", "Soldier", "Spacer",
+		"Marine", "Scholar", "Noble", "Entertainer", "Agent", "Functionary",
+	}
+	steps, total := 0, 0
+
+	for _, career := range careers {
+		for seed := uint64(1); seed <= 40; seed++ {
+			c := generate(t, causeSweepOptions(career, seed))
+
+			kinds := make(map[int]chargen.EventKind, len(c.Events))
+			for _, e := range c.Events {
+				kinds[e.Seq] = e.Kind
+			}
+
+			for _, e := range c.Events {
+				if e.Consequence == nil {
+					continue
+				}
+
+				total++
+
+				if namesAStep(t, career, seed, e, kinds) {
+					steps++
+				}
+			}
+		}
+	}
+
+	if total == 0 {
+		t.Fatal("no consequences generated; the test proves nothing")
+	}
+
+	// The step causes are real and expected — the Rogue's imprisonment is
+	// the common one. If they vanish, I-87 has stopped describing the code.
+	if steps == 0 {
+		t.Errorf("no consequence named a step across %d consequences; interpretation I-87 describes three sites", total)
+	}
+
+	t.Logf("%d consequences, %d of them named a step", total, steps)
 }

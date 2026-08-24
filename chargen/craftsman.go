@@ -176,7 +176,7 @@ func (m *craftsmanMechanics) attempt(r *careerRun, cc string, points int, mods [
 	if points < box.MinimumPoints {
 		// "he cannot attempt a Masterpiece (treat as Failure)": no throw
 		// is made, so the step that established the shortfall is what
-		// the consequences hang from.
+		// the consequences hang from (interpretation I-87, ERRATA.md).
 		seq := r.log.Step("Craftsman: too few Master Points to attempt a Masterpiece", box.Cite)
 		r.log.Consequence(ConsequenceEvent{
 			Cause: seq, Kind: ConsequenceNoAward, Career: r.def.Name, Value: points,
