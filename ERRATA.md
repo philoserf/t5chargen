@@ -825,6 +825,12 @@ The selection therefore offers the enlisted side: an entering Spacer picks
 among Crew, Engineer, Gunnery, Technical, and Medical, and the Mod he
 weighs is the one his own Risk roll will carry.
 
+One entrant escapes that premise, and only one: the Service Academy
+graduate of I-94 joins his own service already commissioned, so the side he
+will serve on is the officer side and that is the side the selection offers
+him. The rule here is unchanged — the side follows the rank held — and
+until I-94 the rank held on entry was always enlisted.
+
 Offering the officer side instead has a visible cost: the event log
 records a character choosing "Line" and then serving as "Crew".
 
@@ -2219,3 +2225,53 @@ separate postings.
 
 Implemented at `chargen/armedforces.go` (`operations`), pinned by
 `TestANMSchoolIsResolvedAsEducation`.
+
+### I-94: A Service Academy graduate enters his own service as an officer (chart C p. 60; p. 65)
+
+Chart C gives the Service Academy a Graduation of "C5=8 BA Officer1". The
+Edu and the degree are applied where every graduation is; Officer1 is not a
+thing the schooling does to the character, it is a rank in a career he has
+not joined yet, and the chart does not say how the two meet.
+
+Read as: he joins at the first officer rank of the service he trained for,
+in place of the enlisted rank every other recruit gets — "Armed Forces
+characters begin with enlisted rank (Army = Soldier1)" (p. 65).
+
+Three things that reading fixes, none of them stated outright.
+
+**Which service.** The Academy asks the character to name one — Army, Navy
+or Marine — and the careers name themselves the same way on their own
+tables: "NAVAL BRANCH" (chart 07), "ARMY BRANCH" (chart 08), "MARINE
+BRANCH" (chart 12). So the linkage is by service, and an Army graduate who
+joins the Navy enters as any other recruit does. An Academy that trained a
+man for one force does not commission him in another.
+
+**Graduation, not attendance.** Officer1 is printed in the Graduation
+column, so a cadet who failed out carries nothing forward.
+
+**Which rank.** "Officer1" is the ladder's first officer rank rather than a
+rank named O1 by coincidence: O1 is what the three services happen to call
+it, and the rule is read off the ladder rather than off the label.
+
+The To Begin throw is unaffected. Nothing on either page excuses a graduate
+from it; he still has to be accepted, and enters as an officer when he is.
+
+**Where the reading applies.** Career entry is the only place a rank is
+first assigned, so that is where the linkage is read. A character who
+reaches the Academy through Later Education (p. 59) graduates into a
+service he has already joined, and this reading leaves the rank he holds
+alone: he rises by the career's own Officer Commission row or not at all.
+Chart C does not say what its Graduation column means for a man already in
+uniform, and a mid-career commission would be a second interpretation
+stacked on this one, so it is deferred rather than assumed.
+
+A branch is selected on the side the character will serve (I-36), so a
+graduate entering as an officer selects from the officer side of the table
+— for a Spacer, Line and Flight rather than Crew and Engineer. I-36's
+premise that every character is enlisted on entry is the one this reading
+narrows.
+
+Implemented at `chargen/armedforces.go` (`entryRank`) and
+`chargen/academy.go` (`academyOfficer`), pinned by
+`TestAcademyGraduateEntersAsAnOfficer` and
+`TestAcademyOfficerIsServiceSpecific`.

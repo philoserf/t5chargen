@@ -20,8 +20,11 @@ package chargen
 // sends its officers to are both resolved as Education, in
 // assignedschool.go.
 //
-// Deferred: the branch changes of interpretation I-34; the Service
-// Academy's Officer1 entry linkage.
+// A Service Academy graduate enters his own service at its first officer
+// rank rather than at the enlisted rank p. 65 gives every other recruit
+// (interpretation I-94; entryRank, academy.go).
+//
+// Deferred: the branch changes of interpretation I-34.
 
 import (
 	"fmt"
@@ -110,11 +113,31 @@ func (m *armedForcesMechanics) begin(r *careerRun) (bool, error) {
 		return false, nil
 	}
 
-	if err := m.enterRank(r, r.def.Ranks[0].ID, seq); err != nil {
+	if err := m.enterRank(r, m.entryRank(r), seq); err != nil {
 		return false, err
 	}
 
 	return true, m.selectBranch(r)
+}
+
+// entryRank is the rank the character joins at. Normally the first of the
+// ladder — "Armed Forces characters begin with enlisted rank (Army =
+// Soldier1)" (p. 65) — but a Service Academy graduate of this service
+// enters as an officer instead: chart C p. 60 gives the Service Academy a
+// Graduation of "C5=8 BA Officer1", and Officer1 is the first officer rank
+// of the service he trained for (interpretation I-94).
+func (m *armedForcesMechanics) entryRank(r *careerRun) string {
+	if !r.character.academyOfficer(r.def.ArmedForces.Service) {
+		return r.def.Ranks[0].ID
+	}
+
+	for _, rank := range r.def.Ranks {
+		if rank.Class == officerRankClass {
+			return rank.ID
+		}
+	}
+
+	return r.def.Ranks[0].ID
 }
 
 // selectBranch applies "Determine Branch and Mod": the character checks
@@ -171,11 +194,13 @@ func (m *armedForcesMechanics) chooseBranch(r *careerRun) (career.Branch, error)
 	)
 
 	for _, branch := range forces.Branches {
-		// A branch is selected on entry, when every Armed Forces
-		// character is enlisted (p. 65), so the Naval table's enlisted
-		// column is the one that applies: an entering Spacer picks among
-		// Crew and Engineer, not Line and Flight (interpretation I-36,
-		// ERRATA.md).
+		// A branch is selected on the side the character will serve
+		// (interpretation I-36, ERRATA.md). On entry that is normally
+		// the enlisted side — "Armed Forces characters begin with
+		// enlisted rank" (p. 65) — so an entering Spacer picks among
+		// Crew and Engineer, not Line and Flight. The one entrant who is
+		// already commissioned is the Service Academy graduate of I-94,
+		// and the officer side is the side he will serve on.
 		name, mod := branch.Side(officer)
 
 		// The score pairs the Branch Mod with its DM so a policy can

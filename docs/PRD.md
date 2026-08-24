@@ -97,9 +97,16 @@ Characteristics stored numeric with the UPP hex string derived and stored alongs
 ```
 t5chargen new [--seed N] [--auto] [--career scout] [--homeworld A867A69-F] [--name X] [-o file]
 t5chargen batch --count 20 --auto [--career ...] [-o dir|file.jsonl]
-t5chargen render character.json [--format md|txt] [--history]
+t5chargen render [--format md|txt] [--history] character.json
 t5chargen replay character.json
 ```
+
+_Corrected at implementation (2026-08-24):_ the `render` line above originally
+put its flags after the filename, which does not work — Go's `flag` package
+stops parsing at the first non-flag argument, so `render char.json --history`
+leaves `--history` standing as a second positional argument and the command
+exits with a usage error instead of rendering anything. The sketch, the usage string and the README all
+documented a form the tool does not accept.
 
 Interactive mode walks the E1 checklist step by step; auto mode applies the fixed default policy. `new` writes JSON to stdout unless `-o`; `batch` emits JSONL (or one file per character with `-o dir`), requires `--auto`, and derives each member's seed from the base seed + index, recorded in each record. `--career` forces the first career only. Existing files are never overwritten without `--force`. Interrupted interactive sessions produce no output file.
 

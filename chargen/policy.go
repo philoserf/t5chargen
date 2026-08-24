@@ -109,8 +109,10 @@ const comebackThreshold = 7
 
 // chooseEducationProgram applies POLICY.md's college track: University,
 // then College, then ED5; None (always last) otherwise. Service Academy is
-// excluded — its Officer1 graduation links to milestone-3 military
-// careers.
+// excluded on the same criterion: its Officer1 graduation is implemented
+// (interpretation I-94), but the policy is choosing for Edu and the
+// Academy graduates at Edu=8 — below University, level with the College it
+// would displace.
 func chooseEducationProgram(options []string) int {
 	return preferredIndex(options, []string{"University", "College", "ED5"}, len(options)-1)
 }

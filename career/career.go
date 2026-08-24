@@ -593,6 +593,13 @@ type ArmedForces struct {
 	// a Branch (chart 08: "Select Branch Soc").
 	BranchCheck string `json:"branch_check"`
 
+	// Service names the armed force the career is, as its own Branch and
+	// Operations tables title themselves: "NAVAL BRANCH" on chart 07,
+	// "ARMY BRANCH" on chart 08, "MARINE BRANCH" on chart 12. It matches
+	// a Service Academy graduate's service (chart C p. 60), which is the
+	// only thing that reads it.
+	Service string `json:"service"`
+
 	BranchCite     string `json:"branch_cite"`
 	OperationsCite string `json:"operations_cite"`
 
@@ -879,6 +886,14 @@ func (d *Definition) validateArmedForces() error {
 
 	if !characteristicNames[forces.BranchCheck] {
 		return fmt.Errorf("%w: unknown Branch check characteristic %q", errBadDefinition, forces.BranchCheck)
+	}
+
+	// A missing Service is silently a non-match against every Service
+	// Academy graduate, which would drop the Officer1 entry (I-94) with
+	// no error and no visible difference from a character who never
+	// attended.
+	if forces.Service == "" {
+		return fmt.Errorf("%w: an armed force names no Service", errBadDefinition)
 	}
 
 	if len(forces.Branches) == 0 || len(forces.Operations) == 0 {
