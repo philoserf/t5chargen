@@ -88,6 +88,7 @@ func (r *careerRun) attendMidCareer(program education.Program, cause int) (bool,
 	}
 
 	began := r.character.Age
+	held := heldSkillLevels(r.character)
 
 	admitted, err := run.apply()
 	if err != nil {
@@ -109,6 +110,7 @@ func (r *careerRun) attendMidCareer(program education.Program, cause int) (bool,
 	}
 
 	run.finish()
+	r.creditSchooling(held)
 
 	if remaining := TermYears - (r.character.Age - began); remaining > 0 {
 		if err := r.character.advanceYears(remaining, r.roller, r.log, cause); err != nil {
@@ -117,4 +119,24 @@ func (r *careerRun) attendMidCareer(program education.Program, cause int) (bool,
 	}
 
 	return true, nil
+}
+
+// creditSchooling raises the career-entry baseline by what the schooling
+// awarded, so a level earned at school is not read as a career receipt.
+//
+// "Receipts" under the Job/Hobby first-receipt rule are skills received
+// during this career; levels held from education are not (interpretation
+// I-2, ERRATA.md), and a suspended term is not career resolution at all.
+// Without this, a mid-career Apprenticeship in the skill a later Job
+// determination happens to land on would demote that determination from
+// Skill-4 to Skill-1 — schooling making the character strictly worse off,
+// which is the reading I-2 rejects. The baseline is raised rather than
+// reset, so a genuine career receipt of the same skill in an earlier term
+// still demotes.
+func (r *careerRun) creditSchooling(before map[string]int) {
+	for _, held := range r.character.Skills {
+		if gained := held.Level - before[held.Name]; gained > 0 {
+			r.entryLevels[held.Name] += gained
+		}
+	}
 }

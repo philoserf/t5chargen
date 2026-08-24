@@ -234,6 +234,14 @@ func TestLaterEducationReplays(t *testing.T) {
 	}
 }
 
+// terminationSeeds is wide on purpose. This sweep first ran over five
+// seeds, passed, and the interpretation it backs claimed the lifepath
+// always terminates — which was false: seed 111 hung outright, because a
+// character who died at school was never checked for death and aging stops
+// checking once Dead is set. Five seeds was not a sweep, it was an
+// anecdote.
+const terminationSeeds = 150
+
 // TestLaterEducationTerminates verifies the unbounded case ends. The offer
 // recurs at the beginning of every term and Apprenticeship has no
 // prerequisite, so a character can accept forever; a suspended term throws
@@ -249,7 +257,7 @@ func TestLaterEducationReplays(t *testing.T) {
 // A regression here hangs the suite rather than failing it, which is why
 // it is pinned.
 func TestLaterEducationTerminates(t *testing.T) {
-	for seed := range uint64(5) {
+	for seed := range uint64(terminationSeeds) {
 		c := generate(t, chargen.Options{Seed: seed, Decider: schoolAlways{}})
 
 		if len(c.Education) < 2 {
@@ -262,3 +270,132 @@ func TestLaterEducationTerminates(t *testing.T) {
 		}
 	}
 }
+
+// TestLaterEducationDeathEndsTheLifepath verifies that a character killed
+// by aging while at school stops being resolved. The years pass at school
+// as they do in service (chart A p. 89), and a refused application costs a
+// year of its own (interpretation I-89), so both entry points can leave a
+// corpse where the term loop expects a survivor.
+//
+// Two things go wrong without the check, and the sweep catches both. A
+// dead character served the term he had applied out of — earning skills, a
+// TermRecord and the muster-out benefit rolls that count it. And with a
+// decider that accepts every offer the loop never ended at all: Dead stops
+// ageEffects from checking, so once the aging that has to end the lifepath
+// has fired, nothing can fire again. Seed 111 hung; seed 2 resolved a step
+// past the death.
+func TestLaterEducationDeathEndsTheLifepath(t *testing.T) {
+	for seed := range uint64(150) {
+		c := generate(t, chargen.Options{Seed: seed, Decider: schoolAlways{}})
+
+		dead := false
+
+		for _, event := range c.Events {
+			if event.Kind == chargen.EventConsequence &&
+				event.Consequence.Kind == chargen.ConsequenceDead {
+				dead = true
+
+				continue
+			}
+
+			if !dead || event.Kind != chargen.EventStep {
+				continue
+			}
+
+			if strings.HasPrefix(event.Step.Name, "Later Education:") ||
+				strings.Contains(event.Step.Name, ": Term ") {
+				t.Fatalf("seed %d: %q resolved after the character died", seed, event.Step.Name)
+			}
+		}
+	}
+}
+
+// TestLaterEducationIsNotACareerReceipt verifies that a skill earned at
+// school mid-career does not demote a later career award of the same skill
+// to Skill-1. "Receipts" under the Job/Hobby first-receipt rule are career
+// receipts, and levels held from education are not (interpretation I-2,
+// ERRATA.md) — the same reason a homeworld grant does not demote. The
+// baseline that rule reads is the levels held at career entry, so
+// schooling taken after entry has to be credited to it or going to school
+// leaves the character strictly worse off.
+//
+// Seed 5 is pinned because it is the case: the character apprentices in
+// Chef for Chef-4, then a later Citizen term selects Chef as its Hobby.
+// "Skill-2 (later receipts are Skill-1)" (p. 78) must award the full +2.
+func TestLaterEducationIsNotACareerReceipt(t *testing.T) {
+	const (
+		seed        = 5
+		schooled    = "Chef"
+		hobbyLevels = 2
+	)
+
+	c := generate(t, chargen.Options{Seed: seed, Decider: &apprenticeIn{skill: schooled}})
+
+	got, ok := hobbyAward(c, schooled)
+	if !ok {
+		t.Fatalf("seed %d no longer schools %s and then takes it as a Hobby", seed, schooled)
+	}
+
+	if got != hobbyLevels {
+		t.Errorf("the Hobby award of a skill held from school was %+d, want %+d: schooling was read as a career receipt",
+			got, hobbyLevels)
+	}
+}
+
+// hobbyAward reports the levels awarded by the Hobby determination that
+// selected the named skill.
+func hobbyAward(c chargen.Character, name string) (int, bool) {
+	determined := false
+
+	for _, event := range c.Events {
+		if event.Kind != chargen.EventConsequence {
+			continue
+		}
+
+		consequence := event.Consequence
+
+		if consequence.Kind == chargen.ConsequenceHobbySet && consequence.Skill == name {
+			determined = true
+
+			continue
+		}
+
+		if determined && consequence.Kind == chargen.ConsequenceSkillAwarded &&
+			consequence.Skill == name {
+			return consequence.Delta, true
+		}
+	}
+
+	return 0, false
+}
+
+// apprenticeIn takes the first Later Education offer as an Apprenticeship
+// in one named skill, serves every later term, and takes the same skill as
+// its Hobby wherever the ladder offers one.
+type apprenticeIn struct {
+	skill string
+	taken bool
+}
+
+func (d *apprenticeIn) Choose(c chargen.Choice) (int, error) {
+	if c.ID == chargen.ChooseLaterEducation {
+		if d.taken {
+			return 0, nil
+		}
+
+		index := indexOf(c.Options, "Apprenticeship")
+		d.taken = index > 0
+
+		return max(index, 0), nil
+	}
+
+	if c.ID == chargen.ChooseSkill || c.ID == chargen.ChooseHobby {
+		if index := indexOf(c.Options, d.skill); index >= 0 {
+			return index, nil
+		}
+	}
+
+	return autoPolicy(c)
+}
+
+func (*apprenticeIn) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }

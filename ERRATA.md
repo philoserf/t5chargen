@@ -53,9 +53,20 @@ career entry itself (a To Begin outcome, milestone 3) are career receipts:
 the baseline is captured before the begin seam runs, so they demote a
 later determination.
 
+Scope (extended 2026-08-23, with Later Education): levels earned at school
+during a suspended term (p. 59, I-90) are education, not career receipts —
+for the same reason homeworld grants are not, and with more force, since a
+suspended term is not career resolution at all. The career-entry baseline
+is raised by whatever the schooling awarded, so a mid-career Apprenticeship
+in the skill a later Job or Hobby determination happens to land on does not
+demote that determination to Skill-1. Raised rather than reset: a genuine
+career receipt of the same skill in an earlier term still demotes.
+
 Implemented at `chargen/careerrun.go` (`careerRun.firstReceiptLevels`,
 against the career-entry baseline `entryLevels`; career-generic since the
-runner extraction, applying to every registered career).
+runner extraction, applying to every registered career) and
+`chargen/latereducation.go` (`creditSchooling`), pinned by
+`TestLaterEducationIsNotACareerReceipt`.
 
 ### I-3: Hobby selection excludes the determined Job (p. 78)
 
@@ -2106,12 +2117,27 @@ counts toward neither the muster-out benefit rolls nor the pensions, both of
 which count terms (`len(record.Terms)`). A character is not paid for service
 he spent at school.
 
-The lifepath still terminates. The years pass whether they are spent serving
-or studying, so aging arrives on schedule and kills (chart A p. 89); and an
-application may be refused, which serves the term and throws its Continue
-after all (I-89). `TestLaterEducationTerminates` pins both, on a decider
-that accepts schooling at every offer it is given.
+The lifepath still terminates, but only because the engine reads death at
+the right place, and this entry first claimed otherwise. The years pass
+whether they are spent serving or studying, so aging arrives on schedule and
+kills (chart A p. 89); and an application may be refused, which serves the
+term and throws its Continue after all (I-89). Both were true as written.
+What was missing was the check: a character who died at school was never
+noticed, and since aging stops checking once Dead is set, a lifepath that
+outlived its own death could not end at all. Seed 111 hung. The sweep that
+was said to pin the claim ran over five seeds and did not reach it — five
+seeds is an anecdote, not a sweep, and `TestLaterEducationTerminates` now
+runs 150.
+
+That death has to be read where the term loop resumes, and not only where a
+term was served. Aging kills at school as readily as in service, and the
+refused applicant's lost year passes too, so the loop checks once the offer
+is resolved, whichever way it went: a corpse is not offered school again,
+and does not serve the term he applied out of. The check is load-bearing
+rather than tidy — once a character is dead, aging stops checking, so a
+loop that survives the death has nothing left that can ever end it.
 
 Implemented at `chargen/careerrun.go` (`term`) and
-`chargen/latereducation.go`, pinned by `TestLaterEducationSuspendsResolution`
-and `TestLaterEducationIsNotATermServed`.
+`chargen/latereducation.go`, pinned by `TestLaterEducationSuspendsResolution`,
+`TestLaterEducationIsNotATermServed` and
+`TestLaterEducationDeathEndsTheLifepath`.
