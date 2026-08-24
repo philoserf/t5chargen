@@ -669,3 +669,94 @@ func TestAbandonedSessionWritesNothing(t *testing.T) {
 		t.Errorf("the player was not told the session was abandoned: %s", stderr.String())
 	}
 }
+
+// TestBatchOutputIsReadable verifies the tool can read back what it
+// writes. batch emits JSONL, render and replay took a single record, and
+// the two only met when a run happened to hold exactly one — so a run of
+// one worked and a run of two did not, which is the shape of bug that
+// survives testing and appears in use.
+func TestBatchOutputIsReadable(t *testing.T) {
+	runPath := filepath.Join(t.TempDir(), "run.jsonl")
+
+	var stdout, stderr bytes.Buffer
+	if code := run3(t, []string{"batch", "--count", "3", "--auto", "--seed", "5", "-o", runPath},
+		&stdout, &stderr); code != exitOK {
+		t.Fatalf("batch: exit %d, stderr: %s", code, stderr.String())
+	}
+
+	for _, tc := range []struct {
+		name string
+		args []string
+		want int
+	}{
+		{name: "replay", args: []string{"replay", runPath}, want: 3},
+		{name: "render", args: []string{"render", runPath}, want: 3},
+		{name: "render history", args: []string{"render", "--history", runPath}, want: 3},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			var out, errOut bytes.Buffer
+			if code := run3(t, tc.args, &out, &errOut); code != exitOK {
+				t.Fatalf("exit %d, stderr: %s", code, errOut.String())
+			}
+
+			if got := strings.Count(out.String(), marker(tc.name)); got != tc.want {
+				t.Errorf("%d of %q in the output, want %d — one per record",
+					got, marker(tc.name), tc.want)
+			}
+		})
+	}
+}
+
+// marker is the line each subcommand emits once per record.
+func marker(name string) string {
+	switch name {
+	case "replay":
+		return "reproduced from seed"
+	case "render history":
+		return "# Generation Record"
+	default:
+		return "# Character Card"
+	}
+}
+
+// run3 runs the CLI with no interactive input.
+func run3(t *testing.T, args []string, stdout, stderr *bytes.Buffer) int {
+	t.Helper()
+
+	return run(args, noSeed(t), noInput(), stdout, stderr)
+}
+
+// TestAPartlyBrokenRunNamesTheRecord verifies a run that goes wrong says
+// which of its records did. "Record 2 of 3" is actionable where a parse
+// error about the whole file is not.
+func TestAPartlyBrokenRunNamesTheRecord(t *testing.T) {
+	runPath := filepath.Join(t.TempDir(), "run.jsonl")
+
+	var stdout, stderr bytes.Buffer
+	if code := run3(t, []string{"batch", "--count", "3", "--auto", "--seed", "5", "-o", runPath},
+		&stdout, &stderr); code != exitOK {
+		t.Fatalf("batch: exit %d", code)
+	}
+
+	data, err := os.ReadFile(runPath) //nolint:gosec // a temp path this test wrote
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	lines := strings.Split(strings.TrimSuffix(string(data), "\n"), "\n")
+	lines[1] = `{"upp":"777777"}`
+
+	//nolint:gosec // G703: a path this test built from t.TempDir and wrote once already.
+	if err := os.WriteFile(runPath, []byte(strings.Join(lines, "\n")+"\n"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+
+	var out, errOut bytes.Buffer
+	if code := run3(t, []string{"replay", runPath}, &out, &errOut); code != exitError {
+		t.Fatalf("exit %d, want %d", code, exitError)
+	}
+
+	if !strings.Contains(errOut.String(), "record 2") {
+		t.Errorf("the failure does not name the record that broke: %s", errOut.String())
+	}
+}

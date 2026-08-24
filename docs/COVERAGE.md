@@ -565,7 +565,7 @@ its own file and compares every event and the whole record back
 `TestReplayRejectsForeignProvenance`,
 `TestReplayForcedCareerNeedsTheInput`). Batch is implemented: `t5chargen
 batch --count N --auto` derives each member's seed from the base seed plus
-its index, so every member replays from the line or file it lands in
+its index, so every member replays from the line or file it lands in — `render` and `replay` read a JSONL run as readily as a single record (`TestBatchOutputIsReadable`)
 (`TestBatchDerivesSeeds`, `TestBatchMembersReplay`, `TestBatchDirectory`,
 `TestBatchWritesNothingOnConflict`). The JSON Schema is written: `docs/character.schema.json` with its two
 examples, checked by a hand-written validator over the subset it uses

@@ -598,17 +598,25 @@ func runRender(args []string, stdout, stderr io.Writer) int {
 		return exitUsage
 	}
 
-	character, err := readCharacter(flags.Arg(0))
+	characters, err := readCharacters(flags.Arg(0))
 	if err != nil {
 		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
 
 		return exitError
 	}
 
-	if *history {
-		fmt.Fprint(stdout, render.History(character))
-	} else {
-		fmt.Fprint(stdout, render.Sheet(character))
+	for i, character := range characters {
+		// A run of sheets needs something between them; one does not,
+		// because nothing follows it.
+		if i > 0 {
+			fmt.Fprint(stdout, "\n---\n\n")
+		}
+
+		if *history {
+			fmt.Fprint(stdout, render.History(character))
+		} else {
+			fmt.Fprint(stdout, render.Sheet(character))
+		}
 	}
 
 	return exitOK
@@ -632,23 +640,35 @@ func runReplay(args []string, stdout, stderr io.Writer) int {
 		return exitUsage
 	}
 
-	character, err := readCharacter(flags.Arg(0))
+	characters, err := readCharacters(flags.Arg(0))
 	if err != nil {
 		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
 
 		return exitError
 	}
 
-	if _, err := chargen.Replay(character); err != nil {
-		fmt.Fprintf(stderr, "t5chargen replay: %v\n", err)
+	for i, character := range characters {
+		if _, err := chargen.Replay(character); err != nil {
+			fmt.Fprintf(stderr, "t5chargen replay: %s: %v\n", recordName(flags.Arg(0), i, characters), err)
 
-		return exitError
+			return exitError
+		}
+
+		fmt.Fprintf(stdout, "replayed %s: %d events reproduced from seed %d\n",
+			recordName(flags.Arg(0), i, characters), len(character.Events), character.RNG.Seed)
 	}
 
-	fmt.Fprintf(stdout, "replayed %s: %d events reproduced from seed %d\n",
-		flags.Arg(0), len(character.Events), character.RNG.Seed)
-
 	return exitOK
+}
+
+// recordName names one record for a message: the file where it holds a
+// single character, and the file and position where it holds a run.
+func recordName(path string, i int, characters []chargen.Character) string {
+	if len(characters) == 1 {
+		return path
+	}
+
+	return fmt.Sprintf("%s record %d of %d", path, i+1, len(characters))
 }
 
 // errExists reports an output file that already exists ("Existing files are
@@ -659,21 +679,43 @@ var errExists = errors.New("exists; use --force to overwrite")
 var errNotCharacter = errors.New("not a t5chargen character record (no schema_version)")
 
 // readCharacter loads and minimally validates a character record.
-func readCharacter(path string) (chargen.Character, error) {
-	var character chargen.Character
-
-	data, err := os.ReadFile(path) //nolint:gosec // G304: user-supplied input path is the CLI contract.
+// readCharacters loads a file as a run of character records.
+//
+// One record and a run of them are the same thing here, a run of one,
+// because batch writes JSONL and a JSONL file of a single record is also
+// a single record — so a tool that read only one would work while a run
+// was being tested and fail once it held two. render and replay both take
+// whatever batch wrote, in either of the forms it writes.
+func readCharacters(path string) ([]chargen.Character, error) {
+	file, err := os.Open(path) //nolint:gosec // G304: user-supplied input path is the CLI contract.
 	if err != nil {
-		return character, fmt.Errorf("reading %s: %w", path, err)
+		return nil, fmt.Errorf("reading %s: %w", path, err)
 	}
 
-	if err := json.Unmarshal(data, &character); err != nil {
-		return character, fmt.Errorf("parsing %s: %w", path, err)
-	}
+	defer func() { _ = file.Close() }()
 
-	if character.SchemaVersion == "" {
-		return character, fmt.Errorf("parsing %s: %w", path, errNotCharacter)
-	}
+	var characters []chargen.Character
 
-	return character, nil
+	decoder := json.NewDecoder(file)
+
+	for {
+		var character chargen.Character
+
+		switch err := decoder.Decode(&character); {
+		case errors.Is(err, io.EOF):
+			if len(characters) == 0 {
+				return nil, fmt.Errorf("parsing %s: %w", path, errNotCharacter)
+			}
+
+			return characters, nil
+		case err != nil:
+			return nil, fmt.Errorf("parsing %s (record %d): %w", path, len(characters)+1, err)
+		}
+
+		if character.SchemaVersion == "" {
+			return nil, fmt.Errorf("parsing %s (record %d): %w", path, len(characters)+1, errNotCharacter)
+		}
+
+		characters = append(characters, character)
+	}
 }
