@@ -51,11 +51,12 @@ func (r *careerRun) laterEducation() (bool, error) {
 	scores := append([]int{1}, qualified...)
 
 	chosen, seq, err := choose(r.log, r.decider, Choice{
-		ID:      ChooseLaterEducation,
-		Prompt:  "Suspend the term to return to school?",
-		Options: options,
-		Scores:  scores,
-		Cite:    "Book 1 p. 59 (Later Education or Training); chart C p. 60",
+		ID:         ChooseLaterEducation,
+		Prompt:     "Suspend the term to return to school?",
+		Options:    options,
+		Scores:     scores,
+		ScoreLabel: "qualifies",
+		Cite:       "Book 1 p. 59 (Later Education or Training); chart C p. 60",
 	})
 	if err != nil || chosen == 0 {
 		return false, err

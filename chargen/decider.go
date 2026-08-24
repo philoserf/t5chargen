@@ -180,6 +180,18 @@ type Choice struct {
 	Options []string
 	Scores  []int
 	Cite    string
+
+	// ScoreLabel names what Scores mean, for a decider that shows them to
+	// a person. "1" against a program means "you qualify", and nobody
+	// could guess that from the digit; unlabelled scores stay between the
+	// engine and the policy.
+	//
+	// A label applies to every option in the list, so only label a Score
+	// that means the same thing for each of them. Where the array is
+	// really one flag about the choice, padded to length — the waiver
+	// stake is — labelling it reads as a claim about each option in turn,
+	// and the second option's padding reads as the opposite of the truth.
+	ScoreLabel string
 }
 
 // Decider resolves choice points. Interactive play and the auto-mode

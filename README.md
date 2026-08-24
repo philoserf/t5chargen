@@ -52,7 +52,8 @@ interpretations where the printed rules are ambiguous.
 ## Usage
 
 ```sh
-t5chargen new --auto --seed 42 -o char.json   # generate a character record
+t5chargen new --seed 42 -o char.json          # answer each choice yourself
+t5chargen new --auto --seed 42 -o char.json   # let the policy decide (POLICY.md)
 t5chargen new --auto --homeworld random       # determine the homeworld on chart B
 t5chargen render char.json                    # Markdown character sheet
 t5chargen render --history char.json          # generation-record transcript

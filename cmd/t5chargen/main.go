@@ -19,6 +19,7 @@ import (
 	"github.com/philoserf/t5chargen/calendar"
 	"github.com/philoserf/t5chargen/career"
 	"github.com/philoserf/t5chargen/chargen"
+	"github.com/philoserf/t5chargen/interactive"
 	"github.com/philoserf/t5chargen/render"
 	"github.com/philoserf/t5chargen/world"
 )
@@ -34,8 +35,9 @@ const (
 )
 
 const usage = `usage:
-  t5chargen new --auto [--seed N] [--name X] [--career citizen] [--homeworld "UWP TC..."|random]
+  t5chargen new [--auto] [--seed N] [--name X] [--career citizen] [--homeworld "UWP TC..."|random]
                 [--current-year 1105] [-o file] [--force]
+                (without --auto the player answers each choice; --auto applies POLICY.md)
   t5chargen batch --count N --auto [--seed N] [--name X] [--career citizen]
                   [--homeworld "UWP TC..."|random] [--current-year 1105] [-o dir/|file.jsonl] [--force]
   t5chargen render [--format md] [--history] character.json
@@ -43,7 +45,7 @@ const usage = `usage:
 `
 
 func main() {
-	os.Exit(run(os.Args[1:], randomSeed, os.Stdout, os.Stderr))
+	os.Exit(run(os.Args[1:], randomSeed, os.Stdin, os.Stdout, os.Stderr))
 }
 
 // randomSeed draws a seed from the OS entropy source. This is the one
@@ -60,8 +62,9 @@ func randomSeed() (uint64, error) {
 }
 
 // run dispatches the subcommand. seedFn supplies the seed when --seed is
-// not given; tests inject a deterministic one.
-func run(args []string, seedFn func() (uint64, error), stdout, stderr io.Writer) int {
+// not given and stdin answers interactive prompts; tests inject a
+// deterministic seed and a scripted script.
+func run(args []string, seedFn func() (uint64, error), stdin io.Reader, stdout, stderr io.Writer) int {
 	if len(args) == 0 {
 		fmt.Fprint(stderr, usage)
 
@@ -70,7 +73,7 @@ func run(args []string, seedFn func() (uint64, error), stdout, stderr io.Writer)
 
 	switch args[0] {
 	case "new":
-		return runNew(args[1:], seedFn, stdout, stderr)
+		return runNew(args[1:], seedFn, stdin, stdout, stderr)
 	case "batch":
 		return runBatch(args[1:], seedFn, stdout, stderr)
 	case "render":
@@ -103,7 +106,7 @@ func isUsageError(err error) bool {
 
 // runNew generates a character and writes its JSON record to stdout, or to
 // -o file (docs/PRD.md, CLI sketch: "new writes JSON to stdout unless -o").
-func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writer) int {
+func runNew(args []string, seedFn func() (uint64, error), stdin io.Reader, stdout, stderr io.Writer) int {
 	flags := flag.NewFlagSet("new", flag.ContinueOnError)
 	flags.SetOutput(stderr)
 	seed := flags.Uint64("seed", 0, "RNG seed (default: drawn from OS entropy)")
@@ -126,15 +129,6 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 		return exitUsage
 	}
 
-	// Interactive mode is the PRD's default; it lands with milestone 5.
-	// Refusing is honest — silently substituting the auto policy would
-	// misrepresent who decided.
-	if !*auto {
-		fmt.Fprintln(stderr, "t5chargen new: interactive mode is not yet implemented (milestone 5); use --auto")
-
-		return exitUsage
-	}
-
 	if code := checkCurrentYear("new", *currentYear, stderr); code != exitOK {
 		return code
 	}
@@ -145,8 +139,25 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 		return exitError
 	}
 
-	character, err := chargen.Generate(generateOptions(*seed, *name, *careerFlag, *homeworldFlag, *currentYear))
+	options := generateOptions(*seed, *name, *careerFlag, *homeworldFlag, *currentYear)
+
+	// Interactive is the PRD's default mode; --auto asks for the policy
+	// instead. Whichever answers, the record says which (FR10).
+	if !*auto {
+		options.Decider = interactive.New(stdin, stderr)
+	}
+
+	character, err := chargen.Generate(options)
 	if err != nil {
+		// An abandoned session is not a failure to report as one, and
+		// it must leave nothing behind: "Interrupted interactive
+		// sessions produce no output file" (docs/PRD.md, CLI sketch).
+		if errors.Is(err, interactive.ErrAbandoned) {
+			fmt.Fprintln(stderr, "t5chargen new: abandoned; no character written")
+
+			return exitError
+		}
+
 		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
 
 		if isUsageError(err) {
