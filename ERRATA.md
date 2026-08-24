@@ -2163,8 +2163,17 @@ Later Education is exact and deliberate: that one substitutes "for the
 entire term" and costs all four (I-88), because there the term is what is
 being replaced.
 
+One consequence of siting the school inside a term: Command College waits
+for a term that is actually served. "In Year 1 of next Term (if Continue)"
+names a term, and a term suspended for Later Education is "not a term
+served" (I-90) — there is no Year 1 of service to hold the college in. So
+an officer who takes the footnote and then suspends the following term
+attends Command College in the next term he serves, rather than losing it.
+
 Implemented at `chargen/assignedschool.go` (`attendAssignedSchool`, setting
-`eduRun.withinTerm`), pinned by `TestAnAssignedSchoolCostsNoExtraYears`.
+`eduRun.withinTerm`) and `chargen/armedforces.go` (the `commandCollege`
+flag, read in `resolveTerm` and so never reached by a suspended term),
+pinned by `TestAnAssignedSchoolCostsNoExtraYears`.
 
 ### I-92: An assigned school selects no Major or Minor (p. 59; chart C p. 60)
 

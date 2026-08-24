@@ -39,7 +39,10 @@ type armedForcesMechanics struct {
 	// commandCollege is set when the rank just entered carries the
 	// flag-rank footnote, and read at the beginning of the next term:
 	// "Command College in Year 1 of next Term (if Continue)" (chart 07's
-	// Lt Commander, chart 08's Major, chart 12's Force Commander).
+	// Lt Commander, chart 08's Major, chart 12's Force Commander). It is
+	// read in resolveTerm, so a term suspended for Later Education — "not
+	// a term served" (I-90) — carries the college forward to the next
+	// term actually served (interpretation I-91).
 	commandCollege bool
 
 	// branch is the row rolled or chosen; its officer or enlisted side is

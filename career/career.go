@@ -658,12 +658,6 @@ type Operation struct {
 	// differs from the operation's own name (chart 07's Patrol and Strike
 	// both open "Patrol/Strike"); empty means the name itself.
 	Column string `json:"column,omitempty"`
-
-	// Implemented is false for the ANM School assignment, whose schooling
-	// is "resolved as Education" (chart 08) and lands with Later Education
-	// (docs/PRD.md milestone 4). The assignment still happens and still
-	// contributes its Mod.
-	Implemented *bool `json:"implemented,omitempty"`
 }
 
 // BranchAt returns the Branch for a 1D roll plus modifiers, clamped to the

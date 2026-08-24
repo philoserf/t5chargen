@@ -49,6 +49,12 @@ func (r *careerRun) attendAssignedSchool(id string) error {
 
 	r.log.Step("Assigned school: "+program.Name, "Book 1 p. 59; chart C p. 60")
 
+	// The school is a sub-step of a term the character is still serving,
+	// and a step marker is flat: without reopening the term, the rest of
+	// it — Risk and Reward, the advancement attempts, the term's skills —
+	// would read in the transcript as part of the school.
+	defer r.resumeTermStep()
+
 	run := &eduRun{
 		roller:     r.roller,
 		log:        r.log,

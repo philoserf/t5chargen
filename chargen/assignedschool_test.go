@@ -197,6 +197,50 @@ func TestCommandCollegeAwardsTwoSkills(t *testing.T) {
 	}
 }
 
+// TestAnAssignedSchoolReturnsToItsTerm verifies the term reopens after the
+// school. Step markers are flat, so a school logged mid-term adopts
+// everything that follows it: the first implementation rendered the term's
+// Risk & Reward, its skills and its Continue as though they had happened
+// at school. "New mechanics are not done until their events render in the
+// history transcript" (CLAUDE.md), and this is what that means here.
+func TestAnAssignedSchoolReturnsToItsTerm(t *testing.T) {
+	checked := 0
+
+	for _, tc := range assignedSchoolSeeds {
+		for _, seed := range []uint64{tc.anm, tc.college} {
+			c := generate(t, chargen.Options{Seed: seed, Career: tc.career})
+			school := ""
+
+			for _, event := range c.Events {
+				if event.Kind != chargen.EventStep {
+					continue
+				}
+
+				if school != "" {
+					checked++
+
+					if !strings.Contains(event.Step.Name, ": Term ") {
+						t.Errorf("seed %d %s: %q is followed by %q, want the term reopened",
+							seed, tc.career, school, event.Step.Name)
+					}
+
+					school = ""
+
+					continue
+				}
+
+				if strings.HasPrefix(event.Step.Name, "Assigned school:") {
+					school = event.Step.Name
+				}
+			}
+		}
+	}
+
+	if checked == 0 {
+		t.Error("no assigned school was followed by another step; the case is not being tested")
+	}
+}
+
 // TestAnAssignedSchoolCostsNoExtraYears verifies interpretation I-91: an
 // assigned school is sited inside a term the character is already spending
 // — the Operations assignment is one of the term's four, and Command

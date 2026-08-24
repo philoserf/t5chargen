@@ -96,8 +96,7 @@
       },
       {
         "name": "ANM School",
-        "mod": 0,
-        "implemented": false
+        "mod": 0
       },
       {
         "name": "Combat",

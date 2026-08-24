@@ -146,7 +146,26 @@ type careerRun struct {
 	// (chart 02's automatic Scholar entry; docs/PRD.md FR10).
 	entryCause int
 
+	// termStep and termStepCite are the step the term opened under. A
+	// step marker is flat: everything logged after one reads as belonging
+	// to it, so a sub-step opened mid-term (an assigned school) would
+	// otherwise adopt the whole rest of the term. Whoever opens one
+	// reopens the term with resumeTermStep.
+	termStep     string
+	termStepCite string
+
 	record CareerRecord
+}
+
+// resumeTermStep reopens the term's own step after a sub-step logged
+// inside it, so the events that follow are attributed to the term rather
+// than to the sub-step (docs/PRD.md FR10).
+func (r *careerRun) resumeTermStep() {
+	if r.termStep == "" {
+		return
+	}
+
+	r.log.Step(r.termStep, r.termStepCite)
 }
 
 // heldSkillLevels snapshots the levels a character currently holds, by
@@ -374,7 +393,8 @@ func (r *careerRun) term(number int) (termEnd, error) {
 
 // serveTerm resolves one served 4-year term and reports how it ended.
 func (r *careerRun) serveTerm(number int) (termEnd, error) {
-	r.log.Step(r.def.Name+": Term "+strconv.Itoa(number), r.def.Cite)
+	r.termStep, r.termStepCite = r.def.Name+": Term "+strconv.Itoa(number), r.def.Cite
+	r.log.Step(r.termStep, r.termStepCite)
 
 	cc, err := r.chooseCC()
 	if err != nil {
