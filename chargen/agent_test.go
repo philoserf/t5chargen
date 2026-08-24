@@ -91,17 +91,18 @@ func TestAgentUndercoverTableIsWhole(t *testing.T) {
 
 // agentVocationPolicy forces the Agent's Vocation column, whose first cell
 // is chart 09's "Any Knowledge". The default policy prefers the Mission
-// column, so no pinned seed ever reads it.
+// column, so no pinned seed ever reads it. The embedded DefaultPolicy is
+// what supplies Kind, so the run still attests as policy-decided.
 type agentVocationPolicy struct{ chargen.DefaultPolicy }
 
-func (p agentVocationPolicy) Choose(c chargen.Choice) int {
+func (agentVocationPolicy) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseSkillColumn {
 		if i := slices.Index(c.Options, "Vocation"); i >= 0 {
-			return i
+			return i, nil
 		}
 	}
 
-	return p.DefaultPolicy.Choose(c)
+	return autoPolicy(c)
 }
 
 // TestAgentAnyKnowledgeCellResolves verifies chart 09's "Any Knowledge"

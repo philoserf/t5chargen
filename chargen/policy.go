@@ -6,67 +6,10 @@ package chargen
 // tie-breaks by first-listed order in Book 1).
 type DefaultPolicy struct{}
 
-// Choose applies the POLICY.md rule for the choice point.
-//
-//nolint:exhaustive // Deliberately partitioned: the name- and preference-based rules are in chooseNamed.
-func (DefaultPolicy) Choose(c Choice) int {
-	if index, ok := chooseNamed(c); ok {
-		return index
-	}
-
-	switch c.ID {
-	case ChooseControllingCharacteristic, ChooseCheck:
-		// POLICY.md: highest-valued characteristic; ties break to
-		// first-listed.
-		return maxScoreIndex(c)
-	case ChooseBranch:
-		// POLICY.md: the lowest Branch Mod, then the lowest Branch DM.
-		// The Mod is negative against Risk, so the lowest is the least
-		// injurious; the DM pushes the Operations roll off the end of its
-		// table, collapsing the term's assignments — and with them the
-		// skill columns those assignments open.
-		return minScoreIndex(c)
-	case ChooseElevationFlux, ChooseComeback:
-		return chooseOnScore(c)
-	case ChooseCareerWaiver:
-		// POLICY.md: waive only a career-ending outcome. Waivers share one
-		// decaying pool with education (I-22), so spending one on a
-		// rejected publication makes the next harder for no lasting gain.
-		return declineUnlessCareerEnding(c)
-	case ChooseHonors, ChooseWaiver, ChooseRetry, ChooseAdvancement, ChooseSpecialty,
-		ChooseOptionalFlux, ChooseBeginTrack, ChooseTenure:
-		// POLICY.md: always attempt (index 0). Honors failure has no
-		// effect (p. 59); waiver attempts burn future waiver odds (Mod
-		// minus previous waivers) but the immediate stake outweighs it;
-		// the I-8 Reward retry has no stated cost; a commission or
-		// promotion attempt has no stated cost either, and rank carries
-		// skills and muster-out benefits. The same index-0 answer covers
-		// the first-listed rows: chart 06's "To Begin 4th Officer" is the
-		// highest berth on offer, chart 03 ranks its specialties only by
-		// die face, and the optional Fame Flux is offered only while
-		// another roll can help.
-		return 0
-	case ChooseSchemeFlux:
-		// POLICY.md: as rolled (index 0). Chart 10 ranks its schemes only
-		// by Flux, and a richer scheme is not a better one: the Value
-		// multiplies a payoff the Reward roll may never earn, while the
-		// row itself changes nothing about the odds.
-		return 0
-	case ChooseCareerChange:
-		// POLICY.md: decline. The change is offered before the Continue
-		// throw is known, so it trades a career in hand for a To Begin
-		// that may fail and end resolution outright (p. 66, p. 65), and
-		// aging now bounds the mandatory-continue tail the change exists
-		// to avoid.
-		return 0
-	case ChooseHobby, ChooseHomeworld, ChooseArt, ChooseTrade,
-		ChooseService, ChooseMajor, ChooseMinor, ChooseSkill,
-		ChooseAssociatedCareer, ChooseBenefitColumn:
-		// POLICY.md: first-listed.
-		return 0
-	}
-
-	return 0
+// Choose applies the POLICY.md rule for the choice point. The policy is
+// total, so it never refuses: the error is always nil.
+func (p DefaultPolicy) Choose(c Choice) (int, error) {
+	return p.decide(c), nil
 }
 
 // chooseNamed applies the POLICY.md rules that pick an option by name or
@@ -200,6 +143,70 @@ func indexOrFirst(options []string, want string) int {
 // Kind identifies the policy in choice events.
 func (DefaultPolicy) Kind() DeciderKind {
 	return DeciderPolicy
+}
+
+// decide is the decision table itself, split from Choose so the rules read
+// as the plain index-returning switch POLICY.md documents.
+//
+//nolint:exhaustive // Deliberately partitioned: the name- and preference-based rules are in chooseNamed.
+func (DefaultPolicy) decide(c Choice) int {
+	if index, ok := chooseNamed(c); ok {
+		return index
+	}
+
+	switch c.ID {
+	case ChooseControllingCharacteristic, ChooseCheck:
+		// POLICY.md: highest-valued characteristic; ties break to
+		// first-listed.
+		return maxScoreIndex(c)
+	case ChooseBranch:
+		// POLICY.md: the lowest Branch Mod, then the lowest Branch DM.
+		// The Mod is negative against Risk, so the lowest is the least
+		// injurious; the DM pushes the Operations roll off the end of its
+		// table, collapsing the term's assignments — and with them the
+		// skill columns those assignments open.
+		return minScoreIndex(c)
+	case ChooseElevationFlux, ChooseComeback:
+		return chooseOnScore(c)
+	case ChooseCareerWaiver:
+		// POLICY.md: waive only a career-ending outcome. Waivers share one
+		// decaying pool with education (I-22), so spending one on a
+		// rejected publication makes the next harder for no lasting gain.
+		return declineUnlessCareerEnding(c)
+	case ChooseHonors, ChooseWaiver, ChooseRetry, ChooseAdvancement, ChooseSpecialty,
+		ChooseOptionalFlux, ChooseBeginTrack, ChooseTenure:
+		// POLICY.md: always attempt (index 0). Honors failure has no
+		// effect (p. 59); waiver attempts burn future waiver odds (Mod
+		// minus previous waivers) but the immediate stake outweighs it;
+		// the I-8 Reward retry has no stated cost; a commission or
+		// promotion attempt has no stated cost either, and rank carries
+		// skills and muster-out benefits. The same index-0 answer covers
+		// the first-listed rows: chart 06's "To Begin 4th Officer" is the
+		// highest berth on offer, chart 03 ranks its specialties only by
+		// die face, and the optional Fame Flux is offered only while
+		// another roll can help.
+		return 0
+	case ChooseSchemeFlux:
+		// POLICY.md: as rolled (index 0). Chart 10 ranks its schemes only
+		// by Flux, and a richer scheme is not a better one: the Value
+		// multiplies a payoff the Reward roll may never earn, while the
+		// row itself changes nothing about the odds.
+		return 0
+	case ChooseCareerChange:
+		// POLICY.md: decline. The change is offered before the Continue
+		// throw is known, so it trades a career in hand for a To Begin
+		// that may fail and end resolution outright (p. 66, p. 65), and
+		// aging now bounds the mandatory-continue tail the change exists
+		// to avoid.
+		return 0
+	case ChooseHobby, ChooseHomeworld, ChooseArt, ChooseTrade,
+		ChooseService, ChooseMajor, ChooseMinor, ChooseSkill,
+		ChooseAssociatedCareer, ChooseBenefitColumn:
+		// POLICY.md: first-listed.
+		return 0
+	}
+
+	return 0
 }
 
 // minScoreIndex returns the index of the lowest score, first-listed on

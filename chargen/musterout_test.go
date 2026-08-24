@@ -13,12 +13,12 @@ import (
 // listed first on every table D (POLICY.md `select_benefit_column`).
 type benefitsColumn struct{}
 
-func (benefitsColumn) Choose(c chargen.Choice) int {
+func (benefitsColumn) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseBenefitColumn {
-		return 1
+		return 1, nil
 	}
 
-	return chargen.DefaultPolicy{}.Choose(c)
+	return autoPolicy(c)
 }
 
 func (benefitsColumn) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }

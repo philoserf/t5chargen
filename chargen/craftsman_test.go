@@ -23,27 +23,27 @@ type craftsmanPath struct {
 
 const craftsmanPathWait = 4
 
-func (d *craftsmanPath) Choose(c chargen.Choice) int {
+func (d *craftsmanPath) Choose(c chargen.Choice) (int, error) {
 	//nolint:exhaustive // Deliberately partitioned: the rest defer to the auto policy.
 	switch c.ID {
 	case chargen.ChooseCareerChange:
 		d.offers++
 
-		return d.changeCareer()
+		return d.changeCareer(), nil
 	case chargen.ChooseCareer:
 		return d.pickCareer(c)
 	case chargen.ChooseSkill, chargen.ChooseTrade:
 		if i := indexOf(c.Options, "Craftsman"); i >= 0 {
-			return i
+			return i, nil
 		}
 	case chargen.ChooseSkillColumn:
 		if i := columnLike(c.Options, "Academic", "Vocation"); i >= 0 {
-			return i
+			return i, nil
 		}
 	default:
 	}
 
-	return chargen.DefaultPolicy{}.Choose(c)
+	return autoPolicy(c)
 }
 
 func indexOf(options []string, want string) int {
@@ -60,18 +60,18 @@ func (*craftsmanPath) Kind() chargen.DeciderKind { return chargen.DeciderPlayer 
 
 // pickCareer takes Craftsman the moment it is offered and otherwise builds
 // toward it in a Citizen career, whose table C offers Trades.
-func (d *craftsmanPath) pickCareer(c chargen.Choice) int {
+func (d *craftsmanPath) pickCareer(c chargen.Choice) (int, error) {
 	if i := indexOf(c.Options, "Craftsman"); i >= 0 {
 		d.arrived = true
 
-		return i
+		return i, nil
 	}
 
 	if i := indexOf(c.Options, "Citizen"); i >= 0 {
-		return i
+		return i, nil
 	}
 
-	return chargen.DefaultPolicy{}.Choose(c)
+	return autoPolicy(c)
 }
 
 // craftsmanRun generates the pinned Craftsman character: five terms
@@ -134,10 +134,10 @@ type vocationPath struct {
 	craftsmanPath
 }
 
-func (d *vocationPath) Choose(c chargen.Choice) int {
+func (d *vocationPath) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseSkillColumn && strings.Contains(c.Prompt, "Craftsman") {
 		if i := columnLike(c.Options, "Vocation"); i >= 0 {
-			return i
+			return i, nil
 		}
 	}
 

@@ -804,12 +804,21 @@ func runCareerOnce(
 // choose puts a choice to the decider, validates the answer, and logs the
 // resolved choice event. It returns the chosen index and the choice
 // event's sequence number (for consequences caused by the choice).
+//
+// A decider that refuses ends generation with its own error, named with
+// the choice point it declined; that is how an abandoned interactive
+// session and a replay divergence reach the caller intact, rather than
+// arriving as the out-of-range answer of a decider that did reply.
 func choose(log *Log, decider Decider, c Choice) (int, int, error) {
 	if len(c.Options) == 0 {
 		return 0, 0, fmt.Errorf("%w: %q presented no options", errBadChoice, c.ID)
 	}
 
-	chosen := decider.Choose(c)
+	chosen, err := decider.Choose(c)
+	if err != nil {
+		return 0, 0, fmt.Errorf("%q: %w", c.ID, err)
+	}
+
 	if chosen < 0 || chosen >= len(c.Options) {
 		return 0, 0, fmt.Errorf("%w: %q answer %d outside 0-%d", errBadChoice, c.ID, chosen, len(c.Options)-1)
 	}

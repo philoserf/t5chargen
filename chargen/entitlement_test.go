@@ -334,31 +334,31 @@ type twoServices struct {
 	second bool
 }
 
-func (d *twoServices) Choose(c chargen.Choice) int {
+func (d *twoServices) Choose(c chargen.Choice) (int, error) {
 	//nolint:exhaustive // Deliberately partitioned: the rest defer to the auto policy.
 	switch c.ID {
 	case chargen.ChooseCareerChange:
 		d.offers++
 
 		if d.second || d.offers < 5 {
-			return 0
+			return 0, nil
 		}
 
-		return 1
+		return 1, nil
 	case chargen.ChooseCareer:
 		if i := indexOf(c.Options, "Spacer"); i >= 0 && d.offers > 0 {
 			d.second = true
 
-			return i
+			return i, nil
 		}
 
 		if i := indexOf(c.Options, "Soldier"); i >= 0 {
-			return i
+			return i, nil
 		}
 	default:
 	}
 
-	return chargen.DefaultPolicy{}.Choose(c)
+	return autoPolicy(c)
 }
 
 func (*twoServices) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
@@ -394,31 +394,31 @@ type serviceThenFunctionary struct {
 	arrived bool
 }
 
-func (d *serviceThenFunctionary) Choose(c chargen.Choice) int {
+func (d *serviceThenFunctionary) Choose(c chargen.Choice) (int, error) {
 	//nolint:exhaustive // Deliberately partitioned: the rest defer to the auto policy.
 	switch c.ID {
 	case chargen.ChooseCareerChange:
 		d.offers++
 
 		if d.arrived || d.offers < 5 {
-			return 0
+			return 0, nil
 		}
 
-		return 1
+		return 1, nil
 	case chargen.ChooseCareer:
 		if i := indexOf(c.Options, "Functionary"); i >= 0 {
 			d.arrived = true
 
-			return i
+			return i, nil
 		}
 
 		if i := indexOf(c.Options, "Soldier"); i >= 0 {
-			return i
+			return i, nil
 		}
 	default:
 	}
 
-	return chargen.DefaultPolicy{}.Choose(c)
+	return autoPolicy(c)
 }
 
 func (*serviceThenFunctionary) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }

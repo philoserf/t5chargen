@@ -332,20 +332,20 @@ func TestScholarWaiverPolicy(t *testing.T) {
 // rejected on its own roll but rescued by a Waiver, whose roll can still
 // sit inside the Award-Winning margin because Caution raises the
 // characteristic above the target.
-type cautiousWaiverDecider struct{ chargen.DefaultPolicy }
+type cautiousWaiverDecider struct{}
 
-func (d cautiousWaiverDecider) Choose(c chargen.Choice) int {
+func (cautiousWaiverDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseCareerWaiver {
-		return 0
+		return 0, nil
 	}
 
 	if c.ID == chargen.ChooseRiskMod {
 		if i := slices.Index(c.Options, cautionMod); i >= 0 {
-			return i
+			return i, nil
 		}
 	}
 
-	return d.DefaultPolicy.Choose(c)
+	return autoPolicy(c)
 }
 
 // cautionMod is the Caution the fixture selects; cautionValue is its

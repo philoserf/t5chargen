@@ -14,14 +14,14 @@ import (
 // never reaches (it always takes the first-listed 4th Officer berth).
 type trackDecider struct{ track string }
 
-func (d trackDecider) Choose(c chargen.Choice) int {
+func (d trackDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseBeginTrack {
 		if i := slices.Index(c.Options, d.track); i >= 0 {
-			return i
+			return i, nil
 		}
 	}
 
-	return 0
+	return 0, nil
 }
 
 func (trackDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }

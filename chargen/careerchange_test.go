@@ -12,14 +12,14 @@ import (
 // declines (POLICY.md `change_career`).
 type changer struct{ accepted int }
 
-func (d *changer) Choose(c chargen.Choice) int {
+func (d *changer) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseCareerChange {
 		d.accepted++
 
-		return 1
+		return 1, nil
 	}
 
-	return chargen.DefaultPolicy{}.Choose(c)
+	return autoPolicy(c)
 }
 
 func (*changer) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }

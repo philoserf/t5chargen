@@ -285,19 +285,20 @@ func nobleEventKind(e chargen.Event) string {
 // personalColumnPolicy is the default policy with one override: it always
 // takes chart 11 table C column 1 (Personal), whose line 6 is "C6 +1". The
 // default policy prefers the General column, so the Soc-raising cell is
-// unreachable without this.
+// unreachable without this. The embedded DefaultPolicy is what supplies
+// Kind, so the run still attests as policy-decided.
 type personalColumnPolicy struct{ chargen.DefaultPolicy }
 
-func (p personalColumnPolicy) Choose(c chargen.Choice) int {
+func (personalColumnPolicy) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseSkillColumn {
 		for i, option := range c.Options {
 			if option == "Personal" {
-				return i
+				return i, nil
 			}
 		}
 	}
 
-	return p.DefaultPolicy.Choose(c)
+	return autoPolicy(c)
 }
 
 // TestNobleLandGrantPerSocIncrease verifies chart 11's "Land Grants. Each
