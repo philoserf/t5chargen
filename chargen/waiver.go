@@ -23,24 +23,50 @@ type waiverPrompt struct {
 	// careerEnding marks the outcomes whose un-waived branch ends the
 	// career, which is what the auto policy weighs (POLICY.md).
 	careerEnding bool
+
+	// statusOnly marks an education waiver whose un-waived branch ends
+	// nothing: Honors failure "has no effect" (p. 59), so declining costs
+	// only the status. Carried on the Choice like careerEnding, so the
+	// policy weighs the stake without reading the prompt text.
+	statusOnly bool
+}
+
+// atStake reports whether refusing the waiver ends something. A career
+// waiver is at stake when the un-waived branch ends the career (chart 02);
+// an education waiver is at stake unless it is the Honors one, whose
+// failure "has no effect" (p. 59, interpretation I-96).
+func (p waiverPrompt) atStake() bool {
+	if p.id == ChooseCareerWaiver {
+		return p.careerEnding
+	}
+
+	return !p.statusOnly
 }
 
 // educationWaiver is the p. 59 Educational Waiver.
 //
-// P. 59 names four waiver-able events: "Prerequisite, Application Check,
-// Pass/Fail Check, Honors". v1 offers waivers for the Application and
-// Pass/Fail checks — the two the process description integrates
-// ("Failure terminates the process (but Waiver may result in
-// reinstatement...)"). Prerequisite waivers are unreachable while
-// chooseProgram offers only qualifying programs (letting an unqualified
-// character attempt admission is an interactive-mode concern), and Honors
-// waivers are deferred with them; both land with milestone 5.
+// P. 59 names four waiver-able events — "Prerequisite, Application Check,
+// Pass/Fail Check, Honors" — and all four are offered. The Prerequisite is
+// a decision rather than a roll: the character does not meet the row's
+// minimum and is turned away before he can apply, which is the first thing
+// the sentence lists. Honors is the other direction: its failure "has no
+// effect" (p. 59), so the waiver buys the status the roll denied rather
+// than reinstating a process (interpretation I-96).
 func educationWaiver(reason string) waiverPrompt {
 	return waiverPrompt{
 		id:     ChooseWaiver,
 		prompt: "Attempt an Educational Waiver? (" + reason + ")",
 		cite:   "Book 1 p. 59 (Educational Waivers)",
 	}
+}
+
+// honorsWaiverPrompt is the one educational waiver whose refusal ends
+// nothing (p. 59: Honors "Failure has no effect").
+func honorsWaiverPrompt() waiverPrompt {
+	p := educationWaiver("Honors refused")
+	p.statusOnly = true
+
+	return p
 }
 
 // careerWaiver names a career-chart waiver-able event; chartCite is the
@@ -67,7 +93,12 @@ func offerWaiver(
 		Prompt:       p.prompt,
 		CareerEnding: p.careerEnding,
 		Options:      []string{"Attempt waiver", "Accept the result"},
-		Cite:         p.cite,
+		// What refusing costs: 1 where it ends the career, the process or
+		// the admission, 0 where it costs only a status. Both waiver
+		// rules turn on this one number (POLICY.md), which is why the
+		// stake is carried here rather than read off the prompt.
+		Scores: []int{boolScore(p.atStake()), 0},
+		Cite:   p.cite,
 	})
 	if err != nil || chosen == 1 {
 		return false, err

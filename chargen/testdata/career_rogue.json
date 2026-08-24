@@ -2,7 +2,7 @@
   "schema_version": "0.28.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
   "engine_version": "0.29.0",
-  "policy_version": "0.17.0",
+  "policy_version": "0.18.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 39
@@ -422,13 +422,15 @@
         "decider": "policy",
         "prompt": "Select pre-career education",
         "options": [
+          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",
+          "University",
           "Service Academy",
           "None"
         ],
-        "chosen": 2,
+        "chosen": 3,
         "cite": "Book 1 p. 60 chart C; p. 57 step C (education is optional)"
       }
     },
@@ -875,6 +877,7 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Rogue",
+          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",
@@ -1206,6 +1209,7 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Rogue",
+          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",
@@ -1368,6 +1372,7 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Rogue",
+          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",
@@ -1900,6 +1905,7 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Rogue",
+          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",
@@ -2389,6 +2395,7 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Rogue",
+          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",
@@ -2761,6 +2768,7 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Rogue",
+          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",
@@ -3263,6 +3271,7 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Rogue",
+          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",
@@ -3776,6 +3785,7 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Rogue",
+          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",
@@ -4169,6 +4179,7 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Rogue",
+          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",
@@ -4540,6 +4551,7 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Rogue",
+          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",
@@ -4933,6 +4945,7 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Rogue",
+          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",
@@ -5363,6 +5376,7 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Rogue",
+          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",
@@ -5771,6 +5785,7 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Rogue",
+          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",
@@ -6190,6 +6205,7 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Rogue",
+          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",
@@ -6617,6 +6633,7 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Rogue",
+          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",
@@ -7055,6 +7072,7 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Rogue",
+          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",
@@ -7503,6 +7521,7 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Rogue",
+          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",

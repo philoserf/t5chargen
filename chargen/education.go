@@ -58,13 +58,43 @@ func (r *eduRun) receipt(name string, levels int) int {
 	return r.firstReceipt(name, levels)
 }
 
+// prerequisiteWaived offers the p. 59 Prerequisite waiver to a character
+// who chose a row he falls short of, and reports whether he may proceed to
+// Admission. Declining, or failing the waiver, ends the attempt: he was
+// never admitted, so no year is consumed — "a failure disallows admission
+// and consumes one year" is the Application Check's cost, not this one.
+func prerequisiteWaived(log *Log, decider Decider, roller *dice.Roller, character *Character,
+	program education.Program,
+) (bool, error) {
+	waived, err := offerWaiver(log, decider, roller, character,
+		educationWaiver("prerequisite for "+program.Name+" not met"))
+	if err != nil {
+		return false, err
+	}
+
+	return waived, nil
+}
+
 // runEducation performs checklist step C.
 func runEducation(roller *dice.Roller, log *Log, decider Decider, character *Character) error {
 	log.Step("Education and Training", "Book 1 p. 72 chart E1 step C")
 
-	program, none, err := chooseProgram(log, decider, character)
+	program, short, none, err := chooseProgram(log, decider, character)
 	if err != nil || none {
 		return err
+	}
+
+	if short {
+		waived, err := prerequisiteWaived(log, decider, roller, character, program)
+		if err != nil {
+			return err
+		}
+
+		if !waived {
+			character.Education = append(character.Education, EducationRecord{Program: program.Name})
+
+			return nil
+		}
 	}
 
 	run := &eduRun{
@@ -104,52 +134,80 @@ func (r *eduRun) finish() {
 	r.character.Education = append(r.character.Education, r.record)
 }
 
-// chooseProgram presents the qualifying implemented programs plus "None"
-// ("Pre-Requisites are minimums; higher are allowed", p. 59).
-func chooseProgram(log *Log, decider Decider, character *Character) (education.Program, bool, error) {
+// chooseProgram presents chart C's implemented rows plus "None"
+// ("Pre-Requisites are minimums; higher are allowed", p. 59). It reports
+// the chosen program, whether the character falls short of its
+// prerequisite, and whether he declined education altogether.
+func chooseProgram(log *Log, decider Decider, character *Character) (education.Program, bool, bool, error) {
 	programs, err := education.Programs()
 	if err != nil {
-		return education.Program{}, false, fmt.Errorf("education: %w", err)
+		return education.Program{}, false, false, fmt.Errorf("education: %w", err)
 	}
 
-	qualifying, options := qualifyingPrograms(programs, character)
+	offered, options, qualified := offeredPrograms(programs, character)
 	options = append(options, noEducation)
+	qualified = append(qualified, 1)
 
 	chosen, _, err := choose(log, decider, Choice{
 		ID:      ChooseEducation,
 		Prompt:  "Select pre-career education",
 		Options: options,
+		Scores:  qualified,
 		Cite:    "Book 1 p. 60 chart C; p. 57 step C (education is optional)",
 	})
 	if err != nil {
-		return education.Program{}, false, err
+		return education.Program{}, false, false, err
 	}
 
-	if chosen == len(qualifying) {
-		return education.Program{}, true, nil
+	if chosen == len(offered) {
+		return education.Program{}, false, true, nil
 	}
 
-	return qualifying[chosen], false, nil
+	return offered[chosen], qualified[chosen] == 0, false, nil
 }
 
-// qualifyingPrograms filters chart C to the implemented rows this
-// character meets the prerequisite for, returning them alongside their
-// names in chart order. Shared with Later Education (p. 59), which offers
-// the same institutions at the beginning of a term.
-func qualifyingPrograms(programs []education.Program, character *Character) ([]education.Program, []string) {
+// offeredPrograms returns chart C's implemented rows in chart order, their
+// names, and a parallel 1/0 for whether the character meets each
+// prerequisite.
+//
+// Every row is offered, not only the qualifying ones, because p. 59 lists
+// "Prerequisite" first among the adverse decisions a Waiver may overturn —
+// a rule with nothing to overturn while the unqualified rows are hidden.
+// The qualification travels as a Score, which is engine-provided decision
+// data rather than part of the printed rule, so it guides a decider
+// without entering the record (see Choice).
+//
+// Assigned rows are still never offered: their prerequisite is not a
+// threshold a character can fall short of, it is a career handing him a
+// place (interpretation I-95).
+func offeredPrograms(programs []education.Program, character *Character) ([]education.Program, []string, []int) {
 	var (
-		qualifying []education.Program
-		options    []string
+		offered   []education.Program
+		options   []string
+		qualified []int
 	)
 
 	for _, p := range programs {
-		if p.Implemented && prereqMet(p, character) {
-			qualifying = append(qualifying, p)
-			options = append(options, p.Name)
+		if !p.Implemented || p.Prerequisite.Kind == education.PrereqAssigned {
+			continue
 		}
+
+		offered = append(offered, p)
+		options = append(options, p.Name)
+
+		qualified = append(qualified, boolScore(prereqMet(p, character)))
 	}
 
-	return qualifying, options
+	return offered, options, qualified
+}
+
+// boolScore renders a yes/no decision aid as the 1/0 a Score carries.
+func boolScore(yes bool) int {
+	if yes {
+		return 1
+	}
+
+	return 0
 }
 
 // prereqMet evaluates a chart C prerequisite for a v1 human character.
@@ -519,12 +577,32 @@ func (r *eduRun) honors() error {
 	if !throw.Success {
 		// "Failure has no effect." (p. 59) — the graduation consequence
 		// stays anchored to the last Pass/Fail throw, not this one.
-		return nil
+		return r.honorsWaiver()
 	}
 
 	r.lastThrowSeq = seq
 	r.record.Honors = true
 	awardSkillAndLog(r.record.Major, r.majorRate(r.record.Major, 1), seq, r.log, r.character)
+
+	return nil
+}
+
+// honorsWaiver offers the last of p. 59's four waiver-able events. A
+// failed Honors roll "has no effect", so unlike the others there is no
+// process to reinstate — what the waiver buys is the Honors status itself,
+// and not the Major level the roll would have carried with it
+// (interpretation I-96).
+//
+// The status is worth a waiver on its own: an Honors Degree is the
+// prerequisite chart C prints for Medical School, Law School and Flight
+// School.
+func (r *eduRun) honorsWaiver() error {
+	waived, err := offerWaiver(r.log, r.decider, r.roller, r.character, honorsWaiverPrompt())
+	if err != nil || !waived {
+		return err
+	}
+
+	r.record.Honors = true
 
 	return nil
 }

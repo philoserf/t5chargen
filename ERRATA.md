@@ -2275,3 +2275,73 @@ Implemented at `chargen/armedforces.go` (`entryRank`) and
 `chargen/academy.go` (`academyOfficer`), pinned by
 `TestAcademyGraduateEntersAsAnOfficer` and
 `TestAcademyOfficerIsServiceSpecific`.
+
+### I-95: Every chart C row is offered, so the Prerequisite waiver has something to waive (p. 59; chart C p. 60)
+
+"A student attending an Education Institution and who receives an adverse
+die roll or decision (Prerequisite, Application Check, Pass/Fail Check,
+Honors) may try for a Waiver" (p. 59).
+
+Prerequisite is first on that list, and it was unreachable: the engine
+offered only the rows the character already qualified for, which is a
+waiver with nothing to waive. The offer now holds every implemented chart C
+row, and a character who reaches past his Edu is turned away by a decision
+the waiver may overturn.
+
+Which is what "Pre-Requisites are minimums; higher are allowed" (p. 59)
+implies in the other direction too: a minimum is a thing you can fall short
+of, and the page provides the remedy for falling short.
+
+**Refusing costs nothing but the attempt.** He was never admitted, so no
+year passes — "A failure disallows admission and consumes one year" is the
+Application Check's cost, and the Prerequisite is checked before there is
+an application. The attempt is still recorded, so the record shows he
+tried.
+
+**Assigned rows stay out of the offer.** ANM School and Command College
+have a prerequisite of "assigned", which is not a threshold a character can
+fall short of but a career handing him a place (I-91 to I-93). There is no
+decision for a waiver to overturn, so offering them would invent one.
+
+**Qualification travels as a Score, not a label.** The engine marks each
+row 1 or 0 rather than renaming it, because Scores are decision data that
+stay out of the record (see Choice) while option strings are recorded and
+replayed. A decider sees which rows it qualifies for; the record shows
+chart C's own names.
+
+Implemented at `chargen/education.go` (`offeredPrograms`,
+`prerequisiteWaived`) and `chargen/latereducation.go`, pinned by
+`TestPrerequisiteWaiverIsOffered` and `TestPrerequisiteWaiverGatesAdmission`.
+
+### I-96: A waived Honors buys the status and not the level (p. 59; chart C p. 60)
+
+Honors is the fourth waiver-able event p. 59 names, and the odd one. The
+other three end something: admission refused, a process terminated, a
+prerequisite barring entry. Honors ends nothing — "Failure has no effect"
+(p. 59).
+
+So there is no process to reinstate, and the question is what the waiver
+buys. Read as: the Honors status, and not the Major level.
+
+That follows the pattern the page states for the waiver it does explain:
+"Failure terminates the process (but Waiver may result in reinstatement,
+although no skill is received)" (p. 59). A waiver restores the standing the
+failure denied and withholds the award that came with it. Honors is the
+same shape — the status without the level.
+
+The status is worth having on its own, which is why the waiver is worth
+offering: an Honors Degree is the prerequisite chart C prints for Medical
+School, Law School and Flight School.
+
+**The auto policy declines it.** Every other educational waiver is
+attempted because refusing ends the process or the admission; this one ends
+nothing, and each attempt makes the next waiver harder whether it succeeds
+or not, out of a pool shared with the careers (I-22). Spending one on a
+status makes a later admission harder for nothing that was at risk. The
+stake is carried on the Choice as a Score rather than inferred from the
+prompt, so rewording a reason cannot silently change generated characters.
+
+Implemented at `chargen/education.go` (`honorsWaiver`) and
+`chargen/policy.go` (`declineUnlessAtStake`), pinned by
+`TestHonorsWaiverBuysTheStatusOnly` and
+`TestPolicyDeclinesTheHonorsWaiver`.
