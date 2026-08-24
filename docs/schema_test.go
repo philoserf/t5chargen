@@ -18,6 +18,7 @@ package docs_test
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -26,31 +27,78 @@ import (
 	"strings"
 )
 
+// errUnresolvedRef is a $ref naming a $def the schema does not define.
+var errUnresolvedRef = errors.New("the schema refers to a $def it does not define")
+
 // checker validates documents against one parsed schema.
 type checker struct {
 	root map[string]any
 }
 
-// newChecker parses a schema document.
+// newChecker parses a schema document and verifies that every $ref in it
+// resolves.
+//
+// An unresolvable ref is the quietest failure this checker has: check on a
+// subschema that does not exist finds nothing wrong with anything, so a
+// renamed $def would delete every rule beneath the ref and leave the whole
+// gate passing. It is refused at load time, the way the chart data is.
 func newChecker(data []byte) (*checker, error) {
 	var root map[string]any
 	if err := json.Unmarshal(data, &root); err != nil {
 		return nil, fmt.Errorf("parsing the schema: %w", err)
 	}
 
-	return &checker{root: root}, nil
+	c := &checker{root: root}
+
+	for _, ref := range refs(root) {
+		if c.resolve(ref) == nil {
+			return nil, fmt.Errorf("%w: %s", errUnresolvedRef, ref)
+		}
+	}
+
+	return c, nil
+}
+
+// refs lists every $ref appearing anywhere in a schema document.
+func refs(node any) []string {
+	var found []string
+
+	switch value := node.(type) {
+	case map[string]any:
+		for key, child := range value {
+			if key == "$ref" {
+				if ref, ok := child.(string); ok {
+					found = append(found, ref)
+				}
+
+				continue
+			}
+
+			found = append(found, refs(child)...)
+		}
+	case []any:
+		for _, child := range value {
+			found = append(found, refs(child)...)
+		}
+	}
+
+	return found
 }
 
 // check reports every way a document fails the schema, by path. An empty
 // result is a document the schema admits.
 func (c *checker) check(schema map[string]any, doc any, path string) []string {
-	if ref, ok := schema["$ref"].(string); ok {
-		return c.check(c.resolve(ref), doc, path)
-	}
-
 	problems := make([]string, 0, 4)
 
+	// A $ref does not replace its siblings: draft 2020-12 applies the
+	// keywords beside it as well, so the referenced schema is one more
+	// thing the document has to satisfy rather than the only one.
+	if ref, ok := schema["$ref"].(string); ok {
+		problems = append(problems, c.check(c.resolve(ref), doc, path)...)
+	}
+
 	problems = append(problems, c.checkType(schema, doc, path)...)
+	problems = append(problems, c.checkMinimum(schema, doc, path)...)
 	problems = append(problems, c.checkEnum(schema, doc, path)...)
 	problems = append(problems, c.checkObject(schema, doc, path)...)
 	problems = append(problems, c.checkArray(schema, doc, path)...)
@@ -68,7 +116,7 @@ func (c *checker) resolve(ref string) map[string]any {
 	return target
 }
 
-// checkType applies "type" and "minimum".
+// checkType applies "type".
 //
 // JSON numbers all decode as float64, so an integer is a whole number
 // rather than a Go int; a schema that accepted 1.5 as an integer would be
@@ -79,17 +127,28 @@ func (c *checker) checkType(schema map[string]any, doc any, path string) []strin
 		return nil
 	}
 
-	number, isNumber := doc.(float64)
-
 	if got := jsonType(doc); got != want {
-		return []string{fmt.Sprintf("%s: is %s, want %s", path, jsonType(doc), want)}
-	}
-
-	if minimum, ok := schema["minimum"].(float64); ok && isNumber && number < minimum {
-		return []string{fmt.Sprintf("%s: is %v, want at least %v", path, number, minimum)}
+		return []string{fmt.Sprintf("%s: is %s, want %s", path, got, want)}
 	}
 
 	return nil
+}
+
+// checkMinimum applies "minimum". It is a rule of its own rather than a
+// tail of checkType: a bound written without a type beside it is still a
+// bound, and folding it into the type check would silently drop one.
+func (c *checker) checkMinimum(schema map[string]any, doc any, path string) []string {
+	minimum, ok := schema["minimum"].(float64)
+	if !ok {
+		return nil
+	}
+
+	number, isNumber := doc.(float64)
+	if !isNumber || number >= minimum {
+		return nil
+	}
+
+	return []string{fmt.Sprintf("%s: is %v, want at least %v", path, number, minimum)}
 }
 
 // jsonType names a parsed JSON value's type the way a schema does.
@@ -147,7 +206,7 @@ func (c *checker) checkObject(schema map[string]any, doc any, path string) []str
 
 	var problems []string
 
-	for name := range strings.FieldsSeq(required(schema)) {
+	for _, name := range required(schema) {
 		if _, present := object[name]; !present {
 			problems = append(problems, fmt.Sprintf("%s: %s is required and absent", path, name))
 		}
@@ -169,9 +228,8 @@ func (c *checker) checkObject(schema map[string]any, doc any, path string) []str
 	return problems
 }
 
-// required renders a schema's required list as a space-separated string,
-// which is only ever read back by Fields above.
-func required(schema map[string]any) string {
+// required lists the property names a schema requires.
+func required(schema map[string]any) []string {
 	names, _ := schema["required"].([]any)
 
 	var out []string
@@ -182,7 +240,7 @@ func required(schema map[string]any) string {
 		}
 	}
 
-	return strings.Join(out, " ")
+	return out
 }
 
 // checkArray applies "items".

@@ -10,7 +10,7 @@ Cites are to Book 1, Print Edition 5.1.
 
 ## What shipped
 
-Nine pull requests, in the order they landed.
+Ten pull requests, in the order they landed.
 
 |                      |                                                                                                |
 | -------------------- | ---------------------------------------------------------------------------------------------- |
