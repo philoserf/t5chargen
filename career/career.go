@@ -888,6 +888,14 @@ func (d *Definition) validateArmedForces() error {
 		return fmt.Errorf("%w: unknown Branch check characteristic %q", errBadDefinition, forces.BranchCheck)
 	}
 
+	// A missing Service is silently a non-match against every Service
+	// Academy graduate, which would drop the Officer1 entry (I-94) with
+	// no error and no visible difference from a character who never
+	// attended.
+	if forces.Service == "" {
+		return fmt.Errorf("%w: an armed force names no Service", errBadDefinition)
+	}
+
 	if len(forces.Branches) == 0 || len(forces.Operations) == 0 {
 		return fmt.Errorf("%w: armed forces need both a Branch and an Operations table", errBadDefinition)
 	}

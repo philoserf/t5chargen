@@ -20,8 +20,11 @@ package chargen
 // sends its officers to are both resolved as Education, in
 // assignedschool.go.
 //
-// Deferred: the branch changes of interpretation I-34; the Service
-// Academy's Officer1 entry linkage.
+// A Service Academy graduate enters his own service at its first officer
+// rank rather than at the enlisted rank p. 65 gives every other recruit
+// (interpretation I-94; entryRank, academy.go).
+//
+// Deferred: the branch changes of interpretation I-34.
 
 import (
 	"fmt"
@@ -191,11 +194,13 @@ func (m *armedForcesMechanics) chooseBranch(r *careerRun) (career.Branch, error)
 	)
 
 	for _, branch := range forces.Branches {
-		// A branch is selected on entry, when every Armed Forces
-		// character is enlisted (p. 65), so the Naval table's enlisted
-		// column is the one that applies: an entering Spacer picks among
-		// Crew and Engineer, not Line and Flight (interpretation I-36,
-		// ERRATA.md).
+		// A branch is selected on the side the character will serve
+		// (interpretation I-36, ERRATA.md). On entry that is normally
+		// the enlisted side — "Armed Forces characters begin with
+		// enlisted rank" (p. 65) — so an entering Spacer picks among
+		// Crew and Engineer, not Line and Flight. The one entrant who is
+		// already commissioned is the Service Academy graduate of I-94,
+		// and the officer side is the side he will serve on.
 		name, mod := branch.Side(officer)
 
 		// The score pairs the Branch Mod with its DM so a policy can

@@ -108,6 +108,7 @@ func TestLoadValidation(t *testing.T) {
 		{"short column", strings.Replace(valid, `{"kind": "skill", "name": "Medic"}`, ``, 1) + table},
 		{"misspelled No Skill", valid + strings.Replace(table, `"Athlete"`, `"No skill"`, 1)},
 		{"armed forces with a bad Branch check", valid + armedForces("branch_check", `"Sta"`) + table},
+		{"armed forces with no Service", valid + armedForces("service", `""`) + table},
 		{"armed forces with no Branch table", valid + armedForces("branches", `[]`) + table},
 		{"armed forces with no Operations table", valid + armedForces("operations", `[]`) + table},
 		{"armed forces with no assignments per term", valid + armedForces("operations_per_term", `0`) + table},
@@ -129,6 +130,7 @@ func TestLoadValidation(t *testing.T) {
 func armedForces(key, value string) string {
 	fields := []struct{ key, value string }{
 		{"branch_check", `"Soc"`},
+		{"service", `"Army"`},
 		{"branches", `[{"name": "Infantry", "mod": 1}]`},
 		{"operations", `[{"name": "Combat", "mod": 2}]`},
 		{"operations_per_term", `4`},
