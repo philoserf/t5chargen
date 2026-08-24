@@ -350,7 +350,8 @@ func (r *careerRun) closeTerm(outcome termOutcome) (termEnd, int, error) {
 		if outcome.endCause == 0 {
 			return termContinues, 0, fmt.Errorf(
 				"%w: %s continues on Office Politics without naming the throw that governed the term",
-				errBadCareerData, r.def.Name)
+				errBadCareerData, r.def.Name,
+			)
 		}
 
 		return termContinues, 0, r.elapseTerm(outcome.endCause)
