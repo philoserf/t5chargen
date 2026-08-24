@@ -43,10 +43,7 @@ func (c *Character) birthdate(roller *dice.Roller, log *Log, currentYear int) er
 	// all-zero Homeworld takes the tool-owned default (docs/PRD.md FR2);
 	// the CLI rejects an explicitly typed 0 rather than reading it as the
 	// default, since a referee who types a year means it.
-	year := currentYear
-	if year == 0 {
-		year = calendar.DefaultYear
-	}
+	year := currentYearOrDefault(currentYear)
 
 	if year < 0 {
 		return fmt.Errorf("%w: current year %d", ErrCurrentYear, year)
@@ -91,4 +88,15 @@ func (c *Character) birthdate(roller *dice.Roller, log *Log, currentYear int) er
 	})
 
 	return nil
+}
+
+// currentYearOrDefault applies p. 58's default current date. It is shared
+// with the Inputs block so the year the record reports as its input is the
+// year the engine actually used, not the caller's unresolved zero.
+func currentYearOrDefault(currentYear int) int {
+	if currentYear == 0 {
+		return calendar.DefaultYear
+	}
+
+	return currentYear
 }

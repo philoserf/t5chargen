@@ -1,11 +1,15 @@
 {
-  "schema_version": "0.27.0",
+  "schema_version": "0.28.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
   "engine_version": "0.28.0",
   "policy_version": "0.16.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 17
+  },
+  "inputs": {
+    "career": "Merchant",
+    "current_year": 1105
   },
   "characteristics": {
     "str": 5,

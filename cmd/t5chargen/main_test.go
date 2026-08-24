@@ -2,10 +2,14 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/philoserf/t5chargen/chargen"
 )
 
 // noSeed is a seed source for tests that must not draw a default seed.
@@ -41,6 +45,97 @@ func TestNewSeedGolden(t *testing.T) {
 	if stdout.String() != string(want) {
 		t.Errorf("stdout differs from chargen/testdata/seed1.json:\n%s", stdout.String())
 	}
+}
+
+// TestReplaySubcommand verifies the end-to-end loop the replay contract
+// describes: generate a record, then re-run it from the file alone and
+// have it reproduce itself (docs/PRD.md, Replay and provenance contract).
+// The engine-level sweep over every fixture lives in
+// chargen.TestReplayRoundTrip; this pins the wiring and the exit code.
+func TestReplaySubcommand(t *testing.T) {
+	record := filepath.Join(t.TempDir(), "character.json")
+
+	var stdout, stderr bytes.Buffer
+	if code := run([]string{"new", "--auto", "--seed", "1", "-o", record}, noSeed(t), &stdout, &stderr); code != exitOK {
+		t.Fatalf("new: exit %d, stderr: %s", code, stderr.String())
+	}
+
+	stdout.Reset()
+	stderr.Reset()
+
+	if code := run([]string{"replay", record}, noSeed(t), &stdout, &stderr); code != exitOK {
+		t.Fatalf("replay: exit %d, stderr: %s", code, stderr.String())
+	}
+
+	if !strings.Contains(stdout.String(), "reproduced from seed 1") {
+		t.Errorf("replay said %q, which does not report the seed it reproduced", stdout.String())
+	}
+}
+
+// TestReplayReportsTheDivergingEvent verifies a tampered record fails with
+// the sequence number of the event that disagreed, which is the whole of
+// what the PRD promises a reader: "exits non-zero at the first mismatch,
+// reporting the diverging event's sequence number".
+func TestReplayReportsTheDivergingEvent(t *testing.T) {
+	record := filepath.Join(t.TempDir(), "character.json")
+
+	var stdout, stderr bytes.Buffer
+	if code := run([]string{"new", "--auto", "--seed", "1", "-o", record}, noSeed(t), &stdout, &stderr); code != exitOK {
+		t.Fatalf("new: exit %d, stderr: %s", code, stderr.String())
+	}
+
+	tampered := tamperFirstThrow(t, record)
+
+	stdout.Reset()
+	stderr.Reset()
+
+	if code := run([]string{"replay", record}, noSeed(t), &stdout, &stderr); code != exitError {
+		t.Fatalf("replay of a tampered record: exit %d, want %d", code, exitError)
+	}
+
+	if !strings.Contains(stderr.String(), fmt.Sprintf("event %d", tampered)) {
+		t.Errorf("replay reported %q, which does not name diverging event %d", stderr.String(), tampered)
+	}
+}
+
+// tamperFirstThrow adds one to the total of the record's first throw and
+// returns that event's sequence number, so the caller can require the
+// divergence report to name it.
+func tamperFirstThrow(t *testing.T, record string) int {
+	t.Helper()
+
+	data, err := os.ReadFile(record) //nolint:gosec // the path is a temp file the test just wrote
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var character chargen.Character
+	if err := json.Unmarshal(data, &character); err != nil {
+		t.Fatal(err)
+	}
+
+	for _, event := range character.Events {
+		if event.Kind != chargen.EventThrow {
+			continue
+		}
+
+		event.Throw.Total++
+
+		edited, err := json.Marshal(character)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if err := os.WriteFile(record, edited, 0o600); err != nil {
+			t.Fatal(err)
+		}
+
+		return event.Seq
+	}
+
+	t.Fatal("the record holds no throw to tamper with")
+
+	return 0
 }
 
 // TestNewSeedZero verifies --seed 0 is honored as an explicit seed rather
@@ -210,6 +305,11 @@ func TestErrors(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	foreign := filepath.Join(t.TempDir(), "foreign.json")
+	if err := os.WriteFile(foreign, []byte(`{"schema_version":"0.0.1"}`), 0o600); err != nil {
+		t.Fatal(err)
+	}
+
 	tests := []struct {
 		name string
 		args []string
@@ -242,6 +342,14 @@ func TestErrors(t *testing.T) {
 		{"render non-record", []string{"render", noSchema}, exitError},
 		{"render txt deferred", []string{"render", "--format", "txt", noSchema}, exitError},
 		{"render unknown format", []string{"render", "--format", "html", noSchema}, exitUsage},
+		{"replay without file", []string{"replay"}, exitUsage},
+		{"replay stray arguments", []string{"replay", noSchema, "extra"}, exitUsage},
+		{"replay missing file", []string{"replay", "does-not-exist.json"}, exitError},
+		{"replay garbage file", []string{"replay", garbage}, exitError},
+		{"replay non-record", []string{"replay", noSchema}, exitError},
+		// A divergence is an operational error, not a usage one: the
+		// command worked and the answer is no.
+		{"replay a foreign record", []string{"replay", foreign}, exitError},
 	}
 
 	for _, tt := range tests {
