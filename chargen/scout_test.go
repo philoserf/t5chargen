@@ -296,3 +296,36 @@ func checkFameSource(t *testing.T, seed uint64, c chargen.Character, source stri
 		t.Errorf("seed %d: %s contributed nothing, want %d", seed, source, want)
 	}
 }
+
+// TestEveryScoutDutyHasSkillEligibility holds together the two halves of
+// chart 05 table B that live in different files: the duty labels are a Go
+// literal and their eligibility is a JSON map. A key that does not match
+// returns zero, which termSkills reads as "unspecified" and replaces with
+// the definition's SkillsPerTerm — so a typo would award 8 skills where the
+// chart says 4 and leave no trace.
+func TestEveryScoutDutyHasSkillEligibility(t *testing.T) {
+	t.Parallel()
+
+	def, err := career.ByName("Scout")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(def.SkillEligibility) != len(chargen.ScoutDuties) {
+		t.Errorf("chart 05 lists %d duties and %d eligibilities",
+			len(chargen.ScoutDuties), len(def.SkillEligibility))
+	}
+
+	for _, duty := range chargen.ScoutDuties {
+		rolls, ok := def.SkillEligibility[duty]
+		if !ok {
+			t.Errorf("%q has no skill eligibility in scout.json", duty)
+
+			continue
+		}
+
+		if rolls < 1 {
+			t.Errorf("%q allows %d skill rolls", duty, rolls)
+		}
+	}
+}

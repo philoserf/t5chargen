@@ -83,8 +83,20 @@ func (m *scoutMechanics) resolveTerm(r *careerRun, cc string) (termOutcome, erro
 		return termOutcome{}, err
 	}
 
+	// The duties are a Go literal and the eligibility is a JSON map, so
+	// nothing but this makes the two key sets agree. A miss would return
+	// zero, which termSkills reads as "unspecified" and quietly replaces
+	// with the definition's SkillsPerTerm — chart 05's whole point is that
+	// the two duties differ (4 and 8), so a silent substitution would
+	// award the wrong number of skills and look like nothing happened.
 	duty := scoutDuties[chosen]
-	outcome := termOutcome{skillRolls: r.def.SkillEligibility[duty]}
+
+	rolls, ok := r.def.SkillEligibility[duty]
+	if !ok {
+		return termOutcome{}, fmt.Errorf("%w: chart 05 has no skill eligibility for %q", errBadCareerData, duty)
+	}
+
+	outcome := termOutcome{skillRolls: rolls}
 
 	if duty == "Courier Duty" {
 		// "A Scout may avoid the Risk and Reward rolls by volunteering

@@ -26,6 +26,10 @@ var errUnknownCharacteristic = errors.New("unknown characteristic")
 // milestone (docs/PRD.md milestones 2-3).
 var errNotImplemented = errors.New("not implemented until education/skill milestones")
 
+// errBadCareerData reports a career definition whose data and mechanics
+// disagree — a fault in the transcription, not in the character.
+var errBadCareerData = errors.New("career data does not match its mechanics")
+
 // errUnknownRank reports a rank id absent from the career's rank table.
 var errUnknownRank = errors.New("unknown rank")
 
@@ -79,11 +83,20 @@ type termOutcome struct {
 	// Continue ("the Character is dead", p. 65).
 	died bool
 
-	// endCause is the throw that ended the career, and so the cause of
-	// the years the term still elapses. Both career-ending paths skip the
-	// Continue roll, which is what carries the cause on an ordinary term
-	// (docs/PRD.md FR10: a consequence names the throw behind it, never a
-	// step). Read only when died or endCareer is set.
+	// endCause is the throw the term's elapsed years hang from where the
+	// Continue roll does not carry them. Both career-ending paths skip
+	// that roll, and so does chart 13's "Continue Office Politics", which
+	// is not a throw at all — so all three read this, and the name is
+	// narrower than the meaning for historical reasons.
+	//
+	// It must be non-zero wherever it is read: a consequence naming
+	// sequence zero names no event (docs/PRD.md FR10). The died and
+	// endCareer paths get that for free — every mechanic that sets either
+	// sets this in the same Risk-failure branch — so only the Office
+	// Politics path guards it here, being the one that reads this on a
+	// term nothing went wrong in. The Functionary therefore sets it
+	// unconditionally, because its Risk governs the term whichever way it
+	// falls. TestEveryConsequenceNamesItsCause sweeps all three.
 	endCause int
 }
 
@@ -302,6 +315,12 @@ func (r *careerRun) closeTerm(outcome termOutcome) (termEnd, int, error) {
 	// continue in the career" — and reaching here means it succeeded, so
 	// the career goes on with only the years to elapse.
 	if r.def.ContinueOfficePolitics {
+		if outcome.endCause == 0 {
+			return termContinues, 0, fmt.Errorf(
+				"%w: %s continues on Office Politics without naming the throw that governed the term",
+				errBadCareerData, r.def.Name)
+		}
+
 		return termContinues, 0, r.elapseTerm(outcome.endCause)
 	}
 
@@ -523,6 +542,10 @@ var groupCells = map[career.EntryKind]struct {
 func citizenLifeSkills() []string {
 	def, err := career.Citizen()
 	if err != nil {
+		// Unreachable in a built binary: Generate checks the same load
+		// once before any dice are rolled, so a broken transcription is
+		// reported as one rather than reaching here and being reported
+		// by awardFromGroup as a deferred milestone.
 		return nil
 	}
 

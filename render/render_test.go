@@ -475,3 +475,33 @@ func readIdentifiers(t *testing.T, file, pattern string) []string {
 
 	return found
 }
+
+// TestBenefitNamesPluralize walks chart M1's own vocabulary through the
+// sheet's pluralizer. Every name on the chart reaches it, because a
+// character may hold two of anything.
+func TestBenefitNamesPluralize(t *testing.T) {
+	t.Parallel()
+
+	for _, tc := range []struct{ one, many string }{
+		{"StarPass", "2 StarPasses"},
+		{"Proxy", "2 Proxies"},
+		{"Ship Shares", "2 Ship Shares"},
+		{"Discovery", "2 Discoveries"},
+		{"High Passage", "2 High Passages"},
+		{"Wafer Jack", "2 Wafer Jacks"},
+		{"Knighthood", "2 Knighthoods"},
+		{"Land Grant", "2 Land Grants"},
+		{"Life Insurance", "2 Life Insurances"},
+		{"TAS Life Membership", "2 TAS Life Memberships"},
+		{"Pension x2", "2 Pension x2"},
+		{"Retirement x2", "2 Retirement x2"},
+	} {
+		if got := render.Plural(2, tc.one); got != tc.many {
+			t.Errorf("two %q render as %q, want %q", tc.one, got, tc.many)
+		}
+
+		if got := render.Plural(1, tc.one); got != "1 "+tc.one {
+			t.Errorf("one %q renders as %q, want %q", tc.one, got, "1 "+tc.one)
+		}
+	}
+}
