@@ -26,6 +26,7 @@
   ],
   "armed_forces": {
     "branch_check": "Soc",
+    "service": "Marine",
     "branch_cite": "Book 1 p. 86 chart 12 (Marine Branch)",
     "operations_cite": "Book 1 p. 86 chart 12 (Marine Operations)",
     "edu_dm_at": 10,

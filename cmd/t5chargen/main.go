@@ -38,7 +38,7 @@ const usage = `usage:
                 [--current-year 1105] [-o file] [--force]
   t5chargen batch --count N --auto [--seed N] [--name X] [--career citizen]
                   [--homeworld "UWP TC..."] [--current-year 1105] [-o dir/|file.jsonl] [--force]
-  t5chargen render character.json [--format md] [--history]
+  t5chargen render [--format md] [--history] character.json
   t5chargen replay character.json
 `
 

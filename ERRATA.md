@@ -2219,3 +2219,38 @@ separate postings.
 
 Implemented at `chargen/armedforces.go` (`operations`), pinned by
 `TestANMSchoolIsResolvedAsEducation`.
+
+### I-94: A Service Academy graduate enters his own service as an officer (chart C p. 60; p. 65)
+
+Chart C gives the Service Academy a Graduation of "C5=8 BA Officer1". The
+Edu and the degree are applied where every graduation is; Officer1 is not a
+thing the schooling does to the character, it is a rank in a career he has
+not joined yet, and the chart does not say how the two meet.
+
+Read as: he joins at the first officer rank of the service he trained for,
+in place of the enlisted rank every other recruit gets — "Armed Forces
+characters begin with enlisted rank (Army = Soldier1)" (p. 65).
+
+Three things that reading fixes, none of them stated outright.
+
+**Which service.** The Academy asks the character to name one — Army, Navy
+or Marine — and the careers name themselves the same way on their own
+tables: "NAVAL BRANCH" (chart 07), "ARMY BRANCH" (chart 08), "MARINE
+BRANCH" (chart 12). So the linkage is by service, and an Army graduate who
+joins the Navy enters as any other recruit does. An Academy that trained a
+man for one force does not commission him in another.
+
+**Graduation, not attendance.** Officer1 is printed in the Graduation
+column, so a cadet who failed out carries nothing forward.
+
+**Which rank.** "Officer1" is the ladder's first officer rank rather than a
+rank named O1 by coincidence: O1 is what the three services happen to call
+it, and the rule is read off the ladder rather than off the label.
+
+The To Begin throw is unaffected. Nothing on either page excuses a graduate
+from it; he still has to be accepted, and enters as an officer when he is.
+
+Implemented at `chargen/armedforces.go` (`entryRank`) and
+`chargen/academy.go` (`academyOfficer`), pinned by
+`TestAcademyGraduateEntersAsAnOfficer` and
+`TestAcademyOfficerIsServiceSpecific`.

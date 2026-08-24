@@ -110,11 +110,31 @@ func (m *armedForcesMechanics) begin(r *careerRun) (bool, error) {
 		return false, nil
 	}
 
-	if err := m.enterRank(r, r.def.Ranks[0].ID, seq); err != nil {
+	if err := m.enterRank(r, m.entryRank(r), seq); err != nil {
 		return false, err
 	}
 
 	return true, m.selectBranch(r)
+}
+
+// entryRank is the rank the character joins at. Normally the first of the
+// ladder — "Armed Forces characters begin with enlisted rank (Army =
+// Soldier1)" (p. 65) — but a Service Academy graduate of this service
+// enters as an officer instead: chart C p. 60 gives the Service Academy a
+// Graduation of "C5=8 BA Officer1", and Officer1 is the first officer rank
+// of the service he trained for (interpretation I-94).
+func (m *armedForcesMechanics) entryRank(r *careerRun) string {
+	if !r.character.academyOfficer(r.def.ArmedForces.Service) {
+		return r.def.Ranks[0].ID
+	}
+
+	for _, rank := range r.def.Ranks {
+		if rank.Class == officerRankClass {
+			return rank.ID
+		}
+	}
+
+	return r.def.Ranks[0].ID
 }
 
 // selectBranch applies "Determine Branch and Mod": the character checks

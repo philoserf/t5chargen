@@ -593,6 +593,13 @@ type ArmedForces struct {
 	// a Branch (chart 08: "Select Branch Soc").
 	BranchCheck string `json:"branch_check"`
 
+	// Service names the armed force the career is, as its own Branch and
+	// Operations tables title themselves: "NAVAL BRANCH" on chart 07,
+	// "ARMY BRANCH" on chart 08, "MARINE BRANCH" on chart 12. It matches
+	// a Service Academy graduate's service (chart C p. 60), which is the
+	// only thing that reads it.
+	Service string `json:"service"`
+
 	BranchCite     string `json:"branch_cite"`
 	OperationsCite string `json:"operations_cite"`
 

@@ -54,7 +54,7 @@ interpretations where the printed rules are ambiguous.
 ```sh
 t5chargen new --auto --seed 42 -o char.json   # generate a character record
 t5chargen render char.json                    # Markdown character sheet
-t5chargen render char.json --history          # generation-record transcript
+t5chargen render --history char.json          # generation-record transcript
 t5chargen replay char.json                    # verify the record reproduces itself
 t5chargen batch --count 20 --auto -o npcs/    # a run of NPCs, one file each
 ```

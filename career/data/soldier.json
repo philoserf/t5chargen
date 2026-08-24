@@ -26,6 +26,7 @@
   ],
   "armed_forces": {
     "branch_check": "Soc",
+    "service": "Army",
     "branch_cite": "Book 1 p. 82 chart 08 (Army Branch)",
     "operations_cite": "Book 1 p. 82 chart 08 (Army Operations)",
     "edu_dm_at": 10,
