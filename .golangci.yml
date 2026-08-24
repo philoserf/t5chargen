@@ -26,6 +26,14 @@ linters:
         rules:
           json: snake # the PRD's JSON conventions use snake_case (schema_version, policy_version, ...)
   disable:
+    # Superseded in place. `default: all` turns on a deprecated linter and
+    # its replacement together, so each pair runs twice and warns about
+    # itself; the old one is switched off and the new one left on. Both
+    # replacements pass at their own defaults, so the settings
+    # golangci-lint suggests for reproducing the old behaviour are not
+    # carried over — they would be configuration nothing needs.
+    - wsl # replaced by wsl_v5 (deprecated since golangci-lint v2.2.0)
+    - gomodguard # replaced by gomodguard_v2 (deprecated since v2.12.0)
     - exhaustruct # T5 chart data and partial struct inits in tests are intentional
     - exhaustruct_v5 # same rationale as exhaustruct: partial event/record inits are the norm
     - mnd # the codebase transcribes Book 1 charts (magic numbers by nature)

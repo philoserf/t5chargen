@@ -72,7 +72,8 @@ func TestReplaySubcommand(t *testing.T) {
 		noSeed(t),
 		noInput(),
 		&stdout,
-		&stderr); code != exitOK {
+		&stderr,
+	); code != exitOK {
 		t.Fatalf("new: exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -108,7 +109,8 @@ func TestReplayReportsTheDivergingEvent(t *testing.T) {
 		noSeed(t),
 		noInput(),
 		&stdout,
-		&stderr); code != exitOK {
+		&stderr,
+	); code != exitOK {
 		t.Fatalf("new: exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -227,7 +229,8 @@ func TestNewOutputFile(t *testing.T) {
 		noSeed(t),
 		noInput(),
 		&stdout,
-		&stderr); code != exitOK {
+		&stderr,
+	); code != exitOK {
 		t.Fatalf("first write: exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -249,7 +252,8 @@ func TestNewOutputFile(t *testing.T) {
 		noSeed(t),
 		noInput(),
 		&stdout,
-		&stderr); code != exitError {
+		&stderr,
+	); code != exitError {
 		t.Fatalf("overwrite without --force: exit %d, want %d", code, exitError)
 	}
 
@@ -323,7 +327,8 @@ func TestRenderGoldens(t *testing.T) {
 		noSeed(t),
 		noInput(),
 		&stdout,
-		&stderr); code != exitOK {
+		&stderr,
+	); code != exitOK {
 		t.Fatalf("new: exit %d, stderr: %s", code, stderr.String())
 	}
 
