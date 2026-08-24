@@ -94,14 +94,14 @@ func TestAgentUndercoverTableIsWhole(t *testing.T) {
 // column, so no pinned seed ever reads it.
 type agentVocationPolicy struct{ chargen.DefaultPolicy }
 
-func (p agentVocationPolicy) Choose(c chargen.Choice) int {
+func (p agentVocationPolicy) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseSkillColumn {
 		if i := slices.Index(c.Options, "Vocation"); i >= 0 {
-			return i
+			return i, nil
 		}
 	}
 
-	return p.DefaultPolicy.Choose(c)
+	return autoPolicy(c)
 }
 
 // TestAgentAnyKnowledgeCellResolves verifies chart 09's "Any Knowledge"

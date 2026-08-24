@@ -2,6 +2,7 @@ package render_test
 
 import (
 	"flag"
+	"fmt"
 	"os"
 	"regexp"
 	"slices"
@@ -15,6 +16,19 @@ import (
 // update rewrites the golden fixtures instead of comparing against them:
 // `task goldens`, or `go test ./render -update`.
 var update = flag.Bool("update", false, "rewrite testdata golden files instead of comparing")
+
+// autoPolicy answers a choice with the default policy, for the test fakes
+// that override one choice point and defer the rest. The policy is total
+// and never errors, but the Decider contract lets it, so the error is
+// threaded rather than dropped.
+func autoPolicy(c chargen.Choice) (int, error) {
+	index, err := chargen.DefaultPolicy{}.Choose(c)
+	if err != nil {
+		return 0, fmt.Errorf("auto policy: %w", err)
+	}
+
+	return index, nil
+}
 
 // golden compares got against the named testdata file, or rewrites it
 // under -update.
@@ -280,27 +294,27 @@ func TestHistoryChoiceLine(t *testing.T) {
 // declines every career change (POLICY.md `change_career`).
 type functionaryPath struct{}
 
-func (functionaryPath) Choose(c chargen.Choice) int {
+func (functionaryPath) Choose(c chargen.Choice) (int, error) {
 	//nolint:exhaustive // Deliberately partitioned: the rest defer to the auto policy.
 	switch c.ID {
 	case chargen.ChooseCareerChange:
-		return 1
+		return 1, nil
 	case chargen.ChooseCareer:
 		for i, option := range c.Options {
 			if option == "Functionary" {
-				return i
+				return i, nil
 			}
 		}
 
 		for i, option := range c.Options {
 			if option == "Scholar" {
-				return i
+				return i, nil
 			}
 		}
 	default:
 	}
 
-	return chargen.DefaultPolicy{}.Choose(c)
+	return autoPolicy(c)
 }
 
 func (functionaryPath) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
@@ -337,31 +351,31 @@ type craftsmanPath struct {
 	arrived bool
 }
 
-func (d *craftsmanPath) Choose(c chargen.Choice) int {
+func (d *craftsmanPath) Choose(c chargen.Choice) (int, error) {
 	//nolint:exhaustive // Deliberately partitioned: the rest defer to the auto policy.
 	switch c.ID {
 	case chargen.ChooseCareerChange:
 		d.offers++
 
 		if d.arrived || d.offers < 4 {
-			return 0
+			return 0, nil
 		}
 
-		return 1
+		return 1, nil
 	case chargen.ChooseCareer:
 		return d.pickCareer(c)
 	case chargen.ChooseSkill, chargen.ChooseTrade:
 		if i := prefer(c.Options, "Craftsman"); i >= 0 {
-			return i
+			return i, nil
 		}
 	case chargen.ChooseSkillColumn:
 		if i := preferColumn(c.Options, "Academic", "Vocation"); i >= 0 {
-			return i
+			return i, nil
 		}
 	default:
 	}
 
-	return chargen.DefaultPolicy{}.Choose(c)
+	return autoPolicy(c)
 }
 
 // preferColumn picks the first skills-table column named after one of the
@@ -393,18 +407,18 @@ func (*craftsmanPath) Kind() chargen.DeciderKind { return chargen.DeciderPlayer 
 
 // pickCareer takes Craftsman the moment it is offered, and otherwise
 // builds toward it as a Citizen, whose table C offers Trades.
-func (d *craftsmanPath) pickCareer(c chargen.Choice) int {
+func (d *craftsmanPath) pickCareer(c chargen.Choice) (int, error) {
 	if i := prefer(c.Options, "Craftsman"); i >= 0 {
 		d.arrived = true
 
-		return i
+		return i, nil
 	}
 
 	if i := prefer(c.Options, "Citizen"); i >= 0 {
-		return i
+		return i, nil
 	}
 
-	return chargen.DefaultPolicy{}.Choose(c)
+	return autoPolicy(c)
 }
 
 func craftsmanCharacter(t *testing.T) chargen.Character {

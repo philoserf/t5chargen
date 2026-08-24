@@ -90,16 +90,16 @@ func TestEducationWaiverPinned(t *testing.T) {
 // to exercise the double-rate rule.
 type languageDecider struct{ chargen.DefaultPolicy }
 
-func (d languageDecider) Choose(c chargen.Choice) int {
+func (d languageDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseMajor {
 		for i, option := range c.Options {
 			if option == "Language" {
-				return i
+				return i, nil
 			}
 		}
 	}
 
-	return d.DefaultPolicy.Choose(c)
+	return autoPolicy(c)
 }
 
 func (languageDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }

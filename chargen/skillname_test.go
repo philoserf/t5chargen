@@ -103,16 +103,16 @@ func TestAmbiguousChartCellsResolveByChoice(t *testing.T) {
 // a Hobby label that resolves onto the Job.
 type hobbyLabelDecider struct{ chargen.DefaultPolicy }
 
-func (d hobbyLabelDecider) Choose(c chargen.Choice) int {
+func (d hobbyLabelDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseHobby {
 		for _, label := range []string{"Spacecraft", "Grav"} {
 			if i := slices.Index(c.Options, label); i >= 0 {
-				return i
+				return i, nil
 			}
 		}
 	}
 
-	return d.DefaultPolicy.Choose(c)
+	return autoPolicy(c)
 }
 
 func (hobbyLabelDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }

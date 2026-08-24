@@ -2,14 +2,29 @@ package chargen_test
 
 import (
 	"errors"
+	"fmt"
 	"reflect"
 	"slices"
+	"strings"
 	"testing"
 
 	"github.com/philoserf/t5chargen/career"
 	"github.com/philoserf/t5chargen/chargen"
 	"github.com/philoserf/t5chargen/dice"
 )
+
+// autoPolicy answers a choice with the default policy, for the test fakes
+// that override one choice point and defer the rest. The policy is total
+// and never errors, but the Decider contract lets it, so the error is
+// threaded rather than dropped.
+func autoPolicy(c chargen.Choice) (int, error) {
+	index, err := chargen.DefaultPolicy{}.Choose(c)
+	if err != nil {
+		return 0, fmt.Errorf("auto policy: %w", err)
+	}
+
+	return index, nil
+}
 
 // generate builds a character or fails the test, defaulting to the auto
 // policy when no Decider is set.
@@ -323,25 +338,37 @@ func TestGenerateForcedCareer(t *testing.T) {
 // playerDecider is a well-behaved non-policy Decider for provenance tests.
 type playerDecider struct{}
 
-func (playerDecider) Choose(chargen.Choice) int { return 0 }
-func (playerDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
+func (playerDecider) Choose(chargen.Choice) (int, error) { return 0, nil }
+func (playerDecider) Kind() chargen.DeciderKind          { return chargen.DeciderPlayer }
 
 // badDecider always answers out of range.
 type badDecider struct{}
 
-func (badDecider) Choose(chargen.Choice) int { return 99 }
-func (badDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
+func (badDecider) Choose(chargen.Choice) (int, error) { return 99, nil }
+func (badDecider) Kind() chargen.DeciderKind          { return chargen.DeciderPlayer }
+
+// errRefused is the sentinel refusingDecider returns; the point of the
+// test is that it survives to the caller intact.
+var errRefused = errors.New("refused")
+
+// refusingDecider declines the first choice it is offered, standing in for
+// an abandoned interactive session or a replay whose recorded choice no
+// longer matches the one presented.
+type refusingDecider struct{}
+
+func (refusingDecider) Choose(chargen.Choice) (int, error) { return 0, errRefused }
+func (refusingDecider) Kind() chargen.DeciderKind          { return chargen.DeciderPlayer }
 
 // personalDecider always selects the Personal skill column and otherwise
 // answers first-listed, to exercise characteristic increases.
 type personalDecider struct{}
 
-func (personalDecider) Choose(c chargen.Choice) int {
+func (personalDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseSkillColumn {
-		return slices.Index(c.Options, "Personal")
+		return slices.Index(c.Options, "Personal"), nil
 	}
 
-	return 0
+	return 0, nil
 }
 
 func (personalDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
@@ -379,7 +406,9 @@ func TestCharacteristicMaximum(t *testing.T) {
 
 // TestGenerateDeciderContract verifies the Decider requirements: nil
 // errors, an out-of-range answer errors instead of being silently
-// repaired, and policy_version attests "none" for non-policy deciders.
+// repaired, a refusal reaches the caller as its own error naming the
+// choice point, and policy_version attests "none" for non-policy
+// deciders.
 func TestGenerateDeciderContract(t *testing.T) {
 	if _, err := chargen.Generate(chargen.Options{Seed: 1}); err == nil {
 		t.Error("nil Decider did not error")
@@ -387,6 +416,19 @@ func TestGenerateDeciderContract(t *testing.T) {
 
 	if _, err := chargen.Generate(chargen.Options{Seed: 1, Decider: badDecider{}}); err == nil {
 		t.Error("out-of-range Decider answer did not error")
+	}
+
+	// A refusal must reach the caller as its own error, not be flattened
+	// into the out-of-range one: interactive mode has to tell an abandoned
+	// session from a decider that answered wrongly, and replay has to
+	// report its own divergence.
+	_, err := chargen.Generate(chargen.Options{Seed: 1, Decider: refusingDecider{}})
+	if !errors.Is(err, errRefused) {
+		t.Fatalf("refused choice = %v, want it to wrap errRefused", err)
+	}
+
+	if !strings.Contains(err.Error(), string(chargen.ChooseHomeworld)) {
+		t.Errorf("refusal %q does not name the choice point it refused", err)
 	}
 
 	c := generate(t, chargen.Options{Seed: 1, Decider: playerDecider{}})

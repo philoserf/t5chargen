@@ -186,8 +186,14 @@ type Choice struct {
 // choice in the engine goes through this interface so replay can reapply
 // recorded choices.
 type Decider interface {
-	// Choose returns the index of the selected option.
-	Choose(c Choice) int
+	// Choose returns the index of the selected option. An error refuses the
+	// choice outright and ends generation: an interactive session the player
+	// abandoned (docs/PRD.md, CLI sketch: "Interrupted interactive sessions
+	// produce no output file"), or a replay whose recorded choice no longer
+	// matches the choice the engine presents. Both are distinct from an
+	// out-of-range index, which is a decider that answered wrongly rather
+	// than one that declined to answer.
+	Choose(c Choice) (int, error)
 
 	// Kind identifies the decider in choice events (docs/PRD.md FR10:
 	// "who decided — player or policy").

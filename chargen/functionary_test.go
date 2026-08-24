@@ -16,27 +16,27 @@ import (
 // policy_version "none".
 type functionaryPath struct{ first string }
 
-func (d functionaryPath) Choose(c chargen.Choice) int {
+func (d functionaryPath) Choose(c chargen.Choice) (int, error) {
 	//nolint:exhaustive // Deliberately partitioned: the rest defer to the auto policy.
 	switch c.ID {
 	case chargen.ChooseCareerChange:
-		return 1
+		return 1, nil
 	case chargen.ChooseCareer:
 		for i, option := range c.Options {
 			if option == "Functionary" {
-				return i
+				return i, nil
 			}
 		}
 
 		for i, option := range c.Options {
 			if option == d.first {
-				return i
+				return i, nil
 			}
 		}
 	default:
 	}
 
-	return chargen.DefaultPolicy{}.Choose(c)
+	return autoPolicy(c)
 }
 
 func (functionaryPath) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }

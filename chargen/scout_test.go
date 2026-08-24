@@ -98,16 +98,16 @@ func checkScoutEvents(t *testing.T, seed uint64, c chargen.Character) {
 // (guaranteeing a 4+ reduction on any Risk failure) and Explorer Duty.
 type braveryDecider struct{ chargen.DefaultPolicy }
 
-func (d braveryDecider) Choose(c chargen.Choice) int {
+func (d braveryDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseRiskMod {
 		for i, option := range c.Options {
 			if option == "Bravery -9" {
-				return i
+				return i, nil
 			}
 		}
 	}
 
-	return d.DefaultPolicy.Choose(c)
+	return autoPolicy(c)
 }
 
 func (braveryDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
@@ -185,16 +185,16 @@ func TestScoutBeginFallback(t *testing.T) {
 // scoutFirstDecider prefers the Scout career, otherwise the default policy.
 type scoutFirstDecider struct{ chargen.DefaultPolicy }
 
-func (d scoutFirstDecider) Choose(c chargen.Choice) int {
+func (d scoutFirstDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseCareer {
 		for i, option := range c.Options {
 			if option == "Scout" {
-				return i
+				return i, nil
 			}
 		}
 	}
 
-	return d.DefaultPolicy.Choose(c)
+	return autoPolicy(c)
 }
 
 func (scoutFirstDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }

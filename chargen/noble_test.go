@@ -288,16 +288,16 @@ func nobleEventKind(e chargen.Event) string {
 // unreachable without this.
 type personalColumnPolicy struct{ chargen.DefaultPolicy }
 
-func (p personalColumnPolicy) Choose(c chargen.Choice) int {
+func (p personalColumnPolicy) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseSkillColumn {
 		for i, option := range c.Options {
 			if option == "Personal" {
-				return i
+				return i, nil
 			}
 		}
 	}
 
-	return p.DefaultPolicy.Choose(c)
+	return autoPolicy(c)
 }
 
 // TestNobleLandGrantPerSocIncrease verifies chart 11's "Land Grants. Each
