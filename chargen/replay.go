@@ -1,9 +1,11 @@
 package chargen
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"maps"
 	"slices"
 )
 
@@ -166,12 +168,44 @@ func compareRecords(stored, replayed Character) error {
 		return fmt.Errorf("marshalling the re-run: %w", err)
 	}
 
-	if !slices.Equal(want, got) {
-		return fmt.Errorf("%w: the events agree but the record does not\n  recorded: %s\n  re-ran:   %s",
-			ErrReplayDiverged, want, got)
+	if !bytes.Equal(want, got) {
+		return fmt.Errorf("%w: the events agree but the record does not: %s\n  recorded: %s\n  re-ran:   %s",
+			ErrReplayDiverged, firstDifferingField(want, got), want, got)
 	}
 
 	return nil
+}
+
+// firstDifferingField names the top-level record field the two
+// serializations disagree on, so a whole-record divergence points at
+// something before it dumps both records. Names are compared in sorted
+// order, so the answer is stable rather than map-iteration order. It
+// degrades to a bare phrase rather than an error: it runs only on a
+// divergence that is already being reported, and a failure to describe
+// that divergence must not replace the report of it.
+func firstDifferingField(want, got []byte) string {
+	var wantFields, gotFields map[string]json.RawMessage
+	if json.Unmarshal(want, &wantFields) != nil || json.Unmarshal(got, &gotFields) != nil {
+		return "the records differ"
+	}
+
+	names := slices.Sorted(maps.Keys(wantFields))
+
+	for name := range gotFields {
+		if _, both := wantFields[name]; !both {
+			names = append(names, name)
+		}
+	}
+
+	slices.Sort(names)
+
+	for _, name := range names {
+		if !bytes.Equal(wantFields[name], gotFields[name]) {
+			return name + " differs"
+		}
+	}
+
+	return "the records differ"
 }
 
 // describe renders one event compactly for a divergence message.
@@ -220,8 +254,8 @@ type replayDecider struct {
 // and the engine disagree.
 func (d *replayDecider) Choose(c Choice) (int, error) {
 	if d.next >= len(d.choices) {
-		return 0, fmt.Errorf("%w: the engine asked %q, past the %d choices the record holds",
-			ErrReplayDiverged, c.ID, len(d.choices))
+		return 0, fmt.Errorf("%w: after event %d the engine asked %q, past the %d choices the record holds",
+			ErrReplayDiverged, d.lastSeq(), c.ID, len(d.choices))
 	}
 
 	recorded := d.choices[d.next]
@@ -240,6 +274,26 @@ func (d *replayDecider) Choose(c Choice) (int, error) {
 // choice events attest the original decider rather than the replay. Choose
 // runs first at every call site (see choose), so the recorded kind is
 // already in hand.
+//
+// This makes attribution unverifiable, and deliberately so: the replay
+// decider is not the original, so the only kind it can report is the
+// recorded one, which then matches itself in compareEvents. A record whose
+// decider fields (or policy_version, excluded for the same reason) were
+// altered replays clean. Replay attests that the recorded choices rebuild
+// the recorded character, not that the named decider would make them.
 func (d *replayDecider) Kind() DeciderKind {
 	return d.last
+}
+
+// lastSeq is the record's sequence number for the choice last consumed, or
+// 0 before any: the contract reports a divergence against the record's own
+// numbering ("reporting the diverging event's sequence number",
+// docs/PRD.md), and a re-run that outran the record diverges somewhere
+// after the last answer it was given.
+func (d *replayDecider) lastSeq() int {
+	if d.next == 0 {
+		return 0
+	}
+
+	return d.choices[d.next-1].seq
 }

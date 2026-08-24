@@ -3,6 +3,7 @@ package chargen_test
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -189,11 +190,12 @@ func TestReplayDetectsTampering(t *testing.T) {
 func TestReplayComparesDerivedValues(t *testing.T) {
 	for _, tc := range []struct {
 		name  string
+		field string
 		alter func(*chargen.Character)
 	}{
-		{"upp", func(c *chargen.Character) { c.UPP = "AAAAAA" }},
-		{"credits", func(c *chargen.Character) { c.Credits += 1000 }},
-		{"a skill level", func(c *chargen.Character) { c.Skills[0].Level++ }},
+		{"upp", "upp", func(c *chargen.Character) { c.UPP = "AAAAAA" }},
+		{"credits", "credits", func(c *chargen.Character) { c.Credits += 1000 }},
+		{"a skill level", "skills", func(c *chargen.Character) { c.Skills[0].Level++ }},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			stored := readFixture(t, filepath.Join("testdata", "seed1.json"))
@@ -204,10 +206,62 @@ func TestReplayComparesDerivedValues(t *testing.T) {
 				t.Fatalf("the alteration touched the event log, so it does not isolate the record comparison")
 			}
 
-			if _, err := chargen.Replay(stored); !errors.Is(err, chargen.ErrReplayDiverged) {
+			_, err := chargen.Replay(stored)
+			if !errors.Is(err, chargen.ErrReplayDiverged) {
 				t.Fatalf("replay of a record with an altered %s = %v, want ErrReplayDiverged", tc.name, err)
 			}
+
+			// Naming the field is the difference between a report and two
+			// two-kilobyte JSON dumps for the reader to diff by eye.
+			if !strings.Contains(err.Error(), tc.field+" differs") {
+				t.Errorf("replay reported %q, want it to name %q", err, tc.field)
+			}
 		})
+	}
+}
+
+// TestReplayReportsWhereItRanOut verifies the exhaustion message locates
+// itself in the record. A truncated log leaves the engine asking for a
+// choice the record does not hold, and "past the choices the record holds"
+// on its own tells a reader nothing about where — the contract is to report
+// a sequence number ("reporting the diverging event's sequence number",
+// docs/PRD.md).
+func TestReplayReportsWhereItRanOut(t *testing.T) {
+	stored := readFixture(t, filepath.Join("testdata", "seed1.json"))
+
+	// Keep the first two choices, so the run gets under way and then runs
+	// out with a recorded sequence number behind it.
+	kept, seen := []chargen.Event{}, 0
+
+	for _, event := range stored.Events {
+		if event.Kind == chargen.EventChoice {
+			if seen == 2 {
+				break
+			}
+
+			seen++
+		}
+
+		kept = append(kept, event)
+	}
+
+	last := 0
+
+	for _, event := range kept {
+		if event.Kind == chargen.EventChoice {
+			last = event.Seq
+		}
+	}
+
+	stored.Events = kept
+
+	_, err := chargen.Replay(stored)
+	if !errors.Is(err, chargen.ErrReplayDiverged) {
+		t.Fatalf("replay of a truncated record = %v, want ErrReplayDiverged", err)
+	}
+
+	if want := fmt.Sprintf("after event %d", last); !strings.Contains(err.Error(), want) {
+		t.Errorf("replay reported %q, want it to say %q", err, want)
 	}
 }
 

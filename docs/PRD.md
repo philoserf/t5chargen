@@ -73,7 +73,14 @@ fields; the name and homeworld are inputs too, but they were already stored
 as character state. `policy_version` is deliberately **not** verified on
 replay: recorded choices are reapplied and the policy is never consulted, so
 a record made under one POLICY.md version replays under any other — which is
-also what makes the two fixtures carrying `"none"` replayable at all.
+also what makes the two fixtures carrying `"none"` replayable at all. The same
+follows for **who decided**: the replay decider is not the original, so the
+only decider it can name in a re-run's choice events is the recorded one,
+which then matches itself. Replay therefore attests that the recorded choices
+rebuild the recorded character — not that the decider the record names would
+have made them. A record whose `decider` fields or `policy_version` were
+altered replays clean, and that is inherent to replaying from the record
+rather than a gap in the verifier.
 
 ## JSON conventions
 
