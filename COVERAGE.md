@@ -567,7 +567,12 @@ its own file and compares every event and the whole record back
 batch --count N --auto` derives each member's seed from the base seed plus
 its index, so every member replays from the line or file it lands in
 (`TestBatchDerivesSeeds`, `TestBatchMembersReplay`, `TestBatchDirectory`,
-`TestBatchWritesNothingOnConflict`). Interactive mode: deferred (M5).
+`TestBatchWritesNothingOnConflict`). Interactive mode is implemented: without `--auto`, `t5chargen new` asks the
+player each choice point and records that he answered
+(`TestGeneratesACharacter`, `TestAnInteractiveRecordReplays`,
+`TestAbandonedSessionWritesNothing`). It answers with indices into the same
+option lists the policy indexes, so a session a person drove replays like
+any other record.
 
 ## Cross-cutting interpretations
 

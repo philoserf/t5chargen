@@ -96,8 +96,9 @@ func offerWaiver(
 		// the admission, 0 where it costs only a status. Both waiver
 		// rules turn on this one number (POLICY.md), which is why the
 		// stake is carried here rather than read off the prompt.
-		Scores: []int{boolScore(p.atStake()), 0},
-		Cite:   p.cite,
+		Scores:     []int{boolScore(p.atStake()), 0},
+		ScoreLabel: "at stake",
+		Cite:       p.cite,
 	})
 	if err != nil || chosen == 1 {
 		return false, err

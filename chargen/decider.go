@@ -180,6 +180,13 @@ type Choice struct {
 	Options []string
 	Scores  []int
 	Cite    string
+
+	// ScoreLabel names what Scores mean, for a decider that shows them to
+	// a person. A bare number is only self-explanatory where the option
+	// is a characteristic; "1" against a program means "you qualify", and
+	// nobody could guess that. Unlabelled scores stay between the engine
+	// and the policy.
+	ScoreLabel string
 }
 
 // Decider resolves choice points. Interactive play and the auto-mode

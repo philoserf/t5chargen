@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"strings"
@@ -11,6 +12,9 @@ import (
 
 	"github.com/philoserf/t5chargen/chargen"
 )
+
+// noInput is the empty stdin for tests that answer no interactive prompt.
+func noInput() io.Reader { return strings.NewReader("") }
 
 // noSeed is a seed source for tests that must not draw a default seed.
 func noSeed(t *testing.T) func() (uint64, error) {
@@ -33,7 +37,7 @@ func fixedSeed(seed uint64) func() (uint64, error) {
 func TestNewSeedGolden(t *testing.T) {
 	var stdout, stderr bytes.Buffer
 
-	if code := run([]string{"new", "--auto", "--seed", "1"}, noSeed(t), &stdout, &stderr); code != exitOK {
+	if code := run([]string{"new", "--auto", "--seed", "1"}, noSeed(t), noInput(), &stdout, &stderr); code != exitOK {
 		t.Fatalf("exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -56,14 +60,26 @@ func TestReplaySubcommand(t *testing.T) {
 	record := filepath.Join(t.TempDir(), "character.json")
 
 	var stdout, stderr bytes.Buffer
-	if code := run([]string{"new", "--auto", "--seed", "1", "-o", record}, noSeed(t), &stdout, &stderr); code != exitOK {
+	if code := run(
+		[]string{
+			"new",
+			"--auto",
+			"--seed",
+			"1",
+			"-o",
+			record,
+		},
+		noSeed(t),
+		noInput(),
+		&stdout,
+		&stderr); code != exitOK {
 		t.Fatalf("new: exit %d, stderr: %s", code, stderr.String())
 	}
 
 	stdout.Reset()
 	stderr.Reset()
 
-	if code := run([]string{"replay", record}, noSeed(t), &stdout, &stderr); code != exitOK {
+	if code := run([]string{"replay", record}, noSeed(t), noInput(), &stdout, &stderr); code != exitOK {
 		t.Fatalf("replay: exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -80,7 +96,19 @@ func TestReplayReportsTheDivergingEvent(t *testing.T) {
 	record := filepath.Join(t.TempDir(), "character.json")
 
 	var stdout, stderr bytes.Buffer
-	if code := run([]string{"new", "--auto", "--seed", "1", "-o", record}, noSeed(t), &stdout, &stderr); code != exitOK {
+	if code := run(
+		[]string{
+			"new",
+			"--auto",
+			"--seed",
+			"1",
+			"-o",
+			record,
+		},
+		noSeed(t),
+		noInput(),
+		&stdout,
+		&stderr); code != exitOK {
 		t.Fatalf("new: exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -89,7 +117,7 @@ func TestReplayReportsTheDivergingEvent(t *testing.T) {
 	stdout.Reset()
 	stderr.Reset()
 
-	if code := run([]string{"replay", record}, noSeed(t), &stdout, &stderr); code != exitError {
+	if code := run([]string{"replay", record}, noSeed(t), noInput(), &stdout, &stderr); code != exitError {
 		t.Fatalf("replay of a tampered record: exit %d, want %d", code, exitError)
 	}
 
@@ -143,7 +171,7 @@ func tamperFirstThrow(t *testing.T, record string) int {
 func TestNewSeedZero(t *testing.T) {
 	var stdout, stderr bytes.Buffer
 
-	if code := run([]string{"new", "--auto", "--seed", "0"}, noSeed(t), &stdout, &stderr); code != exitOK {
+	if code := run([]string{"new", "--auto", "--seed", "0"}, noSeed(t), noInput(), &stdout, &stderr); code != exitOK {
 		t.Fatalf("exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -157,7 +185,7 @@ func TestNewSeedZero(t *testing.T) {
 func TestNewDefaultSeed(t *testing.T) {
 	var stdout, stderr bytes.Buffer
 
-	if code := run([]string{"new", "--auto"}, fixedSeed(7), &stdout, &stderr); code != exitOK {
+	if code := run([]string{"new", "--auto"}, fixedSeed(7), noInput(), &stdout, &stderr); code != exitOK {
 		t.Fatalf("exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -171,7 +199,7 @@ func TestNewName(t *testing.T) {
 	var stdout, stderr bytes.Buffer
 
 	args := []string{"new", "--auto", "--seed", "1", "--name", "Eneri Dinsha"}
-	if code := run(args, noSeed(t), &stdout, &stderr); code != exitOK {
+	if code := run(args, noSeed(t), noInput(), &stdout, &stderr); code != exitOK {
 		t.Fatalf("exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -187,7 +215,19 @@ func TestNewOutputFile(t *testing.T) {
 
 	var stdout, stderr bytes.Buffer
 
-	if code := run([]string{"new", "--auto", "--seed", "1", "-o", path}, noSeed(t), &stdout, &stderr); code != exitOK {
+	if code := run(
+		[]string{
+			"new",
+			"--auto",
+			"--seed",
+			"1",
+			"-o",
+			path,
+		},
+		noSeed(t),
+		noInput(),
+		&stdout,
+		&stderr); code != exitOK {
 		t.Fatalf("first write: exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -197,7 +237,19 @@ func TestNewOutputFile(t *testing.T) {
 
 	stderr.Reset()
 
-	if code := run([]string{"new", "--auto", "--seed", "2", "-o", path}, noSeed(t), &stdout, &stderr); code != exitError {
+	if code := run(
+		[]string{
+			"new",
+			"--auto",
+			"--seed",
+			"2",
+			"-o",
+			path,
+		},
+		noSeed(t),
+		noInput(),
+		&stdout,
+		&stderr); code != exitError {
 		t.Fatalf("overwrite without --force: exit %d, want %d", code, exitError)
 	}
 
@@ -206,7 +258,7 @@ func TestNewOutputFile(t *testing.T) {
 	}
 
 	forceArgs := []string{"new", "--auto", "--seed", "2", "-o", path, "--force"}
-	if code := run(forceArgs, noSeed(t), &stdout, &stderr); code != exitOK {
+	if code := run(forceArgs, noSeed(t), noInput(), &stdout, &stderr); code != exitOK {
 		t.Fatalf("overwrite with --force: exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -226,7 +278,7 @@ func TestNewForcedCareer(t *testing.T) {
 	var stdout, stderr bytes.Buffer
 
 	args := []string{"new", "--auto", "--seed", "1", "--career", "citizen"}
-	if code := run(args, noSeed(t), &stdout, &stderr); code != exitOK {
+	if code := run(args, noSeed(t), noInput(), &stdout, &stderr); code != exitOK {
 		t.Fatalf("exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -241,7 +293,7 @@ func TestNewHomeworldFlag(t *testing.T) {
 	var stdout, stderr bytes.Buffer
 
 	args := []string{"new", "--auto", "--seed", "1", "--homeworld", "C200423-7 Va Ni"}
-	if code := run(args, noSeed(t), &stdout, &stderr); code != exitOK {
+	if code := run(args, noSeed(t), noInput(), &stdout, &stderr); code != exitOK {
 		t.Fatalf("exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -259,7 +311,19 @@ func TestRenderGoldens(t *testing.T) {
 
 	var stdout, stderr bytes.Buffer
 
-	if code := run([]string{"new", "--auto", "--seed", "1", "-o", path}, noSeed(t), &stdout, &stderr); code != exitOK {
+	if code := run(
+		[]string{
+			"new",
+			"--auto",
+			"--seed",
+			"1",
+			"-o",
+			path,
+		},
+		noSeed(t),
+		noInput(),
+		&stdout,
+		&stderr); code != exitOK {
 		t.Fatalf("new: exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -276,7 +340,7 @@ func TestRenderGoldens(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			var out, errOut bytes.Buffer
 
-			if code := run(tt.args, noSeed(t), &out, &errOut); code != exitOK {
+			if code := run(tt.args, noSeed(t), noInput(), &out, &errOut); code != exitOK {
 				t.Fatalf("exit %d, stderr: %s", code, errOut.String())
 			}
 
@@ -308,7 +372,9 @@ func errorCases(garbage, noSchema, foreign string) []errorCase {
 		{"no arguments", nil, exitUsage},
 		{"unknown subcommand", []string{"bogus"}, exitUsage},
 		{"unknown flag", []string{"new", "--bogus"}, exitUsage},
-		{"new without --auto", []string{"new", "--seed", "1"}, exitUsage},
+		// Without --auto the session is interactive, and empty input
+		// ends it before the first answer: abandoned, not misused.
+		{"new abandoned at once", []string{"new", "--seed", "1"}, exitError},
 		{"new stray arguments", []string{"new", "--auto", "--seed", "1", "out.json"}, exitUsage},
 		{"unknown career", []string{"new", "--auto", "--seed", "1", "--career", "craftsman"}, exitUsage},
 		// Chart 01 entry is automatic only "if TWO skill-6 and Craftsman-1"
@@ -372,7 +438,7 @@ func TestErrors(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			var stdout, stderr bytes.Buffer
 
-			if code := run(tt.args, fixedSeed(1), &stdout, &stderr); code != tt.code {
+			if code := run(tt.args, fixedSeed(1), noInput(), &stdout, &stderr); code != tt.code {
 				t.Errorf("exit %d, want %d (stderr: %s)", code, tt.code, stderr.String())
 			}
 		})
@@ -402,7 +468,7 @@ func runBatchOK(t *testing.T, args ...string) string {
 	t.Helper()
 
 	var stdout, stderr bytes.Buffer
-	if code := run(args, noSeed(t), &stdout, &stderr); code != exitOK {
+	if code := run(args, noSeed(t), noInput(), &stdout, &stderr); code != exitOK {
 		t.Fatalf("batch: exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -474,7 +540,7 @@ func TestBatchDirectory(t *testing.T) {
 
 	var stdout, stderr bytes.Buffer
 	if code := run([]string{"batch", "--count", "3", "--auto", "--seed", "100", "-o", dir},
-		noSeed(t), &stdout, &stderr); code != exitOK {
+		noSeed(t), noInput(), &stdout, &stderr); code != exitOK {
 		t.Fatalf("batch -o dir: exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -499,7 +565,7 @@ func TestBatchDirectoryTrailingSlash(t *testing.T) {
 
 	var stdout, stderr bytes.Buffer
 	if code := run([]string{"batch", "--count", "2", "--auto", "--seed", "300", "-o", dir},
-		noSeed(t), &stdout, &stderr); code != exitOK {
+		noSeed(t), noInput(), &stdout, &stderr); code != exitOK {
 		t.Fatalf("batch -o npcs/: exit %d, stderr: %s", code, stderr.String())
 	}
 
@@ -527,7 +593,7 @@ func TestBatchWritesNothingOnConflict(t *testing.T) {
 
 	var stdout, stderr bytes.Buffer
 	if code := run([]string{"batch", "--count", "3", "--auto", "--seed", "100", "-o", dir},
-		noSeed(t), &stdout, &stderr); code != exitError {
+		noSeed(t), noInput(), &stdout, &stderr); code != exitError {
 		t.Fatalf("batch over an existing file: exit %d, want %d", code, exitError)
 	}
 
@@ -540,5 +606,61 @@ func TestBatchWritesNothingOnConflict(t *testing.T) {
 
 	if data, err := os.ReadFile(blocker); err != nil || string(data) != "{}" { //nolint:gosec // a temp path the test wrote
 		t.Errorf("batch overwrote the existing file without --force")
+	}
+}
+
+// TestInteractiveNewWritesACharacter verifies the default mode. Without
+// --auto the player answers, and the record attests that he did.
+func TestInteractiveNewWritesACharacter(t *testing.T) {
+	record := filepath.Join(t.TempDir(), "character.json")
+
+	var stdout, stderr bytes.Buffer
+
+	script := strings.NewReader(strings.Repeat("1\n", 4000))
+	if code := run([]string{"new", "--seed", "1", "-o", record}, noSeed(t), script, &stdout, &stderr); code != exitOK {
+		t.Fatalf("interactive new: exit %d, stderr: %s", code, stderr.String())
+	}
+
+	data, err := os.ReadFile(record) //nolint:gosec // a temp path this test named
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var character chargen.Character
+	if err := json.Unmarshal(data, &character); err != nil {
+		t.Fatal(err)
+	}
+
+	if character.PolicyVersion != "none" {
+		t.Errorf("policy_version is %q, want %q for a player-decided run", character.PolicyVersion, "none")
+	}
+}
+
+// TestAbandonedSessionWritesNothing verifies the PRD's own sentence:
+// "Interrupted interactive sessions produce no output file" (CLI sketch).
+// The file must not exist — not exist and be empty, and not hold a partial
+// record.
+func TestAbandonedSessionWritesNothing(t *testing.T) {
+	record := filepath.Join(t.TempDir(), "character.json")
+
+	var stdout, stderr bytes.Buffer
+
+	// Two answers and then the player leaves, so the session gets under
+	// way before it is abandoned.
+	script := strings.NewReader("1\n1\nq\n")
+	if code := run([]string{"new", "--seed", "1", "-o", record}, noSeed(t), script, &stdout, &stderr); code != exitError {
+		t.Fatalf("abandoned session: exit %d, want %d", code, exitError)
+	}
+
+	if _, err := os.Stat(record); err == nil {
+		t.Error("an abandoned session wrote an output file")
+	}
+
+	if stdout.Len() != 0 {
+		t.Errorf("an abandoned session wrote to stdout: %s", stdout.String())
+	}
+
+	if !strings.Contains(stderr.String(), "abandoned") {
+		t.Errorf("the player was not told the session was abandoned: %s", stderr.String())
 	}
 }

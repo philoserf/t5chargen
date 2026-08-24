@@ -149,11 +149,12 @@ func chooseProgram(log *Log, decider Decider, character *Character) (education.P
 	qualified = append(qualified, 1)
 
 	chosen, _, err := choose(log, decider, Choice{
-		ID:      ChooseEducation,
-		Prompt:  "Select pre-career education",
-		Options: options,
-		Scores:  qualified,
-		Cite:    "Book 1 p. 60 chart C; p. 57 step C (education is optional)",
+		ID:         ChooseEducation,
+		Prompt:     "Select pre-career education",
+		Options:    options,
+		Scores:     qualified,
+		ScoreLabel: "qualifies",
+		Cite:       "Book 1 p. 60 chart C; p. 57 step C (education is optional)",
 	})
 	if err != nil {
 		return education.Program{}, false, false, err
