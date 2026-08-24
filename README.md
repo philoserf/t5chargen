@@ -27,7 +27,7 @@ What works today:
   publications and waivers, the Noble's exile and elevation, the Rogue's
   schemes, prison, and payoffs, continuation checks.
 - A deterministic engine: one seeded RNG stream, every choice through the
-  `Decider` interface, a fixed auto-mode policy ([POLICY.md](POLICY.md)), and
+  `Decider` interface, a fixed auto-mode policy ([POLICY.md](docs/POLICY.md)), and
   an event log recording every throw, choice, and consequence with page
   citations.
 - A JSON character record carrying full provenance (seed, RNG algorithm,
@@ -42,7 +42,7 @@ first event that disagrees. The record's shape is written down as
 [docs/character.schema.json](docs/character.schema.json).
 
 Not yet implemented: `render --format txt`, and the rules of milestone 6 —
-see [COVERAGE.md](COVERAGE.md) for what each of those is and why.
+see [COVERAGE.md](docs/COVERAGE.md) for what each of those is and why.
 
 An earlier draft of this section listed FR7's Land Grant and Ship Share
 values and FR8's birthdate as deferred against the spec, on the strength of
@@ -50,8 +50,8 @@ a rulebook sweep that missed the pages. Both are implemented now, and
 [docs/MILESTONE-4.md](docs/MILESTONE-4.md) records what the sweep got
 wrong.
 
-[COVERAGE.md](COVERAGE.md) maps every implemented rule to its page cite and
-lists the deferrals; [ERRATA.md](ERRATA.md) records deliberate
+[COVERAGE.md](docs/COVERAGE.md) maps every implemented rule to its page cite and
+lists the deferrals; [ERRATA.md](docs/ERRATA.md) records deliberate
 interpretations where the printed rules are ambiguous.
 
 ## Usage

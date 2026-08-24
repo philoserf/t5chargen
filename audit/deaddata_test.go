@@ -1,4 +1,4 @@
-package docs_test
+package audit_test
 
 // The gate on transcribed-but-unread chart data.
 //

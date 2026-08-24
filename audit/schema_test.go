@@ -1,4 +1,4 @@
-package docs_test
+package audit_test
 
 // A checker for the subset of JSON Schema draft 2020-12 that
 // character.schema.json uses, and nothing wider.

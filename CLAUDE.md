@@ -72,5 +72,17 @@ The rest are one embedded chart or vocabulary each, loaded through the same
 Generation, pp. 262-263), `career` (charts 01-13), `education` (chart C),
 `ehex` (the extended hex digits), `fame` (chart F), `lifestage` (chart A's
 stages), `medal`, `ship` (chart S), `skill` (chart MS) and `world`
-(chart B). `docs` is test-only: it holds the guards that keep COVERAGE.md,
-ERRATA.md and POLICY.md honest.
+(chart B). `interactive` is the line-based front end for interactive
+generation.
+
+`audit` is test-only and holds no rules: it is the guards that keep the
+documents honest — that every test COVERAGE.md cites exists, that every
+ERRATA.md interpretation is cited, that every choice point has a POLICY.md
+rule, that no chart field is transcribed and then read by nothing, and
+that character.schema.json describes what the engine actually writes.
+
+Three folders, three kinds of thing. `docs` holds documents and nothing
+else: the spec, the living COVERAGE/ERRATA/POLICY, the milestone histories
+and the JSON Schema with its two examples. `audit` holds the code that
+checks them. The root holds only what convention puts there — README,
+LICENSE, this file, and the build configuration.
