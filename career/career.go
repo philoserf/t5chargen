@@ -560,9 +560,10 @@ const (
 	undercoverB = 6
 )
 
-// maxUndercoverTitles is what the C column can reach. chargen rolls it with
-// a 1D, so a seventh title would be transcribed and unreachable.
-const maxUndercoverTitles = 6
+// maxUndercoverTitles is what the C column can reach: "finally top row C
+// (reroll if >3) if required" (chart 09 p. 83), and the column is printed
+// with three headings. A fourth title would be transcribed and unreachable.
+const maxUndercoverTitles = 3
 
 // UndercoverAt returns the assignment for die faces a and b.
 func (u *Undercover) UndercoverAt(a, b int) (UndercoverRow, bool) {

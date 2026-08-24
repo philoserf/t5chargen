@@ -76,10 +76,16 @@ func run(args []string, seedFn func() (uint64, error), stdout, stderr io.Writer)
 
 // isUsageError reports whether a generation failure is the caller's
 // fault rather than the engine's. The engine is the single validator for
-// careers, UWPs, and trade classifications.
+// careers, UWPs, trade classifications, and the current year.
+//
+// checkCurrentYear catches the years that are not years at all, but a year
+// the character has outlived is only knowable once the age is (birthdate.go
+// runs last), so that one comes back from the engine — and it is still the
+// caller's --current-year that is wrong.
 func isUsageError(err error) bool {
 	return errors.Is(err, chargen.ErrUnknownCareer) ||
 		errors.Is(err, chargen.ErrCareerUnavailable) ||
+		errors.Is(err, chargen.ErrCurrentYear) ||
 		errors.Is(err, world.ErrInvalidUWP) ||
 		errors.Is(err, world.ErrUnknownTC) ||
 		errors.Is(err, world.ErrDuplicateTC)

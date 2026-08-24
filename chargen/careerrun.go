@@ -90,11 +90,13 @@ type termOutcome struct {
 	// narrower than the meaning for historical reasons.
 	//
 	// It must be non-zero wherever it is read: a consequence naming
-	// sequence zero names no event (docs/PRD.md FR10), and closeTerm
-	// treats a zero here as an engine fault rather than emitting one.
-	// Every career but the Functionary sets it inside a Risk-failure
-	// branch; the Functionary sets it unconditionally, because its Risk
-	// governs the term whichever way it falls.
+	// sequence zero names no event (docs/PRD.md FR10). The died and
+	// endCareer paths get that for free — every mechanic that sets either
+	// sets this in the same Risk-failure branch — so only the Office
+	// Politics path guards it here, being the one that reads this on a
+	// term nothing went wrong in. The Functionary therefore sets it
+	// unconditionally, because its Risk governs the term whichever way it
+	// falls. TestEveryConsequenceNamesItsCause sweeps all three.
 	endCause int
 }
 

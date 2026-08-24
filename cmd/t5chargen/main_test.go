@@ -226,6 +226,12 @@ func TestErrors(t *testing.T) {
 		// career" (p. 87). Both exist, and neither can open a lifepath.
 		{"career unavailable at the start", []string{"new", "--auto", "--seed", "1", "--career", "Craftsman"}, exitUsage},
 		{"never a first career", []string{"new", "--auto", "--seed", "1", "--career", "Functionary"}, exitUsage},
+		// A year that is not one is caught by the flag check; a year the
+		// character has outlived is only knowable once the age is, so it
+		// comes back from the engine — both are the caller's fault.
+		{"current year zero", []string{"new", "--auto", "--seed", "1", "--current-year", "0"}, exitUsage},
+		{"current year negative", []string{"new", "--auto", "--seed", "1", "--current-year", "-5"}, exitUsage},
+		{"current year the character outlived", []string{"new", "--auto", "--seed", "1", "--current-year", "30"}, exitUsage},
 		{"partial UWP", []string{"new", "--auto", "--seed", "1", "--homeworld", "A78899"}, exitUsage},
 		{"unknown TC", []string{"new", "--auto", "--seed", "1", "--homeworld", "A788899-C Qq"}, exitUsage},
 		//nolint:dupword // the repeated TC is the case under test
