@@ -10,7 +10,7 @@
 // records is cited from it, that every choice point the engine presents
 // has a POLICY.md rule, and that every career the engine can run has a
 // section.
-package docs_test
+package audit_test
 
 import (
 	"fmt"
@@ -24,6 +24,17 @@ import (
 )
 
 // read returns a repository file relative to the module root.
+// Where the documents these gates hold to account live. They sit together
+// in one folder and the checks on them in another, so neither mixes prose
+// with the code that reads it.
+//
+// Two spellings because there are two ways in: read joins the repository
+// root itself, while the schema is opened directly.
+const (
+	docsDir  = "docs/"
+	docsPath = ".." + string(filepath.Separator) + docsDir
+)
+
 func read(t *testing.T, name string) string {
 	t.Helper()
 
@@ -69,7 +80,7 @@ func scan(t *testing.T, keep func(path string) bool, pattern *regexp.Regexp) []s
 // evidence exists. A renamed or deleted test would otherwise leave the
 // document claiming a rule is covered by nothing.
 func TestCoverageNamesRealTests(t *testing.T) {
-	named := regexp.MustCompile("`(Test[A-Za-z0-9_]+)`").FindAllStringSubmatch(read(t, "COVERAGE.md"), -1)
+	named := regexp.MustCompile("`(Test[A-Za-z0-9_]+)`").FindAllStringSubmatch(read(t, docsDir+"COVERAGE.md"), -1)
 	if len(named) == 0 {
 		t.Fatal("COVERAGE.md cites no tests")
 	}
@@ -96,12 +107,12 @@ func declaredTests(t *testing.T) []string {
 // referenced from COVERAGE.md, so a deliberate deviation cannot be
 // recorded and then lost track of.
 func TestEveryInterpretationIsCited(t *testing.T) {
-	entries := regexp.MustCompile(`(?m)^### (I-\d+):`).FindAllStringSubmatch(read(t, "ERRATA.md"), -1)
+	entries := regexp.MustCompile(`(?m)^### (I-\d+):`).FindAllStringSubmatch(read(t, docsDir+"ERRATA.md"), -1)
 	if len(entries) == 0 {
 		t.Fatal("ERRATA.md records no interpretations")
 	}
 
-	coverage := read(t, "COVERAGE.md")
+	coverage := read(t, docsDir+"COVERAGE.md")
 
 	for _, entry := range entries {
 		// Anchored, so I-4 is not satisfied by a mention of I-44.
@@ -122,7 +133,7 @@ func TestEveryChoicePointHasAPolicy(t *testing.T) {
 		t.Fatal("no choice points found")
 	}
 
-	policy := read(t, "POLICY.md")
+	policy := read(t, docsDir+"POLICY.md")
 
 	for _, id := range ids {
 		if !strings.Contains(policy, "`"+id+"`") {
@@ -155,7 +166,7 @@ func TestEveryCareerHasCoverage(t *testing.T) {
 		t.Fatal("no careers are registered")
 	}
 
-	coverage := read(t, "COVERAGE.md")
+	coverage := read(t, docsDir+"COVERAGE.md")
 
 	for _, career := range registered {
 		if !strings.Contains(coverage, "— "+career[1]+" (chart") {
@@ -167,7 +178,7 @@ func TestEveryCareerHasCoverage(t *testing.T) {
 // TestCareerSectionsAreInChartOrder keeps the document readable against
 // the book: its career sections run in Book 1 chart order.
 func TestCareerSectionsAreInChartOrder(t *testing.T) {
-	found := regexp.MustCompile(`(?m)^## Career (\d+) —`).FindAllStringSubmatch(read(t, "COVERAGE.md"), -1)
+	found := regexp.MustCompile(`(?m)^## Career (\d+) —`).FindAllStringSubmatch(read(t, docsDir+"COVERAGE.md"), -1)
 	if len(found) == 0 {
 		t.Fatal("COVERAGE.md has no career sections")
 	}
