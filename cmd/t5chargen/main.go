@@ -1,6 +1,6 @@
 // Command t5chargen generates Traveller5 characters. See docs/PRD.md.
 //
-// Implemented subcommands: new, render. Planned: batch, replay.
+// Implemented subcommands: new, render, replay. Planned: batch.
 package main
 
 import (
@@ -22,8 +22,9 @@ import (
 )
 
 // Exit codes: 0 success, 1 operational error, 2 usage error (the flag
-// package's own convention). Replay will later use non-zero for the first
-// event mismatch (docs/PRD.md, Replay and provenance contract).
+// package's own convention). A replay divergence is an operational error:
+// the command worked and the answer is no (docs/PRD.md, Replay and
+// provenance contract: "exits non-zero at the first mismatch").
 const (
 	exitOK    = 0
 	exitError = 1
@@ -34,6 +35,7 @@ const usage = `usage:
   t5chargen new --auto [--seed N] [--name X] [--career citizen] [--homeworld "UWP TC..."]
                 [--current-year 1105] [-o file] [--force]
   t5chargen render character.json [--format md] [--history]
+  t5chargen replay character.json
 `
 
 func main() {
@@ -67,6 +69,8 @@ func run(args []string, seedFn func() (uint64, error), stdout, stderr io.Writer)
 		return runNew(args[1:], seedFn, stdout, stderr)
 	case "render":
 		return runRender(args[1:], stdout, stderr)
+	case "replay":
+		return runReplay(args[1:], stdout, stderr)
 	default:
 		fmt.Fprintf(stderr, "t5chargen: unknown subcommand %q\n%s", args[0], usage)
 
@@ -323,6 +327,43 @@ func runRender(args []string, stdout, stderr io.Writer) int {
 	} else {
 		fmt.Fprint(stdout, render.Sheet(character))
 	}
+
+	return exitOK
+}
+
+// runReplay re-runs a record and verifies it reproduces itself:
+// "t5chargen replay character.json exits non-zero at the first mismatch,
+// reporting the diverging event's sequence number" (docs/PRD.md, Replay
+// and provenance contract).
+func runReplay(args []string, stdout, stderr io.Writer) int {
+	flags := flag.NewFlagSet("replay", flag.ContinueOnError)
+	flags.SetOutput(stderr)
+
+	if err := flags.Parse(args); err != nil {
+		return exitUsage
+	}
+
+	if flags.NArg() != 1 {
+		fmt.Fprintf(stderr, "t5chargen replay: want exactly one character.json argument\n%s", usage)
+
+		return exitUsage
+	}
+
+	character, err := readCharacter(flags.Arg(0))
+	if err != nil {
+		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
+
+		return exitError
+	}
+
+	if _, err := chargen.Replay(character); err != nil {
+		fmt.Fprintf(stderr, "t5chargen replay: %v\n", err)
+
+		return exitError
+	}
+
+	fmt.Fprintf(stdout, "replayed %s: %d events reproduced from seed %d\n",
+		flags.Arg(0), len(character.Events), character.RNG.Seed)
 
 	return exitOK
 }

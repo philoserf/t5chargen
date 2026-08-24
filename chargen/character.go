@@ -21,7 +21,7 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.27.0"
+	SchemaVersion = "0.28.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
@@ -82,6 +82,26 @@ type RNG struct {
 	Seed      uint64 `json:"seed"`
 }
 
+// Inputs records the generation inputs the rest of the record does not
+// already carry, so `t5chargen replay` can reconstruct a run from the file
+// alone (docs/PRD.md, Replay and provenance contract: replay "re-runs the
+// engine from the recorded seed and choice events"). The seed lives in RNG,
+// and the name and homeworld are stored as character state; these two would
+// otherwise be lost, and both change what the engine does.
+type Inputs struct {
+	// Career is the --career force ("--career forces the first career
+	// only", docs/PRD.md CLI sketch). It is not merely a preference: a
+	// force holds the first career's option list to one entry, so a
+	// replay that did not know about it would present a different list
+	// and read the recorded index against it.
+	Career string `json:"career,omitempty"`
+
+	// CurrentYear is the Imperial year generation ended in, which fixes
+	// the birth year (p. 58). Recoverable as birth year plus age, but
+	// that is reconstruction; the input is recorded as an input.
+	CurrentYear int `json:"current_year"`
+}
+
 // Character is the character record (docs/PRD.md FR8). The JSON record is
 // the source of truth; rendered sheets are derived from it. UPP is a stored
 // derived value (docs/PRD.md, JSON conventions): replay recomputes and
@@ -98,6 +118,9 @@ type Character struct {
 	// deliberately absent from the JSON: the PRD requires recording "any
 	// applied deviations", so absence means none were applied.
 	Errata []string `json:"errata,omitempty"`
+
+	// Inputs are the generation inputs replay reconstructs the run from.
+	Inputs Inputs `json:"inputs"`
 
 	Name            string          `json:"name,omitempty"` // blank by default (docs/PRD.md, Decisions)
 	Characteristics Characteristics `json:"characteristics"`
@@ -566,6 +589,7 @@ func Generate(opts Options) (Character, error) {
 		EngineVersion: EngineVersion,
 		PolicyVersion: policyVersion,
 		RNG:           RNG{Algorithm: RNGAlgorithm, Seed: opts.Seed},
+		Inputs:        Inputs{Career: opts.Career, CurrentYear: currentYearOrDefault(opts.CurrentYear)},
 		Name:          opts.Name,
 		Age:           StartAge,
 	}

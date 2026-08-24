@@ -49,7 +49,7 @@ sequences.
 | Many Dice procedures                         | p. 260           | —                                | —                                             | deferred (needs ≥11D; chargen never rolls it)                |
 | D/2 half-die                                 | p. 19            | —                                | —                                             | deferred ("rarely used")                                     |
 | eHex 0–33, I/O omitted                       | p. 22            | `ehex`                           | exhaustive round-trip                         | covered                                                      |
-| Seeded stream + replay contract              | docs/PRD.md      | `dice.New`                       | golden sequence pin                           | covered (replay verifier itself is M5)                       |
+| Seeded stream + replay contract              | docs/PRD.md      | `dice.New`                       | golden sequence pin                           | covered; `TestReplayRoundTrip` re-runs every fixture         |
 | Skill maximum 15                             | p. 134           | `Character.awardSkill`           | `checkSkills` sweep                           | covered (Knowledge-6 cap deferred, M3 MS list)               |
 | Characteristic maximum 15                    | p. 68            | `awardCharacteristicAndLog`      | `TestCharacteristicMaximum`                   | covered                                                      |
 | Event log: steps/throws/choices/consequences | docs/PRD.md FR10 | `chargen/event.go`               | seq/payload/isolation/JSON-shape tests        | covered                                                      |
@@ -558,7 +558,12 @@ birthdate rule and that FR8's only cite was the Archive the ground rules
 exclude. The second half was true — FR8 does cite the Archive — and the
 first half was false. See docs/MILESTONE-4.md.
 
-Batch, replay verification, interactive mode: deferred (M5).
+Replay verification is implemented: `chargen.Replay` re-runs a record from
+its own file and compares every event and the whole record back
+(`TestReplayRoundTrip`, `TestReplayDetectsTampering`,
+`TestReplayRejectsForeignProvenance`,
+`TestReplayForcedCareerNeedsTheInput`). Batch and interactive mode: deferred
+(M5).
 
 ## Cross-cutting interpretations
 

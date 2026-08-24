@@ -34,8 +34,10 @@ What works today:
   schema/engine/policy versions, ruleset), rendered as a Markdown character
   sheet or a generation-record transcript.
 
-Not yet implemented: interactive mode, batch generation, the replay
-verifier, and the formal JSON Schema — all milestone 5.
+Not yet implemented: interactive mode, batch generation, and the formal
+JSON Schema — all milestone 5. The replay verifier landed:
+`t5chargen replay character.json` re-runs a record from its own file and
+exits non-zero at the first event that disagrees.
 
 An earlier draft of this section listed FR7's Land Grant and Ship Share
 values and FR8's birthdate as deferred against the spec, on the strength of
@@ -53,6 +55,7 @@ interpretations where the printed rules are ambiguous.
 t5chargen new --auto --seed 42 -o char.json   # generate a character record
 t5chargen render char.json                    # Markdown character sheet
 t5chargen render char.json --history          # generation-record transcript
+t5chargen replay char.json                    # verify the record reproduces itself
 ```
 
 `new` requires `--auto` (interactive mode is planned). Optional flags:

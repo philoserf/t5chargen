@@ -1,0 +1,249 @@
+package chargen_test
+
+import (
+	"encoding/json"
+	"errors"
+	"os"
+	"path/filepath"
+	"strings"
+	"testing"
+
+	"github.com/philoserf/t5chargen/chargen"
+)
+
+// readFixture loads a golden record as the replay verifier's caller would.
+func readFixture(t *testing.T, path string) chargen.Character {
+	t.Helper()
+
+	data, err := os.ReadFile(path) //nolint:gosec // the path is a testdata fixture chosen by the test
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var stored chargen.Character
+	if err := json.Unmarshal(data, &stored); err != nil {
+		t.Fatal(err)
+	}
+
+	return stored
+}
+
+// TestReplayRoundTrip re-runs every golden record and requires it to
+// reproduce itself: "re-running the engine from the recorded seed and
+// choices reproduces the identical character" (docs/PRD.md goal 3).
+//
+// This sweeps the whole engine, not just the verifier. The fixtures cover
+// all thirteen careers, including the two no policy can reach, so a change
+// anywhere in the lifepath that makes a record unreproducible fails here
+// even when the fixture itself still matches — the two are different
+// claims. It also proves the record carries enough to rebuild its own
+// inputs: eleven of the fourteen were generated under a --career force,
+// which holds the first career's option list to one entry.
+func TestReplayRoundTrip(t *testing.T) {
+	files, err := filepath.Glob(filepath.Join("testdata", "*.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(files) == 0 {
+		t.Fatal("no fixtures found; the round-trip is asserting nothing")
+	}
+
+	for _, file := range files {
+		t.Run(strings.TrimSuffix(filepath.Base(file), ".json"), func(t *testing.T) {
+			if _, err := chargen.Replay(readFixture(t, file)); err != nil {
+				t.Errorf("replay: %v", err)
+			}
+		})
+	}
+}
+
+// TestReplayRejectsForeignProvenance verifies replay stops before rolling
+// anything when the record was not produced by this build. The point is
+// the diagnosis: a foreign record would otherwise diverge at some
+// arbitrary sequence number, and that number would describe nothing.
+func TestReplayRejectsForeignProvenance(t *testing.T) {
+	base := readFixture(t, filepath.Join("testdata", "seed1.json"))
+
+	for _, tc := range []struct {
+		name  string
+		alter func(*chargen.Character)
+	}{
+		{"schema_version", func(c *chargen.Character) { c.SchemaVersion = "0.1.0" }},
+		{"engine_version", func(c *chargen.Character) { c.EngineVersion = "0.1.0" }},
+		{"ruleset", func(c *chargen.Character) { c.Ruleset = "some other book" }},
+		{"rng.algorithm", func(c *chargen.Character) { c.RNG.Algorithm = "dice-by-hand" }},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			stored := base
+			tc.alter(&stored)
+
+			_, err := chargen.Replay(stored)
+			if !errors.Is(err, chargen.ErrReplayProvenance) {
+				t.Fatalf("replay of a foreign %s = %v, want ErrReplayProvenance", tc.name, err)
+			}
+
+			if !strings.Contains(err.Error(), tc.name) {
+				t.Errorf("error %q does not name the field that mismatched", err)
+			}
+		})
+	}
+}
+
+// TestReplayDetectsTampering verifies the verifier verifies. Each case
+// alters one thing about the record and requires a divergence naming the
+// sequence number of the event that disagreed.
+//
+// The options case is the one that justifies the whole design: a recorded
+// answer is an index, so the same number against a reordered option list
+// silently means a different option. POLICY.md's 0.10.0 entry records
+// exactly that hazard. Without the options check this record would replay
+// "clean" into a different character.
+// tamperingCase is one alteration to a record and the name it fails under.
+type tamperingCase struct {
+	name  string
+	alter func(*testing.T, *chargen.Character)
+}
+
+// tamperingCases enumerates the alterations replay must catch.
+func tamperingCases() []tamperingCase {
+	return []tamperingCase{
+		{"a reordered option list", func(t *testing.T, c *chargen.Character) {
+			t.Helper()
+
+			event := firstRealChoice(t, c.Events)
+			event.Options[0], event.Options[1] = event.Options[1], event.Options[0]
+		}},
+		{"a different answer", func(t *testing.T, c *chargen.Character) {
+			t.Helper()
+
+			firstRealChoice(t, c.Events).Chosen = 1
+		}},
+		{"a reworded prompt", func(t *testing.T, c *chargen.Character) {
+			t.Helper()
+
+			firstRealChoice(t, c.Events).Prompt += " (reworded)"
+		}},
+		{"a tampered throw", func(t *testing.T, c *chargen.Character) {
+			t.Helper()
+
+			for _, event := range c.Events {
+				if event.Kind == chargen.EventThrow {
+					event.Throw.Total++
+
+					return
+				}
+			}
+
+			t.Fatal("seed 1 recorded no throw")
+		}},
+		{"a dropped choice", func(t *testing.T, c *chargen.Character) {
+			t.Helper()
+
+			for i, event := range c.Events {
+				if event.Kind == chargen.EventChoice {
+					c.Events = append(c.Events[:i:i], c.Events[i+1:]...)
+
+					return
+				}
+			}
+
+			t.Fatal("seed 1 recorded no choice")
+		}},
+		// Out of range is not merely "diverged": without the range
+		// check it surfaces as errBadChoice, which blames the decider
+		// for answering wrongly when the record and engine disagree.
+		{"an answer past the options", func(t *testing.T, c *chargen.Character) {
+			t.Helper()
+
+			firstRealChoice(t, c.Events).Chosen = 99
+		}},
+		{"a changed seed", func(_ *testing.T, c *chargen.Character) { c.RNG.Seed = 2 }},
+		{"a changed current year", func(_ *testing.T, c *chargen.Character) { c.Inputs.CurrentYear = 1120 }},
+	}
+}
+
+func TestReplayDetectsTampering(t *testing.T) {
+	for _, tc := range tamperingCases() {
+		t.Run(tc.name, func(t *testing.T) {
+			// Re-read per case: the alterations reach into the event
+			// slice, so cases must not share one record.
+			stored := readFixture(t, filepath.Join("testdata", "seed1.json"))
+			tc.alter(t, &stored)
+
+			if _, err := chargen.Replay(stored); err == nil {
+				t.Fatalf("replay of a record with %s reported no divergence", tc.name)
+			} else if !errors.Is(err, chargen.ErrReplayDiverged) {
+				t.Fatalf("replay of a record with %s = %v, want ErrReplayDiverged", tc.name, err)
+			}
+		})
+	}
+}
+
+// TestReplayComparesDerivedValues isolates the whole-record comparison.
+// UPP, credits and the skill list are computed from the run rather than
+// carried by any event, so a record whose derived state was altered has an
+// event log that agrees completely — "Derived values are stored and
+// recomputed on replay" (docs/PRD.md, JSON conventions) is a claim only
+// this comparison can check.
+func TestReplayComparesDerivedValues(t *testing.T) {
+	for _, tc := range []struct {
+		name  string
+		alter func(*chargen.Character)
+	}{
+		{"upp", func(c *chargen.Character) { c.UPP = "AAAAAA" }},
+		{"credits", func(c *chargen.Character) { c.Credits += 1000 }},
+		{"a skill level", func(c *chargen.Character) { c.Skills[0].Level++ }},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			stored := readFixture(t, filepath.Join("testdata", "seed1.json"))
+			before := len(stored.Events)
+			tc.alter(&stored)
+
+			if len(stored.Events) != before {
+				t.Fatalf("the alteration touched the event log, so it does not isolate the record comparison")
+			}
+
+			if _, err := chargen.Replay(stored); !errors.Is(err, chargen.ErrReplayDiverged) {
+				t.Fatalf("replay of a record with an altered %s = %v, want ErrReplayDiverged", tc.name, err)
+			}
+		})
+	}
+}
+
+// firstRealChoice returns the record's first choice that had a genuine
+// alternative. The record's very first choice is the homeworld, which the
+// engine presents with exactly one option as a pure Decider seam — nothing
+// about it can be reordered or answered differently.
+func firstRealChoice(t *testing.T, events []chargen.Event) *chargen.ChoiceEvent {
+	t.Helper()
+
+	for _, event := range events {
+		if event.Kind == chargen.EventChoice && len(event.Choice.Options) > 1 {
+			return event.Choice
+		}
+	}
+
+	t.Fatal("record holds no choice with an alternative")
+
+	return nil
+}
+
+// TestReplayForcedCareerNeedsTheInput pins why the record carries its
+// career force. Blanking the input leaves the engine offering every
+// eligible career where the record holds a list of one, so the recorded
+// index reads against the wrong list — the failure the inputs block
+// exists to prevent.
+func TestReplayForcedCareerNeedsTheInput(t *testing.T) {
+	stored := readFixture(t, filepath.Join("testdata", "career_agent.json"))
+
+	if stored.Inputs.Career != "Agent" {
+		t.Fatalf("fixture's recorded career force = %q, want %q", stored.Inputs.Career, "Agent")
+	}
+
+	stored.Inputs.Career = ""
+
+	if _, err := chargen.Replay(stored); !errors.Is(err, chargen.ErrReplayDiverged) {
+		t.Fatalf("replay without the recorded force = %v, want ErrReplayDiverged", err)
+	}
+}

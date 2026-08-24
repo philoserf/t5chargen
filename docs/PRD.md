@@ -61,6 +61,20 @@ _Verified at implementation (2026-08-23):_ the birthdate cite was wrong, not mis
 - RNG: Go `math/rand/v2` PCG, named in the record. Changing algorithm or policy is a version bump, since either changes seeded output.
 - Replay re-runs the engine from the recorded seed and choice events, recomputing every throw; the stored event log is verification data, not input. `t5chargen replay character.json` exits non-zero at the first mismatch, reporting the diverging event's sequence number.
 
+_Verified at implementation (2026-08-23):_ the seed and the choice events are
+not sufficient. Two of the engine's inputs were recorded nowhere: the
+`--career` force and `--current-year`. The force matters because a recorded
+choice is an **index**, and forcing a career holds the first career's option
+list to a single entry — so a replay that did not know a record was forced
+would offer the full eligible list and read the recorded index against it.
+Eleven of the fourteen golden records are forced, so this was not an edge
+case. Records therefore carry an `inputs` block alongside the provenance
+fields; the name and homeworld are inputs too, but they were already stored
+as character state. `policy_version` is deliberately **not** verified on
+replay: recorded choices are reapplied and the policy is never consulted, so
+a record made under one POLICY.md version replays under any other — which is
+also what makes the two fixtures carrying `"none"` replayable at all.
+
 ## JSON conventions
 
 Characteristics stored numeric with the UPP hex string derived and stored alongside; money as integer credits; dates as Imperial calendar day/year with age in years. Skills and Knowledges are distinct entries. Derived values are stored and recomputed on replay. Full schema (with minimal and complete examples) lives in the tool repo, versioned by `schema_version`.
