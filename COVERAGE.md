@@ -392,10 +392,11 @@ Fame is calculated over the finished record, not accumulated: "Current Fame for 
 
 ## Cross-cutting — throw resolution
 
-| Rule                                                             | Cite                         | Implementation             | Test                        | Status                                                                             |
-| ---------------------------------------------------------------- | ---------------------------- | -------------------------- | --------------------------- | ---------------------------------------------------------------------------------- |
-| Checks fail on the highest possible roll (2D on 12)              | p. 134-135; chart 10         | `dice.Check`               | `TestCheckAutomaticFailure` | interpretation I-17 — applied at every chargen throw; guarantees careers terminate |
-| "One Art" / "One Trade" / "One Science" / "Starship Skill" cells | charts 04-06 table C; p. 132 | `careerRun.awardFromGroup` | Merchant golden             | covered (alternatives are the chart MS groups)                                     |
+| Rule                                                             | Cite                         | Implementation             | Test                                | Status                                                                                                                                       |
+| ---------------------------------------------------------------- | ---------------------------- | -------------------------- | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Checks fail on the highest possible roll (2D on 12)              | p. 134-135; chart 10         | `dice.Check`               | `TestCheckAutomaticFailure`         | interpretation I-17 — applied at every chargen throw; guarantees careers terminate                                                           |
+| A consequence names the throw or choice that caused it           | docs/PRD.md FR10             | `Log.Consequence`          | `TestEveryConsequenceNamesItsCause` | covered; three consequences follow from accumulated state and name the step instead — interpretation I-87. A cause of zero is always a fault |
+| "One Art" / "One Trade" / "One Science" / "Starship Skill" cells | charts 04-06 table C; p. 132 | `careerRun.awardFromGroup` | Merchant golden                     | covered (alternatives are the chart MS groups)                                                                                               |
 
 ## Career 13 — Functionary (chart 13, p. 87)
 

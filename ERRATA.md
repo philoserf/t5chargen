@@ -1997,3 +1997,37 @@ record carries, which is the only age there is.
 The step therefore runs outside the `if !c.Dead` that guards muster out,
 and every golden fixture carries a birthdate including the two whose
 characters died.
+
+### I-87: A consequence may name the step that established the state, where no throw or choice produced it (docs/PRD.md FR10)
+
+FR10 required that "consequence events reference the sequence number of the
+throw or choice that caused them". Three consequences cannot satisfy it,
+because at the moment they are emitted there is no throw:
+
+- `chargen/rogue.go` — a Rogue serving a sentence. The sentence was set by a
+  Risk failure in an **earlier term**; this term merely serves it.
+- `chargen/craftsman.go` — "If a Craftsman cannot show at least 40 Master
+  Points, he cannot attempt a Masterpiece (treat as Failure)" (chart 01
+  p. 75). No throw is made, and the shortfall is points accumulated across
+  every term served.
+- `chargen/careerrun.go` — chart 01's New Trade cell when every Trade is
+  already held (p. 75). The exhaustion is the sum of every prior award.
+
+Each follows from accumulated state rather than from dice. Read as: the
+cause may be the step that established the state, and FR10 is amended to say
+so rather than being left literally false while the engine did otherwise in
+sixteen records out of every sixty Rogues.
+
+The alternative was to thread the antecedent throw forward, and it was
+rejected on the merits rather than on cost. The antecedents are all in
+earlier terms, so a consequence would point backwards across a term
+boundary at a throw whose own consequences were settled long before — which
+tells a reader walking the log less than the step directly above it does,
+not more.
+
+What the amendment does not license is a dangling cause. A consequence
+naming sequence zero refers to no event at all, and
+`TestEveryConsequenceNamesItsCause` fails on one.
+
+Implemented at `chargen/rogue.go` (`prisonTerm`), `chargen/craftsman.go`
+(`attempt`) and `chargen/careerrun.go` (`awardNewTrade`).
