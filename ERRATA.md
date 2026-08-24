@@ -2345,3 +2345,39 @@ Implemented at `chargen/education.go` (`honorsWaiver`) and
 `chargen/policy.go` (`declineUnlessAtStake`), pinned by
 `TestHonorsWaiverBuysTheStatusOnly` and
 `TestPolicyDeclinesTheHonorsWaiver`.
+
+### I-97: Chart B's last cell names no world, so it carries no UWP (p. 56)
+
+Chart B's world list ends at 6 6 with "Space — Born In Deep Space — Ds".
+Every other cell gives a world name, a hex, a sector and a UWP; this one
+gives a phrase and a trade classification.
+
+Read literally: a character born in deep space has no homeworld UWP,
+because he has no homeworld. The record carries the name the chart prints,
+no UWP, and the Ds trade classification — which is the part that does the
+work, since chart B grants skills by trade classification and Ds awards
+"Vacc Suit +Zero-G".
+
+**This is not the partial UWP FR2 refuses**, and keeping the two apart took
+a second attempt. "Invalid or partial UWPs are rejected with an error,
+never silently repaired" (docs/PRD.md FR2) governs a homeworld somebody
+supplied. The first reading here was that trade classifications with no
+UWP identify deep space — which is precisely the shape an existing test
+already forbade, since a caller can build one directly even though no
+`--homeworld` string produces it. A relaxation that wide would have made
+FR2's guarantee conditional on nobody exercising it.
+
+So the cell says outright what it is: a homeworld carries a `deep_space`
+mark, set by the chart and by nothing else, and only a marked one may omit
+its UWP. A marked one carrying a UWP is an error too — the mark is a claim
+about the world, not a licence to skip validation.
+
+The transcription is validated against the same distinction: a cell that
+names a world must carry a UWP, and the cell that names none must not
+pretend to.
+
+Implemented at `world/homeworlds.go` (`ChartBWorld.validate`,
+`ChartBWorld.Homeworld`) and `world/world.go` (`Homeworld.Validate`),
+pinned by `TestDeepSpaceHasNoUWP`, `TestDeepSpaceBirthGrantsItsSkills` and
+the partial-homeworld case of `TestHomeworldErrors`, which is what caught
+the first reading.

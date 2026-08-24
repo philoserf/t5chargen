@@ -1,0 +1,365 @@
+{
+  "cite": "Traveller5 Core Rules Book 1, Print Edition 5.1, p. 56 chart B (Select a Homeworld (Spinward Marches))",
+  "note": "Indexed by two dice, D1 then D2, as the chart prints them. Regina fills three cells, so it is three times as likely as any other world; that is the chart, not a transcription slip. The last cell is Born In Deep Space and names no world, so it carries no UWP.",
+  "worlds": [
+    {
+      "d1": 1,
+      "d2": 1,
+      "code": "A",
+      "name": "Alell",
+      "hex": "1706",
+      "sector": "Spin",
+      "uwp": "B56789C-A",
+      "trade_classifications": ["Ph", "Pa", "Ri"]
+    },
+    {
+      "d1": 1,
+      "d2": 2,
+      "code": "B",
+      "name": "Boughene",
+      "hex": "1904",
+      "sector": "Spin",
+      "uwp": "A8B3531-D",
+      "trade_classifications": ["Fl", "Ni"]
+    },
+    {
+      "d1": 1,
+      "d2": 3,
+      "code": "C",
+      "name": "Capital",
+      "hex": "2118",
+      "sector": "Core",
+      "uwp": "A586A98-F",
+      "trade_classifications": ["Hi", "Cx"]
+    },
+    {
+      "d1": 1,
+      "d2": 4,
+      "code": "D",
+      "name": "Dorannia",
+      "hex": "0530",
+      "sector": "Spin",
+      "uwp": "E42158A-8",
+      "trade_classifications": ["He", "Ni", "Po"]
+    },
+    {
+      "d1": 1,
+      "d2": 5,
+      "code": "E",
+      "name": "Efate",
+      "hex": "1705",
+      "sector": "Spin",
+      "uwp": "A646930-D",
+      "trade_classifications": ["Hi", "In"]
+    },
+    {
+      "d1": 1,
+      "d2": 6,
+      "code": "F",
+      "name": "Feri",
+      "hex": "2005",
+      "sector": "Spin",
+      "uwp": "B584879-B",
+      "trade_classifications": ["Ph", "Pa", "Ri"]
+    },
+    {
+      "d1": 2,
+      "d2": 1,
+      "code": "G",
+      "name": "Magash",
+      "hex": "0316",
+      "sector": "Dene",
+      "uwp": "A400976-F",
+      "trade_classifications": ["Va", "Hi", "Na", "In", "Cp"]
+    },
+    {
+      "d1": 2,
+      "d2": 2,
+      "code": "H",
+      "name": "Hefry",
+      "hex": "1909",
+      "sector": "Spin",
+      "uwp": "C200423-7",
+      "trade_classifications": ["Va", "Ni"]
+    },
+    {
+      "d1": 2,
+      "d2": 3,
+      "code": "J",
+      "name": "Jenghe",
+      "hex": "1810",
+      "sector": "Spin",
+      "uwp": "C799663-9",
+      "trade_classifications": ["Ni"]
+    },
+    {
+      "d1": 2,
+      "d2": 4,
+      "code": "K",
+      "name": "Earth",
+      "hex": "1827",
+      "sector": "Solo",
+      "uwp": "A867A69-F",
+      "trade_classifications": ["Ga", "Hi"]
+    },
+    {
+      "d1": 2,
+      "d2": 5,
+      "code": "L",
+      "name": "Lakou",
+      "hex": "0638",
+      "sector": "Spin",
+      "uwp": "E779454-7",
+      "trade_classifications": ["Ni", "Da"]
+    },
+    {
+      "d1": 2,
+      "d2": 6,
+      "code": "M",
+      "name": "Macene Belt",
+      "hex": "2612",
+      "sector": "Spin",
+      "uwp": "B000453-E",
+      "trade_classifications": ["As", "Ni"]
+    },
+    {
+      "d1": 3,
+      "d2": 1,
+      "code": "N",
+      "name": "Knorbes",
+      "hex": "1807",
+      "sector": "Spin",
+      "uwp": "E888787-2",
+      "trade_classifications": ["Ag", "Ri", "An"]
+    },
+    {
+      "d1": 3,
+      "d2": 2,
+      "code": "P",
+      "name": "Preslin",
+      "hex": "0633",
+      "sector": "Dene",
+      "uwp": "B430679-C",
+      "trade_classifications": ["De", "Ni", "Na", "Po"]
+    },
+    {
+      "d1": 3,
+      "d2": 3,
+      "code": "Q",
+      "name": "Yori",
+      "hex": "2110",
+      "sector": "Spin",
+      "uwp": "C560757-A",
+      "trade_classifications": ["De", "Ri"]
+    },
+    {
+      "d1": 3,
+      "d2": 4,
+      "code": "R",
+      "name": "Regina",
+      "hex": "1910",
+      "sector": "Spin",
+      "uwp": "A788899-C",
+      "trade_classifications": ["Ph", "Pa", "Ri"]
+    },
+    {
+      "d1": 3,
+      "d2": 5,
+      "code": "R",
+      "name": "Regina",
+      "hex": "1910",
+      "sector": "Spin",
+      "uwp": "A788899-C",
+      "trade_classifications": ["Ph", "Pa", "Ri"]
+    },
+    {
+      "d1": 3,
+      "d2": 6,
+      "code": "R",
+      "name": "Regina",
+      "hex": "1910",
+      "sector": "Spin",
+      "uwp": "A788899-C",
+      "trade_classifications": ["Ph", "Pa", "Ri"]
+    },
+    {
+      "d1": 4,
+      "d2": 1,
+      "code": "S",
+      "name": "Ruie",
+      "hex": "1809",
+      "sector": "Spin",
+      "uwp": "C776977-7",
+      "trade_classifications": ["Hi", "In"]
+    },
+    {
+      "d1": 4,
+      "d2": 2,
+      "code": "T",
+      "name": "Tremous Dex",
+      "hex": "1311",
+      "sector": "Spin",
+      "uwp": "B511411-C",
+      "trade_classifications": ["Ic", "Ni"]
+    },
+    {
+      "d1": 4,
+      "d2": 3,
+      "code": "U",
+      "name": "Uakye",
+      "hex": "1805",
+      "sector": "Spin",
+      "uwp": "B439598-D",
+      "trade_classifications": ["Ni"]
+    },
+    {
+      "d1": 4,
+      "d2": 4,
+      "code": "V",
+      "name": "Vland",
+      "hex": "1717",
+      "sector": "Vlan",
+      "uwp": "A967A9A-F",
+      "trade_classifications": ["Hi", "Cs"]
+    },
+    {
+      "d1": 4,
+      "d2": 5,
+      "code": "W",
+      "name": "Wroclaw",
+      "hex": "0226",
+      "sector": "Dene",
+      "uwp": "C5667BF-7",
+      "trade_classifications": ["Ag", "Ri"]
+    },
+    {
+      "d1": 4,
+      "d2": 6,
+      "code": "X",
+      "name": "Menorb",
+      "hex": "1803",
+      "sector": "Spin",
+      "uwp": "C652998-7",
+      "trade_classifications": ["Hi", "Po"]
+    },
+    {
+      "d1": 5,
+      "d2": 1,
+      "code": "Y",
+      "name": "Yorbund",
+      "hex": "2303",
+      "sector": "Spin",
+      "uwp": "C7C6503-9",
+      "trade_classifications": ["Fl", "Ni"]
+    },
+    {
+      "d1": 5,
+      "d2": 2,
+      "code": "Z",
+      "name": "Traltha",
+      "hex": "2834",
+      "sector": "Spin",
+      "uwp": "B590630-6",
+      "trade_classifications": ["De", "He", "Ni", "An"]
+    },
+    {
+      "d1": 5,
+      "d2": 3,
+      "code": "1",
+      "name": "Dentus",
+      "hex": "2201",
+      "sector": "Spin",
+      "uwp": "C979500-A",
+      "trade_classifications": ["Ni"]
+    },
+    {
+      "d1": 5,
+      "d2": 4,
+      "code": "2",
+      "name": "Vanzeti",
+      "hex": "0218",
+      "sector": "Dene",
+      "uwp": "C52A531-C",
+      "trade_classifications": ["Wa", "Ni"]
+    },
+    {
+      "d1": 5,
+      "d2": 5,
+      "code": "3",
+      "name": "Syr Darya",
+      "hex": "1810",
+      "sector": "Dene",
+      "uwp": "E55769C-5",
+      "trade_classifications": ["Ni", "Ag"]
+    },
+    {
+      "d1": 5,
+      "d2": 6,
+      "code": "4",
+      "name": "Aramis",
+      "hex": "3110",
+      "sector": "Spin",
+      "uwp": "A5A0556-B",
+      "trade_classifications": ["He", "Ni", "Cp"]
+    },
+    {
+      "d1": 6,
+      "d2": 1,
+      "code": "5",
+      "name": "Rhylanor",
+      "hex": "2716",
+      "sector": "Spin",
+      "uwp": "A434934-F",
+      "trade_classifications": ["Hi", "Cp"]
+    },
+    {
+      "d1": 6,
+      "d2": 2,
+      "code": "6",
+      "name": "Raschev",
+      "hex": "3230",
+      "sector": "Fore",
+      "uwp": "C8697C4-6",
+      "trade_classifications": ["Ri"]
+    },
+    {
+      "d1": 6,
+      "d2": 3,
+      "code": "7",
+      "name": "Ara Pacis",
+      "hex": "0419",
+      "sector": "Dene",
+      "uwp": "A437678-B",
+      "trade_classifications": ["Ni"]
+    },
+    {
+      "d1": 6,
+      "d2": 4,
+      "code": "8",
+      "name": "Roup",
+      "hex": "2007",
+      "sector": "Spin",
+      "uwp": "C77A9A9-7",
+      "trade_classifications": ["Wa", "Hi", "In"]
+    },
+    {
+      "d1": 6,
+      "d2": 5,
+      "code": "9",
+      "name": "Pax Rulin",
+      "hex": "2204",
+      "sector": "Troj",
+      "uwp": "A402231-E",
+      "trade_classifications": ["Ic", "Va", "Lo", "Cp"]
+    },
+    {
+      "d1": 6,
+      "d2": 6,
+      "code": "0",
+      "name": "Space",
+      "note": "Born In Deep Space",
+      "deep_space": true,
+      "trade_classifications": ["Ds"]
+    }
+  ]
+}

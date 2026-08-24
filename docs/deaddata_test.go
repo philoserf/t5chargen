@@ -49,6 +49,8 @@ var unreadOnPurpose = map[string]string{
 	"Last":                "the last year chart A prints for a stage; Of derives it from First — I-48",
 	"TraditionalLifespan": "\"The traditional lifespan for humans is 74 years\"; flavor, and the page says so",
 	"QSP":                 "chart S's Quick Ship Profile; ship design is out of scope",
+	"Hex":                 "chart B's world location; it identifies the world on the page, and no rule reads it",
+	"Sector":              "chart B's world location; see Hex",
 	"Jump":                "chart S's J column; no rule in chargen reads a ship's performance",
 	"Maneuver":            "chart S's G column; as Jump",
 	"CostMCr":             "chart S prices the ship in megacredits; a share has no credit value — interpretation I-84",

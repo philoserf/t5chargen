@@ -21,7 +21,7 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.28.0"
+	SchemaVersion = "0.29.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
@@ -100,6 +100,13 @@ type Inputs struct {
 	// the birth year (p. 58). Recoverable as birth year plus age, but
 	// that is reconstruction; the input is recorded as an input.
 	CurrentYear int `json:"current_year"`
+
+	// RolledHomeworld records that the homeworld was determined on chart
+	// B rather than assigned (p. 56: "Select or determine a Homeworld").
+	// The resulting world is stored like any other, but the two dice that
+	// found it came out of the seeded stream, so a replay that did not
+	// know to roll them would diverge from the next throw onward.
+	RolledHomeworld bool `json:"rolled_homeworld,omitempty"`
 }
 
 // Character is the character record (docs/PRD.md FR8). The JSON record is
@@ -550,6 +557,11 @@ type Options struct {
 	// default, calendar.DefaultYear.
 	CurrentYear int
 
+	// RollHomeworld determines the homeworld on chart B's world list
+	// instead of taking the assigned one: "Homeworld. Select or determine
+	// a Homeworld" (p. 56). It overrides Homeworld when set.
+	RollHomeworld bool
+
 	// Decider resolves every choice point. Required: silently
 	// substituting the default policy would misrepresent who decided —
 	// auto callers pass DefaultPolicy{} explicitly.
@@ -589,9 +601,13 @@ func Generate(opts Options) (Character, error) {
 		EngineVersion: EngineVersion,
 		PolicyVersion: policyVersion,
 		RNG:           RNG{Algorithm: RNGAlgorithm, Seed: opts.Seed},
-		Inputs:        Inputs{Career: opts.Career, CurrentYear: currentYearOrDefault(opts.CurrentYear)},
-		Name:          opts.Name,
-		Age:           StartAge,
+		Inputs: Inputs{
+			Career:          opts.Career,
+			CurrentYear:     currentYearOrDefault(opts.CurrentYear),
+			RolledHomeworld: opts.RollHomeworld,
+		},
+		Name: opts.Name,
+		Age:  StartAge,
 	}
 
 	log.Step("Generate Characteristics", "Book 1 p. 72 chart E1 step A")
@@ -603,7 +619,7 @@ func Generate(opts Options) (Character, error) {
 		return Character{}, err
 	}
 
-	if err := runHomeworld(homeworld, &log, opts.Decider, &character); err != nil {
+	if err := runHomeworld(homeworld, opts.RollHomeworld, roller, &log, opts.Decider, &character); err != nil {
 		return Character{}, err
 	}
 

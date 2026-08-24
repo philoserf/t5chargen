@@ -53,12 +53,13 @@ func Replay(stored Character) (Character, error) {
 	}
 
 	replayed, err := Generate(Options{
-		Seed:        stored.RNG.Seed,
-		Name:        stored.Name,
-		Career:      stored.Inputs.Career,
-		Homeworld:   stored.Homeworld,
-		CurrentYear: stored.Inputs.CurrentYear,
-		Decider:     decider,
+		Seed:          stored.RNG.Seed,
+		Name:          stored.Name,
+		Career:        stored.Inputs.Career,
+		Homeworld:     stored.Homeworld,
+		CurrentYear:   stored.Inputs.CurrentYear,
+		RollHomeworld: stored.Inputs.RolledHomeworld,
+		Decider:       decider,
 	})
 	if err != nil {
 		return Character{}, fmt.Errorf("re-running the record: %w", err)

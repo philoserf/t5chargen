@@ -110,8 +110,9 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 	name := flags.String("name", "", "character name (blank by default)")
 	careerFlag := flags.String("career", "", "force the first career")
 	homeworldFlag := flags.String("homeworld", "",
-		`homeworld as "UWP" or "UWP TC TC..." (for example "A788899-C Ph Pa Ri"); `+
-			`skills come from the trade classifications, so a bare UWP grants none (default: Regina)`)
+		`homeworld as "UWP" or "UWP TC TC..." (for example "A788899-C Ph Pa Ri"), `+
+			`or "random" to determine it on chart B; skills come from the trade classifications, `+
+			`so a bare UWP grants none (default: Regina)`)
 	currentYear := flags.Int("current-year", calendar.DefaultYear,
 		"Imperial year adventuring begins in, which fixes the birth year (Book 1 p. 58)")
 	auto := flags.Bool("auto", false, "apply the fixed default policy (POLICY.md) to every choice")
@@ -147,14 +148,7 @@ func runNew(args []string, seedFn func() (uint64, error), stdout, stderr io.Writ
 		return exitError
 	}
 
-	character, err := chargen.Generate(chargen.Options{
-		Seed:        *seed,
-		Name:        *name,
-		Career:      canonicalCareer(*careerFlag),
-		Homeworld:   parseHomeworldFlag(*homeworldFlag),
-		CurrentYear: *currentYear,
-		Decider:     chargen.DefaultPolicy{},
-	})
+	character, err := chargen.Generate(generateOptions(*seed, *name, *careerFlag, *homeworldFlag, *currentYear))
 	if err != nil {
 		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
 
@@ -205,11 +199,12 @@ func runBatch(args []string, seedFn func() (uint64, error), stdout, stderr io.Wr
 	}
 
 	characters, err := generateBatch(*count, *seed, chargen.Options{
-		Name:        *name,
-		Career:      canonicalCareer(*careerFlag),
-		Homeworld:   parseHomeworldFlag(*homeworldFlag),
-		CurrentYear: *currentYear,
-		Decider:     chargen.DefaultPolicy{},
+		Name:          *name,
+		Career:        canonicalCareer(*careerFlag),
+		Homeworld:     parseHomeworldFlag(*homeworldFlag),
+		RollHomeworld: isRandomHomeworld(*homeworldFlag),
+		CurrentYear:   *currentYear,
+		Decider:       chargen.DefaultPolicy{},
 	})
 	if err != nil {
 		fmt.Fprintf(stderr, "t5chargen batch: %v\n", err)
@@ -407,6 +402,20 @@ func batchPath(dir string, character chargen.Character) string {
 	return filepath.Join(dir, fmt.Sprintf("character-%d.json", character.RNG.Seed))
 }
 
+// generateOptions assembles the engine options the flags describe, shared
+// by new and batch so the two cannot drift apart in how they read them.
+func generateOptions(seed uint64, name, careerFlag, homeworldFlag string, currentYear int) chargen.Options {
+	return chargen.Options{
+		Seed:          seed,
+		Name:          name,
+		Career:        canonicalCareer(careerFlag),
+		Homeworld:     parseHomeworldFlag(homeworldFlag),
+		RollHomeworld: isRandomHomeworld(homeworldFlag),
+		CurrentYear:   currentYear,
+		Decider:       chargen.DefaultPolicy{},
+	}
+}
+
 // emitRecord marshals the record and writes it to stdout or the output
 // file.
 func emitRecord(character chargen.Character, out string, force bool, stdout, stderr io.Writer) int {
@@ -477,10 +486,24 @@ func checkCurrentYear(cmd string, year int, stderr io.Writer) int {
 	return exitUsage
 }
 
+// randomHomeworld is the --homeworld value that determines the world on
+// chart B rather than naming one: "Select or determine a Homeworld"
+// (p. 56).
+const randomHomeworld = "random"
+
+// isRandomHomeworld reports whether the flag asks for a chart B roll.
+func isRandomHomeworld(flag string) bool {
+	return strings.EqualFold(strings.TrimSpace(flag), randomHomeworld)
+}
+
 // parseHomeworldFlag splits a --homeworld value into a Homeworld: the
 // first field is the UWP, the rest are trade classifications. Validation
 // is the engine's; an empty flag leaves the zero value for the default.
 func parseHomeworldFlag(value string) world.Homeworld {
+	if isRandomHomeworld(value) {
+		return world.Homeworld{} // determined on chart B, not supplied
+	}
+
 	fields := strings.Fields(value)
 	if len(fields) == 0 {
 		return world.Homeworld{}

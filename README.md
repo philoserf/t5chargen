@@ -53,6 +53,7 @@ interpretations where the printed rules are ambiguous.
 
 ```sh
 t5chargen new --auto --seed 42 -o char.json   # generate a character record
+t5chargen new --auto --homeworld random       # determine the homeworld on chart B
 t5chargen render char.json                    # Markdown character sheet
 t5chargen render --history char.json          # generation-record transcript
 t5chargen replay char.json                    # verify the record reproduces itself

@@ -101,6 +101,12 @@ func replayShape(t *testing.T, data []byte) string {
 		t.Fatal(err)
 	}
 
+	// The three provenance versions are all excluded. engine_version is
+	// what this check is about; policy_version is not verified on replay
+	// at all; and schema_version is itself a gate checkProvenance
+	// compares, so a schema bump on its own already rejects an old record
+	// and needs no engine bump behind it.
+	delete(record, "schema_version")
 	delete(record, "engine_version")
 	delete(record, "policy_version")
 
