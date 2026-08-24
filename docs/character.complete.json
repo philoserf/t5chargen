@@ -1,0 +1,4365 @@
+{
+  "schema_version": "0.29.0",
+  "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
+  "engine_version": "0.30.0",
+  "policy_version": "0.18.0",
+  "rng": {
+    "algorithm": "math/rand/v2-pcg",
+    "seed": 26
+  },
+  "inputs": {
+    "career": "Scout",
+    "current_year": 1105
+  },
+  "characteristics": {
+    "str": 4,
+    "dex": 2,
+    "end": 5,
+    "int": 10,
+    "edu": 10,
+    "soc": 5
+  },
+  "upp": "425AA5",
+  "homeworld": {
+    "name": "Regina",
+    "uwp": "A788899-C",
+    "trade_classifications": ["Ph", "Pa", "Ri"]
+  },
+  "age": 46,
+  "education": [
+    {
+      "program": "University",
+      "major": "Athlete",
+      "minor": "Broker",
+      "passes": 4,
+      "graduated": true,
+      "honors": true,
+      "degree": "Honors BA"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Actor",
+      "level": 1
+    },
+    {
+      "name": "Animals",
+      "level": 7
+    },
+    {
+      "name": "Athlete",
+      "level": 5
+    },
+    {
+      "name": "Broker",
+      "level": 2
+    },
+    {
+      "name": "Hostile Environ",
+      "level": 7
+    },
+    {
+      "name": "Navigator",
+      "level": 9
+    },
+    {
+      "name": "Survey",
+      "level": 7
+    },
+    {
+      "name": "Survival",
+      "level": 7
+    },
+    {
+      "name": "Trader",
+      "level": 1
+    },
+    {
+      "name": "Vacc Suit",
+      "level": 11
+    }
+  ],
+  "careers": [
+    {
+      "career": "Scout",
+      "began": true,
+      "discoveries": 6,
+      "end_age": 46,
+      "sanity_mod": -3,
+      "wound_badges": 2,
+      "land_grants": 6,
+      "terms": [
+        {
+          "term": 1,
+          "controlling_characteristic": "Str",
+          "success": true,
+          "continued": true
+        },
+        {
+          "term": 2,
+          "controlling_characteristic": "End",
+          "success": true,
+          "continued": true
+        },
+        {
+          "term": 3,
+          "controlling_characteristic": "Dex",
+          "success": true,
+          "continued": true
+        },
+        {
+          "term": 4,
+          "controlling_characteristic": "End",
+          "success": true,
+          "continued": true
+        },
+        {
+          "term": 5,
+          "controlling_characteristic": "Str",
+          "success": true,
+          "continued": true
+        },
+        {
+          "term": 6,
+          "controlling_characteristic": "Dex",
+          "success": true,
+          "continued": false
+        }
+      ]
+    }
+  ],
+  "birthdate": "Forday 012-1059",
+  "life_stage": 6,
+  "credits": 450000,
+  "benefits": [
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scout",
+      "credits": 50000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scout",
+      "credits": 80000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scout",
+      "credits": 60000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scout",
+      "credits": 60000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scout",
+      "credits": 50000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scout",
+      "credits": 80000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scout",
+      "credits": 70000
+    }
+  ],
+  "automatics": ["Fame", "TAS Life Membership", "Land Grants"],
+  "land_grant_income": 30000,
+  "fame": 20,
+  "wound_badges": 2,
+  "events": [
+    {
+      "seq": 1,
+      "kind": "step",
+      "step": {
+        "name": "Generate Characteristics",
+        "cite": "Book 1 p. 72 chart E1 step A"
+      }
+    },
+    {
+      "seq": 2,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [2, 6],
+        "total": 8,
+        "cite": "Book 1 p. 56 chart A"
+      }
+    },
+    {
+      "seq": 3,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 2,
+        "kind": "characteristic_set",
+        "characteristic": "Str",
+        "value": 8
+      }
+    },
+    {
+      "seq": 4,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [2, 3],
+        "total": 5,
+        "cite": "Book 1 p. 56 chart A"
+      }
+    },
+    {
+      "seq": 5,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 4,
+        "kind": "characteristic_set",
+        "characteristic": "Dex",
+        "value": 5
+      }
+    },
+    {
+      "seq": 6,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [5, 2],
+        "total": 7,
+        "cite": "Book 1 p. 56 chart A"
+      }
+    },
+    {
+      "seq": 7,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 6,
+        "kind": "characteristic_set",
+        "characteristic": "End",
+        "value": 7
+      }
+    },
+    {
+      "seq": 8,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [6, 4],
+        "total": 10,
+        "cite": "Book 1 p. 56 chart A"
+      }
+    },
+    {
+      "seq": 9,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 8,
+        "kind": "characteristic_set",
+        "characteristic": "Int",
+        "value": 10
+      }
+    },
+    {
+      "seq": 10,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [5, 4],
+        "total": 9,
+        "cite": "Book 1 p. 56 chart A"
+      }
+    },
+    {
+      "seq": 11,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 10,
+        "kind": "characteristic_set",
+        "characteristic": "Edu",
+        "value": 9
+      }
+    },
+    {
+      "seq": 12,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [2, 3],
+        "total": 5,
+        "cite": "Book 1 p. 56 chart A"
+      }
+    },
+    {
+      "seq": 13,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 12,
+        "kind": "characteristic_set",
+        "characteristic": "Soc",
+        "value": 5
+      }
+    },
+    {
+      "seq": 14,
+      "kind": "step",
+      "step": {
+        "name": "Determine A Homeworld",
+        "cite": "Book 1 p. 72 chart E1 step B"
+      }
+    },
+    {
+      "seq": 15,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a homeworld",
+        "options": ["Regina A788899-C (Ph Pa Ri)"],
+        "chosen": 0,
+        "cite": "Book 1 p. 58 (as assigned, selected, or random); chart B p. 56"
+      }
+    },
+    {
+      "seq": 16,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 15,
+        "kind": "skill_awarded",
+        "skill": "Trader",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 17,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Choose one Art (TC Ri)",
+        "options": ["Actor", "Artist", "Author", "Chef", "Dancer", "Musician"],
+        "chosen": 0,
+        "cite": "Book 1 p. 56 chart B (Rich)"
+      }
+    },
+    {
+      "seq": 18,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 17,
+        "kind": "skill_awarded",
+        "skill": "Actor",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 19,
+      "kind": "step",
+      "step": {
+        "name": "Education and Training",
+        "cite": "Book 1 p. 72 chart E1 step C"
+      }
+    },
+    {
+      "seq": 20,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select pre-career education",
+        "options": [
+          "ED5",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy",
+          "None"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 60 chart C; p. 57 step C (education is optional)"
+      }
+    },
+    {
+      "seq": 21,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the characteristic to check",
+        "options": ["Int", "Edu"],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
+      }
+    },
+    {
+      "seq": 22,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [5, 5],
+        "total": 10,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (University To Apply Check Int)"
+      }
+    },
+    {
+      "seq": 23,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Major",
+        "options": [
+          "Athlete",
+          "Broker",
+          "Bureaucrat",
+          "Counsellor",
+          "Designer",
+          "Language",
+          "Teacher",
+          "Astrogator",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "Automotive",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology",
+          "Aeronautics",
+          "Aquanautics"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Major and Minor); chart C p. 60 Available Skills"
+      }
+    },
+    {
+      "seq": 24,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Minor",
+        "options": [
+          "Broker",
+          "Bureaucrat",
+          "Counsellor",
+          "Designer",
+          "Language",
+          "Teacher",
+          "Astrogator",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "Automotive",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology",
+          "Aeronautics",
+          "Aquanautics"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Major and Minor; they cannot be the same)"
+      }
+    },
+    {
+      "seq": 25,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the characteristic to check",
+        "options": ["Int", "Edu"],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
+      }
+    },
+    {
+      "seq": 26,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [5, 1],
+        "total": 6,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (University Pass/Fail Check Int)"
+      }
+    },
+    {
+      "seq": 27,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 26,
+        "kind": "years_elapsed",
+        "value": 1
+      }
+    },
+    {
+      "seq": 28,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 26,
+        "kind": "skill_awarded",
+        "skill": "Athlete",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 29,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [5, 1],
+        "total": 6,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (University Pass/Fail Check Int)"
+      }
+    },
+    {
+      "seq": 30,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 29,
+        "kind": "years_elapsed",
+        "value": 1
+      }
+    },
+    {
+      "seq": 31,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 29,
+        "kind": "skill_awarded",
+        "skill": "Athlete",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 32,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 29,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 33,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [1, 4],
+        "total": 5,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (University Pass/Fail Check Int)"
+      }
+    },
+    {
+      "seq": 34,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 33,
+        "kind": "years_elapsed",
+        "value": 1
+      }
+    },
+    {
+      "seq": 35,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 33,
+        "kind": "skill_awarded",
+        "skill": "Athlete",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 36,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [4, 2],
+        "total": 6,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (University Pass/Fail Check Int)"
+      }
+    },
+    {
+      "seq": 37,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 36,
+        "kind": "years_elapsed",
+        "value": 1
+      }
+    },
+    {
+      "seq": 38,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 36,
+        "kind": "skill_awarded",
+        "skill": "Athlete",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 39,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 36,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 40,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Attempt the optional Honors roll?",
+        "options": ["Attempt Honors", "Decline"],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Honors); chart C p. 60 (Honors row)"
+      }
+    },
+    {
+      "seq": 41,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the characteristic to check",
+        "options": ["Int", "Edu"],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
+      }
+    },
+    {
+      "seq": 42,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [1, 5],
+        "total": 6,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (Honors: Int or Edu, simul)"
+      }
+    },
+    {
+      "seq": 43,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 42,
+        "kind": "skill_awarded",
+        "skill": "Athlete",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 44,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 42,
+        "kind": "characteristic_change",
+        "characteristic": "Edu",
+        "delta": 1,
+        "value": 10
+      }
+    },
+    {
+      "seq": 45,
+      "kind": "step",
+      "step": {
+        "name": "Select Career",
+        "cite": "Book 1 p. 72 chart E1 step D"
+      }
+    },
+    {
+      "seq": 46,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select career",
+        "options": ["Scout"],
+        "chosen": 0,
+        "cite": "Book 1 p. 72 chart E1 step D"
+      }
+    },
+    {
+      "seq": 47,
+      "kind": "step",
+      "step": {
+        "name": "Scout: To Begin",
+        "cite": "Book 1 p. 79 chart 05 (To Begin C1 or C2 or C3)"
+      }
+    },
+    {
+      "seq": 48,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the characteristic to check",
+        "options": ["Str", "Dex", "End"],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
+      }
+    },
+    {
+      "seq": 49,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [2, 3],
+        "total": 5,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 79 chart 05 (To Begin vs Str)"
+      }
+    },
+    {
+      "seq": 50,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Scout",
+          "ED5",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 51,
+      "kind": "step",
+      "step": {
+        "name": "Scout: Term 1",
+        "cite": "Book 1 p. 79 chart 05"
+      }
+    },
+    {
+      "seq": 52,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": ["Str", "Dex", "End"],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 53,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's duty",
+        "options": ["Courier Duty", "Explorer Duty"],
+        "chosen": 1,
+        "cite": "Book 1 p. 79 (Courier Duty avoids Risk and Reward; chart 05 table B)"
+      }
+    },
+    {
+      "seq": 54,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); chart 05 p. 79"
+      }
+    },
+    {
+      "seq": 55,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [4, 5],
+        "total": 9,
+        "target": 8,
+        "success": false,
+        "cite": "Book 1 p. 79 chart 05 (Risk vs Str+Mods)"
+      }
+    },
+    {
+      "seq": 56,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [2, 4],
+        "total": -2,
+        "cite": "Book 1 p. 79 chart 05 (Risk Failure: reduce CC by negative Mods and Flux)"
+      }
+    },
+    {
+      "seq": 57,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 55,
+        "kind": "characteristic_change",
+        "characteristic": "Str",
+        "delta": -2,
+        "value": 6
+      }
+    },
+    {
+      "seq": 58,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 55,
+        "kind": "wound_badge",
+        "value": 1
+      }
+    },
+    {
+      "seq": 59,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [2, 3],
+        "total": 5,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 79 chart 05 (Reward vs Str+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 60,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 59,
+        "kind": "discovery",
+        "value": 1
+      }
+    },
+    {
+      "seq": 61,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 59,
+        "kind": "land_grant",
+        "career": "Scout",
+        "value": 1
+      }
+    },
+    {
+      "seq": 62,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 63,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [5],
+        "total": 5,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 64,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 63,
+        "kind": "skill_awarded",
+        "skill": "Vacc Suit",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 65,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 66,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [4],
+        "total": 4,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 67,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 66,
+        "kind": "skill_awarded",
+        "skill": "Animals",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 68,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 69,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [5],
+        "total": 5,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 70,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 69,
+        "kind": "skill_awarded",
+        "skill": "Vacc Suit",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 71,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 72,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [2],
+        "total": 2,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 73,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 72,
+        "kind": "skill_awarded",
+        "skill": "Survival",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 74,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 75,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [4],
+        "total": 4,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 76,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 75,
+        "kind": "skill_awarded",
+        "skill": "Animals",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 77,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 78,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [6],
+        "total": 6,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 79,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 78,
+        "kind": "skill_awarded",
+        "skill": "Navigator",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 80,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 81,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [4],
+        "total": 4,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 82,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 81,
+        "kind": "skill_awarded",
+        "skill": "Animals",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 83,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 84,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [3],
+        "total": 3,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 85,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 84,
+        "kind": "skill_awarded",
+        "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 86,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Scout for another career?",
+        "options": ["Continue in Scout", "Change careers"],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 87,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [1, 5],
+        "total": 6,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 79 chart 05 (Continue Int; p. 66)"
+      }
+    },
+    {
+      "seq": 88,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 87,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 89,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Scout",
+          "ED5",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 90,
+      "kind": "step",
+      "step": {
+        "name": "Scout: Term 2",
+        "cite": "Book 1 p. 79 chart 05"
+      }
+    },
+    {
+      "seq": 91,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": ["Dex", "End"],
+        "chosen": 1,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 92,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's duty",
+        "options": ["Courier Duty", "Explorer Duty"],
+        "chosen": 1,
+        "cite": "Book 1 p. 79 (Courier Duty avoids Risk and Reward; chart 05 table B)"
+      }
+    },
+    {
+      "seq": 93,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); chart 05 p. 79"
+      }
+    },
+    {
+      "seq": 94,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [1, 1],
+        "total": 2,
+        "target": 7,
+        "success": true,
+        "cite": "Book 1 p. 79 chart 05 (Risk vs End+Mods)"
+      }
+    },
+    {
+      "seq": 95,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [2, 3],
+        "total": 5,
+        "target": 7,
+        "success": true,
+        "cite": "Book 1 p. 79 chart 05 (Reward vs End+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 96,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 95,
+        "kind": "discovery",
+        "value": 2
+      }
+    },
+    {
+      "seq": 97,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 95,
+        "kind": "land_grant",
+        "career": "Scout",
+        "value": 2
+      }
+    },
+    {
+      "seq": 98,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 99,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [3],
+        "total": 3,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 100,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 99,
+        "kind": "skill_awarded",
+        "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 101,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 102,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [1],
+        "total": 1,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 103,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 102,
+        "kind": "skill_awarded",
+        "skill": "Survey",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 104,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 105,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [5],
+        "total": 5,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 106,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 105,
+        "kind": "skill_awarded",
+        "skill": "Vacc Suit",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 107,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 108,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [5],
+        "total": 5,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 109,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 108,
+        "kind": "skill_awarded",
+        "skill": "Vacc Suit",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 110,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 111,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [3],
+        "total": 3,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 112,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 111,
+        "kind": "skill_awarded",
+        "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 113,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 114,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [5],
+        "total": 5,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 115,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 114,
+        "kind": "skill_awarded",
+        "skill": "Vacc Suit",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 116,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 117,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [3],
+        "total": 3,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 118,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 117,
+        "kind": "skill_awarded",
+        "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 119,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 120,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [3],
+        "total": 3,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 121,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 120,
+        "kind": "skill_awarded",
+        "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 122,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Scout for another career?",
+        "options": ["Continue in Scout", "Change careers"],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 123,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [2, 1],
+        "total": 3,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 79 chart 05 (Continue Int; p. 66)"
+      }
+    },
+    {
+      "seq": 124,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 123,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 125,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Scout",
+          "ED5",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 126,
+      "kind": "step",
+      "step": {
+        "name": "Scout: Term 3",
+        "cite": "Book 1 p. 79 chart 05"
+      }
+    },
+    {
+      "seq": 127,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": ["Dex"],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 128,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's duty",
+        "options": ["Courier Duty", "Explorer Duty"],
+        "chosen": 1,
+        "cite": "Book 1 p. 79 (Courier Duty avoids Risk and Reward; chart 05 table B)"
+      }
+    },
+    {
+      "seq": 129,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); chart 05 p. 79"
+      }
+    },
+    {
+      "seq": 130,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [2, 5],
+        "total": 7,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 79 chart 05 (Risk vs Dex+Mods)"
+      }
+    },
+    {
+      "seq": 131,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [3, 5],
+        "total": -2,
+        "cite": "Book 1 p. 79 chart 05 (Risk Failure: reduce CC by negative Mods and Flux)"
+      }
+    },
+    {
+      "seq": 132,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 130,
+        "kind": "characteristic_change",
+        "characteristic": "Dex",
+        "delta": -2,
+        "value": 3
+      }
+    },
+    {
+      "seq": 133,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 130,
+        "kind": "wound_badge",
+        "value": 2
+      }
+    },
+    {
+      "seq": 134,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [2, 2],
+        "total": 4,
+        "target": 5,
+        "success": true,
+        "cite": "Book 1 p. 79 chart 05 (Reward vs Dex+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 135,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 134,
+        "kind": "discovery",
+        "value": 3
+      }
+    },
+    {
+      "seq": 136,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 134,
+        "kind": "land_grant",
+        "career": "Scout",
+        "value": 3
+      }
+    },
+    {
+      "seq": 137,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 138,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [6],
+        "total": 6,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 139,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 138,
+        "kind": "skill_awarded",
+        "skill": "Navigator",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 140,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 141,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [4],
+        "total": 4,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 142,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 141,
+        "kind": "skill_awarded",
+        "skill": "Animals",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 143,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 144,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [4],
+        "total": 4,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 145,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 144,
+        "kind": "skill_awarded",
+        "skill": "Animals",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 146,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 147,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [5],
+        "total": 5,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 148,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 147,
+        "kind": "skill_awarded",
+        "skill": "Vacc Suit",
+        "delta": 1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 149,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 150,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [2],
+        "total": 2,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 151,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 150,
+        "kind": "skill_awarded",
+        "skill": "Survival",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 152,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 153,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [2],
+        "total": 2,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 154,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 153,
+        "kind": "skill_awarded",
+        "skill": "Survival",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 155,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 156,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [1],
+        "total": 1,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 157,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 156,
+        "kind": "skill_awarded",
+        "skill": "Survey",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 158,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 159,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [5],
+        "total": 5,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 160,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 159,
+        "kind": "skill_awarded",
+        "skill": "Vacc Suit",
+        "delta": 1,
+        "value": 7
+      }
+    },
+    {
+      "seq": 161,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Scout for another career?",
+        "options": ["Continue in Scout", "Change careers"],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 162,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [4, 3],
+        "total": 7,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 79 chart 05 (Continue Int; p. 66)"
+      }
+    },
+    {
+      "seq": 163,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 162,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 164,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [1, 3],
+        "total": 4,
+        "target": 5,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
+      }
+    },
+    {
+      "seq": 165,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 164,
+        "kind": "aging_effect",
+        "characteristic": "Str",
+        "delta": -1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 166,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [5, 5],
+        "total": 10,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
+      }
+    },
+    {
+      "seq": 167,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [3, 6],
+        "total": 9,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
+      }
+    },
+    {
+      "seq": 168,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Scout",
+          "ED5",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 169,
+      "kind": "step",
+      "step": {
+        "name": "Scout: Term 4",
+        "cite": "Book 1 p. 79 chart 05"
+      }
+    },
+    {
+      "seq": 170,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": ["Str", "Dex", "End"],
+        "chosen": 2,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 171,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's duty",
+        "options": ["Courier Duty", "Explorer Duty"],
+        "chosen": 1,
+        "cite": "Book 1 p. 79 (Courier Duty avoids Risk and Reward; chart 05 table B)"
+      }
+    },
+    {
+      "seq": 172,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); chart 05 p. 79"
+      }
+    },
+    {
+      "seq": 173,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [6, 5],
+        "total": 11,
+        "target": 7,
+        "success": false,
+        "cite": "Book 1 p. 79 chart 05 (Risk vs End+Mods)"
+      }
+    },
+    {
+      "seq": 174,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [5, 3],
+        "total": 2,
+        "cite": "Book 1 p. 79 chart 05 (Risk Failure: reduce CC by negative Mods and Flux)"
+      }
+    },
+    {
+      "seq": 175,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [5, 3],
+        "total": 8,
+        "target": 7,
+        "success": false,
+        "cite": "Book 1 p. 79 chart 05 (Reward vs End+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 176,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Retry the Reward against Edu?",
+        "options": ["Retry", "Accept the failure"],
+        "chosen": 0,
+        "cite": "Book 1 p. 79 chart 05 (Retry R\u0026R C5); interpretation I-8, ERRATA.md"
+      }
+    },
+    {
+      "seq": 177,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [3, 1],
+        "total": 4,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 79 chart 05 (Retry R\u0026R vs Edu; interpretation I-8)"
+      }
+    },
+    {
+      "seq": 178,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 177,
+        "kind": "discovery",
+        "value": 4
+      }
+    },
+    {
+      "seq": 179,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 177,
+        "kind": "land_grant",
+        "career": "Scout",
+        "value": 4
+      }
+    },
+    {
+      "seq": 180,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 181,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [6],
+        "total": 6,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 182,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 181,
+        "kind": "skill_awarded",
+        "skill": "Navigator",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 183,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 184,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [6],
+        "total": 6,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 185,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 184,
+        "kind": "skill_awarded",
+        "skill": "Navigator",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 186,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 187,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [4],
+        "total": 4,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 188,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 187,
+        "kind": "skill_awarded",
+        "skill": "Animals",
+        "delta": 1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 189,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 190,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [3],
+        "total": 3,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 191,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 190,
+        "kind": "skill_awarded",
+        "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 192,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 193,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [4],
+        "total": 4,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 194,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 193,
+        "kind": "skill_awarded",
+        "skill": "Animals",
+        "delta": 1,
+        "value": 7
+      }
+    },
+    {
+      "seq": 195,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 196,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [6],
+        "total": 6,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 197,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 196,
+        "kind": "skill_awarded",
+        "skill": "Navigator",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 198,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 199,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [6],
+        "total": 6,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 200,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 199,
+        "kind": "skill_awarded",
+        "skill": "Navigator",
+        "delta": 1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 201,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 202,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [1],
+        "total": 1,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 203,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 202,
+        "kind": "skill_awarded",
+        "skill": "Survey",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 204,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Scout for another career?",
+        "options": ["Continue in Scout", "Change careers"],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 205,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [6, 4],
+        "total": 10,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 79 chart 05 (Continue Int; p. 66)"
+      }
+    },
+    {
+      "seq": 206,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 205,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 207,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [2, 1],
+        "total": 3,
+        "target": 5,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
+      }
+    },
+    {
+      "seq": 208,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 207,
+        "kind": "aging_effect",
+        "characteristic": "Str",
+        "delta": -1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 209,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [5, 1],
+        "total": 6,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
+      }
+    },
+    {
+      "seq": 210,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [3, 3],
+        "total": 6,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
+      }
+    },
+    {
+      "seq": 211,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Scout",
+          "ED5",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 212,
+      "kind": "step",
+      "step": {
+        "name": "Scout: Term 5",
+        "cite": "Book 1 p. 79 chart 05"
+      }
+    },
+    {
+      "seq": 213,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": ["Str", "Dex"],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 214,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's duty",
+        "options": ["Courier Duty", "Explorer Duty"],
+        "chosen": 1,
+        "cite": "Book 1 p. 79 (Courier Duty avoids Risk and Reward; chart 05 table B)"
+      }
+    },
+    {
+      "seq": 215,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); chart 05 p. 79"
+      }
+    },
+    {
+      "seq": 216,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [4, 1],
+        "total": 5,
+        "target": 4,
+        "success": false,
+        "cite": "Book 1 p. 79 chart 05 (Risk vs Str+Mods)"
+      }
+    },
+    {
+      "seq": 217,
+      "kind": "throw",
+      "throw": {
+        "expr": "Flux",
+        "dice": [4, 4],
+        "total": 0,
+        "cite": "Book 1 p. 79 chart 05 (Risk Failure: reduce CC by negative Mods and Flux)"
+      }
+    },
+    {
+      "seq": 218,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [1, 3],
+        "total": 4,
+        "target": 4,
+        "success": true,
+        "cite": "Book 1 p. 79 chart 05 (Reward vs Str+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 219,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 218,
+        "kind": "discovery",
+        "value": 5
+      }
+    },
+    {
+      "seq": 220,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 218,
+        "kind": "land_grant",
+        "career": "Scout",
+        "value": 5
+      }
+    },
+    {
+      "seq": 221,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 222,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [1],
+        "total": 1,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 223,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 222,
+        "kind": "skill_awarded",
+        "skill": "Survey",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 224,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 225,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [5],
+        "total": 5,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 226,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 225,
+        "kind": "skill_awarded",
+        "skill": "Vacc Suit",
+        "delta": 1,
+        "value": 8
+      }
+    },
+    {
+      "seq": 227,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 228,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [5],
+        "total": 5,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 229,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 228,
+        "kind": "skill_awarded",
+        "skill": "Vacc Suit",
+        "delta": 1,
+        "value": 9
+      }
+    },
+    {
+      "seq": 230,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 231,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [2],
+        "total": 2,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 232,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 231,
+        "kind": "skill_awarded",
+        "skill": "Survival",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 233,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 234,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [1],
+        "total": 1,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 235,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 234,
+        "kind": "skill_awarded",
+        "skill": "Survey",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 236,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 237,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [2],
+        "total": 2,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 238,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 237,
+        "kind": "skill_awarded",
+        "skill": "Survival",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 239,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 240,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [5],
+        "total": 5,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 241,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 240,
+        "kind": "skill_awarded",
+        "skill": "Vacc Suit",
+        "delta": 1,
+        "value": 10
+      }
+    },
+    {
+      "seq": 242,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 243,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [1],
+        "total": 1,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 244,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 243,
+        "kind": "skill_awarded",
+        "skill": "Survey",
+        "delta": 1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 245,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Scout for another career?",
+        "options": ["Continue in Scout", "Change careers"],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 246,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [4, 4],
+        "total": 8,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 79 chart 05 (Continue Int; p. 66)"
+      }
+    },
+    {
+      "seq": 247,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 246,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 248,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [6, 2],
+        "total": 8,
+        "target": 6,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)"
+      }
+    },
+    {
+      "seq": 249,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [6, 5],
+        "total": 11,
+        "target": 6,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)"
+      }
+    },
+    {
+      "seq": 250,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [1, 1],
+        "total": 2,
+        "target": 6,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)"
+      }
+    },
+    {
+      "seq": 251,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 250,
+        "kind": "aging_effect",
+        "characteristic": "End",
+        "delta": -1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 252,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Scout",
+          "ED5",
+          "Trade School",
+          "Apprenticeship",
+          "College",
+          "University",
+          "Service Academy"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 253,
+      "kind": "step",
+      "step": {
+        "name": "Scout: Term 6",
+        "cite": "Book 1 p. 79 chart 05"
+      }
+    },
+    {
+      "seq": 254,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": ["Dex"],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 255,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's duty",
+        "options": ["Courier Duty", "Explorer Duty"],
+        "chosen": 1,
+        "cite": "Book 1 p. 79 (Courier Duty avoids Risk and Reward; chart 05 table B)"
+      }
+    },
+    {
+      "seq": 256,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); chart 05 p. 79"
+      }
+    },
+    {
+      "seq": 257,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [1, 2],
+        "total": 3,
+        "target": 3,
+        "success": true,
+        "cite": "Book 1 p. 79 chart 05 (Risk vs Dex+Mods)"
+      }
+    },
+    {
+      "seq": 258,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [6, 6],
+        "total": 12,
+        "target": 3,
+        "success": false,
+        "cite": "Book 1 p. 79 chart 05 (Reward vs Dex+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 259,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Retry the Reward against Edu?",
+        "options": ["Retry", "Accept the failure"],
+        "chosen": 0,
+        "cite": "Book 1 p. 79 chart 05 (Retry R\u0026R C5); interpretation I-8, ERRATA.md"
+      }
+    },
+    {
+      "seq": 260,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [6, 1],
+        "total": 7,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 79 chart 05 (Retry R\u0026R vs Edu; interpretation I-8)"
+      }
+    },
+    {
+      "seq": 261,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 260,
+        "kind": "discovery",
+        "value": 6
+      }
+    },
+    {
+      "seq": 262,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 260,
+        "kind": "land_grant",
+        "career": "Scout",
+        "value": 6
+      }
+    },
+    {
+      "seq": 263,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 264,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [2],
+        "total": 2,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 265,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 264,
+        "kind": "skill_awarded",
+        "skill": "Survival",
+        "delta": 1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 266,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 267,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [1],
+        "total": 1,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 268,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 267,
+        "kind": "skill_awarded",
+        "skill": "Survey",
+        "delta": 1,
+        "value": 7
+      }
+    },
+    {
+      "seq": 269,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 270,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [6],
+        "total": 6,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 271,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 270,
+        "kind": "skill_awarded",
+        "skill": "Navigator",
+        "delta": 1,
+        "value": 7
+      }
+    },
+    {
+      "seq": 272,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 273,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [6],
+        "total": 6,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 274,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 273,
+        "kind": "skill_awarded",
+        "skill": "Navigator",
+        "delta": 1,
+        "value": 8
+      }
+    },
+    {
+      "seq": 275,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 276,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [3],
+        "total": 3,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 277,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 276,
+        "kind": "skill_awarded",
+        "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 7
+      }
+    },
+    {
+      "seq": 278,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 279,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [2],
+        "total": 2,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 280,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 279,
+        "kind": "skill_awarded",
+        "skill": "Survival",
+        "delta": 1,
+        "value": 7
+      }
+    },
+    {
+      "seq": 281,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 282,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [6],
+        "total": 6,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 283,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 282,
+        "kind": "skill_awarded",
+        "skill": "Navigator",
+        "delta": 1,
+        "value": 9
+      }
+    },
+    {
+      "seq": 284,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scout Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Courier",
+          "Exploration",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 285,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [5],
+        "total": 5,
+        "cite": "Book 1 p. 79 chart 05 table C, column Exploration"
+      }
+    },
+    {
+      "seq": 286,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 285,
+        "kind": "skill_awarded",
+        "skill": "Vacc Suit",
+        "delta": 1,
+        "value": 11
+      }
+    },
+    {
+      "seq": 287,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Scout for another career?",
+        "options": ["Continue in Scout", "Change careers"],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 288,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [5, 6],
+        "total": 11,
+        "target": 10,
+        "success": false,
+        "cite": "Book 1 p. 79 chart 05 (Continue Int; p. 66)"
+      }
+    },
+    {
+      "seq": 289,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 288,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 290,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [4, 3],
+        "total": 7,
+        "target": 6,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)"
+      }
+    },
+    {
+      "seq": 291,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [1, 2],
+        "total": 3,
+        "target": 6,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)"
+      }
+    },
+    {
+      "seq": 292,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 291,
+        "kind": "aging_effect",
+        "characteristic": "Dex",
+        "delta": -1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 293,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [1, 3],
+        "total": 4,
+        "target": 6,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)"
+      }
+    },
+    {
+      "seq": 294,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 293,
+        "kind": "aging_effect",
+        "characteristic": "End",
+        "delta": -1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 295,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 288,
+        "kind": "career_ended",
+        "career": "Scout"
+      }
+    },
+    {
+      "seq": 296,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 46,
+        "kind": "sanity_mod",
+        "career": "Scout",
+        "delta": -3
+      }
+    },
+    {
+      "seq": 297,
+      "kind": "step",
+      "step": {
+        "name": "Determine Fame",
+        "cite": "Book 1 p. 91 chart F"
+      }
+    },
+    {
+      "seq": 298,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Invoke the Fame Flux Event? (Fame 20 so far)",
+        "options": ["Keep this Fame", "Add Flux to Fame"],
+        "chosen": 0,
+        "cite": "Book 1 p. 91 chart F (The Fame Flux Event)"
+      }
+    },
+    {
+      "seq": 299,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 298,
+        "kind": "fame_computed",
+        "skill": "Sector",
+        "value": 20,
+        "mods": [
+          {
+            "name": "Scout Discoveries x4",
+            "value": 24
+          }
+        ]
+      }
+    },
+    {
+      "seq": 300,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out",
+        "cite": "Book 1 p. 67; chart M1 p. 70"
+      }
+    },
+    {
+      "seq": 301,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out: Scout",
+        "cite": "Book 1 p. 79 chart 05 D"
+      }
+    },
+    {
+      "seq": 302,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scout muster-out roll?",
+        "options": ["Money", "Benefits"],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 303,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": ["+0", "+1", "+2", "+3", "+4", "+5", "+6"],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 304,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [1],
+        "mod": 6,
+        "total": 7,
+        "cite": "Book 1 p. 79 chart 05 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 305,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 304,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scout",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 306,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scout muster-out roll?",
+        "options": ["Money", "Benefits"],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 307,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": ["+0", "+1", "+2", "+3", "+4", "+5", "+6"],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 308,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [6],
+        "mod": 6,
+        "total": 12,
+        "cite": "Book 1 p. 79 chart 05 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 309,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 308,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scout",
+        "delta": 80000
+      }
+    },
+    {
+      "seq": 310,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scout muster-out roll?",
+        "options": ["Money", "Benefits"],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 311,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": ["+0", "+1", "+2", "+3", "+4", "+5", "+6"],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 312,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [2],
+        "mod": 6,
+        "total": 8,
+        "cite": "Book 1 p. 79 chart 05 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 313,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 312,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scout",
+        "delta": 60000
+      }
+    },
+    {
+      "seq": 314,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scout muster-out roll?",
+        "options": ["Money", "Benefits"],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 315,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": ["+0", "+1", "+2", "+3", "+4", "+5", "+6"],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 316,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [4],
+        "mod": 6,
+        "total": 10,
+        "cite": "Book 1 p. 79 chart 05 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 317,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 316,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scout",
+        "delta": 60000
+      }
+    },
+    {
+      "seq": 318,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scout muster-out roll?",
+        "options": ["Money", "Benefits"],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 319,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": ["+0", "+1", "+2", "+3", "+4", "+5", "+6"],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 320,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [1],
+        "mod": 6,
+        "total": 7,
+        "cite": "Book 1 p. 79 chart 05 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 321,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 320,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scout",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 322,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scout muster-out roll?",
+        "options": ["Money", "Benefits"],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 323,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": ["+0", "+1", "+2", "+3", "+4", "+5", "+6"],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 324,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [6],
+        "mod": 6,
+        "total": 12,
+        "cite": "Book 1 p. 79 chart 05 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 325,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 324,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scout",
+        "delta": 80000
+      }
+    },
+    {
+      "seq": 326,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scout muster-out roll?",
+        "options": ["Money", "Benefits"],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 327,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the terms DM to apply?",
+        "options": ["+0", "+1", "+2", "+3", "+4", "+5", "+6"],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 328,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [5],
+        "mod": 6,
+        "total": 11,
+        "cite": "Book 1 p. 79 chart 05 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 329,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 328,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scout",
+        "delta": 70000
+      }
+    },
+    {
+      "seq": 330,
+      "kind": "step",
+      "step": {
+        "name": "Record the Character's Birthdate",
+        "cite": "Book 1 p. 58; p. 263"
+      }
+    },
+    {
+      "seq": 331,
+      "kind": "throw",
+      "throw": {
+        "expr": "4D",
+        "dice": [2, 2, 6, 1],
+        "total": 11,
+        "cite": "Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)"
+      }
+    },
+    {
+      "seq": 332,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 331,
+        "kind": "birthdate",
+        "detail": "Forday 012-1059",
+        "value": 1059
+      }
+    }
+  ]
+}

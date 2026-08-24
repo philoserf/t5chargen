@@ -1,0 +1,39 @@
+{
+  "schema_version": "0.29.0",
+  "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
+  "engine_version": "0.30.0",
+  "policy_version": "0.18.0",
+  "rng": {
+    "algorithm": "math/rand/v2-pcg",
+    "seed": 1
+  },
+  "inputs": {
+    "current_year": 1105
+  },
+  "characteristics": {
+    "str": 4,
+    "dex": 2,
+    "end": 5,
+    "int": 10,
+    "edu": 10,
+    "soc": 5
+  },
+  "upp": "425AA5",
+  "homeworld": {
+    "name": "Regina",
+    "uwp": "A788899-C",
+    "trade_classifications": ["Ph", "Pa", "Ri"]
+  },
+  "age": 46,
+  "life_stage": 6,
+  "events": [
+    {
+      "seq": 1,
+      "kind": "step",
+      "step": {
+        "name": "Generate Characteristics",
+        "cite": "Book 1 p. 72 chart E1 step A"
+      }
+    }
+  ]
+}

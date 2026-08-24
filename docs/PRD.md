@@ -86,11 +86,21 @@ rather than a gap in the verifier.
 
 Characteristics stored numeric with the UPP hex string derived and stored alongside; money as integer credits; dates as Imperial calendar day/year with age in years. Skills and Knowledges are distinct entries. Derived values are stored and recomputed on replay. Full schema (with minimal and complete examples) lives in the tool repo, versioned by `schema_version`.
 
-> **Deferral note (2026-08-21):** the formal JSON Schema document is deferred until the
-> replay verifier lands (milestone 5), when the record shape stops churning career by
-> career. Until then the contract is the Go types in `chargen` plus the golden fixtures
-> in `chargen/testdata/`; `schema_version` is already stamped in every record so
-> existing records stay auditable once the schema exists.
+_Resolved (2026-08-24):_ the schema is `docs/character.schema.json`, draft
+2020-12, with `docs/character.minimal.json` and `docs/character.complete.json`
+beside it. It is precise about the envelope — every field's type, the
+vocabularies of event, consequence and benefit kinds, and the rule that an
+event carries exactly the payload its kind names — and deliberately loose
+about which payload fields each consequence kind uses, because `omitempty`
+makes those sets ragged and fifty-five branches in the schema would be a
+second copy of the code. That last rule is pinned in `docs` instead.
+
+Validation is a hand-written checker over the subset of JSON Schema the
+document uses, rather than a library: it is 250 lines against six
+third-party modules, in a repo that has none. The risk in writing one is
+that a validator with a bug passes everything, so it is not trusted on the
+fixtures passing — every rule the schema states has a record that must fail
+because of it, and each of the checker's keywords is mutation-tested.
 
 ## CLI sketch
 
@@ -126,6 +136,7 @@ The auto policy is **total** (it can decide every valid choice point: education,
 3. All 13 careers with career-specific mechanics. Exit criterion: a living `COVERAGE.md` in the tool repo mapping every E1 step and career rule to its page cite, implementation, and golden test — no career is "done" until its uncommon branches are listed there as covered or explicitly deferred.
 4. Aging, career changes, muster out, fame.
 5. Interactive mode polish; batch mode; replay verification.
+6. The rules milestone 5 left: the Rogue's previous-career Scheme (chart 10), chart 11's `Capital***` cell, `Career:`/`World:` knowledges and Sciences past level 6 (p. 134), and the open question beneath them — whether education may award a bare container skill, which the other three wait on.
 
 ## Decisions (2026-08-19)
 

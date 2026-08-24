@@ -1,0 +1,855 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://philoserf.github.io/t5chargen/character.schema.json",
+  "title": "T5 character record",
+  "description": "The canonical output of t5chargen, versioned by schema_version. Cites are to Traveller5 Core Rules Book 1, Print Edition 5.1.",
+  "$ref": "#/$defs/character",
+  "$defs": {
+    "rng": {
+      "type": "object",
+      "properties": {
+        "algorithm": {
+          "type": "string"
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": ["algorithm", "seed"],
+      "additionalProperties": false
+    },
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "career": {
+          "type": "string"
+        },
+        "current_year": {
+          "type": "integer"
+        },
+        "rolled_homeworld": {
+          "type": "boolean"
+        }
+      },
+      "required": ["current_year"],
+      "additionalProperties": false
+    },
+    "characteristics": {
+      "type": "object",
+      "properties": {
+        "str": {
+          "type": "integer"
+        },
+        "dex": {
+          "type": "integer"
+        },
+        "end": {
+          "type": "integer"
+        },
+        "int": {
+          "type": "integer"
+        },
+        "edu": {
+          "type": "integer"
+        },
+        "soc": {
+          "type": "integer"
+        }
+      },
+      "required": ["str", "dex", "end", "int", "edu", "soc"],
+      "additionalProperties": false
+    },
+    "homeworld": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "uwp": {
+          "description": "The Universal World Profile. Empty only for a deep space birth, which names no world.",
+          "type": "string"
+        },
+        "deep_space": {
+          "description": "Born in deep space (chart B cell 6 6), the one homeworld that carries no UWP.",
+          "type": "boolean"
+        },
+        "trade_classifications": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["uwp"],
+      "additionalProperties": false
+    },
+    "educationRecord": {
+      "type": "object",
+      "properties": {
+        "program": {
+          "type": "string"
+        },
+        "service": {
+          "type": "string"
+        },
+        "major": {
+          "type": "string"
+        },
+        "minor": {
+          "type": "string"
+        },
+        "skill": {
+          "type": "string"
+        },
+        "passes": {
+          "type": "integer"
+        },
+        "graduated": {
+          "type": "boolean"
+        },
+        "honors": {
+          "type": "boolean"
+        },
+        "degree": {
+          "type": "string"
+        }
+      },
+      "required": ["program", "passes", "graduated"],
+      "additionalProperties": false
+    },
+    "skill": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "level": {
+          "type": "integer"
+        }
+      },
+      "required": ["name", "level"],
+      "additionalProperties": false
+    },
+    "careerRecord": {
+      "type": "object",
+      "properties": {
+        "career": {
+          "type": "string"
+        },
+        "began": {
+          "type": "boolean"
+        },
+        "job": {
+          "type": "string"
+        },
+        "hobby": {
+          "type": "string"
+        },
+        "discoveries": {
+          "type": "integer"
+        },
+        "masterpieces": {
+          "type": "integer"
+        },
+        "perfect_masterpieces": {
+          "type": "integer"
+        },
+        "associated_career": {
+          "type": "string"
+        },
+        "end_age": {
+          "type": "integer"
+        },
+        "disabled": {
+          "type": "boolean"
+        },
+        "reserve": {
+          "type": "boolean"
+        },
+        "sanity_mod": {
+          "type": "integer"
+        },
+        "rank": {
+          "type": "string"
+        },
+        "rank_title": {
+          "type": "string"
+        },
+        "controlling_characteristic": {
+          "type": "string"
+        },
+        "successful_schemes": {
+          "type": "integer"
+        },
+        "failed_schemes": {
+          "type": "integer"
+        },
+        "scheme": {
+          "type": "string"
+        },
+        "prison_years": {
+          "type": "integer"
+        },
+        "scheme_payoff": {
+          "type": "integer"
+        },
+        "undercover_career": {
+          "type": "string"
+        },
+        "undercover_title": {
+          "type": "string"
+        },
+        "commendations": {
+          "type": "integer"
+        },
+        "commendation_awards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/award"
+          }
+        },
+        "branch": {
+          "type": "string"
+        },
+        "medals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/award"
+          }
+        },
+        "service_badges": {
+          "type": "integer"
+        },
+        "wound_badges": {
+          "type": "integer"
+        },
+        "exiled": {
+          "type": "boolean"
+        },
+        "times_exiled": {
+          "type": "integer"
+        },
+        "successful_intrigues": {
+          "type": "integer"
+        },
+        "land_grants": {
+          "type": "integer"
+        },
+        "major": {
+          "type": "string"
+        },
+        "minor": {
+          "type": "string"
+        },
+        "publications": {
+          "type": "integer"
+        },
+        "award_winning_publications": {
+          "type": "integer"
+        },
+        "tenured": {
+          "type": "boolean"
+        },
+        "specialty": {
+          "type": "string"
+        },
+        "talent": {
+          "type": "integer"
+        },
+        "fame": {
+          "type": "integer"
+        },
+        "ship_shares": {
+          "type": "integer"
+        },
+        "terms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/termRecord"
+          }
+        }
+      },
+      "required": ["career", "began", "terms"],
+      "additionalProperties": false
+    },
+    "termRecord": {
+      "type": "object",
+      "properties": {
+        "term": {
+          "type": "integer"
+        },
+        "controlling_characteristic": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "continued": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "term",
+        "controlling_characteristic",
+        "success",
+        "continued"
+      ],
+      "additionalProperties": false
+    },
+    "award": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "count": {
+          "type": "integer"
+        },
+        "mod": {
+          "type": "integer"
+        }
+      },
+      "required": ["code", "count"],
+      "additionalProperties": false
+    },
+    "benefitRecord": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "characteristic",
+            "directorship",
+            "fame",
+            "forbidden_knowledge",
+            "high_passage",
+            "knighthood",
+            "land_grant",
+            "life_insurance",
+            "low_passage",
+            "middle_passage",
+            "money",
+            "pension_doubling",
+            "proxy",
+            "retirement_doubling",
+            "ship_shares",
+            "star_passage",
+            "tas_fellowship",
+            "tas_life",
+            "wafer_jack"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "career": {
+          "type": "string"
+        },
+        "count": {
+          "type": "integer"
+        },
+        "credits": {
+          "type": "integer"
+        },
+        "detail": {
+          "type": "string"
+        }
+      },
+      "required": ["kind", "name", "career"],
+      "additionalProperties": false
+    },
+    "entitlementRecord": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "annual_credits": {
+          "type": "integer"
+        },
+        "from_age": {
+          "type": "integer"
+        },
+        "cash_out": {
+          "type": "integer"
+        }
+      },
+      "required": ["id", "name", "annual_credits", "from_age", "cash_out"],
+      "additionalProperties": false
+    },
+    "event": {
+      "type": "object",
+      "properties": {
+        "seq": {
+          "description": "Monotonic sequence number. Consequences reference these.",
+          "type": "integer"
+        },
+        "kind": {
+          "type": "string",
+          "enum": ["step", "throw", "choice", "consequence"]
+        },
+        "step": {
+          "$ref": "#/$defs/stepEvent"
+        },
+        "throw": {
+          "$ref": "#/$defs/throwEvent"
+        },
+        "choice": {
+          "$ref": "#/$defs/choiceEvent"
+        },
+        "consequence": {
+          "$ref": "#/$defs/consequenceEvent"
+        }
+      },
+      "required": ["seq", "kind"],
+      "additionalProperties": false,
+      "description": "One entry in the generation record. Exactly one payload is present and it is the one kind names: a throw event carrying a choice would be a record of nothing that happened.",
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "step"
+              }
+            },
+            "required": ["kind"]
+          },
+          "then": {
+            "required": ["kind", "seq", "step"],
+            "not": {
+              "anyOf": [
+                {
+                  "required": ["throw"]
+                },
+                {
+                  "required": ["choice"]
+                },
+                {
+                  "required": ["consequence"]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "throw"
+              }
+            },
+            "required": ["kind"]
+          },
+          "then": {
+            "required": ["kind", "seq", "throw"],
+            "not": {
+              "anyOf": [
+                {
+                  "required": ["step"]
+                },
+                {
+                  "required": ["choice"]
+                },
+                {
+                  "required": ["consequence"]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "choice"
+              }
+            },
+            "required": ["kind"]
+          },
+          "then": {
+            "required": ["kind", "seq", "choice"],
+            "not": {
+              "anyOf": [
+                {
+                  "required": ["step"]
+                },
+                {
+                  "required": ["throw"]
+                },
+                {
+                  "required": ["consequence"]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "consequence"
+              }
+            },
+            "required": ["kind"]
+          },
+          "then": {
+            "required": ["kind", "seq", "consequence"],
+            "not": {
+              "anyOf": [
+                {
+                  "required": ["step"]
+                },
+                {
+                  "required": ["throw"]
+                },
+                {
+                  "required": ["choice"]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "mod": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "integer"
+        }
+      },
+      "required": ["name", "value"],
+      "additionalProperties": false
+    },
+    "stepEvent": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "cite": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "cite"],
+      "additionalProperties": false
+    },
+    "throwEvent": {
+      "type": "object",
+      "properties": {
+        "expr": {
+          "type": "string"
+        },
+        "dice": {
+          "description": "The individual dice, not only their total.",
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "mod": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        },
+        "target": {
+          "type": "integer"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "mods": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/mod"
+          }
+        },
+        "cite": {
+          "type": "string"
+        }
+      },
+      "required": ["expr", "dice", "total", "cite"],
+      "additionalProperties": false
+    },
+    "choiceEvent": {
+      "type": "object",
+      "properties": {
+        "decider": {
+          "type": "string",
+          "enum": ["player", "policy"]
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "chosen": {
+          "description": "The index into options that was selected. Replay reapplies this number, so options is part of what it means.",
+          "type": "integer"
+        },
+        "cite": {
+          "type": "string"
+        }
+      },
+      "required": ["decider", "prompt", "options", "chosen", "cite"],
+      "additionalProperties": false
+    },
+    "consequenceEvent": {
+      "type": "object",
+      "properties": {
+        "cause": {
+          "description": "The sequence number of the throw, choice or step that produced this consequence. Never zero.",
+          "type": "integer"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "aging_effect",
+            "associated",
+            "benefit",
+            "benefit_lost",
+            "birthdate",
+            "branch_set",
+            "career_changed",
+            "career_ended",
+            "career_not_begun",
+            "characteristic_change",
+            "characteristic_reset",
+            "characteristic_set",
+            "comeback",
+            "commendation",
+            "dead",
+            "disabled",
+            "discovery",
+            "elevated",
+            "entitlement",
+            "exiled",
+            "extremely_major_illness",
+            "fame_change",
+            "fame_computed",
+            "hobby_set",
+            "imprisoned",
+            "intrigue",
+            "job_set",
+            "job_undetermined",
+            "land_grant",
+            "major_illness",
+            "major_set",
+            "mandatory_continue",
+            "masterpiece",
+            "medal",
+            "minor_set",
+            "no_award",
+            "operation",
+            "payoff",
+            "publication",
+            "rank_set",
+            "reserve",
+            "returned_from_exile",
+            "sanity_mod",
+            "scheme",
+            "sentenced",
+            "service_badge",
+            "ship_shares",
+            "skill_awarded",
+            "specialty_set",
+            "talent_set",
+            "tenure",
+            "undercover_assignment",
+            "waived",
+            "wound_badge",
+            "years_elapsed"
+          ]
+        },
+        "characteristic": {
+          "type": "string"
+        },
+        "skill": {
+          "type": "string"
+        },
+        "career": {
+          "type": "string"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "delta": {
+          "type": "integer"
+        },
+        "value": {
+          "type": "integer"
+        },
+        "mods": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/mod"
+          }
+        }
+      },
+      "required": ["cause", "kind"],
+      "additionalProperties": false,
+      "description": "A consequence of a throw, choice or step. Which payload fields each kind carries is a rule about that kind rather than about the shape, and is pinned in Go rather than as fifty-five branches here."
+    },
+    "character": {
+      "description": "A generated T5 character. The JSON record is the source of truth; the Markdown sheet is a render of it (docs/PRD.md FR8).",
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "description": "The version of this schema the record was written against. Replay compares it before re-running anything.",
+          "type": "string"
+        },
+        "ruleset": {
+          "description": "The printed edition every citation resolves against. Pinned.",
+          "type": "string"
+        },
+        "engine_version": {
+          "description": "The implementation of the generation procedure, including the order the seeded stream is consumed in and the options each choice presents.",
+          "type": "string"
+        },
+        "policy_version": {
+          "description": "The POLICY.md decision table that answered, or \"none\" where something other than the auto policy did.",
+          "type": "string"
+        },
+        "rng": {
+          "$ref": "#/$defs/rng"
+        },
+        "errata": {
+          "description": "The ERRATA.md interpretations applied to this record. Absent means none were.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "inputs": {
+          "description": "The generation inputs the rest of the record does not carry. Replay rebuilds the run from these, rng.seed and the choice events.",
+          "$ref": "#/$defs/inputs"
+        },
+        "name": {
+          "type": "string"
+        },
+        "characteristics": {
+          "$ref": "#/$defs/characteristics"
+        },
+        "upp": {
+          "description": "The characteristics as the extended-hex string, derived and stored alongside them (docs/PRD.md, JSON conventions).",
+          "type": "string"
+        },
+        "homeworld": {
+          "$ref": "#/$defs/homeworld"
+        },
+        "age": {
+          "type": "integer"
+        },
+        "education": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/educationRecord"
+          }
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/skill"
+          }
+        },
+        "careers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/careerRecord"
+          }
+        },
+        "waivers_attempted": {
+          "type": "integer"
+        },
+        "birthdate": {
+          "type": "string"
+        },
+        "life_stage": {
+          "type": "integer"
+        },
+        "major_illnesses": {
+          "type": "integer"
+        },
+        "extremely_major_illnesses": {
+          "type": "integer"
+        },
+        "credits": {
+          "type": "integer"
+        },
+        "benefits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/benefitRecord"
+          }
+        },
+        "automatics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ship_shares": {
+          "type": "integer"
+        },
+        "land_grant_income": {
+          "type": "integer"
+        },
+        "entitlements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/entitlementRecord"
+          }
+        },
+        "fame": {
+          "type": "integer"
+        },
+        "wound_badges": {
+          "type": "integer"
+        },
+        "disabled": {
+          "type": "boolean"
+        },
+        "dead": {
+          "type": "boolean"
+        },
+        "events": {
+          "description": "The generation record: every step entered, throw made, choice resolved and consequence applied, in order (docs/PRD.md FR10).",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/event"
+          }
+        }
+      },
+      "required": [
+        "schema_version",
+        "ruleset",
+        "engine_version",
+        "policy_version",
+        "rng",
+        "inputs",
+        "characteristics",
+        "upp",
+        "homeworld",
+        "age",
+        "life_stage",
+        "events"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
