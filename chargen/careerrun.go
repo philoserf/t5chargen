@@ -822,11 +822,13 @@ func (r *careerRun) termSkills(rolls int, only []string) error {
 		columns = only
 	}
 
-	for range rolls {
+	for roll := range rolls {
 		chosen, choiceSeq, err := choose(r.log, r.decider, Choice{
 			ID:      ChooseSkillColumn,
 			Prompt:  "Select " + article(r.def.Name) + " " + r.def.Name + " Skills column",
 			Options: columns,
+			Nth:     roll + 1,
+			Of:      rolls,
 			Cite:    "Book 1 p. 65 (the character selects a column and rolls 1D)",
 		})
 		if err != nil {

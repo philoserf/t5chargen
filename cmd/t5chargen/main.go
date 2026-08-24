@@ -141,11 +141,7 @@ func runNew(args []string, seedFn func() (uint64, error), stdin io.Reader, stdou
 
 	options := generateOptions(*seed, *name, *careerFlag, *homeworldFlag, *currentYear)
 
-	// Interactive is the PRD's default mode; --auto asks for the policy
-	// instead. Whichever answers, the record says which (FR10).
-	if !*auto {
-		options.Decider = interactive.New(stdin, stderr)
-	}
+	player := openSession(&options, *auto, stdin, stderr)
 
 	character, err := chargen.Generate(options)
 	if err != nil {
@@ -166,6 +162,8 @@ func runNew(args []string, seedFn func() (uint64, error), stdin io.Reader, stdou
 
 		return exitError
 	}
+
+	closeSession(player, *out, stderr)
 
 	return emitRecord(character, *out, *force, stdout, stderr)
 }
@@ -400,6 +398,38 @@ func batchDir(out string) (string, bool, error) {
 // batchPath names a batch member's file for the seed that produced it.
 func batchPath(dir string, character chargen.Character) string {
 	return filepath.Join(dir, fmt.Sprintf("character-%d.json", character.RNG.Seed))
+}
+
+// openSession puts a player behind the engine unless --auto asked for the
+// policy instead. Whichever answers, the record says which (FR10).
+func openSession(options *chargen.Options, auto bool, stdin io.Reader, prompts io.Writer) *interactive.Decider {
+	if auto {
+		return nil
+	}
+
+	player := interactive.New(stdin, prompts)
+	options.Decider = player
+
+	return player
+}
+
+// closeSession says what an interactive run made and where it went.
+// Hundreds of questions answered and nothing said afterwards leaves a
+// player wondering whether it worked.
+//
+// On stderr with the prompts, never on stdout: without -o the record
+// itself goes there, and a summary mixed into it would make the output
+// unparseable.
+func closeSession(player *interactive.Decider, out string, stderr io.Writer) {
+	if player == nil {
+		return
+	}
+
+	fmt.Fprintf(stderr, "\n%s\n  %s\n", interactive.Rule("Character complete"), player.Summary())
+
+	if out != "" {
+		fmt.Fprintf(stderr, "  written to %s\n", out)
+	}
 }
 
 // generateOptions assembles the engine options the flags describe, shared

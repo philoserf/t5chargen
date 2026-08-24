@@ -192,6 +192,14 @@ type Choice struct {
 	// stake is — labelling it reads as a claim about each option in turn,
 	// and the second option's padding reads as the opposite of the truth.
 	ScoreLabel string
+
+	// Nth and Of place a choice in a run of identical ones: the term's
+	// skill selections are the same question asked several times, and a
+	// player answering the fifth cannot otherwise tell it from the first.
+	// Engine-provided decision data like Scores — not part of the printed
+	// rule, and not recorded, so a front end may show them and replay
+	// never sees them.
+	Nth, Of int
 }
 
 // Decider resolves choice points. Interactive play and the auto-mode

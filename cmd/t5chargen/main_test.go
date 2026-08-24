@@ -794,3 +794,30 @@ func TestAPartlyBrokenRunNamesTheRecord(t *testing.T) {
 		t.Errorf("the failure does not name the record that broke: %s", errOut.String())
 	}
 }
+
+// TestInteractiveSessionEndsWithItsCharacter verifies a session closes by
+// saying what it made and where it went. Hundreds of questions answered
+// and nothing said afterwards leaves a player wondering whether it worked.
+func TestInteractiveSessionEndsWithItsCharacter(t *testing.T) {
+	record := filepath.Join(t.TempDir(), "character.json")
+
+	var stdout, stderr bytes.Buffer
+
+	script := strings.NewReader(strings.Repeat("1\n", 4000))
+	if code := run([]string{"new", "--seed", "3", "-o", record}, noSeed(t), script, &stdout, &stderr); code != exitOK {
+		t.Fatalf("exit %d, stderr: %s", code, stderr.String())
+	}
+
+	said := stderr.String()
+	for _, want := range []string{"Character complete", "age ", record} {
+		if !strings.Contains(said, want) {
+			t.Errorf("the session ended without mentioning %q", want)
+		}
+	}
+
+	// The summary belongs with the prompts. Without -o the record goes to
+	// stdout, and a summary mixed into it would make that unparseable.
+	if strings.Contains(stdout.String(), "Character complete") {
+		t.Error("the summary was written to stdout, where the record goes")
+	}
+}

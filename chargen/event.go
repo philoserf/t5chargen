@@ -362,6 +362,23 @@ type ConsequenceEvent struct {
 // engine emits events sequentially so that replay is deterministic.
 type Log struct {
 	events []Event
+
+	// watch, when set, is shown each event as it is recorded. It is how a
+	// front end follows the generation it is driving without being told
+	// anything the record does not already say.
+	watch func(Event)
+}
+
+// Watcher is shown each event as the engine records it, for a Decider
+// that wants to follow the generation as well as answer it.
+//
+// Watching is not deciding. A Watcher cannot change anything: it is given
+// copies, it returns nothing, and it is consulted after the event is
+// already recorded. Nothing about a character depends on whether one is
+// present — DefaultPolicy does not implement this and neither does the
+// replay decider, so no fixture moves and replay is unaffected.
+type Watcher interface {
+	Watch(event Event)
 }
 
 // Events returns a deep copy of the log in sequence order: mutating the
@@ -483,6 +500,13 @@ func (l *Log) Consequence(consequence ConsequenceEvent) int {
 func (l *Log) append(event Event) int {
 	event.Seq = len(l.events) + 1
 	l.events = append(l.events, event)
+
+	// Handed out as a copy, the same discipline Events keeps: a watcher
+	// that mutated a payload would corrupt the record it is watching, and
+	// the record is what replay verifies against.
+	if l.watch != nil {
+		l.watch(event.clone())
+	}
 
 	return event.Seq
 }

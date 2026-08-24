@@ -344,3 +344,142 @@ func TestSignedAnswersAreNotOptionNumbers(t *testing.T) {
 		t.Errorf("the signed answer was not shown as a search hit:\n%s", out)
 	}
 }
+
+// sessionAnswers is more than any run below needs; the reader is
+// exhausted only if the engine asks for more, which fails as abandonment.
+const (
+	sessionAnswers = 4000
+
+	// sessionSeed is pinned: its Scholar runs long enough to reach a
+	// career, its skills and muster out, which is the whole checklist.
+	sessionSeed = 3
+)
+
+// session drives a whole generation and returns everything the player saw.
+func session(t *testing.T) string {
+	t.Helper()
+
+	var out strings.Builder
+
+	_, err := chargen.Generate(chargen.Options{
+		Seed:    sessionSeed,
+		Decider: interactive.New(strings.NewReader(strings.Repeat("1\n", sessionAnswers)), &out),
+	})
+	if err != nil {
+		t.Fatalf("the session did not finish: %v", err)
+	}
+
+	return out.String()
+}
+
+// TestTheChecklistIsVisible verifies the session shows the checklist a
+// player is following. Chart E1 is lettered A to D and the engine walks it
+// in order; before this the session showed none of it, opening at the
+// homeworld with no indication that anything had come before.
+func TestTheChecklistIsVisible(t *testing.T) {
+	shown := session(t)
+
+	steps := []string{
+		"Generate Characteristics", // E1 step A
+		"Determine A Homeworld",    // E1 step B
+		"Education and Training",   // E1 step C
+		"Select Career",            // E1 step D
+	}
+
+	at := 0
+
+	for _, step := range steps {
+		found := strings.Index(shown[at:], step)
+		if found < 0 {
+			t.Fatalf("the session never shows %q", step)
+		}
+
+		at += found
+	}
+}
+
+// TestCharacteristicsComeFirst verifies step A's result reaches the player
+// before he is asked anything.
+//
+// The six are rolled before any decision and every decision depends on
+// them — which education admits him, which characteristic to check — and
+// the session used to show none of them, so a player chose an education
+// without knowing his own Edu.
+func TestCharacteristicsComeFirst(t *testing.T) {
+	shown := session(t)
+
+	upp := strings.Index(shown, "UPP ")
+	if upp < 0 {
+		t.Fatal("the session never shows the characteristics")
+	}
+
+	question := strings.Index(shown, "a number to choose")
+	if question < 0 {
+		t.Fatal("the session asks nothing")
+	}
+
+	if upp > question {
+		t.Error("the first question is asked before the characteristics are shown")
+	}
+
+	// Under step A's own heading, not under whatever step happens to be
+	// entered before the first question.
+	stepA := strings.Index(shown, "Generate Characteristics")
+	stepB := strings.Index(shown, "Determine A Homeworld")
+
+	if upp < stepA || upp > stepB {
+		t.Error("the characteristics are not shown under step A")
+	}
+}
+
+// TestRepeatedQuestionsAreNumbered verifies a run of identical questions
+// says which is which. A term's skills are the same question asked several
+// times, and five of them in a row with nothing to tell them apart is how
+// a player loses his place.
+func TestRepeatedQuestionsAreNumbered(t *testing.T) {
+	shown := session(t)
+
+	if !strings.Contains(shown, "Skills column  (1 of ") {
+		t.Error("a run of skill selections does not say where in the run it is")
+	}
+
+	// The last of a run must be reachable too, or the count is decorative.
+	if !strings.Contains(shown, "Skills column  (2 of ") {
+		t.Error("only the first of a run is numbered")
+	}
+}
+
+// TestTheStatusLineCarriesTheCharacter verifies every question is asked
+// with the character's state above it, which is what makes an answer an
+// informed one.
+func TestTheStatusLineCarriesTheCharacter(t *testing.T) {
+	shown := session(t)
+
+	for _, want := range []string{"age ", "UPP ", " skill"} {
+		if !strings.Contains(shown, want) {
+			t.Errorf("no question is asked with %q above it", want)
+		}
+	}
+
+	// Age is what tells a player his career has run long — the thing a
+	// session of answering "continue" hides until the record is read.
+	if !strings.Contains(shown, "age 2") && !strings.Contains(shown, "age 3") {
+		t.Error("the running age is never shown")
+	}
+}
+
+// TestAnAbandonedSessionSummarisesNothing verifies the summary is not
+// offered for a character that was never finished.
+func TestAnAbandonedSessionSummarisesNothing(t *testing.T) {
+	var out strings.Builder
+
+	player := interactive.New(strings.NewReader("q\ny\n"), &out)
+
+	if _, err := chargen.Generate(chargen.Options{Seed: 1, Decider: player}); err == nil {
+		t.Fatal("the session was not abandoned")
+	}
+
+	if summary := player.Summary(); summary != "" {
+		t.Errorf("an abandoned session summarised %q", summary)
+	}
+}
