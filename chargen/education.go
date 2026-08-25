@@ -180,7 +180,16 @@ func chooseProgram(log *Log, decider Decider, character *Character) (education.P
 //
 // Assigned rows are still never offered: their prerequisite is not a
 // threshold a character can fall short of, it is a career handing him a
-// place (interpretation I-95).
+// place (interpretation I-95). Nor are they reached through here at all,
+// which is why the once-only rule below cannot affect them: an ANM School
+// or a Command College is sited inside a term by the career, and a second
+// promotion may well site a second one.
+//
+// A program already attempted is not offered again (interpretation
+// I-100). ED5 is the case the book states outright — "The process can be
+// attempted once" (p. 61) — and the reading generalises: Major and Minor
+// are reselected "each time a new Educational Institution is attended"
+// (p. 59), which is a sentence about attending different ones.
 func offeredPrograms(programs []education.Program, character *Character) ([]education.Program, []string, []int) {
 	var (
 		offered   []education.Program
@@ -190,6 +199,10 @@ func offeredPrograms(programs []education.Program, character *Character) ([]educ
 
 	for _, p := range programs {
 		if !p.Implemented || p.Prerequisite.Kind == education.PrereqAssigned {
+			continue
+		}
+
+		if character.attempted(p.Name) {
 			continue
 		}
 
@@ -683,4 +696,23 @@ func (r *eduRun) checkValue(name string) int {
 	value, _ := characteristicValue(&r.character.Characteristics, name)
 
 	return value
+}
+
+// attempted reports whether the character has already been through this
+// program, successfully or not.
+//
+// Attempted, not graduated. Every path through schooling leaves a record —
+// a refused applicant, a cadet who failed out, and a graduate alike — and
+// the book counts attempts rather than successes where it counts at all:
+// "The process can be attempted once. It takes no time. Failure has no
+// other effect" (p. 61, of ED5). A rule that let a failure be retried
+// would make failure free, which is the one thing that sentence rules out.
+func (c *Character) attempted(program string) bool {
+	for _, record := range c.Education {
+		if record.Program == program {
+			return true
+		}
+	}
+
+	return false
 }

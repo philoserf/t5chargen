@@ -1,7 +1,7 @@
 {
   "schema_version": "0.30.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.34.0",
+  "engine_version": "0.35.0",
   "policy_version": "0.19.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -487,7 +487,6 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Noble",
-          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",
@@ -899,7 +898,6 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Noble",
-          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",
@@ -1163,7 +1161,6 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Noble",
-          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",
@@ -1429,7 +1426,6 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Noble",
-          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",

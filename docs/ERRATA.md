@@ -2483,3 +2483,49 @@ no silent repair is the rule this engine keeps everywhere else.
 Not applied to a cadet who failed out. "Provide **graduates**" is the
 printed condition, and the same test I-94 uses — graduation with the
 Officer1 degree — decides both.
+
+### I-100: A program is attempted once (pp. 59, 61)
+
+Book 1 states the limit once, for the simplest program: "A character with
+Edu less than 5 can attempt the ED5 program at the start the Education
+process. Check Int: if successful, Edu is raised to 5. **The process can be
+attempted once.** It takes no time. Failure has no other effect" (p. 61).
+
+Nothing comparable is printed for Trade School, Apprenticeship, Mentor,
+Training Course, College or University, and the engine let all of them
+recur every term. The result was a ratchet rather than an education. Chart
+C's Graduation column gives fixed values — College is "Edu=8 BA" — under a
+parenthetical for the character who already exceeds them: "(If Edu already
+at this level, award Edu+1)". Applied once per graduation, that is +1 Edu a
+degree. Taking College at every offer reached Edu-F at age 110.
+
+The reading is that the parenthetical exists for a character who arrives
+already above the value, not as a per-degree award, and that attendance is
+of distinct institutions. p. 59 says so in passing, in the sentence that
+governs Major and Minor: they are reselected "each time a **new**
+Educational Institution is attended". A rule about attending new ones is a
+rule that assumes you do not re-attend old ones.
+
+The structure of chart C is the same argument. The prerequisites past
+College are credentials, not characteristics: Masters requires a BA,
+Professors an MA, Medical School and Law School an Honors BA. p. 61 spells
+it out — "A University Masters Program requires a Bachelors. A Professors
+Program requires a Masters." The printed path after a degree leads upward,
+which is why nothing needed to forbid going round again. That the upward
+rungs are not implemented here is this repo's gap, not the book's.
+
+**Attempted, not graduated.** Every path through schooling leaves a record
+— refused applicant, failed cadet, graduate alike — and ED5's sentence
+counts attempts: "Failure has no other effect" is only true if a failure
+cannot be retried, or failure would cost nothing at all.
+
+**Assigned schools are untouched.** An ANM School or a Command College is
+sited inside a term by the career rather than applied for (I-91 to I-93),
+never passes through the offer this rule filters, and a second promotion
+may legitimately site a second one.
+
+This supersedes the narrower I-98, which withheld the Service Academy
+alone. I-98's reasoning stands on its own ground — the Academy is
+pre-career because a commission and its term of service are entry rules —
+and is what still keeps it out of Later Education. I-100 is why no
+character sees any program twice.
