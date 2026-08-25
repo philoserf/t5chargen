@@ -1,5 +1,9 @@
 {
   "name": "Scholar",
+  "begin_automatic_if": {
+    "characteristic": "Edu",
+    "minimum": 8
+  },
   "cite": "Book 1 p. 76 chart 02",
   "controlling_characteristics": ["Str", "Dex", "End", "Int"],
   "continue_characteristic": "Edu",

@@ -1,6 +1,9 @@
 {
   "cite": "Book 1 p. 85 chart 11",
   "name": "Noble",
+  "begin_automatic_if": {
+    "always": true
+  },
   "begin_prerequisite": {
     "characteristic": "Soc",
     "minimum": 11

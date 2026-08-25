@@ -1,6 +1,9 @@
 {
   "cite": "Book 1 p. 78 chart 04",
   "name": "Citizen",
+  "begin_automatic_if": {
+    "always": true
+  },
   "continue_target": 10,
   "controlling_characteristics": ["Str", "Dex", "End", "Int"],
   "job_table": [

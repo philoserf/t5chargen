@@ -267,8 +267,8 @@ func score(c chargen.Choice, i int) string {
 		return ""
 	}
 
-	if c.ScoreLabel == qualifies {
-		return qualification(c.Scores[i])
+	if render, ok := boolean[c.ScoreLabel]; ok {
+		return render(c.Scores[i])
 	}
 
 	return fmt.Sprintf("  [%s %d]", c.ScoreLabel, c.Scores[i])
@@ -296,8 +296,30 @@ func qualification(score int) string {
 	return "  [needs a waiver]"
 }
 
-// qualifies is the label chargen puts on the prerequisite score, at step C
-// and at Later Education. This front end reads it to know that a zero
-// means a waiver rather than a refusal — a coupling to a string, and the
-// alternative is a field on every Choice saying what its zero costs.
-const qualifies = "qualifies"
+// boolean names the scores that are a yes or a no rather than a quantity,
+// and how each is worth putting to a player.
+//
+// Both annotate only the option that is out of the ordinary, and say what
+// it means rather than printing the digit: "[qualifies 0]" read as a
+// refusal when it meant a waiver, and "[automatic 1]" would say nothing
+// about the year a failed attempt costs everyone else.
+//
+// The front end reads the label to know which rendering applies, which is
+// a coupling to two strings. The alternative is a field on every Choice
+// carrying its own wording, which is more surface than two scores earn —
+// but a third would be the point to reconsider.
+var boolean = map[string]func(int) string{
+	chargen.ScoreQualifies: qualification,
+	chargen.ScoreAutomatic: automatic,
+}
+
+// automatic marks a career entered without a To Begin throw, which is what
+// chart E1 step D asks a player to weigh: "Each failed attempt (both Begin
+// or Retry) takes one year" (p. 65), and these cost him none.
+func automatic(score int) string {
+	if score == 1 {
+		return "  [automatic]"
+	}
+
+	return ""
+}
