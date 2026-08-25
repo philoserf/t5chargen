@@ -358,10 +358,12 @@
       }
     ],
     "money_dm": {
-      "kind": "terms"
+      "kind": "terms",
+      "printed": "Terms"
     },
     "benefit_dm": {
-      "kind": "terms"
+      "kind": "terms",
+      "printed": "Terms"
     }
   },
   "muster_out_m2": {
@@ -493,10 +495,12 @@
       }
     ],
     "money_dm": {
-      "kind": "terms"
+      "kind": "terms",
+      "printed": "Terms"
     },
     "benefit_dm": {
-      "kind": "terms"
+      "kind": "terms",
+      "printed": "Terms"
     }
   }
 }

@@ -362,10 +362,12 @@
     ],
     "money_dm": {
       "kind": "fame",
+      "printed": "Fame/3",
       "divisor": 3
     },
     "benefit_dm": {
-      "kind": "terms"
+      "kind": "terms",
+      "printed": "Terms"
     }
   },
   "muster_out_m2": {
@@ -499,10 +501,12 @@
     ],
     "money_dm": {
       "kind": "fame",
+      "printed": "Fame/5",
       "divisor": 5
     },
     "benefit_dm": {
-      "kind": "terms"
+      "kind": "terms",
+      "printed": "Terms"
     }
   }
 }

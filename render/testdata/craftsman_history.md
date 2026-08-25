@@ -441,23 +441,23 @@ _Book 1 p. 67; chart M1 p. 70_
 _Book 1 p. 78 chart 04 D_
 
 - #350 player chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #351 player chose "+4" of [+0, +1, +2, +3, +4]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #351 player chose "+4" of [+0, +1, +2, +3, +4]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #352 1D+4 = 3 = 7 — Book 1 p. 78 chart 04 D (Money column, 1D+4)
   - #353 (from #352) Money, worth Cr25000
 - #354 player chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #355 player chose "+4" of [+0, +1, +2, +3, +4]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #355 player chose "+4" of [+0, +1, +2, +3, +4]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #356 1D+4 = 5 = 9 — Book 1 p. 78 chart 04 D (Money column, 1D+4)
   - #357 (from #356) Money, worth Cr35000
 - #358 player chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #359 player chose "+4" of [+0, +1, +2, +3, +4]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #359 player chose "+4" of [+0, +1, +2, +3, +4]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #360 1D+4 = 1 = 5 — Book 1 p. 78 chart 04 D (Money column, 1D+4)
   - #361 (from #360) Money, worth Cr15000
 - #362 player chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #363 player chose "+4" of [+0, +1, +2, +3, +4]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #363 player chose "+4" of [+0, +1, +2, +3, +4]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #364 1D+4 = 5 = 9 — Book 1 p. 78 chart 04 D (Money column, 1D+4)
   - #365 (from #364) Money, worth Cr35000
 - #366 player chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #367 player chose "+4" of [+0, +1, +2, +3, +4]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #367 player chose "+4" of [+0, +1, +2, +3, +4]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #368 1D+4 = 5 = 9 — Book 1 p. 78 chart 04 D (Money column, 1D+4)
   - #369 (from #368) Money, worth Cr35000
 
@@ -466,7 +466,7 @@ _Book 1 p. 78 chart 04 D_
 _Book 1 p. 76 chart 02 D_
 
 - #371 player chose "Money" of [Money, Benefits]: Which column for this Scholar muster-out roll? — Book 1 p. 68 (Which Column?)
-- #372 player chose "+2" of [+0, +1, +2]: How much of the scholar_rank DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #372 player chose "+2" of [+0, +1, +2]: How much of the Scholar Rank DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #373 1D+2 = 6 = 8 — Book 1 p. 76 chart 02 D (Money column, 1D+2)
   - #374 (from #373) Money, worth Cr30000
 
@@ -475,23 +475,23 @@ _Book 1 p. 76 chart 02 D_
 _Book 1 p. 75 chart 01 D_
 
 - #376 player chose "Money" of [Money, Benefits]: Which column for this Craftsman muster-out roll? — Book 1 p. 68 (Which Column?)
-- #377 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #377 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #378 1D+5 = 4 = 9 — Book 1 p. 75 chart 01 D (Money column, 1D+5)
   - #379 (from #378) Money, worth Cr35000
 - #380 player chose "Money" of [Money, Benefits]: Which column for this Craftsman muster-out roll? — Book 1 p. 68 (Which Column?)
-- #381 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #381 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #382 1D+5 = 5 = 10 — Book 1 p. 75 chart 01 D (Money column, 1D+5)
   - #383 (from #382) Money, worth Cr40000
 - #384 player chose "Money" of [Money, Benefits]: Which column for this Craftsman muster-out roll? — Book 1 p. 68 (Which Column?)
-- #385 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #385 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #386 1D+5 = 6 = 11 — Book 1 p. 75 chart 01 D (Money column, 1D+5)
   - #387 (from #386) Money, worth Cr50000
 - #388 player chose "Money" of [Money, Benefits]: Which column for this Craftsman muster-out roll? — Book 1 p. 68 (Which Column?)
-- #389 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #389 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #390 1D+5 = 1 = 6 — Book 1 p. 75 chart 01 D (Money column, 1D+5)
   - #391 (from #390) StarPass
 - #392 player chose "Money" of [Money, Benefits]: Which column for this Craftsman muster-out roll? — Book 1 p. 68 (Which Column?)
-- #393 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #393 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #394 1D+5 = 2 = 7 — Book 1 p. 75 chart 01 D (Money column, 1D+5)
   - #395 (from #394) Money, worth Cr25000
 
