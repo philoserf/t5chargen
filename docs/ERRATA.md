@@ -2697,3 +2697,46 @@ gains nothing from College now, without a rule that names College.
 
 One golden record moves: the Scholar's Edu falls from B to A, having
 graduated University while already above its Edu=9.
+
+### I-106: A credential prerequisite needs a school to have fallen short of (pp. 59, 61)
+
+Chart C's four credential-gated rows were offered at step C, where no
+character can qualify for any of them:
+
+```
+Select pre-career education
+    4  University       [qualifies 0]
+    5  Service Academy  [qualifies 0]
+    6  Masters          [qualifies 0]
+    7  Professors       [qualifies 0]
+    8  Medical School   [qualifies 0]
+    9  Law School       [qualifies 0]
+```
+
+The first two belong there. University wants Edu 7+ and the Academy Edu 6+,
+and a character one short of either has received an adverse Prerequisite
+decision that p. 59's waiver exists to overturn (I-95).
+
+The last four are different in kind. Step C runs before any career and is a
+character's first education, so his history is empty and a degree is not
+something he fell short of — it is something nobody at that step has ever
+been able to hold. A waiver overturns "an adverse die roll or decision"
+(p. 59), and a row no character can qualify for produces none.
+
+p. 61 places them, too. "University ... can also provide a Masters Program
+leading to a Masters Degree and a Professors Program leading to a
+professorship. Often associated with a University are a Medical School (to
+educate medical doctors) and a Law School (to educate lawyers and
+advocates)." All four are what a University provides, and a character
+choosing his first schooling is at no University.
+
+So a credential-gated row is offered only to a character who has been to
+school. **Not only to one who holds the degree**: the requirements "can be
+waived" (p. 61), so a serving character who went to Trade School and no
+further is still shown the Masters and may try for it. What is withheld is
+the offer to somebody with no schooling at all, for whom the waiver has
+nothing to work on.
+
+This is I-102's argument in its second form. There a ceiling could not be
+waived because exceeding it is not adverse; here a credential cannot be
+waived by a character who has no education to have earned one in.

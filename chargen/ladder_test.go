@@ -1,6 +1,7 @@
 package chargen_test
 
 import (
+	"slices"
 	"testing"
 
 	"github.com/philoserf/t5chargen/chargen"
@@ -165,4 +166,74 @@ func indexOfFirstDegree(c chargen.Character) int {
 	}
 
 	return -1
+}
+
+// TestStepCOffersNothingCredentialGated is interpretation I-106. Step C
+// runs before any career and is a character's first education, so his
+// history is empty and no credential is obtainable: the four rows chart C
+// gates on one cannot be qualified for there by anybody.
+//
+// Offering them anyway put four options scoring zero in front of every
+// eighteen-year-old — a waiver prompt for a degree he had no way to have
+// fallen short of.
+func TestStepCOffersNothingCredentialGated(t *testing.T) {
+	gated := []string{"Masters", "Professors", "Medical School", "Law School"}
+	offers := 0
+
+	for seed := uint64(1); seed <= 60; seed++ {
+		student := &greedyStudent{}
+
+		if _, err := chargen.Generate(chargen.Options{
+			Seed: seed, CurrentYear: 1105, Decider: student,
+		}); err != nil {
+			t.Fatalf("seed %d: %v", seed, err)
+		}
+
+		// The first offer is step C's: it is put before any career, and
+		// every later one comes from Later Education.
+		if len(student.offers) == 0 {
+			continue
+		}
+
+		offers++
+
+		for _, option := range student.offers[0].options {
+			if slices.Contains(gated, option) {
+				t.Errorf("seed %d: step C offered %q, which no character can qualify for there", seed, option)
+			}
+		}
+	}
+
+	if offers < 30 {
+		t.Fatalf("only %d step C offers across the sweep; it is asserting nothing", offers)
+	}
+}
+
+// TestLaterEducationStillOffersThem holds the other half: the withholding
+// is about a credential being unobtainable, not about the rows being
+// hidden. A character who has been to school is shown them, qualified or
+// not, because p. 61 says their requirements "can be waived" and a waiver
+// needs something to overturn.
+func TestLaterEducationStillOffersThem(t *testing.T) {
+	seen := false
+
+	for seed := uint64(1); seed <= 60 && !seen; seed++ {
+		student := &greedyStudent{}
+
+		if _, err := chargen.Generate(chargen.Options{
+			Seed: seed, CurrentYear: 1105, Decider: student,
+		}); err != nil {
+			t.Fatalf("seed %d: %v", seed, err)
+		}
+
+		for _, offer := range student.offers[1:] {
+			if slices.Contains(offer.options, "Masters") {
+				seen = true
+			}
+		}
+	}
+
+	if !seen {
+		t.Error("no mid-career offer named Masters; the withholding is hiding it everywhere")
+	}
 }
