@@ -2403,3 +2403,42 @@ Implemented at `world/homeworlds.go` (`ChartBWorld.validate`,
 `TestDeepSpaceHasNoUWP`, `TestDeepSpaceBirthGrantsItsSkills` and the
 partial-homeworld cases of `TestHomeworldErrors`, which is what caught the
 first reading.
+
+### I-98: A Service Academy belongs to step C, not to Later Education (pp. 59, 62)
+
+"Later Education or Training. Characters may suspend career resolution to
+return to school or training. At the beginning of any term, the character
+may apply for **any** Educational Institution or Training" (p. 59). Read
+alone, "any" includes the Service Academy, and the engine offered it that
+way: every term, without limit. A character could and did attend
+twenty-three times on seed 1, reaching Edu-F at age 110 while serving as a
+Citizen.
+
+The Academy cannot mean mid-career what it means on chart C. "Service
+Academies ... provide graduates an Army or Navy Commission (a Naval Academy
+graduate may choose a Marine Commission instead). The character is required
+to serve one term in the service. At the end of that term, the character
+may try to continue, or may attempt any other career available (he is in
+the Reserves)" (p. 62).
+
+Both halves are entry rules. A commission is granted on entering a service,
+and the obligation it carries is a **first** term — the page says so by
+describing what happens "at the end of that term". Neither can be honoured
+by a character who is already three terms into another career, and the
+engine demonstrated the incoherence: it awarded the commission and then let
+him go on being a Citizen.
+
+So "any Educational Institution" is read as any he could actually enrol in,
+and the Academy is withheld from Later Education. This makes it once-only
+as a consequence rather than as a separate rule: step C runs once, so a
+program offered only there is offered only once. A failed applicant has
+spent that chance — "A failure disallows admission and consumes one year"
+(p. 59) — and no second attempt is printed.
+
+The narrower readings were considered and rejected. Barring only a _second_
+attendance would leave a Citizen collecting a naval commission on his first
+mid-career visit, which is the incoherence rather than a bound on it.
+Barring re-attendance across all programs would go further than any printed
+sentence: p. 59 says "A character may attend one or more schools", and
+College, University, Trade School and Apprenticeship carry no entry rule
+the Academy's p. 62 paragraph supplies. They remain repeatable.

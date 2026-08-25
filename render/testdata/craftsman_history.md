@@ -47,7 +47,7 @@ _Book 1 p. 72 chart E1 step D_
 
 _Book 1 p. 72 chart E1 panel 04_
 
-- #29 player chose "Serve the term in Citizen" of [Serve the term in Citizen, ED5, Trade School, Apprenticeship, College, University, Service Academy]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #29 player chose "Serve the term in Citizen" of [Serve the term in Citizen, ED5, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Citizen: Term 1
 
@@ -78,7 +78,7 @@ _Book 1 p. 78 chart 04_
 - #53 player chose "Continue in Citizen" of [Continue in Citizen, Change careers]: Leave Citizen for another career? — Book 1 p. 66 (Changing Careers)
 - #54 2D = 2+6 = 8 vs 10: success — Book 1 p. 78 chart 04 (Continue 10-; p. 66)
   - #55 (from #54) +4 years
-- #56 player chose "Serve the term in Citizen" of [Serve the term in Citizen, ED5, Trade School, Apprenticeship, College, University, Service Academy]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #56 player chose "Serve the term in Citizen" of [Serve the term in Citizen, ED5, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Citizen: Term 2
 
@@ -102,7 +102,7 @@ _Book 1 p. 78 chart 04_
 - #73 player chose "Continue in Citizen" of [Continue in Citizen, Change careers]: Leave Citizen for another career? — Book 1 p. 66 (Changing Careers)
 - #74 2D = 4+5 = 9 vs 10: success — Book 1 p. 78 chart 04 (Continue 10-; p. 66)
   - #75 (from #74) +4 years
-- #76 player chose "Serve the term in Citizen" of [Serve the term in Citizen, ED5, Trade School, Apprenticeship, College, University, Service Academy]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #76 player chose "Serve the term in Citizen" of [Serve the term in Citizen, ED5, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Citizen: Term 3
 
@@ -128,7 +128,7 @@ _Book 1 p. 78 chart 04_
 - #95 player chose "Continue in Citizen" of [Continue in Citizen, Change careers]: Leave Citizen for another career? — Book 1 p. 66 (Changing Careers)
 - #96 2D = 1+3 = 4 vs 10: success — Book 1 p. 78 chart 04 (Continue 10-; p. 66)
   - #97 (from #96) +4 years
-- #98 player chose "Serve the term in Citizen" of [Serve the term in Citizen, ED5, Trade School, Apprenticeship, College, University, Service Academy]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #98 player chose "Serve the term in Citizen" of [Serve the term in Citizen, ED5, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Citizen: Term 4
 
@@ -175,7 +175,7 @@ _Book 1 p. 76 chart 02_
   - #130 (from #129) Major = ACV
 - #131 player chose "Actor" of [Actor, Admin, Advocate, Aeronautics, Animals, Aquanautics, Archeology, Artillery, Artist, Astrogator, Athlete, Author, Automotive, Battle Dress, Bay Weapons, Beams, Biologics, Biology, Blades, Boat, Broker, Bureaucrat, Carouse, Chef, Chemistry, Command, Comms, Compute, Computer, Counsellor, Craftsman, Curiosity, Dancer, Designer, Diplomat, Driver, Driver: Grav, Electronics, Empath, Engineer, Exotics, Explosives, Fighter, Flapper, Fleet Tactics, Fluidics, Flyer, Flyer: Grav, Forensics, Forward Observer, Gambler, Gravitics, Gunner, Heavy Weapons, Hibernate, High-G, History, Hostile Environ, Hypno, Insight, Intuition, JOT, Jump Drives, LTA, Language, Launcher, Leader, Legged, Liaison, Life Support, Linguistics, Luck, Magnetics, Maneuver Drive, Math, Mechanic, Medic, MemAware, MemPercept, MemScent, MemSight, MemSound, Memorize, Mole, Morph, Musician, Naval Architect, Navigator, Ordnance, Ortillery, Persuade, Philosophy, Photonics, Physics, Pilot, Planetology, Polymers, Power Systems, Programmer, Psionicology, Psychohistory, Psychology, Query, Rage, Recon, Rider, Robotics, Rotor, Sapper, Screens, Seafarer, Seafarer: Grav, Sensors, Ship, Slug Throwers, Small Craft, Sophontology, SoundMimic, Spacecraft ACS, Spacecraft BCS, Spines, Sprays, Stealth, Steward, Strategy, Streetwise, Sub, Survey, Survival, Tactics, Teacher, Teamster, Tracked, Trader, Trainer, Turrets, Unarmed, Vacc Suit, WMD, Wheeled, Winged, Zero-G]: Select a Scholar Minor — Book 1 p. 76 chart 02 (select any Skill or Knowledge from the Skills List)
   - #132 (from #131) Minor = Actor
-- #133 player chose "Serve the term in Scholar" of [Serve the term in Scholar, ED5, Trade School, Apprenticeship, College, University, Service Academy]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #133 player chose "Serve the term in Scholar" of [Serve the term in Scholar, ED5, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Scholar: Term 1
 
@@ -224,7 +224,7 @@ _Book 1 p. 72 chart E1 step D_
 
 _Book 1 p. 75 chart 01_
 
-- #170 player chose "Serve the term in Craftsman" of [Serve the term in Craftsman, ED5, Trade School, Apprenticeship, College, University, Service Academy]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #170 player chose "Serve the term in Craftsman" of [Serve the term in Craftsman, ED5, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Craftsman: Term 1
 
@@ -260,7 +260,7 @@ _Book 1 p. 75 chart 01 (Creating A Masterpiece)_
 - #195 2D = 4+6 = 10 vs 6: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)
 - #196 2D = 3+6 = 9 vs 6: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)
 - #197 2D = 5+4 = 9 vs 6: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)
-- #198 player chose "Serve the term in Craftsman" of [Serve the term in Craftsman, ED5, Trade School, Apprenticeship, College, University, Service Academy]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #198 player chose "Serve the term in Craftsman" of [Serve the term in Craftsman, ED5, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Craftsman: Term 2
 
@@ -301,7 +301,7 @@ _Book 1 p. 75 chart 01_
 - #232 2D = 3+3 = 6 vs 6: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)
 - #233 2D = 2+2 = 4 vs 6: success — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)
   - #234 (from #233) aging: End -1 = 4
-- #235 player chose "Serve the term in Craftsman" of [Serve the term in Craftsman, ED5, Trade School, Apprenticeship, College, University, Service Academy]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #235 player chose "Serve the term in Craftsman" of [Serve the term in Craftsman, ED5, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Craftsman: Term 3
 
@@ -342,7 +342,7 @@ _Book 1 p. 75 chart 01_
 - #269 2D = 4+2 = 6 vs 7: success — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 50)
   - #270 (from #269) aging: Dex -1 = 8
 - #271 2D = 4+6 = 10 vs 7: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 50)
-- #272 player chose "Serve the term in Craftsman" of [Serve the term in Craftsman, ED5, Trade School, Apprenticeship, College, University, Service Academy]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #272 player chose "Serve the term in Craftsman" of [Serve the term in Craftsman, ED5, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Craftsman: Term 4
 
@@ -382,7 +382,7 @@ _Book 1 p. 75 chart 01_
   - #305 (from #304) aging: Str -1 = 4
 - #306 2D = 2+6 = 8 vs 7: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 54)
 - #307 2D = 5+4 = 9 vs 7: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 54)
-- #308 player chose "Serve the term in Craftsman" of [Serve the term in Craftsman, ED5, Trade School, Apprenticeship, College, University, Service Academy]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #308 player chose "Serve the term in Craftsman" of [Serve the term in Craftsman, ED5, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Craftsman: Term 5
 

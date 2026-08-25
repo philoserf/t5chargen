@@ -197,3 +197,102 @@ func academyRun(t *testing.T, service, careerName string) (chargen.Character, bo
 // needs Edu 6+, an Admission pass and four Pass/Fail successes, so most
 // seeds do not reach a graduation.
 const academySeedSearch = 300
+
+// academyHound takes the Service Academy at every choice point that offers
+// it, which is the shape of the defect this file guards against: nothing
+// counted attendances, so a player who kept choosing it kept being
+// admitted. Twenty-three times, on seed 1, to Edu-F at age 110.
+type academyHound struct{ offers []chargen.Choice }
+
+func (d *academyHound) Choose(c chargen.Choice) (int, error) {
+	if c.ID == chargen.ChooseLaterEducation {
+		d.offers = append(d.offers, c)
+	}
+
+	for i, option := range c.Options {
+		if option == serviceAcademyName {
+			return i, nil
+		}
+	}
+
+	return autoPolicy(c)
+}
+
+func (*academyHound) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
+
+const serviceAcademyName = "Service Academy"
+
+// TestServiceAcademyIsNeverOfferedMidCareer verifies the Academy is absent
+// from every Later Education offer.
+//
+// It reads the offers rather than the outcome, because an option a
+// character happens not to take is still an option he was shown — and the
+// options list is recorded in the choice event, so an offer that should
+// not exist is a divergence waiting for the next engine version.
+func TestServiceAcademyIsNeverOfferedMidCareer(t *testing.T) {
+	offers := 0
+
+	for seed := uint64(1); seed <= 40; seed++ {
+		hound := &academyHound{}
+
+		if _, err := chargen.Generate(chargen.Options{
+			Seed: seed, CurrentYear: 1105, Decider: hound,
+		}); err != nil {
+			t.Fatalf("seed %d: %v", seed, err)
+		}
+
+		for _, offer := range hound.offers {
+			offers++
+
+			for _, option := range offer.Options {
+				if option == serviceAcademyName {
+					t.Errorf("seed %d: Later Education offered %q: %v",
+						seed, serviceAcademyName, offer.Options)
+				}
+			}
+		}
+	}
+
+	// A sweep that produced no offers would pass while asserting nothing.
+	if offers < 20 {
+		t.Fatalf("only %d Later Education offers across the sweep; it is not reaching the choice point", offers)
+	}
+}
+
+// TestServiceAcademyIsAttendedAtMostOnce is the same claim measured at the
+// record: however hard a player reaches for it, a character has one
+// Service Academy in his history at most.
+//
+// Attendance, not graduation. A failed applicant has spent his one chance
+// — "A failure disallows admission and consumes one year" (p. 59) — and
+// step C is over.
+func TestServiceAcademyIsAttendedAtMostOnce(t *testing.T) {
+	reached := 0
+
+	for seed := uint64(1); seed <= 40; seed++ {
+		character, err := chargen.Generate(chargen.Options{
+			Seed: seed, CurrentYear: 1105, Decider: &academyHound{},
+		})
+		if err != nil {
+			t.Fatalf("seed %d: %v", seed, err)
+		}
+
+		attended := 0
+
+		for _, record := range character.Education {
+			if record.Program == serviceAcademyName {
+				attended++
+			}
+		}
+
+		if attended > 1 {
+			t.Errorf("seed %d: attended the Service Academy %d times", seed, attended)
+		}
+
+		reached += attended
+	}
+
+	if reached == 0 {
+		t.Fatal("no character reached the Service Academy; the sweep is asserting nothing")
+	}
+}

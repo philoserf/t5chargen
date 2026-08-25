@@ -82,6 +82,17 @@ type Program struct {
 	// for programs without majors.
 	MajorsFrom string `json:"majors_from,omitempty"`
 
+	// PreCareerOnly withholds the program from Later Education, which
+	// otherwise offers "any Educational Institution or Training" at the
+	// beginning of any term (p. 59).
+	//
+	// The Service Academy is the one program that cannot mean what it
+	// says mid-career: it graduates a character into a commission and
+	// "The character is required to serve one term in the service"
+	// (p. 62), which is a thing that happens on entering a career, not
+	// to someone already three terms into another (interpretation I-98).
+	PreCareerOnly bool `json:"pre_career_only,omitempty"`
+
 	// Implemented gates the engine: unimplemented rows are transcribed
 	// for completeness but rejected if selected (v1 scope is docs/PRD.md
 	// FR3).

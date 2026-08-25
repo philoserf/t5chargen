@@ -121,6 +121,7 @@
       "graduation_edu": 8,
       "graduation_degree": "BA Officer1",
       "majors_from": "academy",
+      "pre_career_only": true,
       "implemented": true
     },
     {

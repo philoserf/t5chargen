@@ -28,6 +28,28 @@ import (
 // shape as the career-change offer (p. 66).
 const serveTheTerm = "Serve the term in "
 
+// midCareerPrograms drops the programs a serving character cannot apply
+// to, so "any Educational Institution or Training" (p. 59) means any he
+// could actually enrol in.
+//
+// One program is withheld. A Service Academy "provides graduates an Army
+// or Navy Commission" and "The character is required to serve one term in
+// the service" (p. 62): a commission is granted on entering a service, and
+// the obligation it carries is a first term. Neither can be honoured by a
+// character who is already serving, so the Academy belongs to step C and
+// not to a term already under way (interpretation I-98).
+func midCareerPrograms(programs []education.Program) []education.Program {
+	kept := make([]education.Program, 0, len(programs))
+
+	for _, p := range programs {
+		if !p.PreCareerOnly {
+			kept = append(kept, p)
+		}
+	}
+
+	return kept
+}
+
 // laterEducation offers the p. 59 suspension at the beginning of a term
 // and reports whether the term was given over to schooling.
 //
@@ -42,7 +64,7 @@ func (r *careerRun) laterEducation() (bool, error) {
 		return false, fmt.Errorf("later education: %w", err)
 	}
 
-	offered, names, qualified := offeredPrograms(programs, r.character)
+	offered, names, qualified := offeredPrograms(midCareerPrograms(programs), r.character)
 	if len(offered) == 0 {
 		return false, nil
 	}

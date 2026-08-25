@@ -1,7 +1,7 @@
 {
   "schema_version": "0.30.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.32.0",
+  "engine_version": "0.33.0",
   "policy_version": "0.19.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -923,8 +923,7 @@
           "Trade School",
           "Apprenticeship",
           "College",
-          "University",
-          "Service Academy"
+          "University"
         ],
         "chosen": 0,
         "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
@@ -1156,8 +1155,7 @@
           "Trade School",
           "Apprenticeship",
           "College",
-          "University",
-          "Service Academy"
+          "University"
         ],
         "chosen": 0,
         "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
@@ -1434,8 +1432,7 @@
           "Trade School",
           "Apprenticeship",
           "College",
-          "University",
-          "Service Academy"
+          "University"
         ],
         "chosen": 0,
         "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
@@ -1758,8 +1755,7 @@
           "Trade School",
           "Apprenticeship",
           "College",
-          "University",
-          "Service Academy"
+          "University"
         ],
         "chosen": 0,
         "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
