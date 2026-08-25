@@ -1,6 +1,10 @@
 {
   "cite": "Book 1 p. 85 chart 11",
   "name": "Noble",
+  "begin_prerequisite": {
+    "characteristic": "Soc",
+    "minimum": 11
+  },
   "continue_target": 7,
   "controlling_characteristics": ["Dex", "End", "Int", "Edu"],
   "no_career_change": true,

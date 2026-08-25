@@ -79,7 +79,6 @@ var unreadOnPurpose = map[string]string{
 
 	// Deferred rules, each recorded in COVERAGE.md.
 	"QREBS":   "chart 01's Masterpiece qualities; QREBS allocation is deferred",
-	"Minimum": "a QREBS quality's floor; as QREBS",
 	"Maximum": "a QREBS quality's ceiling; as QREBS",
 }
 

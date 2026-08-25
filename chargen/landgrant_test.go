@@ -28,7 +28,11 @@ func TestANobleGrantEarnsItsHomeworldHexAndOneCompanion(t *testing.T) {
 	checked := 0
 
 	for seed := uint64(1); seed <= 200; seed++ {
-		c := generate(t, chargen.Options{Seed: seed, Career: "Noble"})
+		c, open := generateIfOpen(t, chargen.Options{Seed: seed, Career: "Noble"})
+		if !open {
+			continue // below chart 11's Soc B+ prerequisite (I-28)
+		}
+
 		if c.Dead {
 			continue // a dead character does not muster out (I-77)
 		}

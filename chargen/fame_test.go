@@ -78,30 +78,17 @@ func TestFameFluxCanLose(t *testing.T) {
 
 	for _, forced := range []string{"Scout", "Scholar", "Noble", "Rogue", "Merchant"} {
 		for seed := uint64(1); seed <= 200; seed++ {
-			c := generate(t, chargen.Options{Seed: seed, Career: forced})
-
-			sources := fameSources(c)
-
-			flux, ok := sources["Fame Flux Event"]
-			if !ok || flux >= 0 {
-				continue
+			c, open := generateIfOpen(t, chargen.Options{Seed: seed, Career: forced})
+			if !open {
+				continue // the Noble's Soc B+ prerequisite (I-28)
 			}
 
-			drawn++
+			if lost, drew := fluxCost(t, c, forced, seed); drew {
+				drawn++
 
-			base := 0
-
-			for name, value := range sources {
-				if name != "Fame Flux Event" {
-					base += value
+				if lost {
+					cost++
 				}
-			}
-
-			if c.Fame < min(base, 20) {
-				cost++
-			} else {
-				t.Errorf("%s seed %d: Flux %d left Fame at %d with a base of %d",
-					forced, seed, flux, c.Fame, base)
 			}
 		}
 	}
@@ -297,4 +284,36 @@ func contributedFame(c chargen.Character, career string) bool {
 	}
 
 	return false
+}
+
+// fluxCost reports whether a character drew a negative Fame Flux and, if
+// so, whether it cost him Fame. It fails the test where the loss was
+// swallowed, which is the property under examination.
+//
+// Returns (lost, drew).
+func fluxCost(t *testing.T, c chargen.Character, forced string, seed uint64) (bool, bool) {
+	t.Helper()
+
+	sources := fameSources(c)
+
+	flux, ok := sources["Fame Flux Event"]
+	if !ok || flux >= 0 {
+		return false, false
+	}
+
+	base := 0
+
+	for name, value := range sources {
+		if name != "Fame Flux Event" {
+			base += value
+		}
+	}
+
+	if c.Fame < min(base, 20) {
+		return true, true
+	}
+
+	t.Errorf("%s seed %d: Flux %d left Fame at %d with a base of %d", forced, seed, flux, c.Fame, base)
+
+	return false, true
 }
