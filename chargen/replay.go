@@ -7,6 +7,9 @@ import (
 	"fmt"
 	"maps"
 	"slices"
+	"strings"
+
+	"github.com/philoserf/t5chargen/world"
 )
 
 // The replay failures, separated because they mean different things to a
@@ -17,7 +20,7 @@ var (
 	// a different engine, ruleset, or random algorithm. Replay stops
 	// before rolling anything, because every later complaint would be a
 	// consequence of this one.
-	ErrReplayProvenance = errors.New("record was not produced by this engine")
+	ErrReplayProvenance = errors.New("record was made by a different build, so it cannot be re-run here")
 
 	// ErrReplayDiverged reports a record this build re-ran and did not
 	// reproduce. The message names the sequence number of the first
@@ -56,7 +59,7 @@ func Replay(stored Character) (Character, error) {
 		Seed:          stored.RNG.Seed,
 		Name:          stored.Name,
 		Career:        stored.Inputs.Career,
-		Homeworld:     stored.Homeworld,
+		Homeworld:     assignedHomeworld(stored),
 		CurrentYear:   stored.Inputs.CurrentYear,
 		RollHomeworld: stored.Inputs.RolledHomeworld,
 		Decider:       decider,
@@ -81,11 +84,26 @@ func Replay(stored Character) (Character, error) {
 	return replayed, nil
 }
 
+// assignedHomeworld hands back the homeworld only where the caller
+// assigned it. Where the character chose one off chart B, step B has to be
+// offered the same thirty-four worlds again for the recorded index to mean
+// what it meant — the world itself is in the record, but it is the answer
+// rather than the input.
+func assignedHomeworld(stored Character) world.Homeworld {
+	if !stored.Inputs.HomeworldAssigned {
+		return world.Homeworld{}
+	}
+
+	return stored.Homeworld
+}
+
 // checkProvenance rejects a record this build cannot meaningfully re-run.
 // Reporting it here rather than letting the run diverge matters: a record
 // from another engine would fail at some arbitrary sequence number, and
 // that number would describe nothing.
 func checkProvenance(stored Character) error {
+	var differ []string
+
 	for _, field := range []struct {
 		name, got, want string
 	}{
@@ -95,9 +113,15 @@ func checkProvenance(stored Character) error {
 		{"rng.algorithm", stored.RNG.Algorithm, RNGAlgorithm},
 	} {
 		if field.got != field.want {
-			return fmt.Errorf("%w: %s is %q, this build is %q",
-				ErrReplayProvenance, field.name, field.got, field.want)
+			differ = append(differ, fmt.Sprintf("%s %s, this build %s", field.name, field.got, field.want))
 		}
+	}
+
+	// All of them, not the first. A record two versions old differs in
+	// several, and being told about one at a time says less about how far
+	// apart the two builds are.
+	if len(differ) > 0 {
+		return fmt.Errorf("%w: %s", ErrReplayProvenance, strings.Join(differ, "; "))
 	}
 
 	return nil

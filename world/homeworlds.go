@@ -128,6 +128,36 @@ func ChartB() ([]ChartBWorld, error) {
 	return worlds, nil
 }
 
+// Selectable returns chart B's worlds for a character choosing one rather
+// than rolling, in chart order and each named once.
+//
+// Deduplicated, unlike the cells themselves: Regina fills three of the
+// thirty-six because rolling should land on it three times as often, and
+// that weighting is a fact about the dice. A list to choose from wants
+// each world once — "Select or determine a Homeworld" (p. 56) is two
+// procedures, and this is the first.
+func Selectable() ([]ChartBWorld, error) {
+	t, err := chartB()
+	if err != nil {
+		return nil, err
+	}
+
+	seen := map[string]bool{}
+	worlds := make([]ChartBWorld, 0, len(t.Worlds))
+
+	for _, w := range t.Worlds {
+		if seen[w.Name] {
+			continue
+		}
+
+		seen[w.Name] = true
+
+		worlds = append(worlds, w)
+	}
+
+	return worlds, nil
+}
+
 // At returns the world in the cell the two dice name, D1 then D2 as the
 // chart prints them.
 func At(d1, d2 int) (Homeworld, error) {

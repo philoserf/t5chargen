@@ -406,10 +406,12 @@ var unexercised = map[string]string{
 		"so the list is always absent",
 	"deep_space":       "chart B's cell 6 6 (I-97); no fixture rolls its homeworld, and none is assigned deep space",
 	"rolled_homeworld": "--homeworld random; every fixture takes the assigned world, so the input is false and omitted",
-	"service":          "the Service Academy's service; the auto policy never selects the Academy (POLICY.md)",
-	"disabled":         "the disabled outcome; pinned on other seeds by TestEveryTermElapsesFourYears",
-	"exiled":           "chart 11's Noble exile; the pinned Noble seed is not exiled",
-	"prison_years":     "a Rogue serving a sentence; the pinned Rogue seed serves none",
+	"homeworld_assigned": "--homeworld; no fixture names one, so step B offers chart B's list " +
+		"and the input is false and omitted",
+	"service":      "the Service Academy's service; the auto policy never selects the Academy (POLICY.md)",
+	"disabled":     "the disabled outcome; pinned on other seeds by TestEveryTermElapsesFourYears",
+	"exiled":       "chart 11's Noble exile; the pinned Noble seed is not exiled",
+	"prison_years": "a Rogue serving a sentence; the pinned Rogue seed serves none",
 }
 
 // keysAcross gathers every property name appearing anywhere in any of the

@@ -21,7 +21,7 @@ _Book 1 p. 72 chart E1 step A_
 
 _Book 1 p. 72 chart E1 step B_
 
-- #15 player chose "Regina A788899-C (Ph Pa Ri)" of [Regina A788899-C (Ph Pa Ri)]: Select a homeworld — Book 1 p. 58 (as assigned, selected, or random); chart B p. 56
+- #15 player chose "Regina A788899-C (Ph Pa Ri)" of [Alell B56789C-A (Ph Pa Ri), Boughene A8B3531-D (Fl Ni), Capital A586A98-F (Hi Cx), Dorannia E42158A-8 (He Ni Po), Efate A646930-D (Hi In), Feri B584879-B (Ph Pa Ri), Magash A400976-F (Va Hi Na In Cp), Hefry C200423-7 (Va Ni), Jenghe C799663-9 (Ni), Earth A867A69-F (Ga Hi), Lakou E779454-7 (Ni Da), Macene Belt B000453-E (As Ni), Knorbes E888787-2 (Ag Ri An), Preslin B430679-C (De Ni Na Po), Yori C560757-A (De Ri), Regina A788899-C (Ph Pa Ri), Ruie C776977-7 (Hi In), Tremous Dex B511411-C (Ic Ni), Uakye B439598-D (Ni), Vland A967A9A-F (Hi Cs), Wroclaw C5667BF-7 (Ag Ri), Menorb C652998-7 (Hi Po), Yorbund C7C6503-9 (Fl Ni), Traltha B590630-6 (De He Ni An), Dentus C979500-A (Ni), Vanzeti C52A531-C (Wa Ni), Syr Darya E55769C-5 (Ni Ag), Aramis A5A0556-B (He Ni Cp), Rhylanor A434934-F (Hi Cp), Raschev C8697C4-6 (Ri), Ara Pacis A437678-B (Ni), Roup C77A9A9-7 (Wa Hi In), Pax Rulin A402231-E (Ic Va Lo Cp), Space (Ds)]: Select a homeworld — Book 1 p. 58 (as assigned, selected, or random); chart B p. 56
   - #16 (from #15) Trader +1 = Trader-1
 - #17 player chose "Actor" of [Actor, Artist, Author, Chef, Dancer, Musician]: Choose one Art (TC Ri) — Book 1 p. 56 chart B (Rich)
   - #18 (from #17) Actor +1 = Actor-1

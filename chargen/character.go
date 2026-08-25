@@ -21,18 +21,18 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.29.0"
+	SchemaVersion = "0.30.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.30.0"
+	EngineVersion = "0.31.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
-	PolicyVersion = "0.18.0"
+	PolicyVersion = "0.19.0"
 
 	// RNGAlgorithm names the recorded random stream: Go math/rand/v2 PCG,
 	// seeded as documented at dice.New. The exact string is compared on
@@ -100,6 +100,14 @@ type Inputs struct {
 	// the birth year (p. 58). Recoverable as birth year plus age, but
 	// that is reconstruction; the input is recorded as an input.
 	CurrentYear int `json:"current_year"`
+
+	// HomeworldAssigned records that the caller named the homeworld, so
+	// step B had nothing to decide and offered it alone. Without it a
+	// replay cannot tell a world that was assigned from one the character
+	// chose off chart B: the record stores the world either way, and
+	// handing it back as an assignment would offer one option against an
+	// index that names one of thirty-four.
+	HomeworldAssigned bool `json:"homeworld_assigned,omitempty"`
 
 	// RolledHomeworld records that the homeworld was determined on chart
 	// B rather than assigned (p. 56: "Select or determine a Homeworld").
@@ -568,6 +576,26 @@ type Options struct {
 	Decider Decider
 }
 
+// newCharacter stamps the provenance and the inputs a replay rebuilds the
+// run from, before anything is rolled.
+func newCharacter(opts Options, policyVersion string, homeworldAssigned bool) Character {
+	return Character{
+		SchemaVersion: SchemaVersion,
+		Ruleset:       Ruleset,
+		EngineVersion: EngineVersion,
+		PolicyVersion: policyVersion,
+		RNG:           RNG{Algorithm: RNGAlgorithm, Seed: opts.Seed},
+		Inputs: Inputs{
+			Career:            opts.Career,
+			CurrentYear:       currentYearOrDefault(opts.CurrentYear),
+			HomeworldAssigned: homeworldAssigned,
+			RolledHomeworld:   opts.RollHomeworld,
+		},
+		Name: opts.Name,
+		Age:  StartAge,
+	}
+}
+
 // newLog starts the record, showing it to a Decider that also watches.
 func newLog(decider Decider) Log {
 	var log Log
@@ -606,20 +634,11 @@ func Generate(opts Options) (Character, error) {
 		policyVersion = PolicyVersion
 	}
 
-	character := Character{
-		SchemaVersion: SchemaVersion,
-		Ruleset:       Ruleset,
-		EngineVersion: EngineVersion,
-		PolicyVersion: policyVersion,
-		RNG:           RNG{Algorithm: RNGAlgorithm, Seed: opts.Seed},
-		Inputs: Inputs{
-			Career:          opts.Career,
-			CurrentYear:     currentYearOrDefault(opts.CurrentYear),
-			RolledHomeworld: opts.RollHomeworld,
-		},
-		Name: opts.Name,
-		Age:  StartAge,
-	}
+	// A homeworld the caller named is assigned; one it did not is the
+	// character's to select from chart B (p. 58).
+	assigned := supplied(opts.Homeworld)
+
+	character := newCharacter(opts, policyVersion, assigned)
 
 	log.Step("Generate Characteristics", "Book 1 p. 72 chart E1 step A")
 
@@ -630,7 +649,7 @@ func Generate(opts Options) (Character, error) {
 		return Character{}, err
 	}
 
-	if err := runHomeworld(homeworld, opts.RollHomeworld, roller, &log, opts.Decider, &character); err != nil {
+	if err := runHomeworld(homeworld, assigned, opts.RollHomeworld, roller, &log, opts.Decider, &character); err != nil {
 		return Character{}, err
 	}
 

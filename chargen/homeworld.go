@@ -13,6 +13,37 @@ import (
 	"github.com/philoserf/t5chargen/world"
 )
 
+// homeworldOptions is what step B offers. "As assigned, selected, or
+// random" (p. 58): assigning and rolling both settle the world before the
+// choice, and there is nothing left to decide — the choice is logged all
+// the same, so the skills it grants have a cause and a record says who
+// picked.
+//
+// Where the world was neither assigned nor rolled, the choice is a real
+// one and the options are chart B's own list. The worlds are returned
+// beside the labels because a chosen index has to name a world again.
+func homeworldOptions(homeworld world.Homeworld, assigned bool) ([]string, []world.Homeworld, error) {
+	if assigned {
+		return []string{homeworld.Label()}, nil, nil
+	}
+
+	cells, err := world.Selectable()
+	if err != nil {
+		return nil, nil, fmt.Errorf("homeworld: %w", err)
+	}
+
+	options := make([]string, 0, len(cells))
+	worlds := make([]world.Homeworld, 0, len(cells))
+
+	for _, cell := range cells {
+		w := cell.Homeworld()
+		options = append(options, w.Label())
+		worlds = append(worlds, w)
+	}
+
+	return options, worlds, nil
+}
+
 // rollHomeworld determines the homeworld on chart B's world list:
 // "Homeworld. Select or determine a Homeworld" (p. 56). The chart is
 // indexed by two dice read in order, D1 then D2, so they are rolled and
@@ -40,7 +71,7 @@ func rollHomeworld(roller *dice.Roller, log *Log) (world.Homeworld, error) {
 // default); the assignment is logged as a choice event so the skill
 // consequences have a cause and interactive selection has its seam.
 func runHomeworld(
-	homeworld world.Homeworld, roll bool, roller *dice.Roller,
+	homeworld world.Homeworld, assigned, roll bool, roller *dice.Roller,
 	log *Log, decider Decider, character *Character,
 ) error {
 	log.Step("Determine A Homeworld", "Book 1 p. 72 chart E1 step B")
@@ -52,20 +83,30 @@ func runHomeworld(
 		}
 
 		homeworld = rolled
+		assigned = true
 	}
 
 	if err := homeworld.Validate(); err != nil {
 		return fmt.Errorf("homeworld: %w", err)
 	}
 
-	_, seq, err := choose(log, decider, Choice{
+	options, worlds, err := homeworldOptions(homeworld, assigned)
+	if err != nil {
+		return err
+	}
+
+	chosen, seq, err := choose(log, decider, Choice{
 		ID:      ChooseHomeworld,
 		Prompt:  "Select a homeworld",
-		Options: []string{homeworld.Label()},
+		Options: options,
 		Cite:    "Book 1 p. 58 (as assigned, selected, or random); chart B p. 56",
 	})
 	if err != nil {
 		return err
+	}
+
+	if len(worlds) > 0 {
+		homeworld = worlds[chosen]
 	}
 
 	character.Homeworld = homeworld
@@ -163,9 +204,16 @@ func awardSkillAndLog(name string, levels, cause int, log *Log, character *Chara
 // (p. 56, interpretation I-97), so a homeworld carrying nothing but the
 // mark is a partial deep space birth and is rejected by validateDeepSpace,
 // not quietly turned into Regina.
+// supplied reports whether a caller named a homeworld at all. The zero
+// value means it did not, which is what leaves the choice to the
+// character.
+func supplied(homeworld world.Homeworld) bool {
+	return homeworld.UWP != "" || homeworld.Name != "" ||
+		len(homeworld.TradeClassifications) > 0 || homeworld.DeepSpace
+}
+
 func homeworldOrDefault(homeworld world.Homeworld) (world.Homeworld, error) {
-	if homeworld.UWP == "" && homeworld.Name == "" &&
-		len(homeworld.TradeClassifications) == 0 && !homeworld.DeepSpace {
+	if !supplied(homeworld) {
 		d, err := world.Default()
 		if err != nil {
 			return world.Homeworld{}, fmt.Errorf("homeworld: %w", err)

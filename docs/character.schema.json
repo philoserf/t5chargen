@@ -28,6 +28,10 @@
         "current_year": {
           "type": "integer"
         },
+        "homeworld_assigned": {
+          "description": "The caller named the homeworld, so step B offered it alone. Replay needs it: the record stores the world either way, and one the character chose off chart B must be chosen again from the same list.",
+          "type": "boolean"
+        },
         "rolled_homeworld": {
           "type": "boolean"
         }
