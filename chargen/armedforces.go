@@ -92,7 +92,15 @@ func newArmedForces(load func() (*career.Definition, error)) (*career.Definition
 // begin rolls To Begin, then enters at the service's starting enlisted
 // rank: "Armed Forces characters begin with enlisted rank (Army =
 // Soldier1)" (p. 65). A failed attempt costs one year (p. 65).
+//
+// A Service Academy graduate of this service makes no throw: he was
+// accepted years ago, and graduating is what turned that acceptance into
+// his first term (interpretation I-101).
 func (m *armedForcesMechanics) begin(r *careerRun) (bool, error) {
+	if r.character.academyOfficer(r.def.ArmedForces.Service) {
+		return m.beginOnCommission(r)
+	}
+
 	r.log.Step(r.def.Name+": To Begin", r.def.Cite)
 
 	check, value, err := chooseCheckCharacteristic(r, r.def.BeginChecks)
@@ -112,6 +120,32 @@ func (m *armedForcesMechanics) begin(r *careerRun) (bool, error) {
 
 		return false, nil
 	}
+
+	if err := m.enterRank(r, m.entryRank(r), seq); err != nil {
+		return false, err
+	}
+
+	return true, m.selectBranch(r)
+}
+
+// beginOnCommission enters the service a Service Academy graduate was
+// commissioned into, without a To Begin throw.
+//
+// "Service Academies ... provide graduates an Army or Navy Commission ...
+// The character is required to serve one term in the service" (p. 62).
+// Acceptance to the Academy is acceptance to that term: a service does not
+// train an officer for four years and then ask him to roll for a place in
+// it, and the obligation I-99 collects would otherwise be one the character
+// could fail to discharge through no decision of his own — which is what
+// happened, to sixty-five of a hundred and sixty-three Army graduates in a
+// three-hundred-seed sweep.
+//
+// A cadet who failed out is not covered. He holds no commission, owes no
+// term, and applies to whatever career he likes on the same terms as
+// anyone else (interpretation I-101).
+func (m *armedForcesMechanics) beginOnCommission(r *careerRun) (bool, error) {
+	seq := r.log.Step(r.def.Name+": Accepted on his Academy commission",
+		"Book 1 p. 62 (required to serve one term in the service)")
 
 	if err := m.enterRank(r, m.entryRank(r), seq); err != nil {
 		return false, err
