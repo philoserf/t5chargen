@@ -1,7 +1,7 @@
 {
   "schema_version": "0.30.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.36.0",
+  "engine_version": "0.37.0",
   "policy_version": "none",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -493,7 +493,6 @@
         "decider": "player",
         "prompt": "Select pre-career education",
         "options": [
-          "ED5",
           "Trade School",
           "Apprenticeship",
           "College",
@@ -501,7 +500,7 @@
           "Service Academy",
           "None"
         ],
-        "chosen": 3,
+        "chosen": 2,
         "cite": "Book 1 p. 60 chart C; p. 57 step C (education is optional)"
       }
     },
@@ -977,7 +976,6 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Scholar",
-          "ED5",
           "Trade School",
           "Apprenticeship",
           "University"
@@ -1420,7 +1418,6 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Functionary",
-          "ED5",
           "Trade School",
           "Apprenticeship",
           "University"
@@ -1756,7 +1753,6 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Functionary",
-          "ED5",
           "Trade School",
           "Apprenticeship",
           "University"
@@ -2110,7 +2106,6 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Functionary",
-          "ED5",
           "Trade School",
           "Apprenticeship",
           "University"
@@ -2667,7 +2662,6 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Functionary",
-          "ED5",
           "Trade School",
           "Apprenticeship",
           "University"
@@ -3056,7 +3050,6 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Functionary",
-          "ED5",
           "Trade School",
           "Apprenticeship",
           "University"
@@ -3426,7 +3419,6 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Functionary",
-          "ED5",
           "Trade School",
           "Apprenticeship",
           "University"
@@ -3926,7 +3918,6 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Functionary",
-          "ED5",
           "Trade School",
           "Apprenticeship",
           "University"
@@ -4461,7 +4452,6 @@
         "prompt": "Suspend the term to return to school?",
         "options": [
           "Serve the term in Functionary",
-          "ED5",
           "Trade School",
           "Apprenticeship",
           "University"

@@ -202,7 +202,7 @@ func offeredPrograms(programs []education.Program, character *Character) ([]educ
 			continue
 		}
 
-		if character.attempted(p.Name) {
+		if character.attempted(p.Name) || !available(p, character, programs) {
 			continue
 		}
 
@@ -716,3 +716,66 @@ func (c *Character) attempted(program string) bool {
 
 	return false
 }
+
+// available reports whether a program is open to this character at all, as
+// distinct from one he falls short of and might waive into.
+//
+// The distinction is p. 59's: "Pre-Requisites are minimums; higher are
+// allowed", and a Waiver overturns "an adverse die roll or decision". Every
+// row this repo implements states a floor, which a character can fall short
+// of adversely and reach past by waiver — except one.
+func available(p education.Program, character *Character, programs []education.Program) bool {
+	return withinCeiling(p, character) && notBelowWhatHeHolds(p, character, programs)
+}
+
+// withinCeiling holds a maximum prerequisite closed.
+//
+// ED5's "Edu 4 -" is the only prerequisite in chart C that is a ceiling
+// rather than a floor, and a ceiling cannot be waived: a waiver overturns
+// an adverse decision (p. 59), and being better educated than a remedial
+// programme requires is not adversity. The page says what ED5 is for —
+// "a program to raise low Edu to a minimally acceptable level ... a
+// character with Edu less than 5 needs to take ED5" (p. 61) — so a
+// character above the ceiling is not refused it, he has no business in it
+// (interpretation I-102).
+func withinCeiling(p education.Program, character *Character) bool {
+	if p.Prerequisite.Kind != education.PrereqEduMax {
+		return true
+	}
+
+	return character.Characteristics.Edu <= p.Prerequisite.Value
+}
+
+// notBelowWhatHeHolds withholds a Basic programme from a character who has
+// already graduated one of chart C's Higher Education rows.
+//
+// The chart prints the two as separate blocks, and p. 61 gives the ladder
+// in its own words: ED5 exists "Because Edu-5 is the minimum prerequisite
+// for Trade Schools", so a Basic row is the rung you climb to reach a
+// Higher one. A graduate of College or University has climbed past it, and
+// the schooling below certifies nothing he does not hold (I-102).
+func notBelowWhatHeHolds(p education.Program, character *Character, programs []education.Program) bool {
+	if p.Group != groupBasic {
+		return true
+	}
+
+	for _, record := range character.Education {
+		if !record.Graduated {
+			continue
+		}
+
+		for _, held := range programs {
+			if held.Name == record.Program && held.Group == groupHigher {
+				return false
+			}
+		}
+	}
+
+	return true
+}
+
+// The chart C blocks, printed beside their rows (p. 60).
+const (
+	groupBasic  = "basic"
+	groupHigher = "higher"
+)

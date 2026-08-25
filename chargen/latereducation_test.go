@@ -17,6 +17,15 @@ type schoolAt struct {
 }
 
 func (d *schoolAt) Choose(c chargen.Choice) (int, error) {
+	// Decline pre-career education, so the character carries no degree
+	// into his career. A Basic programme is withheld from a Higher
+	// Education graduate (I-102), and these tests need Trade School — one
+	// Pass/Fail year against a four-year term, which is what tells a
+	// programme-duration reading from a whole-term one.
+	if c.ID == chargen.ChooseEducation {
+		return len(c.Options) - 1, nil // "None", appended last
+	}
+
 	if c.ID != chargen.ChooseLaterEducation {
 		return autoPolicy(c)
 	}
@@ -43,6 +52,12 @@ func (*schoolAt) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 type schoolAlways struct{}
 
 func (schoolAlways) Choose(c chargen.Choice) (int, error) {
+	// As schoolAt: no degree before the career, so every Basic row is
+	// still on offer once it starts (I-102).
+	if c.ID == chargen.ChooseEducation {
+		return len(c.Options) - 1, nil // "None", appended last
+	}
+
 	if c.ID != chargen.ChooseLaterEducation {
 		return autoPolicy(c)
 	}
@@ -271,8 +286,11 @@ func TestLaterEducationTerminates(t *testing.T) {
 	for seed := range uint64(terminationSeeds) {
 		c := generate(t, chargen.Options{Seed: seed, Decider: schoolAlways{}})
 
-		if len(c.Education) < 2 {
-			t.Errorf("seed %d: %d education records, want the mid-career path exercised", seed, len(c.Education))
+		// Every record here is mid-career: schoolAlways declines step C,
+		// so one is already proof the path was exercised. It used to want
+		// two, when the first was step C's.
+		if len(c.Education) < 1 {
+			t.Errorf("seed %d: no education records, so the mid-career path was never exercised", seed)
 		}
 
 		if !c.Dead && servedTerms(c) == 0 {
