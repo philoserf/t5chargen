@@ -2563,3 +2563,45 @@ and a year for each failed attempt. The same graduation test that decides
 I-94 and I-99 decides this.
 
 This closes the question the Academy row in COVERAGE.md recorded as open.
+
+### I-102: A ceiling is not waivable, and a rung already climbed is not offered (pp. 59, 60, 61)
+
+Two limits on what schooling a character is shown, both about the shape of
+chart C rather than about repetition, which I-100 already settled.
+
+**A maximum prerequisite is not waivable.** "Pre-Requisites are minimums;
+higher are allowed" (p. 59) describes every row this repo implements but
+one: ED5's is "Edu 4 -", a ceiling. The waiver rule is written for the
+other kind — "A student ... who receives an adverse die roll or decision
+(Prerequisite, Application Check, Pass/Fail Check, Honors) may try for a
+Waiver" — and a character cannot receive an adverse Prerequisite decision
+from a ceiling. Falling short of a floor is adverse; being better educated
+than a remedial programme requires is not, and there is nothing to
+overturn.
+
+p. 61 says what ED5 is: "a program to raise low Edu to a minimally
+acceptable level. Because Edu-5 is the minimum prerequisite for Trade
+Schools; a character with Edu less than 5 needs to take ED5 to raise his
+Edu to this minimally acceptable level." A character at Edu 12 is not
+refused it, he has no business in it. The engine offered it to him anyway,
+and chart C's "(If Edu already at this level, award Edu+1)" paid him a
+level for going.
+
+**A Basic programme is not offered after a Higher Education graduation.**
+Chart C prints the two as separate blocks, and the sentence above gives the
+relation between them in the book's own words: ED5 exists to reach Trade
+School's prerequisite. Basic is the rung climbed to reach Higher. A
+graduate of College or University has climbed past it, and what is below
+certifies nothing he does not already hold.
+
+**What this does not do.** A character who arrives above a graduation value
+and attends anyway still takes chart C's "+1", once per programme, and
+College then University can still carry an Edu-12 character to 14. That is
+the parenthetical doing exactly what it says, and it is evidence the book
+expects the over-qualified student and rewards him modestly. The absurdity
+was never the +1; it was twenty-three of them (I-100), and a remedial
+programme handing one to a professor.
+
+The military block is untouched. ANM School and Command College are
+assigned inside a term rather than applied for (I-91 to I-93) and never
+pass through this offer at all.

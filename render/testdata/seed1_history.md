@@ -30,7 +30,7 @@ _Book 1 p. 72 chart E1 step B_
 
 _Book 1 p. 72 chart E1 step C_
 
-- #20 policy chose "College" of [ED5, Trade School, Apprenticeship, College, University, Service Academy, None]: Select pre-career education — Book 1 p. 60 chart C; p. 57 step C (education is optional)
+- #20 policy chose "College" of [Trade School, Apprenticeship, College, University, Service Academy, None]: Select pre-career education — Book 1 p. 60 chart C; p. 57 step C (education is optional)
 - #21 policy chose "Int" of [Int, Edu]: Select the characteristic to check — Book 1 p. 59 (Check one of the stated Characteristics)
 - #22 2D = 3+3 = 6 vs 6: success — Book 1 p. 60 chart C (College To Apply Check Int)
 - #23 policy chose "Athlete" of [Athlete, Broker, Bureaucrat, Counsellor, Designer, Language, Teacher, Astrogator, Actor, Artist, Author, Chef, Dancer, Musician, Biologics, Craftsman, Electronics, Fluidics, Gravitics, Magnetics, Mechanic, Photonics, Polymers, Programmer, Automotive, Archeology, Biology, Chemistry, History, Linguistics, Philosophy, Physics, Planetology, Psionicology, Psychohistory, Psychology, Robotics, Sophontology, Aeronautics, Aquanautics]: Select a Major — Book 1 p. 59 (Major and Minor); chart C p. 60 Available Skills
@@ -66,7 +66,7 @@ _Book 1 p. 72 chart E1 step D_
 
 _Book 1 p. 72 chart E1 panel 04_
 
-- #48 policy chose "Serve the term in Citizen" of [Serve the term in Citizen, ED5, Trade School, Apprenticeship, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #48 policy chose "Serve the term in Citizen" of [Serve the term in Citizen, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Citizen: Term 1
 
@@ -95,7 +95,7 @@ _Book 1 p. 78 chart 04_
 - #70 policy chose "Continue in Citizen" of [Continue in Citizen, Change careers]: Leave Citizen for another career? — Book 1 p. 66 (Changing Careers)
 - #71 2D = 3+2 = 5 vs 10: success — Book 1 p. 78 chart 04 (Continue 10-; p. 66)
   - #72 (from #71) +4 years
-- #73 policy chose "Serve the term in Citizen" of [Serve the term in Citizen, ED5, Trade School, Apprenticeship, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #73 policy chose "Serve the term in Citizen" of [Serve the term in Citizen, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Citizen: Term 2
 
