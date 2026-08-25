@@ -278,8 +278,19 @@ func TestScoresAreShownOnlyWhenNamed(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !strings.Contains(out, "[qualifies 0]") {
-		t.Errorf("a named score was not shown:\n%s", out)
+	// The qualification score renders as what it costs, and only where it
+	// costs something: "[qualifies 0]" read as a refusal when it meant
+	// that picking the row would cost a waiver attempt (I-95).
+	if !strings.Contains(out, "University  [needs a waiver]") {
+		t.Errorf("the row he falls short of does not say what choosing it costs:\n%s", out)
+	}
+
+	if strings.Contains(out, "qualifies") {
+		t.Errorf("the qualification is still rendered as a digit:\n%s", out)
+	}
+
+	if strings.Contains(out, "College  [") {
+		t.Errorf("a row he qualifies for was annotated; only the exceptions carry one:\n%s", out)
 	}
 
 	bare := labelled
