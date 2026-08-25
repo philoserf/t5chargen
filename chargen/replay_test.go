@@ -87,7 +87,34 @@ func TestReplayRejectsForeignProvenance(t *testing.T) {
 			if !strings.Contains(err.Error(), tc.name) {
 				t.Errorf("error %q does not name the field that mismatched", err)
 			}
+
+			// Both sides, so a reader can see how far apart the builds
+			// are rather than being told one field at a time.
+			if !strings.Contains(err.Error(), "this build") {
+				t.Errorf("error %q does not say what this build stamps", err)
+			}
 		})
+	}
+}
+
+// TestProvenanceNamesEveryMismatch verifies a record several versions old
+// is told so at once. Reporting the first difference and stopping says
+// less about how far apart the two builds are, and a reader who fixed one
+// would only meet the next.
+func TestProvenanceNamesEveryMismatch(t *testing.T) {
+	stored := readFixture(t, filepath.Join("testdata", "seed1.json"))
+	stored.SchemaVersion = "0.1.0"
+	stored.EngineVersion = "0.2.0"
+
+	_, err := chargen.Replay(stored)
+	if !errors.Is(err, chargen.ErrReplayProvenance) {
+		t.Fatalf("replay = %v, want ErrReplayProvenance", err)
+	}
+
+	for _, want := range []string{"schema_version", "engine_version"} {
+		if !strings.Contains(err.Error(), want) {
+			t.Errorf("error %q does not mention %s", err, want)
+		}
 	}
 }
 

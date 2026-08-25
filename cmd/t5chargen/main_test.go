@@ -829,3 +829,64 @@ func TestInteractiveSessionEndsWithItsCharacter(t *testing.T) {
 		t.Error("the summary was written to stdout, where the record goes")
 	}
 }
+
+// TestAForeignRecordIsToldWhatStillWorks verifies the refusal is not a
+// dead end. A record an older build wrote cannot be re-run — replay
+// recomputes, and a newer engine does not reproduce an older one — but the
+// record is not damaged, and saying only "cannot be re-run" leaves a
+// reader with nowhere to go.
+func TestAForeignRecordIsToldWhatStillWorks(t *testing.T) {
+	record := filepath.Join(t.TempDir(), "old.json")
+
+	var stdout, stderr bytes.Buffer
+	if code := run3(t, []string{"new", "--auto", "--seed", "1", "-o", record}, &stdout, &stderr); code != exitOK {
+		t.Fatalf("new: exit %d", code)
+	}
+
+	aged := readRecordFile(t, record)
+	aged["schema_version"] = "0.0.1"
+	writeRecordFile(t, record, aged)
+
+	var out, errOut bytes.Buffer
+	if code := run3(t, []string{"replay", record}, &out, &errOut); code != exitError {
+		t.Fatalf("replay: exit %d, want %d", code, exitError)
+	}
+
+	said := errOut.String()
+	for _, want := range []string{"different build", "schema_version", "not damaged", "render"} {
+		if !strings.Contains(said, want) {
+			t.Errorf("the refusal does not mention %q: %s", want, strings.TrimSpace(said))
+		}
+	}
+}
+
+// readRecordFile loads a record for a test to alter.
+func readRecordFile(t *testing.T, path string) map[string]any {
+	t.Helper()
+
+	data, err := os.ReadFile(path) //nolint:gosec // a temp path this test wrote
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var record map[string]any
+	if err := json.Unmarshal(data, &record); err != nil {
+		t.Fatal(err)
+	}
+
+	return record
+}
+
+// writeRecordFile puts an altered record back.
+func writeRecordFile(t *testing.T, path string, record map[string]any) {
+	t.Helper()
+
+	data, err := json.Marshal(record)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if err := os.WriteFile(path, data, 0o600); err != nil {
+		t.Fatal(err)
+	}
+}

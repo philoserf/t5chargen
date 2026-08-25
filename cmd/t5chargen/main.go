@@ -716,6 +716,16 @@ func runReplay(args []string, stdout, stderr io.Writer) int {
 		if _, err := chargen.Replay(character); err != nil {
 			fmt.Fprintf(stderr, "t5chargen replay: %s: %v\n", name, err)
 
+			// A record from another build is not a damaged one, and
+			// saying only that it cannot be re-run leaves a reader with
+			// nowhere to go. Replay re-runs the engine, so a record an
+			// older one wrote cannot be reproduced by a newer one — but
+			// the record itself is untouched and still reads.
+			if errors.Is(err, chargen.ErrReplayProvenance) {
+				fmt.Fprintf(stderr,
+					"  The record is not damaged: t5chargen render %s still reads it.\n", flags.Arg(0))
+			}
+
 			return exitError
 		}
 

@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"maps"
 	"slices"
+	"strings"
 
 	"github.com/philoserf/t5chargen/world"
 )
@@ -19,7 +20,7 @@ var (
 	// a different engine, ruleset, or random algorithm. Replay stops
 	// before rolling anything, because every later complaint would be a
 	// consequence of this one.
-	ErrReplayProvenance = errors.New("record was not produced by this engine")
+	ErrReplayProvenance = errors.New("record was made by a different build, so it cannot be re-run here")
 
 	// ErrReplayDiverged reports a record this build re-ran and did not
 	// reproduce. The message names the sequence number of the first
@@ -101,6 +102,8 @@ func assignedHomeworld(stored Character) world.Homeworld {
 // from another engine would fail at some arbitrary sequence number, and
 // that number would describe nothing.
 func checkProvenance(stored Character) error {
+	var differ []string
+
 	for _, field := range []struct {
 		name, got, want string
 	}{
@@ -110,9 +113,15 @@ func checkProvenance(stored Character) error {
 		{"rng.algorithm", stored.RNG.Algorithm, RNGAlgorithm},
 	} {
 		if field.got != field.want {
-			return fmt.Errorf("%w: %s is %q, this build is %q",
-				ErrReplayProvenance, field.name, field.got, field.want)
+			differ = append(differ, fmt.Sprintf("%s %s, this build %s", field.name, field.got, field.want))
 		}
+	}
+
+	// All of them, not the first. A record two versions old differs in
+	// several, and being told about one at a time says less about how far
+	// apart the two builds are.
+	if len(differ) > 0 {
+		return fmt.Errorf("%w: %s", ErrReplayProvenance, strings.Join(differ, "; "))
 	}
 
 	return nil
