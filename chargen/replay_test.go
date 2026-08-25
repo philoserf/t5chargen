@@ -328,3 +328,57 @@ func TestReplayForcedCareerNeedsTheInput(t *testing.T) {
 		t.Fatalf("replay without the recorded force = %v, want ErrReplayDiverged", err)
 	}
 }
+
+// TestReplayIgnoringProvenanceRunsARecordReplayRefuses is the flag's whole
+// point: a record whose versions do not match this build still has a
+// generation in it, and the useful answer is where that generation
+// disagrees rather than a refusal to look.
+//
+// The record here is a fixture with its versions falsified, so nothing
+// about the run itself changed — which is exactly the case the ordinary
+// provenance gate cannot distinguish from a real engine difference, and
+// the reason waiving it has to be a deliberate act.
+func TestReplayIgnoringProvenanceRunsARecordReplayRefuses(t *testing.T) {
+	stored := readFixture(t, filepath.Join("testdata", "seed1.json"))
+	stored.SchemaVersion = "0.1.0"
+	stored.EngineVersion = "0.2.0"
+
+	if _, err := chargen.Replay(stored); !errors.Is(err, chargen.ErrReplayProvenance) {
+		t.Fatalf("Replay = %v, want ErrReplayProvenance (the premise of this test)", err)
+	}
+
+	if _, err := chargen.ReplayIgnoringProvenance(stored); err != nil {
+		t.Errorf("ReplayIgnoringProvenance = %v, want the run to reproduce", err)
+	}
+}
+
+// TestReplayIgnoringProvenanceStillVerifies guards the other half: waiving
+// the version check must not waive the verification. A record that has
+// been tampered with has to be caught whichever entry point re-runs it,
+// or the flag would turn replay into a way of not checking.
+func TestReplayIgnoringProvenanceStillVerifies(t *testing.T) {
+	stored := readFixture(t, filepath.Join("testdata", "seed1.json"))
+	stored.EngineVersion = "0.2.0"
+	stored.RNG.Seed++
+
+	if _, err := chargen.ReplayIgnoringProvenance(stored); !errors.Is(err, chargen.ErrReplayDiverged) {
+		t.Errorf("ReplayIgnoringProvenance = %v, want ErrReplayDiverged", err)
+	}
+}
+
+// TestReplayIgnoringProvenanceKeepsTheProvenanceOutOfTheDiff checks that
+// the falsified versions are not then reported back as a record
+// difference. A caller who waived the check and got it returned as the
+// answer would have gained nothing, and the real divergence — if there
+// were one — would be behind it.
+func TestReplayIgnoringProvenanceKeepsTheProvenanceOutOfTheDiff(t *testing.T) {
+	stored := readFixture(t, filepath.Join("testdata", "seed1.json"))
+	stored.SchemaVersion = "0.1.0"
+	stored.EngineVersion = "0.2.0"
+	stored.Ruleset = "some other book"
+	stored.RNG.Algorithm = "not-pcg"
+
+	if _, err := chargen.ReplayIgnoringProvenance(stored); err != nil {
+		t.Errorf("ReplayIgnoringProvenance = %v, want the four provenance fields excluded from the diff", err)
+	}
+}

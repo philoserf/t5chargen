@@ -41,7 +41,7 @@ const usage = `usage:
   t5chargen batch --count N --auto [--seed N] [--name X] [--career citizen]
                   [--homeworld "UWP TC..."|random] [--current-year 1105] [-o dir/|file.jsonl] [--force]
   t5chargen render [--format md] [--history] character.json
-  t5chargen replay character.json
+  t5chargen replay [--ignore-provenance] character.json
 `
 
 func main() {
@@ -692,6 +692,11 @@ func runRender(args []string, stdout, stderr io.Writer) int {
 func runReplay(args []string, stdout, stderr io.Writer) int {
 	flags := flag.NewFlagSet("replay", flag.ContinueOnError)
 	flags.SetOutput(stderr)
+	// Deliberately not --force, which in this CLI means "overwrite the
+	// file I am about to write". Replay writes nothing; what this waives
+	// is a check, and the name says which one.
+	ignoreProvenance := flags.Bool("ignore-provenance", false,
+		"re-run a record made by a different build, and report where it disagrees")
 
 	if err := flags.Parse(args); err != nil {
 		return exitUsage
@@ -713,25 +718,56 @@ func runReplay(args []string, stdout, stderr io.Writer) int {
 	for i, character := range characters {
 		name := recordName(flags.Arg(0), i, len(characters))
 
-		if _, err := chargen.Replay(character); err != nil {
-			fmt.Fprintf(stderr, "t5chargen replay: %s: %v\n", name, err)
+		if code := replayOne(character, name, flags.Arg(0), *ignoreProvenance, stdout, stderr); code != exitOK {
+			return code
+		}
+	}
 
-			// A record from another build is not a damaged one, and
-			// saying only that it cannot be re-run leaves a reader with
-			// nowhere to go. Replay re-runs the engine, so a record an
-			// older one wrote cannot be reproduced by a newer one — but
-			// the record itself is untouched and still reads.
-			if errors.Is(err, chargen.ErrReplayProvenance) {
-				fmt.Fprintf(stderr,
-					"  The record is not damaged: t5chargen render %s still reads it.\n", flags.Arg(0))
-			}
+	return exitOK
+}
 
-			return exitError
+// replayOne verifies a single record and reports the outcome.
+//
+// With --ignore-provenance the mismatch is announced rather than fatal, so
+// the run happens and the reader is told what he is looking at. A record
+// that then reproduces exactly is reported as reproducing: the versions
+// disagreeing while the generation does not is a true and useful answer,
+// not a qualified success.
+func replayOne(
+	character chargen.Character, name, path string, ignoreProvenance bool, stdout, stderr io.Writer,
+) int {
+	_, err := chargen.Replay(character)
+
+	// Replay stops at the provenance gate before rolling anything, so
+	// asking it first costs nothing and keeps the check itself in the
+	// engine rather than duplicated here.
+	if err != nil && ignoreProvenance && errors.Is(err, chargen.ErrReplayProvenance) {
+		fmt.Fprintf(stderr, "t5chargen replay: %s: %v\n", name, err)
+		fmt.Fprintf(stderr, "  Re-running it anyway, because --ignore-provenance was given.\n")
+
+		_, err = chargen.ReplayIgnoringProvenance(character)
+	}
+
+	if err != nil {
+		fmt.Fprintf(stderr, "t5chargen replay: %s: %v\n", name, err)
+
+		// A record from another build is not a damaged one, and saying
+		// only that it cannot be re-run leaves a reader with nowhere to
+		// go. Replay re-runs the engine, so a record an older one wrote
+		// cannot be reproduced by a newer one — but the record itself is
+		// untouched and still reads, and --ignore-provenance will say
+		// where the two builds part company.
+		if errors.Is(err, chargen.ErrReplayProvenance) {
+			fmt.Fprintf(stderr,
+				"  The record is not damaged: t5chargen render %s still reads it,\n"+
+					"  and t5chargen replay --ignore-provenance %s re-runs it anyway.\n", path, path)
 		}
 
-		fmt.Fprintf(stdout, "replayed %s: %d events reproduced from seed %d\n",
-			name, len(character.Events), character.RNG.Seed)
+		return exitError
 	}
+
+	fmt.Fprintf(stdout, "replayed %s: %d events reproduced from seed %d\n",
+		name, len(character.Events), character.RNG.Seed)
 
 	return exitOK
 }

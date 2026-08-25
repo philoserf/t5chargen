@@ -47,6 +47,33 @@ func Replay(stored Character) (Character, error) {
 		return Character{}, err
 	}
 
+	return replay(stored, false)
+}
+
+// ReplayIgnoringProvenance re-runs a record whose provenance this build
+// does not match, and verifies it the same way Replay does.
+//
+// The provenance gate exists because a divergence reported against the
+// wrong build describes nothing, and that reasoning is sound — but the
+// refusal it produces is a dead end for the one record that cannot be
+// regenerated any other way. A record made by a player answering each
+// choice carries policy_version "none": re-running it from its seed under
+// the auto policy produces a different character, so replay is the only
+// path back to the run it describes. When an engine bump orphans such a
+// record, this is what is left.
+//
+// It is not a repair and it does not upgrade anything: the record is read
+// and never written. What it buys is the first event where this build
+// disagrees, in place of a refusal to look.
+func ReplayIgnoringProvenance(stored Character) (Character, error) {
+	return replay(stored, true)
+}
+
+// replay is the verifier both entry points share, after each has decided
+// whether the record's provenance had to match. provenanceWaived says a
+// caller has been told the versions differ and asked for the run anyway,
+// which is the one thing the comparison below must not then report again.
+func replay(stored Character, provenanceWaived bool) (Character, error) {
 	decider := &replayDecider{}
 
 	for _, event := range stored.Events {
@@ -77,7 +104,7 @@ func Replay(stored Character) (Character, error) {
 	// conventions), and no event carries the final credits, skill list or
 	// Fame. Comparing the marshalled records catches a derived value that
 	// drifted while every event that fed it stayed put.
-	if err := compareRecords(stored, replayed); err != nil {
+	if err := compareRecords(stored, replayed, provenanceWaived); err != nil {
 		return replayed, err
 	}
 
@@ -173,8 +200,20 @@ func compareEvents(stored, replayed []Event) error {
 // the source of truth in (docs/PRD.md FR8). Events are excluded because
 // compareEvents has already reported them at a useful granularity; a whole
 // event log in an error message is not a diagnostic.
-func compareRecords(stored, replayed Character) error {
+func compareRecords(stored, replayed Character, provenanceWaived bool) error {
 	stored.Events, replayed.Events = nil, nil
+
+	// A waived provenance check would otherwise be reported a second
+	// time, as a record difference, and drown the generation difference
+	// the caller waived it to see. He has already been told the versions
+	// disagree; saying so again in place of the answer would make the
+	// waiver useless. Same reasoning as policy_version just below.
+	if provenanceWaived {
+		stored.SchemaVersion, replayed.SchemaVersion = "", ""
+		stored.EngineVersion, replayed.EngineVersion = "", ""
+		stored.Ruleset, replayed.Ruleset = "", ""
+		stored.RNG.Algorithm, replayed.RNG.Algorithm = "", ""
+	}
 
 	// policy_version attests who decided, and on a re-run that is the
 	// replay decider, so the regenerated record always reports "none".
