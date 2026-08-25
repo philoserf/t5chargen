@@ -898,10 +898,12 @@ func runCareerOnce(
 
 	for len(options) > 0 {
 		chosen, chosenSeq, err := choose(log, decider, Choice{
-			ID:      ChooseCareer,
-			Prompt:  "Select career",
-			Options: options,
-			Cite:    "Book 1 p. 72 chart E1 step D",
+			ID:         ChooseCareer,
+			Prompt:     "Select career",
+			Options:    options,
+			Scores:     automaticEntries(options, character),
+			ScoreLabel: ScoreAutomatic,
+			Cite:       "Book 1 p. 72 chart E1 step D",
 		})
 		if err != nil {
 			return false, termCareerEnded, err
@@ -953,4 +955,59 @@ func choose(log *Log, decider Decider, c Choice) (int, int, error) {
 	})
 
 	return chosen, seq, nil
+}
+
+// The two score labels that are a yes or a no rather than a quantity. A
+// front end reads them to know how to put the score to a player; the
+// engine and the policy read only the digit (see Choice).
+const (
+	// ScoreAutomatic marks a career entered without a To Begin throw.
+	ScoreAutomatic = "automatic"
+
+	// ScoreQualifies marks an education programme whose prerequisite the
+	// character meets; a zero costs him a waiver attempt, not the row.
+	ScoreQualifies = "qualifies"
+)
+
+// automaticEntries reports, for each career on offer, whether entry needs
+// no throw.
+//
+// It is decision data rather than a rule — not recorded, and a front end
+// may show it (see Choice) — but it is the thing chart E1's step D asks a
+// player to weigh. A career that cannot fail costs him nothing; every
+// other one risks the year p. 65 charges for a failed attempt.
+func automaticEntries(options []string, character *Character) []int {
+	scores := make([]int, len(options))
+
+	for i, name := range options {
+		def, err := career.ByName(name)
+		if err != nil {
+			continue // an unknown career scores nothing; selection will report it
+		}
+
+		scores[i] = boolScore(entersAutomatically(def, character))
+	}
+
+	return scores
+}
+
+// entersAutomatically applies a career's begin_automatic_if.
+//
+// Chart 01's Craftsman and chart 11's Noble print "Automatic*" against a
+// prerequisite, and that prerequisite is checked before the career is
+// offered (I-28) — so where they appear on the list at all, they are
+// automatic, which is what "always" records for them.
+func entersAutomatically(def *career.Definition, character *Character) bool {
+	auto := def.BeginAutomaticIf
+	if auto == nil {
+		return false
+	}
+
+	if auto.Always {
+		return true
+	}
+
+	value, ok := characteristicValue(&character.Characteristics, auto.Characteristic)
+
+	return ok && value >= auto.Minimum
 }

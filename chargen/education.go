@@ -155,7 +155,7 @@ func chooseProgram(log *Log, decider Decider, character *Character) (education.P
 		Prompt:     "Select pre-career education",
 		Options:    options,
 		Scores:     qualified,
-		ScoreLabel: "qualifies",
+		ScoreLabel: ScoreQualifies,
 		Cite:       "Book 1 p. 60 chart C; p. 57 step C (education is optional)",
 	})
 	if err != nil {

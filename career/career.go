@@ -177,6 +177,10 @@ type Definition struct {
 	// a character who already qualifies. nil for every other career.
 	BeginPrerequisite *Prerequisite `json:"begin_prerequisite,omitempty"`
 
+	// BeginAutomaticIf says when entry needs no throw; nil where entry is
+	// always a throw.
+	BeginAutomaticIf *BeginAutomatic `json:"begin_automatic_if,omitempty"`
+
 	// ContinueSkill and ContinueSkillMultiplier are chart 01's "Continue
 	// Craftsman x2": the target is a skill level times a multiplier.
 	ContinueSkill           string `json:"continue_skill,omitempty"`
@@ -386,6 +390,26 @@ type Prerequisite struct {
 	// Characteristic and Minimum are a characteristic floor: chart 11's
 	// "To Begin Automatic* ... *if Soc B+" (p. 85), B being 11 in the
 	// eHex the characteristics use.
+	Characteristic string `json:"characteristic,omitempty"`
+	Minimum        int    `json:"minimum,omitempty"`
+}
+
+// BeginAutomatic declares when a career is entered without a To Begin
+// throw, which chart E1's step D asks a player to weigh: a career that
+// cannot fail costs him nothing, and every other one risks a year on a
+// failed attempt (p. 65).
+//
+// Four careers print it. Chart 04's Citizen is a bare "Auto"; chart 01's
+// Craftsman and chart 11's Noble print "Automatic*" against a prerequisite
+// that is checked before the career is offered (I-28), so by the time the
+// choice is put they are automatic outright. Chart 02's Scholar is the
+// conditional one: "(Edu 8+) Automatic", above which entry is automatic
+// and below which it is a throw.
+type BeginAutomatic struct {
+	// Always is the unconditional form.
+	Always bool `json:"always,omitempty"`
+
+	// Characteristic and Minimum are chart 02's "(Edu 8+)".
 	Characteristic string `json:"characteristic,omitempty"`
 	Minimum        int    `json:"minimum,omitempty"`
 }
@@ -851,6 +875,10 @@ func (d *Definition) validate() error {
 // served", chart 05 p. 79, the only career that prints such a rule).
 func (d *Definition) validateTermCounts() error {
 	if err := validateBeginPrerequisite(d.Name, d.BeginPrerequisite); err != nil {
+		return err
+	}
+
+	if err := validateBeginAutomatic(d.Name, d.BeginAutomaticIf); err != nil {
 		return err
 	}
 
@@ -1734,6 +1762,34 @@ func validateBeginPrerequisite(career string, p *Prerequisite) error {
 	if p.Minimum <= 0 {
 		return fmt.Errorf("%w: %q begins on %s with no minimum",
 			errBadDefinition, career, p.Characteristic)
+	}
+
+	return nil
+}
+
+// validateBeginAutomatic checks the automatic-entry declaration says
+// exactly one thing: always, or above a named characteristic.
+func validateBeginAutomatic(career string, a *BeginAutomatic) error {
+	if a == nil {
+		return nil
+	}
+
+	conditional := a.Characteristic != ""
+	if a.Always == conditional {
+		return fmt.Errorf("%w: %q begins automatically %s",
+			errBadDefinition, career, "neither always nor above a characteristic, or both")
+	}
+
+	if conditional {
+		if !characteristicNames[a.Characteristic] {
+			return fmt.Errorf("%w: %q begins automatically above %q, which is not a characteristic",
+				errBadDefinition, career, a.Characteristic)
+		}
+
+		if a.Minimum <= 0 {
+			return fmt.Errorf("%w: %q begins automatically above %s with no minimum",
+				errBadDefinition, career, a.Characteristic)
+		}
 	}
 
 	return nil

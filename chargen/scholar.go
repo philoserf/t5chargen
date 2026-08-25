@@ -93,7 +93,13 @@ func (m *scholarMechanics) begin(r *careerRun) (bool, error) {
 
 	// The automatic entry rolls nothing, so the career-selection choice is
 	// what causes it (docs/PRD.md FR10).
-	if r.character.Characteristics.Edu >= scholarPromoteEdu {
+	//
+	// The condition is chart 02's "(Edu 8+) Automatic", read from the
+	// career data so that the menu and the entry cannot disagree about
+	// which characters it covers. scholarPromoteEdu stays where it is: it
+	// gates promotion, a different sentence on the same chart that happens
+	// to name the same number.
+	if entersAutomatically(r.def, r.character) {
 		// "A character with Edu 8+ is automatically Scholar1 to Begin."
 		if err := m.setRank(r, scholarLecturer, r.entryCause); err != nil {
 			return false, err

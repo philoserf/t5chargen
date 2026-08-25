@@ -77,7 +77,7 @@ func (r *careerRun) laterEducation() (bool, error) {
 		Prompt:     "Suspend the term to return to school?",
 		Options:    options,
 		Scores:     scores,
-		ScoreLabel: "qualifies",
+		ScoreLabel: ScoreQualifies,
 		Cite:       "Book 1 p. 59 (Later Education or Training); chart C p. 60",
 	})
 	if err != nil || chosen == 0 {

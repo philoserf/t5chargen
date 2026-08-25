@@ -1,6 +1,9 @@
 {
   "cite": "Book 1 p. 75 chart 01",
   "name": "Craftsman",
+  "begin_automatic_if": {
+    "always": true
+  },
   "begin_prerequisite": {
     "skill": "Craftsman",
     "skill_level": 1,
