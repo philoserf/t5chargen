@@ -568,6 +568,17 @@ type Options struct {
 	Decider Decider
 }
 
+// newLog starts the record, showing it to a Decider that also watches.
+func newLog(decider Decider) Log {
+	var log Log
+
+	if watcher, ok := decider.(Watcher); ok {
+		log.watch = watcher.Watch
+	}
+
+	return log
+}
+
 // Generate runs the generation procedure and returns the character record:
 // checklist steps A (Generate Characteristics), B (Determine A Homeworld),
 // C (Education and Training), and D (Select Career) plus career resolution
@@ -585,7 +596,7 @@ func Generate(opts Options) (Character, error) {
 
 	roller := dice.New(opts.Seed)
 
-	var log Log
+	log := newLog(opts.Decider)
 
 	// policy_version attests which decision table governed the run's
 	// choices: the POLICY.md version only when the default policy itself

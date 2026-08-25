@@ -43,12 +43,16 @@ const (
 type Decider struct {
 	in  *bufio.Scanner
 	out io.Writer
+
+	// session is what the run has come to so far, followed through
+	// chargen.Watcher and shown above each question (session.go).
+	session *session
 }
 
 // New returns a Decider reading answers from in and writing prompts to
 // out.
 func New(in io.Reader, out io.Writer) *Decider {
-	return &Decider{in: bufio.NewScanner(in), out: out}
+	return &Decider{in: bufio.NewScanner(in), out: out, session: newSession()}
 }
 
 // Kind identifies the player in choice events (docs/PRD.md FR10: "who
@@ -92,6 +96,8 @@ func (d *Decider) resolve(c chargen.Choice, answer string) (int, bool, error) {
 	case strings.EqualFold(answer, quitAnswer):
 		abandoned, err := d.confirmAbandon(c)
 		if err != nil || abandoned {
+			d.session.abandoned = true
+
 			return 0, true, err
 		}
 
@@ -131,6 +137,23 @@ func (d *Decider) confirmAbandon(c chargen.Choice) (bool, error) {
 	return true, fmt.Errorf("%w at %q", ErrAbandoned, c.ID)
 }
 
+// announceCharacteristics shows step A's result as soon as the sixth is
+// rolled, which puts it under step A's own heading rather than under
+// whatever step happens to be entered before the first question.
+//
+// Every decision after depends on these — which education admits him,
+// which characteristic to check — so a player must not be asked anything
+// without having seen them.
+func (d *Decider) announceCharacteristics() {
+	if d.session.told || !d.session.rolled() {
+		return
+	}
+
+	d.session.told = true
+
+	fmt.Fprintf(d.out, "  %s\n", d.session.characteristics())
+}
+
 // read takes one line of input, treating the end of it as abandonment: a
 // player who closed the session did not answer, and the engine must not be
 // told that he did.
@@ -141,6 +164,8 @@ func (d *Decider) read() (string, error) {
 		if err := d.in.Err(); err != nil {
 			return "", fmt.Errorf("reading the answer: %w", err)
 		}
+
+		d.session.abandoned = true
 
 		return "", fmt.Errorf("%w: input ended", ErrAbandoned)
 	}
@@ -180,7 +205,8 @@ func (d *Decider) filter(c chargen.Choice, term string) {
 // present writes the prompt and the options matching term, and reports how
 // many matched. An empty term matches everything.
 func (d *Decider) present(c chargen.Choice, term string) int {
-	fmt.Fprintf(d.out, "\n%s\n", c.Prompt)
+	fmt.Fprintf(d.out, "\n%s\n", d.session.status())
+	fmt.Fprintf(d.out, "%s%s\n", c.Prompt, ordinal(c))
 
 	if c.Cite != "" {
 		fmt.Fprintf(d.out, "  %s\n", c.Cite)
@@ -211,6 +237,17 @@ func (d *Decider) present(c chargen.Choice, term string) int {
 	fmt.Fprintf(d.out, "  (a number to choose, text to search, %s to list, %s to abandon)\n", listAnswer, quitAnswer)
 
 	return matched
+}
+
+// ordinal places a question in a run of identical ones. A term's skills
+// are the same question asked several times, and "3 of 5" is the
+// difference between answering them and losing count.
+func ordinal(c chargen.Choice) string {
+	if c.Of < 2 {
+		return ""
+	}
+
+	return fmt.Sprintf("  (%d of %d)", c.Nth, c.Of)
 }
 
 // score renders the engine's decision aid for an option, where it offers
