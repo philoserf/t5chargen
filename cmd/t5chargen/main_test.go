@@ -890,3 +890,66 @@ func writeRecordFile(t *testing.T, path string, record map[string]any) {
 		t.Fatal(err)
 	}
 }
+
+// TestReplayRefusalNamesTheWayOut verifies the refusal is not a dead end.
+// A reader told only that his record was made by a different build has
+// nowhere to go, and both places he can go — render, which still reads it,
+// and the flag, which re-runs it — are named in the message rather than
+// left to be discovered.
+func TestReplayRefusalNamesTheWayOut(t *testing.T) {
+	record := recordFromAnotherBuild(t)
+
+	var stdout, stderr bytes.Buffer
+	if code := run3(t, []string{"replay", record}, &stdout, &stderr); code != exitError {
+		t.Fatalf("replay of a record from another build: exit %d, want %d", code, exitError)
+	}
+
+	for _, want := range []string{"render", "--ignore-provenance"} {
+		if !strings.Contains(stderr.String(), want) {
+			t.Errorf("the refusal %q does not mention %s", stderr.String(), want)
+		}
+	}
+}
+
+// TestReplayIgnoreProvenanceRunsItAnyway is the flag end to end. The
+// record here differs from this build only in the version it claims, so
+// the run reproduces: the flag has to reach a verdict on the generation
+// rather than stop at the versions, and it has to say which check it
+// waived while doing so.
+func TestReplayIgnoreProvenanceRunsItAnyway(t *testing.T) {
+	record := recordFromAnotherBuild(t)
+
+	var stdout, stderr bytes.Buffer
+	if code := run3(t, []string{"replay", "--ignore-provenance", record}, &stdout, &stderr); code != exitOK {
+		t.Fatalf("replay --ignore-provenance: exit %d, want %d, stderr: %s", code, exitOK, stderr.String())
+	}
+
+	if !strings.Contains(stdout.String(), "reproduced from seed 1") {
+		t.Errorf("replay said %q, which does not report the run it reproduced", stdout.String())
+	}
+
+	if !strings.Contains(stderr.String(), "anyway") {
+		t.Errorf("stderr %q does not say the provenance check was waived", stderr.String())
+	}
+}
+
+// recordFromAnotherBuild writes a real record and falsifies the one field
+// that decides whether this build may re-run it. Falsifying the version
+// rather than the run is deliberate: it is the case where the provenance
+// gate and the generation disagree, which is what the flag exists for.
+func recordFromAnotherBuild(t *testing.T) string {
+	t.Helper()
+
+	record := filepath.Join(t.TempDir(), "character.json")
+
+	var stdout, stderr bytes.Buffer
+	if code := run3(t, []string{"new", "--auto", "--seed", "1", "-o", record}, &stdout, &stderr); code != exitOK {
+		t.Fatalf("new: exit %d, stderr: %s", code, stderr.String())
+	}
+
+	stored := readRecordFile(t, record)
+	stored["engine_version"] = "0.2.0"
+	writeRecordFile(t, record, stored)
+
+	return record
+}

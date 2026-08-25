@@ -82,6 +82,22 @@ have made them. A record whose `decider` fields or `policy_version` were
 altered replays clean, and that is inherent to replaying from the record
 rather than a gap in the verifier.
 
+_Amended (2026-08-24):_ the provenance gate is right and its refusal was a
+dead end. `engine_version` moves roughly once per feature, so a record can
+be orphaned hours after it is written, on the branch that wrote it — and
+the record it orphans may be the one that cannot be produced any other way.
+A record generated interactively carries `policy_version: "none"`: re-running
+it from its seed under the auto policy yields a different character, so
+replay is the only path back to the run it describes. `t5chargen replay
+--ignore-provenance` therefore re-runs a record whose versions do not match
+and reports where the generation disagrees, which is a more useful answer
+than a refusal to look. It waives one check and no others: the verification
+is unchanged, a tampered record still fails, and the four provenance fields
+are excluded from the record comparison only so that the mismatch the caller
+already acknowledged does not come back as the answer. It writes nothing —
+there is no upgrade path for an orphaned record, and there cannot honestly
+be one, because a different engine is what the version was reporting.
+
 ## JSON conventions
 
 Characteristics stored numeric with the UPP hex string derived and stored alongside; money as integer credits; dates as Imperial calendar day/year with age in years. Skills and Knowledges are distinct entries. Derived values are stored and recomputed on replay. Full schema (with minimal and complete examples) lives in the tool repo, versioned by `schema_version`.
