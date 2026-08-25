@@ -13,6 +13,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"strconv"
 	"strings"
 	"sync"
 
@@ -308,6 +309,14 @@ type MusterOutCell struct {
 // Fame, or other values). They may be partially applied" (p. 68).
 type MusterOutDM struct {
 	Kind string `json:"kind"`
+
+	// Printed is the label the career's own table D prints above the
+	// column — "Scholar Rank" on chart 02, "Officer Rank" on chart 06,
+	// "Commends" on chart 09 — which is what a player reading the chart
+	// beside him is looking for. Kind is an identifier and was never a
+	// name; asking him how much of the "scholar_rank DM" to apply named
+	// the field rather than the rule.
+	Printed string `json:"printed"`
 
 	// Divisor is the "/3" of "+Fame/3".
 	Divisor int `json:"divisor,omitempty"`
@@ -1687,6 +1696,32 @@ func validateMusterOutDM(career string, dm MusterOutDM) error {
 	if (dm.Kind == "fame") != (dm.Divisor > 0) {
 		return fmt.Errorf("%w: %q muster-out DM %q has divisor %d",
 			errBadDefinition, career, dm.Kind, dm.Divisor)
+	}
+
+	return validateMusterOutDMLabel(career, dm)
+}
+
+// validateMusterOutDMLabel checks the printed label is one, and not the
+// identifier wearing its name. The underscore test is the specific
+// regression: every kind is snake_case and no chart prints an underscore,
+// so a label that has one was copied from the field rather than the page.
+func validateMusterOutDMLabel(career string, dm MusterOutDM) error {
+	if dm.Printed == "" {
+		return fmt.Errorf("%w: %q muster-out DM %q prints no label",
+			errBadDefinition, career, dm.Kind)
+	}
+
+	if strings.Contains(dm.Printed, "_") {
+		return fmt.Errorf("%w: %q muster-out DM label %q is an identifier, not a printed label",
+			errBadDefinition, career, dm.Printed)
+	}
+
+	// The divided DMs print the divisor, so the two say the same thing
+	// and each catches the other going stale: "+Fame/3" is not a label
+	// that can drift away from divisor 3 unnoticed.
+	if dm.Divisor > 0 && !strings.HasSuffix(dm.Printed, "/"+strconv.Itoa(dm.Divisor)) {
+		return fmt.Errorf("%w: %q muster-out DM label %q does not name its divisor %d",
+			errBadDefinition, career, dm.Printed, dm.Divisor)
 	}
 
 	return nil

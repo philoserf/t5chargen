@@ -379,35 +379,35 @@ _Book 1 p. 76 chart 02 D_
 _Book 1 p. 87 chart 13 D_
 
 - #300 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
-- #301 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #301 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #302 1D+8 = 4 = 12 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
   - #303 (from #302) Pension x2
 - #304 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
-- #305 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #305 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #306 1D+8 = 4 = 12 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
   - #307 (from #306) Pension x2
 - #308 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
-- #309 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #309 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #310 1D+8 = 4 = 12 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
   - #311 (from #310) Pension x2
 - #312 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
-- #313 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #313 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #314 1D+8 = 6 = 14 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
   - #315 (from #314) Pension x2
 - #316 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
-- #317 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #317 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #318 1D+8 = 2 = 10 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
   - #319 (from #318) Pension x2
 - #320 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
-- #321 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #321 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #322 1D+8 = 6 = 14 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
   - #323 (from #322) Pension x2
 - #324 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
-- #325 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #325 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #326 1D+8 = 4 = 12 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
   - #327 (from #326) Pension x2
 - #328 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
-- #329 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #329 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #330 1D+8 = 1 = 9 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
   - #331 (from #330) Money, worth Cr35000
 

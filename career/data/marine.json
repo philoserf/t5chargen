@@ -500,10 +500,12 @@
       }
     ],
     "money_dm": {
-      "kind": "terms"
+      "kind": "terms",
+      "printed": "Terms"
     },
     "benefit_dm": {
-      "kind": "officer_rank"
+      "kind": "officer_rank",
+      "printed": "Officer Rank"
     }
   }
 }

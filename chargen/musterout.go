@@ -288,8 +288,11 @@ func (r *musterOutRun) chooseDM(record *CareerRecord, def *career.Definition, co
 	}
 
 	chosen, _, err := choose(r.log, r.decider, Choice{
-		ID:      ChooseBenefitDM,
-		Prompt:  "How much of the " + dm.Kind + " DM to apply?",
+		ID: ChooseBenefitDM,
+		// The label the chart prints, not the field the data names it
+		// by: a player is reading table D beside him, where the column
+		// says "+ Scholar Rank".
+		Prompt:  "How much of the " + dm.Printed + " DM to apply?",
 		Options: options,
 		Scores:  scores,
 		Nth:     nth,

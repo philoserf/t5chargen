@@ -42,9 +42,14 @@ import (
 // case the reason names where that deferral is recorded.
 var unreadOnPurpose = map[string]string{
 	// Transcription: recorded because the page prints it.
-	"Note":                "chart M1's gloss on a benefit, chart B's \"Born In Deep Space\"; prose, not a rule",
-	"Instruction":         "p. 263's \"Roll four consecutive dice\"; the procedure is in Go",
-	"Printed":             "a cell's printed wording where it differs from the vocabulary — I-70 keeps both",
+	"Note":        "chart M1's gloss on a benefit, chart B's \"Born In Deep Space\"; prose, not a rule",
+	"Instruction": "p. 263's \"Roll four consecutive dice\"; the procedure is in Go",
+	// "Printed" was here for MusterOutCell, whose printed wording is kept
+	// but read by nothing (I-70). It is gone because MusterOutDM.Printed
+	// now names the DM column a player is looking for on his chart, and
+	// this gate keys on the field name rather than the field: one Printed
+	// being read is all it can see. The cell's rationale did not move —
+	// it is on the struct, where it was always the better home.
 	"TonsPerShareCite":    "the p. 90 sentence the tonnage invariant checks against",
 	"Last":                "the last year chart A prints for a stage; Of derives it from First — I-48",
 	"TraditionalLifespan": "\"The traditional lifespan for humans is 74 years\"; flavor, and the page says so",

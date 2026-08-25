@@ -363,31 +363,31 @@ _Book 1 p. 67; chart M1 p. 70_
 _Book 1 p. 81 chart 07 D_
 
 - #272 policy chose "Money" of [Money, Benefits]: Which column for this Spacer muster-out roll? — Book 1 p. 68 (Which Column?)
-- #273 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #273 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #274 1D+5 = 5 = 10 — Book 1 p. 81 chart 07 D (Money column, 1D+5)
   - #275 (from #274) Money, worth Cr60000
 - #276 policy chose "Money" of [Money, Benefits]: Which column for this Spacer muster-out roll? — Book 1 p. 68 (Which Column?)
-- #277 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #277 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #278 1D+5 = 1 = 6 — Book 1 p. 81 chart 07 D (Money column, 1D+5)
   - #279 (from #278) Money, worth Cr40000
 - #280 policy chose "Money" of [Money, Benefits]: Which column for this Spacer muster-out roll? — Book 1 p. 68 (Which Column?)
-- #281 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #281 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #282 1D+5 = 5 = 10 — Book 1 p. 81 chart 07 D (Money column, 1D+5)
   - #283 (from #282) Money, worth Cr60000
 - #284 policy chose "Money" of [Money, Benefits]: Which column for this Spacer muster-out roll? — Book 1 p. 68 (Which Column?)
-- #285 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #285 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #286 1D+5 = 1 = 6 — Book 1 p. 81 chart 07 D (Money column, 1D+5)
   - #287 (from #286) Money, worth Cr40000
 - #288 policy chose "Money" of [Money, Benefits]: Which column for this Spacer muster-out roll? — Book 1 p. 68 (Which Column?)
-- #289 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #289 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #290 1D+5 = 5 = 10 — Book 1 p. 81 chart 07 D (Money column, 1D+5)
   - #291 (from #290) Money, worth Cr60000
 - #292 policy chose "Money" of [Money, Benefits]: Which column for this Spacer muster-out roll? — Book 1 p. 68 (Which Column?)
-- #293 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #293 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #294 1D+5 = 3 = 8 — Book 1 p. 81 chart 07 D (Money column, 1D+5)
   - #295 (from #294) Retirement x2
 - #296 policy chose "Money" of [Money, Benefits]: Which column for this Spacer muster-out roll? — Book 1 p. 68 (Which Column?)
-- #297 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #297 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #298 1D+5 = 4 = 9 — Book 1 p. 81 chart 07 D (Money column, 1D+5)
   - #299 (from #298) Retirement x2
 

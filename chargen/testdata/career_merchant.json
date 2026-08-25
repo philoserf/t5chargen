@@ -1,7 +1,7 @@
 {
   "schema_version": "0.30.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.31.0",
+  "engine_version": "0.32.0",
   "policy_version": "0.19.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -2245,7 +2245,7 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "How much of the terms DM to apply?",
+        "prompt": "How much of the Terms DM to apply?",
         "options": [
           "+0",
           "+1",
@@ -2300,7 +2300,7 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "How much of the terms DM to apply?",
+        "prompt": "How much of the Terms DM to apply?",
         "options": [
           "+0",
           "+1",
@@ -2355,7 +2355,7 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "How much of the terms DM to apply?",
+        "prompt": "How much of the Terms DM to apply?",
         "options": [
           "+0",
           "+1",
@@ -2410,7 +2410,7 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "How much of the terms DM to apply?",
+        "prompt": "How much of the Terms DM to apply?",
         "options": [
           "+0",
           "+1",

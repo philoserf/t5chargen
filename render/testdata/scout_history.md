@@ -357,31 +357,31 @@ _Book 1 p. 67; chart M1 p. 70_
 _Book 1 p. 79 chart 05 D_
 
 - #302 policy chose "Money" of [Money, Benefits]: Which column for this Scout muster-out roll? — Book 1 p. 68 (Which Column?)
-- #303 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #303 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #304 1D+6 = 1 = 7 — Book 1 p. 79 chart 05 D (Money column, 1D+6)
   - #305 (from #304) Money, worth Cr50000
 - #306 policy chose "Money" of [Money, Benefits]: Which column for this Scout muster-out roll? — Book 1 p. 68 (Which Column?)
-- #307 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #307 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #308 1D+6 = 6 = 12 — Book 1 p. 79 chart 05 D (Money column, 1D+6)
   - #309 (from #308) Money, worth Cr80000
 - #310 policy chose "Money" of [Money, Benefits]: Which column for this Scout muster-out roll? — Book 1 p. 68 (Which Column?)
-- #311 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #311 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #312 1D+6 = 2 = 8 — Book 1 p. 79 chart 05 D (Money column, 1D+6)
   - #313 (from #312) Money, worth Cr60000
 - #314 policy chose "Money" of [Money, Benefits]: Which column for this Scout muster-out roll? — Book 1 p. 68 (Which Column?)
-- #315 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #315 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #316 1D+6 = 4 = 10 — Book 1 p. 79 chart 05 D (Money column, 1D+6)
   - #317 (from #316) Money, worth Cr60000
 - #318 policy chose "Money" of [Money, Benefits]: Which column for this Scout muster-out roll? — Book 1 p. 68 (Which Column?)
-- #319 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #319 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #320 1D+6 = 1 = 7 — Book 1 p. 79 chart 05 D (Money column, 1D+6)
   - #321 (from #320) Money, worth Cr50000
 - #322 policy chose "Money" of [Money, Benefits]: Which column for this Scout muster-out roll? — Book 1 p. 68 (Which Column?)
-- #323 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #323 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #324 1D+6 = 6 = 12 — Book 1 p. 79 chart 05 D (Money column, 1D+6)
   - #325 (from #324) Money, worth Cr80000
 - #326 policy chose "Money" of [Money, Benefits]: Which column for this Scout muster-out roll? — Book 1 p. 68 (Which Column?)
-- #327 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #327 policy chose "+6" of [+0, +1, +2, +3, +4, +5, +6]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #328 1D+6 = 5 = 11 — Book 1 p. 79 chart 05 D (Money column, 1D+6)
   - #329 (from #328) Money, worth Cr70000
 

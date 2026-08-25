@@ -399,10 +399,12 @@
       }
     ],
     "money_dm": {
-      "kind": "total_terms"
+      "kind": "total_terms",
+      "printed": "Total Terms"
     },
     "benefit_dm": {
-      "kind": "total_terms"
+      "kind": "total_terms",
+      "printed": "Total Terms"
     },
     "note": "Row for row the Merchant's table (chart 06 p. 80); only the DMs differ."
   },
@@ -535,10 +537,12 @@
       }
     ],
     "money_dm": {
-      "kind": "terms"
+      "kind": "terms",
+      "printed": "Terms"
     },
     "benefit_dm": {
-      "kind": "terms"
+      "kind": "terms",
+      "printed": "Terms"
     }
   }
 }

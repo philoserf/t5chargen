@@ -78,8 +78,9 @@ generation.
 `audit` is test-only and holds no rules: it is the guards that keep the
 documents honest — that every test COVERAGE.md cites exists, that every
 ERRATA.md interpretation is cited, that every choice point has a POLICY.md
-rule, that no chart field is transcribed and then read by nothing, and
-that character.schema.json describes what the engine actually writes.
+rule, that no chart field is transcribed and then read by nothing, that no
+prompt shows a player an identifier where the chart prints a name, and that
+character.schema.json describes what the engine actually writes.
 
 Three folders, three kinds of thing. `docs` holds documents and nothing
 else: the spec, the living COVERAGE/ERRATA/POLICY, the milestone histories

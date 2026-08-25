@@ -447,13 +447,16 @@
       }
     ],
     "money_dm": {
-      "kind": "total_terms"
+      "kind": "total_terms",
+      "printed": "Total Terms"
     },
     "benefit_dm": {
-      "kind": "total_terms"
+      "kind": "total_terms",
+      "printed": "Total Terms"
     },
     "power_dm": {
-      "kind": "total_terms"
+      "kind": "total_terms",
+      "printed": "Total Terms"
     },
     "note": "*Upgraded to High Passage as a courtesy."
   },
@@ -633,13 +636,16 @@
       }
     ],
     "money_dm": {
-      "kind": "terms"
+      "kind": "terms",
+      "printed": "Terms"
     },
     "benefit_dm": {
-      "kind": "terms"
+      "kind": "terms",
+      "printed": "Terms"
     },
     "power_dm": {
-      "kind": "terms"
+      "kind": "terms",
+      "printed": "Terms"
     },
     "note": "*upgraded to High as a courtesy"
   }

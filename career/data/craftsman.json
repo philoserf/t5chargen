@@ -376,10 +376,12 @@
       }
     ],
     "money_dm": {
-      "kind": "terms"
+      "kind": "terms",
+      "printed": "Terms"
     },
     "benefit_dm": {
-      "kind": "terms"
+      "kind": "terms",
+      "printed": "Terms"
     }
   }
 }
