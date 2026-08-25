@@ -459,3 +459,91 @@ func TestServiceAcademyIsAttendedAtMostOnce(t *testing.T) {
 		t.Fatal("no character reached the Service Academy; the sweep is asserting nothing")
 	}
 }
+
+// TestGraduatesAlwaysEnterTheirService is interpretation I-101: acceptance
+// to the Academy is acceptance to the first term, so a graduate makes no
+// To Begin throw and cannot fail to take up the commission he owes.
+//
+// Before it, sixty-five of a hundred and sixty-three Army graduates never
+// began the service they were required to serve — and because I-99 had
+// already made that service their only option, they served nothing at all.
+func TestGraduatesAlwaysEnterTheirService(t *testing.T) {
+	for _, tc := range academyServices {
+		t.Run(tc.service, func(t *testing.T) {
+			graduates := 0
+
+			for seed := range uint64(academySeedSearch) {
+				c, err := chargen.Generate(chargen.Options{
+					Seed: seed, Decider: academyPath{service: tc.service},
+				})
+				if err != nil || !graduatedAcademy(c, tc.service) {
+					continue
+				}
+
+				graduates++
+
+				if len(c.Careers) == 0 || !c.Careers[0].Began {
+					t.Errorf("seed %d: a %s Academy graduate did not begin %s", seed, tc.service, tc.career)
+				}
+			}
+
+			if graduates == 0 {
+				t.Fatalf("no seed under %d graduates the %s Academy; the sweep is asserting nothing",
+					academySeedSearch, tc.service)
+			}
+		})
+	}
+}
+
+// TestAFailedCadetStillRollsToBegin holds the other half of I-101. The
+// exemption belongs to the commission, not to having turned up: a cadet who
+// failed out owes no term and enters a career the way anyone else does.
+//
+// Measured by the throw rather than the outcome, because a cadet who
+// happens to pass To Begin looks identical at the record.
+func TestAFailedCadetStillRollsToBegin(t *testing.T) {
+	cadets := 0
+
+	for seed := range uint64(academySeedSearch) {
+		c, err := chargen.Generate(chargen.Options{
+			Seed: seed, Career: "Spacer", Decider: academyPath{service: "Navy"},
+		})
+		if err != nil || graduatedAcademy(c, "Navy") || !attendedAcademy(c) {
+			continue
+		}
+
+		cadets++
+
+		if !hasStep(c, "Spacer: To Begin") {
+			t.Errorf("seed %d: a cadet who failed out entered the Navy without a To Begin throw", seed)
+		}
+	}
+
+	if cadets == 0 {
+		t.Fatalf("no seed under %d attends the Navy Academy without graduating; the sweep is asserting nothing",
+			academySeedSearch)
+	}
+}
+
+// attendedAcademy reports whether the character went to the Academy at all,
+// graduating or not.
+func attendedAcademy(c chargen.Character) bool {
+	for _, record := range c.Education {
+		if record.Program == serviceAcademyName {
+			return true
+		}
+	}
+
+	return false
+}
+
+// hasStep reports whether the record holds a step of the given name.
+func hasStep(c chargen.Character, name string) bool {
+	for _, event := range c.Events {
+		if event.Kind == chargen.EventStep && event.Step != nil && event.Step.Name == name {
+			return true
+		}
+	}
+
+	return false
+}

@@ -2529,3 +2529,37 @@ alone. I-98's reasoning stands on its own ground — the Academy is
 pre-career because a commission and its term of service are entry rules —
 and is what still keeps it out of Later Education. I-100 is why no
 character sees any program twice.
+
+### I-101: Acceptance to the Academy is acceptance to the first term (pp. 62, 65)
+
+I-99 collects the term of service a Service Academy graduate owes: "The
+character is required to serve one term in the service" (p. 62). It left a
+question open, recorded rather than decided (#69): a commission does not
+appear to exempt its holder from To Begin, which p. 65 states without
+qualification — "Roll the Begin Target ... If both Begin and Retry fail,
+this career may not be used."
+
+Read together with I-99, that is untenable. The owed service is the
+graduate's only option, so a failed To Begin left him with no career at all
+— sixty-five of a hundred and sixty-three Army graduates in a
+three-hundred-seed sweep, which is not an edge case but the ordinary
+outcome for two graduates in five.
+
+The resolution is that the Academy's admission is the service's admission.
+A commission is not a qualification to apply; it is a place in the force,
+granted by the force, after four years spent training the character for it.
+p. 65's To Begin is how a character _applies_ to a career, and a graduate
+has already been accepted — years earlier, by the same service, in the
+Application Check chart C put in front of him. Nothing is skipped: the
+throw was made, at admission.
+
+So a Service Academy graduate of a service enters it without a To Begin
+throw, at the officer rank I-94 gives him.
+
+**The exemption belongs to the commission, not to attendance.** A cadet who
+failed out holds none, owes no term under I-99, and applies to whatever
+career he likes on exactly the terms anyone else does — To Begin, Retry,
+and a year for each failed attempt. The same graduation test that decides
+I-94 and I-99 decides this.
+
+This closes the question the Academy row in COVERAGE.md recorded as open.
