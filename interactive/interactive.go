@@ -259,10 +259,45 @@ func ordinal(c chargen.Choice) string {
 // means "you meet its prerequisite", and a player cannot be expected to
 // guess that from the digit; a number nobody can read is worse than no
 // number, because it looks like information.
+//
+// The qualification score is rendered as what it costs rather than as a
+// digit, and only where it costs something. See qualification.
 func score(c chargen.Choice, i int) string {
 	if i >= len(c.Scores) || c.ScoreLabel == "" {
 		return ""
 	}
 
+	if c.ScoreLabel == qualifies {
+		return qualification(c.Scores[i])
+	}
+
 	return fmt.Sprintf("  [%s %d]", c.ScoreLabel, c.Scores[i])
 }
+
+// qualification renders the "qualifies" score, which is the one score that
+// is a yes or a no rather than a quantity.
+//
+// "[qualifies 0]" reads as a refusal, and it is the opposite: a character
+// may choose a programme he falls short of and try for a Prerequisite
+// waiver, which p. 59 lists first among the adverse decisions a waiver may
+// overturn (interpretation I-95). The digit told a player he could not
+// pick the row, when what it meant was that picking it would cost him a
+// waiver attempt.
+//
+// So the annotation is on the rows that carry a cost, and the ordinary
+// ones are left unmarked. Marking every qualifying row was the wrong way
+// round: it annotated the unremarkable majority and made the exception
+// look like less.
+func qualification(score int) string {
+	if score == 1 {
+		return ""
+	}
+
+	return "  [needs a waiver]"
+}
+
+// qualifies is the label chargen puts on the prerequisite score, at step C
+// and at Later Education. This front end reads it to know that a zero
+// means a waiver rather than a refusal — a coupling to a string, and the
+// alternative is a field on every Choice saying what its zero costs.
+const qualifies = "qualifies"
