@@ -18,6 +18,13 @@ import (
 // that attend: a failed year awards nothing, so a seed that only attends
 // leaves the Provides column untested. The first three pinned here all
 // attended and all failed, which is how that was found.
+//
+// They are generated with schooling declined (careerOnly). An assigned
+// school is sited inside a term the character serves, and a term given
+// over to Later Education is not served (I-90), so a policy that sends him
+// back to school moves every one of these seeds without saying anything
+// about the assignment they are pinned to. Three of the six broke that way
+// at policy 0.20.0 before this decider was used instead.
 var assignedSchoolSeeds = []struct {
 	career  string
 	anm     uint64

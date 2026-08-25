@@ -3,6 +3,7 @@ package chargen_test
 import (
 	"encoding/json"
 	"flag"
+	"fmt"
 	"os"
 	"testing"
 
@@ -82,12 +83,44 @@ func requireVersionBump(t *testing.T, file string, got []byte) {
 		return // only the policy's answers moved
 	}
 
+	// A policy bump explains the movement on its own, and must not be
+	// answered with an engine bump it does not need.
+	//
+	// replayShape neutralises the policy's recorded answers, but not their
+	// consequences: a policy that chooses differently produces a different
+	// character, so every fixture moves. What that does not mean is that
+	// an old record has stopped replaying — replay reapplies the choices
+	// the record carries and never consults the policy. Checked rather
+	// than assumed at policy 0.20.0: three fixtures generated under 0.19.0
+	// replayed clean against the unchanged engine, so bumping
+	// engine_version would have orphaned every existing record for a
+	// change that cannot affect one.
+	if policyOf(t, want) != chargen.PolicyVersion {
+		return
+	}
+
 	if oldVersion := versionOf(t, want); oldVersion == chargen.EngineVersion {
-		t.Fatalf("%s changes what replay recomputes while engine_version stays %q.\n"+
+		t.Fatalf("%s changes what replay recomputes while engine_version stays %q "+
+			"and policy_version stays %q.\n"+
 			"Bump chargen.EngineVersion: without it a record from the previous build passes the "+
 			"provenance check and then diverges at some arbitrary event, which describes nothing.",
-			file, oldVersion)
+			file, oldVersion, chargen.PolicyVersion)
 	}
+}
+
+// policyOf reads a stored fixture's policy_version.
+func policyOf(t *testing.T, data []byte) string {
+	t.Helper()
+
+	var record struct {
+		PolicyVersion string `json:"policy_version"`
+	}
+
+	if err := json.Unmarshal(data, &record); err != nil {
+		t.Fatal(err)
+	}
+
+	return record.PolicyVersion
 }
 
 // replayShape reduces a record to what replay recomputes: the provenance
@@ -145,7 +178,7 @@ func versionOf(t *testing.T, data []byte) string {
 // contract: a diff here means the record format or the seeded generation
 // changed, and one of schema_version or engine_version must bump.
 func TestGenerateGoldenJSON(t *testing.T) {
-	goldenJSON(t, generate(t, chargen.Options{Seed: 1}), "testdata/seed1.json")
+	goldenJSON(t, generate(t, chargen.Options{Seed: 1, Decider: chargen.DefaultPolicy{}}), "testdata/seed1.json")
 }
 
 // TestCareerGoldens pins one full character record per implemented career
@@ -173,7 +206,8 @@ func TestCareerGoldens(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.career, func(t *testing.T) {
-			goldenJSON(t, generate(t, chargen.Options{Seed: tt.seed, Career: tt.career}), tt.file)
+			goldenJSON(t, generate(t,
+				chargen.Options{Seed: tt.seed, Career: tt.career, Decider: chargen.DefaultPolicy{}}), tt.file)
 		})
 	}
 }
@@ -182,7 +216,7 @@ func TestCareerGoldens(t *testing.T) {
 // requires on every record (docs/PRD.md): schema_version, ruleset,
 // engine_version, policy_version, and rng.
 func TestGenerateProvenance(t *testing.T) {
-	c := generate(t, chargen.Options{Seed: 42, Name: "Eneri Dinsha"})
+	c := generate(t, chargen.Options{Seed: 42, Name: "Eneri Dinsha", Decider: chargen.DefaultPolicy{}})
 
 	if c.SchemaVersion != chargen.SchemaVersion || c.Ruleset != chargen.Ruleset ||
 		c.EngineVersion != chargen.EngineVersion || c.PolicyVersion != chargen.PolicyVersion {
@@ -203,7 +237,7 @@ func TestGenerateProvenance(t *testing.T) {
 // are stored and recomputed on replay).
 func TestGenerateDerivedUPP(t *testing.T) {
 	for seed := range uint64(20) {
-		c := generate(t, chargen.Options{Seed: seed})
+		c := generate(t, chargen.Options{Seed: seed, Decider: chargen.DefaultPolicy{}})
 
 		if c.UPP != c.Characteristics.UPP() {
 			t.Errorf("seed %d: stored UPP %q != derived %q", seed, c.UPP, c.Characteristics.UPP())
@@ -302,4 +336,31 @@ func TestYearsElapsedNamesAThrow(t *testing.T) {
 			}
 		})
 	}
+}
+
+// careerOnly is the auto policy with schooling declined.
+//
+// Both tests below are about what a career does to a character — the four
+// years a term costs, and the throw a term-ending consequence must name.
+// Neither is about education, and pinning them to seeds that happen to
+// avoid it makes them collateral on every policy bump: three moved at
+// 0.20.0, when the policy began taking a postgraduate programme.
+//
+// Declining is also what makes the claim absolute. A suspended term
+// elapses its years from the choice that suspended it, which is a correct
+// cause and not a throw, so a run that went to school would need the
+// assertion weakened rather than the path excluded.
+type careerOnly struct{ chargen.DefaultPolicy }
+
+func (d careerOnly) Choose(c chargen.Choice) (int, error) {
+	if c.ID == chargen.ChooseLaterEducation {
+		return 0, nil // serve the term
+	}
+
+	index, err := d.DefaultPolicy.Choose(c)
+	if err != nil {
+		return 0, fmt.Errorf("career-only policy: %w", err)
+	}
+
+	return index, nil
 }

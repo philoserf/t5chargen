@@ -17,7 +17,7 @@ func rogueRun(t *testing.T) (chargen.Character, chargen.CareerRecord) {
 	t.Helper()
 
 	c, err := chargen.Generate(chargen.Options{
-		Seed: rogueGoldenSeed, Career: "Rogue", Decider: chargen.DefaultPolicy{},
+		Seed: rogueGoldenSeed, Career: "Rogue", Decider: careerOnly{},
 	})
 	if err != nil {
 		t.Fatalf("seed %d: %v", rogueGoldenSeed, err)
@@ -68,7 +68,7 @@ func TestRogueRiskFailureImprisonsRatherThanInjures(t *testing.T) {
 
 	for seed := uint64(1); seed <= 60; seed++ {
 		c, err := chargen.Generate(chargen.Options{
-			Seed: seed, Career: "Rogue", Decider: chargen.DefaultPolicy{},
+			Seed: seed, Career: "Rogue", Decider: careerOnly{},
 		})
 		if err != nil {
 			t.Fatalf("seed %d: %v", seed, err)

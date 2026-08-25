@@ -2,7 +2,7 @@
   "schema_version": "0.30.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
   "engine_version": "0.38.0",
-  "policy_version": "0.19.0",
+  "policy_version": "0.20.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 23
@@ -12,14 +12,14 @@
     "current_year": 1105
   },
   "characteristics": {
-    "str": 7,
+    "str": 6,
     "dex": 7,
-    "end": -1,
-    "int": 7,
-    "edu": 10,
+    "end": 3,
+    "int": 4,
+    "edu": 12,
     "soc": 9
   },
-  "upp": "77?7A9",
+  "upp": "6734C9",
   "homeworld": {
     "name": "Regina",
     "uwp": "A788899-C",
@@ -29,7 +29,7 @@
       "Ri"
     ]
   },
-  "age": 71,
+  "age": 67,
   "education": [
     {
       "program": "University",
@@ -39,6 +39,24 @@
       "graduated": true,
       "honors": true,
       "degree": "Honors BA"
+    },
+    {
+      "program": "Masters",
+      "major": "Athlete",
+      "minor": "Broker",
+      "passes": 2,
+      "graduated": true,
+      "honors": true,
+      "degree": "Honors MA"
+    },
+    {
+      "program": "Professors",
+      "major": "Athlete",
+      "minor": "Broker",
+      "passes": 2,
+      "graduated": true,
+      "honors": true,
+      "degree": "Honors Professor"
     }
   ],
   "skills": [
@@ -48,11 +66,11 @@
     },
     {
       "name": "Animals",
-      "level": 4
+      "level": 6
     },
     {
       "name": "Astrogator",
-      "level": 9
+      "level": 5
     },
     {
       "name": "Athlete",
@@ -60,23 +78,23 @@
     },
     {
       "name": "Broker",
-      "level": 2
+      "level": 4
     },
     {
       "name": "Bureaucrat",
-      "level": 11
+      "level": 6
     },
     {
       "name": "Hostile Environ",
-      "level": 8
+      "level": 13
     },
     {
       "name": "Survey",
-      "level": 7
+      "level": 5
     },
     {
       "name": "Survival",
-      "level": 10
+      "level": 6
     },
     {
       "name": "Trader",
@@ -87,11 +105,12 @@
     {
       "career": "Scholar",
       "began": true,
-      "end_age": 71,
+      "end_age": 67,
+      "disabled": true,
       "rank": "S6",
       "rank_title": "Distinguished Professor",
       "wound_badges": 1,
-      "publications": 8,
+      "publications": 6,
       "award_winning_publications": 2,
       "tenured": true,
       "terms": [
@@ -116,54 +135,36 @@
         {
           "term": 4,
           "controlling_characteristic": "End",
-          "success": false,
+          "success": true,
           "continued": true
         },
         {
           "term": 5,
           "controlling_characteristic": "Str",
-          "success": true,
+          "success": false,
           "continued": true
         },
         {
           "term": 6,
-          "controlling_characteristic": "Int",
+          "controlling_characteristic": "Dex",
           "success": true,
           "continued": true
         },
         {
           "term": 7,
-          "controlling_characteristic": "Dex",
-          "success": false,
+          "controlling_characteristic": "Int",
+          "success": true,
           "continued": true
         },
         {
           "term": 8,
           "controlling_characteristic": "End",
-          "success": false,
+          "success": true,
           "continued": true
         },
         {
           "term": 9,
           "controlling_characteristic": "Int",
-          "success": false,
-          "continued": true
-        },
-        {
-          "term": 10,
-          "controlling_characteristic": "Str",
-          "success": true,
-          "continued": true
-        },
-        {
-          "term": 11,
-          "controlling_characteristic": "Dex",
-          "success": false,
-          "continued": true
-        },
-        {
-          "term": 12,
-          "controlling_characteristic": "End",
           "success": false,
           "continued": false
         }
@@ -171,11 +172,135 @@
     }
   ],
   "waivers_attempted": 1,
-  "birthdate": "Sixday 035-1034",
+  "birthdate": "Fiday 286-1038",
   "life_stage": 9,
-  "fame": 19,
+  "credits": 730000,
+  "benefits": [
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scholar",
+      "credits": 50000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scholar",
+      "credits": 50000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scholar",
+      "credits": 35000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scholar",
+      "credits": 50000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scholar",
+      "credits": 30000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scholar",
+      "credits": 35000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scholar",
+      "credits": 50000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scholar",
+      "credits": 40000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scholar",
+      "credits": 40000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scholar",
+      "credits": 50000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scholar",
+      "credits": 50000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scholar",
+      "credits": 25000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scholar",
+      "credits": 35000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scholar",
+      "credits": 50000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scholar",
+      "credits": 50000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scholar",
+      "credits": 25000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scholar",
+      "credits": 25000
+    },
+    {
+      "kind": "money",
+      "name": "Money",
+      "career": "Scholar",
+      "credits": 40000
+    }
+  ],
+  "automatics": [
+    "Fame",
+    "TAS Life Membership"
+  ],
+  "entitlements": [
+    {
+      "id": "professor_pension",
+      "name": "Tenured Professor's Pension",
+      "annual_credits": 10000,
+      "from_age": 66,
+      "cash_out": 50000
+    }
+  ],
+  "fame": 12,
   "wound_badges": 1,
-  "dead": true,
+  "disabled": true,
   "events": [
     {
       "seq": 1,
@@ -906,7 +1031,7 @@
           "Medical School",
           "Law School"
         ],
-        "chosen": 0,
+        "chosen": 2,
         "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
       }
     },
@@ -914,12 +1039,652 @@
       "seq": 52,
       "kind": "step",
       "step": {
+        "name": "Later Education: Masters",
+        "cite": "Book 1 p. 59; chart C p. 60"
+      }
+    },
+    {
+      "seq": 53,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the characteristic to check",
+        "options": [
+          "Int",
+          "Edu"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
+      }
+    },
+    {
+      "seq": 54,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          1
+        ],
+        "total": 4,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (Masters To Apply Check Edu)"
+      }
+    },
+    {
+      "seq": 55,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Major",
+        "options": [
+          "Athlete",
+          "Broker",
+          "Bureaucrat",
+          "Counsellor",
+          "Designer",
+          "Language",
+          "Teacher",
+          "Astrogator",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "Automotive",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology",
+          "Aeronautics",
+          "Aquanautics"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Major and Minor); chart C p. 60 Available Skills"
+      }
+    },
+    {
+      "seq": 56,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Minor",
+        "options": [
+          "Broker",
+          "Bureaucrat",
+          "Counsellor",
+          "Designer",
+          "Language",
+          "Teacher",
+          "Astrogator",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "Automotive",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology",
+          "Aeronautics",
+          "Aquanautics"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Major and Minor; they cannot be the same)"
+      }
+    },
+    {
+      "seq": 57,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the characteristic to check",
+        "options": [
+          "Int",
+          "Edu"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
+      }
+    },
+    {
+      "seq": 58,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          4
+        ],
+        "total": 6,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (Masters Pass/Fail Check Edu)"
+      }
+    },
+    {
+      "seq": 59,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 58,
+        "kind": "years_elapsed",
+        "value": 1
+      }
+    },
+    {
+      "seq": 60,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 58,
+        "kind": "skill_awarded",
+        "skill": "Athlete",
+        "delta": 1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 61,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          3
+        ],
+        "total": 6,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (Masters Pass/Fail Check Edu)"
+      }
+    },
+    {
+      "seq": 62,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 61,
+        "kind": "years_elapsed",
+        "value": 1
+      }
+    },
+    {
+      "seq": 63,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 61,
+        "kind": "skill_awarded",
+        "skill": "Athlete",
+        "delta": 1,
+        "value": 7
+      }
+    },
+    {
+      "seq": 64,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 61,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 65,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Attempt the optional Honors roll?",
+        "options": [
+          "Attempt Honors",
+          "Decline"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Honors); chart C p. 60 (Honors row)"
+      }
+    },
+    {
+      "seq": 66,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the characteristic to check",
+        "options": [
+          "Int",
+          "Edu"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
+      }
+    },
+    {
+      "seq": 67,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          3
+        ],
+        "total": 6,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (Honors: Int or Edu, simul)"
+      }
+    },
+    {
+      "seq": 68,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 67,
+        "kind": "skill_awarded",
+        "skill": "Athlete",
+        "delta": 1,
+        "value": 8
+      }
+    },
+    {
+      "seq": 69,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 51,
+        "kind": "years_elapsed",
+        "value": 2
+      }
+    },
+    {
+      "seq": 70,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Scholar",
+          "College",
+          "Professors",
+          "Medical School",
+          "Law School"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 71,
+      "kind": "step",
+      "step": {
+        "name": "Later Education: Professors",
+        "cite": "Book 1 p. 59; chart C p. 60"
+      }
+    },
+    {
+      "seq": 72,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the characteristic to check",
+        "options": [
+          "Int",
+          "Edu"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
+      }
+    },
+    {
+      "seq": 73,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          5
+        ],
+        "total": 7,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (Professors To Apply Check Edu)"
+      }
+    },
+    {
+      "seq": 74,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Major",
+        "options": [
+          "Athlete",
+          "Broker",
+          "Bureaucrat",
+          "Counsellor",
+          "Designer",
+          "Language",
+          "Teacher",
+          "Astrogator",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "Automotive",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology",
+          "Aeronautics",
+          "Aquanautics"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Major and Minor); chart C p. 60 Available Skills"
+      }
+    },
+    {
+      "seq": 75,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Minor",
+        "options": [
+          "Broker",
+          "Bureaucrat",
+          "Counsellor",
+          "Designer",
+          "Language",
+          "Teacher",
+          "Astrogator",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "Automotive",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology",
+          "Aeronautics",
+          "Aquanautics"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Major and Minor; they cannot be the same)"
+      }
+    },
+    {
+      "seq": 76,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the characteristic to check",
+        "options": [
+          "Int",
+          "Edu"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
+      }
+    },
+    {
+      "seq": 77,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          2
+        ],
+        "total": 5,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (Professors Pass/Fail Check Edu)"
+      }
+    },
+    {
+      "seq": 78,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 77,
+        "kind": "years_elapsed",
+        "value": 1
+      }
+    },
+    {
+      "seq": 79,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 77,
+        "kind": "skill_awarded",
+        "skill": "Athlete",
+        "delta": 1,
+        "value": 9
+      }
+    },
+    {
+      "seq": 80,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          1
+        ],
+        "total": 3,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (Professors Pass/Fail Check Edu)"
+      }
+    },
+    {
+      "seq": 81,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 80,
+        "kind": "years_elapsed",
+        "value": 1
+      }
+    },
+    {
+      "seq": 82,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 80,
+        "kind": "skill_awarded",
+        "skill": "Athlete",
+        "delta": 1,
+        "value": 10
+      }
+    },
+    {
+      "seq": 83,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 80,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 84,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Attempt the optional Honors roll?",
+        "options": [
+          "Attempt Honors",
+          "Decline"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Honors); chart C p. 60 (Honors row)"
+      }
+    },
+    {
+      "seq": 85,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the characteristic to check",
+        "options": [
+          "Int",
+          "Edu"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
+      }
+    },
+    {
+      "seq": 86,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          1
+        ],
+        "total": 7,
+        "target": 10,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (Honors: Int or Edu, simul)"
+      }
+    },
+    {
+      "seq": 87,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 86,
+        "kind": "skill_awarded",
+        "skill": "Athlete",
+        "delta": 1,
+        "value": 11
+      }
+    },
+    {
+      "seq": 88,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 86,
+        "kind": "characteristic_change",
+        "characteristic": "Edu",
+        "delta": 2,
+        "value": 12
+      }
+    },
+    {
+      "seq": 89,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 70,
+        "kind": "years_elapsed",
+        "value": 2
+      }
+    },
+    {
+      "seq": 90,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Scholar",
+          "College",
+          "Medical School",
+          "Law School"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 91,
+      "kind": "step",
+      "step": {
         "name": "Scholar: Term 1",
         "cite": "Book 1 p. 76 chart 02"
       }
     },
     {
-      "seq": 53,
+      "seq": 92,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -935,7 +1700,7 @@
       }
     },
     {
-      "seq": 54,
+      "seq": 93,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -966,64 +1731,64 @@
       }
     },
     {
-      "seq": 55,
+      "seq": 94,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          3,
-          1
+          2,
+          3
         ],
-        "total": 4,
+        "total": 5,
         "target": 10,
         "success": true,
         "cite": "Book 1 p. 76 chart 02 (Research vs Str+Mods)"
       }
     },
     {
-      "seq": 56,
+      "seq": 95,
       "kind": "consequence",
       "consequence": {
-        "cause": 55,
+        "cause": 94,
         "kind": "skill_awarded",
         "skill": "Athlete",
         "delta": 2,
-        "value": 7
+        "value": 13
       }
     },
     {
-      "seq": 57,
+      "seq": 96,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          2,
-          4
+          1,
+          2
         ],
-        "total": 6,
+        "total": 3,
         "target": 10,
         "success": true,
         "cite": "Book 1 p. 76 chart 02 (Publication vs Str+ opposite sign Mods)"
       }
     },
     {
-      "seq": 58,
+      "seq": 97,
       "kind": "consequence",
       "consequence": {
-        "cause": 57,
+        "cause": 96,
         "kind": "publication",
         "delta": 2,
         "value": 2
       }
     },
     {
-      "seq": 59,
+      "seq": 98,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          3,
-          3
+          2,
+          4
         ],
         "total": 6,
         "target": 11,
@@ -1038,17 +1803,17 @@
       }
     },
     {
-      "seq": 60,
+      "seq": 99,
       "kind": "consequence",
       "consequence": {
-        "cause": 59,
+        "cause": 98,
         "kind": "rank_set",
         "skill": "Instructor",
         "career": "Scholar"
       }
     },
     {
-      "seq": 61,
+      "seq": 100,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1069,30 +1834,30 @@
       }
     },
     {
-      "seq": 62,
+      "seq": 101,
       "kind": "throw",
       "throw": {
         "expr": "1D",
         "dice": [
-          3
+          6
         ],
-        "total": 3,
+        "total": 6,
         "cite": "Book 1 p. 76 chart 02 table C, column General"
       }
     },
     {
-      "seq": 63,
+      "seq": 102,
       "kind": "consequence",
       "consequence": {
-        "cause": 62,
+        "cause": 101,
         "kind": "skill_awarded",
-        "skill": "Hostile Environ",
+        "skill": "Bureaucrat",
         "delta": 1,
         "value": 1
       }
     },
     {
-      "seq": 64,
+      "seq": 103,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1113,30 +1878,30 @@
       }
     },
     {
-      "seq": 65,
+      "seq": 104,
       "kind": "throw",
       "throw": {
         "expr": "1D",
         "dice": [
-          3
+          4
         ],
-        "total": 3,
+        "total": 4,
         "cite": "Book 1 p. 76 chart 02 table C, column General"
       }
     },
     {
-      "seq": 66,
+      "seq": 105,
       "kind": "consequence",
       "consequence": {
-        "cause": 65,
+        "cause": 104,
         "kind": "skill_awarded",
-        "skill": "Hostile Environ",
+        "skill": "Survival",
         "delta": 1,
-        "value": 2
+        "value": 1
       }
     },
     {
-      "seq": 67,
+      "seq": 106,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1157,7 +1922,7 @@
       }
     },
     {
-      "seq": 68,
+      "seq": 107,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1169,10 +1934,10 @@
       }
     },
     {
-      "seq": 69,
+      "seq": 108,
       "kind": "consequence",
       "consequence": {
-        "cause": 68,
+        "cause": 107,
         "kind": "skill_awarded",
         "skill": "Astrogator",
         "delta": 1,
@@ -1180,7 +1945,7 @@
       }
     },
     {
-      "seq": 70,
+      "seq": 109,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1201,7 +1966,51 @@
       }
     },
     {
-      "seq": 71,
+      "seq": 110,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 76 chart 02 table C, column General"
+      }
+    },
+    {
+      "seq": 111,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 110,
+        "kind": "skill_awarded",
+        "skill": "Survey",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 112,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scholar Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Conflict",
+          "Vocation",
+          "Avocation",
+          "Athlete",
+          "Broker"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 113,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1213,10 +2022,10 @@
       }
     },
     {
-      "seq": 72,
+      "seq": 114,
       "kind": "consequence",
       "consequence": {
-        "cause": 71,
+        "cause": 113,
         "kind": "skill_awarded",
         "skill": "Animals",
         "delta": 1,
@@ -1224,51 +2033,7 @@
       }
     },
     {
-      "seq": 73,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 74,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
-      "seq": 75,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 74,
-        "kind": "skill_awarded",
-        "skill": "Hostile Environ",
-        "delta": 1,
-        "value": 3
-      }
-    },
-    {
-      "seq": 76,
+      "seq": 115,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1282,16 +2047,16 @@
       }
     },
     {
-      "seq": 77,
+      "seq": 116,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          2,
-          2
+          1,
+          6
         ],
-        "total": 4,
-        "target": 12,
+        "total": 7,
+        "target": 14,
         "success": true,
         "mods": [
           {
@@ -1303,16 +2068,61 @@
       }
     },
     {
-      "seq": 78,
+      "seq": 117,
       "kind": "consequence",
       "consequence": {
-        "cause": 77,
+        "cause": 116,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 79,
+      "seq": 118,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          2
+        ],
+        "total": 5,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
+      }
+    },
+    {
+      "seq": 119,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          4
+        ],
+        "total": 5,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
+      }
+    },
+    {
+      "seq": 120,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          1
+        ],
+        "total": 7,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
+      }
+    },
+    {
+      "seq": 121,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1320,8 +2130,6 @@
         "options": [
           "Serve the term in Scholar",
           "College",
-          "Masters",
-          "Professors",
           "Medical School",
           "Law School"
         ],
@@ -1330,7 +2138,7 @@
       }
     },
     {
-      "seq": 80,
+      "seq": 122,
       "kind": "step",
       "step": {
         "name": "Scholar: Term 2",
@@ -1338,7 +2146,7 @@
       }
     },
     {
-      "seq": 81,
+      "seq": 123,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1353,7 +2161,7 @@
       }
     },
     {
-      "seq": 82,
+      "seq": 124,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1384,13 +2192,13 @@
       }
     },
     {
-      "seq": 83,
+      "seq": 125,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          1,
-          6
+          3,
+          4
         ],
         "total": 7,
         "target": 9,
@@ -1399,74 +2207,86 @@
       }
     },
     {
-      "seq": 84,
+      "seq": 126,
       "kind": "consequence",
       "consequence": {
-        "cause": 83,
+        "cause": 125,
         "kind": "skill_awarded",
         "skill": "Athlete",
         "delta": 2,
-        "value": 9
+        "value": 15
       }
     },
     {
-      "seq": 85,
+      "seq": 127,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          1,
-          2
+          4,
+          6
         ],
-        "total": 3,
+        "total": 10,
         "target": 9,
-        "success": true,
+        "success": false,
         "cite": "Book 1 p. 76 chart 02 (Publication vs Dex+ opposite sign Mods)"
       }
     },
     {
-      "seq": 86,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 85,
-        "kind": "publication",
-        "delta": 2,
-        "value": 4
+      "seq": 128,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Attempt a Waiver? (Publication: rejected)",
+        "options": [
+          "Attempt waiver",
+          "Accept the result"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 76 chart 02 (Waivers: Check Soc, Mod minus previous waivers)"
       }
     },
     {
-      "seq": 87,
+      "seq": 129,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 127,
+        "kind": "no_award"
+      }
+    },
+    {
+      "seq": 130,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          3,
-          1
+          4,
+          2
         ],
-        "total": 4,
-        "target": 13,
+        "total": 6,
+        "target": 11,
         "success": true,
         "mods": [
           {
             "name": "Publications",
-            "value": 4
+            "value": 2
           }
         ],
         "cite": "Book 1 p. 76 chart 02 (Promotion vs Int +Pubs)"
       }
     },
     {
-      "seq": 88,
+      "seq": 131,
       "kind": "consequence",
       "consequence": {
-        "cause": 87,
+        "cause": 130,
         "kind": "rank_set",
         "skill": "Assistant Professor",
         "career": "Scholar"
       }
     },
     {
-      "seq": 89,
+      "seq": 132,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1487,7 +2307,7 @@
       }
     },
     {
-      "seq": 90,
+      "seq": 133,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1499,10 +2319,10 @@
       }
     },
     {
-      "seq": 91,
+      "seq": 134,
       "kind": "consequence",
       "consequence": {
-        "cause": 90,
+        "cause": 133,
         "kind": "skill_awarded",
         "skill": "Astrogator",
         "delta": 1,
@@ -1510,7 +2330,7 @@
       }
     },
     {
-      "seq": 92,
+      "seq": 135,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1531,74 +2351,30 @@
       }
     },
     {
-      "seq": 93,
+      "seq": 136,
       "kind": "throw",
       "throw": {
         "expr": "1D",
         "dice": [
-          2
+          3
         ],
-        "total": 2,
+        "total": 3,
         "cite": "Book 1 p. 76 chart 02 table C, column General"
       }
     },
     {
-      "seq": 94,
+      "seq": 137,
       "kind": "consequence",
       "consequence": {
-        "cause": 93,
+        "cause": 136,
         "kind": "skill_awarded",
-        "skill": "Astrogator",
-        "delta": 1,
-        "value": 3
-      }
-    },
-    {
-      "seq": 95,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 96,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
-      "seq": 97,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 96,
-        "kind": "skill_awarded",
-        "skill": "Survival",
+        "skill": "Hostile Environ",
         "delta": 1,
         "value": 1
       }
     },
     {
-      "seq": 98,
+      "seq": 138,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1619,7 +2395,95 @@
       }
     },
     {
-      "seq": 99,
+      "seq": 139,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 76 chart 02 table C, column General"
+      }
+    },
+    {
+      "seq": 140,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 139,
+        "kind": "skill_awarded",
+        "skill": "Survey",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 141,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scholar Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Conflict",
+          "Vocation",
+          "Avocation",
+          "Athlete",
+          "Broker"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 142,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 76 chart 02 table C, column General"
+      }
+    },
+    {
+      "seq": 143,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 142,
+        "kind": "skill_awarded",
+        "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 144,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scholar Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Conflict",
+          "Vocation",
+          "Avocation",
+          "Athlete",
+          "Broker"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 145,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1631,62 +2495,18 @@
       }
     },
     {
-      "seq": 100,
+      "seq": 146,
       "kind": "consequence",
       "consequence": {
-        "cause": 99,
+        "cause": 145,
         "kind": "skill_awarded",
         "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 101,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 102,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
-      "seq": 103,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 102,
-        "kind": "skill_awarded",
-        "skill": "Survival",
         "delta": 1,
         "value": 2
       }
     },
     {
-      "seq": 104,
+      "seq": 147,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1700,37 +2520,82 @@
       }
     },
     {
-      "seq": 105,
+      "seq": 148,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          2,
+          3,
           1
         ],
-        "total": 3,
+        "total": 4,
         "target": 14,
         "success": true,
         "mods": [
           {
             "name": "Publications",
-            "value": 4
+            "value": 2
           }
         ],
         "cite": "Book 1 p. 76 chart 02 (Continue Edu +Pubs; p. 66)"
       }
     },
     {
-      "seq": 106,
+      "seq": 149,
       "kind": "consequence",
       "consequence": {
-        "cause": 105,
+        "cause": 148,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 107,
+      "seq": 150,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          3
+        ],
+        "total": 9,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
+      }
+    },
+    {
+      "seq": 151,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          5
+        ],
+        "total": 9,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
+      }
+    },
+    {
+      "seq": 152,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          6
+        ],
+        "total": 12,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
+      }
+    },
+    {
+      "seq": 153,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1738,8 +2603,6 @@
         "options": [
           "Serve the term in Scholar",
           "College",
-          "Masters",
-          "Professors",
           "Medical School",
           "Law School"
         ],
@@ -1748,7 +2611,7 @@
       }
     },
     {
-      "seq": 108,
+      "seq": 154,
       "kind": "step",
       "step": {
         "name": "Scholar: Term 3",
@@ -1756,7 +2619,7 @@
       }
     },
     {
-      "seq": 109,
+      "seq": 155,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1770,7 +2633,7 @@
       }
     },
     {
-      "seq": 110,
+      "seq": 156,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1801,58 +2664,56 @@
       }
     },
     {
-      "seq": 111,
+      "seq": 157,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          5,
-          1
+          4,
+          3
         ],
-        "total": 6,
+        "total": 7,
         "target": 9,
         "success": true,
         "cite": "Book 1 p. 76 chart 02 (Research vs Int+Mods)"
       }
     },
     {
-      "seq": 112,
+      "seq": 158,
       "kind": "consequence",
       "consequence": {
-        "cause": 111,
-        "kind": "skill_awarded",
-        "skill": "Athlete",
-        "delta": 2,
-        "value": 11
+        "cause": 157,
+        "kind": "no_award",
+        "skill": "Athlete"
       }
     },
     {
-      "seq": 113,
+      "seq": 159,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
           6,
-          3
+          1
         ],
-        "total": 9,
+        "total": 7,
         "target": 9,
         "success": true,
         "cite": "Book 1 p. 76 chart 02 (Publication vs Int+ opposite sign Mods)"
       }
     },
     {
-      "seq": 114,
+      "seq": 160,
       "kind": "consequence",
       "consequence": {
-        "cause": 113,
+        "cause": 159,
         "kind": "publication",
         "delta": 1,
-        "value": 5
+        "value": 3
       }
     },
     {
-      "seq": 115,
+      "seq": 161,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1866,31 +2727,31 @@
       }
     },
     {
-      "seq": 116,
+      "seq": 162,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          2,
-          1
+          3,
+          5
         ],
-        "total": 3,
-        "target": 15,
+        "total": 8,
+        "target": 9,
         "success": true,
         "cite": "Book 1 p. 76 chart 02 (Tenure vs Publications x3)"
       }
     },
     {
-      "seq": 117,
+      "seq": 163,
       "kind": "consequence",
       "consequence": {
-        "cause": 116,
+        "cause": 162,
         "kind": "tenure",
         "career": "Scholar"
       }
     },
     {
-      "seq": 118,
+      "seq": 164,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1911,30 +2772,30 @@
       }
     },
     {
-      "seq": 119,
+      "seq": 165,
       "kind": "throw",
       "throw": {
         "expr": "1D",
         "dice": [
-          4
+          2
         ],
-        "total": 4,
+        "total": 2,
         "cite": "Book 1 p. 76 chart 02 table C, column General"
       }
     },
     {
-      "seq": 120,
+      "seq": 166,
       "kind": "consequence",
       "consequence": {
-        "cause": 119,
+        "cause": 165,
         "kind": "skill_awarded",
-        "skill": "Survival",
+        "skill": "Astrogator",
         "delta": 1,
         "value": 3
       }
     },
     {
-      "seq": 121,
+      "seq": 167,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1955,95 +2816,7 @@
       }
     },
     {
-      "seq": 122,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
-      "seq": 123,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 122,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 124,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 125,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
-      "seq": 126,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 125,
-        "kind": "skill_awarded",
-        "skill": "Survey",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 127,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 128,
+      "seq": 168,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2055,18 +2828,106 @@
       }
     },
     {
-      "seq": 129,
+      "seq": 169,
       "kind": "consequence",
       "consequence": {
-        "cause": 128,
+        "cause": 168,
         "kind": "skill_awarded",
         "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 170,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scholar Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Conflict",
+          "Vocation",
+          "Avocation",
+          "Athlete",
+          "Broker"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 171,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 76 chart 02 table C, column General"
+      }
+    },
+    {
+      "seq": 172,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 171,
+        "kind": "skill_awarded",
+        "skill": "Animals",
+        "delta": 1,
+        "value": 2
+      }
+    },
+    {
+      "seq": 173,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scholar Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Conflict",
+          "Vocation",
+          "Avocation",
+          "Athlete",
+          "Broker"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 174,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 76 chart 02 table C, column General"
+      }
+    },
+    {
+      "seq": 175,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 174,
+        "kind": "skill_awarded",
+        "skill": "Astrogator",
         "delta": 1,
         "value": 4
       }
     },
     {
-      "seq": 130,
+      "seq": 176,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2080,78 +2941,7 @@
       }
     },
     {
-      "seq": 131,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          4
-        ],
-        "total": 8,
-        "target": 15,
-        "success": true,
-        "mods": [
-          {
-            "name": "Publications",
-            "value": 5
-          }
-        ],
-        "cite": "Book 1 p. 76 chart 02 (Continue Edu +Pubs; p. 66)"
-      }
-    },
-    {
-      "seq": 132,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 131,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 133,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          6,
-          4
-        ],
-        "total": 10,
-        "target": 5,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
-      }
-    },
-    {
-      "seq": 134,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          2
-        ],
-        "total": 4,
-        "target": 5,
-        "success": true,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
-      }
-    },
-    {
-      "seq": 135,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 134,
-        "kind": "aging_effect",
-        "characteristic": "Dex",
-        "delta": -1,
-        "value": 8
-      }
-    },
-    {
-      "seq": 136,
+      "seq": 177,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2160,24 +2950,73 @@
           1
         ],
         "total": 4,
-        "target": 5,
+        "target": 15,
         "success": true,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)"
+        "mods": [
+          {
+            "name": "Publications",
+            "value": 3
+          }
+        ],
+        "cite": "Book 1 p. 76 chart 02 (Continue Edu +Pubs; p. 66)"
       }
     },
     {
-      "seq": 137,
+      "seq": 178,
       "kind": "consequence",
       "consequence": {
-        "cause": 136,
-        "kind": "aging_effect",
-        "characteristic": "End",
-        "delta": -1,
-        "value": 5
+        "cause": 177,
+        "kind": "years_elapsed",
+        "value": 4
       }
     },
     {
-      "seq": 138,
+      "seq": 179,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          6
+        ],
+        "total": 12,
+        "target": 6,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)"
+      }
+    },
+    {
+      "seq": 180,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          6
+        ],
+        "total": 10,
+        "target": 6,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)"
+      }
+    },
+    {
+      "seq": 181,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          3
+        ],
+        "total": 7,
+        "target": 6,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)"
+      }
+    },
+    {
+      "seq": 182,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2185,8 +3024,6 @@
         "options": [
           "Serve the term in Scholar",
           "College",
-          "Masters",
-          "Professors",
           "Medical School",
           "Law School"
         ],
@@ -2195,7 +3032,7 @@
       }
     },
     {
-      "seq": 139,
+      "seq": 183,
       "kind": "step",
       "step": {
         "name": "Scholar: Term 4",
@@ -2203,7 +3040,7 @@
       }
     },
     {
-      "seq": 140,
+      "seq": 184,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2216,7 +3053,7 @@
       }
     },
     {
-      "seq": 141,
+      "seq": 185,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2247,26 +3084,50 @@
       }
     },
     {
-      "seq": 142,
+      "seq": 186,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
           3,
-          6
+          1
         ],
-        "total": 9,
-        "target": 5,
-        "success": false,
+        "total": 4,
+        "target": 6,
+        "success": true,
         "cite": "Book 1 p. 76 chart 02 (Research vs End+Mods)"
       }
     },
     {
-      "seq": 143,
+      "seq": 187,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 186,
+        "kind": "no_award",
+        "skill": "Athlete"
+      }
+    },
+    {
+      "seq": 188,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          6
+        ],
+        "total": 7,
+        "target": 6,
+        "success": false,
+        "cite": "Book 1 p. 76 chart 02 (Publication vs End+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 189,
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Attempt a Waiver? (Research: incomplete with injury)",
+        "prompt": "Attempt a Waiver? (Publication: rejected)",
         "options": [
           "Attempt waiver",
           "Accept the result"
@@ -2276,51 +3137,46 @@
       }
     },
     {
-      "seq": 144,
-      "kind": "throw",
-      "throw": {
-        "expr": "Flux",
-        "dice": [
-          3,
-          1
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 76 chart 02 (Research Failure: reduce CC by negative Mods and Flux)"
+      "seq": 190,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 188,
+        "kind": "no_award"
       }
     },
     {
-      "seq": 145,
+      "seq": 191,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          6,
-          3
+          2,
+          6
         ],
-        "total": 9,
-        "target": 14,
+        "total": 8,
+        "target": 12,
         "success": true,
         "mods": [
           {
             "name": "Publications",
-            "value": 5
+            "value": 3
           }
         ],
         "cite": "Book 1 p. 76 chart 02 (Promotion vs Int +Pubs)"
       }
     },
     {
-      "seq": 146,
+      "seq": 192,
       "kind": "consequence",
       "consequence": {
-        "cause": 145,
+        "cause": 191,
         "kind": "rank_set",
         "skill": "Associate Professor",
         "career": "Scholar"
       }
     },
     {
-      "seq": 147,
+      "seq": 193,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2341,30 +3197,30 @@
       }
     },
     {
-      "seq": 148,
+      "seq": 194,
       "kind": "throw",
       "throw": {
         "expr": "1D",
         "dice": [
-          4
+          6
         ],
-        "total": 4,
+        "total": 6,
         "cite": "Book 1 p. 76 chart 02 table C, column General"
       }
     },
     {
-      "seq": 149,
+      "seq": 195,
       "kind": "consequence",
       "consequence": {
-        "cause": 148,
+        "cause": 194,
         "kind": "skill_awarded",
-        "skill": "Survival",
+        "skill": "Bureaucrat",
         "delta": 1,
-        "value": 4
+        "value": 3
       }
     },
     {
-      "seq": 150,
+      "seq": 196,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2385,7 +3241,51 @@
       }
     },
     {
-      "seq": 151,
+      "seq": 197,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 76 chart 02 table C, column General"
+      }
+    },
+    {
+      "seq": 198,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 197,
+        "kind": "skill_awarded",
+        "skill": "Survey",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 199,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scholar Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Conflict",
+          "Vocation",
+          "Avocation",
+          "Athlete",
+          "Broker"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 200,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2397,62 +3297,18 @@
       }
     },
     {
-      "seq": 152,
+      "seq": 201,
       "kind": "consequence",
       "consequence": {
-        "cause": 151,
+        "cause": 200,
         "kind": "skill_awarded",
         "skill": "Animals",
-        "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 153,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 154,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
-      "seq": 155,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 154,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
         "delta": 1,
         "value": 3
       }
     },
     {
-      "seq": 156,
+      "seq": 202,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2473,51 +3329,7 @@
       }
     },
     {
-      "seq": 157,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
-      "seq": 158,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 157,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 4
-      }
-    },
-    {
-      "seq": 159,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 160,
+      "seq": 203,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2529,18 +3341,62 @@
       }
     },
     {
-      "seq": 161,
+      "seq": 204,
       "kind": "consequence",
       "consequence": {
-        "cause": 160,
+        "cause": 203,
         "kind": "skill_awarded",
         "skill": "Survival",
         "delta": 1,
-        "value": 5
+        "value": 2
       }
     },
     {
-      "seq": 162,
+      "seq": 205,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scholar Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Conflict",
+          "Vocation",
+          "Avocation",
+          "Athlete",
+          "Broker"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 206,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 76 chart 02 table C, column General"
+      }
+    },
+    {
+      "seq": 207,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 206,
+        "kind": "skill_awarded",
+        "skill": "Survey",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 208,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2554,63 +3410,7 @@
       }
     },
     {
-      "seq": 163,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          3,
-          6
-        ],
-        "total": 9,
-        "target": 15,
-        "success": true,
-        "mods": [
-          {
-            "name": "Publications",
-            "value": 5
-          }
-        ],
-        "cite": "Book 1 p. 76 chart 02 (Continue Edu +Pubs; p. 66)"
-      }
-    },
-    {
-      "seq": 164,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 163,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 165,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          3
-        ],
-        "total": 4,
-        "target": 5,
-        "success": true,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
-      }
-    },
-    {
-      "seq": 166,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 165,
-        "kind": "aging_effect",
-        "characteristic": "Str",
-        "delta": -1,
-        "value": 9
-      }
-    },
-    {
-      "seq": 167,
+      "seq": 209,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2619,28 +3419,84 @@
           2
         ],
         "total": 7,
-        "target": 5,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
+        "target": 15,
+        "success": true,
+        "mods": [
+          {
+            "name": "Publications",
+            "value": 3
+          }
+        ],
+        "cite": "Book 1 p. 76 chart 02 (Continue Edu +Pubs; p. 66)"
       }
     },
     {
-      "seq": 168,
+      "seq": 210,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 209,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 211,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          3,
-          5
+          4,
+          1
         ],
-        "total": 8,
-        "target": 5,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
+        "total": 5,
+        "target": 6,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)"
       }
     },
     {
-      "seq": 169,
+      "seq": 212,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 211,
+        "kind": "aging_effect",
+        "characteristic": "Str",
+        "delta": -1,
+        "value": 9
+      }
+    },
+    {
+      "seq": 213,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          2
+        ],
+        "total": 7,
+        "target": 6,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)"
+      }
+    },
+    {
+      "seq": 214,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          2
+        ],
+        "total": 8,
+        "target": 6,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)"
+      }
+    },
+    {
+      "seq": 215,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2648,8 +3504,6 @@
         "options": [
           "Serve the term in Scholar",
           "College",
-          "Masters",
-          "Professors",
           "Medical School",
           "Law School"
         ],
@@ -2658,7 +3512,7 @@
       }
     },
     {
-      "seq": 170,
+      "seq": 216,
       "kind": "step",
       "step": {
         "name": "Scholar: Term 5",
@@ -2666,7 +3520,7 @@
       }
     },
     {
-      "seq": 171,
+      "seq": 217,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2682,989 +3536,53 @@
       }
     },
     {
-      "seq": 172,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select Caution, Bravery, or No Mod",
-        "options": [
-          "No Mod",
-          "Caution +1",
-          "Caution +2",
-          "Caution +3",
-          "Caution +4",
-          "Caution +5",
-          "Caution +6",
-          "Caution +7",
-          "Caution +8",
-          "Caution +9",
-          "Bravery -1",
-          "Bravery -2",
-          "Bravery -3",
-          "Bravery -4",
-          "Bravery -5",
-          "Bravery -6",
-          "Bravery -7",
-          "Bravery -8",
-          "Bravery -9"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); chart 02 p. 76"
-      }
-    },
-    {
-      "seq": 173,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          3
-        ],
-        "total": 5,
-        "target": 9,
-        "success": true,
-        "cite": "Book 1 p. 76 chart 02 (Research vs Str+Mods)"
-      }
-    },
-    {
-      "seq": 174,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 173,
-        "kind": "skill_awarded",
-        "skill": "Athlete",
-        "delta": 2,
-        "value": 13
-      }
-    },
-    {
-      "seq": 175,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          6
-        ],
-        "total": 7,
-        "target": 9,
-        "success": true,
-        "cite": "Book 1 p. 76 chart 02 (Publication vs Str+ opposite sign Mods)"
-      }
-    },
-    {
-      "seq": 176,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 175,
-        "kind": "publication",
-        "delta": 1,
-        "value": 6
-      }
-    },
-    {
-      "seq": 177,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          6,
-          4
-        ],
-        "total": 10,
-        "target": 15,
-        "success": true,
-        "mods": [
-          {
-            "name": "Publications",
-            "value": 6
-          }
-        ],
-        "cite": "Book 1 p. 76 chart 02 (Promotion vs Int +Pubs)"
-      }
-    },
-    {
-      "seq": 178,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 177,
-        "kind": "rank_set",
-        "skill": "Professor",
-        "career": "Scholar"
-      }
-    },
-    {
-      "seq": 179,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 180,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
-      "seq": 181,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 180,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 5
-      }
-    },
-    {
-      "seq": 182,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 183,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
-      "seq": 184,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 183,
-        "kind": "skill_awarded",
-        "skill": "Survival",
-        "delta": 1,
-        "value": 6
-      }
-    },
-    {
-      "seq": 185,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 186,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
-      "seq": 187,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 186,
-        "kind": "skill_awarded",
-        "skill": "Hostile Environ",
-        "delta": 1,
-        "value": 5
-      }
-    },
-    {
-      "seq": 188,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 189,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
-      "seq": 190,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 189,
-        "kind": "skill_awarded",
-        "skill": "Hostile Environ",
-        "delta": 1,
-        "value": 6
-      }
-    },
-    {
-      "seq": 191,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 192,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
-      "seq": 193,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 192,
-        "kind": "skill_awarded",
-        "skill": "Survey",
-        "delta": 1,
-        "value": 2
-      }
-    },
-    {
-      "seq": 194,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Leave Scholar for another career?",
-        "options": [
-          "Continue in Scholar",
-          "Change careers"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 66 (Changing Careers)"
-      }
-    },
-    {
-      "seq": 195,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          6
-        ],
-        "total": 7,
-        "target": 16,
-        "success": true,
-        "mods": [
-          {
-            "name": "Publications",
-            "value": 6
-          }
-        ],
-        "cite": "Book 1 p. 76 chart 02 (Continue Edu +Pubs; p. 66)"
-      }
-    },
-    {
-      "seq": 196,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 195,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 197,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          6
-        ],
-        "total": 8,
-        "target": 6,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)"
-      }
-    },
-    {
-      "seq": 198,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          6,
-          1
-        ],
-        "total": 7,
-        "target": 6,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)"
-      }
-    },
-    {
-      "seq": 199,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          4
-        ],
-        "total": 9,
-        "target": 6,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)"
-      }
-    },
-    {
-      "seq": 200,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Suspend the term to return to school?",
-        "options": [
-          "Serve the term in Scholar",
-          "College",
-          "Masters",
-          "Professors",
-          "Medical School",
-          "Law School"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
-      }
-    },
-    {
-      "seq": 201,
-      "kind": "step",
-      "step": {
-        "name": "Scholar: Term 6",
-        "cite": "Book 1 p. 76 chart 02"
-      }
-    },
-    {
-      "seq": 202,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Dex",
-          "End",
-          "Int"
-        ],
-        "chosen": 2,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 203,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select Caution, Bravery, or No Mod",
-        "options": [
-          "No Mod",
-          "Caution +1",
-          "Caution +2",
-          "Caution +3",
-          "Caution +4",
-          "Caution +5",
-          "Caution +6",
-          "Caution +7",
-          "Caution +8",
-          "Caution +9",
-          "Bravery -1",
-          "Bravery -2",
-          "Bravery -3",
-          "Bravery -4",
-          "Bravery -5",
-          "Bravery -6",
-          "Bravery -7",
-          "Bravery -8",
-          "Bravery -9"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); chart 02 p. 76"
-      }
-    },
-    {
-      "seq": 204,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          5
-        ],
-        "total": 6,
-        "target": 9,
-        "success": true,
-        "cite": "Book 1 p. 76 chart 02 (Research vs Int+Mods)"
-      }
-    },
-    {
-      "seq": 205,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 204,
-        "kind": "skill_awarded",
-        "skill": "Athlete",
-        "delta": 2,
-        "value": 15
-      }
-    },
-    {
-      "seq": 206,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          4
-        ],
-        "total": 6,
-        "target": 9,
-        "success": true,
-        "cite": "Book 1 p. 76 chart 02 (Publication vs Int+ opposite sign Mods)"
-      }
-    },
-    {
-      "seq": 207,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 206,
-        "kind": "publication",
-        "delta": 1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 208,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          5
-        ],
-        "total": 6,
-        "target": 16,
-        "success": true,
-        "mods": [
-          {
-            "name": "Publications",
-            "value": 7
-          }
-        ],
-        "cite": "Book 1 p. 76 chart 02 (Promotion vs Int +Pubs)"
-      }
-    },
-    {
-      "seq": 209,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 208,
-        "kind": "rank_set",
-        "skill": "Distinguished Professor",
-        "career": "Scholar"
-      }
-    },
-    {
-      "seq": 210,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 211,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
-      "seq": 212,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 211,
-        "kind": "skill_awarded",
-        "skill": "Astrogator",
-        "delta": 1,
-        "value": 4
-      }
-    },
-    {
-      "seq": 213,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 214,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
-      "seq": 215,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 214,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 6
-      }
-    },
-    {
-      "seq": 216,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 217,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
       "seq": 218,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 217,
-        "kind": "skill_awarded",
-        "skill": "Astrogator",
-        "delta": 1,
-        "value": 5
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); chart 02 p. 76"
       }
     },
     {
       "seq": 219,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 220,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
-      "seq": 221,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 220,
-        "kind": "skill_awarded",
-        "skill": "Survival",
-        "delta": 1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 222,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 223,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
-      "seq": 224,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 223,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 225,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Leave Scholar for another career?",
-        "options": [
-          "Continue in Scholar",
-          "Change careers"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 66 (Changing Careers)"
-      }
-    },
-    {
-      "seq": 226,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          3
-        ],
-        "total": 8,
-        "target": 17,
-        "success": true,
-        "mods": [
-          {
-            "name": "Publications",
-            "value": 7
-          }
-        ],
-        "cite": "Book 1 p. 76 chart 02 (Continue Edu +Pubs; p. 66)"
-      }
-    },
-    {
-      "seq": 227,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 226,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 228,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          6,
-          4
-        ],
-        "total": 10,
-        "target": 6,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)"
-      }
-    },
-    {
-      "seq": 229,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          3,
-          3
-        ],
-        "total": 6,
-        "target": 6,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)"
-      }
-    },
-    {
-      "seq": 230,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
           4,
-          1
+          6
         ],
-        "total": 5,
-        "target": 6,
-        "success": true,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)"
-      }
-    },
-    {
-      "seq": 231,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 230,
-        "kind": "aging_effect",
-        "characteristic": "End",
-        "delta": -1,
-        "value": 4
-      }
-    },
-    {
-      "seq": 232,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Suspend the term to return to school?",
-        "options": [
-          "Serve the term in Scholar",
-          "College",
-          "Masters",
-          "Professors",
-          "Medical School",
-          "Law School"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
-      }
-    },
-    {
-      "seq": 233,
-      "kind": "step",
-      "step": {
-        "name": "Scholar: Term 7",
-        "cite": "Book 1 p. 76 chart 02"
-      }
-    },
-    {
-      "seq": 234,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Dex",
-          "End"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 235,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select Caution, Bravery, or No Mod",
-        "options": [
-          "No Mod",
-          "Caution +1",
-          "Caution +2",
-          "Caution +3",
-          "Caution +4",
-          "Caution +5",
-          "Caution +6",
-          "Caution +7",
-          "Caution +8",
-          "Caution +9",
-          "Bravery -1",
-          "Bravery -2",
-          "Bravery -3",
-          "Bravery -4",
-          "Bravery -5",
-          "Bravery -6",
-          "Bravery -7",
-          "Bravery -8",
-          "Bravery -9"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); chart 02 p. 76"
-      }
-    },
-    {
-      "seq": 236,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          6,
-          3
-        ],
-        "total": 9,
-        "target": 8,
+        "total": 10,
+        "target": 9,
         "success": false,
-        "cite": "Book 1 p. 76 chart 02 (Research vs Dex+Mods)"
+        "cite": "Book 1 p. 76 chart 02 (Research vs Str+Mods)"
       }
     },
     {
-      "seq": 237,
+      "seq": 220,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3678,20 +3596,51 @@
       }
     },
     {
-      "seq": 238,
+      "seq": 221,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
         "dice": [
-          6,
-          6
+          5,
+          3
         ],
-        "total": 0,
+        "total": 2,
         "cite": "Book 1 p. 76 chart 02 (Research Failure: reduce CC by negative Mods and Flux)"
       }
     },
     {
-      "seq": 239,
+      "seq": 222,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          4
+        ],
+        "total": 10,
+        "target": 12,
+        "success": true,
+        "mods": [
+          {
+            "name": "Publications",
+            "value": 3
+          }
+        ],
+        "cite": "Book 1 p. 76 chart 02 (Promotion vs Int +Pubs)"
+      }
+    },
+    {
+      "seq": 223,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 222,
+        "kind": "rank_set",
+        "skill": "Professor",
+        "career": "Scholar"
+      }
+    },
+    {
+      "seq": 224,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3712,30 +3661,30 @@
       }
     },
     {
-      "seq": 240,
+      "seq": 225,
       "kind": "throw",
       "throw": {
         "expr": "1D",
         "dice": [
-          5
+          3
         ],
-        "total": 5,
+        "total": 3,
         "cite": "Book 1 p. 76 chart 02 table C, column General"
       }
     },
     {
-      "seq": 241,
+      "seq": 226,
       "kind": "consequence",
       "consequence": {
-        "cause": 240,
+        "cause": 225,
         "kind": "skill_awarded",
-        "skill": "Animals",
+        "skill": "Hostile Environ",
         "delta": 1,
-        "value": 3
+        "value": 4
       }
     },
     {
-      "seq": 242,
+      "seq": 227,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3756,7 +3705,51 @@
       }
     },
     {
-      "seq": 243,
+      "seq": 228,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 76 chart 02 table C, column General"
+      }
+    },
+    {
+      "seq": 229,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 228,
+        "kind": "skill_awarded",
+        "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 230,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scholar Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Conflict",
+          "Vocation",
+          "Avocation",
+          "Athlete",
+          "Broker"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 231,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3768,18 +3761,18 @@
       }
     },
     {
-      "seq": 244,
+      "seq": 232,
       "kind": "consequence",
       "consequence": {
-        "cause": 243,
+        "cause": 231,
         "kind": "skill_awarded",
         "skill": "Survival",
         "delta": 1,
-        "value": 8
+        "value": 3
       }
     },
     {
-      "seq": 245,
+      "seq": 233,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3800,7 +3793,51 @@
       }
     },
     {
-      "seq": 246,
+      "seq": 234,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 76 chart 02 table C, column General"
+      }
+    },
+    {
+      "seq": 235,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 234,
+        "kind": "skill_awarded",
+        "skill": "Survey",
+        "delta": 1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 236,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scholar Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Conflict",
+          "Vocation",
+          "Avocation",
+          "Athlete",
+          "Broker"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 237,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3812,62 +3849,18 @@
       }
     },
     {
-      "seq": 247,
+      "seq": 238,
       "kind": "consequence",
       "consequence": {
-        "cause": 246,
+        "cause": 237,
         "kind": "skill_awarded",
         "skill": "Bureaucrat",
         "delta": 1,
-        "value": 8
+        "value": 4
       }
     },
     {
-      "seq": 248,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 249,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
-      "seq": 250,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 249,
-        "kind": "skill_awarded",
-        "skill": "Astrogator",
-        "delta": 1,
-        "value": 6
-      }
-    },
-    {
-      "seq": 251,
+      "seq": 239,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3881,24 +3874,198 @@
       }
     },
     {
+      "seq": 240,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          3,
+          6
+        ],
+        "total": 9,
+        "target": 15,
+        "success": true,
+        "mods": [
+          {
+            "name": "Publications",
+            "value": 3
+          }
+        ],
+        "cite": "Book 1 p. 76 chart 02 (Continue Edu +Pubs; p. 66)"
+      }
+    },
+    {
+      "seq": 241,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 240,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 242,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          5
+        ],
+        "total": 11,
+        "target": 7,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 50)"
+      }
+    },
+    {
+      "seq": 243,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          4,
+          6
+        ],
+        "total": 10,
+        "target": 7,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 50)"
+      }
+    },
+    {
+      "seq": 244,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          1
+        ],
+        "total": 3,
+        "target": 7,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 50)"
+      }
+    },
+    {
+      "seq": 245,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 244,
+        "kind": "aging_effect",
+        "characteristic": "End",
+        "delta": -1,
+        "value": 5
+      }
+    },
+    {
+      "seq": 246,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Scholar",
+          "College",
+          "Medical School",
+          "Law School"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
+      }
+    },
+    {
+      "seq": 247,
+      "kind": "step",
+      "step": {
+        "name": "Scholar: Term 6",
+        "cite": "Book 1 p. 76 chart 02"
+      }
+    },
+    {
+      "seq": 248,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the term's controlling characteristic",
+        "options": [
+          "Dex",
+          "End",
+          "Int"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
+      }
+    },
+    {
+      "seq": 249,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select Caution, Bravery, or No Mod",
+        "options": [
+          "No Mod",
+          "Caution +1",
+          "Caution +2",
+          "Caution +3",
+          "Caution +4",
+          "Caution +5",
+          "Caution +6",
+          "Caution +7",
+          "Caution +8",
+          "Caution +9",
+          "Bravery -1",
+          "Bravery -2",
+          "Bravery -3",
+          "Bravery -4",
+          "Bravery -5",
+          "Bravery -6",
+          "Bravery -7",
+          "Bravery -8",
+          "Bravery -9"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); chart 02 p. 76"
+      }
+    },
+    {
+      "seq": 250,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          6
+        ],
+        "total": 8,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 76 chart 02 (Research vs Dex+Mods)"
+      }
+    },
+    {
+      "seq": 251,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 250,
+        "kind": "no_award",
+        "skill": "Athlete"
+      }
+    },
+    {
       "seq": 252,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          1,
-          2
+          2,
+          4
         ],
-        "total": 3,
-        "target": 17,
+        "total": 6,
+        "target": 9,
         "success": true,
-        "mods": [
-          {
-            "name": "Publications",
-            "value": 7
-          }
-        ],
-        "cite": "Book 1 p. 76 chart 02 (Continue Edu +Pubs; p. 66)"
+        "cite": "Book 1 p. 76 chart 02 (Publication vs Dex+ opposite sign Mods)"
       }
     },
     {
@@ -3906,7 +4073,8 @@
       "kind": "consequence",
       "consequence": {
         "cause": 252,
-        "kind": "years_elapsed",
+        "kind": "publication",
+        "delta": 1,
         "value": 4
       }
     },
@@ -3916,47 +4084,375 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          6,
-          2
+          5,
+          6
         ],
-        "total": 8,
-        "target": 7,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 50)"
+        "total": 11,
+        "target": 13,
+        "success": true,
+        "mods": [
+          {
+            "name": "Publications",
+            "value": 4
+          }
+        ],
+        "cite": "Book 1 p. 76 chart 02 (Promotion vs Int +Pubs)"
       }
     },
     {
       "seq": 255,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          5
-        ],
-        "total": 9,
-        "target": 7,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 50)"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 254,
+        "kind": "rank_set",
+        "skill": "Distinguished Professor",
+        "career": "Scholar"
       }
     },
     {
       "seq": 256,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          6,
-          3
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scholar Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Conflict",
+          "Vocation",
+          "Avocation",
+          "Athlete",
+          "Broker"
         ],
-        "total": 9,
-        "target": 7,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 50)"
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 257,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 76 chart 02 table C, column General"
+      }
+    },
+    {
+      "seq": 258,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 257,
+        "kind": "skill_awarded",
+        "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 259,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scholar Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Conflict",
+          "Vocation",
+          "Avocation",
+          "Athlete",
+          "Broker"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 260,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 76 chart 02 table C, column General"
+      }
+    },
+    {
+      "seq": 261,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 260,
+        "kind": "skill_awarded",
+        "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 7
+      }
+    },
+    {
+      "seq": 262,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scholar Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Conflict",
+          "Vocation",
+          "Avocation",
+          "Athlete",
+          "Broker"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 263,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          5
+        ],
+        "total": 5,
+        "cite": "Book 1 p. 76 chart 02 table C, column General"
+      }
+    },
+    {
+      "seq": 264,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 263,
+        "kind": "skill_awarded",
+        "skill": "Animals",
+        "delta": 1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 265,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scholar Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Conflict",
+          "Vocation",
+          "Avocation",
+          "Athlete",
+          "Broker"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 266,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 76 chart 02 table C, column General"
+      }
+    },
+    {
+      "seq": 267,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 266,
+        "kind": "skill_awarded",
+        "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 8
+      }
+    },
+    {
+      "seq": 268,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scholar Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Conflict",
+          "Vocation",
+          "Avocation",
+          "Athlete",
+          "Broker"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 269,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
+        ],
+        "total": 3,
+        "cite": "Book 1 p. 76 chart 02 table C, column General"
+      }
+    },
+    {
+      "seq": 270,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 269,
+        "kind": "skill_awarded",
+        "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 9
+      }
+    },
+    {
+      "seq": 271,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Leave Scholar for another career?",
+        "options": [
+          "Continue in Scholar",
+          "Change careers"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 272,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          6
+        ],
+        "total": 8,
+        "target": 16,
+        "success": true,
+        "mods": [
+          {
+            "name": "Publications",
+            "value": 4
+          }
+        ],
+        "cite": "Book 1 p. 76 chart 02 (Continue Edu +Pubs; p. 66)"
+      }
+    },
+    {
+      "seq": 273,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 272,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 274,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          4
+        ],
+        "total": 5,
+        "target": 7,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 54)"
+      }
+    },
+    {
+      "seq": 275,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 274,
+        "kind": "aging_effect",
+        "characteristic": "Str",
+        "delta": -1,
+        "value": 8
+      }
+    },
+    {
+      "seq": 276,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          3
+        ],
+        "total": 5,
+        "target": 7,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 54)"
+      }
+    },
+    {
+      "seq": 277,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 276,
+        "kind": "aging_effect",
+        "characteristic": "Dex",
+        "delta": -1,
+        "value": 8
+      }
+    },
+    {
+      "seq": 278,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          3
+        ],
+        "total": 5,
+        "target": 7,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 54)"
+      }
+    },
+    {
+      "seq": 279,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 278,
+        "kind": "aging_effect",
+        "characteristic": "End",
+        "delta": -1,
+        "value": 4
+      }
+    },
+    {
+      "seq": 280,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3964,8 +4460,6 @@
         "options": [
           "Serve the term in Scholar",
           "College",
-          "Masters",
-          "Professors",
           "Medical School",
           "Law School"
         ],
@@ -3974,28 +4468,29 @@
       }
     },
     {
-      "seq": 258,
+      "seq": 281,
       "kind": "step",
       "step": {
-        "name": "Scholar: Term 8",
+        "name": "Scholar: Term 7",
         "cite": "Book 1 p. 76 chart 02"
       }
     },
     {
-      "seq": 259,
+      "seq": 282,
       "kind": "choice",
       "choice": {
         "decider": "policy",
         "prompt": "Select the term's controlling characteristic",
         "options": [
-          "End"
+          "End",
+          "Int"
         ],
-        "chosen": 0,
+        "chosen": 1,
         "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
       }
     },
     {
-      "seq": 260,
+      "seq": 283,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4026,49 +4521,56 @@
       }
     },
     {
-      "seq": 261,
+      "seq": 284,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
           3,
-          5
+          6
         ],
-        "total": 8,
-        "target": 4,
-        "success": false,
-        "cite": "Book 1 p. 76 chart 02 (Research vs End+Mods)"
+        "total": 9,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 76 chart 02 (Research vs Int+Mods)"
       }
     },
     {
-      "seq": 262,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Attempt a Waiver? (Research: incomplete with injury)",
-        "options": [
-          "Attempt waiver",
-          "Accept the result"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 76 chart 02 (Waivers: Check Soc, Mod minus previous waivers)"
+      "seq": 285,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 284,
+        "kind": "no_award",
+        "skill": "Athlete"
       }
     },
     {
-      "seq": 263,
+      "seq": 286,
       "kind": "throw",
       "throw": {
-        "expr": "Flux",
+        "expr": "2D",
         "dice": [
-          3,
-          3
+          2,
+          2
         ],
-        "total": 0,
-        "cite": "Book 1 p. 76 chart 02 (Research Failure: reduce CC by negative Mods and Flux)"
+        "total": 4,
+        "target": 9,
+        "success": true,
+        "cite": "Book 1 p. 76 chart 02 (Publication vs Int+ opposite sign Mods)"
       }
     },
     {
-      "seq": 264,
+      "seq": 287,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 286,
+        "kind": "publication",
+        "delta": 2,
+        "value": 6
+      }
+    },
+    {
+      "seq": 288,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4089,30 +4591,30 @@
       }
     },
     {
-      "seq": 265,
+      "seq": 289,
       "kind": "throw",
       "throw": {
         "expr": "1D",
         "dice": [
-          2
+          5
         ],
-        "total": 2,
+        "total": 5,
         "cite": "Book 1 p. 76 chart 02 table C, column General"
       }
     },
     {
-      "seq": 266,
+      "seq": 290,
       "kind": "consequence",
       "consequence": {
-        "cause": 265,
+        "cause": 289,
         "kind": "skill_awarded",
-        "skill": "Astrogator",
+        "skill": "Animals",
         "delta": 1,
-        "value": 7
+        "value": 5
       }
     },
     {
-      "seq": 267,
+      "seq": 291,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4133,7 +4635,7 @@
       }
     },
     {
-      "seq": 268,
+      "seq": 292,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4145,18 +4647,18 @@
       }
     },
     {
-      "seq": 269,
+      "seq": 293,
       "kind": "consequence",
       "consequence": {
-        "cause": 268,
+        "cause": 292,
         "kind": "skill_awarded",
         "skill": "Bureaucrat",
         "delta": 1,
-        "value": 9
+        "value": 5
       }
     },
     {
-      "seq": 270,
+      "seq": 294,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4177,30 +4679,30 @@
       }
     },
     {
-      "seq": 271,
+      "seq": 295,
       "kind": "throw",
       "throw": {
         "expr": "1D",
         "dice": [
-          1
+          3
         ],
-        "total": 1,
+        "total": 3,
         "cite": "Book 1 p. 76 chart 02 table C, column General"
       }
     },
     {
-      "seq": 272,
+      "seq": 296,
       "kind": "consequence",
       "consequence": {
-        "cause": 271,
+        "cause": 295,
         "kind": "skill_awarded",
-        "skill": "Survey",
+        "skill": "Hostile Environ",
         "delta": 1,
-        "value": 3
+        "value": 10
       }
     },
     {
-      "seq": 273,
+      "seq": 297,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4221,7 +4723,7 @@
       }
     },
     {
-      "seq": 274,
+      "seq": 298,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4233,18 +4735,18 @@
       }
     },
     {
-      "seq": 275,
+      "seq": 299,
       "kind": "consequence",
       "consequence": {
-        "cause": 274,
+        "cause": 298,
         "kind": "skill_awarded",
         "skill": "Survival",
         "delta": 1,
-        "value": 9
+        "value": 4
       }
     },
     {
-      "seq": 276,
+      "seq": 300,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4258,400 +4760,48 @@
       }
     },
     {
-      "seq": 277,
+      "seq": 301,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          2,
-          3
+          1,
+          1
         ],
-        "total": 5,
-        "target": 17,
+        "total": 2,
+        "target": 18,
         "success": true,
         "mods": [
           {
             "name": "Publications",
-            "value": 7
+            "value": 6
           }
         ],
         "cite": "Book 1 p. 76 chart 02 (Continue Edu +Pubs; p. 66)"
       }
     },
     {
-      "seq": 278,
+      "seq": 302,
       "kind": "consequence",
       "consequence": {
-        "cause": 277,
+        "cause": 301,
         "kind": "years_elapsed",
         "value": 4
-      }
-    },
-    {
-      "seq": 279,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          3
-        ],
-        "total": 5,
-        "target": 7,
-        "success": true,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 54)"
-      }
-    },
-    {
-      "seq": 280,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 279,
-        "kind": "aging_effect",
-        "characteristic": "Str",
-        "delta": -1,
-        "value": 8
-      }
-    },
-    {
-      "seq": 281,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          3,
-          6
-        ],
-        "total": 9,
-        "target": 7,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 54)"
-      }
-    },
-    {
-      "seq": 282,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          2
-        ],
-        "total": 4,
-        "target": 7,
-        "success": true,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 54)"
-      }
-    },
-    {
-      "seq": 283,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 282,
-        "kind": "aging_effect",
-        "characteristic": "End",
-        "delta": -1,
-        "value": 3
-      }
-    },
-    {
-      "seq": 284,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Suspend the term to return to school?",
-        "options": [
-          "Serve the term in Scholar",
-          "College",
-          "Masters",
-          "Professors",
-          "Medical School",
-          "Law School"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
-      }
-    },
-    {
-      "seq": 285,
-      "kind": "step",
-      "step": {
-        "name": "Scholar: Term 9",
-        "cite": "Book 1 p. 76 chart 02"
-      }
-    },
-    {
-      "seq": 286,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "Str",
-          "Dex",
-          "End",
-          "Int"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 287,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select Caution, Bravery, or No Mod",
-        "options": [
-          "No Mod",
-          "Caution +1",
-          "Caution +2",
-          "Caution +3",
-          "Caution +4",
-          "Caution +5",
-          "Caution +6",
-          "Caution +7",
-          "Caution +8",
-          "Caution +9",
-          "Bravery -1",
-          "Bravery -2",
-          "Bravery -3",
-          "Bravery -4",
-          "Bravery -5",
-          "Bravery -6",
-          "Bravery -7",
-          "Bravery -8",
-          "Bravery -9"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); chart 02 p. 76"
-      }
-    },
-    {
-      "seq": 288,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          6
-        ],
-        "total": 11,
-        "target": 9,
-        "success": false,
-        "cite": "Book 1 p. 76 chart 02 (Research vs Int+Mods)"
-      }
-    },
-    {
-      "seq": 289,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Attempt a Waiver? (Research: incomplete with injury)",
-        "options": [
-          "Attempt waiver",
-          "Accept the result"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 76 chart 02 (Waivers: Check Soc, Mod minus previous waivers)"
-      }
-    },
-    {
-      "seq": 290,
-      "kind": "throw",
-      "throw": {
-        "expr": "Flux",
-        "dice": [
-          3,
-          4
-        ],
-        "total": -1,
-        "cite": "Book 1 p. 76 chart 02 (Research Failure: reduce CC by negative Mods and Flux)"
-      }
-    },
-    {
-      "seq": 291,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 288,
-        "kind": "characteristic_change",
-        "characteristic": "Int",
-        "delta": -1,
-        "value": 8
-      }
-    },
-    {
-      "seq": 292,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 288,
-        "kind": "wound_badge",
-        "value": 1
-      }
-    },
-    {
-      "seq": 293,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 294,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
-      "seq": 295,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 294,
-        "kind": "skill_awarded",
-        "skill": "Survey",
-        "delta": 1,
-        "value": 4
-      }
-    },
-    {
-      "seq": 296,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 297,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
-      "seq": 298,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 297,
-        "kind": "skill_awarded",
-        "skill": "Survey",
-        "delta": 1,
-        "value": 5
-      }
-    },
-    {
-      "seq": 299,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 300,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
-      "seq": 301,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 300,
-        "kind": "skill_awarded",
-        "skill": "Survival",
-        "delta": 1,
-        "value": 10
-      }
-    },
-    {
-      "seq": 302,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 303,
       "kind": "throw",
       "throw": {
-        "expr": "1D",
+        "expr": "2D",
         "dice": [
+          4,
           2
         ],
-        "total": 2,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
+        "total": 6,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 8, age 58)"
       }
     },
     {
@@ -4659,28 +4809,14 @@
       "kind": "consequence",
       "consequence": {
         "cause": 303,
-        "kind": "skill_awarded",
-        "skill": "Astrogator",
-        "delta": 1,
-        "value": 8
+        "kind": "aging_effect",
+        "characteristic": "Str",
+        "delta": -1,
+        "value": 7
       }
     },
     {
       "seq": 305,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Leave Scholar for another career?",
-        "options": [
-          "Continue in Scholar",
-          "Change careers"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 66 (Changing Careers)"
-      }
-    },
-    {
-      "seq": 306,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4689,28 +4825,13 @@
           6
         ],
         "total": 11,
-        "target": 17,
-        "success": true,
-        "mods": [
-          {
-            "name": "Publications",
-            "value": 7
-          }
-        ],
-        "cite": "Book 1 p. 76 chart 02 (Continue Edu +Pubs; p. 66)"
+        "target": 8,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 8, age 58)"
       }
     },
     {
-      "seq": 307,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 306,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 308,
+      "seq": 306,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4725,70 +4846,26 @@
       }
     },
     {
-      "seq": 309,
+      "seq": 307,
       "kind": "consequence",
       "consequence": {
-        "cause": 308,
-        "kind": "aging_effect",
-        "characteristic": "Str",
-        "delta": -1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 310,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          1
-        ],
-        "total": 3,
-        "target": 8,
-        "success": true,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 8, age 58)"
-      }
-    },
-    {
-      "seq": 311,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 310,
-        "kind": "aging_effect",
-        "characteristic": "Dex",
-        "delta": -1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 312,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          5
-        ],
-        "total": 7,
-        "target": 8,
-        "success": true,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 8, age 58)"
-      }
-    },
-    {
-      "seq": 313,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 312,
+        "cause": 306,
         "kind": "aging_effect",
         "characteristic": "End",
         "delta": -1,
-        "value": 2
+        "value": 3
       }
     },
     {
-      "seq": 314,
+      "seq": 308,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 301,
+        "kind": "mandatory_continue"
+      }
+    },
+    {
+      "seq": 309,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4796,8 +4873,6 @@
         "options": [
           "Serve the term in Scholar",
           "College",
-          "Masters",
-          "Professors",
           "Medical School",
           "Law School"
         ],
@@ -4806,22 +4881,20 @@
       }
     },
     {
-      "seq": 315,
+      "seq": 310,
       "kind": "step",
       "step": {
-        "name": "Scholar: Term 10",
+        "name": "Scholar: Term 8",
         "cite": "Book 1 p. 76 chart 02"
       }
     },
     {
-      "seq": 316,
+      "seq": 311,
       "kind": "choice",
       "choice": {
         "decider": "policy",
         "prompt": "Select the term's controlling characteristic",
         "options": [
-          "Str",
-          "Dex",
           "End"
         ],
         "chosen": 0,
@@ -4829,7 +4902,7 @@
       }
     },
     {
-      "seq": 317,
+      "seq": 312,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4860,232 +4933,244 @@
       }
     },
     {
-      "seq": 318,
+      "seq": 313,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          4,
-          3
+          2,
+          1
         ],
-        "total": 7,
-        "target": 7,
+        "total": 3,
+        "target": 3,
         "success": true,
-        "cite": "Book 1 p. 76 chart 02 (Research vs Str+Mods)"
+        "cite": "Book 1 p. 76 chart 02 (Research vs End+Mods)"
       }
     },
     {
-      "seq": 319,
+      "seq": 314,
       "kind": "consequence",
       "consequence": {
-        "cause": 318,
+        "cause": 313,
         "kind": "no_award",
         "skill": "Athlete"
       }
     },
     {
-      "seq": 320,
+      "seq": 315,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          3,
-          3
+          2,
+          5
         ],
-        "total": 6,
-        "target": 7,
-        "success": true,
-        "cite": "Book 1 p. 76 chart 02 (Publication vs Str+ opposite sign Mods)"
+        "total": 7,
+        "target": 3,
+        "success": false,
+        "cite": "Book 1 p. 76 chart 02 (Publication vs End+ opposite sign Mods)"
+      }
+    },
+    {
+      "seq": 316,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Attempt a Waiver? (Publication: rejected)",
+        "options": [
+          "Attempt waiver",
+          "Accept the result"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 76 chart 02 (Waivers: Check Soc, Mod minus previous waivers)"
+      }
+    },
+    {
+      "seq": 317,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 315,
+        "kind": "no_award"
+      }
+    },
+    {
+      "seq": 318,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scholar Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Conflict",
+          "Vocation",
+          "Avocation",
+          "Athlete",
+          "Broker"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 319,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 76 chart 02 table C, column General"
+      }
+    },
+    {
+      "seq": 320,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 319,
+        "kind": "skill_awarded",
+        "skill": "Survival",
+        "delta": 1,
+        "value": 5
       }
     },
     {
       "seq": 321,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 320,
-        "kind": "publication",
-        "delta": 1,
-        "value": 8
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scholar Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Conflict",
+          "Vocation",
+          "Avocation",
+          "Athlete",
+          "Broker"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 322,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
         ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+        "total": 3,
+        "cite": "Book 1 p. 76 chart 02 table C, column General"
       }
     },
     {
       "seq": 323,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          6
-        ],
-        "total": 6,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 322,
+        "kind": "skill_awarded",
+        "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 11
       }
     },
     {
       "seq": 324,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 323,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 10
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scholar Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Conflict",
+          "Vocation",
+          "Avocation",
+          "Athlete",
+          "Broker"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 325,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
         ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+        "total": 3,
+        "cite": "Book 1 p. 76 chart 02 table C, column General"
       }
     },
     {
       "seq": 326,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 325,
+        "kind": "skill_awarded",
+        "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 12
       }
     },
     {
       "seq": 327,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 326,
-        "kind": "skill_awarded",
-        "skill": "Survey",
-        "delta": 1,
-        "value": 6
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scholar Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Conflict",
+          "Vocation",
+          "Avocation",
+          "Athlete",
+          "Broker"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 328,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          3
         ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+        "total": 3,
+        "cite": "Book 1 p. 76 chart 02 table C, column General"
       }
     },
     {
       "seq": 329,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 328,
+        "kind": "skill_awarded",
+        "skill": "Hostile Environ",
+        "delta": 1,
+        "value": 13
       }
     },
     {
       "seq": 330,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 329,
-        "kind": "skill_awarded",
-        "skill": "Astrogator",
-        "delta": 1,
-        "value": 9
-      }
-    },
-    {
-      "seq": 331,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 332,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
-      "seq": 333,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 332,
-        "kind": "skill_awarded",
-        "skill": "Survey",
-        "delta": 1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 334,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5096,6 +5181,62 @@
         ],
         "chosen": 0,
         "cite": "Book 1 p. 66 (Changing Careers)"
+      }
+    },
+    {
+      "seq": 331,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          1
+        ],
+        "total": 7,
+        "target": 18,
+        "success": true,
+        "mods": [
+          {
+            "name": "Publications",
+            "value": 6
+          }
+        ],
+        "cite": "Book 1 p. 76 chart 02 (Continue Edu +Pubs; p. 66)"
+      }
+    },
+    {
+      "seq": 332,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 331,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 333,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          1
+        ],
+        "total": 3,
+        "target": 8,
+        "success": true,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 8, age 62)"
+      }
+    },
+    {
+      "seq": 334,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 333,
+        "kind": "aging_effect",
+        "characteristic": "Str",
+        "delta": -1,
+        "value": 6
       }
     },
     {
@@ -5108,28 +5249,13 @@
           4
         ],
         "total": 10,
-        "target": 18,
-        "success": true,
-        "mods": [
-          {
-            "name": "Publications",
-            "value": 8
-          }
-        ],
-        "cite": "Book 1 p. 76 chart 02 (Continue Edu +Pubs; p. 66)"
+        "target": 8,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 8, age 62)"
       }
     },
     {
       "seq": 336,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 335,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 337,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -5144,48 +5270,7 @@
       }
     },
     {
-      "seq": 338,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          5
-        ],
-        "total": 10,
-        "target": 8,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 8, age 62)"
-      }
-    },
-    {
-      "seq": 339,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          1,
-          6
-        ],
-        "total": 7,
-        "target": 8,
-        "success": true,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 8, age 62)"
-      }
-    },
-    {
-      "seq": 340,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 339,
-        "kind": "aging_effect",
-        "characteristic": "End",
-        "delta": -1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 341,
+      "seq": 337,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5193,8 +5278,6 @@
         "options": [
           "Serve the term in Scholar",
           "College",
-          "Masters",
-          "Professors",
           "Medical School",
           "Law School"
         ],
@@ -5203,29 +5286,31 @@
       }
     },
     {
-      "seq": 342,
+      "seq": 338,
       "kind": "step",
       "step": {
-        "name": "Scholar: Term 11",
+        "name": "Scholar: Term 9",
         "cite": "Book 1 p. 76 chart 02"
       }
     },
     {
-      "seq": 343,
+      "seq": 339,
       "kind": "choice",
       "choice": {
         "decider": "policy",
         "prompt": "Select the term's controlling characteristic",
         "options": [
+          "Str",
           "Dex",
-          "End"
+          "End",
+          "Int"
         ],
-        "chosen": 0,
+        "chosen": 3,
         "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
       }
     },
     {
-      "seq": 344,
+      "seq": 340,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5256,22 +5341,22 @@
       }
     },
     {
-      "seq": 345,
+      "seq": 341,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          6,
+          5,
           5
         ],
-        "total": 11,
-        "target": 7,
+        "total": 10,
+        "target": 9,
         "success": false,
-        "cite": "Book 1 p. 76 chart 02 (Research vs Dex+Mods)"
+        "cite": "Book 1 p. 76 chart 02 (Research vs Int+Mods)"
       }
     },
     {
-      "seq": 346,
+      "seq": 342,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5285,20 +5370,49 @@
       }
     },
     {
-      "seq": 347,
+      "seq": 343,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
         "dice": [
-          4,
-          2
+          1,
+          6
         ],
-        "total": 2,
+        "total": -5,
         "cite": "Book 1 p. 76 chart 02 (Research Failure: reduce CC by negative Mods and Flux)"
       }
     },
     {
-      "seq": 348,
+      "seq": 344,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 341,
+        "kind": "characteristic_change",
+        "characteristic": "Int",
+        "delta": -5,
+        "value": 4
+      }
+    },
+    {
+      "seq": 345,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 341,
+        "kind": "wound_badge",
+        "value": 1
+      }
+    },
+    {
+      "seq": 346,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 341,
+        "kind": "disabled",
+        "characteristic": "Int"
+      }
+    },
+    {
+      "seq": 347,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5319,7 +5433,7 @@
       }
     },
     {
-      "seq": 349,
+      "seq": 348,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -5331,83 +5445,39 @@
       }
     },
     {
-      "seq": 350,
+      "seq": 349,
       "kind": "consequence",
       "consequence": {
-        "cause": 349,
+        "cause": 348,
         "kind": "skill_awarded",
         "skill": "Bureaucrat",
         "delta": 1,
-        "value": 11
+        "value": 6
+      }
+    },
+    {
+      "seq": 350,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scholar Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Conflict",
+          "Vocation",
+          "Avocation",
+          "Athlete",
+          "Broker"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 351,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 352,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          3
-        ],
-        "total": 3,
-        "cite": "Book 1 p. 76 chart 02 table C, column General"
-      }
-    },
-    {
-      "seq": 353,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 352,
-        "kind": "skill_awarded",
-        "skill": "Hostile Environ",
-        "delta": 1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 354,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select a Scholar Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Conflict",
-          "Vocation",
-          "Avocation",
-          "Athlete",
-          "Broker"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 355,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -5419,18 +5489,18 @@
       }
     },
     {
-      "seq": 356,
+      "seq": 352,
       "kind": "consequence",
       "consequence": {
-        "cause": 355,
+        "cause": 351,
         "kind": "skill_awarded",
         "skill": "Animals",
         "delta": 1,
-        "value": 4
+        "value": 6
       }
     },
     {
-      "seq": 357,
+      "seq": 353,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5451,40 +5521,94 @@
       }
     },
     {
-      "seq": 358,
+      "seq": 354,
       "kind": "throw",
       "throw": {
         "expr": "1D",
         "dice": [
-          3
+          4
         ],
-        "total": 3,
+        "total": 4,
         "cite": "Book 1 p. 76 chart 02 table C, column General"
+      }
+    },
+    {
+      "seq": 355,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 354,
+        "kind": "skill_awarded",
+        "skill": "Survival",
+        "delta": 1,
+        "value": 6
+      }
+    },
+    {
+      "seq": 356,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Scholar Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Conflict",
+          "Vocation",
+          "Avocation",
+          "Athlete",
+          "Broker"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 357,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          2
+        ],
+        "total": 2,
+        "cite": "Book 1 p. 76 chart 02 table C, column General"
+      }
+    },
+    {
+      "seq": 358,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 357,
+        "kind": "skill_awarded",
+        "skill": "Astrogator",
+        "delta": 1,
+        "value": 5
       }
     },
     {
       "seq": 359,
       "kind": "consequence",
       "consequence": {
-        "cause": 358,
-        "kind": "skill_awarded",
-        "skill": "Hostile Environ",
-        "delta": 1,
-        "value": 8
+        "cause": 341,
+        "kind": "years_elapsed",
+        "value": 4
       }
     },
     {
       "seq": 360,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Leave Scholar for another career?",
-        "options": [
-          "Continue in Scholar",
-          "Change careers"
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          3
         ],
-        "chosen": 0,
-        "cite": "Book 1 p. 66 (Changing Careers)"
+        "total": 9,
+        "target": 9,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 66)"
       }
     },
     {
@@ -5493,19 +5617,13 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          6,
-          4
+          5,
+          3
         ],
-        "total": 10,
-        "target": 18,
+        "total": 8,
+        "target": 9,
         "success": true,
-        "mods": [
-          {
-            "name": "Publications",
-            "value": 8
-          }
-        ],
-        "cite": "Book 1 p. 76 chart 02 (Continue Edu +Pubs; p. 66)"
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 66)"
       }
     },
     {
@@ -5513,8 +5631,10 @@
       "kind": "consequence",
       "consequence": {
         "cause": 361,
-        "kind": "years_elapsed",
-        "value": 4
+        "kind": "aging_effect",
+        "characteristic": "Dex",
+        "delta": -1,
+        "value": 7
       }
     },
     {
@@ -5523,8 +5643,8 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          5,
-          5
+          6,
+          4
         ],
         "total": 10,
         "target": 9,
@@ -5539,9 +5659,9 @@
         "expr": "2D",
         "dice": [
           5,
-          6
+          5
         ],
-        "total": 11,
+        "total": 10,
         "target": 9,
         "success": false,
         "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 66)"
@@ -5549,218 +5669,15 @@
     },
     {
       "seq": 365,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          3,
-          5
-        ],
-        "total": 8,
-        "target": 9,
-        "success": true,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 66)"
-      }
-    },
-    {
-      "seq": 366,
       "kind": "consequence",
       "consequence": {
-        "cause": 365,
-        "kind": "aging_effect",
-        "characteristic": "End",
-        "delta": -1
-      }
-    },
-    {
-      "seq": 367,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 365,
-        "kind": "characteristic_reset",
-        "characteristic": "End",
-        "delta": 1,
-        "value": 1
-      }
-    },
-    {
-      "seq": 368,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          2,
-          3
-        ],
-        "total": 5,
-        "target": 9,
-        "success": true,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 9, age 66)"
-      }
-    },
-    {
-      "seq": 369,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 368,
-        "kind": "aging_effect",
-        "characteristic": "Int",
-        "delta": -1,
-        "value": 7
-      }
-    },
-    {
-      "seq": 370,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Suspend the term to return to school?",
-        "options": [
-          "Serve the term in Scholar",
-          "College",
-          "Masters",
-          "Professors",
-          "Medical School",
-          "Law School"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
-      }
-    },
-    {
-      "seq": 371,
-      "kind": "step",
-      "step": {
-        "name": "Scholar: Term 12",
-        "cite": "Book 1 p. 76 chart 02"
-      }
-    },
-    {
-      "seq": 372,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select the term's controlling characteristic",
-        "options": [
-          "End"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 373,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select Caution, Bravery, or No Mod",
-        "options": [
-          "No Mod",
-          "Caution +1",
-          "Caution +2",
-          "Caution +3",
-          "Caution +4",
-          "Caution +5",
-          "Caution +6",
-          "Caution +7",
-          "Caution +8",
-          "Caution +9",
-          "Bravery -1",
-          "Bravery -2",
-          "Bravery -3",
-          "Bravery -4",
-          "Bravery -5",
-          "Bravery -6",
-          "Bravery -7",
-          "Bravery -8",
-          "Bravery -9"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 65 (Caution, Bravery, or No Mod); chart 02 p. 76"
-      }
-    },
-    {
-      "seq": 374,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          6,
-          4
-        ],
-        "total": 10,
-        "target": 1,
-        "success": false,
-        "cite": "Book 1 p. 76 chart 02 (Research vs End+Mods)"
-      }
-    },
-    {
-      "seq": 375,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Attempt a Waiver? (Research: incomplete with injury)",
-        "options": [
-          "Attempt waiver",
-          "Accept the result"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 76 chart 02 (Waivers: Check Soc, Mod minus previous waivers)"
-      }
-    },
-    {
-      "seq": 376,
-      "kind": "throw",
-      "throw": {
-        "expr": "Flux",
-        "dice": [
-          4,
-          6
-        ],
-        "total": -2,
-        "cite": "Book 1 p. 76 chart 02 (Research Failure: reduce CC by negative Mods and Flux)"
-      }
-    },
-    {
-      "seq": 377,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 374,
-        "kind": "characteristic_change",
-        "characteristic": "End",
-        "delta": -2,
-        "value": -1
-      }
-    },
-    {
-      "seq": 378,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 374,
-        "kind": "dead",
-        "characteristic": "End"
-      }
-    },
-    {
-      "seq": 379,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 374,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 380,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 374,
+        "cause": 341,
         "kind": "career_ended",
         "career": "Scholar"
       }
     },
     {
-      "seq": 381,
+      "seq": 366,
       "kind": "step",
       "step": {
         "name": "Determine Fame",
@@ -5768,40 +5685,27 @@
       }
     },
     {
-      "seq": 382,
+      "seq": 367,
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Invoke the Fame Flux Event? (Fame 14 so far)",
+        "prompt": "Invoke the Fame Flux Event? (Fame 12 so far)",
         "options": [
           "Keep this Fame",
           "Add Flux to Fame"
         ],
-        "chosen": 1,
+        "chosen": 0,
         "cite": "Book 1 p. 91 chart F (The Fame Flux Event)"
       }
     },
     {
-      "seq": 383,
-      "kind": "throw",
-      "throw": {
-        "expr": "Flux",
-        "dice": [
-          6,
-          1
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 91 chart F (The Fame Flux Event)"
-      }
-    },
-    {
-      "seq": 384,
+      "seq": 368,
       "kind": "consequence",
       "consequence": {
-        "cause": 382,
+        "cause": 367,
         "kind": "fame_computed",
-        "skill": "Subsector",
-        "value": 19,
+        "skill": "World System",
+        "value": 12,
         "mods": [
           {
             "name": "Scholar Rank",
@@ -5809,17 +5713,1088 @@
           },
           {
             "name": "Scholar Publications",
-            "value": 8
-          },
-          {
-            "name": "Fame Flux Event",
-            "value": 5
+            "value": 6
           }
         ]
       }
     },
     {
+      "seq": 369,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out",
+        "cite": "Book 1 p. 67; chart M1 p. 70"
+      }
+    },
+    {
+      "seq": 370,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out: Scholar",
+        "cite": "Book 1 p. 76 chart 02 D"
+      }
+    },
+    {
+      "seq": 371,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 372,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Scholar Rank DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 373,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          5
+        ],
+        "mod": 6,
+        "total": 11,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 374,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 373,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scholar",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 375,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 376,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Scholar Rank DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 377,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          6
+        ],
+        "mod": 6,
+        "total": 12,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 378,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 377,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scholar",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 379,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 380,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Scholar Rank DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 381,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          3
+        ],
+        "mod": 6,
+        "total": 9,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 382,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 381,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scholar",
+        "delta": 35000
+      }
+    },
+    {
+      "seq": 383,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 384,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Scholar Rank DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
       "seq": 385,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          5
+        ],
+        "mod": 6,
+        "total": 11,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 386,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 385,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scholar",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 387,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 388,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Scholar Rank DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 389,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          2
+        ],
+        "mod": 6,
+        "total": 8,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 390,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 389,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scholar",
+        "delta": 30000
+      }
+    },
+    {
+      "seq": 391,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 392,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Scholar Rank DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 393,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          3
+        ],
+        "mod": 6,
+        "total": 9,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 394,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 393,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scholar",
+        "delta": 35000
+      }
+    },
+    {
+      "seq": 395,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 396,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Scholar Rank DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 397,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          6
+        ],
+        "mod": 6,
+        "total": 12,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 398,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 397,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scholar",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 399,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 400,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Scholar Rank DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 401,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          4
+        ],
+        "mod": 6,
+        "total": 10,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 402,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 401,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scholar",
+        "delta": 40000
+      }
+    },
+    {
+      "seq": 403,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 404,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Scholar Rank DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 405,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          4
+        ],
+        "mod": 6,
+        "total": 10,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 406,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 405,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scholar",
+        "delta": 40000
+      }
+    },
+    {
+      "seq": 407,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 408,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Scholar Rank DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 409,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          6
+        ],
+        "mod": 6,
+        "total": 12,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 410,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 409,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scholar",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 411,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 412,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Scholar Rank DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 413,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          6
+        ],
+        "mod": 6,
+        "total": 12,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 414,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 413,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scholar",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 415,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 416,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Scholar Rank DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 417,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          1
+        ],
+        "mod": 6,
+        "total": 7,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 418,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 417,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scholar",
+        "delta": 25000
+      }
+    },
+    {
+      "seq": 419,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 420,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Scholar Rank DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 421,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          3
+        ],
+        "mod": 6,
+        "total": 9,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 422,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 421,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scholar",
+        "delta": 35000
+      }
+    },
+    {
+      "seq": 423,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 424,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Scholar Rank DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 425,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          6
+        ],
+        "mod": 6,
+        "total": 12,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 426,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 425,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scholar",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 427,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 428,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Scholar Rank DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 429,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          5
+        ],
+        "mod": 6,
+        "total": 11,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 430,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 429,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scholar",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 431,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 432,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Scholar Rank DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 433,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          1
+        ],
+        "mod": 6,
+        "total": 7,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 434,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 433,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scholar",
+        "delta": 25000
+      }
+    },
+    {
+      "seq": 435,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 436,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Scholar Rank DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 437,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          1
+        ],
+        "mod": 6,
+        "total": 7,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 438,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 437,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scholar",
+        "delta": 25000
+      }
+    },
+    {
+      "seq": 439,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 440,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Scholar Rank DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 441,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          4
+        ],
+        "mod": 6,
+        "total": 10,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
+      }
+    },
+    {
+      "seq": 442,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 441,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scholar",
+        "delta": 40000
+      }
+    },
+    {
+      "seq": 443,
+      "kind": "step",
+      "step": {
+        "name": "Muster Out: Entitlements",
+        "cite": "Book 1 p. 70 chart M1"
+      }
+    },
+    {
+      "seq": 444,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Cash out the Tenured Professor's Pension?",
+        "options": [
+          "Keep it (Cr10000 a year from age 66)",
+          "Cash out (Cr50000)"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 69 (Cashing Out)"
+      }
+    },
+    {
+      "seq": 445,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 444,
+        "kind": "entitlement",
+        "skill": "Tenured Professor's Pension",
+        "delta": 10000,
+        "value": 66
+      }
+    },
+    {
+      "seq": 446,
       "kind": "step",
       "step": {
         "name": "Record the Character's Birthdate",
@@ -5827,28 +6802,28 @@
       }
     },
     {
-      "seq": 386,
+      "seq": 447,
       "kind": "throw",
       "throw": {
         "expr": "4D",
         "dice": [
-          3,
+          4,
           6,
-          5,
-          1
+          4,
+          3
         ],
-        "total": 15,
+        "total": 17,
         "cite": "Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)"
       }
     },
     {
-      "seq": 387,
+      "seq": 448,
       "kind": "consequence",
       "consequence": {
-        "cause": 386,
+        "cause": 447,
         "kind": "birthdate",
-        "detail": "Sixday 035-1034",
-        "value": 1034
+        "detail": "Fiday 286-1038",
+        "value": 1038
       }
     }
   ]

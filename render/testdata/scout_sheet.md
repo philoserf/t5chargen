@@ -2,34 +2,32 @@
 
 **Name**:
 
-**UPP**: 425AA5
+**UPP**: 7?4AC5
 
 **Homeworld**: Regina A788899-C (Ph Pa Ri)
 
-**Age**: 46 (Mid-Life)
+**Age**: 54 (Senior)
 
-**Born**: Forday 012-1059
+**Born**: Wonday 023-1051
 
 | Str | Dex | End | Int | Edu | Soc |
 | --- | --- | --- | --- | --- | --- |
-| 4 | 2 | 5 | 10 | 10 | 5 |
+| 7 | -3 | 4 | 10 | 12 | 5 |
 
 **Education**: University, Major Athlete, Minor Broker — Honors BA
 
-**Career**: Scout (6 terms), 6 Land Grants, 6 Discoveries, San -3 when generated
+**Education**: Masters, Major Athlete, Minor Broker — Honors MA
 
-**Skills**: Actor-1, Animals-7, Athlete-5, Broker-2, Hostile Environ-7, Navigator-9, Survey-7, Survival-7, Trader-1, Vacc Suit-11
+**Education**: Professors, Major Athlete, Minor Broker — Honors Professor
 
-**Credits**: Cr450000
+**Career**: Scout (6 terms), 5 Land Grants, 5 Discoveries, San -3 when generated
 
-**Automatics**: Fame, TAS Life Membership, Land Grants
+**Skills**: Actor-1, Animals-5, Athlete-11, Broker-4, Hostile Environ-7, Navigator-7, Survey-7, Survival-4, Trader-1, Vacc Suit-10
 
-**Land Grants**: Cr30000 a year
-
-**Status**: Fame 20 (Sector), Wound Badges 2
+**Status**: Fame 20 (Sector), Wound Badges 1, DEAD
 
 ---
 
-Seed 26 (math/rand/v2-pcg) · schema 0.30.0 · engine 0.38.0 · policy 0.19.0
+Seed 26 (math/rand/v2-pcg) · schema 0.30.0 · engine 0.38.0 · policy 0.20.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

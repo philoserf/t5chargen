@@ -251,16 +251,7 @@ func (DefaultPolicy) decide(c Choice) int {
 		// row itself changes nothing about the odds.
 		return 0
 	case ChooseCareerChange, ChooseLaterEducation:
-		// POLICY.md: decline both (index 0), for the same reason in two
-		// shapes — the term or career in hand is worth more than what is
-		// offered for it. A career change is offered before the Continue
-		// throw is known, so it trades a career for a To Begin that may
-		// fail and end resolution outright (p. 66, p. 65). Later
-		// Education trades a term of career for a term of school the
-		// policy cannot value, and the offer recurs every term, so a
-		// policy that accepted would school every character until aging
-		// killed him (p. 59).
-		return 0
+		return declineOrClimb(c)
 	case ChooseHobby, ChooseHomeworld, ChooseArt, ChooseTrade,
 		ChooseService, ChooseMajor, ChooseMinor, ChooseSkill,
 		ChooseAssociatedCareer, ChooseBenefitColumn:
@@ -322,4 +313,53 @@ func fameFluxChoice(c Choice) int {
 	}
 
 	return 1
+}
+
+// postgraduateIndex answers the Later Education offer: take a
+// postgraduate row the character qualifies for, and otherwise serve the
+// term.
+//
+// Declining outright was right while chart C's Higher Education block
+// stopped at a Bachelors. The offer recurs every term, so a policy that
+// took whatever was on offer would school a character until aging killed
+// him, and the rows below a degree are ones he has usually already spent.
+//
+// The rows above one are different in the two ways that matter. They are
+// bounded — a programme is attempted once (I-100), so Masters and then
+// Professors is at most two terms given over to school — and they are the
+// only place the ladder leads. A Bachelors is what chart C prints them
+// against, and a policy that never took them would leave four implemented
+// rows that no generated character ever reaches, which is the blindness
+// that hid the Service Academy's bugs from every golden record.
+//
+// Professors before Masters only because a character who holds an MA
+// qualifies for one and not the other; the two never compete.
+func postgraduateIndex(c Choice) int {
+	// Index 0 is serving the term, and always scores 1. The programmes
+	// start at 1.
+	for _, want := range []string{"Professors", "Masters"} {
+		for i := 1; i < len(c.Options); i++ {
+			if c.Options[i] == want && i < len(c.Scores) && c.Scores[i] == 1 {
+				return i
+			}
+		}
+	}
+
+	return 0
+}
+
+// declineOrClimb answers the two offers a character may refuse.
+//
+// A career change is always declined (index 0): the offer comes before the
+// Continue throw is known, so it trades a career in hand for a To Begin
+// that may fail and end resolution outright (p. 66, p. 65).
+//
+// Later Education is declined too, except to climb — see
+// postgraduateIndex.
+func declineOrClimb(c Choice) int {
+	if c.ID == ChooseLaterEducation {
+		return postgraduateIndex(c)
+	}
+
+	return 0
 }

@@ -409,7 +409,6 @@ var unexercised = map[string]string{
 	"homeworld_assigned": "--homeworld; no fixture names one, so step B offers chart B's list " +
 		"and the input is false and omitted",
 	"service":      "the Service Academy's service; the auto policy never selects the Academy (POLICY.md)",
-	"disabled":     "the disabled outcome; pinned on other seeds by TestEveryTermElapsesFourYears",
 	"exiled":       "chart 11's Noble exile; the pinned Noble seed is not exiled",
 	"prison_years": "a Rogue serving a sentence; the pinned Rogue seed serves none",
 }
@@ -514,6 +513,7 @@ var consequenceFields = map[string]string{
 	"branch_set":              "career skill",
 	"career_changed":          "career",
 	"career_ended":            "career",
+	"disabled":                "characteristic",
 	"characteristic_change":   "characteristic delta value",
 	"characteristic_reset":    "characteristic delta value",
 	"characteristic_set":      "characteristic value",
@@ -528,7 +528,6 @@ var consequenceFields = map[string]string{
 	"fame_change":             "delta value",
 	"fame_computed":           "mods skill value",
 	"hobby_set":               "skill",
-	"imprisoned":              "career value",
 	"intrigue":                "career value",
 	"job_set":                 "skill",
 	"land_grant":              "career value",
@@ -547,7 +546,6 @@ var consequenceFields = map[string]string{
 	"returned_from_exile":     "career",
 	"sanity_mod":              "career delta",
 	"scheme":                  "career skill value",
-	"sentenced":               "career value",
 	"service_badge":           "career value",
 	"ship_shares":             "delta value",
 	"skill_awarded":           "delta skill value",
@@ -671,8 +669,14 @@ func joinFields(carried map[string]map[string]bool) map[string]string {
 // fixtures do not — a real outcome rather than a kind that does nothing.
 var unemittedKinds = map[string]string{
 	"career_not_begun": "a failed To Begin; every fixture's character enters his career",
-	"disabled":         "the disabled outcome, pinned on other seeds by TestEveryTermElapsesFourYears",
+	// Both left the fixtures at policy 0.20.0: the Rogue golden's seed
+	// now spends a term at school, and the scheme that used to end in a
+	// sentence is a term later than the run reaches. The path is not lost
+	// — TestRoguePrisonTermTakesOnlyPrisonSkills pins it on its own seed,
+	// with schooling declined — only its appearance in a golden record.
+	"imprisoned":       "a Rogue's prison term; covered by TestRoguePrisonTermTakesOnlyPrisonSkills",
 	"job_undetermined": "chart 04's Job left undetermined; no fixture's Citizen reaches it",
+	"sentenced":        "a Rogue's sentence; covered by TestRoguePrisonTermTakesOnlyPrisonSkills",
 	"waived":           "a waiver that succeeded; the auto policy's waivers all fail on these seeds",
 }
 

@@ -2,7 +2,7 @@
   "schema_version": "0.30.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
   "engine_version": "0.38.0",
-  "policy_version": "0.19.0",
+  "policy_version": "0.20.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 572
@@ -16,10 +16,10 @@
     "dex": 3,
     "end": 8,
     "int": 11,
-    "edu": 9,
+    "edu": 12,
     "soc": 6
   },
-  "upp": "638B96",
+  "upp": "638BC6",
   "homeworld": {
     "name": "Regina",
     "uwp": "A788899-C",
@@ -39,6 +39,24 @@
       "graduated": true,
       "honors": true,
       "degree": "Honors BA"
+    },
+    {
+      "program": "Masters",
+      "major": "Athlete",
+      "minor": "Broker",
+      "passes": 2,
+      "graduated": true,
+      "honors": true,
+      "degree": "Honors MA"
+    },
+    {
+      "program": "Professors",
+      "major": "Athlete",
+      "minor": "Broker",
+      "passes": 2,
+      "graduated": true,
+      "honors": true,
+      "degree": "Honors Professor"
     }
   ],
   "skills": [
@@ -48,35 +66,31 @@
     },
     {
       "name": "Animals",
-      "level": 4
-    },
-    {
-      "name": "Athlete",
-      "level": 5
-    },
-    {
-      "name": "Broker",
       "level": 2
     },
     {
-      "name": "Bureaucrat",
+      "name": "Athlete",
+      "level": 11
+    },
+    {
+      "name": "Broker",
       "level": 4
     },
     {
       "name": "Hostile Environ",
-      "level": 2
-    },
-    {
-      "name": "Navigator",
-      "level": 2
-    },
-    {
-      "name": "Survey",
       "level": 1
     },
     {
-      "name": "Survival",
+      "name": "Navigator",
+      "level": 1
+    },
+    {
+      "name": "Survey",
       "level": 3
+    },
+    {
+      "name": "Survival",
+      "level": 1
     },
     {
       "name": "Trader",
@@ -90,7 +104,7 @@
       "end_age": 38,
       "specialty": "Artist",
       "talent": 6,
-      "fame": 5,
+      "fame": 6,
       "terms": [
         {
           "term": 1,
@@ -102,56 +116,32 @@
           "term": 2,
           "controlling_characteristic": "",
           "success": false,
-          "continued": true
-        },
-        {
-          "term": 3,
-          "controlling_characteristic": "",
-          "success": false,
-          "continued": true
-        },
-        {
-          "term": 4,
-          "controlling_characteristic": "",
-          "success": false,
           "continued": false
         }
       ]
     }
   ],
-  "birthdate": "Sixday 056-1067",
+  "birthdate": "Fiday 279-1067",
   "life_stage": 5,
-  "credits": 50000,
+  "credits": 60000,
   "benefits": [
     {
-      "kind": "high_passage",
-      "name": "High Passage",
+      "kind": "money",
+      "name": "Money",
       "career": "Entertainer",
-      "count": 1
+      "credits": 30000
     },
     {
       "kind": "money",
       "name": "Money",
       "career": "Entertainer",
-      "credits": 25000
-    },
-    {
-      "kind": "money",
-      "name": "Money",
-      "career": "Entertainer",
-      "credits": 25000
-    },
-    {
-      "kind": "star_passage",
-      "name": "StarPass",
-      "career": "Entertainer",
-      "count": 1
+      "credits": 30000
     }
   ],
   "automatics": [
     "Fame"
   ],
-  "fame": 5,
+  "fame": 6,
   "events": [
     {
       "seq": 1,
@@ -928,7 +918,7 @@
           "Medical School",
           "Law School"
         ],
-        "chosen": 0,
+        "chosen": 2,
         "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
       }
     },
@@ -936,8 +926,8 @@
       "seq": 56,
       "kind": "step",
       "step": {
-        "name": "Entertainer: Term 1",
-        "cite": "Book 1 p. 77 chart 03"
+        "name": "Later Education: Masters",
+        "cite": "Book 1 p. 59; chart C p. 60"
       }
     },
     {
@@ -945,41 +935,80 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select an Entertainer Skills column",
+        "prompt": "Select the characteristic to check",
         "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
+          "Int",
+          "Edu"
         ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
       }
     },
     {
       "seq": 58,
       "kind": "throw",
       "throw": {
-        "expr": "1D",
+        "expr": "2D",
         "dice": [
-          3
+          3,
+          4
         ],
-        "total": 3,
-        "cite": "Book 1 p. 77 chart 03 table C, column General"
+        "total": 7,
+        "target": 11,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (Masters To Apply Check Int)"
       }
     },
     {
       "seq": 59,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 58,
-        "kind": "skill_awarded",
-        "skill": "Hostile Environ",
-        "delta": 1,
-        "value": 1
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Major",
+        "options": [
+          "Athlete",
+          "Broker",
+          "Bureaucrat",
+          "Counsellor",
+          "Designer",
+          "Language",
+          "Teacher",
+          "Astrogator",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "Automotive",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology",
+          "Aeronautics",
+          "Aquanautics"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Major and Minor); chart C p. 60 Available Skills"
       }
     },
     {
@@ -987,143 +1016,103 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select an Entertainer Skills column",
+        "prompt": "Select a Minor",
         "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
+          "Broker",
+          "Bureaucrat",
+          "Counsellor",
+          "Designer",
+          "Language",
+          "Teacher",
+          "Astrogator",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "Automotive",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology",
+          "Aeronautics",
+          "Aquanautics"
         ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Major and Minor; they cannot be the same)"
       }
     },
     {
       "seq": 61,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the characteristic to check",
+        "options": [
+          "Int",
+          "Edu"
         ],
-        "total": 4,
-        "cite": "Book 1 p. 77 chart 03 table C, column General"
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
       }
     },
     {
       "seq": 62,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 61,
-        "kind": "skill_awarded",
-        "skill": "Animals",
-        "delta": 1,
-        "value": 1
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          1,
+          4
+        ],
+        "total": 5,
+        "target": 11,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (Masters Pass/Fail Check Int)"
       }
     },
     {
       "seq": 63,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select an Entertainer Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 64,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 77 chart 03 table C, column General"
-      }
-    },
-    {
-      "seq": 65,
       "kind": "consequence",
       "consequence": {
-        "cause": 64,
-        "kind": "skill_awarded",
-        "skill": "Survey",
-        "delta": 1,
+        "cause": 62,
+        "kind": "years_elapsed",
         "value": 1
       }
     },
     {
-      "seq": 66,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select an Entertainer Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 67,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
-        ],
-        "total": 4,
-        "cite": "Book 1 p. 77 chart 03 table C, column General"
-      }
-    },
-    {
-      "seq": 68,
+      "seq": 64,
       "kind": "consequence",
       "consequence": {
-        "cause": 67,
+        "cause": 62,
         "kind": "skill_awarded",
-        "skill": "Animals",
+        "skill": "Athlete",
         "delta": 1,
-        "value": 2
+        "value": 6
       }
     },
     {
-      "seq": 69,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Leave Entertainer for another career?",
-        "options": [
-          "Continue in Entertainer",
-          "Change careers"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 66 (Changing Careers)"
-      }
-    },
-    {
-      "seq": 70,
+      "seq": 65,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1132,62 +1121,72 @@
           1
         ],
         "total": 4,
-        "target": 6,
+        "target": 11,
         "success": true,
-        "cite": "Book 1 p. 77 chart 03 (Continue Fame; p. 66)"
+        "cite": "Book 1 p. 60 chart C (Masters Pass/Fail Check Int)"
+      }
+    },
+    {
+      "seq": 66,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 65,
+        "kind": "years_elapsed",
+        "value": 1
+      }
+    },
+    {
+      "seq": 67,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 65,
+        "kind": "skill_awarded",
+        "skill": "Athlete",
+        "delta": 1,
+        "value": 7
+      }
+    },
+    {
+      "seq": 68,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 65,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 3
+      }
+    },
+    {
+      "seq": 69,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Attempt the optional Honors roll?",
+        "options": [
+          "Attempt Honors",
+          "Decline"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Honors); chart C p. 60 (Honors row)"
+      }
+    },
+    {
+      "seq": 70,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the characteristic to check",
+        "options": [
+          "Int",
+          "Edu"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
       }
     },
     {
       "seq": 71,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 70,
-        "kind": "years_elapsed",
-        "value": 4
-      }
-    },
-    {
-      "seq": 72,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Suspend the term to return to school?",
-        "options": [
-          "Serve the term in Entertainer",
-          "College",
-          "Masters",
-          "Professors",
-          "Medical School",
-          "Law School"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
-      }
-    },
-    {
-      "seq": 73,
-      "kind": "step",
-      "step": {
-        "name": "Entertainer: Term 2",
-        "cite": "Book 1 p. 77 chart 03"
-      }
-    },
-    {
-      "seq": 74,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Attempt a Comeback (reset Fame to 2D)?",
-        "options": [
-          "Comeback",
-          "Continue the current run"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 77 chart 03 (Comeback: Reset Fame to 2D)"
-      }
-    },
-    {
-      "seq": 75,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1196,67 +1195,197 @@
           4
         ],
         "total": 6,
-        "cite": "Book 1 p. 77 chart 03 (Comeback: Reset Fame to 2D)"
+        "target": 11,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (Honors: Int or Edu, simul)"
+      }
+    },
+    {
+      "seq": 72,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 71,
+        "kind": "skill_awarded",
+        "skill": "Athlete",
+        "delta": 1,
+        "value": 8
+      }
+    },
+    {
+      "seq": 73,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 71,
+        "kind": "characteristic_change",
+        "characteristic": "Edu",
+        "delta": 1,
+        "value": 10
+      }
+    },
+    {
+      "seq": 74,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 55,
+        "kind": "years_elapsed",
+        "value": 2
+      }
+    },
+    {
+      "seq": 75,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Suspend the term to return to school?",
+        "options": [
+          "Serve the term in Entertainer",
+          "College",
+          "Professors",
+          "Medical School",
+          "Law School"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 59 (Later Education or Training); chart C p. 60"
       }
     },
     {
       "seq": 76,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 75,
-        "kind": "comeback",
-        "value": 6
+      "kind": "step",
+      "step": {
+        "name": "Later Education: Professors",
+        "cite": "Book 1 p. 59; chart C p. 60"
       }
     },
     {
       "seq": 77,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 75,
-        "kind": "fame_change",
-        "value": 6
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select the characteristic to check",
+        "options": [
+          "Int",
+          "Edu"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
       }
     },
     {
       "seq": 78,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select an Entertainer Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          2,
+          5
         ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+        "total": 7,
+        "target": 11,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (Professors To Apply Check Int)"
       }
     },
     {
       "seq": 79,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Major",
+        "options": [
+          "Athlete",
+          "Broker",
+          "Bureaucrat",
+          "Counsellor",
+          "Designer",
+          "Language",
+          "Teacher",
+          "Astrogator",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "Automotive",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology",
+          "Aeronautics",
+          "Aquanautics"
         ],
-        "total": 2,
-        "cite": "Book 1 p. 77 chart 03 table C, column General"
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Major and Minor); chart C p. 60 Available Skills"
       }
     },
     {
       "seq": 80,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 79,
-        "kind": "skill_awarded",
-        "skill": "Survival",
-        "delta": 1,
-        "value": 1
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select a Minor",
+        "options": [
+          "Broker",
+          "Bureaucrat",
+          "Counsellor",
+          "Designer",
+          "Language",
+          "Teacher",
+          "Astrogator",
+          "Actor",
+          "Artist",
+          "Author",
+          "Chef",
+          "Dancer",
+          "Musician",
+          "Biologics",
+          "Craftsman",
+          "Electronics",
+          "Fluidics",
+          "Gravitics",
+          "Magnetics",
+          "Mechanic",
+          "Photonics",
+          "Polymers",
+          "Programmer",
+          "Automotive",
+          "Archeology",
+          "Biology",
+          "Chemistry",
+          "History",
+          "Linguistics",
+          "Philosophy",
+          "Physics",
+          "Planetology",
+          "Psionicology",
+          "Psychohistory",
+          "Psychology",
+          "Robotics",
+          "Sophontology",
+          "Aeronautics",
+          "Aquanautics"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Major and Minor; they cannot be the same)"
       }
     },
     {
@@ -1264,30 +1393,28 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Select an Entertainer Skills column",
+        "prompt": "Select the characteristic to check",
         "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
+          "Int",
+          "Edu"
         ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
       }
     },
     {
       "seq": 82,
       "kind": "throw",
       "throw": {
-        "expr": "1D",
+        "expr": "2D",
         "dice": [
+          6,
           5
         ],
-        "total": 5,
-        "cite": "Book 1 p. 77 chart 03 table C, column General"
+        "total": 11,
+        "target": 11,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (Professors Pass/Fail Check Int)"
       }
     },
     {
@@ -1295,41 +1422,34 @@
       "kind": "consequence",
       "consequence": {
         "cause": 82,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
+        "kind": "years_elapsed",
         "value": 1
       }
     },
     {
       "seq": 84,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select an Entertainer Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 82,
+        "kind": "skill_awarded",
+        "skill": "Athlete",
+        "delta": 1,
+        "value": 9
       }
     },
     {
       "seq": 85,
       "kind": "throw",
       "throw": {
-        "expr": "1D",
+        "expr": "2D",
         "dice": [
-          6
+          4,
+          2
         ],
         "total": 6,
-        "cite": "Book 1 p. 77 chart 03 table C, column General"
+        "target": 11,
+        "success": true,
+        "cite": "Book 1 p. 60 chart C (Professors Pass/Fail Check Int)"
       }
     },
     {
@@ -1337,52 +1457,44 @@
       "kind": "consequence",
       "consequence": {
         "cause": 85,
-        "kind": "skill_awarded",
-        "skill": "Navigator",
-        "delta": 1,
+        "kind": "years_elapsed",
         "value": 1
       }
     },
     {
       "seq": 87,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select an Entertainer Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 85,
+        "kind": "skill_awarded",
+        "skill": "Athlete",
+        "delta": 1,
+        "value": 10
       }
     },
     {
       "seq": 88,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 77 chart 03 table C, column General"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 85,
+        "kind": "skill_awarded",
+        "skill": "Broker",
+        "delta": 1,
+        "value": 4
       }
     },
     {
       "seq": 89,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 88,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 2
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Attempt the optional Honors roll?",
+        "options": [
+          "Attempt Honors",
+          "Decline"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 59 (Honors); chart C p. 60 (Honors row)"
       }
     },
     {
@@ -1390,13 +1502,13 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Leave Entertainer for another career?",
+        "prompt": "Select the characteristic to check",
         "options": [
-          "Continue in Entertainer",
-          "Change careers"
+          "Int",
+          "Edu"
         ],
         "chosen": 0,
-        "cite": "Book 1 p. 66 (Changing Careers)"
+        "cite": "Book 1 p. 59 (Check one of the stated Characteristics)"
       }
     },
     {
@@ -1406,12 +1518,12 @@
         "expr": "2D",
         "dice": [
           4,
-          2
+          4
         ],
-        "total": 6,
-        "target": 6,
+        "total": 8,
+        "target": 11,
         "success": true,
-        "cite": "Book 1 p. 77 chart 03 (Continue Fame; p. 66)"
+        "cite": "Book 1 p. 60 chart C (Honors: Int or Edu, simul)"
       }
     },
     {
@@ -1419,12 +1531,34 @@
       "kind": "consequence",
       "consequence": {
         "cause": 91,
-        "kind": "years_elapsed",
-        "value": 4
+        "kind": "skill_awarded",
+        "skill": "Athlete",
+        "delta": 1,
+        "value": 11
       }
     },
     {
       "seq": 93,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 91,
+        "kind": "characteristic_change",
+        "characteristic": "Edu",
+        "delta": 2,
+        "value": 12
+      }
+    },
+    {
+      "seq": 94,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 75,
+        "kind": "years_elapsed",
+        "value": 2
+      }
+    },
+    {
+      "seq": 95,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1432,8 +1566,6 @@
         "options": [
           "Serve the term in Entertainer",
           "College",
-          "Masters",
-          "Professors",
           "Medical School",
           "Law School"
         ],
@@ -1442,122 +1574,76 @@
       }
     },
     {
-      "seq": 94,
+      "seq": 96,
       "kind": "step",
       "step": {
-        "name": "Entertainer: Term 3",
+        "name": "Entertainer: Term 1",
         "cite": "Book 1 p. 77 chart 03"
       }
     },
     {
-      "seq": 95,
+      "seq": 97,
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Attempt a Comeback (reset Fame to 2D)?",
+        "prompt": "Select an Entertainer Skills column",
         "options": [
-          "Comeback",
-          "Continue the current run"
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
         ],
-        "chosen": 0,
-        "cite": "Book 1 p. 77 chart 03 (Comeback: Reset Fame to 2D)"
-      }
-    },
-    {
-      "seq": 96,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
-          4
-        ],
-        "total": 8,
-        "cite": "Book 1 p. 77 chart 03 (Comeback: Reset Fame to 2D)"
-      }
-    },
-    {
-      "seq": 97,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 96,
-        "kind": "comeback",
-        "value": 8
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 98,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 96,
-        "kind": "fame_change",
-        "delta": 2,
-        "value": 8
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          4
+        ],
+        "total": 4,
+        "cite": "Book 1 p. 77 chart 03 table C, column General"
       }
     },
     {
       "seq": 99,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select an Entertainer Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 98,
+        "kind": "skill_awarded",
+        "skill": "Animals",
+        "delta": 1,
+        "value": 1
       }
     },
     {
       "seq": 100,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          4
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Entertainer Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
         ],
-        "total": 4,
-        "cite": "Book 1 p. 77 chart 03 table C, column General"
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 101,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 100,
-        "kind": "skill_awarded",
-        "skill": "Animals",
-        "delta": 1,
-        "value": 3
-      }
-    },
-    {
-      "seq": 102,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select an Entertainer Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 103,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1569,18 +1655,18 @@
       }
     },
     {
-      "seq": 104,
+      "seq": 102,
       "kind": "consequence",
       "consequence": {
-        "cause": 103,
+        "cause": 101,
         "kind": "skill_awarded",
         "skill": "Animals",
         "delta": 1,
-        "value": 4
+        "value": 2
       }
     },
     {
-      "seq": 105,
+      "seq": 103,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1599,7 +1685,7 @@
       }
     },
     {
-      "seq": 106,
+      "seq": 104,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1611,18 +1697,18 @@
       }
     },
     {
-      "seq": 107,
+      "seq": 105,
       "kind": "consequence",
       "consequence": {
-        "cause": 106,
+        "cause": 104,
         "kind": "skill_awarded",
         "skill": "Hostile Environ",
         "delta": 1,
-        "value": 2
+        "value": 1
       }
     },
     {
-      "seq": 108,
+      "seq": 106,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1641,7 +1727,7 @@
       }
     },
     {
-      "seq": 109,
+      "seq": 107,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1653,18 +1739,18 @@
       }
     },
     {
-      "seq": 110,
+      "seq": 108,
       "kind": "consequence",
       "consequence": {
-        "cause": 109,
+        "cause": 107,
         "kind": "skill_awarded",
         "skill": "Navigator",
         "delta": 1,
-        "value": 2
+        "value": 1
       }
     },
     {
-      "seq": 111,
+      "seq": 109,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1678,7 +1764,7 @@
       }
     },
     {
-      "seq": 112,
+      "seq": 110,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1687,22 +1773,22 @@
           2
         ],
         "total": 4,
-        "target": 8,
+        "target": 6,
         "success": true,
         "cite": "Book 1 p. 77 chart 03 (Continue Fame; p. 66)"
       }
     },
     {
-      "seq": 113,
+      "seq": 111,
       "kind": "consequence",
       "consequence": {
-        "cause": 112,
+        "cause": 110,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 114,
+      "seq": 112,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1717,7 +1803,7 @@
       }
     },
     {
-      "seq": 115,
+      "seq": 113,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1732,7 +1818,7 @@
       }
     },
     {
-      "seq": 116,
+      "seq": 114,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1747,7 +1833,7 @@
       }
     },
     {
-      "seq": 117,
+      "seq": 115,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1755,8 +1841,6 @@
         "options": [
           "Serve the term in Entertainer",
           "College",
-          "Masters",
-          "Professors",
           "Medical School",
           "Law School"
         ],
@@ -1765,15 +1849,15 @@
       }
     },
     {
-      "seq": 118,
+      "seq": 116,
       "kind": "step",
       "step": {
-        "name": "Entertainer: Term 4",
+        "name": "Entertainer: Term 2",
         "cite": "Book 1 p. 77 chart 03"
       }
     },
     {
-      "seq": 119,
+      "seq": 117,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1782,192 +1866,127 @@
           "Comeback",
           "Continue the current run"
         ],
-        "chosen": 1,
+        "chosen": 0,
         "cite": "Book 1 p. 77 chart 03 (Comeback: Reset Fame to 2D)"
       }
     },
     {
-      "seq": 120,
+      "seq": 118,
       "kind": "throw",
       "throw": {
-        "expr": "Flux",
+        "expr": "2D",
         "dice": [
           1,
           5
         ],
-        "total": -4,
-        "cite": "Book 1 p. 77 chart 03 (Fame +F; the first Flux is required)"
+        "total": 6,
+        "cite": "Book 1 p. 77 chart 03 (Comeback: Reset Fame to 2D)"
+      }
+    },
+    {
+      "seq": 119,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 118,
+        "kind": "comeback",
+        "value": 6
+      }
+    },
+    {
+      "seq": 120,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 118,
+        "kind": "fame_change",
+        "value": 6
       }
     },
     {
       "seq": 121,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 120,
-        "kind": "fame_change",
-        "delta": -4,
-        "value": 4
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Entertainer Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 122,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Roll the optional Fame Flux?",
-        "options": [
-          "Roll Flux",
-          "Stand pat"
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
         ],
-        "chosen": 0,
-        "cite": "Book 1 p. 77 chart 03 (the second and third Flux rolls are optional)"
+        "total": 1,
+        "cite": "Book 1 p. 77 chart 03 table C, column General"
       }
     },
     {
       "seq": 123,
-      "kind": "throw",
-      "throw": {
-        "expr": "Flux",
-        "dice": [
-          1,
-          1
-        ],
-        "total": 0,
-        "cite": "Book 1 p. 77 chart 03 (Fame +F*; optional Flux)"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 122,
+        "kind": "skill_awarded",
+        "skill": "Survey",
+        "delta": 1,
+        "value": 1
       }
     },
     {
       "seq": 124,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 123,
-        "kind": "fame_change",
-        "value": 4
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Entertainer Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
       }
     },
     {
       "seq": 125,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Roll the optional Fame Flux?",
-        "options": [
-          "Roll Flux",
-          "Stand pat"
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
         ],
-        "chosen": 0,
-        "cite": "Book 1 p. 77 chart 03 (the second and third Flux rolls are optional)"
+        "total": 1,
+        "cite": "Book 1 p. 77 chart 03 table C, column General"
       }
     },
     {
       "seq": 126,
-      "kind": "throw",
-      "throw": {
-        "expr": "Flux",
-        "dice": [
-          2,
-          1
-        ],
-        "total": 1,
-        "cite": "Book 1 p. 77 chart 03 (Fame +F*; optional Flux)"
-      }
-    },
-    {
-      "seq": 127,
       "kind": "consequence",
       "consequence": {
-        "cause": 126,
-        "kind": "fame_change",
-        "delta": 1,
-        "value": 5
-      }
-    },
-    {
-      "seq": 128,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select an Entertainer Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 129,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 77 chart 03 table C, column General"
-      }
-    },
-    {
-      "seq": 130,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 129,
+        "cause": 125,
         "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 3
-      }
-    },
-    {
-      "seq": 131,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select an Entertainer Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 132,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          2
-        ],
-        "total": 2,
-        "cite": "Book 1 p. 77 chart 03 table C, column General"
-      }
-    },
-    {
-      "seq": 133,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 132,
-        "kind": "skill_awarded",
-        "skill": "Survival",
+        "skill": "Survey",
         "delta": 1,
         "value": 2
       }
     },
     {
-      "seq": 134,
+      "seq": 127,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1986,49 +2005,7 @@
       }
     },
     {
-      "seq": 135,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 77 chart 03 table C, column General"
-      }
-    },
-    {
-      "seq": 136,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 135,
-        "kind": "skill_awarded",
-        "skill": "Bureaucrat",
-        "delta": 1,
-        "value": 4
-      }
-    },
-    {
-      "seq": 137,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Select an Entertainer Skills column",
-        "options": [
-          "Personal",
-          "Academic",
-          "Travel",
-          "General",
-          "Business",
-          "Vocation",
-          "Avocation"
-        ],
-        "chosen": 3,
-        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
-      }
-    },
-    {
-      "seq": 138,
+      "seq": 128,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2040,18 +2017,60 @@
       }
     },
     {
-      "seq": 139,
+      "seq": 129,
       "kind": "consequence",
       "consequence": {
-        "cause": 138,
+        "cause": 128,
         "kind": "skill_awarded",
         "skill": "Survival",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 130,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Select an Entertainer Skills column",
+        "options": [
+          "Personal",
+          "Academic",
+          "Travel",
+          "General",
+          "Business",
+          "Vocation",
+          "Avocation"
+        ],
+        "chosen": 3,
+        "cite": "Book 1 p. 65 (the character selects a column and rolls 1D)"
+      }
+    },
+    {
+      "seq": 131,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          1
+        ],
+        "total": 1,
+        "cite": "Book 1 p. 77 chart 03 table C, column General"
+      }
+    },
+    {
+      "seq": 132,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 131,
+        "kind": "skill_awarded",
+        "skill": "Survey",
         "delta": 1,
         "value": 3
       }
     },
     {
-      "seq": 140,
+      "seq": 133,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2065,31 +2084,46 @@
       }
     },
     {
-      "seq": 141,
+      "seq": 134,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
-          6,
+          5,
           2
         ],
-        "total": 8,
-        "target": 5,
+        "total": 7,
+        "target": 6,
         "success": false,
         "cite": "Book 1 p. 77 chart 03 (Continue Fame; p. 66)"
       }
     },
     {
-      "seq": 142,
+      "seq": 135,
       "kind": "consequence",
       "consequence": {
-        "cause": 141,
+        "cause": 134,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 143,
+      "seq": 136,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          5,
+          2
+        ],
+        "total": 7,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
+      }
+    },
+    {
+      "seq": 137,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2104,46 +2138,31 @@
       }
     },
     {
-      "seq": 144,
+      "seq": 138,
       "kind": "throw",
       "throw": {
         "expr": "2D",
         "dice": [
           6,
-          6
-        ],
-        "total": 12,
-        "target": 5,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
-      }
-    },
-    {
-      "seq": 145,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          4,
           2
         ],
-        "total": 6,
+        "total": 8,
         "target": 5,
         "success": false,
         "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
       }
     },
     {
-      "seq": 146,
+      "seq": 139,
       "kind": "consequence",
       "consequence": {
-        "cause": 141,
+        "cause": 134,
         "kind": "career_ended",
         "career": "Entertainer"
       }
     },
     {
-      "seq": 147,
+      "seq": 140,
       "kind": "step",
       "step": {
         "name": "Determine Fame",
@@ -2151,11 +2170,11 @@
       }
     },
     {
-      "seq": 148,
+      "seq": 141,
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Invoke the Fame Flux Event? (Fame 5 so far)",
+        "prompt": "Invoke the Fame Flux Event? (Fame 6 so far)",
         "options": [
           "Keep this Fame",
           "Add Flux to Fame"
@@ -2165,23 +2184,23 @@
       }
     },
     {
-      "seq": 149,
+      "seq": 142,
       "kind": "consequence",
       "consequence": {
-        "cause": 148,
+        "cause": 141,
         "kind": "fame_computed",
-        "skill": "Town",
-        "value": 5,
+        "skill": "City",
+        "value": 6,
         "mods": [
           {
             "name": "Entertainer Fame",
-            "value": 5
+            "value": 6
           }
         ]
       }
     },
     {
-      "seq": 150,
+      "seq": 143,
       "kind": "step",
       "step": {
         "name": "Muster Out",
@@ -2189,7 +2208,7 @@
       }
     },
     {
-      "seq": 151,
+      "seq": 144,
       "kind": "step",
       "step": {
         "name": "Muster Out: Entertainer",
@@ -2197,7 +2216,7 @@
       }
     },
     {
-      "seq": 152,
+      "seq": 145,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2208,204 +2227,102 @@
         ],
         "chosen": 0,
         "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 146,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Fame/3 DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 147,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+2",
+        "dice": [
+          6
+        ],
+        "mod": 2,
+        "total": 8,
+        "cite": "Book 1 p. 77 chart 03 D (Money column, 1D+2)"
+      }
+    },
+    {
+      "seq": 148,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 147,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Entertainer",
+        "delta": 30000
+      }
+    },
+    {
+      "seq": 149,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Entertainer muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 150,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Fame/3 DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 151,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+2",
+        "dice": [
+          6
+        ],
+        "mod": 2,
+        "total": 8,
+        "cite": "Book 1 p. 77 chart 03 D (Money column, 1D+2)"
+      }
+    },
+    {
+      "seq": 152,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 151,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Entertainer",
+        "delta": 30000
       }
     },
     {
       "seq": 153,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Fame/3 DM to apply?",
-        "options": [
-          "+0",
-          "+1"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 154,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+1",
-        "dice": [
-          3
-        ],
-        "mod": 1,
-        "total": 4,
-        "cite": "Book 1 p. 77 chart 03 D (Money column, 1D+1)"
-      }
-    },
-    {
-      "seq": 155,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 154,
-        "kind": "benefit",
-        "skill": "High Passage",
-        "career": "Entertainer",
-        "value": 1
-      }
-    },
-    {
-      "seq": 156,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Entertainer muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 157,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Fame/3 DM to apply?",
-        "options": [
-          "+0",
-          "+1"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 158,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+1",
-        "dice": [
-          6
-        ],
-        "mod": 1,
-        "total": 7,
-        "cite": "Book 1 p. 77 chart 03 D (Money column, 1D+1)"
-      }
-    },
-    {
-      "seq": 159,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 158,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Entertainer",
-        "delta": 25000
-      }
-    },
-    {
-      "seq": 160,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Entertainer muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 161,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Fame/3 DM to apply?",
-        "options": [
-          "+0",
-          "+1"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 162,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+1",
-        "dice": [
-          6
-        ],
-        "mod": 1,
-        "total": 7,
-        "cite": "Book 1 p. 77 chart 03 D (Money column, 1D+1)"
-      }
-    },
-    {
-      "seq": 163,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 162,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Entertainer",
-        "delta": 25000
-      }
-    },
-    {
-      "seq": 164,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Entertainer muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 165,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Fame/3 DM to apply?",
-        "options": [
-          "+0",
-          "+1"
-        ],
-        "chosen": 1,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 166,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+1",
-        "dice": [
-          5
-        ],
-        "mod": 1,
-        "total": 6,
-        "cite": "Book 1 p. 77 chart 03 D (Money column, 1D+1)"
-      }
-    },
-    {
-      "seq": 167,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 166,
-        "kind": "benefit",
-        "skill": "StarPass",
-        "career": "Entertainer",
-        "value": 1
-      }
-    },
-    {
-      "seq": 168,
       "kind": "step",
       "step": {
         "name": "Record the Character's Birthdate",
@@ -2413,13 +2330,13 @@
       }
     },
     {
-      "seq": 169,
+      "seq": 154,
       "kind": "throw",
       "throw": {
         "expr": "4D",
         "dice": [
-          3,
-          3,
+          4,
+          2,
           3,
           6
         ],
@@ -2428,27 +2345,27 @@
       }
     },
     {
-      "seq": 170,
+      "seq": 155,
       "kind": "throw",
       "throw": {
         "expr": "4D",
         "dice": [
-          2,
-          4,
-          2,
-          2
+          6,
+          5,
+          3,
+          3
         ],
-        "total": 10,
+        "total": 17,
         "cite": "Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)"
       }
     },
     {
-      "seq": 171,
+      "seq": 156,
       "kind": "consequence",
       "consequence": {
-        "cause": 170,
+        "cause": 155,
         "kind": "birthdate",
-        "detail": "Sixday 056-1067",
+        "detail": "Fiday 279-1067",
         "value": 1067
       }
     }
