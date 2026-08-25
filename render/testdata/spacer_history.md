@@ -30,7 +30,7 @@ _Book 1 p. 72 chart E1 step B_
 
 _Book 1 p. 72 chart E1 step C_
 
-- #20 policy chose "ED5" of [ED5, Trade School, Apprenticeship, College, University, Service Academy, Masters, Professors, Medical School, Law School, None]: Select pre-career education — Book 1 p. 60 chart C; p. 57 step C (education is optional)
+- #20 policy chose "ED5" of [ED5, Trade School, Apprenticeship, College, University, Service Academy, None]: Select pre-career education — Book 1 p. 60 chart C; p. 57 step C (education is optional)
 - #21 2D = 5+4 = 9 vs 10: success — Book 1 p. 60 chart C (ED5 Pass/Fail Check Int)
   - #22 (from #21) Edu +2 = 5
 

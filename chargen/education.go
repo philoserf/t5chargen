@@ -759,7 +759,34 @@ func (c *Character) attempted(program string) bool {
 // row this repo implements states a floor, which a character can fall short
 // of adversely and reach past by waiver — except one.
 func available(p education.Program, character *Character, programs []education.Program) bool {
-	return withinCeiling(p, character) && notBelowWhatHeHolds(p, character, programs)
+	return withinCeiling(p, character) &&
+		notBelowWhatHeHolds(p, character, programs) &&
+		credentialIsReachable(p, character)
+}
+
+// credentialIsReachable withholds a row gated on a credential from a
+// character who has never been to school.
+//
+// The four such rows are the ones a University provides: "University ...
+// can also provide a Masters Program leading to a Masters Degree and a
+// Professors Program leading to a professorship. Often associated with a
+// University are a Medical School ... and a Law School" (p. 61). A
+// character choosing his first schooling is at no University.
+//
+// Their prerequisites are waivable — p. 61 says so outright — and that is
+// why they are offered to a serving character who fell short of one.
+// Step C is different in kind: it runs before any career and is a
+// character's first education, so his history is empty and no credential
+// is obtainable. A waiver overturns an adverse decision (p. 59), and a row
+// nobody could ever qualify for at this step produces none. Offering it
+// there put four rows scoring zero in front of every eighteen-year-old,
+// none of which he could even attempt to earn (interpretation I-106).
+func credentialIsReachable(p education.Program, character *Character) bool {
+	if p.Prerequisite.Kind != education.PrereqDegree {
+		return true
+	}
+
+	return len(character.Education) > 0
 }
 
 // withinCeiling holds a maximum prerequisite closed.

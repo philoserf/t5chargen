@@ -30,7 +30,7 @@ _Book 1 p. 72 chart E1 step B_
 
 _Book 1 p. 72 chart E1 step C_
 
-- #20 player chose "University" of [Trade School, Apprenticeship, College, University, Service Academy, Masters, Professors, Medical School, Law School, None]: Select pre-career education — Book 1 p. 60 chart C; p. 57 step C (education is optional)
+- #20 player chose "University" of [Trade School, Apprenticeship, College, University, Service Academy, None]: Select pre-career education — Book 1 p. 60 chart C; p. 57 step C (education is optional)
 - #21 player chose "Edu" of [Int, Edu]: Select the characteristic to check — Book 1 p. 59 (Check one of the stated Characteristics)
 - #22 2D = 3+6 = 9 vs 8: failure — Book 1 p. 60 chart C (University To Apply Check Edu)
   - #23 (from #22) +1 years
