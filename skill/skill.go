@@ -66,7 +66,7 @@ type Entry struct {
 	Group string
 
 	// Parent is the containing skill of a knowledge ("Some skills include
-	// within them several Knowledges", p. 133); empty otherwise.
+	// within them several Knowledges", p. 134); empty otherwise.
 	Parent string
 
 	// Default reports membership of the chart MS Default Skills list —
