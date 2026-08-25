@@ -1,7 +1,7 @@
 {
   "schema_version": "0.30.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.34.0",
+  "engine_version": "0.35.0",
   "policy_version": "0.19.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -980,7 +980,6 @@
           "ED5",
           "Trade School",
           "Apprenticeship",
-          "College",
           "University"
         ],
         "chosen": 0,
@@ -1611,7 +1610,6 @@
           "ED5",
           "Trade School",
           "Apprenticeship",
-          "College",
           "University"
         ],
         "chosen": 0,
@@ -2182,7 +2180,6 @@
           "ED5",
           "Trade School",
           "Apprenticeship",
-          "College",
           "University"
         ],
         "chosen": 0,
@@ -2782,7 +2779,6 @@
           "ED5",
           "Trade School",
           "Apprenticeship",
-          "College",
           "University"
         ],
         "chosen": 0,
@@ -3421,7 +3417,6 @@
           "ED5",
           "Trade School",
           "Apprenticeship",
-          "College",
           "University"
         ],
         "chosen": 0,
@@ -3995,7 +3990,6 @@
           "ED5",
           "Trade School",
           "Apprenticeship",
-          "College",
           "University"
         ],
         "chosen": 0,
@@ -4628,7 +4622,6 @@
           "ED5",
           "Trade School",
           "Apprenticeship",
-          "College",
           "University"
         ],
         "chosen": 0,
@@ -5577,7 +5570,6 @@
           "ED5",
           "Trade School",
           "Apprenticeship",
-          "College",
           "University"
         ],
         "chosen": 0,

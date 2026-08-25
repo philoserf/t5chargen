@@ -53,7 +53,7 @@ _Book 1 p. 76 chart 02_
   - #32 (from #31) Major = ACV
 - #33 player chose "Actor" of [Actor, Admin, Advocate, Aeronautics, Animals, Aquanautics, Archeology, Artillery, Artist, Astrogator, Athlete, Author, Automotive, Battle Dress, Bay Weapons, Beams, Biologics, Biology, Blades, Boat, Broker, Bureaucrat, Carouse, Chef, Chemistry, Command, Comms, Compute, Computer, Counsellor, Craftsman, Curiosity, Dancer, Designer, Diplomat, Driver, Driver: Grav, Electronics, Empath, Engineer, Exotics, Explosives, Fighter, Flapper, Fleet Tactics, Fluidics, Flyer, Flyer: Grav, Forensics, Forward Observer, Gambler, Gravitics, Gunner, Heavy Weapons, Hibernate, High-G, History, Hostile Environ, Hypno, Insight, Intuition, JOT, Jump Drives, LTA, Language, Launcher, Leader, Legged, Liaison, Life Support, Linguistics, Luck, Magnetics, Maneuver Drive, Math, Mechanic, Medic, MemAware, MemPercept, MemScent, MemSight, MemSound, Memorize, Mole, Morph, Musician, Naval Architect, Navigator, Ordnance, Ortillery, Persuade, Philosophy, Photonics, Physics, Pilot, Planetology, Polymers, Power Systems, Programmer, Psionicology, Psychohistory, Psychology, Query, Rage, Recon, Rider, Robotics, Rotor, Sapper, Screens, Seafarer, Seafarer: Grav, Sensors, Ship, Slug Throwers, Small Craft, Sophontology, SoundMimic, Spacecraft ACS, Spacecraft BCS, Spines, Sprays, Stealth, Steward, Strategy, Streetwise, Sub, Survey, Survival, Tactics, Teacher, Teamster, Tracked, Trader, Trainer, Turrets, Unarmed, Vacc Suit, WMD, Wheeled, Winged, Zero-G]: Select a Scholar Minor — Book 1 p. 76 chart 02 (select any Skill or Knowledge from the Skills List)
   - #34 (from #33) Minor = Actor
-- #35 player chose "Serve the term in Scholar" of [Serve the term in Scholar, ED5, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #35 player chose "Serve the term in Scholar" of [Serve the term in Scholar, ED5, Trade School, Apprenticeship, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Scholar: Term 1
 
@@ -97,7 +97,7 @@ _Book 1 p. 87 chart 13_
   - #64 (from #62) position associated with the character's Scholar career
   - #65 (from #62) rank Clerk
   - #66 (from #62) Bureaucrat +1 = Bureaucrat-2
-- #67 player chose "Serve the term in Functionary" of [Serve the term in Functionary, ED5, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #67 player chose "Serve the term in Functionary" of [Serve the term in Functionary, ED5, Trade School, Apprenticeship, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Functionary: Term 1
 
@@ -125,7 +125,7 @@ _Book 1 p. 87 chart 13_
 - #88 player chose "Actor" of [Actor, Artist, Author, Chef, Dancer, Musician]: Select One Art — Book 1 p. 87 chart 13 table C; Book 1 p. 132 chart MS
   - #89 (from #88) Actor +1 = Actor-3
   - #90 (from #70) +4 years
-- #91 player chose "Serve the term in Functionary" of [Serve the term in Functionary, ED5, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #91 player chose "Serve the term in Functionary" of [Serve the term in Functionary, ED5, Trade School, Apprenticeship, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Functionary: Term 2
 
@@ -154,7 +154,7 @@ _Book 1 p. 87 chart 13_
 - #113 player chose "Biologics" of [Biologics, Craftsman, Electronics, Fluidics, Gravitics, Magnetics, Mechanic, Photonics, Polymers, Programmer]: Select One Trade — Book 1 p. 87 chart 13 table C; Book 1 p. 132 chart MS
   - #114 (from #113) Biologics +1 = Biologics-2
   - #115 (from #94) +4 years
-- #116 player chose "Serve the term in Functionary" of [Serve the term in Functionary, ED5, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #116 player chose "Serve the term in Functionary" of [Serve the term in Functionary, ED5, Trade School, Apprenticeship, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Functionary: Term 3
 
@@ -189,7 +189,7 @@ _Book 1 p. 87 chart 13_
 - #144 2D = 5+1 = 6 vs 5: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)
 - #145 2D = 5+1 = 6 vs 5: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)
 - #146 2D = 2+5 = 7 vs 5: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)
-- #147 player chose "Serve the term in Functionary" of [Serve the term in Functionary, ED5, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #147 player chose "Serve the term in Functionary" of [Serve the term in Functionary, ED5, Trade School, Apprenticeship, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Functionary: Term 4
 
@@ -221,7 +221,7 @@ _Book 1 p. 87 chart 13_
 - #172 2D = 1+3 = 4 vs 5: success — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)
   - #173 (from #172) aging: Dex -1 = 11
 - #174 2D = 4+3 = 7 vs 5: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)
-- #175 player chose "Serve the term in Functionary" of [Serve the term in Functionary, ED5, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #175 player chose "Serve the term in Functionary" of [Serve the term in Functionary, ED5, Trade School, Apprenticeship, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Functionary: Term 5
 
@@ -251,7 +251,7 @@ _Book 1 p. 87 chart 13_
   - #198 (from #197) aging: Dex -1 = 10
 - #199 2D = 2+3 = 5 vs 6: success — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)
   - #200 (from #199) aging: End -1 = 11
-- #201 player chose "Serve the term in Functionary" of [Serve the term in Functionary, ED5, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #201 player chose "Serve the term in Functionary" of [Serve the term in Functionary, ED5, Trade School, Apprenticeship, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Functionary: Term 6
 
@@ -284,7 +284,7 @@ _Book 1 p. 87 chart 13_
 - #227 2D = 4+1 = 5 vs 6: success — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)
   - #228 (from #227) aging: Dex -1 = 9
 - #229 2D = 5+3 = 8 vs 6: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 46)
-- #230 player chose "Serve the term in Functionary" of [Serve the term in Functionary, ED5, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #230 player chose "Serve the term in Functionary" of [Serve the term in Functionary, ED5, Trade School, Apprenticeship, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Functionary: Term 7
 
@@ -318,7 +318,7 @@ _Book 1 p. 87 chart 13_
 - #257 2D = 2+3 = 5 vs 7: success — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 50)
   - #258 (from #257) aging: Dex -1 = 8
 - #259 2D = 6+1 = 7 vs 7: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 50)
-- #260 player chose "Serve the term in Functionary" of [Serve the term in Functionary, ED5, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #260 player chose "Serve the term in Functionary" of [Serve the term in Functionary, ED5, Trade School, Apprenticeship, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Functionary: Term 8
 
