@@ -2442,3 +2442,44 @@ Barring re-attendance across all programs would go further than any printed
 sentence: p. 59 says "A character may attend one or more schools", and
 College, University, Trade School and Apprenticeship carry no entry rule
 the Academy's p. 62 paragraph supplies. They remain repeatable.
+
+### I-99: A Service Academy graduate's first career is the service he owes (p. 62)
+
+"Service Academies ... provide graduates an Army or Navy Commission (a
+Naval Academy graduate may choose a Marine Commission instead). **The
+character is required to serve one term in the service.** At the end of
+that term, the character may try to continue, or may attempt any other
+career available (he is in the Reserves)" (p. 62).
+
+The engine granted the commission (I-94) and never collected on it: a
+character could graduate the Naval Academy, take his officer's rank, and
+open his lifepath as a Citizen. The page does not offer that. "Required"
+is the word, and the sentence after it is what makes the obligation exactly
+one term long — the character's freedom is described as beginning "at the
+end of that term".
+
+So the first career is narrowed to the career that is his service: Army to
+Soldier, Navy to Spacer, Marine to Marine. The mapping is read off the
+career definitions, each of which names its own service, rather than
+written down a second time here.
+
+**Required, and still a choice event.** The obligation is expressed as the
+option list holding one entry, not as an assignment that skips the funnel,
+which is how `--career` already works. Every choice a character makes is
+recorded, and a record that showed no decision at step D would be a record
+that could not be replayed at that point.
+
+**One term, not a career.** The career-change loop past the first career is
+untouched, because p. 62 hands him back to it by name. A Navy Academy
+graduate may serve his term as a Spacer and then change to Soldier, where
+he enters at the enlisted rank like any other recruit — which is what I-94
+always said, at the only place it can now happen.
+
+**A commission and a `--career` force are refused together**, rather than
+one quietly overriding the other. A character who owes the Navy a term and
+was told on the command line to begin as a Soldier is a contradiction, and
+no silent repair is the rule this engine keeps everywhere else.
+
+Not applied to a cadet who failed out. "Provide **graduates**" is the
+printed condition, and the same test I-94 uses — graduation with the
+Officer1 degree — decides both.

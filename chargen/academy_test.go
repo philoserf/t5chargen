@@ -1,6 +1,7 @@
 package chargen_test
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/philoserf/t5chargen/career"
@@ -119,6 +120,43 @@ func entryRank(t *testing.T, c chargen.Character) string {
 	return ""
 }
 
+// entryRankFor is entryRank for a career that is not the first: the rank
+// set the first time the named career sets one. A character who changes
+// service has two, and the second is the one under test.
+func entryRankFor(t *testing.T, c chargen.Character, careerName string) string {
+	t.Helper()
+
+	for _, event := range c.Events {
+		if event.Kind != chargen.EventConsequence || event.Consequence == nil {
+			continue
+		}
+
+		if event.Consequence.Kind == chargen.ConsequenceRankSet && event.Consequence.Career == careerName {
+			return rankIDIn(t, careerName, event.Consequence.Skill)
+		}
+	}
+
+	t.Fatalf("the record sets no rank in %s", careerName)
+
+	return ""
+}
+
+// rankIDIn maps a logged rank title back to its ladder id in a named
+// career.
+func rankIDIn(t *testing.T, careerName, title string) string {
+	t.Helper()
+
+	for _, rank := range careerDef(t, careerName).Ranks {
+		if rank.Title == title {
+			return rank.ID
+		}
+	}
+
+	t.Fatalf("no rank titled %q in %s", title, careerName)
+
+	return ""
+}
+
 // rankIDForTitle maps a logged rank title back to its ladder id.
 func rankIDForTitle(t *testing.T, c chargen.Character, title string) string {
 	t.Helper()
@@ -161,16 +199,141 @@ func TestAcademyGraduateEntersAsAnOfficer(t *testing.T) {
 // TestAcademyOfficerIsServiceSpecific verifies the linkage does not cross
 // services. An Academy trains for the force it names, so its graduate
 // joining a different one enters as any other recruit does.
+//
+// This used to be a first career and can no longer be one: a Navy Academy
+// graduate owes the Navy a term (I-99), so the only way he reaches the
+// Army is by serving what he owes and then changing careers — which p. 62
+// names as the thing he may do next, "at the end of that term". The claim
+// is unchanged; the only route to it moved.
 func TestAcademyOfficerIsServiceSpecific(t *testing.T) {
-	c, ok := academyRun(t, "Navy", "Soldier")
+	c, ok := crossServiceRun(t)
 	if !ok {
-		t.Fatalf("no seed under %d graduates the Navy Academy and begins Soldier; widen the search",
+		t.Fatalf("no seed under %d graduates the Navy Academy, serves the Navy and then joins the Army; widen the search",
 			academySeedSearch)
 	}
 
-	if want := careerDef(t, "Soldier").Ranks[0].ID; entryRank(t, c) != want {
-		t.Errorf("a Navy Academy graduate entered the Army at %q, want the enlisted rank %q",
-			entryRank(t, c), want)
+	got := entryRankFor(t, c, "Soldier")
+
+	if want := careerDef(t, "Soldier").Ranks[0].ID; got != want {
+		t.Errorf("a Navy Academy graduate entered the Army at %q, want the enlisted rank %q", got, want)
+	}
+}
+
+// crossServiceRun finds a seed whose character graduates the Navy Academy,
+// serves the term he owes as a Spacer, then changes to Soldier.
+func crossServiceRun(t *testing.T) (chargen.Character, bool) {
+	t.Helper()
+
+	for seed := range uint64(academySeedSearch) {
+		c, err := chargen.Generate(chargen.Options{
+			Seed: seed, Decider: &changesToArmy{academyPath{service: "Navy"}},
+		})
+		if err != nil || !graduatedAcademy(c, "Navy") || len(c.Careers) < 2 {
+			continue
+		}
+
+		if c.Careers[0].Career != "Spacer" || c.Careers[len(c.Careers)-1].Career != "Soldier" {
+			continue
+		}
+
+		if !c.Careers[len(c.Careers)-1].Began {
+			continue
+		}
+
+		return c, true
+	}
+
+	return chargen.Character{}, false
+}
+
+// changesToArmy serves the owed Navy term, then leaves for the Army at the
+// first opportunity.
+type changesToArmy struct{ academyPath }
+
+//nolint:exhaustive // Deliberately partitioned: the rest defer to the embedded path.
+func (d *changesToArmy) Choose(c chargen.Choice) (int, error) {
+	switch c.ID {
+	case chargen.ChooseCareerChange:
+		return 1, nil // "Change careers"
+	case chargen.ChooseCareer:
+		if i, err := pick(c, "Soldier"); err == nil {
+			return i, nil
+		}
+	}
+
+	return d.academyPath.Choose(c)
+}
+
+func (*changesToArmy) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
+
+// TestCommissionedGraduateOwesHisService is the p. 62 obligation:
+// "The character is required to serve one term in the service."
+//
+// Measured at the record's first career, and swept across all three
+// services, because the obligation is to the force that trained him and a
+// commission that pointed anywhere would satisfy a weaker claim.
+func TestCommissionedGraduateOwesHisService(t *testing.T) {
+	for _, tc := range academyServices {
+		t.Run(tc.service, func(t *testing.T) {
+			found := 0
+
+			for seed := range uint64(academySeedSearch) {
+				c, err := chargen.Generate(chargen.Options{
+					Seed: seed, Decider: academyPath{service: tc.service},
+				})
+				if err != nil || !graduatedAcademy(c, tc.service) || len(c.Careers) == 0 {
+					continue
+				}
+
+				found++
+
+				if got := c.Careers[0].Career; got != tc.career {
+					t.Errorf("seed %d: a %s Academy graduate opened with %q, want %q",
+						seed, tc.service, got, tc.career)
+				}
+			}
+
+			if found == 0 {
+				t.Fatalf("no seed under %d graduates the %s Academy; the sweep is asserting nothing",
+					academySeedSearch, tc.service)
+			}
+		})
+	}
+}
+
+// TestACommissionAndAForcedCareerCannotBothBeHonoured verifies the two are
+// refused together rather than one quietly winning. A character who owes
+// the Navy a term and was told on the command line to begin as a Soldier
+// is a contradiction, and no silent repair is the house rule.
+func TestACommissionAndAForcedCareerCannotBothBeHonoured(t *testing.T) {
+	tried := 0
+
+	for seed := range uint64(academySeedSearch) {
+		probe, err := chargen.Generate(chargen.Options{
+			Seed: seed, Decider: academyPath{service: "Navy"},
+		})
+		if err != nil || !graduatedAcademy(probe, "Navy") {
+			continue
+		}
+
+		tried++
+
+		_, err = chargen.Generate(chargen.Options{
+			Seed: seed, Career: "Soldier", Decider: academyPath{service: "Navy"},
+		})
+		if err == nil {
+			t.Errorf("seed %d: --career Soldier and a Navy commission both succeeded", seed)
+
+			continue
+		}
+
+		if !strings.Contains(err.Error(), "Spacer") {
+			t.Errorf("seed %d: the refusal %q does not name the career he owes", seed, err)
+		}
+	}
+
+	if tried == 0 {
+		t.Fatalf("no seed under %d graduates the Navy Academy; the sweep is asserting nothing", academySeedSearch)
 	}
 }
 

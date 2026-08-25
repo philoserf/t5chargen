@@ -28,7 +28,7 @@ const (
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.33.0"
+	EngineVersion = "0.34.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
@@ -766,16 +766,7 @@ var errBadChoice = errors.New("invalid choice")
 // resolves the selected career through the careerRegistry (careerrun.go);
 // registered careers grow with docs/PRD.md milestone 3.
 func runCareer(forced string, roller *dice.Roller, log *Log, decider Decider, character *Character) error {
-	// The lifepath opens on the careers this character is eligible to
-	// start: "Functionary is never a first career" (chart 13 p. 87), and
-	// chart 01's entry is automatic only "if TWO skill-6 and
-	// Craftsman-1" (p. 75), which a character leaving education never has.
-	options, err := eligibleCareers(character, "", true)
-	if err != nil {
-		return err
-	}
-
-	options, err = forcedCareer(forced, options)
+	options, err := firstCareerOptions(forced, character)
 	if err != nil {
 		return err
 	}
@@ -808,6 +799,66 @@ func runCareer(forced string, roller *dice.Roller, log *Log, decider Decider, ch
 			return nil
 		}
 	}
+}
+
+// firstCareerOptions is what the lifepath may open with: the eligible
+// careers, narrowed by a --career force and by a Service Academy
+// commission.
+//
+// The commission is applied after the force, not before, so a conflict
+// between the two is reported as the commission it breaks rather than as a
+// career the lifepath could not have opened with. Neither silently wins: a
+// character who owes the Navy a term and was told to start as a Soldier is
+// a contradiction, and generation says so.
+func firstCareerOptions(forced string, character *Character) ([]string, error) {
+	// The lifepath opens on the careers this character is eligible to
+	// start: "Functionary is never a first career" (chart 13 p. 87), and
+	// chart 01's entry is automatic only "if TWO skill-6 and
+	// Craftsman-1" (p. 75), which a character leaving education never has.
+	options, err := eligibleCareers(character, "", true)
+	if err != nil {
+		return nil, err
+	}
+
+	options, err = forcedCareer(forced, options)
+	if err != nil {
+		return nil, err
+	}
+
+	return commissionedCareer(character, options)
+}
+
+// commissionedCareer narrows the first career to the service a Service
+// Academy graduate was commissioned into: "they provide graduates an Army
+// or Navy Commission ... The character is required to serve one term in
+// the service" (p. 62, interpretation I-99).
+//
+// Required, so the obligation is the option list rather than a suggestion
+// on it. It is put through the choice funnel all the same, exactly as
+// --career is, because the record has to show what was decided even where
+// only one thing could be.
+//
+// The first career only. "At the end of that term, the character may try
+// to continue, or may attempt any other career available" (p. 62) — one
+// term is what is owed, and the career-change loop past this point is
+// untouched.
+func commissionedCareer(character *Character, options []string) ([]string, error) {
+	service := character.academyCommission()
+	if service == "" {
+		return options, nil
+	}
+
+	owed, err := career.ForService(service)
+	if err != nil {
+		return nil, fmt.Errorf("the commission from the %s Academy: %w", service, err)
+	}
+
+	if !slices.Contains(options, owed) {
+		return nil, fmt.Errorf("%w: a %s Academy graduate owes a term as %s, which is not open to him (available: %s)",
+			ErrCareerUnavailable, service, owed, strings.Join(options, ", "))
+	}
+
+	return []string{owed}, nil
 }
 
 // forcedCareer narrows the options to a career named on the command line,

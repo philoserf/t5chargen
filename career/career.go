@@ -1484,6 +1484,28 @@ func Available() []string {
 	}
 }
 
+// ForService names the career that is the given armed service — "Army",
+// "Navy" or "Marine", the three a Service Academy commissions into
+// (p. 60 chart C, p. 62).
+//
+// The mapping is read off the definitions rather than written down twice:
+// a career carries its own service in armed_forces.service, so Army finds
+// Soldier because Soldier says so.
+func ForService(service string) (string, error) {
+	for _, name := range Available() {
+		def, err := ByName(name)
+		if err != nil {
+			return "", err
+		}
+
+		if def.ArmedForces != nil && def.ArmedForces.Service == service {
+			return name, nil
+		}
+	}
+
+	return "", fmt.Errorf("%w: no career serves %q", errBadDefinition, service)
+}
+
 // FirstCareers lists the careers a lifepath may open with, which is
 // Available minus those a chart bars from the start: "Functionary is never
 // a first career" (chart 13 p. 87).
