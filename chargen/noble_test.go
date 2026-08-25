@@ -21,7 +21,7 @@ func nobleRun(t *testing.T, seed uint64) (chargen.Character, chargen.CareerRecor
 	t.Helper()
 
 	c, err := chargen.Generate(chargen.Options{
-		Seed: seed, Career: "Noble", Decider: chargen.DefaultPolicy{},
+		Seed: seed, Career: "Noble", Decider: careerOnly{},
 	})
 	if err != nil {
 		t.Fatalf("seed %d: %v", seed, err)

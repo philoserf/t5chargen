@@ -2,36 +2,38 @@
 
 **Name**:
 
-**UPP**: 7C8689
+**UPP**: 2111C9
 
 **Homeworld**: Regina A788899-C (Ph Pa Ri)
 
-**Age**: 30 (Adult)
+**Age**: 110 (Retirement)
 
-**Born**: Thirday 060-1075
+**Born**: Forday 103-995
 
 | Str | Dex | End | Int | Edu | Soc |
 | --- | --- | --- | --- | --- | --- |
-| 7 | 12 | 8 | 6 | 8 | 9 |
+| 2 | 1 | 1 | 1 | 12 | 9 |
 
 **Education**: College, Major Athlete, Minor Broker — BA
 
-**Career**: Citizen (2 terms), Job Chef, Hobby ACV
+**Education**: Masters, Major Athlete, Minor Broker — Honors MA
 
-**Skills**: ACV-2, Actor-1, Admin-2, Animals-2, Athlete-3, Broker-3, Bureaucrat-1, Chef-4, Computer-1, Trader-1
+**Education**: Professors, Major Athlete, Minor Broker — Honors Professor
 
-**Credits**: Cr30000
+**Career**: Citizen (20 terms), Job Slug Throwers, Hobby ACV
 
-**Benefits**: 1 StarPass
+**Skills**: ACV-5, Actor-1, Admin-10, Animals-15, Athlete-9, Broker-15, Bureaucrat-8, Computer-15, Slug Throwers-8, Trader-10
+
+**Credits**: Cr1000000
 
 **Automatics**: Fame
 
 **Citizen's Pension**: Cr5000 a year from age 66
 
-**Status**: Fame 3 (Extended Family)
+**Status**: Fame 2 (Close Family)
 
 ---
 
-Seed 1 (math/rand/v2-pcg) · schema 0.30.0 · engine 0.38.0 · policy 0.19.0
+Seed 1 (math/rand/v2-pcg) · schema 0.30.0 · engine 0.38.0 · policy 0.20.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

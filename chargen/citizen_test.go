@@ -18,7 +18,7 @@ import (
 // and never errors, but the Decider contract lets it, so the error is
 // threaded rather than dropped.
 func autoPolicy(c chargen.Choice) (int, error) {
-	index, err := chargen.DefaultPolicy{}.Choose(c)
+	index, err := careerOnly{}.Choose(c)
 	if err != nil {
 		return 0, fmt.Errorf("auto policy: %w", err)
 	}
@@ -28,11 +28,23 @@ func autoPolicy(c chargen.Choice) (int, error) {
 
 // generate builds a character or fails the test, defaulting to the auto
 // policy when no Decider is set.
+// generate builds a character for a test, defaulting to the auto policy
+// with schooling declined.
+//
+// Declined because almost nothing here is about education. These tests pin
+// seeds to a condition — a career disabled at a term, a benefit rerolled,
+// a pension replaced — and a term given over to Later Education is a term
+// not served (I-90), so a policy that sends a character back to school
+// moves every one of them without saying anything about what they assert.
+// Seventeen broke that way at policy 0.20.0.
+//
+// The goldens pass chargen.DefaultPolicy explicitly: exercising the policy
+// end to end is their job, and it is the only place it belongs.
 func generate(t *testing.T, opts chargen.Options) chargen.Character {
 	t.Helper()
 
 	if opts.Decider == nil {
-		opts.Decider = chargen.DefaultPolicy{}
+		opts.Decider = careerOnly{}
 	}
 
 	c, err := chargen.Generate(opts)
@@ -436,7 +448,10 @@ func TestGenerateDeciderContract(t *testing.T) {
 		t.Errorf("policy_version with player decider = %q, want %q", c.PolicyVersion, "none")
 	}
 
-	auto := generate(t, chargen.Options{Seed: 1})
+	// Explicit, because generate defaults to the schooling-free policy
+	// and this is the one assertion in the file that is about which
+	// decision table governed the run.
+	auto := generate(t, chargen.Options{Seed: 1, Decider: chargen.DefaultPolicy{}})
 	if auto.PolicyVersion != chargen.PolicyVersion {
 		t.Errorf("policy_version with default policy = %q, want %q", auto.PolicyVersion, chargen.PolicyVersion)
 	}

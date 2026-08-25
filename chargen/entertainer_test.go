@@ -20,7 +20,7 @@ func entertainerRun(t *testing.T) (chargen.Character, chargen.CareerRecord) {
 	t.Helper()
 
 	c, err := chargen.Generate(chargen.Options{
-		Seed: entertainerGoldenSeed, Career: "Entertainer", Decider: chargen.DefaultPolicy{},
+		Seed: entertainerGoldenSeed, Career: "Entertainer", Decider: careerOnly{},
 	})
 	if err != nil {
 		t.Fatalf("seed %d: %v", entertainerGoldenSeed, err)
@@ -203,7 +203,7 @@ func TestEntertainerTalentTracksFameIncreases(t *testing.T) {
 	const talentSeed = 15
 
 	c, err := chargen.Generate(chargen.Options{
-		Seed: talentSeed, Career: "Entertainer", Decider: chargen.DefaultPolicy{},
+		Seed: talentSeed, Career: "Entertainer", Decider: careerOnly{},
 	})
 	if err != nil {
 		t.Fatal(err)

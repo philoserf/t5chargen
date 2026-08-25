@@ -7,7 +7,7 @@ import (
 	"github.com/philoserf/t5chargen/chargen"
 )
 
-type hostile struct{ chargen.DefaultPolicy }
+type hostile struct{ careerOnly }
 
 func (hostile) Watch(e chargen.Event) {
 	// The step payload is the one a real watcher reads (interactive's
