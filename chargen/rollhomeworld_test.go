@@ -155,3 +155,122 @@ func TestDeepSpaceBirthGrantsItsSkills(t *testing.T) {
 		}
 	}
 }
+
+// TestAnUnassignedHomeworldIsChosen verifies chart E1 step B offers what
+// it says: "As assigned, selected, or random" (p. 58).
+//
+// Selecting was the one of the three the engine could not do. A homeworld
+// nobody assigned was still Regina, presented as the only option, so the
+// thirty-four worlds transcribed from chart B were unreachable except by
+// rolling.
+func TestAnUnassignedHomeworldIsChosen(t *testing.T) {
+	worlds, err := world.Selectable()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	offered := homeworldChoice(t, generate(t, chargen.Options{Seed: 1}))
+
+	if len(offered.Options) != len(worlds) {
+		t.Errorf("offered %d worlds, want chart B's %d", len(offered.Options), len(worlds))
+	}
+
+	// Each named once. Regina fills three of the thirty-six cells so that
+	// rolling lands on it three times as often; a list to choose from
+	// wants it once.
+	seen := map[string]bool{}
+	for _, option := range offered.Options {
+		if seen[option] {
+			t.Errorf("%q is offered twice", option)
+		}
+
+		seen[option] = true
+	}
+}
+
+// TestAnAssignedHomeworldIsNotAChoice verifies the other half: a caller
+// that named a homeworld has settled it, and the choice holds only that
+// one — the same shape --career gives the first career.
+func TestAnAssignedHomeworldIsNotAChoice(t *testing.T) {
+	for _, opts := range []chargen.Options{
+		{Seed: 1, Homeworld: world.Homeworld{UWP: "A788899-C", TradeClassifications: []string{"Ri"}}},
+		{Seed: 1, RollHomeworld: true},
+	} {
+		offered := homeworldChoice(t, generate(t, opts))
+		if len(offered.Options) != 1 {
+			t.Errorf("a settled homeworld offered %d options, want 1", len(offered.Options))
+		}
+	}
+}
+
+// TestTheChosenHomeworldIsTheOneUsed verifies the answer reaches the
+// character: chart B grants "one specified skill for each Trade
+// Classification" (p. 58), so choosing a different world must grant
+// different skills.
+func TestTheChosenHomeworldIsTheOneUsed(t *testing.T) {
+	worlds, err := world.Selectable()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var earth int
+
+	for i, w := range worlds {
+		if w.Name == "Earth" {
+			earth = i
+		}
+	}
+
+	c := generate(t, chargen.Options{Seed: 1, Decider: pickHomeworld{index: earth}})
+	if c.Homeworld.Name != "Earth" {
+		t.Fatalf("chose Earth and got %q", c.Homeworld.Name)
+	}
+
+	if got := c.Homeworld.TradeClassifications; len(got) == 0 {
+		t.Error("the chosen world brought no trade classifications, so it grants no skills")
+	}
+}
+
+// TestThePolicyAssignsRatherThanPicks verifies POLICY.md's rule survives
+// the wider list. First-listed on chart B is Alell; the policy assigns the
+// tool-owned default instead, so no auto-generated character moves house.
+func TestThePolicyAssignsRatherThanPicks(t *testing.T) {
+	home, err := world.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for seed := range uint64(20) {
+		if got := generate(t, chargen.Options{Seed: seed}).Homeworld.Name; got != home.Name {
+			t.Fatalf("seed %d: the policy took %q, want the default %q", seed, got, home.Name)
+		}
+	}
+}
+
+// homeworldChoice returns the record's homeworld choice event.
+func homeworldChoice(t *testing.T, c chargen.Character) chargen.ChoiceEvent {
+	t.Helper()
+
+	for _, event := range c.Events {
+		if event.Kind == chargen.EventChoice && event.Choice.Prompt == "Select a homeworld" {
+			return *event.Choice
+		}
+	}
+
+	t.Fatal("the record holds no homeworld choice")
+
+	return chargen.ChoiceEvent{}
+}
+
+// pickHomeworld chooses one world off chart B and defers the rest.
+type pickHomeworld struct{ index int }
+
+func (d pickHomeworld) Choose(c chargen.Choice) (int, error) {
+	if c.ID == chargen.ChooseHomeworld {
+		return d.index, nil
+	}
+
+	return autoPolicy(c)
+}
+
+func (pickHomeworld) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }

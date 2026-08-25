@@ -1,5 +1,7 @@
 package chargen
 
+import "github.com/philoserf/t5chargen/world"
+
 // DefaultPolicy is the fixed auto-mode decision table, version
 // PolicyVersion; the rules and their rationale live in POLICY.md
 // (docs/PRD.md, CLI sketch: the policy is total, deterministic, and
@@ -18,22 +20,8 @@ func (p DefaultPolicy) Choose(c Choice) (int, error) {
 //
 //nolint:exhaustive // Deliberately partitioned: the remaining rules are in Choose.
 func chooseNamed(c Choice) (int, bool) {
-	if c.ID == ChooseCashOut {
-		// POLICY.md: keep it. A pension outlives five years of itself
-		// for any character who lives, and the record is more useful
-		// carrying the stream than the lump.
-		return 0, true
-	}
-
-	if c.ID == ChooseBenefitDM {
-		// POLICY.md: apply the DM in full. The tables run from cheap to
-		// dear, so a partial DM only ever reaches a lower row.
-		return len(c.Options) - 1, true
-	}
-
-	if c.ID == ChooseFameFlux {
-		// POLICY.md: invoke only when Flux could reach Fame 19.
-		return fameFluxChoice(c), true
+	if index, ok := chooseOutright(c); ok {
+		return index, true
 	}
 
 	switch c.ID {
@@ -62,6 +50,46 @@ func chooseNamed(c Choice) (int, bool) {
 	default:
 		return 0, false
 	}
+}
+
+// defaultHomeworldNames is the tool-owned default homeworld as chart B's
+// list labels it. The label carries the UWP and the trade classifications
+// beside the name, so the policy matches on the whole thing rather than
+// guessing at how it is spelled.
+func defaultHomeworldNames() []string {
+	home, err := world.Default()
+	if err != nil {
+		return nil
+	}
+
+	return []string{home.Label()}
+}
+
+// chooseOutright applies the POLICY.md rules that need no list to search:
+// each is a single choice point with an answer of its own.
+func chooseOutright(c Choice) (int, bool) {
+	switch c.ID { //nolint:exhaustive // Deliberately partitioned: the rest are in chooseNamed and Choose.
+	case ChooseCashOut:
+		// POLICY.md: keep it. A pension outlives five years of itself
+		// for any character who lives, and the record is more useful
+		// carrying the stream than the lump.
+		return 0, true
+	case ChooseBenefitDM:
+		// POLICY.md: apply the DM in full. The tables run from cheap to
+		// dear, so a partial DM only ever reaches a lower row.
+		return len(c.Options) - 1, true
+	case ChooseHomeworld:
+		// POLICY.md: the tool-owned default, Regina, by name. Where the
+		// caller named no homeworld the list is chart B's own, and
+		// first-listed there is Alell — the policy assigns the default
+		// rather than picking a world off the chart.
+		return preferredIndex(c.Options, defaultHomeworldNames(), 0), true
+	case ChooseFameFlux:
+		// POLICY.md: invoke only when Flux could reach Fame 19.
+		return fameFluxChoice(c), true
+	}
+
+	return 0, false
 }
 
 // declineUnlessAtStake applies POLICY.md's waiver rule for both kinds: the

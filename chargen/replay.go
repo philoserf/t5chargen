@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"maps"
 	"slices"
+
+	"github.com/philoserf/t5chargen/world"
 )
 
 // The replay failures, separated because they mean different things to a
@@ -56,7 +58,7 @@ func Replay(stored Character) (Character, error) {
 		Seed:          stored.RNG.Seed,
 		Name:          stored.Name,
 		Career:        stored.Inputs.Career,
-		Homeworld:     stored.Homeworld,
+		Homeworld:     assignedHomeworld(stored),
 		CurrentYear:   stored.Inputs.CurrentYear,
 		RollHomeworld: stored.Inputs.RolledHomeworld,
 		Decider:       decider,
@@ -79,6 +81,19 @@ func Replay(stored Character) (Character, error) {
 	}
 
 	return replayed, nil
+}
+
+// assignedHomeworld hands back the homeworld only where the caller
+// assigned it. Where the character chose one off chart B, step B has to be
+// offered the same thirty-four worlds again for the recorded index to mean
+// what it meant — the world itself is in the record, but it is the answer
+// rather than the input.
+func assignedHomeworld(stored Character) world.Homeworld {
+	if !stored.Inputs.HomeworldAssigned {
+		return world.Homeworld{}
+	}
+
+	return stored.Homeworld
 }
 
 // checkProvenance rejects a record this build cannot meaningfully re-run.
