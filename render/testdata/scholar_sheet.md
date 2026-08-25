@@ -2,7 +2,7 @@
 
 **Name**:
 
-**UPP**: 77?7B9
+**UPP**: 77?7A9
 
 **Homeworld**: Regina A788899-C (Ph Pa Ri)
 
@@ -12,7 +12,7 @@
 
 | Str | Dex | End | Int | Edu | Soc |
 | --- | --- | --- | --- | --- | --- |
-| 7 | 7 | -1 | 7 | 11 | 9 |
+| 7 | 7 | -1 | 7 | 10 | 9 |
 
 **Education**: University, Major Athlete, Minor Broker — Honors BA
 
@@ -24,6 +24,6 @@
 
 ---
 
-Seed 23 (math/rand/v2-pcg) · schema 0.30.0 · engine 0.37.0 · policy 0.19.0
+Seed 23 (math/rand/v2-pcg) · schema 0.30.0 · engine 0.38.0 · policy 0.19.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

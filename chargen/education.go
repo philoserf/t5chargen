@@ -455,8 +455,13 @@ func (r *eduRun) awardPass(cause int) error {
 		return r.awardANMKnowledge()
 	case commandCollegeID:
 		return r.awardCommandCollege()
-	case "college", "university", "academy":
-		// "Major+1 per Pass and Minor+1 per 2 Passes".
+	case "medical_school", "law_school":
+		// "Medic-4" over four Pass/Fail rolls, "Advocate-2" over two
+		// (I-104).
+		r.awardNamedSkill(cause)
+	case "college", "university", "academy", "masters", "professors":
+		// "Major+1 per Pass and Minor+1 per 2 Passes" — one cell on the
+		// chart, merged across these five rows (p. 60).
 		awardSkillAndLog(r.record.Major, r.majorRate(r.record.Major, 1), cause, r.log, r.character)
 
 		if r.record.Passes%2 == 1 { // this call precedes the Passes increment: 2nd, 4th, ... pass
@@ -643,14 +648,39 @@ func (r *eduRun) graduate() error {
 
 	edu := r.character.Characteristics.Edu
 
-	delta := r.program.GraduationEdu - edu
-	if edu >= r.program.GraduationEdu {
-		delta = 1
+	delta, awarded := graduationEdu(edu, r.program.GraduationEdu)
+	if !awarded {
+		return nil
 	}
 
 	awardCharacteristicAndLog(r.character, r.log, "Edu", delta, r.gradCause())
 
 	return nil
+}
+
+// graduationEdu applies chart C's Graduation column and the parenthetical
+// above it: "(If Edu already at this level, award Edu+1)" (p. 60).
+//
+// The values are positions rather than rewards. "C5 Education As A
+// Characteristic reflects the individual's ability in an Educational
+// setting, even if the person does not have the formal documentation ... a
+// character with Edu=9 can function at the equivalent of a Masters" (p. 62)
+// — so Edu 8 is where a Bachelors puts a character, Edu 9 a Masters, Edu 12
+// a Professor. A programme moves him to its level.
+//
+// "Already at this level" is therefore read as the page writes it, at that
+// level and not past it (interpretation I-105). A character who arrives
+// above the value has nothing to gain from the schooling's Edu, and the
+// consolation +1 is for the one who is exactly there.
+func graduationEdu(edu, graduation int) (int, bool) {
+	switch {
+	case edu < graduation:
+		return graduation - edu, true
+	case edu == graduation:
+		return 1, true
+	default:
+		return 0, false
+	}
 }
 
 // gradCause anchors graduation consequences to the final pass/fail or
@@ -826,3 +856,19 @@ func carries(degree, credential string) bool {
 // honorsPrefix is how an Honors graduation is recorded, and how chart C
 // prints the prerequisite that asks for one.
 const honorsPrefix = "Honors "
+
+// awardNamedSkill applies the Provides of the two professional schools,
+// the only chart C rows that name the skill they teach: "Medic-4" and
+// "Advocate-2" (p. 60).
+//
+// One level per Pass, so the stated level is what a full run of passes
+// reaches — four rolls to Medic-4, two to Advocate-2 — and a student who
+// fails some of his years leaves with correspondingly less (I-104).
+func (r *eduRun) awardNamedSkill(cause int) {
+	name := education.MedicalAward
+	if r.program.ID == "law_school" {
+		name = education.LawAward
+	}
+
+	awardSkillAndLog(name, r.receipt(name, 1), cause, r.log, r.character)
+}
