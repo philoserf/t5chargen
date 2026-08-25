@@ -55,6 +55,33 @@ func generate(t *testing.T, opts chargen.Options) chargen.Character {
 	return c
 }
 
+// generateIfOpen is generate for a sweep that forces a career the
+// character may not be eligible for, reporting whether one was produced.
+//
+// A closed career is an outcome rather than a fault: chart 11's "if Soc B+"
+// and chart 01's "if TWO skill-6 and Craftsman-1" are prerequisites, and
+// p. 65 places them "before a character may attempt to Begin" (I-28), so
+// forcing one on a character who falls short is a request the rules deny.
+// Any other error still fails the test.
+func generateIfOpen(t *testing.T, opts chargen.Options) (chargen.Character, bool) {
+	t.Helper()
+
+	if opts.Decider == nil {
+		opts.Decider = careerOnly{}
+	}
+
+	c, err := chargen.Generate(opts)
+	if errors.Is(err, chargen.ErrCareerUnavailable) {
+		return chargen.Character{}, false
+	}
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	return c, true
+}
+
 // TestCitizenInvariants checks rule invariants across many seeds: age
 // accounting (18 + 4 per term, pp. 59, 66), the Skill-15 cap (p. 134), CC
 // membership and rotation in windows of four (p. 65), and Job/Hobby

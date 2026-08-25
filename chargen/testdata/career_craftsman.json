@@ -1,7 +1,7 @@
 {
   "schema_version": "0.30.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.39.0",
+  "engine_version": "0.40.0",
   "policy_version": "none",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -600,7 +600,6 @@
           "Soldier",
           "Agent",
           "Rogue",
-          "Noble",
           "Marine"
         ],
         "chosen": 2,
@@ -2035,7 +2034,6 @@
           "Soldier",
           "Agent",
           "Rogue",
-          "Noble",
           "Marine",
           "Functionary"
         ],
@@ -2918,7 +2916,6 @@
           "Soldier",
           "Agent",
           "Rogue",
-          "Noble",
           "Marine",
           "Functionary"
         ],

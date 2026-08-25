@@ -1,6 +1,7 @@
 package chargen_test
 
 import (
+	"slices"
 	"strings"
 	"testing"
 
@@ -20,11 +21,11 @@ const (
 func nobleRun(t *testing.T, seed uint64) (chargen.Character, chargen.CareerRecord) {
 	t.Helper()
 
-	c, err := chargen.Generate(chargen.Options{
+	c, open := generateIfOpen(t, chargen.Options{
 		Seed: seed, Career: "Noble", Decider: careerOnly{},
 	})
-	if err != nil {
-		t.Fatalf("seed %d: %v", seed, err)
+	if !open {
+		t.Skipf("seed %d falls below chart 11's Soc B+ prerequisite", seed)
 	}
 
 	if len(c.Careers) == 0 {
@@ -73,32 +74,61 @@ func TestNobleLadder(t *testing.T) {
 }
 
 // TestNobleRequiresSocB verifies the chart 11 prerequisite: "To Begin
-// Automatic* ... *if Soc B+". A character below it does not attempt the
-// career and so loses no year (interpretation I-28).
+// Automatic* ... *if Soc B+".
+//
+// Measured at the offer, because that is where p. 65 puts it — "Some
+// Careers have requirements before a character may attempt to Begin" —
+// and where a player meets it. It used to be measured at the outcome, on
+// a character who had already chosen the career and was then told he
+// could not have it; the menu offered every one of them a title he had no
+// way to hold (interpretation I-28).
 func TestNobleRequiresSocB(t *testing.T) {
-	tried := false
+	below, above := 0, 0
 
-	for seed := uint64(1); seed <= 40; seed++ {
-		c, record := nobleRun(t, seed)
-		if c.Characteristics.Soc >= 11 {
-			continue
+	for seed := uint64(1); seed <= 60; seed++ {
+		peek := &careerMenu{}
+
+		c, err := chargen.Generate(chargen.Options{Seed: seed, CurrentYear: 1105, Decider: peek})
+		if err != nil {
+			t.Fatalf("seed %d: %v", seed, err)
 		}
 
-		tried = true
+		offered := slices.Contains(peek.first, "Noble")
 
-		if record.Began {
-			t.Fatalf("seed %d began the Noble career at Soc %d", seed, c.Characteristics.Soc)
-		}
+		switch soc := c.Characteristics.Soc; {
+		case soc < 11:
+			below++
 
-		if yearsElapsedInCareer(c) {
-			t.Errorf("seed %d: an unmet prerequisite cost a year; chart 11 prints no To Begin throw", seed)
+			if offered {
+				t.Errorf("seed %d: Noble offered at Soc %d, below chart 11's B+", seed, soc)
+			}
+		default:
+			above++
+
+			if !offered {
+				t.Errorf("seed %d: Noble withheld at Soc %d, which meets chart 11's B+", seed, soc)
+			}
 		}
 	}
 
-	if !tried {
-		t.Skip("no seed in 1..40 falls below the Soc B prerequisite")
+	if below == 0 || above == 0 {
+		t.Fatalf("the sweep saw %d below and %d above the prerequisite; it is asserting one case only",
+			below, above)
 	}
 }
+
+// careerMenu records the first Select Career offer.
+type careerMenu struct{ first []string }
+
+func (d *careerMenu) Choose(c chargen.Choice) (int, error) {
+	if c.ID == chargen.ChooseCareer && d.first == nil {
+		d.first = slices.Clone(c.Options)
+	}
+
+	return autoPolicy(c)
+}
+
+func (*careerMenu) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestNobleEntersAtLowerTitle verifies that a Social Standing shared by
 // two rungs enters at the lower title: "A character elevated to Soc = c
@@ -233,25 +263,6 @@ func TestNobleElevationRollsHigh(t *testing.T) {
 
 // yearsElapsedInCareer reports whether any year elapsed after the Noble
 // career began. Education charges a year for a refused admission, which
-// is a different rule.
-func yearsElapsedInCareer(c chargen.Character) bool {
-	inCareer := false
-
-	for _, e := range c.Events {
-		if e.Kind == chargen.EventStep && strings.Contains(e.Step.Name, "Noble: To Begin") {
-			inCareer = true
-
-			continue
-		}
-
-		if inCareer && e.Kind == chargen.EventConsequence &&
-			e.Consequence.Kind == chargen.ConsequenceYearsElapsed {
-			return true
-		}
-	}
-
-	return false
-}
 
 // nobleEventKind classifies the events the exile state machine turns on.
 //
@@ -308,11 +319,11 @@ func TestNobleLandGrantPerSocIncrease(t *testing.T) {
 	checked := 0
 
 	for seed := uint64(1); seed <= 200; seed++ {
-		c, err := chargen.Generate(chargen.Options{
+		c, open := generateIfOpen(t, chargen.Options{
 			Seed: seed, Career: "Noble", Decider: personalColumnPolicy{},
 		})
-		if err != nil {
-			t.Fatalf("seed %d: %v", seed, err)
+		if !open {
+			continue // below chart 11's Soc B+ prerequisite (I-28)
 		}
 
 		if len(c.Careers) == 0 || !c.Careers[0].Began {

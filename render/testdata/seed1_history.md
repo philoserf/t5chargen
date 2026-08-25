@@ -60,7 +60,7 @@ _Book 1 p. 72 chart E1 step C_
 
 _Book 1 p. 72 chart E1 step D_
 
-- #46 policy chose "Citizen" of [Scholar, Entertainer, Citizen, Scout, Merchant, Spacer, Soldier, Agent, Rogue, Noble, Marine]: Select career — Book 1 p. 72 chart E1 step D
+- #46 policy chose "Citizen" of [Scholar, Entertainer, Citizen, Scout, Merchant, Spacer, Soldier, Agent, Rogue, Marine]: Select career — Book 1 p. 72 chart E1 step D
 
 ## Citizen: Begin (automatic)
 

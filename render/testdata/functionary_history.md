@@ -41,7 +41,7 @@ _Book 1 p. 72 chart E1 step C_
 
 _Book 1 p. 72 chart E1 step D_
 
-- #27 player chose "Scholar" of [Scholar, Entertainer, Citizen, Scout, Merchant, Spacer, Soldier, Agent, Rogue, Noble, Marine]: Select career — Book 1 p. 72 chart E1 step D
+- #27 player chose "Scholar" of [Scholar, Entertainer, Citizen, Scout, Merchant, Spacer, Soldier, Agent, Rogue, Marine]: Select career — Book 1 p. 72 chart E1 step D
 
 ## Scholar: To Begin
 
@@ -86,7 +86,7 @@ _Book 1 p. 76 chart 02_
 
 _Book 1 p. 72 chart E1 step D_
 
-- #60 player chose "Functionary" of [Entertainer, Scout, Merchant, Spacer, Soldier, Agent, Rogue, Noble, Marine, Functionary]: Select career — Book 1 p. 72 chart E1 step D
+- #60 player chose "Functionary" of [Entertainer, Scout, Merchant, Spacer, Soldier, Agent, Rogue, Marine, Functionary]: Select career — Book 1 p. 72 chart E1 step D
 
 ## Functionary: To Begin
 

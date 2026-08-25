@@ -41,7 +41,7 @@ _Book 1 p. 72 chart E1 step C_
 
 _Book 1 p. 72 chart E1 step D_
 
-- #27 player chose "Citizen" of [Scholar, Entertainer, Citizen, Scout, Merchant, Spacer, Soldier, Agent, Rogue, Noble, Marine]: Select career — Book 1 p. 72 chart E1 step D
+- #27 player chose "Citizen" of [Scholar, Entertainer, Citizen, Scout, Merchant, Spacer, Soldier, Agent, Rogue, Marine]: Select career — Book 1 p. 72 chart E1 step D
 
 ## Citizen: Begin (automatic)
 
@@ -164,7 +164,7 @@ _Book 1 p. 78 chart 04_
 
 _Book 1 p. 72 chart E1 step D_
 
-- #126 player chose "Scholar" of [Scholar, Entertainer, Scout, Merchant, Spacer, Soldier, Agent, Rogue, Noble, Marine, Functionary]: Select career — Book 1 p. 72 chart E1 step D
+- #126 player chose "Scholar" of [Scholar, Entertainer, Scout, Merchant, Spacer, Soldier, Agent, Rogue, Marine, Functionary]: Select career — Book 1 p. 72 chart E1 step D
 
 ## Scholar: To Begin
 
@@ -218,7 +218,7 @@ _Book 1 p. 76 chart 02_
 
 _Book 1 p. 72 chart E1 step D_
 
-- #168 player chose "Craftsman" of [Craftsman, Entertainer, Scout, Merchant, Spacer, Soldier, Agent, Rogue, Noble, Marine, Functionary]: Select career — Book 1 p. 72 chart E1 step D
+- #168 player chose "Craftsman" of [Craftsman, Entertainer, Scout, Merchant, Spacer, Soldier, Agent, Rogue, Marine, Functionary]: Select career — Book 1 p. 72 chart E1 step D
 
 ## Craftsman: To Begin (Automatic)
 

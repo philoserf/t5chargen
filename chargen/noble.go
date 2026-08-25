@@ -29,10 +29,6 @@ import (
 	"github.com/philoserf/t5chargen/career"
 )
 
-// nobleMinimumSoc is the chart 11 prerequisite: "To Begin Automatic* ...
-// *if Soc B+", B being 11 in the eHex the characteristics use.
-const nobleMinimumSoc = 11
-
 // nobleMechanics is the Noble careerMechanics implementation.
 type nobleMechanics struct {
 	// rank indexes the chart 11 ladder.
@@ -55,20 +51,22 @@ func newNoble() (*career.Definition, careerMechanics, error) {
 }
 
 // begin enters the career at the rung matching the character's Social
-// Standing. Entry is automatic above the prerequisite and impossible below
-// it: chart 11 prints no To Begin throw, so an unmet prerequisite is not a
-// failed attempt and costs no year (interpretation I-28, ERRATA.md).
+// Standing. There is no throw: chart 11 gives "To Begin Automatic* ...
+// *if Soc B+" and the asterisk is a prerequisite, which p. 65 places
+// before the attempt rather than in it — "Some Careers have requirements
+// before a character may attempt to Begin" (interpretation I-28).
+//
+// The career is therefore only offered to a character who qualifies, and
+// reaching here without the prerequisite is an engine fault rather than a
+// failed entry, exactly as chart 01's automatic entry is handled.
 func (m *nobleMechanics) begin(r *careerRun) (bool, error) {
 	r.log.Step("Noble: To Begin", r.def.Cite)
 
-	soc := r.character.Characteristics.Soc
-	if soc < nobleMinimumSoc {
-		r.log.Consequence(ConsequenceEvent{
-			Cause: r.entryCause, Kind: ConsequenceCareerNotBegun, Career: r.def.Name,
-		})
-
-		return false, nil
+	if !meetsPrerequisite(r.character, r.def.BeginPrerequisite) {
+		return false, fmt.Errorf("%w: %q entered without its prerequisite", errNotImplemented, r.def.Name)
 	}
+
+	soc := r.character.Characteristics.Soc
 
 	// "Nobles begin with rank equal to their Social Standing" (p. 65), at
 	// the first rung carrying it — a character beginning at Soc 12 is a

@@ -225,10 +225,22 @@ func masterpieceValue(box *career.Masterpiece, points int) int {
 }
 
 // meetsPrerequisite reports whether a character already qualifies for a
-// career whose entry is automatic but conditional (chart 01 p. 75).
+// career whose entry is automatic but conditional: chart 01's "if TWO
+// skill-6 and Craftsman-1" (p. 75) and chart 11's "if Soc B+" (p. 85).
+//
+// Checked before the career is offered, which is where p. 65 puts it:
+// "Pre-Requisites. Some Careers have requirements before a character may
+// attempt to Begin".
 func meetsPrerequisite(c *Character, p *career.Prerequisite) bool {
 	if p == nil {
 		return true
+	}
+
+	if p.Characteristic != "" {
+		value, ok := characteristicValue(&c.Characteristics, p.Characteristic)
+		if !ok || value < p.Minimum {
+			return false
+		}
 	}
 
 	if c.skillLevel(p.Skill) < p.SkillLevel {

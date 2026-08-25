@@ -34,6 +34,6 @@
 
 ---
 
-Seed 1 (math/rand/v2-pcg) · schema 0.30.0 · engine 0.39.0 · policy 0.20.0
+Seed 1 (math/rand/v2-pcg) · schema 0.30.0 · engine 0.40.0 · policy 0.20.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

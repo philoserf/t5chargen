@@ -238,7 +238,11 @@ func assertNoOtherCareerEnrols(t *testing.T) {
 
 	for _, career := range []string{"Citizen", "Scholar", "Merchant", "Rogue", "Noble"} {
 		for seed := uint64(1); seed <= 20; seed++ {
-			c := generate(t, chargen.Options{Seed: seed, Career: career})
+			c, open := generateIfOpen(t, chargen.Options{Seed: seed, Career: career})
+			if !open {
+				continue // the Noble's Soc B+ prerequisite (I-28)
+			}
+
 			for _, record := range c.Careers {
 				if record.Reserve {
 					t.Fatalf("%s seed %d: a %s entered the Reserves", career, seed, record.Career)

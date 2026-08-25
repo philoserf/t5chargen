@@ -382,6 +382,12 @@ type Prerequisite struct {
 	// ("TWO skill-6"): how many skills, at what level.
 	SkillsAtLevel      int `json:"skills_at_level"`
 	SkillsAtLevelCount int `json:"skills_at_level_count"`
+
+	// Characteristic and Minimum are a characteristic floor: chart 11's
+	// "To Begin Automatic* ... *if Soc B+" (p. 85), B being 11 in the
+	// eHex the characteristics use.
+	Characteristic string `json:"characteristic,omitempty"`
+	Minimum        int    `json:"minimum,omitempty"`
 }
 
 // QREBS is one of the five qualities a Masterpiece carries: "Q R E B S",
@@ -844,6 +850,10 @@ func (d *Definition) validate() error {
 // Sanity where a chart charges some ("reduce San= -1 for each TWO Terms
 // served", chart 05 p. 79, the only career that prints such a rule).
 func (d *Definition) validateTermCounts() error {
+	if err := validateBeginPrerequisite(d.Name, d.BeginPrerequisite); err != nil {
+		return err
+	}
+
 	if d.SkillsPerTerm < 1 {
 		return fmt.Errorf("%w: %q has %d skills per term", errBadDefinition, d.Name, d.SkillsPerTerm)
 	}
@@ -1700,6 +1710,30 @@ func (d *Definition) validateMusterOutRow(benefits *benefit.Table, t *MusterOut,
 		if err := validateMusterOutCell(benefits, d.Name, row.Roll, *cell); err != nil {
 			return err
 		}
+	}
+
+	return nil
+}
+
+// validateBeginPrerequisite checks a career's entry condition names a
+// real characteristic, so that chart 11's "*if Soc B+" cannot become a
+// gate on nothing by a typo. A prerequisite that named no characteristic
+// would silently admit everybody, and the career would be offered to a
+// character who cannot hold it — which is the defect this check exists
+// against rather than a hypothetical.
+func validateBeginPrerequisite(career string, p *Prerequisite) error {
+	if p == nil || p.Characteristic == "" {
+		return nil
+	}
+
+	if !characteristicNames[p.Characteristic] {
+		return fmt.Errorf("%w: %q begins on %q, which is not a characteristic",
+			errBadDefinition, career, p.Characteristic)
+	}
+
+	if p.Minimum <= 0 {
+		return fmt.Errorf("%w: %q begins on %s with no minimum",
+			errBadDefinition, career, p.Characteristic)
 	}
 
 	return nil

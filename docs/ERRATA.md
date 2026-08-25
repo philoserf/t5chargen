@@ -654,7 +654,28 @@ Retry) takes one year" — and distinguishes attempts from prerequisites:
 attempt to Begin." An unqualified character never attempts, so nothing
 elapses.
 
-Implemented at `chargen/noble.go` (`begin`).
+_Amended (2026-08-25):_ checked before the career is offered rather than
+after it is chosen. p. 65 puts it there — "Pre-Requisites. Some Careers
+have requirements **before** a character may attempt to Begin" — and the
+menu was ignoring it: every character was shown the Noble, and fifty-four
+of sixty forced runs were refused for Social Standing. Unlike an education
+prerequisite there is no waiver to reach past it, because "Waivers are
+unique to Education and apply only to Schools and Education (and to the
+Scholar career, but not other careers)" (p. 59), so the row was not a long
+shot but a dead end.
+
+Chart 11's "*if Soc B+" is now a `begin_prerequisite` in the career data,
+the same field chart 01's "*if TWO skill-6 and Craftsman-1" already used,
+and `careerIsOpen` filters on it for both the first career and a change.
+The conclusion is unchanged: no throw, no year. What changed is that a
+character is no longer offered a title he has no way to hold. A Social
+Standing that later reaches B — a Knighthood does it — opens the career at
+the next selection, because the check is made when the offer is built.
+
+Implemented at `career.Prerequisite` (`characteristic`, `minimum`),
+`meetsPrerequisite` and `careerIsOpen`; `nobleMechanics.begin` keeps it as
+a guard, where reaching it unqualified is an engine fault rather than a
+failed entry, exactly as chart 01's automatic entry is handled.
 
 ### I-29: A shared Social Standing enters at the lower title (p. 85 chart 11; p. 51)
 

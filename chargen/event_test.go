@@ -260,7 +260,10 @@ func TestEveryConsequenceNamesItsCause(t *testing.T) {
 
 	for _, career := range careers {
 		for seed := uint64(1); seed <= 40; seed++ {
-			c := generate(t, causeSweepOptions(career, seed))
+			c, open := generateIfOpen(t, causeSweepOptions(career, seed))
+			if !open {
+				continue // below chart 11's Soc B+ prerequisite (I-28)
+			}
 
 			kinds := make(map[int]chargen.EventKind, len(c.Events))
 			for _, e := range c.Events {
