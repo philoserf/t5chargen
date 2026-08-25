@@ -41,3 +41,8 @@ func LoadUndercoverCareer(source string) (*career.Definition, error) {
 // their skill eligibility is a JSON map, so only a test can hold the two
 // key sets together.
 var ScoutDuties = scoutDuties
+
+// HoldsDegree is a test bridge to the chart C prerequisite check. The four
+// programs it gates are still data-only, so nothing in a generated
+// lifepath reaches it yet and only a direct test can.
+func HoldsDegree(c *Character, want string) bool { return c.holdsDegree(want) }

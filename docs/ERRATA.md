@@ -2605,3 +2605,36 @@ programme handing one to a professor.
 The military block is untouched. ANM School and Command College are
 assigned inside a term rather than applied for (I-91 to I-93) and never
 pass through this offer at all.
+
+### I-103: What satisfies a chart C credential prerequisite (pp. 60, 61)
+
+Four of chart C's rows are gated on a credential rather than a
+characteristic: "A University Masters Program requires a Bachelors. A
+Professors Program requires a Masters. Medical School or Law School
+requires an Honors Bachelors (all of these requirements can be waived)"
+(p. 61). The chart prints them as `BA`, `MA` and `Honors BA`.
+
+A recorded degree is not always the bare credential, so the comparison is
+on what the degree carries rather than on the whole string. Chart C's
+Service Academy Graduation is "C5=8 BA Officer1": its graduate holds a
+Bachelors with a commission printed beside it, and a rule that compared
+strings would tell him he has no degree. An Honors run is recorded the same
+way, as "Honors BA".
+
+Whole words, not substrings. A degree is a sequence of tokens, and matching
+on the substring would let a credential answer for any longer word that
+contains it — the difference between "MBA" and "BA" being the whole
+question the first time another credential is added. No degree the book
+prints distinguishes the two readings today, so the test that pins it is
+constructed rather than reached, and says so.
+
+"Honors BA" asks two things: a Bachelors, and the Honors that p. 59's
+optional roll confers. The record keeps them in two places — the degree
+string and the Honors flag — and both are checked.
+
+Graduation, not attendance, as everywhere else a credential is at stake
+(I-94, I-99). A character who failed out of College holds no Bachelors.
+
+Also note what the sentence's parenthesis settles for I-102: every
+requirement p. 61 calls waivable is a floor. ED5's ceiling is not among
+them.
