@@ -16,6 +16,8 @@ package chargen
 
 import (
 	"fmt"
+	"slices"
+	"strings"
 
 	"github.com/philoserf/t5chargen/dice"
 	"github.com/philoserf/t5chargen/education"
@@ -235,11 +237,13 @@ func prereqMet(p education.Program, character *Character) bool {
 		return edu >= p.Prerequisite.Value
 	case education.PrereqEduMax:
 		return edu <= p.Prerequisite.Value
-	case education.PrereqTraMin, education.PrereqC5IsTra, education.PrereqDegree,
+	case education.PrereqDegree:
+		return character.holdsDegree(p.Prerequisite.ValueName)
+	case education.PrereqTraMin, education.PrereqC5IsTra,
 		education.PrereqAssigned, education.PrereqVolunteer:
-		// Out of v1 pre-career scope: humans have no Tra (Mentor's
-		// "C5= Tra" never holds), and degrees gate the unimplemented
-		// higher programs.
+		// Out of v1 pre-career scope: humans have no Tra, so Mentor's
+		// "C5= Tra" never holds, and the two volunteer rows (OTC, NOTC)
+		// are unimplemented.
 		return false
 	}
 
@@ -779,3 +783,46 @@ const (
 	groupBasic  = "basic"
 	groupHigher = "higher"
 )
+
+// holdsDegree reports whether the character has earned the credential a
+// chart C prerequisite names: "A University Masters Program requires a
+// Bachelors. A Professors Program requires a Masters. Medical School or
+// Law School requires an Honors Bachelors" (p. 61).
+//
+// The comparison is on the credential the degree carries, not on the whole
+// string, because chart C prints a degree with what came with it: the
+// Service Academy's Graduation is "C5=8 BA Officer1", and its graduate has
+// a Bachelors like any other (interpretation I-103). An Honors run is
+// recorded the same way, as "Honors BA".
+//
+// "Honors BA" therefore asks two things — a Bachelors, and the Honors that
+// p. 59's optional roll confers — and reads them from the two places the
+// record keeps them.
+func (c *Character) holdsDegree(want string) bool {
+	credential, honors := strings.CutPrefix(want, honorsPrefix)
+
+	for _, record := range c.Education {
+		if !record.Graduated || !carries(record.Degree, credential) {
+			continue
+		}
+
+		if !honors || record.Honors {
+			return true
+		}
+	}
+
+	return false
+}
+
+// carries reports whether a recorded degree includes the named credential.
+//
+// Whole words only: a degree is a sequence of tokens ("Honors BA
+// Officer1"), and matching on the substring would let "MA" answer for a
+// credential that merely contains those letters.
+func carries(degree, credential string) bool {
+	return slices.Contains(strings.Fields(degree), credential)
+}
+
+// honorsPrefix is how an Honors graduation is recorded, and how chart C
+// prints the prerequisite that asks for one.
+const honorsPrefix = "Honors "
