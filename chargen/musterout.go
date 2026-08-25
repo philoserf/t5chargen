@@ -157,8 +157,11 @@ func (r *musterOutRun) career(record *CareerRecord, def *career.Definition, roll
 
 	r.log.Step("Muster Out: "+record.Career, def.MusterOut.Cite)
 
-	for range rolls {
-		if err := r.roll(record, def); err != nil {
+	for nth := range rolls {
+		// A career with several muster-out rolls asks the same two
+		// questions for each of them; the count is what tells a player
+		// which he is answering (Choice.Nth).
+		if err := r.roll(record, def, nth+1, rolls); err != nil {
 			return err
 		}
 	}
@@ -168,15 +171,15 @@ func (r *musterOutRun) career(record *CareerRecord, def *career.Definition, roll
 
 // roll resolves one muster-out roll: the column, the DM, the throw, and
 // what the cell awards.
-func (r *musterOutRun) roll(record *CareerRecord, def *career.Definition) error {
+func (r *musterOutRun) roll(record *CareerRecord, def *career.Definition, nth, of int) error {
 	table := def.MusterOut
 
-	column, _, err := r.chooseColumn(def)
+	column, _, err := r.chooseColumn(def, nth, of)
 	if err != nil {
 		return err
 	}
 
-	dm, err := r.chooseDM(record, def, column)
+	dm, err := r.chooseDM(record, def, column, nth, of)
 	if err != nil {
 		return err
 	}
@@ -236,7 +239,7 @@ func columnCell(row career.MusterOutRow, column string) career.MusterOutCell {
 // exactly where the data prints one (validateMusterOutRow ties a row's
 // Power cell to the column's DM line, so an offered Power column always
 // has a cell to land on).
-func (r *musterOutRun) chooseColumn(def *career.Definition) (string, int, error) {
+func (r *musterOutRun) chooseColumn(def *career.Definition, nth, of int) (string, int, error) {
 	options := []string{"Money", "Benefits"}
 	if def.MusterOut.PowerDM != nil {
 		options = append(options, "Power")
@@ -246,6 +249,8 @@ func (r *musterOutRun) chooseColumn(def *career.Definition) (string, int, error)
 		ID:      ChooseBenefitColumn,
 		Prompt:  "Which column for this " + def.Name + " muster-out roll?",
 		Options: options,
+		Nth:     nth,
+		Of:      of,
 		Cite:    "Book 1 p. 68 (Which Column?)",
 	})
 	if err != nil {
@@ -259,7 +264,7 @@ func (r *musterOutRun) chooseColumn(def *career.Definition) (string, int, error)
 // Tables are optional (for Terms, Fame, or other values). They may be
 // partially applied (any value may be selected from 0 to the total
 // allowed value)" (p. 68).
-func (r *musterOutRun) chooseDM(record *CareerRecord, def *career.Definition, column string) (int, error) {
+func (r *musterOutRun) chooseDM(record *CareerRecord, def *career.Definition, column string, nth, of int) (int, error) {
 	dm := def.MusterOut.BenefitDM
 	if column == "Money" {
 		dm = def.MusterOut.MoneyDM
@@ -287,6 +292,8 @@ func (r *musterOutRun) chooseDM(record *CareerRecord, def *career.Definition, co
 		Prompt:  "How much of the " + dm.Kind + " DM to apply?",
 		Options: options,
 		Scores:  scores,
+		Nth:     nth,
+		Of:      of,
 		Cite:    "Book 1 p. 68 (the DMs ... may be partially applied)",
 	})
 	if err != nil {

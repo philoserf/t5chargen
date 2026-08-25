@@ -668,6 +668,14 @@ func TestAbandonedSessionWritesNothing(t *testing.T) {
 	if !strings.Contains(stderr.String(), "abandoned") {
 		t.Errorf("the player was not told the session was abandoned: %s", stderr.String())
 	}
+
+	// And is not told what he made, because he did not make one. The six
+	// are rolled before the first question, so an abandoned session has a
+	// UPP and no character — a summary of it would describe somebody who
+	// was never finished.
+	if strings.Contains(stderr.String(), "Character complete") {
+		t.Errorf("an abandoned session was summarised: %s", stderr.String())
+	}
 }
 
 // TestBatchOutputIsReadable verifies the tool can read back what it

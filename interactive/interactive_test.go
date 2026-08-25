@@ -468,18 +468,73 @@ func TestTheStatusLineCarriesTheCharacter(t *testing.T) {
 	}
 }
 
-// TestAnAbandonedSessionSummarisesNothing verifies the summary is not
-// offered for a character that was never finished.
-func TestAnAbandonedSessionSummarisesNothing(t *testing.T) {
-	var out strings.Builder
+// TestTheSessionAgreesWithTheRecord verifies the running header describes
+// the character the engine is actually building.
+//
+// The session keeps a shadow of the character because there is none to
+// read while it is being made, and a shadow can drift: this one showed a
+// Str of 0 for a character whose Str was 1, because aging zeroes a
+// characteristic and a separate consequence resets it to 1 (p. 89 chart
+// A) and only the first was being folded in. Twelve of four hundred seeds
+// were wrong and nothing compared the two.
+//
+// A sweep rather than a pinned seed, because the case needs aging deep
+// enough to zero something, and which seeds do that is not a fact worth
+// pinning.
+func TestTheSessionAgreesWithTheRecord(t *testing.T) {
+	checked, reset := 0, 0
 
-	player := interactive.New(strings.NewReader("q\ny\n"), &out)
+	for seed := range uint64(sessionSeedSweep) {
+		var out strings.Builder
 
-	if _, err := chargen.Generate(chargen.Options{Seed: 1, Decider: player}); err == nil {
-		t.Fatal("the session was not abandoned")
+		player := interactive.New(strings.NewReader(strings.Repeat("1\n", sessionAnswers)), &out)
+
+		c, err := chargen.Generate(chargen.Options{Seed: seed, Decider: player})
+		if err != nil {
+			continue
+		}
+
+		checked++
+
+		if !strings.Contains(lastStatus(out.String()), c.UPP) {
+			t.Errorf("seed %d: the session's last header does not carry the record's UPP %q:\n  %s",
+				seed, c.UPP, lastStatus(out.String()))
+		}
+
+		for _, event := range c.Events {
+			if event.Kind == chargen.EventConsequence &&
+				event.Consequence.Kind == chargen.ConsequenceCharacteristicReset {
+				reset++
+
+				break
+			}
+		}
 	}
 
-	if summary := player.Summary(); summary != "" {
-		t.Errorf("an abandoned session summarised %q", summary)
+	if checked == 0 {
+		t.Fatal("no session completed; the sweep is asserting nothing")
 	}
+
+	// The drift needed a characteristic reset to show itself, so a sweep
+	// that reached none would pass without testing the thing it is for.
+	if reset == 0 {
+		t.Errorf("no seed under %d reset a characteristic; widen the sweep", sessionSeedSweep)
+	}
+}
+
+// sessionSeedSweep is wide enough to reach the aging that zeroes a
+// characteristic, which is what the drift depended on.
+const sessionSeedSweep = 120
+
+// lastStatus returns the final status line a session printed.
+func lastStatus(shown string) string {
+	last := ""
+
+	for line := range strings.SplitSeq(shown, "\n") {
+		if strings.HasPrefix(line, "age ") {
+			last = line
+		}
+	}
+
+	return last
 }

@@ -163,9 +163,12 @@ func runNew(args []string, seedFn func() (uint64, error), stdin io.Reader, stdou
 		return exitError
 	}
 
-	closeSession(player, *out, stderr)
+	code := emitRecord(character, *out, *force, stdout, stderr)
+	if code == exitOK {
+		closeSession(player, character, *out, stderr)
+	}
 
-	return emitRecord(character, *out, *force, stdout, stderr)
+	return code
 }
 
 // runBatch generates a run of characters for NPC use: "batch emits JSONL
@@ -417,19 +420,49 @@ func openSession(options *chargen.Options, auto bool, stdin io.Reader, prompts i
 // Hundreds of questions answered and nothing said afterwards leaves a
 // player wondering whether it worked.
 //
+// Called only once the record is written, because "written to" is a claim
+// about a file that exists: announcing it first would tell a player his
+// lifepath was saved and then print the error saying it was not.
+//
 // On stderr with the prompts, never on stdout: without -o the record
 // itself goes there, and a summary mixed into it would make the output
 // unparseable.
-func closeSession(player *interactive.Decider, out string, stderr io.Writer) {
+func closeSession(player *interactive.Decider, character chargen.Character, out string, stderr io.Writer) {
 	if player == nil {
 		return
 	}
 
-	fmt.Fprintf(stderr, "\n%s\n  %s\n", interactive.Rule("Character complete"), player.Summary())
+	// Read off the record rather than off the session's own running
+	// count. The session keeps a shadow of the character because there is
+	// no character to read while it is being made — but by now there is,
+	// and it is the one that was written. Summarising from the shadow is
+	// how the closing line came to show a Str of 0 for a character whose
+	// Str is 1: the shadow missed the reset that follows aging (p. 89),
+	// and nothing compared the two.
+	summary := fmt.Sprintf("%s · age %d · %d %s",
+		character.UPP, character.Age, len(character.Skills), plural(len(character.Skills), "skill"))
+
+	// "the Character is dead (and all efforts in this particular
+	// character creation process are lost)" (p. 69). The record is kept,
+	// but a summary that read like any other would not say what happened.
+	if character.Dead {
+		summary += " · dead"
+	}
+
+	fmt.Fprintf(stderr, "\n%s\n  %s\n", interactive.Rule("Character complete"), summary)
 
 	if out != "" {
 		fmt.Fprintf(stderr, "  written to %s\n", out)
 	}
+}
+
+// plural is the crudest possible pluralisation, and enough here.
+func plural(n int, word string) string {
+	if n == 1 {
+		return word
+	}
+
+	return word + "s"
 }
 
 // generateOptions assembles the engine options the flags describe, shared

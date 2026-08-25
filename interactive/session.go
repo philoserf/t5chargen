@@ -26,15 +26,12 @@ var characteristicOrder = []string{"Str", "Dex", "End", "Int", "Edu", "Soc"}
 // session is what the front end knows about the run so far.
 type session struct {
 	step  string
-	cite  string
 	age   int
 	stats map[string]int
 
 	skills    map[string]int
 	told      bool // the characteristics have been shown
 	abandoned bool // the player left rather than finished
-	steps     int
-	lastStep  string
 }
 
 // newSession starts with a character not yet rolled.
@@ -48,7 +45,7 @@ func newSession() *session {
 func (d *Decider) Watch(event chargen.Event) {
 	switch event.Kind {
 	case chargen.EventStep:
-		d.enterStep(event.Step.Name, event.Step.Cite)
+		d.enterStep(event.Step.Name)
 	case chargen.EventConsequence:
 		d.session.apply(event.Consequence)
 		d.announceCharacteristics()
@@ -57,10 +54,8 @@ func (d *Decider) Watch(event chargen.Event) {
 }
 
 // enterStep announces a step of the checklist as the engine reaches it.
-func (d *Decider) enterStep(name, cite string) {
-	s := d.session
-	s.step, s.cite, s.lastStep = name, cite, name
-	s.steps++
+func (d *Decider) enterStep(name string) {
+	d.session.step = name
 
 	fmt.Fprintf(d.out, "\n%s\n", Rule(name))
 }
@@ -76,7 +71,13 @@ func (s *session) apply(c *chargen.ConsequenceEvent) {
 	switch c.Kind {
 	case chargen.ConsequenceCharacteristicSet,
 		chargen.ConsequenceCharacteristicChange,
-		chargen.ConsequenceAgingEffect:
+		chargen.ConsequenceAgingEffect,
+		chargen.ConsequenceCharacteristicReset:
+		// The reset belongs with the rest: "If one Characteristic is
+		// reduced to 0, it is reset to 1" (p. 89 chart A) lands as its
+		// own consequence after the aging effect that zeroed it, and a
+		// header that stopped at the effect would show a 0 the
+		// character does not have.
 		if c.Characteristic != "" {
 			s.stats[c.Characteristic] = c.Value
 		}
@@ -138,7 +139,7 @@ func (s *session) status() string {
 }
 
 // plural is the crudest possible pluralisation, and enough: the only
-// words it is asked for are "skill" and "year".
+// word it is asked for is "skill".
 func plural(n int, word string) string {
 	if n == 1 {
 		return word
@@ -159,22 +160,4 @@ func Rule(name string) string {
 	}
 
 	return line
-}
-
-// Summary is what the run came to, for a caller to show once it is over.
-//
-// Empty where there is nothing to summarise: before the characteristics
-// are rolled, and after the session was abandoned. The second is the one
-// worth stating — the six are rolled before the first question, so a
-// player who quits immediately has a UPP and no character, and a summary
-// of him would describe somebody who was never made.
-func (d *Decider) Summary() string {
-	s := d.session
-	if !s.rolled() || s.abandoned {
-		return ""
-	}
-
-	n := len(s.skills)
-
-	return fmt.Sprintf("%s · age %d · %d %s", s.upp(), s.age, n, plural(n, "skill"))
 }

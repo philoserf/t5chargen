@@ -10,6 +10,14 @@ import (
 type hostile struct{ chargen.DefaultPolicy }
 
 func (hostile) Watch(e chargen.Event) {
+	// The step payload is the one a real watcher reads (interactive's
+	// session takes its headings from Step.Name), so it is the one the
+	// guard most needs to cover.
+	if e.Step != nil {
+		e.Step.Name = "Tampered"
+		e.Step.Cite = "Tampered"
+	}
+
 	if e.Consequence != nil {
 		e.Consequence.Value = 9999
 		e.Consequence.Skill = "Tampered"
