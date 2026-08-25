@@ -78,8 +78,6 @@ var unreadOnPurpose = map[string]string{
 	"MusterOutM2":  "chart M2, transcribed so its disagreement with the career pages is visible — I-71",
 
 	// Deferred rules, each recorded in COVERAGE.md.
-	"Law":     "chart C's Law School column; the program is data-only (implemented: false)",
-	"Medical": "chart C's Medical School column; as Law",
 	"QREBS":   "chart 01's Masterpiece qualities; QREBS allocation is deferred",
 	"Minimum": "a QREBS quality's floor; as QREBS",
 	"Maximum": "a QREBS quality's ceiling; as QREBS",

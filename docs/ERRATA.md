@@ -2638,3 +2638,62 @@ Graduation, not attendance, as everywhere else a credential is at stake
 Also note what the sentence's parenthesis settles for I-102: every
 requirement p. 61 calls waivable is a floor. ED5's ceiling is not among
 them.
+
+### I-104: The professional schools award their named skill one level per Pass (p. 60)
+
+Medical School and Law School are the only chart C rows whose Provides
+names the skill they teach: "Medic-4" and "Advocate-2". Every other row
+states a rate — "Major+1 per Pass", "Minor+1 per 2 Passes" — or a flat
+increment on a single roll, like Trade School's "Major+2" over its one
+Pass/Fail check.
+
+The stated level is read as a total reached by passing, one level per Pass.
+The arithmetic is the argument: Medical School rolls Pass/Fail **four**
+times and awards Medic-**4**; Law School rolls **twice** and awards
+Advocate-**2**. In both the number is the roll count, which is exactly what
+College's "Major+1 per Pass" produces over its four rolls. Read the other
+way — a flat grant on each Pass — Medical School would leave a graduate
+with Medic-16.
+
+It also degrades the way the rest of chart C does. A student who passes two
+of his four medical years leaves with Medic-2, where a completion award
+would give him either everything or nothing for a partial course.
+
+**Neither school selects a Major or a Minor.** p. 59's rule is written for
+the institutions whose Provides is stated in terms of them; here the
+Provides names the whole award, and the chart's M and L columns are the
+vocabulary the school teaches from rather than a menu to choose from. The
+two columns are still read: the loader checks that the medical column lists
+Medic and the law column lists Advocate, so the award and the column are
+each other's proof against a transcription slip.
+
+### I-105: "Already at this level" is at that level, not past it (pp. 60, 62)
+
+Chart C's Graduation column gives fixed values — College "Edu=8 BA",
+Masters "Edu=9 MA", Professors "Edu=12 Professor" — under one parenthetical:
+"(If Edu already at this level, award Edu+1)".
+
+p. 62 says what those values are: "C5 Education As A Characteristic
+reflects the individual's ability in an Educational setting, even if the
+person does not have the formal documentation that some education provides.
+For example, a character with Edu=9 can function at the equivalent of a
+Masters in Educational situations even if he does not have the formal
+diploma." Edu 8 is where a Bachelors puts a character, Edu 9 a Masters,
+Edu 12 a Professor. The values are positions on a scale, and a programme
+moves a character to its own.
+
+So the parenthetical is a consolation for the student who is already
+exactly there — his degree cannot raise him to a level he holds, so it
+gives him a level — and not a per-degree award. A character above the
+value gains nothing: the schooling certifies less than he already is.
+
+The engine read it as "at or above", which turned the consolation into a
+ratchet. That is the mechanism behind the runs I-98 and I-100 were written
+against: twenty-three Service Academies, or twenty-three Colleges, each
+paying +1, to Edu-F at age 110. Those two interpretations stop the
+repetition; this one stops the reward that made repetition worth it, and
+with it the last of the ladder-climbing in reverse — a University graduate
+gains nothing from College now, without a rule that names College.
+
+One golden record moves: the Scholar's Edu falls from B to A, having
+graduated University while already above its Edu=9.

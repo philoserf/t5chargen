@@ -26,12 +26,18 @@ func TestPrograms(t *testing.T) {
 		}
 	}
 
+	// The four graduate rows are gated on a credential rather than a
+	// characteristic (I-103), so a character reaches them only after a
+	// degree — which is the ladder chart C prints, BA to MA to Professor,
+	// with the two professional schools beside it.
+	//
 	// The last two are assigned rather than chosen: their chart C
 	// prerequisite is "assigned", so prereqMet never admits them to an
 	// offer list, and a career hands them to the character instead
 	// (p. 59, interpretations I-91 to I-93).
 	want := []string{
 		"ed5", "trade_school", "apprenticeship", "college", "university", "academy",
+		"masters", "professors", "medical_school", "law_school",
 		"anm_school", "command_college",
 	}
 	if len(implemented) != len(want) {

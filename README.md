@@ -41,6 +41,10 @@ against itself: `t5chargen replay character.json` exits non-zero at the
 first event that disagrees. The record's shape is written down as
 [docs/character.schema.json](docs/character.schema.json).
 
+Chart C's Higher Education block runs the whole way up: College or
+University to a Bachelors, then Masters, then the Professors programme,
+with Medical School and Law School beside them on an Honors Bachelors.
+
 Not yet implemented: `render --format txt`, and the rules of milestone 6 —
 see [COVERAGE.md](docs/COVERAGE.md) for what each of those is and why.
 

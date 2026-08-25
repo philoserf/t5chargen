@@ -188,7 +188,44 @@ func (t *tableData) validate() error {
 		}
 	}
 
+	return t.validateNamedAwards()
+}
+
+// validateNamedAwards holds the two professional schools to their own
+// columns.
+//
+// Medical School and Law School are the only rows whose Provides names a
+// skill outright — "Medic-4" and "Advocate-2" (p. 60) — and each has an
+// Available Skills column of its own, M and L. The award and the column
+// are two transcriptions of the same fact, so each is checked against the
+// other: a Medical School that did not teach Medic would be a
+// transcription error in one of them, and neither would otherwise say so.
+func (t *tableData) validateNamedAwards() error {
+	for _, named := range []struct {
+		skill string
+		inst  Institution
+	}{
+		{MedicalAward, InstitutionMedical},
+		{LawAward, InstitutionLaw},
+	} {
+		if !t.teaches(named.skill, named.inst) {
+			return fmt.Errorf("%w: the %s column does not list %q, which its Provides awards",
+				errBadTable, named.inst, named.skill)
+		}
+	}
+
 	return nil
+}
+
+// teaches reports whether an institution's column lists a skill.
+func (t *tableData) teaches(name string, inst Institution) bool {
+	for _, s := range t.Skills {
+		if s.Name == name && s.flag(inst) {
+			return true
+		}
+	}
+
+	return false
 }
 
 // validate checks one program row.
@@ -246,6 +283,19 @@ const (
 	InstitutionNavy    Institution = "navy"
 	InstitutionMarine  Institution = "marine"
 	InstitutionSchool  Institution = "school"
+	InstitutionLaw     Institution = "law"
+	InstitutionMedical Institution = "medical"
+)
+
+// The skills chart C's professional schools award by name (p. 60), held
+// here because the loader checks each against the column its school draws
+// from.
+const (
+	// MedicalAward is Medical School's "Medic-4".
+	MedicalAward = "Medic"
+
+	// LawAward is Law School's "Advocate-2".
+	LawAward = "Advocate"
 )
 
 // Majors returns the institution's available skills in chart order,
@@ -324,6 +374,10 @@ func (s SkillRow) flag(inst Institution) bool {
 		return s.Marine
 	case InstitutionSchool:
 		return s.School
+	case InstitutionLaw:
+		return s.Law
+	case InstitutionMedical:
+		return s.Medical
 	}
 
 	return false

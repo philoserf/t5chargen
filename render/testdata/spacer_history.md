@@ -30,7 +30,7 @@ _Book 1 p. 72 chart E1 step B_
 
 _Book 1 p. 72 chart E1 step C_
 
-- #20 policy chose "ED5" of [ED5, Trade School, Apprenticeship, College, University, Service Academy, None]: Select pre-career education — Book 1 p. 60 chart C; p. 57 step C (education is optional)
+- #20 policy chose "ED5" of [ED5, Trade School, Apprenticeship, College, University, Service Academy, Masters, Professors, Medical School, Law School, None]: Select pre-career education — Book 1 p. 60 chart C; p. 57 step C (education is optional)
 - #21 2D = 5+4 = 9 vs 10: success — Book 1 p. 60 chart C (ED5 Pass/Fail Check Int)
   - #22 (from #21) Edu +2 = 5
 
@@ -50,7 +50,7 @@ _Book 1 p. 81 chart 07_
 - #29 2D = 2+4 = 6 vs 7: success — Book 1 p. 81 chart 07 (Naval Branch) (Select Branch vs Soc)
 - #30 policy chose "Engineer" of [Crew, Engineer, Gunnery, Technical, Medical]: Select a Branch — Book 1 p. 81 chart 07 (Naval Branch)
   - #31 (from #29) Branch Engineer
-- #32 policy chose "Serve the term in Spacer" of [Serve the term in Spacer, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #32 policy chose "Serve the term in Spacer" of [Serve the term in Spacer, Trade School, Apprenticeship, College, University, Masters, Professors, Medical School, Law School]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Spacer: Term 1
 
@@ -110,7 +110,7 @@ _Book 1 p. 81 chart 07_
 - #77 policy chose "Continue in Spacer" of [Continue in Spacer, Change careers]: Leave Spacer for another career? — Book 1 p. 66 (Changing Careers)
 - #78 2D = 3+3 = 6 vs 9: success — Book 1 p. 81 chart 07 (Continue Str; p. 66)
   - #79 (from #78) +4 years
-- #80 policy chose "Serve the term in Spacer" of [Serve the term in Spacer, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #80 policy chose "Serve the term in Spacer" of [Serve the term in Spacer, Trade School, Apprenticeship, College, University, Masters, Professors, Medical School, Law School]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Spacer: Term 2
 
@@ -167,7 +167,7 @@ _Book 1 p. 81 chart 07_
 - #122 2D = 1+1 = 2 vs 9: success — Book 1 p. 81 chart 07 (Continue Str; p. 66)
   - #123 (from #122) +4 years
   - #124 (from #122) mandatory continue
-- #125 policy chose "Serve the term in Spacer" of [Serve the term in Spacer, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #125 policy chose "Serve the term in Spacer" of [Serve the term in Spacer, Trade School, Apprenticeship, College, University, Masters, Professors, Medical School, Law School]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Spacer: Term 3
 
@@ -222,7 +222,7 @@ _Book 1 p. 81 chart 07_
 - #165 policy chose "Continue in Spacer" of [Continue in Spacer, Change careers]: Leave Spacer for another career? — Book 1 p. 66 (Changing Careers)
 - #166 2D = 3+5 = 8 vs 11: success — Book 1 p. 81 chart 07 (Continue Str; p. 66)
   - #167 (from #166) +4 years
-- #168 policy chose "Serve the term in Spacer" of [Serve the term in Spacer, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #168 policy chose "Serve the term in Spacer" of [Serve the term in Spacer, Trade School, Apprenticeship, College, University, Masters, Professors, Medical School, Law School]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Spacer: Term 4
 
@@ -284,7 +284,7 @@ _Book 1 p. 81 chart 07_
   - #215 (from #214) aging: Str -1 = 10
 - #216 2D = 6+5 = 11 vs 5: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)
 - #217 2D = 6+6 = 12 vs 5: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)
-- #218 policy chose "Serve the term in Spacer" of [Serve the term in Spacer, Trade School, Apprenticeship, College, University]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #218 policy chose "Serve the term in Spacer" of [Serve the term in Spacer, Trade School, Apprenticeship, College, University, Masters, Professors, Medical School, Law School]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Spacer: Term 5
 

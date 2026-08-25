@@ -30,7 +30,7 @@ _Book 1 p. 72 chart E1 step B_
 
 _Book 1 p. 72 chart E1 step C_
 
-- #20 policy chose "University" of [Trade School, Apprenticeship, College, University, Service Academy, None]: Select pre-career education — Book 1 p. 60 chart C; p. 57 step C (education is optional)
+- #20 policy chose "University" of [Trade School, Apprenticeship, College, University, Service Academy, Masters, Professors, Medical School, Law School, None]: Select pre-career education — Book 1 p. 60 chart C; p. 57 step C (education is optional)
 - #21 policy chose "Int" of [Int, Edu]: Select the characteristic to check — Book 1 p. 59 (Check one of the stated Characteristics)
 - #22 2D = 5+5 = 10 vs 10: success — Book 1 p. 60 chart C (University To Apply Check Int)
 - #23 policy chose "Athlete" of [Athlete, Broker, Bureaucrat, Counsellor, Designer, Language, Teacher, Astrogator, Actor, Artist, Author, Chef, Dancer, Musician, Biologics, Craftsman, Electronics, Fluidics, Gravitics, Magnetics, Mechanic, Photonics, Polymers, Programmer, Automotive, Archeology, Biology, Chemistry, History, Linguistics, Philosophy, Physics, Planetology, Psionicology, Psychohistory, Psychology, Robotics, Sophontology, Aeronautics, Aquanautics]: Select a Major — Book 1 p. 59 (Major and Minor); chart C p. 60 Available Skills
@@ -68,7 +68,7 @@ _Book 1 p. 79 chart 05 (To Begin C1 or C2 or C3)_
 
 - #48 policy chose "Str" of [Str, Dex, End]: Select the characteristic to check — Book 1 p. 59 (Check one of the stated Characteristics)
 - #49 2D = 2+3 = 5 vs 8: success — Book 1 p. 79 chart 05 (To Begin vs Str)
-- #50 policy chose "Serve the term in Scout" of [Serve the term in Scout, College]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #50 policy chose "Serve the term in Scout" of [Serve the term in Scout, College, Masters, Professors, Medical School, Law School]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Scout: Term 1
 
@@ -111,7 +111,7 @@ _Book 1 p. 79 chart 05_
 - #86 policy chose "Continue in Scout" of [Continue in Scout, Change careers]: Leave Scout for another career? — Book 1 p. 66 (Changing Careers)
 - #87 2D = 1+5 = 6 vs 10: success — Book 1 p. 79 chart 05 (Continue Int; p. 66)
   - #88 (from #87) +4 years
-- #89 policy chose "Serve the term in Scout" of [Serve the term in Scout, College]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #89 policy chose "Serve the term in Scout" of [Serve the term in Scout, College, Masters, Professors, Medical School, Law School]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Scout: Term 2
 
@@ -151,7 +151,7 @@ _Book 1 p. 79 chart 05_
 - #122 policy chose "Continue in Scout" of [Continue in Scout, Change careers]: Leave Scout for another career? — Book 1 p. 66 (Changing Careers)
 - #123 2D = 2+1 = 3 vs 10: success — Book 1 p. 79 chart 05 (Continue Int; p. 66)
   - #124 (from #123) +4 years
-- #125 policy chose "Serve the term in Scout" of [Serve the term in Scout, College]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #125 policy chose "Serve the term in Scout" of [Serve the term in Scout, College, Masters, Professors, Medical School, Law School]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Scout: Term 3
 
@@ -198,7 +198,7 @@ _Book 1 p. 79 chart 05_
   - #165 (from #164) aging: Str -1 = 5
 - #166 2D = 5+5 = 10 vs 5: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)
 - #167 2D = 3+6 = 9 vs 5: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 34)
-- #168 policy chose "Serve the term in Scout" of [Serve the term in Scout, College]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #168 policy chose "Serve the term in Scout" of [Serve the term in Scout, College, Masters, Professors, Medical School, Law School]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Scout: Term 4
 
@@ -245,7 +245,7 @@ _Book 1 p. 79 chart 05_
   - #208 (from #207) aging: Str -1 = 4
 - #209 2D = 5+1 = 6 vs 5: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)
 - #210 2D = 3+3 = 6 vs 5: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)
-- #211 policy chose "Serve the term in Scout" of [Serve the term in Scout, College]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #211 policy chose "Serve the term in Scout" of [Serve the term in Scout, College, Masters, Professors, Medical School, Law School]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Scout: Term 5
 
@@ -290,7 +290,7 @@ _Book 1 p. 79 chart 05_
 - #249 2D = 6+5 = 11 vs 6: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)
 - #250 2D = 1+1 = 2 vs 6: success — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 6, age 42)
   - #251 (from #250) aging: End -1 = 6
-- #252 policy chose "Serve the term in Scout" of [Serve the term in Scout, College]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
+- #252 policy chose "Serve the term in Scout" of [Serve the term in Scout, College, Masters, Professors, Medical School, Law School]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
 
 ## Scout: Term 6
 

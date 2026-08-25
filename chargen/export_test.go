@@ -46,3 +46,8 @@ var ScoutDuties = scoutDuties
 // programs it gates are still data-only, so nothing in a generated
 // lifepath reaches it yet and only a direct test can.
 func HoldsDegree(c *Character, want string) bool { return c.holdsDegree(want) }
+
+// GraduationEdu is a test bridge to chart C's Graduation column and the
+// parenthetical above it, which is a pure function of two numbers and best
+// pinned as one.
+func GraduationEdu(edu, graduation int) (int, bool) { return graduationEdu(edu, graduation) }

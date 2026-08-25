@@ -139,7 +139,7 @@
       "graduation_edu": 9,
       "graduation_degree": "MA",
       "majors_from": "college",
-      "implemented": false
+      "implemented": true
     },
     {
       "id": "professors",
@@ -156,7 +156,7 @@
       "graduation_edu": 12,
       "graduation_degree": "Professor",
       "majors_from": "college",
-      "implemented": false
+      "implemented": true
     },
     {
       "id": "medical_school",
@@ -172,7 +172,7 @@
       "rolls": 4,
       "graduation_edu": 10,
       "graduation_degree": "Doctor",
-      "implemented": false
+      "implemented": true
     },
     {
       "id": "law_school",
@@ -188,7 +188,7 @@
       "rolls": 2,
       "graduation_edu": 10,
       "graduation_degree": "Attorney",
-      "implemented": false
+      "implemented": true
     },
     {
       "id": "anm_school",
