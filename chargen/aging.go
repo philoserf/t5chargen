@@ -97,11 +97,18 @@ func (c *Character) agingPass(table *lifestage.Table, age int, roller *dice.Roll
 
 		// "If the Aging Check imposes an effect, the characteristic is
 		// reduced -1."
-		value, _ := characteristicAdd(&c.Characteristics, name, -1)
+		value, lost := characteristicAdd(&c.Characteristics, name, -1)
 		log.Consequence(ConsequenceEvent{
 			Cause: seq, Kind: ConsequenceAgingEffect,
 			Characteristic: name, Delta: -1, Value: value,
 		})
+
+		// Chart A resets a zeroed characteristic to 1 below, so nothing
+		// enters aging below 1 and a single -1 cannot reach the floor.
+		// Reported anyway rather than discarded: logClamp is a no-op at
+		// zero, and the rule that a clamp is recorded should hold
+		// because it is called, not because a reader traced the range.
+		logClamp(log, name, lost, seq)
 
 		if value > 0 {
 			continue
@@ -115,11 +122,13 @@ func (c *Character) agingPass(table *lifestage.Table, age int, roller *dice.Roll
 
 		// Set to 1, not incremented: the chart resets, and an increment
 		// would leave anything already below zero below it.
-		reset, _ := characteristicAdd(&c.Characteristics, name, 1-value)
+		reset, lost := characteristicAdd(&c.Characteristics, name, 1-value)
 		log.Consequence(ConsequenceEvent{
 			Cause: seq, Kind: ConsequenceCharacteristicReset,
 			Characteristic: name, Delta: 1 - value, Value: reset,
 		})
+
+		logClamp(log, name, lost, seq)
 	}
 
 	c.illness(zeroed, last, age, log)

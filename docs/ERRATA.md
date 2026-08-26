@@ -2779,8 +2779,30 @@ Three readings, and the printed rules exclude none of them:
    injury into a survivable one, since p. 65 kills on zero or less.
 3. The negative stands as the record of how badly the character was hurt.
 
-Reading 1 is taken because the second contradicts p. 65 and the third
-produces a record the format cannot express. A UPP digit is eHex, a closed
+Reading 1 is taken because the second **deletes a printed rule** and the
+third produces a record the format cannot express.
+
+The second is the one worth measuring, because "reset to 1" is the only
+floor the book states anywhere and reaching for it is the obvious move. It
+cannot be the general floor: p. 65 kills on "zero or less", and a
+characteristic that stops at 1 never reaches zero. Driven directly — the
+floor moved from 0 to 1, nothing else changed — Scouts over four hundred
+seeds go from **34 deaths to none**. Every one of those characters walks
+away from a wound that killed him.
+
+Chart A's reset is a mercy specific to aging, which is why it lives in the
+aging path rather than in the floor: growing old should not kill outright,
+and injury already has the opposite answer. Both rules are implemented, in
+the two places the book puts them — a general floor at zero in
+`characteristicAdd`, and chart A's reset to 1 in `agingCheck`, which is
+also why nothing entering aging is ever below 1 for the floor to catch.
+
+p. 65's "or less" cuts the other way and is worth recording: the wording
+anticipates the arithmetic producing a negative. It does. `*field += delta`
+computes the full reduction before the floor applies, so the death test
+sees the boundary satisfied, and the `characteristic_floored` consequence
+carries the overshoot. What the record does not do is store a negative in a
+field the UPP has to encode. A UPP digit is eHex, a closed
 34-symbol alphabet covering 0 through 33 (p. 22); a negative characteristic
 has no digit. The engine's previous answer was to substitute `?`, which
 `ehex.Decode` rejects — so a record was written that the package could not
