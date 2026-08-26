@@ -225,6 +225,20 @@ func (t *skillsTable) validate() error {
 		return fmt.Errorf("%w: empty selection or skills list", errBadTable)
 	}
 
+	// Chart B's own Art and Trade lists are the same names chart MS
+	// groups, printed in the same alphabetical order (p. 56, p. 132), and
+	// they were two independent transcriptions of one set. slices.Equal
+	// rather than a set comparison because the order is what a player is
+	// offered, so a reordering is a difference too. If the two charts are
+	// ever meant to diverge, this is where to record why.
+	if !slices.Equal(t.OneArt, skill.InGroup(skill.GroupArts)) {
+		return fmt.Errorf("%w: the One Art list differs from chart MS's Arts group", errBadTable)
+	}
+
+	if !slices.Equal(t.OneTrade, skill.InGroup(skill.GroupTrades)) {
+		return fmt.Errorf("%w: the One Trade list differs from chart MS's Trades group", errBadTable)
+	}
+
 	seen := map[string]bool{}
 
 	for _, grant := range t.Skills {

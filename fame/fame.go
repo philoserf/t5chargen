@@ -122,6 +122,14 @@ func (t *Table) validate() error {
 		return fmt.Errorf("%w: no medals priced", errBadTable)
 	}
 
+	// Exemplary Service is listed at x0, so zero is a price; a negative
+	// is not, and would subtract Fame for holding a decoration.
+	for code, points := range t.Medals {
+		if points < 0 {
+			return fmt.Errorf("%w: medal %q is priced at %d", errBadTable, code, points)
+		}
+	}
+
 	// The descriptor list is indexed by Fame level and must at least
 	// reach the stacking limit.
 	if len(t.Descriptors) <= t.StackLimit {

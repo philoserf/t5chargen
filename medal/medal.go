@@ -93,6 +93,12 @@ var table = sync.OnceValues(func() (*tableData, error) {
 		return nil, fmt.Errorf("%w: missing cite or rows", errBadTable)
 	}
 
+	// The officer DM widens the reachable range, so it has to be sane
+	// before the span check below can use it.
+	if t.OfficerDM < 1 {
+		return nil, fmt.Errorf("%w: officer DM is %d", errBadTable, t.OfficerDM)
+	}
+
 	for i, row := range t.Rows {
 		if row.Code == "" || row.Name == "" {
 			return nil, fmt.Errorf("%w: row %d is incomplete", errBadTable, i)
@@ -101,6 +107,24 @@ var table = sync.OnceValues(func() (*tableData, error) {
 		if i > 0 && row.Roll != t.Rows[i-1].Roll+1 {
 			return nil, fmt.Errorf("%w: rows are not consecutive at %d", errBadTable, row.Roll)
 		}
+
+		// "Medals (but not Wound Badges) are Mods for Soldier / Spacer /
+		// Marine Promotion." A medal with no mod is a medal that does not
+		// do the one thing the note says medals do.
+		if row.Mod < 1 {
+			return nil, fmt.Errorf("%w: %q carries no promotion mod", errBadTable, row.Code)
+		}
+	}
+
+	// The rows must span every roll that can reach them. The reward throw
+	// is 2D, and an officer's result is increased by the officer DM, so
+	// the reachable range is 2 through 12+DM. Asserting against that
+	// rather than against literals keeps the check honest if the DM moves.
+	const minReward, maxReward = 2, 12
+
+	if first, last := t.Rows[0].Roll, t.Rows[len(t.Rows)-1].Roll; first != minReward || last != maxReward+t.OfficerDM {
+		return nil, fmt.Errorf("%w: rows cover %d-%d, but a reward roll reaches %d-%d",
+			errBadTable, first, last, minReward, maxReward+t.OfficerDM)
 	}
 
 	return &t, nil

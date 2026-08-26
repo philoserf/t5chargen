@@ -12,13 +12,18 @@ package ehex
 import (
 	"errors"
 	"fmt"
+	"strings"
 )
 
 // digits maps each value 0-33 to its eHex digit; I and O are omitted (p. 22).
 const digits = "0123456789ABCDEFGHJKLMNPQRSTUVWXYZ"
 
 // Max is the largest value representable as a single eHex digit (Z, p. 22).
-const Max = 33
+//
+// Derived from the alphabet rather than written beside it: the two were
+// independent transcriptions of one fact, and Encode's bound has to be
+// the last index of the string it then indexes.
+const Max = len(digits) - 1
 
 // ErrRange reports a value outside 0 through Max.
 var ErrRange = errors.New("value outside eHex range")
@@ -39,10 +44,8 @@ func Encode(value int) (byte, error) {
 // Decode returns the value of a single eHex digit. I and O are rejected,
 // as p. 22 omits them.
 func Decode(digit byte) (int, error) {
-	for value := range len(digits) {
-		if digits[value] == digit {
-			return value, nil
-		}
+	if value := strings.IndexByte(digits, digit); value >= 0 {
+		return value, nil
 	}
 
 	return 0, fmt.Errorf("ehex: %w: %q", ErrDigit, digit)
