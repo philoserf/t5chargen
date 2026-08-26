@@ -461,5 +461,36 @@ func (t *table) validate() error {
 		return fmt.Errorf("%w: missing its cite", errBadList)
 	}
 
+	// The five headings the engine names as Go constants must still be
+	// headings in the data.
+	//
+	// Every skill name a chart transcribes is checked against this list
+	// at load, so data-to-code is guarded. Code-to-data was not: rename a
+	// group in the data and the chart still loads, still has SkillCount
+	// entries, and still has a cite — while InGroup starts returning an
+	// empty list, which is indistinguishable from a group that is
+	// legitimately empty.
+	//
+	// Two consumers then fail silently rather than loudly. awardNewTrade
+	// reads the empty list as chart 01's "Any Trade not already held; if
+	// all are already held; this benefit is lost" (p. 75) and drops the
+	// benefit; undercoverSkills accumulates across every column, so an
+	// empty group just contributes nothing and the Agent gets a shorter
+	// menu. Neither leaves a trace in the record.
+	groups := make(map[string]bool, len(t.skills))
+	for _, name := range t.skills {
+		groups[t.byName[name].Group] = true
+	}
+
+	for _, group := range []string{GroupArts, GroupTrades, GroupStarship, GroupSoldier} {
+		if !groups[group] {
+			return fmt.Errorf("%w: chart MS lists no skills under %q", errBadList, group)
+		}
+	}
+
+	if len(t.byParent[ParentSciences]) == 0 {
+		return fmt.Errorf("%w: chart MS lists no knowledges under %q", errBadList, ParentSciences)
+	}
+
 	return nil
 }

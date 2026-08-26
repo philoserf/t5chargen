@@ -890,6 +890,82 @@ func (d *Definition) validateTermCounts() error {
 		return fmt.Errorf("%w: negative sanity per terms %d", errBadDefinition, d.SanityPerTerms)
 	}
 
+	// The two siblings of SkillsPerTerm, which had no floor. Neither is
+	// carried by every career, so absence is legal and only a negative is
+	// a fault.
+	//
+	// SkillsPerAdvancement is multiplied and added to SkillsPerTerm
+	// (armedforces.go, merchant.go, noble.go). A negative can drive the
+	// term's roll count below zero, and termSkills reads only *zero* as
+	// "use the default" — so the term silently awards nothing and the
+	// record shows a term that taught the character no skill.
+	if d.SkillsPerAdvancement < 0 {
+		return fmt.Errorf("%w: %q has %d skills per advancement",
+			errBadDefinition, d.Name, d.SkillsPerAdvancement)
+	}
+
+	// BeginTotalTermsMultiplier is chart 13's "To Begin Total Terms x3",
+	// which only the Functionary carries. At zero the target is zero, no
+	// 2D throw rolls zero or less, and the career becomes permanently
+	// unenterable — every attempt failing and costing the year p. 65
+	// charges, with nothing saying why.
+	if d.BeginTotalTermsMultiplier < 0 {
+		return fmt.Errorf("%w: %q has a negative total-terms multiplier %d",
+			errBadDefinition, d.Name, d.BeginTotalTermsMultiplier)
+	}
+
+	return d.Masterpiece.validate(d.Name)
+}
+
+// validate checks the chart 01 Masterpiece box, every field of which
+// drives arithmetic. A zero reaches the engine as a rule rather than as an
+// error: dice at zero makes rollMod return a bare modifier, minimum_points
+// at zero lets a Craftsman with no Master Points attempt one, and a lost
+// value_per_point prices every Masterpiece at its base value.
+//
+// The box is optional — twelve careers carry none — so a nil one passes
+// and only a populated one is held to its shape.
+func (m *Masterpiece) validate(career string) error {
+	if m == nil {
+		return nil
+	}
+
+	for _, f := range []struct {
+		name  string
+		value int
+	}{
+		{"dice", m.Dice},
+		{"minimum_points", m.MinimumPoints},
+		{"perfect_points", m.PerfectPoints},
+		{"bonus_skill_level", m.BonusSkillLevel},
+		{"max_bonus_skills", m.MaxBonusSkills},
+		{"skills_per_success", m.SkillsPerSuccess},
+		{"skills_per_failure", m.SkillsPerFailure},
+		{"base_value", m.BaseValue},
+		{"value_per_point", m.ValuePerPoint},
+		{"perfect_multiplier", m.PerfectMultiplier},
+	} {
+		if f.value < 1 {
+			return fmt.Errorf("%w: %q Masterpiece %s is %d", errBadDefinition, career, f.name, f.value)
+		}
+	}
+
+	// "A Perfect Masterpiece has 55 or more Master Points" is a threshold
+	// above the floor a Craftsman needs to attempt one at all; equal or
+	// inverted, the Perfect branch is either always or never taken.
+	if m.PerfectPoints <= m.MinimumPoints {
+		return fmt.Errorf("%w: %q Masterpiece is perfect at %d but attemptable from %d",
+			errBadDefinition, career, m.PerfectPoints, m.MinimumPoints)
+	}
+
+	if m.ExcludedSkill == "" {
+		return fmt.Errorf("%w: %q Masterpiece names no excluded skill", errBadDefinition, career)
+	}
+
+	if err := skill.Validate(m.ExcludedSkill); err != nil {
+		return fmt.Errorf("%w: %q Masterpiece excludes %q: %w", errBadDefinition, career, m.ExcludedSkill, err)
+	}
+
 	return nil
 }
 
