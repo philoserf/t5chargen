@@ -75,14 +75,7 @@ func (m *entertainerMechanics) begin(r *careerRun) (bool, error) {
 	seq := r.log.Throw(throw, nil, r.def.Cite+" (Begin "+track.Name+" vs "+check+")")
 
 	if !throw.Success {
-		// "Each failed attempt (both Begin or Retry) takes one year" (p. 65).
-		if err := r.character.advanceYears(1, r.roller, r.log, seq); err != nil {
-			return false, err
-		}
-
-		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerNotBegun, Career: r.def.Name})
-
-		return false, nil
+		return failedToBegin(r, seq)
 	}
 
 	r.record.Specialty = track.Name

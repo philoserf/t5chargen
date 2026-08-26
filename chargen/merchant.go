@@ -79,14 +79,7 @@ func (m *merchantMechanics) begin(r *careerRun) (bool, error) {
 	seq := r.log.Throw(throw, nil, r.def.Cite+" (To Begin "+track.Name+" vs "+check+")")
 
 	if !throw.Success {
-		// "Each failed attempt (both Begin or Retry) takes one year" (p. 65).
-		if err := r.character.advanceYears(1, r.roller, r.log, seq); err != nil {
-			return false, err
-		}
-
-		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerNotBegun, Career: r.def.Name})
-
-		return false, nil
+		return failedToBegin(r, seq)
 	}
 
 	return true, m.enterRank(r, track.Rank, seq)
@@ -182,17 +175,10 @@ func (m *merchantMechanics) riskAndReward(r *careerRun, cc string) (termOutcome,
 	riskSeq := r.log.Throw(risk, riskMods(mod, 1), r.def.Cite+" (Risk vs "+cc+"+Mods)")
 
 	if !risk.Success {
-		died, disabled := r.injury(cc, mod, riskSeq,
-			"Book 1 p. 80 chart 06 (Risk Failure: reduce CC by negative Mods and Flux)")
-		outcome.endCause = riskSeq
-
-		if died {
-			outcome.died = true
-
+		if r.applyInjury(&outcome, cc, mod, riskSeq,
+			"Book 1 p. 80 chart 06 (Risk Failure: reduce CC by negative Mods and Flux)") {
 			return outcome, nil
 		}
-
-		outcome.endCareer = disabled
 	}
 
 	reward := r.roller.Check(2, value-mod)

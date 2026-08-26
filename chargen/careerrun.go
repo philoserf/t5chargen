@@ -122,6 +122,74 @@ var careerRegistry = map[string]func() (*career.Definition, careerMechanics, err
 	"Merchant":    newMerchant,
 }
 
+// baseMechanics supplies the To Begin throw chart D describes generically:
+// throw 2D against a characteristic the chart names, and on a failure lose
+// the year p. 65 charges. A career whose entry is anything else — a track,
+// a prerequisite, a rank, Total Terms — implements begin itself.
+//
+// beginCite overrides the step's citation for a career whose chart names
+// the checks in its own notation. Empty means the definition's own cite.
+type baseMechanics struct{ beginCite string }
+
+// begin runs the generic To Begin throw against the definition's
+// BeginChecks.
+func (m baseMechanics) begin(r *careerRun) (bool, error) {
+	cite := m.beginCite
+	if cite == "" {
+		cite = r.def.Cite
+	}
+
+	r.log.Step(r.def.Name+": To Begin", cite)
+
+	check, value, err := chooseCheckCharacteristic(r, r.def.BeginChecks)
+	if err != nil {
+		return false, err
+	}
+
+	throw := r.roller.Check(2, value)
+	seq := r.log.Throw(throw, nil, r.def.Cite+" (To Begin vs "+check+")")
+
+	if throw.Success {
+		return true, nil
+	}
+
+	return failedToBegin(r, seq)
+}
+
+// failedToBegin charges the year a refused entry costs and records it:
+// "the character loses one year" (p. 65). The six careers that throw for
+// entry their own way share this tail.
+func failedToBegin(r *careerRun, seq int) (bool, error) {
+	if err := r.character.advanceYears(1, r.roller, r.log, seq); err != nil {
+		return false, err
+	}
+
+	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerNotBegun, Career: r.def.Name})
+
+	return false, nil
+}
+
+// applyInjury runs the Risk failure and folds its two outcomes into the
+// term: death ends resolution immediately, and disability ends the career
+// at term end ("he is disabled. Muster Out at Term end", p. 65).
+//
+// It reports whether the caller should stop. Five careers ran the same
+// nine lines around r.injury and differed only in the mods and the cite.
+func (r *careerRun) applyInjury(outcome *termOutcome, cc string, mod, cause int, cite string) bool {
+	died, disabled := r.injury(cc, mod, cause, cite)
+	outcome.endCause = cause
+
+	if died {
+		outcome.died = true
+
+		return true
+	}
+
+	outcome.endCareer = disabled
+
+	return false
+}
+
 // careerRun is the shared state of one career resolution.
 type careerRun struct {
 	def       *career.Definition

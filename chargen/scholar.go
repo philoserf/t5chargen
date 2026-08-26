@@ -136,13 +136,7 @@ func (*scholarMechanics) resolveBeginThrow(r *careerRun, success bool, cause int
 	}
 
 	// "Each failed attempt ... takes one year" (p. 65).
-	if err := r.character.advanceYears(1, r.roller, r.log, cause); err != nil {
-		return false, err
-	}
-
-	r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceCareerNotBegun, Career: r.def.Name})
-
-	return false, nil
+	return failedToBegin(r, cause)
 }
 
 // setRank records a rank from the chart 02 table. An id absent from the
@@ -269,17 +263,10 @@ func (m *scholarMechanics) researchAndPublication(r *careerRun, cc string) (term
 		completed = waived
 
 		if !waived {
-			died, disabled := r.injury(cc, mod, seq,
-				"Book 1 p. 76 chart 02 (Research Failure: reduce CC by negative Mods and Flux)")
-			outcome.endCause = seq
-
-			if died {
-				outcome.died = true
-
+			if r.applyInjury(&outcome, cc, mod, seq,
+				"Book 1 p. 76 chart 02 (Research Failure: reduce CC by negative Mods and Flux)") {
 				return outcome, nil
 			}
-
-			outcome.endCareer = disabled
 		}
 	}
 

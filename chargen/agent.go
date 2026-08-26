@@ -31,7 +31,7 @@ import (
 const agentMissionSkills = 4
 
 // agentMechanics is the Agent careerMechanics implementation.
-type agentMechanics struct{}
+type agentMechanics struct{ baseMechanics }
 
 // newAgent is the Agent careerRegistry entry.
 //
@@ -49,32 +49,6 @@ func newAgent() (*career.Definition, careerMechanics, error) {
 	}
 
 	return def, &agentMechanics{}, nil
-}
-
-// begin rolls To Begin. A failed attempt costs one year (p. 65); chart 09
-// lists no Begin retry.
-func (*agentMechanics) begin(r *careerRun) (bool, error) {
-	r.log.Step("Agent: To Begin", r.def.Cite)
-
-	check, value, err := chooseCheckCharacteristic(r, r.def.BeginChecks)
-	if err != nil {
-		return false, err
-	}
-
-	throw := r.roller.Check(2, value)
-	seq := r.log.Throw(throw, nil, r.def.Cite+" (To Begin vs "+check+")")
-
-	if throw.Success {
-		return true, nil
-	}
-
-	if err := r.character.advanceYears(1, r.roller, r.log, seq); err != nil {
-		return false, err
-	}
-
-	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerNotBegun, Career: r.def.Name})
-
-	return false, nil
 }
 
 // resolveTerm runs the two halves of a Mission in the order the chart
@@ -306,17 +280,10 @@ func (*agentMechanics) mission(r *careerRun, cc string) (termOutcome, error) {
 	riskSeq := r.log.Throw(risk, riskMods(mod, 1), r.def.Cite+" (Risk vs "+cc+"+Mods)")
 
 	if !risk.Success {
-		died, disabled := r.injury(cc, mod, riskSeq,
-			r.def.Cite+" (Risk Failure: reduce CC by negative Mods and Flux)")
-		outcome.endCause = riskSeq
-
-		if died {
-			outcome.died = true
-
+		if r.applyInjury(&outcome, cc, mod, riskSeq,
+			r.def.Cite+" (Risk Failure: reduce CC by negative Mods and Flux)") {
 			return outcome, nil
 		}
-
-		outcome.endCareer = disabled
 	}
 
 	reward := r.roller.Check(2, value-mod)

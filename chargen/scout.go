@@ -29,7 +29,7 @@ import (
 var scoutDuties = []string{"Courier Duty", "Explorer Duty"}
 
 // scoutMechanics is the Scout careerMechanics implementation.
-type scoutMechanics struct{}
+type scoutMechanics struct{ baseMechanics }
 
 // newScout is the Scout careerRegistry entry.
 //
@@ -40,34 +40,11 @@ func newScout() (*career.Definition, careerMechanics, error) {
 		return nil, nil, fmt.Errorf("scout career: %w", err)
 	}
 
-	return def, &scoutMechanics{}, nil
-}
-
-// begin rolls To Begin: "To Begin C1 or C2 or C3" (chart 05). Scout's box
-// lists no Begin retry; a failed attempt costs one year ("Each failed
-// attempt (both Begin or Retry) takes one year", p. 65).
-func (*scoutMechanics) begin(r *careerRun) (bool, error) {
-	r.log.Step("Scout: To Begin", "Book 1 p. 79 chart 05 (To Begin C1 or C2 or C3)")
-
-	name, target, err := chooseCheckCharacteristic(r, r.def.BeginChecks)
-	if err != nil {
-		return false, err
-	}
-
-	throw := r.roller.Check(2, target)
-	seq := r.log.Throw(throw, nil, "Book 1 p. 79 chart 05 (To Begin vs "+name+")")
-
-	if throw.Success {
-		return true, nil
-	}
-
-	if err := r.character.advanceYears(1, r.roller, r.log, seq); err != nil {
-		return false, err
-	}
-
-	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerNotBegun, Career: r.def.Name})
-
-	return false, nil
+	// The step cites chart 05's own notation for its checks, which the
+	// generic begin has no way to derive from BeginChecks.
+	return def, &scoutMechanics{baseMechanics{
+		beginCite: "Book 1 p. 79 chart 05 (To Begin C1 or C2 or C3)",
+	}}, nil
 }
 
 // resolveTerm chooses the term's duty and, for Explorer Duty, runs Risk &
@@ -123,17 +100,10 @@ func (m *scoutMechanics) riskAndReward(r *careerRun, cc string, outcome termOutc
 	riskSeq := r.log.Throw(risk, riskMods(mod, 1), "Book 1 p. 79 chart 05 (Risk vs "+cc+"+Mods)")
 
 	if !risk.Success {
-		died, disabled := r.injury(cc, mod, riskSeq,
-			"Book 1 p. 79 chart 05 (Risk Failure: reduce CC by negative Mods and Flux)")
-		outcome.endCause = riskSeq
-
-		if died {
-			outcome.died = true
-
+		if r.applyInjury(&outcome, cc, mod, riskSeq,
+			"Book 1 p. 79 chart 05 (Risk Failure: reduce CC by negative Mods and Flux)") {
 			return outcome, nil
 		}
-
-		outcome.endCareer = disabled
 	}
 
 	success, err := m.reward(r, cc, ccValue, mod)

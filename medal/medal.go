@@ -55,23 +55,6 @@ func For(reward int, officer bool) (Medal, error) {
 	return Medal{}, fmt.Errorf("%w: %d", ErrOffTable, line)
 }
 
-// Cite returns the table's citation.
-func Cite() string {
-	t, err := table()
-	if err != nil {
-		return ""
-	}
-
-	return t.Cite
-}
-
-// Err reports a failure to load the embedded table.
-func Err() error {
-	_, err := table()
-
-	return err
-}
-
 //go:embed data/medals.json
 var medalsJSON []byte
 
