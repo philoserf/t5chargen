@@ -24,6 +24,11 @@ Mark: solo referee and developer. Secondary: any T5 referee needing NPCs in bulk
 - Psionics, clones, chimeras, robots, artificials.
 - Permatic Imperium variants; other editions (Classic, Mongoose, Cepheus).
 - Combat, equipment purchasing beyond mustering-out benefits, in-play advancement.
+- The Skill/Knowledge distinction, and with it p. 134's Knowledge-Knowledge-Skill progression, the `Career: <name>` and `World: <name>` knowledges, and the Knowledge-6 cap. Eleven skills contain Knowledges (Animals, Driver, Engineer, Fighter, Flyer, Gunner, Heavy Weapons, Language, Musician, Pilot, Seafarer); v1 awards them whole.
+
+  **What this costs, stated plainly.** p. 134 says the first two receipts of a container Skill award a contained Knowledge instead, and the third awards the Skill at level-1. So the book's own example musters out with Fighter-3 and Slug Thrower-2 where this tool gives Fighter-5. That is a different character for the same rolls, not a missing refinement, and a reader comparing a generated sheet against p. 134 should know it before wondering which is wrong.
+
+  **Why it is scoped out rather than implemented.** Knowledges are a category of thing the record does not carry, as psionics is. The rule also reaches into every career: expanding a container is a choice at every award, which needs a POLICY.md rule and moves every fixture. And the container list does not survive contact with the skill list — chart MS gives Musician no contained Knowledges at all, Language is excepted by p. 134 itself, and `The Sciences` is a chart MS heading that looks like a container and is not.
 
 ## Functional requirements
 
@@ -39,7 +44,9 @@ _Verified at implementation (2026-08-20):_ the UWP alone does **not** suffice. C
 
 **FR4 — Careers.** All 13 careers (charts pp. 75–88): Craftsman, Scholar, Entertainer, Citizen, Scout, Merchant, Spacer, Soldier, Agent, Rogue, Noble, Marine, Functionary. Per career: To Begin throw with failure/retry handling, term resolution, Risk/Reward, Rank/Commission/Promotion, career-specific mechanics (Entertainer Fame and Big Break, Craftsman Masterpiece, Agent undercover career and Commendations, Rogue Schemes, Noble exile, military Branch/Operations/Schools/Medals), skill eligibility, Continue throws, and career changes (Archive: `Changing Careers.pdf`).
 
-**FR5 — Skills.** Award skills per term against the Master Skill List (chart MS, p. 132), with Skill/Knowledge distinction and first-receipt rules (e.g. Job Skill-4 on first receipt, Skill-1 thereafter).
+**FR5 — Skills.** Award skills per term against the Master Skill List (chart MS, p. 132), with first-receipt rules (e.g. Job Skill-4 on first receipt, Skill-1 thereafter).
+
+_Amended (2026-08-26):_ this read "with Skill/Knowledge distinction and first-receipt rules". The first-receipt rules are implemented (`firstReceiptLevels`, `eduRun.receipt`); the Skill/Knowledge distinction is now a v1 non-goal, and the requirement is amended rather than left claiming it. What that costs is stated in the non-goal.
 
 **FR6 — Aging.** Aging checks each term at life stage 5+ (age 34 for humans; chart A, p. 89).
 
@@ -163,7 +170,7 @@ The auto policy is **total** (it can decide every valid choice point: education,
 3. All 13 careers with career-specific mechanics. Exit criterion: a living `COVERAGE.md` in the tool repo mapping every E1 step and career rule to its page cite, implementation, and golden test — no career is "done" until its uncommon branches are listed there as covered or explicitly deferred.
 4. Aging, career changes, muster out, fame.
 5. Interactive mode polish; batch mode; replay verification.
-6. The rules milestone 5 left: the Rogue's previous-career Scheme (chart 10), chart 11's `Capital***` cell, `Career:`/`World:` knowledges and Sciences past level 6 (p. 134). The question beneath them — whether education may award a bare container skill — was open when this was written and was settled by a reading on 2026-08-24, recorded in `COVERAGE.md`: p. 134 makes a container Skill's first two receipts award a contained Knowledge instead, whatever the source, so the award path expands a container rather than handing over the bare name. The three rules above no longer wait on it; what they wait on is the choice point that expansion introduces, which needs a `POLICY.md` rule for what auto picks.
+6. The rules milestone 5 left, now that the Skill/Knowledge distinction is a v1 non-goal: the Rogue's previous-career Scheme (chart 10). Chart 11's `Capital***` cell goes with the non-goal — it awards a World Knowledge — and so do p. 134's progression, the `Career:`/`World:` knowledges and the Knowledge-6 cap, which were the rest of this milestone. OTC and NOTC (p. 61) are the substantial rules actually left, and they are chart C rows rather than milestone 6.
 
 ## Decisions (2026-08-19)
 
