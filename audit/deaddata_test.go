@@ -45,6 +45,7 @@ package audit_test
 // helper with a selecting argument.
 
 import (
+	"encoding/json"
 	"fmt"
 	"go/ast"
 	"go/parser"
@@ -291,4 +292,70 @@ func readOutsideValidators(path string) (string, error) {
 	}
 
 	return string(kept), nil
+}
+
+// TestFameAndMedalAgreeOnCodes holds the two transcriptions of chart F's
+// medal codes to each other.
+//
+// The codes appear in fame/data/fame.json, which prices them, and in
+// medal/data/medals.json, which awards them. Neither package can import
+// the other without inverting the dependency, so nothing cross-checked
+// them and a typo in either would load clean: chargen/fame.go's consumer
+// reads an unpriced code as a medal worth nothing and skips it, so the
+// character's Fame is simply lower and the record says nothing.
+//
+// WB is the one deliberate difference. A Wound Badge is not a Medal — the
+// Risk failure awards it, not the Reward success (p. 91) — so it is
+// counted on the record and priced by name, and appears in fame.json
+// alone.
+func TestFameAndMedalAgreeOnCodes(t *testing.T) {
+	var priced struct {
+		Medals map[string]int `json:"medals"`
+	}
+
+	var awarded struct {
+		Rows []struct {
+			Code string `json:"code"`
+		} `json:"rows"`
+	}
+
+	readJSON(t, filepath.Join("..", "fame", "data", "fame.json"), &priced)
+	readJSON(t, filepath.Join("..", "medal", "data", "medals.json"), &awarded)
+
+	const woundBadge = "WB"
+
+	want := map[string]bool{woundBadge: true}
+	for _, row := range awarded.Rows {
+		want[row.Code] = true
+	}
+
+	if len(want) < 3 {
+		t.Fatalf("found only %d medal codes; the scan is not working", len(want))
+	}
+
+	for code := range priced.Medals {
+		if !want[code] {
+			t.Errorf("fame.json prices %q, which chart M1 does not award", code)
+		}
+	}
+
+	for code := range want {
+		if _, ok := priced.Medals[code]; !ok {
+			t.Errorf("chart M1 awards %q, which fame.json does not price", code)
+		}
+	}
+}
+
+// readJSON decodes one of the module's data files into v.
+func readJSON(t *testing.T, path string, v any) {
+	t.Helper()
+
+	data, err := os.ReadFile(path) //nolint:gosec // G304: the module's own data files.
+	if err != nil {
+		t.Fatalf("reading %s: %v", path, err)
+	}
+
+	if err := json.Unmarshal(data, v); err != nil {
+		t.Fatalf("parsing %s: %v", path, err)
+	}
 }

@@ -92,7 +92,13 @@ func (t *Table) Largest(shares int) (Ship, bool) {
 	)
 
 	for _, s := range t.Ships {
-		if s.Shares == 0 || s.Shares > shares {
+		// Skipped on the flag that means "not for sale" rather than on
+		// the price. Carried marks the Lab Launch and the Escort Gig;
+		// Shares == 0 worked only because no priced ship is cheap enough
+		// to round to zero — which is exactly what the floor above used
+		// to do to a sub-50-ton craft, at which point validation demanded
+		// shares: 0 and this treated it as carried.
+		if s.Carried || s.Shares > shares {
 			continue
 		}
 
@@ -154,7 +160,16 @@ func (t *Table) validateShip(s Ship, seen map[string]bool) error {
 		return nil
 	}
 
-	if want := s.Tons / t.TonsPerShare; s.Shares != want {
+	// Rounded up: "one Share acquires 50 tons of the ship (thus, a
+	// 200-ton Free Trader requires 4 Ship Shares to acquire full
+	// control)" — and full control of a ship whose tonnage is not a
+	// multiple of the rate needs the ceiling, not the floor. Integer
+	// division truncates, so a 99-ton ship was held to 1 share where the
+	// rule asks 2: the check would have accepted an under-priced row and
+	// rejected a correctly-priced one, reporting good data as the fault.
+	// Every row today is a multiple of 50, so floor and ceiling agree and
+	// nothing moves.
+	if want := (s.Tons + t.TonsPerShare - 1) / t.TonsPerShare; s.Shares != want {
 		return fmt.Errorf("%w: %q is %d tons at %d tons a share, so %d shares, not %d",
 			errBadTable, s.Name, s.Tons, t.TonsPerShare, want, s.Shares)
 	}

@@ -275,7 +275,16 @@ func armedForcesFame(table *fame.Table, record CareerRecord, def *career.Definit
 
 	for _, award := range record.Medals {
 		points, priced := table.MedalPoints(award.Code)
-		if !priced || points == 0 {
+		if !priced {
+			// A code chart F does not price is a transcription fault,
+			// not a medal worth nothing. audit's cross-check holds
+			// fame.json's keys to medals.json's codes plus WB, so this
+			// is unreachable; skipping it silently is what made the two
+			// cases indistinguishable before that gate existed.
+			continue
+		}
+
+		if points == 0 {
 			// Exemplary Service is listed at x0.
 			continue
 		}

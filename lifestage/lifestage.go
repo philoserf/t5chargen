@@ -170,5 +170,24 @@ func (t *Table) validateAging() error {
 		return fmt.Errorf("%w: aging affects no characteristics", errBadTable)
 	}
 
+	// Checked here rather than where chargen applies an aging effect. A
+	// name the engine does not know is a transcription fault in chart A,
+	// and the load is where a transcription fault belongs — at the point
+	// of use it is a rules outcome the engine has to defend against.
+	for _, name := range append(append([]string{},
+		t.PhysicalCharacteristics...), t.MentalCharacteristics...) {
+		if !characteristicNames[name] {
+			return fmt.Errorf("%w: aging affects unknown characteristic %q", errBadTable, name)
+		}
+	}
+
 	return nil
+}
+
+// characteristicNames are the six a human character carries (pp. 54-56).
+// The same closed set career and education each keep for their own
+// columns; lifestage had none because nothing here read a name until
+// chart A's aging did.
+var characteristicNames = map[string]bool{
+	"Str": true, "Dex": true, "End": true, "Int": true, "Edu": true, "Soc": true,
 }
