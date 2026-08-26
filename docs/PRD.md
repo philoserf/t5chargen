@@ -152,7 +152,7 @@ The auto policy is **total** (it can decide every valid choice point: education,
 3. All 13 careers with career-specific mechanics. Exit criterion: a living `COVERAGE.md` in the tool repo mapping every E1 step and career rule to its page cite, implementation, and golden test — no career is "done" until its uncommon branches are listed there as covered or explicitly deferred.
 4. Aging, career changes, muster out, fame.
 5. Interactive mode polish; batch mode; replay verification.
-6. The rules milestone 5 left: the Rogue's previous-career Scheme (chart 10), chart 11's `Capital***` cell, `Career:`/`World:` knowledges and Sciences past level 6 (p. 134), and the open question beneath them — whether education may award a bare container skill, which the other three wait on.
+6. The rules milestone 5 left: the Rogue's previous-career Scheme (chart 10), chart 11's `Capital***` cell, `Career:`/`World:` knowledges and Sciences past level 6 (p. 134). The question beneath them — whether education may award a bare container skill — was open when this was written and was settled by a reading on 2026-08-24, recorded in `COVERAGE.md`: p. 134 makes a container Skill's first two receipts award a contained Knowledge instead, whatever the source, so the award path expands a container rather than handing over the bare name. The three rules above no longer wait on it; what they wait on is the choice point that expansion introduces, which needs a `POLICY.md` rule for what auto picks.
 
 ## Decisions (2026-08-19)
 
