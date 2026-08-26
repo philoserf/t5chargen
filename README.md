@@ -18,11 +18,13 @@ muster out, and a birthdate.
 What works today:
 
 - Characteristic generation, UPP, homeworld skills from UWP trade
-  classifications, and pre-career education (ED5, Trade School,
-  Apprenticeship, College, University, Service Academy).
-- The **Citizen**, **Scholar**, **Entertainer**, **Scout**, **Merchant**,
-  **Noble**, **Agent**, **Rogue**, and the Armed Forces (**Spacer**,
-  **Soldier**, **Marine**) careers end-to-end: controlling characteristics,
+  classifications, and pre-career education — chart C's twelve implemented
+  programmes, from ED5 up through the Professors programme, plus the two
+  schools a career assigns (ANM School, Command College).
+- All thirteen careers end-to-end — **Citizen**, **Scholar**,
+  **Entertainer**, **Scout**, **Merchant**, **Noble**, **Agent**,
+  **Rogue**, **Craftsman**, **Functionary**, and the Armed Forces
+  (**Spacer**, **Soldier**, **Marine**): controlling characteristics,
   per-term skills, Risk & Reward, injury and death, rank with commission,
   promotion and tenure, the Entertainer's Fame and Talent, the Scholar's
   publications and waivers, the Noble's exile and elevation, the Rogue's
@@ -71,7 +73,7 @@ t5chargen replay --ignore-provenance old.json  # re-run a record an older build 
 t5chargen batch --count 20 --auto -o npcs/    # a run of NPCs, one file each
 t5chargen batch --count 20 --auto -o npcs.jsonl  # or one file, a record a line
 t5chargen replay npcs.jsonl                   # a JSONL run replays record by record
-t5chargen render npcs/character-1.json        # a directory's files are read one at a time
+t5chargen render npcs/character-1.json        # render names one record; a directory is refused
 ```
 
 `new` without `--auto` asks the player each choice; with it, POLICY.md

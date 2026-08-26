@@ -4,16 +4,20 @@
 // Architecture notes) this package is data and validation only; the
 // educational process mechanics are typed Go in the chargen package.
 //
-// v1 implements the docs/PRD.md FR3 programs (ED5, Trade School,
-// College/University, Service Academy, Apprenticeship). Mentoring is
-// transcribed but unimplemented: its "C5= Tra" prerequisite and "Tra+2"
-// award both need the non-human Training characteristic, a v1 non-goal
-// (docs/PRD.md) — it activates with non-human characteristics. The
-// remaining chart C rows are transcribed but marked unimplemented, and
-// Later Education (suspending a career term for schooling, p. 59) is
-// deferred with career changes. Chart C's Honors row is not a program: it
-// is the post-graduation extra roll (p. 59), modeled as a mechanic in
-// chargen — hence 17 program rows for the chart's 18.
+// Twelve of the seventeen program rows are implemented: ED5, Trade School,
+// Apprenticeship, College, University and the Service Academy, then the
+// four graduate rows (Masters, Professors, Medical School, Law School),
+// and the two a career assigns rather than a character choosing — ANM
+// School and Command College (p. 59, "attended during career
+// resolution"). Later Education, which suspends a term for schooling
+// (p. 59), is implemented in chargen.
+//
+// Five rows are transcribed and marked unimplemented. Mentoring's "C5=
+// Tra" prerequisite and "Tra+2" award both need the non-human Training
+// characteristic, a v1 non-goal (docs/PRD.md); Training Course, OTC, NOTC
+// and Flight School are career-integrated. Chart C's Honors row is not a
+// program: it is the post-graduation extra roll (p. 59), modeled as a
+// mechanic in chargen — hence 17 program rows for the chart's 18.
 package education
 
 import (
