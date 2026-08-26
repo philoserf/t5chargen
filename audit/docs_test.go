@@ -24,10 +24,13 @@
 // never has (p. 75). The available set is character-dependent besides;
 // Noble drops out on a low Soc.
 //
-// COVERAGE.md's Status column is reviewed, not gated. "covered" is not
+// COVERAGE.md's Status column is half gated. "covered" is not
 // mechanically checkable, and the deferred half cannot be narrowed to
 // "names no implementation" — two legitimately deferred M6 rows name real
-// code.
+// code. What is checkable is that a deferral does not name a milestone
+// that has already shipped, which TestNoRowDefersToAClosedMilestone
+// enforces after that claim rotted twice in two days. The rest of the
+// column is still reviewed.
 //
 // COVERAGE.md's Implementation column is reviewed, not gated, for the
 // reason given at TestCoverageNamesRealTests.
@@ -278,4 +281,74 @@ func TestCareerSectionsAreInChartOrder(t *testing.T) {
 	if !slices.IsSorted(numbers) {
 		t.Errorf("career sections run %v, want Book 1 chart order", numbers)
 	}
+}
+
+// closedMilestones are the docs/PRD.md milestones that have shipped.
+//
+// Update this when one closes. That is the point rather than the cost: a
+// COVERAGE.md row deferring to a milestone already delivered is a claim
+// that has rotted, and it rots silently, because the row still reads as a
+// deliberate decision. Two cleanups of exactly this shipped in two days —
+// five rows in #83 and eight here — before anything checked it.
+var closedMilestones = []string{"M1", "M2", "M3", "M4", "M5"}
+
+// TestNoRowDefersToAClosedMilestone verifies COVERAGE.md's Status column
+// names no milestone that has already shipped.
+//
+// This is the narrow half of a check the package otherwise declines. Which
+// rules are "covered" is not mechanically decidable, and the deferred half
+// cannot be narrowed to "names no implementation" — two legitimately
+// deferred rows name real code. But a milestone number carries no
+// information once that milestone is closed: the rule is either covered or
+// waiting on something else, and saying "deferred (M4)" after M4 shipped
+// is neither.
+//
+// Chart M1 and chart M2 are chart names, not milestones, and appear twenty
+// times between them. They are excluded by the "chart" that precedes them
+// rather than by listing the rows, so a new mention of either is safe.
+func TestNoRowDefersToAClosedMilestone(t *testing.T) {
+	rows := regexp.MustCompile(`(?m)^\|.*\|`).FindAllString(read(t, docsDir+"COVERAGE.md"), -1)
+	if len(rows) < 50 {
+		t.Fatalf("found only %d COVERAGE.md rows; the scan is not working", len(rows))
+	}
+
+	milestone := regexp.MustCompile(`(?i)(chart\s+)?\bM([1-9])\b`)
+
+	for _, row := range rows {
+		status := lastCell(row)
+
+		// Only a deferral is checked. A milestone named in a covered
+		// row's prose ("no-transfer becomes testable with M4 career
+		// changes") is stale context, not a false status — and "M1" also
+		// occurs as a Merchant rank code, in a row about a commission
+		// from R2 to M1, which no amount of chart-prefix handling
+		// separates from a milestone.
+		if !strings.Contains(strings.ToLower(status), "deferred") {
+			continue
+		}
+
+		for _, named := range milestone.FindAllStringSubmatch(status, -1) {
+			if named[1] != "" { // "chart M1" — a chart, not a milestone
+				continue
+			}
+
+			if slices.Contains(closedMilestones, "M"+named[2]) {
+				t.Errorf("a row defers to M%s, which has shipped: %s", named[2], firstCell(row))
+			}
+		}
+	}
+}
+
+// firstCell and lastCell return a Markdown table row's first and last
+// cells — the rule it names and the status it claims.
+func firstCell(row string) string {
+	cells := strings.Split(strings.Trim(row, "|"), "|")
+
+	return strings.TrimSpace(cells[0])
+}
+
+func lastCell(row string) string {
+	cells := strings.Split(strings.Trim(row, "|"), "|")
+
+	return strings.TrimSpace(cells[len(cells)-1])
 }
