@@ -22,6 +22,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"reflect"
 	"slices"
 	"strconv"
 	"strings"
@@ -127,11 +128,25 @@ func (c *checker) checkType(schema map[string]any, doc any, path string) []strin
 		return nil
 	}
 
-	if got := jsonType(doc); got != want {
+	if got := jsonType(doc); !satisfiesType(got, want) {
 		return []string{fmt.Sprintf("%s: is %s, want %s", path, got, want)}
 	}
 
 	return nil
+}
+
+// satisfiesType reports whether a value jsonType calls got is acceptable
+// where the schema asks for want.
+//
+// The two names are not disjoint in JSON Schema: every integer is a
+// number, and only the reverse fails. jsonType reports a whole number as
+// "integer", so without this a property declared "number" would be called
+// invalid for the value 5. Nothing declares "number" today; the first
+// fractional field added to the record — a rate, a multiplier — would
+// otherwise fail every record whose value landed whole, and read as a
+// schema bug rather than a checker one.
+func satisfiesType(got, want string) bool {
+	return got == want || (want == "number" && got == "integer")
 }
 
 // checkMinimum applies "minimum". It is a rule of its own rather than a
@@ -179,7 +194,14 @@ func jsonType(doc any) string {
 
 // checkEnum applies "enum" and "const".
 func (c *checker) checkEnum(schema map[string]any, doc any, path string) []string {
-	if want, ok := schema["const"]; ok && doc != want {
+	// reflect.DeepEqual rather than ==, and slices.ContainsFunc rather
+	// than slices.Contains, because Go's == on two any values panics when
+	// the dynamic type is uncomparable. A JSON array parses to []any and
+	// an object to map[string]any, both uncomparable, so a schema stating
+	// either as a const or an enum member would crash the test binary
+	// instead of reporting a mismatch. Every const in
+	// character.schema.json is a string today, so this cannot fire yet.
+	if want, ok := schema["const"]; ok && !reflect.DeepEqual(doc, want) {
 		return []string{fmt.Sprintf("%s: is %v, want %v", path, doc, want)}
 	}
 
@@ -188,7 +210,7 @@ func (c *checker) checkEnum(schema map[string]any, doc any, path string) []strin
 		return nil
 	}
 
-	if slices.Contains(allowed, doc) {
+	if slices.ContainsFunc(allowed, func(a any) bool { return reflect.DeepEqual(a, doc) }) {
 		return nil
 	}
 

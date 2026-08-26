@@ -566,6 +566,14 @@ func TestEachConsequenceKindKeepsItsShape(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	// The same premise its two siblings state: with no fixtures the loop
+	// below reports every pinned kind as unemitted, so the gate fails
+	// either way — but with fifty-odd errors about missing consequences
+	// instead of one naming the cause.
+	if len(records) == 0 {
+		t.Fatal("no fixtures found; this gate would be asserting nothing")
+	}
+
 	seen := map[string]bool{}
 
 	for _, path := range records {
@@ -800,4 +808,60 @@ func schemaEnum(t *testing.T, def, property string) []string {
 	}
 
 	return schema.Defs[def].Properties[property].Enum
+}
+
+// TestAWholeNumberSatisfiesTypeNumber pins the one place JSON Schema's
+// type names are not disjoint: every integer is a number, so a property
+// declared "number" must accept 5 as readily as 5.5.
+//
+// Constructed rather than drawn from the record, and deliberately so.
+// character.schema.json declares no "number" today, so nothing exercises
+// this and no fixture would notice if it broke. The first fractional
+// field added to the record — a rate, a multiplier — gets "number", and a
+// checker without this rule then fails every record whose value happened
+// to land whole, reading as a schema bug rather than a checker one.
+func TestAWholeNumberSatisfiesTypeNumber(t *testing.T) {
+	c, err := newChecker([]byte(`{"type": "object", "properties": {"rate": {"type": "number"}}}`))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for _, value := range []any{5.0, 5.5, -2.0} {
+		if problems := c.check(c.root, map[string]any{"rate": value}, "record"); len(problems) != 0 {
+			t.Errorf("rate %v refused under type number: %s", value, strings.Join(problems, "; "))
+		}
+	}
+
+	// The reverse still fails: a fractional value is not an integer.
+	c, err = newChecker([]byte(`{"type": "object", "properties": {"terms": {"type": "integer"}}}`))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if problems := c.check(c.root, map[string]any{"terms": 2.5}, "record"); len(problems) == 0 {
+		t.Error("terms 2.5 was accepted under type integer")
+	}
+}
+
+// TestANonScalarConstIsCompared pins that the checker reports a mismatch
+// on an array or object const rather than crashing.
+//
+// Go's == on two any values panics when the dynamic type is uncomparable,
+// and a JSON array parses to []any. Every const in character.schema.json
+// is a string, so nothing exercises this and no fixture would notice if it
+// regressed — but the crash takes the whole test binary with it, which
+// reads as a broken build rather than a checker bug.
+func TestANonScalarConstIsCompared(t *testing.T) {
+	c, err := newChecker([]byte(`{"type": "object", "properties": {"pair": {"const": [1, 2]}}}`))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if problems := c.check(c.root, map[string]any{"pair": []any{1.0, 2.0}}, "record"); len(problems) != 0 {
+		t.Errorf("the matching array was refused: %s", strings.Join(problems, "; "))
+	}
+
+	if problems := c.check(c.root, map[string]any{"pair": []any{1.0, 3.0}}, "record"); len(problems) == 0 {
+		t.Error("a different array was accepted under const [1, 2]")
+	}
 }

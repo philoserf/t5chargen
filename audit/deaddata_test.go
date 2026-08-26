@@ -23,6 +23,26 @@ package audit_test
 // change than the gate is worth today — but a field with a common name is
 // weakly covered here, and reviewing one should not stop at "the gate is
 // green".
+//
+// Second known limitation, and the reason the first cannot simply be
+// fixed by resolving reachability: the gate blanks validate* bodies so a
+// validator's read does not count, but it cannot see *which value* an
+// argument takes. education.SkillRow.flag returns Law and Medical. flag
+// has two callers: teaches, which only validateNamedAwards calls, and
+// Majors, which chargen reaches with program.MajorsFrom — a value that is
+// "school", "college" or "academy" and never "law" or "medical", because
+// Medical School and Law School select no Major (I-104). So the only read
+// that executes is the loader's own cross-check, and the gate counts the
+// fields as read anyway.
+//
+// Neither available fix works. Listing them in unreadOnPurpose trips the
+// reverse check, because .Law and .Medical are plainly present in flag,
+// which is not a validator. A call-graph closure keeps flag, because
+// Majors genuinely is production-reachable. What makes these two unread
+// is a value, not a name and not a path, and no static test over this
+// source can decide it. Recorded here rather than worked around: the
+// gate's green is one claim short for a field reached through a shared
+// helper with a selecting argument.
 
 import (
 	"fmt"
@@ -121,7 +141,12 @@ func TestNoChartDataIsTranscribedAndForgotten(t *testing.T) {
 func chartDataFields(t *testing.T) map[string]string {
 	t.Helper()
 
-	declaration := regexp.MustCompile("(?m)^\\s+([A-Z][A-Za-z0-9]*)\\s+[][*A-Za-z0-9_.]+\\s+`json:\"([a-z_]+)")
+	// The tag class carries digits and is anchored to the closing quote:
+	// career.muster_out_m2, world.d1 and world.d2 were otherwise reported
+	// as muster_out_m and d, sending a reader after a tag that does not
+	// exist and collapsing d1 and d2 into one label. Coverage was never
+	// affected — the map keys on the Go field name — only the message.
+	declaration := regexp.MustCompile("(?m)^\\s+([A-Z][A-Za-z0-9]*)\\s+[][*A-Za-z0-9_.]+\\s+`json:\"([a-z0-9_]+)\"")
 	fields := map[string]string{}
 
 	for _, pkg := range chartPackages(t) {
