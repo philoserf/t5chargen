@@ -784,6 +784,15 @@ func (d *Definition) JobEntry(a, b, c int) Entry {
 		return Entry{Kind: EntryNone}
 	}
 
+	// The three faces index the table directly. rollUnder(3) bounds them
+	// at every call site today, so this is a backstop — but an index
+	// panic here would blame the career data for a caller's arithmetic.
+	if a < 1 || a > len(d.JobTable) ||
+		b < 1 || b > len(d.JobTable[a-1]) ||
+		c < 1 || c > len(d.JobTable[a-1][b-1]) {
+		return Entry{Kind: EntryNone}
+	}
+
 	name := d.JobTable[a-1][b-1][c-1]
 	if name == NoSkillCell {
 		return Entry{Kind: EntryNone}

@@ -95,6 +95,19 @@ func resolveUnder(roll Roll, target int) Throw {
 	throw := resolveThrow(roll, target)
 	throw.Success = roll.Total < target
 
+	// Cleared for the reason High spends a paragraph on: "Three Ones ...
+	// is a Spectacular Success" and "Three Sixes ... is a Spectacular
+	// Failure" (p. 127) read the dice the way a roll-low Throw does, and
+	// an Under throw is not one. The Aging Check is the only caller and
+	// its own doc says "the caller wants it to fail: Success inflicts the
+	// effects of age", so three ones — the roll that most decisively
+	// ages a character — was being recorded as a Spectacular Success.
+	//
+	// Unreachable today: aging rolls 2D and three of a kind needs three
+	// dice. Under is exported with an arbitrary count, so the guard is
+	// the function's rather than the caller's.
+	throw.SpectacularSuccess, throw.SpectacularFailure = false, false
+
 	return throw
 }
 

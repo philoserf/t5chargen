@@ -58,6 +58,17 @@ func (r *Roller) Roll(n int) Roll {
 // 10. ... 2D - 7. Roll two dice and subtract 7. This may produce negative
 // numbers" (p. 19).
 func (r *Roller) RollMod(n, mod int) Roll {
+	// A count the rules cannot express rolls nothing rather than
+	// panicking in make. Every count reaching here is a constant or a
+	// chart field with a floor checked at load, so this is a backstop
+	// and not a behaviour — but it is exported, and CLAUDE.md's rule for
+	// a value outside the rules' range is that nothing exported panics.
+	// An empty roll shows in the record as 0D, which is visibly wrong,
+	// where a panic takes the process with it.
+	if n < 1 {
+		return Roll{N: n, Faces: []int{}, Mod: mod, Total: mod}
+	}
+
 	faces := make([]int, n)
 	total := mod
 
