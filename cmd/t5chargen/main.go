@@ -129,7 +129,7 @@ func runNew(args []string, seedFn func() (uint64, error), stdin io.Reader, stdou
 		return exitUsage
 	}
 
-	if code := checkCurrentYear("new", *currentYear, stderr); code != exitOK {
+	if code := checkFlags("new", *currentYear, *name, stderr); code != exitOK {
 		return code
 	}
 
@@ -600,23 +600,67 @@ func canonicalCareer(name string) string {
 // writeFile writes the record to path. "Existing files are never
 // overwritten without --force." (docs/PRD.md, CLI sketch) — creation is
 // exclusive unless force allows truncation.
+// The record is written whole or not at all: a truncating write that
+// fails partway leaves a half-written file where a valid record was, and
+// a record is the one artifact this tool exists to produce. Writing beside
+// the target and renaming over it makes the replacement atomic.
 func writeFile(path string, data []byte, force bool) error {
-	mode := os.O_WRONLY | os.O_CREATE | os.O_EXCL
-	if force {
-		mode = os.O_WRONLY | os.O_CREATE | os.O_TRUNC
+	if !force {
+		if err := claimPath(path); err != nil {
+			return err
+		}
 	}
 
-	file, err := os.OpenFile(path, mode, 0o644) //nolint:gosec // G304: user-supplied output path is the CLI contract.
+	tmp, err := os.CreateTemp(filepath.Dir(path), ".t5chargen-*")
 	if err != nil {
-		if errors.Is(err, os.ErrExist) {
-			return fmt.Errorf("%s: %w", path, errExists)
-		}
+		return fmt.Errorf("writing %s: %w", path, err)
+	}
+
+	defer os.Remove(tmp.Name()) //nolint:errcheck // best effort; the rename below usually beats it
+
+	if _, err := tmp.Write(data); err != nil {
+		tmp.Close() //nolint:errcheck,gosec // write error takes precedence
 
 		return fmt.Errorf("writing %s: %w", path, err)
 	}
 
-	if _, err := file.Write(data); err != nil {
-		file.Close() //nolint:errcheck,gosec // write error takes precedence
+	// Synced before the rename: without it the rename can be durable
+	// while the bytes it points at are not.
+	if err := tmp.Sync(); err != nil {
+		tmp.Close() //nolint:errcheck,gosec // sync error takes precedence
+
+		return fmt.Errorf("writing %s: %w", path, err)
+	}
+
+	if err := tmp.Close(); err != nil {
+		return fmt.Errorf("writing %s: %w", path, err)
+	}
+
+	// CreateTemp makes the file 0o600; the record is not a secret and the
+	// old path wrote 0o644.
+	//nolint:gosec // G302: a character record is not a secret, and the
+	// non-atomic write this replaces created 0o644.
+	if err := os.Chmod(tmp.Name(), 0o644); err != nil {
+		return fmt.Errorf("writing %s: %w", path, err)
+	}
+
+	if err := os.Rename(tmp.Name(), path); err != nil {
+		return fmt.Errorf("writing %s: %w", path, err)
+	}
+
+	return nil
+}
+
+// claimPath refuses a path that already holds a file, and reserves it if
+// it does not. "Existing files are never overwritten without --force."
+// (docs/PRD.md, CLI sketch) — the exclusive create is the existence check,
+// not the write, so writeFile can still replace the file atomically.
+func claimPath(path string) error {
+	file, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0o644) //nolint:gosec // G304: the CLI contract.
+	if err != nil {
+		if errors.Is(err, os.ErrExist) {
+			return fmt.Errorf("%s: %w", path, errExists)
+		}
 
 		return fmt.Errorf("writing %s: %w", path, err)
 	}
@@ -846,4 +890,24 @@ func readCharacters(path string) ([]chargen.Character, error) {
 
 		characters = append(characters, character)
 	}
+}
+
+// checkFlags validates the flags new and batch share.
+//
+// --name is refused here rather than escaped at each output. The name
+// reaches a Markdown sheet, a Markdown transcript and a JSON record, so it
+// has one entry point and three exits; a line break is the character that
+// breaks all three, and no Traveller name needs one.
+func checkFlags(cmd string, currentYear int, name string, stderr io.Writer) int {
+	if code := checkCurrentYear(cmd, currentYear, stderr); code != exitOK {
+		return code
+	}
+
+	if strings.ContainsAny(name, "\r\n") {
+		fmt.Fprintf(stderr, "t5chargen %s: --name may not contain a line break\n", cmd)
+
+		return exitUsage
+	}
+
+	return exitOK
 }

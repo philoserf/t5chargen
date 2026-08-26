@@ -29,9 +29,8 @@ type session struct {
 	age   int
 	stats map[string]int
 
-	skills    map[string]int
-	told      bool // the characteristics have been shown
-	abandoned bool // the player left rather than finished
+	skills map[string]int
+	told   bool // the characteristics have been shown
 }
 
 // newSession starts with a character not yet rolled.

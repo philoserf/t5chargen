@@ -96,8 +96,6 @@ func (d *Decider) resolve(c chargen.Choice, answer string) (int, bool, error) {
 	case strings.EqualFold(answer, quitAnswer):
 		abandoned, err := d.confirmAbandon(c)
 		if err != nil || abandoned {
-			d.session.abandoned = true
-
 			return 0, true, err
 		}
 
@@ -164,8 +162,6 @@ func (d *Decider) read() (string, error) {
 		if err := d.in.Err(); err != nil {
 			return "", fmt.Errorf("reading the answer: %w", err)
 		}
-
-		d.session.abandoned = true
 
 		return "", fmt.Errorf("%w: input ended", ErrAbandoned)
 	}
