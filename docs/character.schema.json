@@ -751,8 +751,9 @@
           "$ref": "#/$defs/characteristics"
         },
         "upp": {
-          "description": "The characteristics as the extended-hex string, derived and stored alongside them (docs/PRD.md, JSON conventions).",
-          "type": "string"
+          "description": "The characteristics as the extended-hex string, derived and stored alongside them (docs/PRD.md, JSON conventions). Six eHex digits: 0-9 then A-Z omitting I and O (Book 1 p. 22).",
+          "type": "string",
+          "pattern": "^[0-9A-HJ-NP-Z]{6}$"
         },
         "homeworld": {
           "$ref": "#/$defs/homeworld"

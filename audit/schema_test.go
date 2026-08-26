@@ -23,6 +23,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"regexp"
 	"slices"
 	"strconv"
 	"strings"
@@ -100,6 +101,7 @@ func (c *checker) check(schema map[string]any, doc any, path string) []string {
 
 	problems = append(problems, c.checkType(schema, doc, path)...)
 	problems = append(problems, c.checkMinimum(schema, doc, path)...)
+	problems = append(problems, c.checkPattern(schema, doc, path)...)
 	problems = append(problems, c.checkEnum(schema, doc, path)...)
 	problems = append(problems, c.checkObject(schema, doc, path)...)
 	problems = append(problems, c.checkArray(schema, doc, path)...)
@@ -147,6 +149,35 @@ func (c *checker) checkType(schema map[string]any, doc any, path string) []strin
 // schema bug rather than a checker one.
 func satisfiesType(got, want string) bool {
 	return got == want || (want == "number" && got == "integer")
+}
+
+// checkPattern applies "pattern".
+//
+// Added when the schema first stated one. A keyword the schema declares
+// and the checker ignores is worse than no keyword: the document claims a
+// constraint, every record passes, and the gate looks like it works —
+// which is the failure mode this file's own doc comment is written about.
+func (c *checker) checkPattern(schema map[string]any, doc any, path string) []string {
+	want, ok := schema["pattern"].(string)
+	if !ok {
+		return nil
+	}
+
+	text, ok := doc.(string)
+	if !ok {
+		return nil
+	}
+
+	matched, err := regexp.MatchString(want, text)
+	if err != nil {
+		return []string{fmt.Sprintf("%s: schema pattern %q does not compile: %v", path, want, err)}
+	}
+
+	if !matched {
+		return []string{fmt.Sprintf("%s: %q does not match %q", path, text, want)}
+	}
+
+	return nil
 }
 
 // checkMinimum applies "minimum". It is a rule of its own rather than a
