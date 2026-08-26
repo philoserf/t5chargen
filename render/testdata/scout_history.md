@@ -353,23 +353,24 @@ _Book 1 p. 79 chart 05_
 - #300 policy chose "No Mod" of [No Mod, Caution +1, Caution +2, Caution +3, Caution +4, Caution +5, Caution +6, Caution +7, Caution +8, Caution +9, Bravery -1, Bravery -2, Bravery -3, Bravery -4, Bravery -5, Bravery -6, Bravery -7, Bravery -8, Bravery -9]: Select Caution, Bravery, or No Mod — Book 1 p. 65 (Caution, Bravery, or No Mod); chart 05 p. 79
 - #301 2D = 2+4 = 6 vs 2: failure — Book 1 p. 79 chart 05 (Risk vs Dex+Mods)
 - #302 Flux = 1+6 = -5 — Book 1 p. 79 chart 05 (Risk Failure: reduce CC by negative Mods and Flux)
-  - #303 (from #301) Dex -5 = -3
-  - #304 (from #301) DEAD (Dex reduced to zero)
-  - #305 (from #301) +4 years
-  - #306 (from #301) career ended (Scout)
-  - #307 (from #46) Sanity -3 when generated
+  - #303 (from #301) Dex -5 = 0
+  - #304 (from #301) Dex floored at 0, 3 refused
+  - #305 (from #301) DEAD (Dex reduced to zero)
+  - #306 (from #301) +4 years
+  - #307 (from #301) career ended (Scout)
+  - #308 (from #46) Sanity -3 when generated
 
 ## Determine Fame
 
 _Book 1 p. 91 chart F_
 
-- #309 policy chose "Keep this Fame" of [Keep this Fame, Add Flux to Fame]: Invoke the Fame Flux Event? (Fame 20 so far) — Book 1 p. 91 chart F (The Fame Flux Event)
-  - #310 (from #309) Fame 20 (Sector) = Scout Discoveries x4 +20
+- #310 policy chose "Keep this Fame" of [Keep this Fame, Add Flux to Fame]: Invoke the Fame Flux Event? (Fame 20 so far) — Book 1 p. 91 chart F (The Fame Flux Event)
+  - #311 (from #310) Fame 20 (Sector) = Scout Discoveries x4 +20
 
 ## Record the Character's Birthdate
 
 _Book 1 p. 58; p. 263_
 
-- #312 4D = 5+2+2+6 = 15 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
-- #313 4D = 1+4+5+1 = 11 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
-  - #314 (from #313) born Wonday 023-1051
+- #313 4D = 5+2+2+6 = 15 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
+- #314 4D = 1+4+5+1 = 11 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
+  - #315 (from #314) born Wonday 023-1051

@@ -97,7 +97,7 @@ func (c *Character) agingPass(table *lifestage.Table, age int, roller *dice.Roll
 
 		// "If the Aging Check imposes an effect, the characteristic is
 		// reduced -1."
-		value := characteristicAdd(&c.Characteristics, name, -1)
+		value, _ := characteristicAdd(&c.Characteristics, name, -1)
 		log.Consequence(ConsequenceEvent{
 			Cause: seq, Kind: ConsequenceAgingEffect,
 			Characteristic: name, Delta: -1, Value: value,
@@ -115,7 +115,7 @@ func (c *Character) agingPass(table *lifestage.Table, age int, roller *dice.Roll
 
 		// Set to 1, not incremented: the chart resets, and an increment
 		// would leave anything already below zero below it.
-		reset := characteristicAdd(&c.Characteristics, name, 1-value)
+		reset, _ := characteristicAdd(&c.Characteristics, name, 1-value)
 		log.Consequence(ConsequenceEvent{
 			Cause: seq, Kind: ConsequenceCharacteristicReset,
 			Characteristic: name, Delta: 1 - value, Value: reset,

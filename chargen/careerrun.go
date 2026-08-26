@@ -1225,11 +1225,17 @@ func (r *careerRun) injury(cc string, mod, cause int, cite string) (bool, bool) 
 		return false, false
 	}
 
-	value := characteristicAdd(&r.character.Characteristics, cc, delta)
+	value, lost := characteristicAdd(&r.character.Characteristics, cc, delta)
 	r.log.Consequence(ConsequenceEvent{
 		Cause: cause, Kind: ConsequenceCharacteristicChange,
 		Characteristic: cc, Delta: delta, Value: value,
 	})
+
+	// The wound is recorded at full size above; the floor is recorded
+	// separately, so the transcript shows both what was inflicted and
+	// what the character could actually lose. Death still follows from
+	// the value reaching zero, which is what p. 65 turns on.
+	logClamp(r.log, cc, lost, cause)
 
 	// "If the Controlling Characteristic is reduced to zero or less, the
 	// Character is dead." (p. 65)
