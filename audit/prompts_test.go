@@ -43,10 +43,19 @@ type choiceText struct {
 // that nothing a player is asked to answer names a field instead of a
 // rule.
 //
-// The fixtures are the right source: they are the engine's own output over
-// all thirteen careers, so a prompt built by string concatenation from
-// chart data is caught wherever the lifepath actually reaches it — which
-// is more than any list of prompt sites would cover.
+// Two sources, because neither covers the other.
+//
+// The fixtures are the engine's own output over all thirteen careers, so a
+// prompt built by string concatenation from chart data is caught wherever
+// the lifepath actually reaches it. What they cannot see is a path the
+// auto policy declines: "Select a service" and "Choose Honors" appear in
+// none of the fourteen records, because the policy never takes the Service
+// Academy. That blindness is not hypothetical — it is where the Academy's
+// own defects survived until they were reported from play.
+//
+// So the prompt literals in the source are scanned too. That reaches every
+// static prompt whether or not a policy run arrives at it, and leaves only
+// the interpolated half to the fixtures.
 func TestNoPromptShowsAnIdentifier(t *testing.T) {
 	files, err := filepath.Glob(filepath.Join("..", "chargen", "testdata", "*.json"))
 	if err != nil {
@@ -66,6 +75,50 @@ func TestNoPromptShowsAnIdentifier(t *testing.T) {
 	// choices at all would pass while checking nothing.
 	if checked < 100 {
 		t.Fatalf("only %d choices scanned; the fixtures are not being read", checked)
+	}
+
+	scanPromptLiterals(t)
+}
+
+// scanPromptLiterals checks the prompt strings written in the engine's
+// source, which covers the choice points no auto-mode fixture reaches.
+//
+// Only the literal part of an interpolated prompt is visible here; the
+// fixtures carry the rest, where a run gets to it.
+func scanPromptLiterals(t *testing.T) {
+	t.Helper()
+
+	sources, err := filepath.Glob(filepath.Join("..", "chargen", "*.go"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	literal := regexp.MustCompile(`Prompt:\s*"([^"]*)"`)
+
+	found := 0
+
+	for _, file := range sources {
+		if strings.HasSuffix(file, "_test.go") {
+			continue
+		}
+
+		data, err := os.ReadFile(file) //nolint:gosec // a source path the caller globbed
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		for _, match := range literal.FindAllStringSubmatch(string(data), -1) {
+			found++
+
+			if shown := identifier.FindString(match[1]); shown != "" {
+				t.Errorf("%s writes the prompt %q, which shows the identifier %q",
+					filepath.Base(file), match[1], shown)
+			}
+		}
+	}
+
+	if found < 30 {
+		t.Fatalf("only %d prompt literals found; the source scan is not working", found)
 	}
 }
 

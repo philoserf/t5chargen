@@ -79,6 +79,19 @@ func scan(t *testing.T, keep func(path string) bool, pattern *regexp.Regexp) []s
 // TestCoverageNamesRealTests verifies every test COVERAGE.md cites as
 // evidence exists. A renamed or deleted test would otherwise leave the
 // document claiming a rule is covered by nothing.
+//
+// Only the Test column is checked, and the asymmetry is deliberate rather
+// than an oversight. The Implementation column makes the same kind of
+// claim and would rot the same way, but it is not one vocabulary: its 288
+// backticked entries are Go functions and types, JSON field names
+// (begin_automatic_if, knowledge_only), file paths (functionary.json),
+// CLI flags (--current-year), package names, and choice ids. Nothing
+// distinguishes them mechanically, so a gate over that column needs an
+// exclusion list about as long as the set it would falsely flag — which
+// is the shape of check this repo has rejected before.
+//
+// All 288 resolve as of this writing. Treat the Implementation column as
+// reviewed rather than gated, and check it by hand when renaming.
 func TestCoverageNamesRealTests(t *testing.T) {
 	named := regexp.MustCompile("`(Test[A-Za-z0-9_]+)`").FindAllStringSubmatch(read(t, docsDir+"COVERAGE.md"), -1)
 	if len(named) == 0 {
@@ -133,13 +146,53 @@ func TestEveryChoicePointHasAPolicy(t *testing.T) {
 		t.Fatal("no choice points found")
 	}
 
-	policy := read(t, docsDir+"POLICY.md")
+	ruled := policyRuleIDs(t)
 
 	for _, id := range ids {
-		if !strings.Contains(policy, "`"+id+"`") {
-			t.Errorf("choice point %q has no POLICY.md rule", id)
+		if !ruled[id] {
+			t.Errorf("choice point %q has no POLICY.md decision-table rule", id)
 		}
 	}
+}
+
+// policyRuleIDs lists the choice points POLICY.md's decision table gives a
+// rule, read from the table's first column rather than from the document.
+//
+// A substring search over the whole file is weaker than the rule this gate
+// claims to enforce. POLICY.md's version history names choice points while
+// explaining past bumps, so a choice point deleted from the table but
+// still mentioned there would keep the gate green — and the gate would
+// report a decision table as total when it had stopped being so.
+//
+// One row may cover two choice points that share a rule
+// ("| `select_major` / `select_minor` |"), so the whole first cell is
+// read. A cell holding anything but backticked ids and separators is not
+// a rule row: that skips the header, the alignment row, and every prose
+// cell that happens to quote an id.
+func policyRuleIDs(t *testing.T) map[string]bool {
+	t.Helper()
+
+	firstCell := regexp.MustCompile(`(?m)^\|([^|]*)\|`)
+	id := regexp.MustCompile("`([a-z0-9_]+)`")
+
+	ids := make(map[string]bool)
+
+	for _, row := range firstCell.FindAllStringSubmatch(read(t, docsDir+"POLICY.md"), -1) {
+		named := id.FindAllStringSubmatch(row[1], -1)
+		if len(named) == 0 {
+			continue
+		}
+
+		if strings.Trim(id.ReplaceAllString(row[1], ""), " \t/") != "" {
+			continue
+		}
+
+		for _, match := range named {
+			ids[match[1]] = true
+		}
+	}
+
+	return ids
 }
 
 // declaredChoiceIDs lists every ChoiceID constant in the module's
