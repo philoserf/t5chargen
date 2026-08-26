@@ -24,6 +24,13 @@ conventions, the auto-policy requirements, and milestones.
 - **Event log first**: every throw, choice, and consequence emits an event (see PRD FR10).
   New mechanics are not done until their events render in the history transcript and replay
   verifies them.
+- **Values outside the rules' range**: one answer, not one per site. A value a _caller_
+  supplies — a day, a dice count, an eHex value — is refused with an error. A value the
+  _engine derives_ clamps to the rule's own floor and emits a consequence saying so: the
+  record is the product, and a clamp nobody can see is worse than one they can. Nothing
+  exported panics; where a precondition genuinely holds, state it in the doc comment
+  instead of leaving the caller to know. Substituting a symbol the format lacks is never
+  the answer.
 - Sibling repos `philoserf/traveller` and `philoserf/t5` contain independent chargen
   implementations. Do not import from or copy them — this repo is a deliberate clean-room
   restart; consult them only when explicitly asked.
