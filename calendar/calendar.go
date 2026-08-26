@@ -120,10 +120,18 @@ func (b Birthdate) String() string {
 	return fmt.Sprintf("%s %03d-%d", b.Weekday, b.Day, b.Year)
 }
 
+// ErrDay reports a day of the year outside 1 through DaysInYear.
+var ErrDay = errors.New("calendar: day outside the year")
+
+// unknownWeekday is what Weekday answers for a day outside the year.
+const unknownWeekday = "Unknown"
+
 // On builds the birthdate for a day of the year and an Imperial year.
 func On(day, year int) (Birthdate, error) {
+	// ErrDay, not errBadTable: the caller passed a day the year does not
+	// have, which is nothing to do with the transcription being corrupt.
 	if day < 1 || day > DaysInYear {
-		return Birthdate{}, fmt.Errorf("%w: day %d", errBadTable, day)
+		return Birthdate{}, fmt.Errorf("%w: day %d", ErrDay, day)
 	}
 
 	return Birthdate{Day: day, Year: year, Weekday: Weekday(day)}, nil
@@ -134,6 +142,16 @@ func On(day, year int) (Birthdate, error) {
 func Weekday(day int) string {
 	if day == 1 {
 		return holiday
+	}
+
+	// Below day 1 the modulo goes negative and indexes out of range; above
+	// DaysInYear it wrapped silently into the next year's week. On
+	// range-checks before calling, so neither is reachable through the
+	// package's own door — but Weekday is exported and takes the caller's
+	// number, and an out-of-range day is the caller's error to see rather
+	// than a panic or a plausible wrong answer.
+	if day < 1 || day > DaysInYear {
+		return unknownWeekday
 	}
 
 	return weekdays[(day-2)%len(weekdays)]

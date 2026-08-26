@@ -38,7 +38,11 @@ type famePoints struct {
 // units expands a priced line into the individual Fame points it is made
 // of, which is what chart F's stacking rule operates on.
 func (f famePoints) units() []int {
-	if f.unit <= 0 {
+	// points as well as unit: make's capacity argument is f.points/f.unit,
+	// which panics on a negative. No call site passes one — the two
+	// eligibility builders append only on points != 0 — and this is the
+	// floor that says so rather than leaving it to them.
+	if f.unit <= 0 || f.points <= 0 {
 		return []int{f.points}
 	}
 

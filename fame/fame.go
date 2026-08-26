@@ -74,6 +74,13 @@ var table = sync.OnceValues(func() (*Table, error) {
 // carries past it. The alternative — that a total above 20 collapses to
 // the largest single source — would let a character's Fame fall because he
 // achieved something more, which no reading of "stacks" supports.
+// Negative points are not part of this rule and are not defended against
+// here. highest is the largest single positive source, so a penalty
+// smaller than highest-sum vanishes entirely: [10, -3] stacks to 10 where
+// the plain sum is 7. chargen keeps the Fame Flux out of this call for
+// exactly that reason, and the two eligibility builders append only on a
+// non-zero point value — so nothing passes one. A caller that needs a
+// loss applied must apply it outside the stack.
 func (t *Table) Stack(points []int) int {
 	sum, highest := 0, 0
 
