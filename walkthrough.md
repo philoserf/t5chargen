@@ -519,14 +519,14 @@ grep -n '^func (l \*Log)' chargen/event.go
 ```
 
 ```output
-387:func (l *Log) Events() []Event {
-437:func (l *Log) Step(name, cite string) int {
-444:func (l *Log) Roll(roll dice.Roll, cite string) int {
-456:func (l *Log) Flux(flux dice.FluxRoll, cite string) int {
-468:func (l *Log) Throw(throw dice.Throw, mods []Mod, cite string) int {
-483:func (l *Log) Choice(choice ChoiceEvent) int {
-492:func (l *Log) Consequence(consequence ConsequenceEvent) int {
-500:func (l *Log) append(event Event) int {
+396:func (l *Log) Events() []Event {
+446:func (l *Log) Step(name, cite string) int {
+453:func (l *Log) Roll(roll dice.Roll, cite string) int {
+465:func (l *Log) Flux(flux dice.FluxRoll, cite string) int {
+477:func (l *Log) Throw(throw dice.Throw, mods []Mod, cite string) int {
+492:func (l *Log) Choice(choice ChoiceEvent) int {
+501:func (l *Log) Consequence(consequence ConsequenceEvent) int {
+509:func (l *Log) append(event Event) int {
 ```
 
 `Step` marks a checklist stage. `Roll` and `Flux` record dice. `Throw`
@@ -637,11 +637,16 @@ type careerMechanics interface {
 }
 ```
 
-Two methods. Everything else a career needs is data. The registry wires
-each career name to a constructor returning both halves:
+Two methods. Everything else a career needs is data — and where a career's
+entry is the generic To Begin throw chart D describes, it does not
+implement `begin` at all: it embeds `baseMechanics`, which reads the throw
+off the definition's `BeginChecks`.
+
+The registry wires each career name to a constructor returning both
+halves:
 
 ```bash
-sed -n '109,126p' chargen/careerrun.go
+sed -n '/^var careerRegistry/,/^}/p' chargen/careerrun.go
 ```
 
 ```output
@@ -660,9 +665,6 @@ var careerRegistry = map[string]func() (*career.Definition, careerMechanics, err
 	"Scout":       newScout,
 	"Merchant":    newMerchant,
 }
-
-// careerRun is the shared state of one career resolution.
-type careerRun struct {
 ```
 
 The data side is `career.Definition`. Its fields read as a direct
@@ -719,7 +721,7 @@ grep -c 'func validate\|) validate' career/career.go
 ```
 
 ```output
-29
+30
 ```
 
 ## Replay
@@ -846,6 +848,7 @@ grep -h '^func Test' audit/*.go | sed 's/(t \*testing.T) {//'
 
 ```output
 func TestNoChartDataIsTranscribedAndForgotten
+func TestFameAndMedalAgreeOnCodes
 func TestCoverageNamesRealTests
 func TestEveryInterpretationIsCited
 func TestEveryChoicePointHasAPolicy
@@ -863,6 +866,9 @@ func TestEverySchemaPropertyIsExercised
 func TestEachConsequenceKindKeepsItsShape
 func TestEveryConsequenceKindIsAccountedFor
 func TestEverySchemaVocabularyMatchesTheEngine
+func TestAWholeNumberSatisfiesTypeNumber
+func TestANonScalarConstIsCompared
+func TestThePatternKeywordIsEnforced
 ```
 
 Read those names as a list of ways documentation rots, each one closed:
@@ -932,7 +938,7 @@ go run ./cmd/t5chargen render /tmp/demo.json | tail -5
 ```output
 ---
 
-Seed 314 (math/rand/v2-pcg) · schema 0.30.0 · engine 0.40.0 · policy 0.20.0
+Seed 314 (math/rand/v2-pcg) · schema 0.31.0 · engine 0.41.0 · policy 0.20.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1
 ```
@@ -1035,4 +1041,3 @@ ambiguous and a decision had to be made, numbered and argued. Reading it
 is the fastest way to understand why the code is shaped as it is — most of
 the non-obvious structure in `chargen` exists to serve one of those
 interpretations.
-
