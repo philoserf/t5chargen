@@ -419,6 +419,11 @@ func consequenceText(c *chargen.ConsequenceEvent) string {
 		return fmt.Sprintf("%s = %d", c.Characteristic, c.Value)
 	case chargen.ConsequenceCharacteristicChange:
 		return fmt.Sprintf("%s %+d = %d", c.Characteristic, c.Delta, c.Value)
+	case chargen.ConsequenceCharacteristicFloored:
+		// Delta is what the floor refused, so the transcript shows both
+		// the size of the effect and what the character could lose
+		// (interpretation I-107).
+		return fmt.Sprintf("%s floored at %d, %d refused", c.Characteristic, c.Value, -c.Delta)
 	case chargen.ConsequenceSkillAwarded:
 		return fmt.Sprintf("%s %+d = %s-%d", c.Skill, c.Delta, c.Skill, c.Value)
 	case chargen.ConsequenceJobSet:

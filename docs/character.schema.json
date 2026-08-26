@@ -633,6 +633,7 @@
             "career_ended",
             "career_not_begun",
             "characteristic_change",
+            "characteristic_floored",
             "characteristic_reset",
             "characteristic_set",
             "comeback",

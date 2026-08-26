@@ -505,16 +505,19 @@ func schemaProperties(t *testing.T) []string {
 // the same fields every time, and the fixtures disproved it in eleven
 // places within a second of running.
 var consequenceFields = map[string]string{
-	"aging_effect":            "characteristic delta value",
-	"associated":              "career skill",
-	"benefit":                 "career delta skill value",
-	"benefit_lost":            "",
-	"birthdate":               "detail value",
-	"branch_set":              "career skill",
-	"career_changed":          "career",
-	"career_ended":            "career",
-	"disabled":                "characteristic",
-	"characteristic_change":   "characteristic delta value",
+	"aging_effect":          "characteristic delta value",
+	"associated":            "career skill",
+	"benefit":               "career delta skill value",
+	"benefit_lost":          "",
+	"birthdate":             "detail value",
+	"branch_set":            "career skill",
+	"career_changed":        "career",
+	"career_ended":          "career",
+	"disabled":              "characteristic",
+	"characteristic_change": "characteristic delta value",
+	// No value: the floor is zero and Value is omitempty, so the event
+	// carries what was refused and the floor is implied by the kind.
+	"characteristic_floored":  "characteristic delta",
 	"characteristic_reset":    "characteristic delta value",
 	"characteristic_set":      "characteristic value",
 	"comeback":                "value",

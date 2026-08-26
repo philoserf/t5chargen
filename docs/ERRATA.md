@@ -2761,3 +2761,38 @@ nothing to work on.
 This is I-102's argument in its second form. There a ceiling could not be
 waived because exceeding it is not adverse; here a credential cannot be
 waived by a character who has no education to have earned one in.
+
+### I-107: a characteristic driven below zero by a single effect floors at zero (pp. 65, 89)
+
+Chart A settles what happens at zero: "If one Characteristic is reduced to
+0, it is reset to 1" (p. 89). It does not say what happens when one effect
+carries a characteristic past zero in a single step, which the Risk failure
+can: "reduce CC by negative Mods and Flux" (p. 65) subtracts a Flux of up
+to −5 from a characteristic that may already be at 2.
+
+Three readings, and the printed rules exclude none of them:
+
+1. **The floor is zero.** The reduction stops there; the character is dead
+   under p. 65's "reduced to zero or less", and the record carries a value
+   the UPP can express. (Implemented.)
+2. Chart A's reset to 1 covers overshoot too — which would rewrite a fatal
+   injury into a survivable one, since p. 65 kills on zero or less.
+3. The negative stands as the record of how badly the character was hurt.
+
+Reading 1 is taken because the second contradicts p. 65 and the third
+produces a record the format cannot express. A UPP digit is eHex, a closed
+34-symbol alphabet covering 0 through 33 (p. 22); a negative characteristic
+has no digit. The engine's previous answer was to substitute `?`, which
+`ehex.Decode` rejects — so a record was written that the package could not
+read back, breaking the round-trip its own test asserts.
+`chargen/testdata/career_scout.json` shipped as `upp = 7?4AC5` against
+`dex: -3` for exactly this reason.
+
+The clamp is not silent. `characteristicAdd` reports what the floor
+refused and the caller emits a `characteristic_floored` consequence beside
+the change, so the transcript shows both the size of the wound and what the
+character could actually lose — which is the rule CLAUDE.md states for any
+derived value clamped to a rules floor.
+
+Death is unaffected: p. 65 turns on the value reaching zero, and it still
+reaches zero.

@@ -2,6 +2,7 @@ package chargen_test
 
 import (
 	"reflect"
+	"strings"
 	"testing"
 
 	"github.com/philoserf/t5chargen/chargen"
@@ -106,7 +107,17 @@ func TestUPP(t *testing.T) {
 		{"typical", chargen.Characteristics{Str: 7, Dex: 7, End: 7, Int: 7, Edu: 7, Soc: 7}, "777777"},
 		{"hex digits", chargen.Characteristics{Str: 10, Dex: 11, End: 12, Int: 13, Edu: 14, Soc: 15}, "ABCDEF"},
 		{"mixed", chargen.Characteristics{Str: 2, Dex: 12, End: 8, Int: 6, Edu: 6, Soc: 9}, "2C8669"},
-		{"out of range renders ?", chargen.Characteristics{Str: 7, Dex: 7, End: 34, Int: -1, Edu: 6, Soc: 7}, "77??67"},
+		// The engine cannot produce either of these — characteristicAdd
+		// floors at zero and awardCharacteristicAndLog caps at
+		// CharacteristicMax — so this pins the backstop, not a reachable
+		// state. It clamps into the alphabet rather than writing "?",
+		// which ehex.Decode rejects: a record carrying one could not be
+		// read back (I-107).
+		{
+			"out of range clamps into the alphabet",
+			chargen.Characteristics{Str: 7, Dex: 7, End: 34, Int: -1, Edu: 6, Soc: 7},
+			"77Z067",
+		},
 	}
 
 	for _, tt := range tests {
@@ -116,4 +127,72 @@ func TestUPP(t *testing.T) {
 			}
 		})
 	}
+}
+
+// TestAnInjuryPastZeroFloorsAndSaysSo pins interpretation I-107: a single
+// effect large enough to carry a characteristic past zero stops at zero,
+// and the part that could not land is recorded rather than inferred from
+// the gap between a delta and a value.
+//
+// Chart A resets a characteristic reduced *to* zero (p. 89) and the book
+// is silent on overshooting it. The record must hold a value the UPP can
+// express, and a negative has no eHex digit (p. 22) — career_scout.json
+// shipped as "7?4AC5" against dex: -3 before this.
+func TestAnInjuryPastZeroFloorsAndSaysSo(t *testing.T) {
+	found := false
+
+	for seed := range uint64(400) {
+		c := generate(t, chargen.Options{Seed: seed, Career: "Scout", Decider: chargen.DefaultPolicy{}})
+
+		assertRepresentable(t, seed, c)
+
+		if floors(t, seed, c) {
+			found = true
+		}
+	}
+
+	if !found {
+		t.Skip("no seed in 400 drove a characteristic past zero")
+	}
+}
+
+// assertRepresentable checks the record holds a UPP the format can express.
+func assertRepresentable(t *testing.T, seed uint64, c chargen.Character) {
+	t.Helper()
+
+	for _, value := range []int{
+		c.Characteristics.Str, c.Characteristics.Dex, c.Characteristics.End,
+		c.Characteristics.Int, c.Characteristics.Edu, c.Characteristics.Soc,
+	} {
+		if value < 0 {
+			t.Fatalf("seed %d: characteristic %d is negative; the floor did not hold", seed, value)
+		}
+	}
+
+	if strings.ContainsRune(c.UPP, '?') {
+		t.Fatalf("seed %d: upp %q carries a symbol eHex has no digit for", seed, c.UPP)
+	}
+}
+
+// floors checks every characteristic_floored consequence in the record and
+// reports whether the run produced one.
+func floors(t *testing.T, seed uint64, c chargen.Character) bool {
+	t.Helper()
+
+	seen := false
+
+	for _, event := range c.Events {
+		if event.Consequence == nil || event.Consequence.Kind != "characteristic_floored" {
+			continue
+		}
+
+		seen = true
+
+		if event.Consequence.Value != 0 || event.Consequence.Delta >= 0 {
+			t.Errorf("seed %d: floored to %d losing %d, want a floor of 0 and a negative loss",
+				seed, event.Consequence.Value, event.Consequence.Delta)
+		}
+	}
+
+	return seen
 }

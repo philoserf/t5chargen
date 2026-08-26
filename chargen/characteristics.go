@@ -25,15 +25,19 @@ type Characteristics struct {
 // UPP Universal Personality Profile" (p. 48), in the order Str Dex End Int
 // Edu Soc ("the UPP Human format SDEIES", p. 22), each digit in eHex.
 //
-// A value outside the eHex range renders as "?" — p. 22 shows the unknown
-// value convention as 77??67.
+// Every characteristic is representable: characteristicAdd floors at zero
+// and awardCharacteristicAndLog caps at CharacteristicMax, both inside the
+// eHex alphabet. The clamp below is a backstop for an engine fault, and it
+// clamps rather than substituting "?" — ehex.Decode rejects "?", so a
+// record carrying one could not be read back, which is the round-trip the
+// ehex package's own test asserts.
 func (c Characteristics) UPP() string {
 	upp := make([]byte, 0, 6)
 
 	for _, value := range []int{c.Str, c.Dex, c.End, c.Int, c.Edu, c.Soc} {
-		digit, err := ehex.Encode(value)
+		digit, err := ehex.Encode(min(max(value, 0), ehex.Max))
 		if err != nil {
-			digit = '?'
+			digit = '0'
 		}
 
 		upp = append(upp, digit)
@@ -57,17 +61,37 @@ func characteristicValue(c *Characteristics, name string) (int, bool) {
 }
 
 // characteristicAdd applies a delta to the named characteristic, reporting
-// the new value. Callers validate the name first (characteristicValue);
-// an unknown name changes nothing and reports 0.
-func characteristicAdd(c *Characteristics, name string, delta int) int {
+// the new value and how much of the delta the floor refused. Callers
+// validate the name first (characteristicValue); an unknown name changes
+// nothing and reports 0.
+//
+// The floor is zero. Chart A says "If one Characteristic is reduced to 0,
+// it is reset to 1" (p. 89) and the book is silent on overshooting it —
+// interpretation I-107 reads the floor as covering both, so a single
+// effect large enough to drive a characteristic past zero stops there.
+// The value the record holds must be one the UPP can express, and a
+// negative is not (ehex is a closed 34-symbol alphabet, p. 22).
+//
+// lost is what the floor refused, so the caller can record the clamp
+// rather than leaving it invisible: CLAUDE.md's rule for a derived value
+// outside the rules' range is that it clamps and emits a consequence
+// saying so.
+func characteristicAdd(c *Characteristics, name string, delta int) (int, int) {
 	field := characteristicField(c, name)
 	if field == nil {
-		return 0
+		return 0, 0
 	}
 
 	*field += delta
 
-	return *field
+	if *field < 0 {
+		lost := -*field
+		*field = 0
+
+		return 0, lost
+	}
+
+	return *field, 0
 }
 
 // awardCharacteristicAndLog applies a benefit delta subject to the
@@ -83,10 +107,26 @@ func awardCharacteristicAndLog(character *Character, log *Log, name string, delt
 		return
 	}
 
-	value = characteristicAdd(&character.Characteristics, name, delta)
+	value, lost := characteristicAdd(&character.Characteristics, name, delta)
 	log.Consequence(ConsequenceEvent{
 		Cause: cause, Kind: ConsequenceCharacteristicChange,
 		Characteristic: name, Delta: delta, Value: value,
+	})
+
+	logClamp(log, name, lost, cause)
+}
+
+// logClamp records a characteristic the zero floor caught, so the clamp
+// appears in the transcript rather than only in the difference between a
+// delta and a value.
+func logClamp(log *Log, name string, lost, cause int) {
+	if lost == 0 {
+		return
+	}
+
+	log.Consequence(ConsequenceEvent{
+		Cause: cause, Kind: ConsequenceCharacteristicFloored,
+		Characteristic: name, Delta: -lost, Value: 0,
 	})
 }
 

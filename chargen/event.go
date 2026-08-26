@@ -107,6 +107,15 @@ const (
 	// change, Value the new value.
 	ConsequenceCharacteristicChange ConsequenceKind = "characteristic_change"
 
+	// ConsequenceCharacteristicFloored records the zero floor catching a
+	// reduction, with Delta the part of the effect that could not land
+	// and Value the floor itself. Chart A resets a characteristic
+	// reduced *to* zero (p. 89) and the book is silent on overshooting
+	// it; interpretation I-107 reads the floor as covering both, and
+	// CLAUDE.md's rule is that a derived value clamped to a rules floor
+	// emits a consequence rather than clamping invisibly.
+	ConsequenceCharacteristicFloored ConsequenceKind = "characteristic_floored"
+
 	// ConsequenceSkillAwarded records a skill receipt. Delta is the
 	// levels received, Value the resulting level.
 	ConsequenceSkillAwarded ConsequenceKind = "skill_awarded"

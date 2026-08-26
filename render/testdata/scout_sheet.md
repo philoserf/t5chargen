@@ -2,7 +2,7 @@
 
 **Name**:
 
-**UPP**: 7?4AC5
+**UPP**: 704AC5
 
 **Homeworld**: Regina A788899-C (Ph Pa Ri)
 
@@ -12,7 +12,7 @@
 
 | Str | Dex | End | Int | Edu | Soc |
 | --- | --- | --- | --- | --- | --- |
-| 7 | -3 | 4 | 10 | 12 | 5 |
+| 7 | 0 | 4 | 10 | 12 | 5 |
 
 **Education**: University, Major Athlete, Minor Broker — Honors BA
 
@@ -28,6 +28,6 @@
 
 ---
 
-Seed 26 (math/rand/v2-pcg) · schema 0.30.0 · engine 0.40.0 · policy 0.20.0
+Seed 26 (math/rand/v2-pcg) · schema 0.31.0 · engine 0.41.0 · policy 0.20.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

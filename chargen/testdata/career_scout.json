@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.30.0",
+  "schema_version": "0.31.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.40.0",
+  "engine_version": "0.41.0",
   "policy_version": "0.20.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -13,13 +13,13 @@
   },
   "characteristics": {
     "str": 7,
-    "dex": -3,
+    "dex": 0,
     "end": 4,
     "int": 10,
     "edu": 12,
     "soc": 5
   },
-  "upp": "7?4AC5",
+  "upp": "704AC5",
   "homeworld": {
     "name": "Regina",
     "uwp": "A788899-C",
@@ -4510,12 +4510,21 @@
         "cause": 301,
         "kind": "characteristic_change",
         "characteristic": "Dex",
-        "delta": -5,
-        "value": -3
+        "delta": -5
       }
     },
     {
       "seq": 304,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 301,
+        "kind": "characteristic_floored",
+        "characteristic": "Dex",
+        "delta": -3
+      }
+    },
+    {
+      "seq": 305,
       "kind": "consequence",
       "consequence": {
         "cause": 301,
@@ -4524,7 +4533,7 @@
       }
     },
     {
-      "seq": 305,
+      "seq": 306,
       "kind": "consequence",
       "consequence": {
         "cause": 301,
@@ -4533,7 +4542,7 @@
       }
     },
     {
-      "seq": 306,
+      "seq": 307,
       "kind": "consequence",
       "consequence": {
         "cause": 301,
@@ -4542,7 +4551,7 @@
       }
     },
     {
-      "seq": 307,
+      "seq": 308,
       "kind": "consequence",
       "consequence": {
         "cause": 46,
@@ -4552,7 +4561,7 @@
       }
     },
     {
-      "seq": 308,
+      "seq": 309,
       "kind": "step",
       "step": {
         "name": "Determine Fame",
@@ -4560,7 +4569,7 @@
       }
     },
     {
-      "seq": 309,
+      "seq": 310,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4574,10 +4583,10 @@
       }
     },
     {
-      "seq": 310,
+      "seq": 311,
       "kind": "consequence",
       "consequence": {
-        "cause": 309,
+        "cause": 310,
         "kind": "fame_computed",
         "skill": "Sector",
         "value": 20,
@@ -4590,7 +4599,7 @@
       }
     },
     {
-      "seq": 311,
+      "seq": 312,
       "kind": "step",
       "step": {
         "name": "Record the Character's Birthdate",
@@ -4598,7 +4607,7 @@
       }
     },
     {
-      "seq": 312,
+      "seq": 313,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -4613,7 +4622,7 @@
       }
     },
     {
-      "seq": 313,
+      "seq": 314,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -4628,10 +4637,10 @@
       }
     },
     {
-      "seq": 314,
+      "seq": 315,
       "kind": "consequence",
       "consequence": {
-        "cause": 313,
+        "cause": 314,
         "kind": "birthdate",
         "detail": "Wonday 023-1051",
         "value": 1051
