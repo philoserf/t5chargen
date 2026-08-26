@@ -90,13 +90,7 @@ func (*rogueMechanics) begin(r *careerRun) (bool, error) {
 		return true, nil
 	}
 
-	if err := r.character.advanceYears(1, r.roller, r.log, seq); err != nil {
-		return false, err
-	}
-
-	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerNotBegun, Career: r.def.Name})
-
-	return false, nil
+	return failedToBegin(r, seq)
 }
 
 // resolveTerm runs a prison term where one is owed, and otherwise the

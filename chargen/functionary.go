@@ -83,13 +83,7 @@ func (m *functionaryMechanics) begin(r *careerRun) (bool, error) {
 		r.def.Cite+" (To Begin vs Total Terms x3)")
 
 	if !throw.Success {
-		if err := r.character.advanceYears(1, r.roller, r.log, seq); err != nil {
-			return false, err
-		}
-
-		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerNotBegun, Career: r.def.Name})
-
-		return false, nil
+		return failedToBegin(r, seq)
 	}
 
 	if err := m.associate(r, seq); err != nil {

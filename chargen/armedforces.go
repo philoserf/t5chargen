@@ -112,13 +112,7 @@ func (m *armedForcesMechanics) begin(r *careerRun) (bool, error) {
 	seq := r.log.Throw(throw, nil, r.def.Cite+" (To Begin vs "+check+")")
 
 	if !throw.Success {
-		if err := r.character.advanceYears(1, r.roller, r.log, seq); err != nil {
-			return false, err
-		}
-
-		r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceCareerNotBegun, Career: r.def.Name})
-
-		return false, nil
+		return failedToBegin(r, seq)
 	}
 
 	if err := m.enterRank(r, m.entryRank(r), seq); err != nil {
@@ -502,18 +496,9 @@ func (m *armedForcesMechanics) riskAndReward(r *careerRun, cc string, opsMod int
 		r.log.Consequence(ConsequenceEvent{
 			Cause: riskSeq, Kind: ConsequenceServiceBadge, Career: r.def.Name, Value: r.record.ServiceBadges,
 		})
-	} else {
-		died, disabled := r.injury(cc, negativeMods(caution, branchMod, opsMod), riskSeq,
-			r.def.Cite+" (Failure: reduce CC by negative Mods and Flux)")
-		outcome.endCause = riskSeq
-
-		if died {
-			outcome.died = true
-
-			return outcome, nil
-		}
-
-		outcome.endCareer = disabled
+	} else if r.applyInjury(&outcome, cc, negativeMods(caution, branchMod, opsMod), riskSeq,
+		r.def.Cite+" (Failure: reduce CC by negative Mods and Flux)") {
+		return outcome, nil
 	}
 
 	rewardMods := riskMods(caution, -1)
