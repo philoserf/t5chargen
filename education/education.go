@@ -244,8 +244,48 @@ func (p Program) validate() error {
 		}
 	}
 
+	if p.Prerequisite.Kind != "" && !prereqKinds[p.Prerequisite.Kind] {
+		return fmt.Errorf("%w: program %q has prerequisite kind %q", errBadTable, p.ID, p.Prerequisite.Kind)
+	}
+
+	if p.MajorsFrom != "" && !majorsFrom[p.MajorsFrom] {
+		return fmt.Errorf("%w: program %q takes majors from %q", errBadTable, p.ID, p.MajorsFrom)
+	}
+
 	return nil
 }
+
+// The two vocabularies that select behaviour and were left open, closed
+// the way checkNames closes the characteristic names.
+//
+// A typo in either loads clean today and fails somewhere else. An unknown
+// Kind falls through prereqMet's switch to false, so the gate simply
+// stops existing: the row is offered to everyone at qualifies 0 and is
+// reachable only by waiver, and the generated record looks ordinary. An
+// unknown MajorsFrom makes Majors return an empty list, and generation
+// dies two layers away with `"select_major" presented no options` —
+// blaming the choice funnel for a transcription error.
+var (
+	prereqKinds = map[PrereqKind]bool{
+		PrereqNone: true, PrereqEduMin: true, PrereqEduMax: true,
+		PrereqTraMin: true, PrereqC5IsTra: true, PrereqDegree: true,
+		PrereqAssigned: true, PrereqVolunteer: true,
+	}
+
+	// majorsFrom is the Institution vocabulary plus one sentinel. The
+	// Service Academy's column is not fixed by the chart: the character
+	// picks a service first, so "academy" is intercepted by eduRun's
+	// institution() and resolved to army, navy or marine before Majors is
+	// ever called. Closing this against Institution alone rejects the
+	// Academy's own row.
+	majorsFrom = map[string]bool{
+		string(InstitutionCollege): true, string(InstitutionArmy): true,
+		string(InstitutionNavy): true, string(InstitutionMarine): true,
+		string(InstitutionSchool): true, string(InstitutionLaw): true,
+		string(InstitutionMedical): true,
+		"academy":                  true,
+	}
+)
 
 // Programs returns the chart C rows in chart order. The returned slice is
 // shared; callers must not mutate it.
