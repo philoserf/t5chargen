@@ -359,7 +359,47 @@ func (t *Table) validateEntitlements() error {
 		}
 	}
 
+	if err := closedEntitlements(seen); err != nil {
+		return err
+	}
+
 	return t.validateForbiddenKnowledge()
+}
+
+// closedEntitlements holds the entitlement ids the engine names, the way
+// closedVocabulary holds the benefit kinds: every id the engine asks for
+// must be in the data, and the data may not smuggle in one the engine
+// does not know.
+//
+// The asymmetry this closes is at the two call sites.
+// chargen/entitlement.go errors loudly on an unknown id in one place and
+// silently skips in the other, so a removed or misspelt
+// enlisted_retirement costs an Armed Forces character his retirement pay
+// with no error anywhere — a record showing no entitlement, which reads
+// exactly like not qualifying.
+func closedEntitlements(seen map[string]bool) error {
+	declared := []string{
+		"citizen_pension", "functionary_pension", "reserve_pension",
+		"professor_pension", "enlisted_retirement", "officer_retirement",
+	}
+
+	known := make(map[string]bool, len(declared))
+
+	for _, id := range declared {
+		known[id] = true
+
+		if !seen[id] {
+			return fmt.Errorf("%w: entitlement %q is named by the engine but absent from the table", errBadTable, id)
+		}
+	}
+
+	for id := range seen {
+		if !known[id] {
+			return fmt.Errorf("%w: entitlement %q is in the table but not named by the engine", errBadTable, id)
+		}
+	}
+
+	return nil
 }
 
 // validateForbiddenKnowledge checks chart M1's 1D table: exactly one row
@@ -407,9 +447,76 @@ func (t *Table) validateKinds() error {
 		if b.Class != Financial && b.Class != NonFinancial {
 			return fmt.Errorf("%w: %q is neither financial nor non-financial", errBadTable, b.Kind)
 		}
+
+		if err := validatePrice(b); err != nil {
+			return err
+		}
+
+		if err := validateKnighthood(b); err != nil {
+			return err
+		}
 	}
 
 	return closedVocabulary(seen)
+}
+
+// pricedKinds are the benefits p. 68 prices in the chart itself, and the
+// field each states its price in.
+//
+// Not every financial benefit belongs here, so a blanket "financial rows
+// carry a value" rule would be wrong: money's amount comes from the
+// career's own table D cell, and pension_doubling and retirement_doubling
+// multiply something else. All three legitimately carry none.
+var pricedKinds = map[Kind]func(Benefit) int{
+	StarPassage:   func(b Benefit) int { return b.Credits },
+	HighPassage:   func(b Benefit) int { return b.Credits },
+	MiddlePassage: func(b Benefit) int { return b.Credits },
+	LowPassage:    func(b Benefit) int { return b.Credits },
+	Directorship:  func(b Benefit) int { return b.AnnualCredits },
+	Proxy:         func(b Benefit) int { return b.AnnualCredits },
+}
+
+// validatePrice refuses a chart-priced benefit that lost its price.
+//
+// validateEntitlements has refused an entitlement that "pays nothing"
+// since it was written; this is the same check on the other half of the
+// file. Without it a benefit is awarded, recorded, and silently worth
+// Cr0 — a data omission producing a wrong number rather than an error.
+func validatePrice(b Benefit) error {
+	price, priced := pricedKinds[b.Kind]
+	if !priced {
+		return nil
+	}
+
+	if price(b) <= 0 {
+		return fmt.Errorf("%w: benefit %q carries no price", errBadTable, b.Kind)
+	}
+
+	return nil
+}
+
+// validateKnighthood refuses a Knighthood row missing the arithmetic that
+// makes it a promotion rather than a demotion.
+//
+// The four fields are fields rather than prose because a note cannot be
+// tested, and the consequence of losing one is not a missing award but a
+// wrong one: musterOut computes the raise as SocFloor-soc, so an absent
+// soc_floor awards a Soc-7 knight minus seven, recorded as an ordinary
+// characteristic change with the sign inverted. An absent
+// officers_only_careers makes the Spacer/Soldier/Marine restriction
+// vanish; an absent non_officer_bonus awards a non-officer nothing.
+func validateKnighthood(b Benefit) error {
+	if b.Kind != Knighthood {
+		return nil
+	}
+
+	if b.SocFloor < 1 || b.AboveFloorBonus < 1 || b.NonOfficerBonus < 1 || len(b.OfficersOnlyCareers) == 0 {
+		return fmt.Errorf("%w: the Knighthood is missing its arithmetic "+
+			"(soc_floor %d, above_floor_bonus %d, non_officer_bonus %d, %d officers-only careers)",
+			errBadTable, b.SocFloor, b.AboveFloorBonus, b.NonOfficerBonus, len(b.OfficersOnlyCareers))
+	}
+
+	return nil
 }
 
 // closedVocabulary checks the vocabulary is closed in both directions:
