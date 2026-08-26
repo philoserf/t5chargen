@@ -2,6 +2,8 @@ package interactive_test
 
 import (
 	"errors"
+	"regexp"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -507,10 +509,7 @@ func TestTheSessionAgreesWithTheRecord(t *testing.T) {
 
 		checked++
 
-		if !strings.Contains(lastStatus(out.String()), c.UPP) {
-			t.Errorf("seed %d: the session's last header does not carry the record's UPP %q:\n  %s",
-				seed, c.UPP, lastStatus(out.String()))
-		}
+		assertStatusAgrees(t, seed, lastStatus(out.String()), c)
 
 		for _, event := range c.Events {
 			if event.Kind == chargen.EventConsequence &&
@@ -548,4 +547,41 @@ func lastStatus(shown string) string {
 	}
 
 	return last
+}
+
+// assertStatusAgrees holds all three derived values in the status line to
+// the finished record.
+//
+// All three are shadow state, accumulated in session.apply from the
+// watched consequence stream rather than read off the character — the
+// arrangement that drifted once already, when apply missed
+// ConsequenceCharacteristicReset and the header showed a 0 the character
+// did not have. Checking only the UPP left the other two carried by the
+// same mechanism and guarded by nothing.
+//
+// The skill count is absent from the line at zero rather than printed as
+// "0 skills", so its absence is read as zero rather than as a mismatch.
+func assertStatusAgrees(t *testing.T, seed uint64, status string, c chargen.Character) {
+	t.Helper()
+
+	age := regexp.MustCompile(`age (\d+)`).FindStringSubmatch(status)
+	if age == nil {
+		t.Errorf("seed %d: no age in the header: %s", seed, status)
+	} else if got, _ := strconv.Atoi(age[1]); got != c.Age {
+		t.Errorf("seed %d: the header says age %d, the record says %d:\n  %s", seed, got, c.Age, status)
+	}
+
+	if !strings.Contains(status, c.UPP) {
+		t.Errorf("seed %d: the header does not carry the record's UPP %q:\n  %s", seed, c.UPP, status)
+	}
+
+	skills := 0
+	if m := regexp.MustCompile(`(\d+) skills?`).FindStringSubmatch(status); m != nil {
+		skills, _ = strconv.Atoi(m[1])
+	}
+
+	if skills != len(c.Skills) {
+		t.Errorf("seed %d: the header says %d skills, the record holds %d:\n  %s",
+			seed, skills, len(c.Skills), status)
+	}
 }

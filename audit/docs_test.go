@@ -10,6 +10,33 @@
 // records is cited from it, that every choice point the engine presents
 // has a POLICY.md rule, and that every career the engine can run has a
 // section.
+//
+// # What this package deliberately does not gate
+//
+// Named here so their absence reads as a decision rather than an
+// oversight, because each was proposed and each proposal was wrong.
+//
+// README.md and docs/PRD.md are reviewed, not gated. Both drifted and
+// both were corrected, but the obvious check — hold the README's --career
+// list to career.Available() — demands the README advertise flag values
+// the CLI refuses: Functionary is never a first career (p. 87) and
+// Craftsman's automatic entry needs what a character leaving education
+// never has (p. 75). The available set is character-dependent besides;
+// Noble drops out on a low Soc.
+//
+// COVERAGE.md's Status column is reviewed, not gated. "covered" is not
+// mechanically checkable, and the deferred half cannot be narrowed to
+// "names no implementation" — two legitimately deferred M6 rows name real
+// code.
+//
+// COVERAGE.md's Implementation column is reviewed, not gated, for the
+// reason given at TestCoverageNamesRealTests.
+//
+// Load-time validation density is not gated. The proposal was that every
+// chart package declare a validate function; medal is the counterexample,
+// validating its table thoroughly inside the sync.OnceValues body with no
+// such function. A gate keying on the name would demand a refactor for
+// its own sake.
 package audit_test
 
 import (
