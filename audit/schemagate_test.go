@@ -868,3 +868,30 @@ func TestANonScalarConstIsCompared(t *testing.T) {
 		t.Error("a different array was accepted under const [1, 2]")
 	}
 }
+
+// TestThePatternKeywordIsEnforced pins that the checker applies "pattern"
+// rather than ignoring it.
+//
+// The keyword was added to the schema and the checker in the same change,
+// and this is what stops them drifting apart: a keyword the schema states
+// and the checker skips is worse than no keyword, because the document
+// claims a constraint, every record passes, and the gate looks like it
+// works.
+func TestThePatternKeywordIsEnforced(t *testing.T) {
+	c, err := newChecker([]byte(`{"type": "object", "properties": {"upp": {"pattern": "^[0-9A-HJ-NP-Z]{6}$"}}}`))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if problems := c.check(c.root, map[string]any{"upp": "704AC5"}, "record"); len(problems) != 0 {
+		t.Errorf("a valid UPP was refused: %s", strings.Join(problems, "; "))
+	}
+
+	// "?" is the symbol the engine used to emit for an unrepresentable
+	// characteristic; I and O are the two letters p. 22 omits.
+	for _, bad := range []string{"7?4AC5", "7I4AC5", "7O4AC5", "704AC", "704AC55"} {
+		if problems := c.check(c.root, map[string]any{"upp": bad}, "record"); len(problems) == 0 {
+			t.Errorf("%q was accepted as a UPP", bad)
+		}
+	}
+}
