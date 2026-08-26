@@ -24,6 +24,15 @@ package audit_test
 // weakly covered here, and reviewing one should not stop at "the gate is
 // green".
 //
+// Two more live examples, so the reach of that is concrete rather than
+// hypothetical. calendar.Row.Dice is read by calendar's own validator and
+// nothing else, and passes because career.MusterOutCell.Dice is read in
+// chargen/musterout.go. lifestage.Stage.First is read by no production
+// code at all — lifestage_test.go holds it to FirstYearOf — and passes
+// because dice.FluxRoll.First is read in chargen/event.go. Neither can be
+// listed in unreadOnPurpose: the name *is* read, so the reverse check
+// below would fire.
+//
 // Second known limitation, and the reason the first cannot simply be
 // fixed by resolving reachability: the gate blanks validate* bodies so a
 // validator's read does not count, but it cannot see *which value* an

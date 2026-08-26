@@ -205,6 +205,12 @@ var ErrUnknownKind = errors.New("benefit: unknown kind")
 var errBadTable = errors.New("invalid benefits table")
 
 // Load returns the embedded chart M1.
+//
+// The table is shared and read-only by convention: sync.OnceValues hands
+// every caller the same pointer, and its slices are not copied. The
+// accessors that do copy — For, Entitlement, Automatics — are the safe
+// door. A caller that reaches into Kinds or Entitlements directly must not
+// mutate what it finds.
 func Load() (*Table, error) { return table() }
 
 var table = sync.OnceValues(func() (*Table, error) {

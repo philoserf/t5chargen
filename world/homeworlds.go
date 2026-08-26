@@ -79,12 +79,36 @@ const chartBCells = 36
 // validate rejects a world list the chart would not recognise: every D1/D2
 // cell present exactly once, every world named, every Trade Classification
 // one the grant table knows, and a UWP wherever a world is named.
+// sameAsItsTwin holds a world printed in more than one chart B cell to
+// its first transcription.
+//
+// Selectable dedupes the chart by name, so a world in several cells is
+// offered once — which is only right if the cells say the same thing.
+// Regina is the case: it is printed three times, and nothing held the
+// second and third to the first.
+func sameAsItsTwin(byName map[string]ChartBWorld, w ChartBWorld) error {
+	first, dup := byName[w.Name]
+	if !dup {
+		byName[w.Name] = w
+
+		return nil
+	}
+
+	if first.Homeworld().Label() != w.Homeworld().Label() {
+		return fmt.Errorf("%w: %q at cell %d %d differs from cell %d %d",
+			errBadWorldList, w.Name, w.D1, w.D2, first.D1, first.D2)
+	}
+
+	return nil
+}
+
 func (t *chartBTable) validate() error {
 	if len(t.Worlds) != chartBCells {
 		return fmt.Errorf("%w: %d cells, want %d", errBadWorldList, len(t.Worlds), chartBCells)
 	}
 
 	seen := map[[2]int]bool{}
+	byName := map[string]ChartBWorld{}
 
 	for _, w := range t.Worlds {
 		if w.D1 < 1 || w.D1 > diceFaces || w.D2 < 1 || w.D2 > diceFaces {
@@ -98,6 +122,10 @@ func (t *chartBTable) validate() error {
 		seen[[2]int{w.D1, w.D2}] = true
 
 		if err := w.validate(); err != nil {
+			return err
+		}
+
+		if err := sameAsItsTwin(byName, w); err != nil {
 			return err
 		}
 	}
