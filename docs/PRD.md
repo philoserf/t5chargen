@@ -118,6 +118,17 @@ that a validator with a bug passes everything, so it is not trusted on the
 fixtures passing — every rule the schema states has a record that must fail
 because of it, and each of the checker's keywords is mutation-tested.
 
+_Resolved (2026-08-25):_ `schema_version` tracks **the shape of the records
+the engine writes**, not the precision of the document describing it. So a
+constraint that narrows the schema to what the engine already produced is a
+clarification and does not bump; one that would invalidate a record the
+current engine writes is a bump. The case that raised it was the `upp`
+pattern: it was added after the clamp that made an unrepresentable UPP
+impossible, so every record engine 0.41.0 writes was already inside it, and
+the only records it newly rejects are ones an older engine should not have
+written. Records carry the version, so the test is about them and not about
+the file.
+
 ## CLI sketch
 
 ```
