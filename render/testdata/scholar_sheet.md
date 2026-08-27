@@ -20,7 +20,7 @@
 
 **Education**: Professors, Major Athlete, Minor Broker — Honors Professor
 
-**Career**: Scholar (9 terms), 6 Publications, Tenured, Distinguished Professor S6
+**Career**: Scholar (9 terms), 6 Publications, Tenured, Distinguished Professor of Athlete S6
 
 **Skills**: Actor-1, Animals-6, Astrogator-5, Athlete-15, Broker-4, Bureaucrat-6, Hostile Environ-13, Survey-5, Survival-6, Trader-1
 

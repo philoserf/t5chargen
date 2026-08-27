@@ -827,8 +827,8 @@ grep -n '^func [A-Z]' render/render.go
 ```
 
 ```output
-22:func Sheet(c chargen.Character) string {
-336:func History(c chargen.Character) string {
+23:func Sheet(c chargen.Character) string {
+387:func History(c chargen.Character) string {
 ```
 
 `Sheet` is the character card a player uses at the table. `History` is the
