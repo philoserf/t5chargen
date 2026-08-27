@@ -278,8 +278,10 @@ func (c *Character) currentMinor() string {
 }
 
 // Skill is one acquired skill or knowledge at its current level. The
-// Skill/Knowledge distinction sharpens with the Master Skill List
-// (docs/PRD.md FR5, milestone 3).
+// Skill/Knowledge distinction is a v1 non-goal (docs/PRD.md), so a
+// container skill is held whole: a character receiving Fighter five times
+// leaves with Fighter-5, where p. 134 would give him Fighter-3 and Slug
+// Thrower-2.
 type Skill struct {
 	Name  string `json:"name"`
 	Level int    `json:"level"`
@@ -357,8 +359,7 @@ type CareerRecord struct {
 
 	// Scheme is the Rogue's current plan, PrisonYears a sentence owed at
 	// the start of the next term, and SchemePayoff the credits his
-	// schemes have paid (chart 10, p. 84). Spending it lands with muster
-	// out (docs/PRD.md milestone 4).
+	// schemes have paid (chart 10, p. 84). Muster out spends it.
 	Scheme       string `json:"scheme,omitempty"`
 	PrisonYears  int    `json:"prison_years,omitempty"`
 	SchemePayoff int    `json:"scheme_payoff,omitempty"`
@@ -439,8 +440,10 @@ type CareerRecord struct {
 
 	// ShipShares counts the Merchant Reward awards: "Every Reward gives
 	// the character Ship Shares, redeemable toward ownership of a ship
-	// upon mustering out" (chart 06). The economics land with muster out
-	// (docs/PRD.md milestone 4).
+	// upon mustering out" (chart 06). A share is priced in tons of hull
+	// rather than credits, Book 1 attaching no figure to one
+	// (interpretation I-84); redeeming them for a ship is an act of play
+	// (p. 90).
 	ShipShares int `json:"ship_shares,omitempty"`
 
 	Terms []TermRecord `json:"terms"`
@@ -500,8 +503,9 @@ type TermRecord struct {
 }
 
 // SkillMax caps skill levels: "Skill, Knowledge, and Talent Maximums:
-// Skill-15" (p. 134). The Knowledge-6 cap lands with the Master Skill List
-// (docs/PRD.md FR5, milestone 3).
+// Skill-15" (p. 134). The Knowledge-6 cap the same line prints is a v1
+// non-goal with the rest of the Skill/Knowledge distinction
+// (docs/PRD.md): nothing here holds a Knowledge to cap.
 const SkillMax = 15
 
 // CharacteristicMax caps human characteristics: "Characteristics for
@@ -609,10 +613,10 @@ func newLog(decider Decider) Log {
 
 // Generate runs the generation procedure and returns the character record:
 // checklist steps A (Generate Characteristics), B (Determine A Homeworld),
-// C (Education and Training), and D (Select Career) plus career resolution
-// for the implemented careers (chart E1, p. 72), with the Aging Checks the
-// lifepath crosses (chart A, p. 89); career changes, muster out, and fame
-// land with docs/PRD.md milestone 4.
+// C (Education and Training), and D (Select Career) plus career
+// resolution (chart E1, p. 72), with the Aging Checks the lifepath
+// crosses (chart A, p. 89), the career changes p. 66 allows, muster out
+// and Fame.
 func Generate(opts Options) (Character, error) {
 	if opts.Decider == nil {
 		return Character{}, errNoDecider
@@ -763,8 +767,8 @@ var errNoDecider = errors.New("chargen: Options.Decider is required (pass Defaul
 var errBadChoice = errors.New("invalid choice")
 
 // runCareer performs checklist step D (Select Career, chart E1 p. 72) and
-// resolves the selected career through the careerRegistry (careerrun.go);
-// registered careers grow with docs/PRD.md milestone 3.
+// resolves the selected career through the careerRegistry (careerrun.go),
+// which holds all thirteen.
 func runCareer(forced string, roller *dice.Roller, log *Log, decider Decider, character *Character) error {
 	options, err := firstCareerOptions(forced, character)
 	if err != nil {

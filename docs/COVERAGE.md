@@ -488,8 +488,11 @@ is the next chunk.
 ## The thirteen table Ds (charts 01-13 box D; chart M2 p. 71)
 
 Every career's muster-out table, transcribed against the chart M1
-vocabulary so a cell resolves to a benefit rather than to a string. Data
-only; the roll procedure that spends them is the next chunk.
+vocabulary so a cell resolves to a benefit rather than to a string, and
+spent by `musterOutRun` (`chargen/musterout.go`) — the column choice, the
+DM, the throw and the award. Six careers disagree with the chart M2
+reprint on p. 71; both are transcribed and the career page governs
+(interpretation I-71).
 
 | Rule                                                                                 | Cite                         | Implementation                                                                      | Test                                                                              | Status                                                                                         |
 | ------------------------------------------------------------------------------------ | ---------------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |

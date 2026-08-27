@@ -18,8 +18,8 @@ package chargen
 // table B keys its extra skills to: "Per Term 4 / If Fame Increases 2 and
 // Talent+1".
 //
-// Deferred: the Fame descriptor table and stage names (flavor); muster-out
-// table D and its "+Fame/3" money DM (docs/PRD.md milestone 4).
+// Deferred: the stage names, which are flavour and which no chart
+// prints a table for.
 
 import (
 	"fmt"

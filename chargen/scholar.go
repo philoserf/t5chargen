@@ -20,8 +20,7 @@ package chargen
 // with education).
 //
 // Deferred: the non-human C5=Tra Non-Traditional Scholar and the C5=Ins
-// exclusion (v1 is human-only, docs/PRD.md); muster-out table D
-// (milestone 4).
+// exclusion (v1 is human-only, docs/PRD.md).
 
 import (
 	"fmt"

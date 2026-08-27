@@ -519,14 +519,14 @@ grep -n '^func (l \*Log)' chargen/event.go
 ```
 
 ```output
-396:func (l *Log) Events() []Event {
-446:func (l *Log) Step(name, cite string) int {
-453:func (l *Log) Roll(roll dice.Roll, cite string) int {
-465:func (l *Log) Flux(flux dice.FluxRoll, cite string) int {
-477:func (l *Log) Throw(throw dice.Throw, mods []Mod, cite string) int {
-492:func (l *Log) Choice(choice ChoiceEvent) int {
-501:func (l *Log) Consequence(consequence ConsequenceEvent) int {
-509:func (l *Log) append(event Event) int {
+397:func (l *Log) Events() []Event {
+447:func (l *Log) Step(name, cite string) int {
+454:func (l *Log) Roll(roll dice.Roll, cite string) int {
+466:func (l *Log) Flux(flux dice.FluxRoll, cite string) int {
+478:func (l *Log) Throw(throw dice.Throw, mods []Mod, cite string) int {
+493:func (l *Log) Choice(choice ChoiceEvent) int {
+502:func (l *Log) Consequence(consequence ConsequenceEvent) int {
+510:func (l *Log) append(event Event) int {
 ```
 
 `Step` marks a checklist stage. `Roll` and `Flux` record dice. `Throw`
@@ -672,7 +672,7 @@ transcription of the printed career chart — and the comments record which
 chart cell each field came from.
 
 ```bash
-sed -n '92,119p' career/career.go
+awk '/^type Definition struct/,/ContinueFame /' career/career.go
 ```
 
 ```output
@@ -703,7 +703,6 @@ type Definition struct {
 	ContinueTarget         int    `json:"continue_target,omitempty"`
 	ContinueCharacteristic string `json:"continue_characteristic,omitempty"`
 	ContinueFame           bool   `json:"continue_fame,omitempty"`
-
 ```
 
 Note `ContinueTarget` / `ContinueCharacteristic` / `ContinueFame`: exactly
@@ -855,6 +854,7 @@ func TestEveryChoicePointHasAPolicy
 func TestEveryCareerHasCoverage
 func TestCareerSectionsAreInChartOrder
 func TestNoRowDefersToAClosedMilestone
+func TestNoCommentNamesAClosedMilestone
 func TestNoPromptShowsAnIdentifier
 func TestEveryFixtureValidates
 func TestExamplesValidate

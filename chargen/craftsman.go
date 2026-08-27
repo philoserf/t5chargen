@@ -16,8 +16,8 @@ package chargen
 // as Failure)."
 //
 // Deferred: the QREBS allocation, which nothing in generation reads
-// (interpretation I-62); Vintage Masterpiece appreciation, which is play;
-// and the muster-out table D (milestone 4 muster out).
+// (interpretation I-62), and Vintage Masterpiece appreciation, which is
+// play.
 
 import (
 	"fmt"

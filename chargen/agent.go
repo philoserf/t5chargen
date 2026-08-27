@@ -14,9 +14,6 @@ package chargen
 // Roll) one skill from the skill tables of that Career" — the only place
 // one career reads another's chart. The mission half is the ordinary Risk
 // and Reward, whose Reward success is a Commendation.
-//
-// Deferred: the muster-out table D and its "+Commends" money modifier
-// (docs/PRD.md milestone 4).
 
 import (
 	"fmt"

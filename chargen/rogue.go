@@ -17,9 +17,6 @@ package chargen
 // A failed Risk sends him to prison rather than the infirmary: chart 10's
 // Risk row prints no characteristic reduction, so a Rogue takes no wound
 // badge and cannot die at his own trade (interpretation I-41, ERRATA.md).
-//
-// Deferred: spending the Payoff, and the muster-out table D (docs/PRD.md
-// milestone 4).
 
 import (
 	"fmt"

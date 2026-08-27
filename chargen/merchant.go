@@ -19,9 +19,6 @@ package chargen
 // then he is disabled." Reward success awards Ship Shares on the
 // escalating scale ("Ship Share Rewards are awarded equal to the receipt
 // number", chart 06).
-//
-// Deferred: ship-share economics and the muster-out table D (docs/PRD.md
-// milestone 4); Double Benefits on disability (milestone 4 muster out).
 
 import (
 	"fmt"
