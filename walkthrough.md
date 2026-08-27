@@ -519,14 +519,14 @@ grep -n '^func (l \*Log)' chargen/event.go
 ```
 
 ```output
-397:func (l *Log) Events() []Event {
-447:func (l *Log) Step(name, cite string) int {
-454:func (l *Log) Roll(roll dice.Roll, cite string) int {
-466:func (l *Log) Flux(flux dice.FluxRoll, cite string) int {
-478:func (l *Log) Throw(throw dice.Throw, mods []Mod, cite string) int {
-493:func (l *Log) Choice(choice ChoiceEvent) int {
-502:func (l *Log) Consequence(consequence ConsequenceEvent) int {
-510:func (l *Log) append(event Event) int {
+402:func (l *Log) Events() []Event {
+452:func (l *Log) Step(name, cite string) int {
+459:func (l *Log) Roll(roll dice.Roll, cite string) int {
+471:func (l *Log) Flux(flux dice.FluxRoll, cite string) int {
+483:func (l *Log) Throw(throw dice.Throw, mods []Mod, cite string) int {
+498:func (l *Log) Choice(choice ChoiceEvent) int {
+507:func (l *Log) Consequence(consequence ConsequenceEvent) int {
+515:func (l *Log) append(event Event) int {
 ```
 
 `Step` marks a checklist stage. `Roll` and `Flux` record dice. `Throw`
@@ -940,7 +940,7 @@ go run ./cmd/t5chargen render /tmp/demo.json | tail -5
 ```output
 ---
 
-Seed 314 (math/rand/v2-pcg) · schema 0.31.0 · engine 0.41.0 · policy 0.22.0
+Seed 314 (math/rand/v2-pcg) · schema 0.32.0 · engine 0.41.0 · policy 0.23.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1
 ```

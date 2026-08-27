@@ -110,6 +110,14 @@ func chooseOutright(c Choice) (int, bool) {
 	case ChooseOfficerTraining:
 		// POLICY.md: decline, which is the last option.
 		return declineOfficerTrainingIndex(c), true
+	case ChooseResignReserves:
+		// POLICY.md: remain, which is the last option. Resigning
+		// forfeits the Reserve Pension and gains nothing the engine
+		// models — p. 67's "benefits and responsibilities" are a
+		// referee's, not a generator's — so the policy has no way to
+		// price the trade and every auto character would answer it the
+		// same way whichever answer it took.
+		return len(c.Options) - 1, true
 	case ChooseSchemeCareer:
 		// POLICY.md: roll for it, which is the last option. Chart 10
 		// ranks its schemes only by Flux, so a previous career is not a

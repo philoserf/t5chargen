@@ -522,6 +522,10 @@ func consequenceDeadText(c *chargen.ConsequenceEvent) string {
 //
 //nolint:exhaustive // Deliberately partitioned: earlier kinds are handled upstream.
 func consequenceCareerValueText(c *chargen.ConsequenceEvent) string {
+	if text, ok := consequenceReservesText(c); ok {
+		return text
+	}
+
 	switch c.Kind {
 	case chargen.ConsequenceSanityMod:
 		return fmt.Sprintf("Sanity %+d when generated", c.Delta)
@@ -529,8 +533,6 @@ func consequenceCareerValueText(c *chargen.ConsequenceEvent) string {
 		return "leaves " + c.Career + " for another career"
 	case chargen.ConsequenceAssociated:
 		return "position associated with the character's " + c.Skill + " career"
-	case chargen.ConsequenceReserve:
-		return reserveText(c)
 	case chargen.ConsequenceSpecialtySet:
 		return "specialty " + c.Skill
 	case chargen.ConsequenceTalentSet:
@@ -708,6 +710,33 @@ func reserveText(c *chargen.ConsequenceEvent) string {
 	}
 
 	return "enters the Reserves as a Reserve " + c.Skill + " (" + c.Career + ")"
+}
+
+// consequenceReservesText renders the two p. 67 Reserves consequences,
+// split from the career-value switch so that neither grows past what one
+// function may hold.
+//
+//nolint:exhaustive // Deliberately partitioned: the caller handles the rest.
+func consequenceReservesText(c *chargen.ConsequenceEvent) (string, bool) {
+	switch c.Kind {
+	case chargen.ConsequenceReserve:
+		return reserveText(c), true
+	case chargen.ConsequenceResigned:
+		return resignedText(c), true
+	default:
+		return "", false
+	}
+}
+
+// resignedText renders p. 67's resignation, naming the rank given up:
+// resigning "foregoes its benefits and responsibilities", and the Reserve
+// Rank is the benefit the record can show.
+func resignedText(c *chargen.ConsequenceEvent) string {
+	if c.Skill == "" {
+		return "resigns from the " + c.Career + " Reserves"
+	}
+
+	return "resigns from the Reserves, giving up Reserve " + c.Skill + " (" + c.Career + ")"
 }
 
 // craftsmanValues renders what a Craftsman career carries: the

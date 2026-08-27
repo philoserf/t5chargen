@@ -275,6 +275,14 @@ const (
 	termDied
 )
 
+// The two answers to p. 67's resignation. Resigning is listed first
+// because it is the option the rule is about; the policy names the other
+// by position, as it does for officer training.
+const (
+	resignFromReserves = "Resign"
+	remainInReserves   = "Remain in the Reserves"
+)
+
 // runCareerByName resolves one career through the registry, reporting
 // whether the career began (a failed To Begin leaves a began:false record
 // and the caller offers the remaining careers, p. 65) and how it ended.
@@ -333,7 +341,10 @@ func runCareerByName(
 	}
 
 	run.recordSanityMod(entryCause)
-	run.recordReserve()
+
+	if err := run.recordReserve(); err != nil {
+		return false, termCareerEnded, err
+	}
 
 	run.record.EndAge = character.Age
 	character.Careers = append(character.Careers, run.record)
@@ -348,18 +359,72 @@ func runCareerByName(
 // her last held rank as a Reserve Rank" (p. 67).
 //
 // Which careers those are is a chart fact, so it lives in the career data.
-// Resigning — "A character may resign from the Reserves (Check Continue)"
-// — is deferred to interactive mode (interpretation I-55, ERRATA.md).
 // The pension itself is muster out's.
-func (r *careerRun) recordReserve() {
+//
+// Enrolment is automatic and then offered back: "A character may resign
+// from the Reserves (Check Continue) and forego its benefits and
+// responsibilities" (p. 67). The offer is made after enrolment because
+// that is the order the page puts them in — there is nothing to resign
+// from until he is in.
+func (r *careerRun) recordReserve() error {
 	if !r.def.Reserves || r.character.Dead {
-		return
+		return nil
 	}
 
 	r.record.Reserve = true
 	r.log.Consequence(ConsequenceEvent{
 		Cause: r.entryCause, Kind: ConsequenceReserve, Career: r.def.Name, Skill: r.reserveRank(),
 	})
+
+	return r.resignReserves()
+}
+
+// resignReserves offers p. 67's resignation and resolves it: "A character
+// may resign from the Reserves (Check Continue) and forego its benefits
+// and responsibilities."
+//
+// The choice comes first and the Check only follows acceptance
+// (interpretation I-55, ERRATA.md). That ordering is what makes the rule
+// implementable at all: a Check thrown before the decision would spend
+// two faces of the seeded stream in every Armed Forces character, for a
+// decision the default policy never takes.
+//
+// "Check Continue" is the career's own Continue target, which is what the
+// character has been throwing against all along — the same value, thrown
+// once more to leave what he was enrolled in automatically. The term Mods
+// are not applied: they price continuing to serve, and this is a throw
+// about the Reserves.
+func (r *careerRun) resignReserves() error {
+	resign, _, err := choose(r.log, r.decider, Choice{
+		ID:      ChooseResignReserves,
+		Prompt:  "Resign from the Reserves?",
+		Options: []string{resignFromReserves, remainInReserves},
+		Cite:    "Book 1 p. 67 (A character may resign from the Reserves (Check Continue))",
+	})
+	if err != nil {
+		return err
+	}
+
+	if resign != 0 {
+		return nil
+	}
+
+	target, label := r.continueTarget()
+	throw := r.roller.Check(2, target)
+	seq := r.log.Throw(throw, nil, "Book 1 p. 67 (Resign from the Reserves: Check "+label+")")
+
+	if !throw.Success {
+		return nil
+	}
+
+	rank := r.reserveRank()
+	r.record.Reserve = false
+
+	r.log.Consequence(ConsequenceEvent{
+		Cause: seq, Kind: ConsequenceResigned, Career: r.def.Name, Skill: rank,
+	})
+
+	return nil
 }
 
 // reserveRank names the rank the Reserves preserve, in the form the

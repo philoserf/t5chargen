@@ -1291,26 +1291,44 @@ scopes itself to the career rather than to the attempt. The engine reads
 it off the record — a career holding a `began:false` entry is excluded —
 so the exclusion survives a career change without separate bookkeeping.
 
-### I-55: Resigning from the Reserves is deferred (p. 67)
+### I-55: when a character may resign from the Reserves (p. 67)
 
 "A character who leaves a military, naval, or marine career is
 automatically in the Reserves until retirement at Life Stage 9, at which
 point he or she receives a Reserve Pension. A character in the Reserves
-maintains his or her last held rank as a Reserve Rank." That much is
-recorded: which careers enrol a leaver is a chart fact in the career data,
-and the rank is the last one held, there being "no process for promotion
-or advancement while in the Reserves".
+maintains his or her last held rank as a Reserve Rank." That much needs no
+interpretation: which careers enrol a leaver is a chart fact in the career
+data, and the rank is the last one held, there being "no process for
+promotion or advancement while in the Reserves".
 
 "A character may resign from the Reserves (Check Continue) and forego its
-benefits and responsibilities" is deferred to interactive mode. The
-default policy would never resign — resigning forfeits a pension and
-gains nothing the engine models — so the Check would consume two faces of
-the seeded stream in every Armed Forces character and shift every
-subsequent throw for an outcome that never varies. It becomes a real
-decision when a player is answering.
+benefits and responsibilities" leaves two things open.
+
+**The offer comes before the Check.** The page names a throw and not a
+decision point, and reading it as a throw made unconditionally would put
+"Check Continue" in the path of every Armed Forces character who lives to
+leave. The engine therefore asks first and throws only on acceptance,
+which is the same shape chart C's OTC and NOTC rows take (I-108) and the
+Rogue's Scheme selection takes (I-109): where a rule offers something, the
+offer is the choice point and the roll resolves an acceptance.
+
+_Recorded as deferred until 2026-08-27, and worth keeping the reason._ The
+original entry deferred resigning to interactive mode on the grounds that
+the Check "would consume two faces of the seeded stream in every Armed
+Forces character ... for an outcome that never varies". That was correct
+about the cost and wrong about the necessity: it assumed the throw had to
+happen to reach the decision. Ordering the choice first removes the cost
+entirely — a declining policy spends no dice — and the reasoning only
+became visible once two other rules had been built the same way.
+
+**"Check Continue" is the career's own Continue target.** The page names
+no other, and the Continue target is the value the character has been
+throwing against for the whole career. The term Mods are not applied: a
+chart's "*Mod +Terms" prices continuing to serve, and this throw is about
+the Reserves rather than about another term.
 
 Activation — "A member of the Reserves is subject to activation for the
-needs of the service" — is play, not generation.
+needs of the service" — is play, not generation, and stays out.
 
 ### I-56: "Continue Office Politics" is not a throw (p. 87 chart 13)
 
