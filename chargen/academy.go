@@ -7,9 +7,14 @@ package chargen
 
 import "strings"
 
-// academyOfficer reports whether the character graduated the Service
-// Academy of the named service, which is what earns him an officer's
-// commission on entry (interpretation I-94).
+// academyOfficer reports whether the character holds an Officer1
+// commission into the named service, which is what earns him an officer's
+// entry rank (interpretation I-94).
+//
+// Keyed on the Degree rather than on the Service Academy row, because
+// three chart C rows confer one: the Academy's "BA Officer1" and, from
+// p. 61, OTC's "Army Officer1" and NOTC's "Navy Officer1 or Marine
+// Officer1". The obligation each carries is the same.
 //
 // Graduation, not attendance: Officer1 is printed in chart C's Graduation
 // column, so a cadet who failed out carries nothing forward. And the
@@ -21,8 +26,8 @@ func (c *Character) academyOfficer(service string) bool {
 	}
 
 	for _, record := range c.Education {
-		if record.Program == serviceAcademy && record.Graduated &&
-			record.Service == service && strings.Contains(record.Degree, officer1) {
+		if record.Graduated && record.Service == service &&
+			strings.Contains(record.Degree, officer1) {
 			return true
 		}
 	}
@@ -39,8 +44,8 @@ func (c *Character) academyOfficer(service string) bool {
 // commission obliges him to enter (p. 62, interpretation I-99).
 func (c *Character) academyCommission() string {
 	for _, record := range c.Education {
-		if record.Program == serviceAcademy && record.Graduated &&
-			record.Service != "" && strings.Contains(record.Degree, officer1) {
+		if record.Graduated && record.Service != "" &&
+			strings.Contains(record.Degree, officer1) {
 			return record.Service
 		}
 	}
@@ -48,7 +53,8 @@ func (c *Character) academyCommission() string {
 	return ""
 }
 
-// The chart C row and the token its Graduation column carries.
+// The chart C row that names a service by asking, and the token every
+// commissioning row's Graduation column carries.
 const (
 	serviceAcademy = "Service Academy"
 	officer1       = "Officer1"

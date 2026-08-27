@@ -85,6 +85,11 @@ const (
 	// one of the stated Characteristics", p. 59).
 	ChooseCheck ChoiceID = "select_check_characteristic"
 
+	// ChooseOfficerTraining volunteers for OTC or NOTC, or declines
+	// both: "A character attending College or University may also
+	// volunteer to participate in OTC ... or NOTC" (p. 61).
+	ChooseOfficerTraining ChoiceID = "volunteer_officer_training"
+
 	// ChooseHonors accepts or declines the optional Honors roll (p. 59).
 	ChooseHonors ChoiceID = "attempt_honors"
 

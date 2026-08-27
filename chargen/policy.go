@@ -14,6 +14,26 @@ func (p DefaultPolicy) Choose(c Choice) (int, error) {
 	return p.decide(c), nil
 }
 
+// declineOfficerTrainingIndex answers OTC and NOTC with the last option,
+// which is Decline (POLICY.md).
+//
+// Unlike the postgraduate rows the policy does climb, a commission is not
+// bounded by what it costs. Masters spends a term and returns Edu; OTC
+// costs nothing and removes the career choice altogether — "The character
+// is required to serve one term in the service" (p. 61) — so a policy that
+// volunteered would send every auto character who attends College into the
+// Soldier career and make the golden set a monoculture.
+//
+// The cost is the one the postgraduate note names: two rows no generated
+// character reaches, which is how the Service Academy's defects stayed
+// hidden. Paid down deliberately by TestOfficerTrainingCommissions and its
+// siblings, which drive the rows with a volunteering decider, and by the
+// prompt gate, which reads the engine's prompt literals rather than only
+// the fixtures.
+func declineOfficerTrainingIndex(c Choice) int {
+	return len(c.Options) - 1
+}
+
 // chooseNamed applies the POLICY.md rules that pick an option by name or
 // from a preference list, reporting whether the choice point is one of
 // them.
@@ -87,6 +107,9 @@ func chooseOutright(c Choice) (int, bool) {
 	case ChooseFameFlux:
 		// POLICY.md: invoke only when Flux could reach Fame 19.
 		return fameFluxChoice(c), true
+	case ChooseOfficerTraining:
+		// POLICY.md: decline, which is the last option.
+		return declineOfficerTrainingIndex(c), true
 	}
 
 	return 0, false

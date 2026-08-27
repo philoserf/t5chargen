@@ -172,25 +172,51 @@ func rankIDForTitle(t *testing.T, c chargen.Character, title string) string {
 	return ""
 }
 
-// TestAcademyGraduateEntersAsAnOfficer verifies chart C's Graduation
-// column for the Service Academy: "C5=8 BA Officer1". A graduate joins the
+// commissionedRun finds a seed that reaches the path's commission and
+// begins the career it obliges. It is academyRun generalised: the forced
+// career is the one the commission already owes, so it narrows the search
+// rather than contradicting it.
+func commissionedRun(t *testing.T, path commissionedPath) (chargen.Character, bool) {
+	t.Helper()
+
+	for seed := range uint64(academySeedSearch) {
+		c, err := chargen.Generate(chargen.Options{
+			Seed: seed, Career: path.career, Decider: path.decider,
+		})
+		if err != nil || !path.commissioned(c) || len(c.Careers) == 0 || !c.Careers[0].Began {
+			continue
+		}
+
+		return c, true
+	}
+
+	return chargen.Character{}, false
+}
+
+// TestCommissionedGraduateEntersAsAnOfficer verifies the Graduation
+// column of every chart C row that commissions: the Academy's "C5=8 BA
+// Officer1" (p. 60) and OTC's and NOTC's from p. 61. The holder joins the
 // service he trained for at its first officer rank rather than at the
 // enlisted rank p. 65 gives every other recruit (interpretation I-94).
-func TestAcademyGraduateEntersAsAnOfficer(t *testing.T) {
-	for _, tc := range academyServices {
-		t.Run(tc.service, func(t *testing.T) {
+//
+// This is the other half of the commission, and a different function
+// answers it: career selection asks which service the commission owes,
+// entry rank asks whether this character is that service's officer.
+func TestCommissionedGraduateEntersAsAnOfficer(t *testing.T) {
+	for _, tc := range commissionedPaths() {
+		t.Run(tc.name, func(t *testing.T) {
 			// Not a Skip: a skip passes silently the day no seed in
 			// range reaches the case, leaving the test asserting nothing
 			// about the rule it names.
-			c, ok := academyRun(t, tc.service, tc.career)
+			c, ok := commissionedRun(t, tc)
 			if !ok {
-				t.Fatalf("no seed under %d graduates the %s Academy and begins %s; widen the search",
-					academySeedSearch, tc.service, tc.career)
+				t.Fatalf("no seed under %d commissions via %s and begins %s; widen the search",
+					academySeedSearch, tc.name, tc.career)
 			}
 
 			if want := firstOfficerRank(t, tc.career); entryRank(t, c) != want {
-				t.Errorf("an Academy graduate entered %s at %q, want the officer rank %q",
-					tc.career, entryRank(t, c), want)
+				t.Errorf("a %s commission entered %s at %q, want the officer rank %q",
+					tc.name, tc.career, entryRank(t, c), want)
 			}
 		})
 	}
@@ -266,36 +292,102 @@ func (d *changesToArmy) Choose(c chargen.Choice) (int, error) {
 
 func (*changesToArmy) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
+// commissionedPath is one route to an Officer1 commission and the career
+// it obliges. There are two: the Service Academy (p. 62) and chart C's
+// two volunteer rows (p. 61), which confer the same Officer1 token and so
+// owe the same term.
+type commissionedPath struct {
+	name    string
+	career  string
+	decider chargen.Decider
+	// commissioned reports whether the run actually reached the
+	// commission, which is the premise every case depends on.
+	commissioned func(chargen.Character) bool
+}
+
+// commissionedPaths crosses both routes with all three services. The
+// obligation is to the force that trained him, so a commission that
+// pointed anywhere would satisfy a weaker claim than the rule makes.
+func commissionedPaths() []commissionedPath {
+	paths := make([]commissionedPath, 0, 2*len(academyServices))
+
+	for _, tc := range academyServices {
+		paths = append(paths, commissionedPath{
+			name:    tc.service + " Academy",
+			career:  tc.career,
+			decider: academyPath{service: tc.service},
+			commissioned: func(c chargen.Character) bool {
+				return graduatedAcademy(c, tc.service)
+			},
+		})
+
+		// OTC commissions into the Army, NOTC into the Navy or the
+		// Marines (p. 61), so the row follows from the service.
+		row, want := "NOTC", tc.service
+
+		if tc.service == "Army" {
+			// OTC offers no service choice, so asking for one would
+			// steer a choice point this path never reaches.
+			row, want = "OTC", ""
+		}
+
+		paths = append(paths, commissionedPath{
+			name:    row + " into the " + tc.service,
+			career:  tc.career,
+			decider: volunteerDecider{want: row, service: want},
+			commissioned: func(c chargen.Character) bool {
+				return commissionedBy(c, row, tc.service)
+			},
+		})
+	}
+
+	return paths
+}
+
+// commissionedBy reports whether a chart C row conferred a commission
+// into the named service. The degree is what carries Officer1, and NOTC's
+// Graduation column prints two of them, so the record's own Service is
+// what settles which one this run took.
+func commissionedBy(c chargen.Character, program, service string) bool {
+	for _, record := range c.Education {
+		if record.Program == program && record.Graduated &&
+			record.Service == service && strings.Contains(record.Degree, "Officer1") {
+			return true
+		}
+	}
+
+	return false
+}
+
 // TestCommissionedGraduateOwesHisService is the p. 62 obligation:
 // "The character is required to serve one term in the service."
 //
-// Measured at the record's first career, and swept across all three
-// services, because the obligation is to the force that trained him and a
-// commission that pointed anywhere would satisfy a weaker claim.
+// Measured at the record's first career, and swept across every route to
+// a commission rather than the Academy alone: p. 61 gives OTC and NOTC
+// the same obligation in the same words, and `commissionedCareer` reads
+// all of them through one degree token.
 func TestCommissionedGraduateOwesHisService(t *testing.T) {
-	for _, tc := range academyServices {
-		t.Run(tc.service, func(t *testing.T) {
+	for _, tc := range commissionedPaths() {
+		t.Run(tc.name, func(t *testing.T) {
 			found := 0
 
 			for seed := range uint64(academySeedSearch) {
-				c, err := chargen.Generate(chargen.Options{
-					Seed: seed, Decider: academyPath{service: tc.service},
-				})
-				if err != nil || !graduatedAcademy(c, tc.service) || len(c.Careers) == 0 {
+				c, err := chargen.Generate(chargen.Options{Seed: seed, Decider: tc.decider})
+				if err != nil || !tc.commissioned(c) || len(c.Careers) == 0 {
 					continue
 				}
 
 				found++
 
 				if got := c.Careers[0].Career; got != tc.career {
-					t.Errorf("seed %d: a %s Academy graduate opened with %q, want %q",
-						seed, tc.service, got, tc.career)
+					t.Errorf("seed %d: a %s commission opened with %q, want %q",
+						seed, tc.name, got, tc.career)
 				}
 			}
 
 			if found == 0 {
-				t.Fatalf("no seed under %d graduates the %s Academy; the sweep is asserting nothing",
-					academySeedSearch, tc.service)
+				t.Fatalf("no seed under %d commissions via %s; the sweep is asserting nothing",
+					academySeedSearch, tc.name)
 			}
 		})
 	}
@@ -335,25 +427,6 @@ func TestACommissionAndAForcedCareerCannotBothBeHonoured(t *testing.T) {
 	if tried == 0 {
 		t.Fatalf("no seed under %d graduates the Navy Academy; the sweep is asserting nothing", academySeedSearch)
 	}
-}
-
-// academyRun finds a seed that graduates the named Academy and begins the
-// named career, returning the character and whether one was found.
-func academyRun(t *testing.T, service, careerName string) (chargen.Character, bool) {
-	t.Helper()
-
-	for seed := range uint64(academySeedSearch) {
-		c, err := chargen.Generate(chargen.Options{
-			Seed: seed, Career: careerName, Decider: academyPath{service: service},
-		})
-		if err != nil || !graduatedAcademy(c, service) || len(c.Careers) == 0 || !c.Careers[0].Began {
-			continue
-		}
-
-		return c, true
-	}
-
-	return chargen.Character{}, false
 }
 
 // academySeedSearch bounds the search for a qualifying seed. The Academy

@@ -200,7 +200,15 @@ func offeredPrograms(programs []education.Program, character *Character) ([]educ
 	)
 
 	for _, p := range programs {
-		if !p.Implemented || p.Prerequisite.Kind == education.PrereqAssigned {
+		// Neither an assigned school nor a volunteer course is chosen
+		// here. An assigned school is reached from a career (p. 59);
+		// OTC and NOTC are "College or University based courses"
+		// (p. 61) offered from inside the programme hosting them, by
+		// eduRun.volunteer. Both would otherwise appear on the step C
+		// menu as though a character could walk into one.
+		if !p.Implemented ||
+			p.Prerequisite.Kind == education.PrereqAssigned ||
+			p.Prerequisite.Kind == education.PrereqVolunteer {
 			continue
 		}
 
@@ -239,11 +247,16 @@ func prereqMet(p education.Program, character *Character) bool {
 		return edu <= p.Prerequisite.Value
 	case education.PrereqDegree:
 		return character.holdsDegree(p.Prerequisite.ValueName)
-	case education.PrereqTraMin, education.PrereqC5IsTra,
-		education.PrereqAssigned, education.PrereqVolunteer:
+	case education.PrereqVolunteer:
+		// "volunteer auto" (chart C p. 60): there is no admission throw,
+		// and the offer is made by eduRun.volunteer rather than reached
+		// through the step C menu — a character volunteers from inside
+		// the College or University he is already attending.
+		return true
+	case education.PrereqTraMin, education.PrereqC5IsTra, education.PrereqAssigned:
 		// Out of v1 pre-career scope: humans have no Tra, so Mentor's
-		// "C5= Tra" never holds, and the two volunteer rows (OTC, NOTC)
-		// are unimplemented.
+		// "C5= Tra" and Training Course's "Tra 5+" never hold, and an
+		// assigned school is reached from a career rather than chosen.
 		return false
 	}
 
@@ -384,6 +397,14 @@ func (r *eduRun) attend() error {
 		}
 	}
 
+	// Offered before graduation is resolved: p. 61 says a character
+	// "attending" College or University may volunteer, and the worked
+	// example puts Eneri's NOTC check inside his College years
+	// (interpretation I-108). A character who washes out still had it.
+	if err := r.volunteer(); err != nil {
+		return err
+	}
+
 	// "a character who Graduates (who Passes or who has Failure Waived)
 	// receives Graduation benefits" (p. 59): graduation requires
 	// completing every year, passed or waived.
@@ -442,19 +463,38 @@ func (r *eduRun) elapseYear(cause int) error {
 }
 
 // awardPass applies the program's per-pass Provides (chart C p. 60).
+// awardSelection handles the rows whose Provides is a single selection
+// from a named list, and reports whether it recognised the row.
+//
+// Separate from awardPass because the two shapes are different: these pick
+// one name from a list and award it, while the rows below award a Major
+// and Minor the character chose on admission.
+func (r *eduRun) awardSelection() (bool, error) {
+	switch r.program.ID {
+	case anmSchoolID:
+		return true, r.awardANMKnowledge()
+	case commandCollegeID:
+		return true, r.awardCommandCollege()
+	case "apprenticeship":
+		return true, r.awardApprenticeship()
+	case "otc", "notc":
+		return true, r.awardOfficerTraining()
+	}
+
+	return false, nil
+}
+
 func (r *eduRun) awardPass(cause int) error {
+	if handled, err := r.awardSelection(); handled {
+		return err
+	}
+
 	switch r.program.ID {
 	case "ed5":
 		return nil // ED5 provides only its graduation Edu-5
 	case "trade_school":
 		// "Major+2".
 		awardSkillAndLog(r.record.Major, r.majorRate(r.record.Major, 2), cause, r.log, r.character)
-	case "apprenticeship":
-		return r.awardApprenticeship()
-	case anmSchoolID:
-		return r.awardANMKnowledge()
-	case commandCollegeID:
-		return r.awardCommandCollege()
 	case "medical_school", "law_school":
 		// "Medic-4" over four Pass/Fail rolls, "Advocate-2" over two
 		// (I-104).
