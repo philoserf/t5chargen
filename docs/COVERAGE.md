@@ -590,7 +590,7 @@ and the usage string had drifted from it — and then not built, which is a
 scope miss rather than a decision. It belongs to no numbered requirement:
 the milestone bullet does not name it, and Markdown is already readable in
 a terminal, so what it buys is output with the emphasis markers stripped.
-Deferred (M6) until that is worth a second set of golden sheets.
+Deferred with no milestone owning it, which is the honest place for it: the paragraph above already argues it belongs to no numbered requirement, and holding it in a milestone would have said the opposite. It waits until a second set of golden sheets is worth what stripping the emphasis markers buys.
 
 ## Cross-cutting interpretations
 
