@@ -40,7 +40,7 @@ const usage = `usage:
                 (without --auto the player answers each choice; --auto applies POLICY.md)
   t5chargen batch --count N --auto [--seed N] [--name X] [--career citizen]
                   [--homeworld "UWP TC..."|random] [--current-year 1105] [-o dir/|file.jsonl] [--force]
-  t5chargen render [--format md] [--history] character.json
+  t5chargen render [--history] character.json
   t5chargen replay [--ignore-provenance] character.json
 `
 
@@ -674,10 +674,14 @@ func claimPath(path string) error {
 
 // runRender renders a character JSON record as a Markdown sheet, or as the
 // history transcript with --history (docs/PRD.md goal 4, goal 5).
+//
+// Markdown is the only format. A --format flag offering "md" and
+// refusing "txt" was carried for a while against the PRD's CLI sketch;
+// the sketch dropped txt rather than grow a second set of golden sheets
+// for output with the emphasis markers stripped.
 func runRender(args []string, stdout, stderr io.Writer) int {
 	flags := flag.NewFlagSet("render", flag.ContinueOnError)
 	flags.SetOutput(stderr)
-	format := flags.String("format", "md", "output format: md (txt planned)")
 	history := flags.Bool("history", false, "render the generation-record transcript instead of the sheet")
 
 	if err := flags.Parse(args); err != nil {
@@ -686,21 +690,6 @@ func runRender(args []string, stdout, stderr io.Writer) int {
 
 	if flags.NArg() != 1 {
 		fmt.Fprintf(stderr, "t5chargen render: want exactly one character.json argument\n%s", usage)
-
-		return exitUsage
-	}
-
-	switch *format {
-	case "md":
-	case "txt":
-		// Deferred rather than pending: what it buys over Markdown is
-		// the emphasis markers stripped, which is not yet worth a second
-		// set of golden sheets (COVERAGE.md, milestone 6).
-		fmt.Fprintln(stderr, "t5chargen render: format txt is deferred to milestone 6; md is the only format")
-
-		return exitError
-	default:
-		fmt.Fprintf(stderr, "t5chargen render: unknown format %q\n", *format)
 
 		return exitUsage
 	}

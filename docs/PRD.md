@@ -141,7 +141,7 @@ the file.
 ```
 t5chargen new [--seed N] [--auto] [--career scout] [--homeworld A867A69-F] [--name X] [-o file]
 t5chargen batch --count 20 --auto [--career ...] [-o dir|file.jsonl]
-t5chargen render [--format md|txt] [--history] character.json
+t5chargen render [--history] character.json
 t5chargen replay character.json
 ```
 

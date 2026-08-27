@@ -47,8 +47,10 @@ Chart C's Higher Education block runs the whole way up: College or
 University to a Bachelors, then Masters, then the Professors programme,
 with Medical School and Law School beside them on an Honors Bachelors.
 
-Not yet implemented: `render --format txt`, and the rules of milestone 6 —
-see [COVERAGE.md](docs/COVERAGE.md) for what each of those is and why.
+Everything the PRD asks for is implemented. What is deliberately left out
+is listed as a non-goal there — the Skill/Knowledge distinction most
+substantially — and [COVERAGE.md](docs/COVERAGE.md) records, rule by
+rule, what each of those is and why.
 
 An earlier draft of this section listed FR7's Land Grant and Ship Share
 values and FR8's birthdate as deferred against the spec, on the strength of

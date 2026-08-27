@@ -401,8 +401,9 @@ func errorCases(garbage, noSchema, foreign string) []errorCase {
 		{"render missing file", []string{"render", "does-not-exist.json"}, exitError},
 		{"render garbage file", []string{"render", garbage}, exitError},
 		{"render non-record", []string{"render", noSchema}, exitError},
-		{"render txt deferred", []string{"render", "--format", "txt", noSchema}, exitError},
-		{"render unknown format", []string{"render", "--format", "html", noSchema}, exitUsage},
+		// render takes no --format: Markdown is the only format, and an
+		// unknown flag must be refused rather than ignored.
+		{"render rejects --format", []string{"render", "--format", "md", noSchema}, exitUsage},
 		{"batch without --auto", []string{"batch", "--count", "2"}, exitUsage},
 		{"batch without --count", []string{"batch", "--auto"}, exitUsage},
 		{"batch negative count", []string{"batch", "--auto", "--count", "-2"}, exitUsage},
