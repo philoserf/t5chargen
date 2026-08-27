@@ -2,7 +2,7 @@
   "schema_version": "0.32.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
   "engine_version": "0.41.0",
-  "policy_version": "0.23.0",
+  "policy_version": "0.24.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 305
@@ -875,6 +875,20 @@
     },
     {
       "seq": 54,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Roll for a new Branch?",
+        "options": [
+          "Change Branch",
+          "Keep his current Branch"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 66 (A character who receives a Commission may roll for Branch or keep his current Branch)"
+      }
+    },
+    {
+      "seq": 55,
       "kind": "consequence",
       "consequence": {
         "cause": 52,
@@ -885,7 +899,7 @@
       }
     },
     {
-      "seq": 55,
+      "seq": 56,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -902,7 +916,7 @@
       }
     },
     {
-      "seq": 56,
+      "seq": 57,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -914,10 +928,10 @@
       }
     },
     {
-      "seq": 57,
+      "seq": 58,
       "kind": "consequence",
       "consequence": {
-        "cause": 56,
+        "cause": 57,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -925,7 +939,7 @@
       }
     },
     {
-      "seq": 58,
+      "seq": 59,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -942,7 +956,7 @@
       }
     },
     {
-      "seq": 59,
+      "seq": 60,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -954,10 +968,10 @@
       }
     },
     {
-      "seq": 60,
+      "seq": 61,
       "kind": "consequence",
       "consequence": {
-        "cause": 59,
+        "cause": 60,
         "kind": "skill_awarded",
         "skill": "Vacc Suit",
         "delta": 1,
@@ -965,7 +979,7 @@
       }
     },
     {
-      "seq": 61,
+      "seq": 62,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -982,7 +996,7 @@
       }
     },
     {
-      "seq": 62,
+      "seq": 63,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -994,10 +1008,10 @@
       }
     },
     {
-      "seq": 63,
+      "seq": 64,
       "kind": "consequence",
       "consequence": {
-        "cause": 62,
+        "cause": 63,
         "kind": "skill_awarded",
         "skill": "Tactics",
         "delta": 1,
@@ -1005,7 +1019,7 @@
       }
     },
     {
-      "seq": 64,
+      "seq": 65,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1022,7 +1036,7 @@
       }
     },
     {
-      "seq": 65,
+      "seq": 66,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1034,10 +1048,10 @@
       }
     },
     {
-      "seq": 66,
+      "seq": 67,
       "kind": "consequence",
       "consequence": {
-        "cause": 65,
+        "cause": 66,
         "kind": "skill_awarded",
         "skill": "Leader",
         "delta": 1,
@@ -1045,7 +1059,7 @@
       }
     },
     {
-      "seq": 67,
+      "seq": 68,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1064,7 +1078,7 @@
       }
     },
     {
-      "seq": 68,
+      "seq": 69,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1076,10 +1090,10 @@
       }
     },
     {
-      "seq": 69,
+      "seq": 70,
       "kind": "consequence",
       "consequence": {
-        "cause": 68,
+        "cause": 69,
         "kind": "skill_awarded",
         "skill": "Tactics",
         "delta": 1,
@@ -1087,7 +1101,7 @@
       }
     },
     {
-      "seq": 70,
+      "seq": 71,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1101,7 +1115,7 @@
       }
     },
     {
-      "seq": 71,
+      "seq": 72,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1116,16 +1130,16 @@
       }
     },
     {
-      "seq": 72,
+      "seq": 73,
       "kind": "consequence",
       "consequence": {
-        "cause": 71,
+        "cause": 72,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 73,
+      "seq": 74,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1145,7 +1159,7 @@
       }
     },
     {
-      "seq": 74,
+      "seq": 75,
       "kind": "step",
       "step": {
         "name": "Soldier: Term 2",
@@ -1153,7 +1167,7 @@
       }
     },
     {
-      "seq": 75,
+      "seq": 76,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1167,7 +1181,7 @@
       }
     },
     {
-      "seq": 76,
+      "seq": 77,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1179,17 +1193,17 @@
       }
     },
     {
-      "seq": 77,
+      "seq": 78,
       "kind": "consequence",
       "consequence": {
-        "cause": 76,
+        "cause": 77,
         "kind": "operation",
         "skill": "Base",
         "career": "Soldier"
       }
     },
     {
-      "seq": 78,
+      "seq": 79,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1201,10 +1215,10 @@
       }
     },
     {
-      "seq": 79,
+      "seq": 80,
       "kind": "consequence",
       "consequence": {
-        "cause": 78,
+        "cause": 79,
         "kind": "operation",
         "skill": "Mission",
         "career": "Soldier",
@@ -1212,7 +1226,7 @@
       }
     },
     {
-      "seq": 80,
+      "seq": 81,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1224,17 +1238,17 @@
       }
     },
     {
-      "seq": 81,
+      "seq": 82,
       "kind": "consequence",
       "consequence": {
-        "cause": 80,
+        "cause": 81,
         "kind": "operation",
         "skill": "Base",
         "career": "Soldier"
       }
     },
     {
-      "seq": 82,
+      "seq": 83,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1246,10 +1260,10 @@
       }
     },
     {
-      "seq": 83,
+      "seq": 84,
       "kind": "consequence",
       "consequence": {
-        "cause": 82,
+        "cause": 83,
         "kind": "operation",
         "skill": "Combat",
         "career": "Soldier",
@@ -1257,7 +1271,7 @@
       }
     },
     {
-      "seq": 84,
+      "seq": 85,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1288,7 +1302,7 @@
       }
     },
     {
-      "seq": 85,
+      "seq": 86,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1313,7 +1327,7 @@
       }
     },
     {
-      "seq": 86,
+      "seq": 87,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -1326,7 +1340,7 @@
       }
     },
     {
-      "seq": 87,
+      "seq": 88,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1351,10 +1365,10 @@
       }
     },
     {
-      "seq": 88,
+      "seq": 89,
       "kind": "consequence",
       "consequence": {
-        "cause": 87,
+        "cause": 88,
         "kind": "medal",
         "skill": "XS",
         "career": "Soldier",
@@ -1362,7 +1376,7 @@
       }
     },
     {
-      "seq": 89,
+      "seq": 90,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1376,7 +1390,7 @@
       }
     },
     {
-      "seq": 90,
+      "seq": 91,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1397,17 +1411,17 @@
       }
     },
     {
-      "seq": 91,
+      "seq": 92,
       "kind": "consequence",
       "consequence": {
-        "cause": 90,
+        "cause": 91,
         "kind": "rank_set",
         "skill": "1st Lieutenant",
         "career": "Soldier"
       }
     },
     {
-      "seq": 92,
+      "seq": 93,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1423,7 +1437,7 @@
       }
     },
     {
-      "seq": 93,
+      "seq": 94,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1435,10 +1449,10 @@
       }
     },
     {
-      "seq": 94,
+      "seq": 95,
       "kind": "consequence",
       "consequence": {
-        "cause": 93,
+        "cause": 94,
         "kind": "skill_awarded",
         "skill": "Vacc Suit",
         "delta": 1,
@@ -1446,7 +1460,7 @@
       }
     },
     {
-      "seq": 95,
+      "seq": 96,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1462,7 +1476,7 @@
       }
     },
     {
-      "seq": 96,
+      "seq": 97,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1474,10 +1488,10 @@
       }
     },
     {
-      "seq": 97,
+      "seq": 98,
       "kind": "consequence",
       "consequence": {
-        "cause": 96,
+        "cause": 97,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -1485,7 +1499,7 @@
       }
     },
     {
-      "seq": 98,
+      "seq": 99,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1501,7 +1515,7 @@
       }
     },
     {
-      "seq": 99,
+      "seq": 100,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1513,10 +1527,10 @@
       }
     },
     {
-      "seq": 100,
+      "seq": 101,
       "kind": "consequence",
       "consequence": {
-        "cause": 99,
+        "cause": 100,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -1524,7 +1538,7 @@
       }
     },
     {
-      "seq": 101,
+      "seq": 102,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1540,7 +1554,7 @@
       }
     },
     {
-      "seq": 102,
+      "seq": 103,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1552,10 +1566,10 @@
       }
     },
     {
-      "seq": 103,
+      "seq": 104,
       "kind": "consequence",
       "consequence": {
-        "cause": 102,
+        "cause": 103,
         "kind": "skill_awarded",
         "skill": "Stealth",
         "delta": 1,
@@ -1563,7 +1577,7 @@
       }
     },
     {
-      "seq": 104,
+      "seq": 105,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1582,7 +1596,7 @@
       }
     },
     {
-      "seq": 105,
+      "seq": 106,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1594,10 +1608,10 @@
       }
     },
     {
-      "seq": 106,
+      "seq": 107,
       "kind": "consequence",
       "consequence": {
-        "cause": 105,
+        "cause": 106,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -1605,7 +1619,7 @@
       }
     },
     {
-      "seq": 107,
+      "seq": 108,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1619,7 +1633,7 @@
       }
     },
     {
-      "seq": 108,
+      "seq": 109,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1634,16 +1648,16 @@
       }
     },
     {
-      "seq": 109,
+      "seq": 110,
       "kind": "consequence",
       "consequence": {
-        "cause": 108,
+        "cause": 109,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 110,
+      "seq": 111,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1663,7 +1677,7 @@
       }
     },
     {
-      "seq": 111,
+      "seq": 112,
       "kind": "step",
       "step": {
         "name": "Soldier: Term 3",
@@ -1671,7 +1685,7 @@
       }
     },
     {
-      "seq": 112,
+      "seq": 113,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1684,7 +1698,7 @@
       }
     },
     {
-      "seq": 113,
+      "seq": 114,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1696,17 +1710,17 @@
       }
     },
     {
-      "seq": 114,
+      "seq": 115,
       "kind": "consequence",
       "consequence": {
-        "cause": 113,
+        "cause": 114,
         "kind": "operation",
         "skill": "Base",
         "career": "Soldier"
       }
     },
     {
-      "seq": 115,
+      "seq": 116,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1718,10 +1732,10 @@
       }
     },
     {
-      "seq": 116,
+      "seq": 117,
       "kind": "consequence",
       "consequence": {
-        "cause": 115,
+        "cause": 116,
         "kind": "operation",
         "skill": "Combat",
         "career": "Soldier",
@@ -1729,7 +1743,7 @@
       }
     },
     {
-      "seq": 117,
+      "seq": 118,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1741,10 +1755,10 @@
       }
     },
     {
-      "seq": 118,
+      "seq": 119,
       "kind": "consequence",
       "consequence": {
-        "cause": 117,
+        "cause": 118,
         "kind": "operation",
         "skill": "Peace Keeper",
         "career": "Soldier",
@@ -1752,7 +1766,7 @@
       }
     },
     {
-      "seq": 119,
+      "seq": 120,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1764,17 +1778,17 @@
       }
     },
     {
-      "seq": 120,
+      "seq": 121,
       "kind": "consequence",
       "consequence": {
-        "cause": 119,
+        "cause": 120,
         "kind": "operation",
         "skill": "Base",
         "career": "Soldier"
       }
     },
     {
-      "seq": 121,
+      "seq": 122,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1805,7 +1819,7 @@
       }
     },
     {
-      "seq": 122,
+      "seq": 123,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1830,7 +1844,7 @@
       }
     },
     {
-      "seq": 123,
+      "seq": 124,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -1843,10 +1857,10 @@
       }
     },
     {
-      "seq": 124,
+      "seq": 125,
       "kind": "consequence",
       "consequence": {
-        "cause": 122,
+        "cause": 123,
         "kind": "characteristic_change",
         "characteristic": "Int",
         "delta": -3,
@@ -1854,16 +1868,16 @@
       }
     },
     {
-      "seq": 125,
+      "seq": 126,
       "kind": "consequence",
       "consequence": {
-        "cause": 122,
+        "cause": 123,
         "kind": "wound_badge",
         "value": 1
       }
     },
     {
-      "seq": 126,
+      "seq": 127,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1888,10 +1902,10 @@
       }
     },
     {
-      "seq": 127,
+      "seq": 128,
       "kind": "consequence",
       "consequence": {
-        "cause": 126,
+        "cause": 127,
         "kind": "medal",
         "skill": "MCG",
         "career": "Soldier",
@@ -1899,7 +1913,7 @@
       }
     },
     {
-      "seq": 128,
+      "seq": 129,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1913,7 +1927,7 @@
       }
     },
     {
-      "seq": 129,
+      "seq": 130,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1934,17 +1948,17 @@
       }
     },
     {
-      "seq": 130,
+      "seq": 131,
       "kind": "consequence",
       "consequence": {
-        "cause": 129,
+        "cause": 130,
         "kind": "rank_set",
         "skill": "Captain",
         "career": "Soldier"
       }
     },
     {
-      "seq": 131,
+      "seq": 132,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1960,7 +1974,7 @@
       }
     },
     {
-      "seq": 132,
+      "seq": 133,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1972,10 +1986,10 @@
       }
     },
     {
-      "seq": 133,
+      "seq": 134,
       "kind": "consequence",
       "consequence": {
-        "cause": 132,
+        "cause": 133,
         "kind": "skill_awarded",
         "skill": "Tactics",
         "delta": 1,
@@ -1983,7 +1997,7 @@
       }
     },
     {
-      "seq": 134,
+      "seq": 135,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1999,7 +2013,7 @@
       }
     },
     {
-      "seq": 135,
+      "seq": 136,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2011,10 +2025,10 @@
       }
     },
     {
-      "seq": 136,
+      "seq": 137,
       "kind": "consequence",
       "consequence": {
-        "cause": 135,
+        "cause": 136,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -2022,7 +2036,7 @@
       }
     },
     {
-      "seq": 137,
+      "seq": 138,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2038,7 +2052,7 @@
       }
     },
     {
-      "seq": 138,
+      "seq": 139,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2050,10 +2064,10 @@
       }
     },
     {
-      "seq": 139,
+      "seq": 140,
       "kind": "consequence",
       "consequence": {
-        "cause": 138,
+        "cause": 139,
         "kind": "skill_awarded",
         "skill": "Tactics",
         "delta": 1,
@@ -2061,7 +2075,7 @@
       }
     },
     {
-      "seq": 140,
+      "seq": 141,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2077,7 +2091,7 @@
       }
     },
     {
-      "seq": 141,
+      "seq": 142,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2089,10 +2103,10 @@
       }
     },
     {
-      "seq": 142,
+      "seq": 143,
       "kind": "consequence",
       "consequence": {
-        "cause": 141,
+        "cause": 142,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -2100,7 +2114,7 @@
       }
     },
     {
-      "seq": 143,
+      "seq": 144,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2119,7 +2133,7 @@
       }
     },
     {
-      "seq": 144,
+      "seq": 145,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2131,10 +2145,10 @@
       }
     },
     {
-      "seq": 145,
+      "seq": 146,
       "kind": "consequence",
       "consequence": {
-        "cause": 144,
+        "cause": 145,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -2142,7 +2156,7 @@
       }
     },
     {
-      "seq": 146,
+      "seq": 147,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2156,7 +2170,7 @@
       }
     },
     {
-      "seq": 147,
+      "seq": 148,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2171,16 +2185,16 @@
       }
     },
     {
-      "seq": 148,
+      "seq": 149,
       "kind": "consequence",
       "consequence": {
-        "cause": 147,
+        "cause": 148,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 149,
+      "seq": 150,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2200,7 +2214,7 @@
       }
     },
     {
-      "seq": 150,
+      "seq": 151,
       "kind": "step",
       "step": {
         "name": "Soldier: Term 4",
@@ -2208,7 +2222,7 @@
       }
     },
     {
-      "seq": 151,
+      "seq": 152,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2223,7 +2237,7 @@
       }
     },
     {
-      "seq": 152,
+      "seq": 153,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2235,17 +2249,17 @@
       }
     },
     {
-      "seq": 153,
+      "seq": 154,
       "kind": "consequence",
       "consequence": {
-        "cause": 152,
+        "cause": 153,
         "kind": "operation",
         "skill": "Base",
         "career": "Soldier"
       }
     },
     {
-      "seq": 154,
+      "seq": 155,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2257,10 +2271,10 @@
       }
     },
     {
-      "seq": 155,
+      "seq": 156,
       "kind": "consequence",
       "consequence": {
-        "cause": 154,
+        "cause": 155,
         "kind": "operation",
         "skill": "Peace Keeper",
         "career": "Soldier",
@@ -2268,7 +2282,7 @@
       }
     },
     {
-      "seq": 156,
+      "seq": 157,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2277,20 +2291,20 @@
         ],
         "total": 6,
         "cite": "Book 1 p. 82 chart 08 (Army Operations)"
-      }
-    },
-    {
-      "seq": 157,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 156,
-        "kind": "operation",
-        "skill": "Base",
-        "career": "Soldier"
       }
     },
     {
       "seq": 158,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 157,
+        "kind": "operation",
+        "skill": "Base",
+        "career": "Soldier"
+      }
+    },
+    {
+      "seq": 159,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2302,17 +2316,17 @@
       }
     },
     {
-      "seq": 159,
+      "seq": 160,
       "kind": "consequence",
       "consequence": {
-        "cause": 158,
+        "cause": 159,
         "kind": "operation",
         "skill": "Base",
         "career": "Soldier"
       }
     },
     {
-      "seq": 160,
+      "seq": 161,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2343,7 +2357,7 @@
       }
     },
     {
-      "seq": 161,
+      "seq": 162,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2368,17 +2382,17 @@
       }
     },
     {
-      "seq": 162,
+      "seq": 163,
       "kind": "consequence",
       "consequence": {
-        "cause": 161,
+        "cause": 162,
         "kind": "service_badge",
         "career": "Soldier",
         "value": 2
       }
     },
     {
-      "seq": 163,
+      "seq": 164,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2403,10 +2417,10 @@
       }
     },
     {
-      "seq": 164,
+      "seq": 165,
       "kind": "consequence",
       "consequence": {
-        "cause": 163,
+        "cause": 164,
         "kind": "medal",
         "skill": "SEH",
         "career": "Soldier",
@@ -2414,7 +2428,7 @@
       }
     },
     {
-      "seq": 165,
+      "seq": 166,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2428,7 +2442,7 @@
       }
     },
     {
-      "seq": 166,
+      "seq": 167,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2449,20 +2463,20 @@
       }
     },
     {
-      "seq": 167,
+      "seq": 168,
       "kind": "consequence",
       "consequence": {
-        "cause": 166,
+        "cause": 167,
         "kind": "rank_set",
         "skill": "Major",
         "career": "Soldier"
       }
     },
     {
-      "seq": 168,
+      "seq": 169,
       "kind": "consequence",
       "consequence": {
-        "cause": 166,
+        "cause": 167,
         "kind": "skill_awarded",
         "skill": "Tactics",
         "delta": 1,
@@ -2470,7 +2484,7 @@
       }
     },
     {
-      "seq": 169,
+      "seq": 170,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2485,7 +2499,7 @@
       }
     },
     {
-      "seq": 170,
+      "seq": 171,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2497,10 +2511,10 @@
       }
     },
     {
-      "seq": 171,
+      "seq": 172,
       "kind": "consequence",
       "consequence": {
-        "cause": 170,
+        "cause": 171,
         "kind": "skill_awarded",
         "skill": "Admin",
         "delta": 1,
@@ -2508,7 +2522,7 @@
       }
     },
     {
-      "seq": 172,
+      "seq": 173,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2523,7 +2537,7 @@
       }
     },
     {
-      "seq": 173,
+      "seq": 174,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2535,10 +2549,10 @@
       }
     },
     {
-      "seq": 174,
+      "seq": 175,
       "kind": "consequence",
       "consequence": {
-        "cause": 173,
+        "cause": 174,
         "kind": "skill_awarded",
         "skill": "Hostile Environ",
         "delta": 1,
@@ -2546,7 +2560,7 @@
       }
     },
     {
-      "seq": 175,
+      "seq": 176,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2561,7 +2575,7 @@
       }
     },
     {
-      "seq": 176,
+      "seq": 177,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2573,10 +2587,10 @@
       }
     },
     {
-      "seq": 177,
+      "seq": 178,
       "kind": "consequence",
       "consequence": {
-        "cause": 176,
+        "cause": 177,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -2584,7 +2598,7 @@
       }
     },
     {
-      "seq": 178,
+      "seq": 179,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2599,7 +2613,7 @@
       }
     },
     {
-      "seq": 179,
+      "seq": 180,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2611,10 +2625,10 @@
       }
     },
     {
-      "seq": 180,
+      "seq": 181,
       "kind": "consequence",
       "consequence": {
-        "cause": 179,
+        "cause": 180,
         "kind": "skill_awarded",
         "skill": "Hostile Environ",
         "delta": 1,
@@ -2622,7 +2636,7 @@
       }
     },
     {
-      "seq": 181,
+      "seq": 182,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2641,7 +2655,7 @@
       }
     },
     {
-      "seq": 182,
+      "seq": 183,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2653,10 +2667,10 @@
       }
     },
     {
-      "seq": 183,
+      "seq": 184,
       "kind": "consequence",
       "consequence": {
-        "cause": 182,
+        "cause": 183,
         "kind": "skill_awarded",
         "skill": "Stealth",
         "delta": 1,
@@ -2664,7 +2678,7 @@
       }
     },
     {
-      "seq": 184,
+      "seq": 185,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2678,7 +2692,7 @@
       }
     },
     {
-      "seq": 185,
+      "seq": 186,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2693,16 +2707,16 @@
       }
     },
     {
-      "seq": 186,
+      "seq": 187,
       "kind": "consequence",
       "consequence": {
-        "cause": 185,
+        "cause": 186,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 187,
+      "seq": 188,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2717,7 +2731,7 @@
       }
     },
     {
-      "seq": 188,
+      "seq": 189,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2732,7 +2746,7 @@
       }
     },
     {
-      "seq": 189,
+      "seq": 190,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2747,7 +2761,7 @@
       }
     },
     {
-      "seq": 190,
+      "seq": 191,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2767,7 +2781,7 @@
       }
     },
     {
-      "seq": 191,
+      "seq": 192,
       "kind": "step",
       "step": {
         "name": "Soldier: Term 5",
@@ -2775,7 +2789,7 @@
       }
     },
     {
-      "seq": 192,
+      "seq": 193,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2789,7 +2803,7 @@
       }
     },
     {
-      "seq": 193,
+      "seq": 194,
       "kind": "step",
       "step": {
         "name": "Assigned school: Command College",
@@ -2797,7 +2811,7 @@
       }
     },
     {
-      "seq": 194,
+      "seq": 195,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2811,7 +2825,7 @@
       }
     },
     {
-      "seq": 195,
+      "seq": 196,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2826,7 +2840,7 @@
       }
     },
     {
-      "seq": 196,
+      "seq": 197,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2840,7 +2854,7 @@
       }
     },
     {
-      "seq": 197,
+      "seq": 198,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2855,7 +2869,7 @@
       }
     },
     {
-      "seq": 198,
+      "seq": 199,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2988,10 +3002,10 @@
       }
     },
     {
-      "seq": 199,
+      "seq": 200,
       "kind": "consequence",
       "consequence": {
-        "cause": 198,
+        "cause": 199,
         "kind": "skill_awarded",
         "skill": "Admin",
         "delta": 1,
@@ -2999,7 +3013,7 @@
       }
     },
     {
-      "seq": 200,
+      "seq": 201,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3132,10 +3146,10 @@
       }
     },
     {
-      "seq": 201,
+      "seq": 202,
       "kind": "consequence",
       "consequence": {
-        "cause": 200,
+        "cause": 201,
         "kind": "skill_awarded",
         "skill": "Admin",
         "delta": 1,
@@ -3143,7 +3157,7 @@
       }
     },
     {
-      "seq": 202,
+      "seq": 203,
       "kind": "step",
       "step": {
         "name": "Soldier: Term 5",
@@ -3151,7 +3165,7 @@
       }
     },
     {
-      "seq": 203,
+      "seq": 204,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3163,17 +3177,17 @@
       }
     },
     {
-      "seq": 204,
+      "seq": 205,
       "kind": "consequence",
       "consequence": {
-        "cause": 203,
+        "cause": 204,
         "kind": "operation",
         "skill": "Base",
         "career": "Soldier"
       }
     },
     {
-      "seq": 205,
+      "seq": 206,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3185,10 +3199,10 @@
       }
     },
     {
-      "seq": 206,
+      "seq": 207,
       "kind": "consequence",
       "consequence": {
-        "cause": 205,
+        "cause": 206,
         "kind": "operation",
         "skill": "Mission",
         "career": "Soldier",
@@ -3196,7 +3210,7 @@
       }
     },
     {
-      "seq": 207,
+      "seq": 208,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3208,10 +3222,10 @@
       }
     },
     {
-      "seq": 208,
+      "seq": 209,
       "kind": "consequence",
       "consequence": {
-        "cause": 207,
+        "cause": 208,
         "kind": "operation",
         "skill": "Combat",
         "career": "Soldier",
@@ -3219,7 +3233,7 @@
       }
     },
     {
-      "seq": 209,
+      "seq": 210,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3231,17 +3245,17 @@
       }
     },
     {
-      "seq": 210,
+      "seq": 211,
       "kind": "consequence",
       "consequence": {
-        "cause": 209,
+        "cause": 210,
         "kind": "operation",
         "skill": "Base",
         "career": "Soldier"
       }
     },
     {
-      "seq": 211,
+      "seq": 212,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3272,7 +3286,7 @@
       }
     },
     {
-      "seq": 212,
+      "seq": 213,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3297,7 +3311,7 @@
       }
     },
     {
-      "seq": 213,
+      "seq": 214,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -3310,7 +3324,7 @@
       }
     },
     {
-      "seq": 214,
+      "seq": 215,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3335,10 +3349,10 @@
       }
     },
     {
-      "seq": 215,
+      "seq": 216,
       "kind": "consequence",
       "consequence": {
-        "cause": 214,
+        "cause": 215,
         "kind": "medal",
         "skill": "XS",
         "career": "Soldier",
@@ -3346,7 +3360,7 @@
       }
     },
     {
-      "seq": 216,
+      "seq": 217,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3360,7 +3374,7 @@
       }
     },
     {
-      "seq": 217,
+      "seq": 218,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3381,17 +3395,17 @@
       }
     },
     {
-      "seq": 218,
+      "seq": 219,
       "kind": "consequence",
       "consequence": {
-        "cause": 217,
+        "cause": 218,
         "kind": "rank_set",
         "skill": "Lt Colonel",
         "career": "Soldier"
       }
     },
     {
-      "seq": 219,
+      "seq": 220,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3407,7 +3421,7 @@
       }
     },
     {
-      "seq": 220,
+      "seq": 221,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3419,10 +3433,10 @@
       }
     },
     {
-      "seq": 221,
+      "seq": 222,
       "kind": "consequence",
       "consequence": {
-        "cause": 220,
+        "cause": 221,
         "kind": "skill_awarded",
         "skill": "Leader",
         "delta": 1,
@@ -3430,7 +3444,7 @@
       }
     },
     {
-      "seq": 222,
+      "seq": 223,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3446,7 +3460,7 @@
       }
     },
     {
-      "seq": 223,
+      "seq": 224,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3458,10 +3472,10 @@
       }
     },
     {
-      "seq": 224,
+      "seq": 225,
       "kind": "consequence",
       "consequence": {
-        "cause": 223,
+        "cause": 224,
         "kind": "skill_awarded",
         "skill": "Vacc Suit",
         "delta": 1,
@@ -3469,7 +3483,7 @@
       }
     },
     {
-      "seq": 225,
+      "seq": 226,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3485,7 +3499,7 @@
       }
     },
     {
-      "seq": 226,
+      "seq": 227,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3497,10 +3511,10 @@
       }
     },
     {
-      "seq": 227,
+      "seq": 228,
       "kind": "consequence",
       "consequence": {
-        "cause": 226,
+        "cause": 227,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -3508,7 +3522,7 @@
       }
     },
     {
-      "seq": 228,
+      "seq": 229,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3524,7 +3538,7 @@
       }
     },
     {
-      "seq": 229,
+      "seq": 230,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3536,10 +3550,10 @@
       }
     },
     {
-      "seq": 230,
+      "seq": 231,
       "kind": "consequence",
       "consequence": {
-        "cause": 229,
+        "cause": 230,
         "kind": "skill_awarded",
         "skill": "Tactics",
         "delta": 1,
@@ -3547,7 +3561,7 @@
       }
     },
     {
-      "seq": 231,
+      "seq": 232,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3566,7 +3580,7 @@
       }
     },
     {
-      "seq": 232,
+      "seq": 233,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3578,10 +3592,10 @@
       }
     },
     {
-      "seq": 233,
+      "seq": 234,
       "kind": "consequence",
       "consequence": {
-        "cause": 232,
+        "cause": 233,
         "kind": "skill_awarded",
         "skill": "Fighter",
         "delta": 1,
@@ -3589,7 +3603,7 @@
       }
     },
     {
-      "seq": 234,
+      "seq": 235,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3603,7 +3617,7 @@
       }
     },
     {
-      "seq": 235,
+      "seq": 236,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3618,16 +3632,16 @@
       }
     },
     {
-      "seq": 236,
+      "seq": 237,
       "kind": "consequence",
       "consequence": {
-        "cause": 235,
+        "cause": 236,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 237,
+      "seq": 238,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3642,7 +3656,7 @@
       }
     },
     {
-      "seq": 238,
+      "seq": 239,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3657,7 +3671,7 @@
       }
     },
     {
-      "seq": 239,
+      "seq": 240,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3672,7 +3686,7 @@
       }
     },
     {
-      "seq": 240,
+      "seq": 241,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3692,7 +3706,7 @@
       }
     },
     {
-      "seq": 241,
+      "seq": 242,
       "kind": "step",
       "step": {
         "name": "Soldier: Term 6",
@@ -3700,7 +3714,7 @@
       }
     },
     {
-      "seq": 242,
+      "seq": 243,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3713,7 +3727,7 @@
       }
     },
     {
-      "seq": 243,
+      "seq": 244,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3725,10 +3739,10 @@
       }
     },
     {
-      "seq": 244,
+      "seq": 245,
       "kind": "consequence",
       "consequence": {
-        "cause": 243,
+        "cause": 244,
         "kind": "operation",
         "skill": "Peace Keeper",
         "career": "Soldier",
@@ -3736,7 +3750,7 @@
       }
     },
     {
-      "seq": 245,
+      "seq": 246,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3748,10 +3762,10 @@
       }
     },
     {
-      "seq": 246,
+      "seq": 247,
       "kind": "consequence",
       "consequence": {
-        "cause": 245,
+        "cause": 246,
         "kind": "operation",
         "skill": "Combat",
         "career": "Soldier",
@@ -3759,7 +3773,7 @@
       }
     },
     {
-      "seq": 247,
+      "seq": 248,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3771,17 +3785,17 @@
       }
     },
     {
-      "seq": 248,
+      "seq": 249,
       "kind": "consequence",
       "consequence": {
-        "cause": 247,
+        "cause": 248,
         "kind": "operation",
         "skill": "Base",
         "career": "Soldier"
       }
     },
     {
-      "seq": 249,
+      "seq": 250,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3793,17 +3807,17 @@
       }
     },
     {
-      "seq": 250,
+      "seq": 251,
       "kind": "consequence",
       "consequence": {
-        "cause": 249,
+        "cause": 250,
         "kind": "operation",
         "skill": "Base",
         "career": "Soldier"
       }
     },
     {
-      "seq": 251,
+      "seq": 252,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3834,7 +3848,7 @@
       }
     },
     {
-      "seq": 252,
+      "seq": 253,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3859,7 +3873,7 @@
       }
     },
     {
-      "seq": 253,
+      "seq": 254,
       "kind": "throw",
       "throw": {
         "expr": "Flux",
@@ -3872,44 +3886,44 @@
       }
     },
     {
-      "seq": 254,
+      "seq": 255,
       "kind": "consequence",
       "consequence": {
-        "cause": 252,
+        "cause": 253,
         "kind": "characteristic_change",
         "characteristic": "Int",
         "delta": -4
       }
     },
     {
-      "seq": 255,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 252,
-        "kind": "dead",
-        "characteristic": "Int"
-      }
-    },
-    {
       "seq": 256,
       "kind": "consequence",
       "consequence": {
-        "cause": 252,
-        "kind": "years_elapsed",
-        "value": 4
+        "cause": 253,
+        "kind": "dead",
+        "characteristic": "Int"
       }
     },
     {
       "seq": 257,
       "kind": "consequence",
       "consequence": {
-        "cause": 252,
+        "cause": 253,
+        "kind": "years_elapsed",
+        "value": 4
+      }
+    },
+    {
+      "seq": 258,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 253,
         "kind": "career_ended",
         "career": "Soldier"
       }
     },
     {
-      "seq": 258,
+      "seq": 259,
       "kind": "step",
       "step": {
         "name": "Determine Fame",
@@ -3917,7 +3931,7 @@
       }
     },
     {
-      "seq": 259,
+      "seq": 260,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3931,10 +3945,10 @@
       }
     },
     {
-      "seq": 260,
+      "seq": 261,
       "kind": "consequence",
       "consequence": {
-        "cause": 259,
+        "cause": 260,
         "kind": "fame_computed",
         "skill": "World Complex",
         "value": 11,
@@ -3959,7 +3973,7 @@
       }
     },
     {
-      "seq": 261,
+      "seq": 262,
       "kind": "step",
       "step": {
         "name": "Record the Character's Birthdate",
@@ -3967,7 +3981,7 @@
       }
     },
     {
-      "seq": 262,
+      "seq": 263,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -3982,10 +3996,10 @@
       }
     },
     {
-      "seq": 263,
+      "seq": 264,
       "kind": "consequence",
       "consequence": {
-        "cause": 262,
+        "cause": 263,
         "kind": "birthdate",
         "detail": "Thirday 130-1062",
         "value": 1062

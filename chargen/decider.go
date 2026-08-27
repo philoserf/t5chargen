@@ -145,6 +145,13 @@ const (
 	// or NOTC may attend Flight School" (p. 61).
 	ChooseFlightSchool ChoiceID = "attend_flight_school"
 
+	// ChooseBranchChange offers the branch change an advancement
+	// entitles a character to: "Enlisted may select a new Branch upon
+	// Promotion" (charts 07, 08, 12), and "A character who receives a
+	// Commission may roll for Branch or keep his current Branch"
+	// (p. 66).
+	ChooseBranchChange ChoiceID = "change_branch"
+
 	// ChooseBranch selects the Armed Forces branch where the character
 	// passes the chart's Branch check ("Select Branch Soc", chart 08
 	// p. 82); a failed check rolls one instead.

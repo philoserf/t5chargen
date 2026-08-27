@@ -110,6 +110,14 @@ func chooseOutright(c Choice) (int, bool) {
 	case ChooseOfficerTraining:
 		// POLICY.md: decline, which is the last option.
 		return declineOfficerTrainingIndex(c), true
+	case ChooseBranchChange:
+		// POLICY.md: keep his current Branch, which is the last option.
+		// The branch he holds was taken for the best Mod the table
+		// offered (chooseBranch scores by it), so reselecting picks the
+		// same one again and rolling gambles it away — a change is a
+		// player's call about what he wants to be, and the policy has
+		// no way to want anything.
+		return len(c.Options) - 1, true
 	case ChooseFlightSchool:
 		// POLICY.md: decline, which is the last option. The row is
 		// unreachable in auto mode regardless — both routes in run

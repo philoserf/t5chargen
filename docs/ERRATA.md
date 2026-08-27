@@ -794,31 +794,45 @@ draw.
 
 Implemented at `career/career.go` (`BranchAt`, `OperationAt`).
 
-### I-34: Branch changes (p. 82 chart 08; p. 66)
+### I-34: when a Branch may change (charts 07, 08, 12; p. 66)
 
-Chart 08 says "Officers may not change Branch; Enlisted may select new
-Branch on Promotion", and chart 07 repeats it. The p. 66 prose says instead
-that "A non-officer character may change (reselect or reroll) Branch at the
-end of each Term."
+Three sentences bear on it, and only two of them disagree.
 
-Neither is implemented in v1: the engine sets a branch on entry and keeps
-the row for the rest of the career. (Chart 07's Naval Branch table prints
-an Officer and an Enlisted side per row, so a Spacer's commission still
-moves him across his own row — "for Spacers, Crew becomes Line" (p. 66) —
-but the row itself never changes and he is never offered the reroll the
-same sentence allows.) The two texts disagree on when an enlisted character
-may change, and nothing else in the career turns on the difference until
-the branch-change choice exists. Spacer (chart 07) inherited the omission;
-recorded here so a later Armed Forces career resolves it rather than
-inheriting it silently again.
+**The charts.** All three Armed Forces careers print the same rule:
+"Officers may not change Branch; Enlisted may select a new Branch upon
+Promotion" (chart 07 p. 81, chart 08 p. 82, chart 12 p. 86, the last
+phrasing it "may not change Branch once selected").
 
-When it lands, the charts are the narrower and more specific statement and
-agree with each other, which argues for "on Promotion"; the prose is the
-general rule and argues for "at the end of each Term".
+**The prose.** "A non-officer character may change (reselect or reroll)
+Branch at the end of each Term" (p. 66).
 
-Not implemented; see COVERAGE.md.
+They differ on when an enlisted character may change: upon promotion, or
+at the end of every term. **The charts are taken**, being three
+statements agreeing with each other against one, and the narrower and
+more specific of the two — a promotion is an occasion, and the end of a
+term is every term. A character promoted twice in a career gets two
+offers; one never promoted gets none, where the prose would have given
+him one a term.
 
-### I-35: A Reward success awards only the table medal (p. 82 chart 08)
+**The commission is not in dispute at all**, and was the part that had
+gone missing. "A character who receives a Commission may roll for Branch
+or keep his current Branch (for Spacers, Crew becomes Line)" (p. 66).
+Nothing contradicts it, and it is a **roll** rather than a selection —
+the page says roll, which is what separates it from the offer a promotion
+makes. The parenthesis is the side-shift that happens either way, and was
+already implemented: chart 07's Naval Branch table prints an officer and
+an enlisted side per row, so a commission moves a rating from Crew to
+Line without changing the row.
+
+_Recorded as unimplemented until 2026-08-27._ The earlier entry said
+"Neither is implemented in v1" and left the reading open, noting only
+that the charts' case was the stronger. Two things had been missed: that
+chart 12 prints the sentence too, which makes it three charts rather than
+two, and that p. 66's commissioning clause is a separate rule nothing
+disputes — the entry mentioned the reroll it allows and then filed it
+with the disagreement instead of implementing it.
+
+### I-35:### I-35: A Reward success awards only the table medal (p. 82 chart 08)
 
 Chart 08's Risk & Reward grid gives the Reward-success cell as "XS Exemplary
 Service, Medal", and the prose beside it as "Success: XS Exemplary Service
