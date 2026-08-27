@@ -24,11 +24,6 @@ Mark: solo referee and developer. Secondary: any T5 referee needing NPCs in bulk
 - Psionics, clones, chimeras, robots, artificials.
 - Permatic Imperium variants; other editions (Classic, Mongoose, Cepheus).
 - Combat, equipment purchasing beyond mustering-out benefits, in-play advancement.
-- The Skill/Knowledge distinction, and with it p. 134's Knowledge-Knowledge-Skill progression, the `Career: <name>` and `World: <name>` knowledges, and the Knowledge-6 cap. Eleven skills contain Knowledges (Animals, Driver, Engineer, Fighter, Flyer, Gunner, Heavy Weapons, Language, Musician, Pilot, Seafarer); v1 awards them whole.
-
-  **What this costs, stated plainly.** p. 134 says the first two receipts of a container Skill award a contained Knowledge instead, and the third awards the Skill at level-1. So the book's own example musters out with Fighter-3 and Slug Thrower-2 where this tool gives Fighter-5. That is a different character for the same rolls, not a missing refinement, and a reader comparing a generated sheet against p. 134 should know it before wondering which is wrong.
-
-  **Why it is scoped out rather than implemented.** Knowledges are a category of thing the record does not carry, as psionics is. The rule also reaches into every career: expanding a container is a choice at every award, which needs a POLICY.md rule and moves every fixture. And the container list does not survive contact with the skill list — chart MS gives Musician no contained Knowledges at all, Language is excepted by p. 134 itself, and `The Sciences` is a chart MS heading that looks like a container and is not.
 
 ## Functional requirements
 
@@ -47,6 +42,21 @@ _Verified at implementation (2026-08-20):_ the UWP alone does **not** suffice. C
 **FR5 — Skills.** Award skills per term against the Master Skill List (chart MS, p. 132), with first-receipt rules (e.g. Job Skill-4 on first receipt, Skill-1 thereafter).
 
 _Amended (2026-08-26):_ this read "with Skill/Knowledge distinction and first-receipt rules". The first-receipt rules are implemented (`firstReceiptLevels`, `eduRun.receipt`); the Skill/Knowledge distinction is now a v1 non-goal, and the requirement is amended rather than left claiming it. What that costs is stated in the non-goal.
+
+_Reversed (2026-08-27):_ the Skill/Knowledge distinction is back in scope
+and is milestone 7's substance. The non-goal's stated reason was wrong on
+its facts: it argued that "the container list does not survive contact
+with the skill list", reasoning from **chart MS**, which prints no
+contained Knowledges for any container and whose own note calls the
+Knowledge list "advisory". The lists are not in chart MS. They are in the
+skill descriptions, pp. 135-167, which print a `KNOWLEDGES` sidebar for
+Driver, Fighter, Flyer, Gunner, Heavy Weapons and Seafarer, a titled box
+for Engineer, and inline enumerations for Animals and Pilot — and they
+were transcribed into `skill/data/master_skill_list.json` all along. What
+remains is the mechanic, not the data. Two of the non-goal's three
+objections do survive and are recorded as limits rather than as scope:
+Musician prints no instrument list (I-111), and Language is excepted by
+p. 134 itself.
 
 **FR6 — Aging.** Aging checks each term at life stage 5+ (age 34 for humans; chart A, p. 89).
 
@@ -171,6 +181,7 @@ The auto policy is **total** (it can decide every valid choice point: education,
 4. Aging, career changes, muster out, fame.
 5. Interactive mode polish; batch mode; replay verification.
 6. The rules milestone 5 left, now that the Skill/Knowledge distinction is a v1 non-goal: the Rogue's previous-career Scheme (chart 10). Chart 11's `Capital***` cell goes with the non-goal — it awards a World Knowledge — and so do p. 134's progression, the `Career:`/`World:` knowledges and the Knowledge-6 cap, which were the rest of this milestone. OTC and NOTC (p. 61) are the substantial rules actually left, and they are chart C rows rather than milestone 6.
+7. The deferrals that were still real once milestone 6 closed: resigning from the Reserves (p. 67), Flight School (pp. 60-61), the Branch changes of I-34, the Scholar's rank titles, and the Skill/Knowledge distinction, which returns to scope — see `docs/MILESTONE-6.md` for how the last of those came to be a non-goal and the FR5 note above for why that was wrong.
 
 _Closed (2026-08-27):_ all six are complete, and this bullet's last sentence is now history rather than a plan — OTC and NOTC shipped alongside the Rogue's Scheme. `docs/MILESTONE-6.md` records what the milestone turned out to be: one rule of the seven planned, six scoped out, and forty pull requests in the same span that belonged to no milestone at all.
 
