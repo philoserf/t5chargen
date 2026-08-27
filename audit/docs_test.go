@@ -290,7 +290,12 @@ func TestCareerSectionsAreInChartOrder(t *testing.T) {
 // that has rotted, and it rots silently, because the row still reads as a
 // deliberate decision. Two cleanups of exactly this shipped in two days —
 // five rows in #83 and eight here — before anything checked it.
-var closedMilestones = []string{"M1", "M2", "M3", "M4", "M5"}
+//
+// M6 closed with the Rogue's previous-career Scheme, the last row it
+// held. Closing it here guards rows written from now on and catches
+// nothing today: the one M6 claim left over was prose rather than a table
+// row, so this gate could not see it and a person had to.
+var closedMilestones = []string{"M1", "M2", "M3", "M4", "M5", "M6"}
 
 // TestNoRowDefersToAClosedMilestone verifies COVERAGE.md's Status column
 // names no milestone that has already shipped.
