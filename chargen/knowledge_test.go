@@ -105,6 +105,54 @@ func TestAKnowledgeCapsAtSix(t *testing.T) {
 	}
 }
 
+// TestAKnowledgeIsCappedWhereverItIsAwarded verifies "The maximum level
+// of a Knowledge is 6" (p. 134) binds by the name rather than by the
+// caller.
+//
+// The progression never reaches the cap on its own — it awards two levels
+// and stops — so the cap only matters for a Knowledge awarded outright,
+// which several career tables do: chart 07's Starship cells reach Bay
+// Weapons and chart 08's reach Exotics. Capping by call site let those
+// past 6, and the only thing that caught it was the Citizen invariants
+// sweeping seeds. This drives it directly, because a rule guarded only by
+// a golden is a rule nobody has stated.
+//
+// The Sciences are here for the same reason: they are knowledges under a
+// chart MS heading, so the same sentence binds them, and no golden seed
+// pushes one past 6.
+func TestAKnowledgeIsCappedWhereverItIsAwarded(t *testing.T) {
+	for _, name := range []string{
+		"Bay Weapons", // Gunner, chart 07's Starship cells
+		"Exotics",     // Fighter, chart 08's
+		"Sub",         // Seafarer
+		"Chemistry",   // The Sciences
+		"Physics",
+	} {
+		c, err := chargen.AwardForTest(name, 9)
+		if err != nil {
+			t.Fatalf("awarding %s: %v", name, err)
+		}
+
+		if got := levelOf(c, name); got != chargen.KnowledgeMax {
+			t.Errorf("%s awarded nine levels reached %d, want the Knowledge cap of %d",
+				name, got, chargen.KnowledgeMax)
+		}
+	}
+}
+
+// TestAnOrdinarySkillIsNotCappedAtTheKnowledgeCeiling verifies the other
+// half: p. 134 prints two maximums, and a skill keeps the higher one.
+func TestAnOrdinarySkillIsNotCappedAtTheKnowledgeCeiling(t *testing.T) {
+	c, err := chargen.AwardForTest("Admin", 9)
+	if err != nil {
+		t.Fatalf("awarding Admin: %v", err)
+	}
+
+	if got := levelOf(c, "Admin"); got != 9 {
+		t.Errorf("Admin awarded nine levels reached %d, want 9 — it is not a Knowledge", got)
+	}
+}
+
 // TestLanguageAndMusicianAreAwardedWhole verifies the two containers that
 // take no Knowledge: Language is excepted by p. 134 in the sentence that
 // lists them, and Musician has no list printed anywhere (I-111).
