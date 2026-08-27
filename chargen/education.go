@@ -169,6 +169,12 @@ func chooseProgram(log *Log, decider Decider, character *Character) (education.P
 	return offered[chosen], qualified[chosen] == 0, false, nil
 }
 
+// flightSchoolID is chart C's Flight School row, which is neither
+// assigned nor volunteered for but is gated on having volunteered:
+// "College or University Honors Graduates who participated in OTC or
+// NOTC may attend Flight School" (p. 61).
+const flightSchoolID = "flight_school"
+
 // offeredPrograms returns chart C's implemented rows in chart order, their
 // names, and a parallel 1/0 for whether the character meets each
 // prerequisite.
@@ -200,13 +206,15 @@ func offeredPrograms(programs []education.Program, character *Character) ([]educ
 	)
 
 	for _, p := range programs {
-		// Neither an assigned school nor a volunteer course is chosen
-		// here. An assigned school is reached from a career (p. 59);
-		// OTC and NOTC are "College or University based courses"
-		// (p. 61) offered from inside the programme hosting them, by
-		// eduRun.volunteer. Both would otherwise appear on the step C
-		// menu as though a character could walk into one.
-		if !p.Implemented ||
+		// Three kinds of row are not chosen here. An assigned school
+		// is reached from a career (p. 59); OTC and NOTC are "College
+		// or University based courses" (p. 61) offered from inside the
+		// programme hosting them, by eduRun.volunteer; and Flight
+		// School is attended "in the first year of his first term in
+		// the Navy, Army, or Marines" (p. 60), so it is offered there.
+		// All three would otherwise appear on the step C menu as though
+		// a character could walk into one.
+		if !p.Implemented || p.InFirstTerm ||
 			p.Prerequisite.Kind == education.PrereqAssigned ||
 			p.Prerequisite.Kind == education.PrereqVolunteer {
 			continue
@@ -499,6 +507,13 @@ func (r *eduRun) awardPass(cause int) error {
 		// "Medic-4" over four Pass/Fail rolls, "Advocate-2" over two
 		// (I-104).
 		r.awardNamedSkill(cause)
+	case flightSchoolID:
+		// "1x Pilot-3" (chart C p. 60): one roll carrying three levels,
+		// not three rolls of one. The worked example settles it — "He
+		// receives Pilot+3 for a total of Pilot-4" (p. 61), from a
+		// character who already held Pilot-1.
+		awardSkillAndLog(education.FlightAward,
+			r.receipt(education.FlightAward, education.FlightAwardLevels), cause, r.log, r.character)
 	case "college", "university", "academy", "masters", "professors":
 		// "Major+1 per Pass and Minor+1 per 2 Passes" — one cell on the
 		// chart, merged across these five rows (p. 60).
@@ -802,6 +817,34 @@ func available(p education.Program, character *Character, programs []education.P
 	return withinCeiling(p, character) &&
 		notBelowWhatHeHolds(p, character, programs) &&
 		credentialIsReachable(p, character)
+}
+
+// attendedARequiredProgram holds a row to the condition its prose prints
+// beside chart C's Pre-Req column. Flight School has two routes in, and
+// either will do: "College or University Honors Graduates who
+// participated in OTC or NOTC may attend Flight School" (p. 61), and
+// "Service Academy Honors Graduates may attend Flight School" (p. 60).
+//
+// Withheld rather than waived, which is the difference between this and
+// the Honors BA beside it (interpretation I-110). p. 59's waivers
+// overturn "an adverse die roll or decision", and a course a character
+// never took is neither — the worked example waives the Honors BA and
+// does not waive the NOTC, because it has the NOTC to show.
+//
+// Attended, not passed. p. 61 says "participated in", and a character who
+// failed the OTC Pass/Fail roll participated in it.
+func attendedARequiredProgram(p education.Program, character *Character) bool {
+	if len(p.RequiresProgram) == 0 {
+		return true
+	}
+
+	for _, record := range character.Education {
+		if slices.Contains(p.RequiresProgram, record.Program) {
+			return true
+		}
+	}
+
+	return false
 }
 
 // credentialIsReachable withholds a row gated on a credential from a

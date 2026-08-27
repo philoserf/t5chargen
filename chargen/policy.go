@@ -110,6 +110,14 @@ func chooseOutright(c Choice) (int, bool) {
 	case ChooseOfficerTraining:
 		// POLICY.md: decline, which is the last option.
 		return declineOfficerTrainingIndex(c), true
+	case ChooseFlightSchool:
+		// POLICY.md: decline, which is the last option. The row is
+		// unreachable in auto mode regardless — both routes in run
+		// through a course the policy declines or a school it never
+		// selects — so this rule decides nothing today and is here so
+		// that the choice point is total, as the policy is required to
+		// be.
+		return len(c.Options) - 1, true
 	case ChooseResignReserves:
 		// POLICY.md: remain, which is the last option. Resigning
 		// forfeits the Reserve Pension and gains nothing the engine

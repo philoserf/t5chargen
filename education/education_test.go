@@ -31,15 +31,20 @@ func TestPrograms(t *testing.T) {
 	// degree — which is the ladder chart C prints, BA to MA to Professor,
 	// with the two professional schools beside it.
 	//
-	// The last four are not chosen from the step C menu. OTC and NOTC are
+	// Four of these are not chosen from the step C menu. OTC and NOTC are
 	// volunteered for from inside the College or University hosting them
 	// (p. 61, I-108); the two assigned schools are handed to the
 	// character by a career (p. 59, I-91 to I-93). offeredPrograms drops
 	// both prerequisite kinds, so neither reaches the menu.
+	//
+	// Flight School is on the menu but reachable only after one of the
+	// first two: "College or University Honors Graduates who
+	// participated in OTC or NOTC may attend Flight School" (p. 61,
+	// I-110).
 	want := []string{
 		"ed5", "trade_school", "apprenticeship", "college", "university", "academy",
 		"masters", "professors", "medical_school", "law_school",
-		"otc", "notc", "anm_school", "command_college",
+		"otc", "notc", "anm_school", "command_college", "flight_school",
 	}
 	if len(implemented) != len(want) {
 		t.Errorf("implemented = %v, want %v", implemented, want)

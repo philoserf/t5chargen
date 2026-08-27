@@ -47,7 +47,16 @@ func (r *careerRun) attendAssignedSchool(id string) error {
 		return err
 	}
 
-	r.log.Step("Assigned school: "+program.Name, "Book 1 p. 59; chart C p. 60")
+	// "Assigned" is what chart C calls the two schools a career hands a
+	// character. Flight School runs through the same machinery and is
+	// not one of them — he is offered it and may decline — so the label
+	// says what happened rather than which function ran.
+	label := "Assigned school: "
+	if program.InFirstTerm {
+		label = "School: "
+	}
+
+	r.log.Step(label+program.Name, "Book 1 p. 59; chart C p. 60")
 
 	// The school is a sub-step of a term the character is still serving,
 	// and a step marker is flat: without reopening the term, the rest of
