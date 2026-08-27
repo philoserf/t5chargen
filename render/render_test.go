@@ -243,6 +243,9 @@ func TestHistoryConsequenceTexts(t *testing.T) {
 		{Seq: 5, Kind: chargen.EventConsequence, Consequence: &chargen.ConsequenceEvent{
 			Cause: 1, Kind: chargen.ConsequenceScheme, Career: "Rogue", Skill: "Noble", Value: 4,
 		}},
+		{Seq: 7, Kind: chargen.EventConsequence, Consequence: &chargen.ConsequenceEvent{
+			Cause: 1, Kind: chargen.ConsequenceResigned, Career: "Marine", Skill: "Captain O3",
+		}},
 		// A Scheme taken rather than rolled threw no Flux (chart 10,
 		// p. 84), so the transcript must not print one: the zero Value
 		// a selection carries is Flux +0 on the chart, which is a
@@ -262,6 +265,7 @@ func TestHistoryConsequenceTexts(t *testing.T) {
 		"benefit lost (every Trade already held)",
 		"Scheme: Noble (Flux +4)",
 		"Scheme: Scout (selected, not rolled)",
+		"resigns from the Reserves, giving up Reserve Captain O3 (Marine)",
 	} {
 		if !strings.Contains(got, want) {
 			t.Errorf("History() missing %q:\n%s", want, got)

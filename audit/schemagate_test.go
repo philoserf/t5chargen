@@ -687,8 +687,10 @@ var unemittedKinds = map[string]string{
 	// with schooling declined — only its appearance in a golden record.
 	"imprisoned":       "a Rogue's prison term; covered by TestRoguePrisonTermTakesOnlyPrisonSkills",
 	"job_undetermined": "chart 04's Job left undetermined; no fixture's Citizen reaches it",
-	"sentenced":        "a Rogue's sentence; covered by TestRoguePrisonTermTakesOnlyPrisonSkills",
-	"waived":           "a waiver that succeeded; the auto policy's waivers all fail on these seeds",
+	"resigned_reserves": "p. 67's resignation; the policy remains, so " +
+		"TestAResignedCharacterLeavesTheReserves reaches it with a decider",
+	"sentenced": "a Rogue's sentence; covered by TestRoguePrisonTermTakesOnlyPrisonSkills",
+	"waived":    "a waiver that succeeded; the auto policy's waivers all fail on these seeds",
 }
 
 // TestEveryConsequenceKindIsAccountedFor verifies the schema's vocabulary

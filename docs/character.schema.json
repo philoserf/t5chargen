@@ -665,6 +665,7 @@
             "publication",
             "rank_set",
             "reserve",
+            "resigned_reserves",
             "returned_from_exile",
             "sanity_mod",
             "scheme",

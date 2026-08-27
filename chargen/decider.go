@@ -131,6 +131,13 @@ const (
 	// only where there is a previous career to take.
 	ChooseSchemeCareer ChoiceID = "select_scheme_career"
 
+	// ChooseResignReserves offers the resignation p. 67 allows a
+	// character enrolled on leaving a military, naval or marine career:
+	// "A character may resign from the Reserves (Check Continue) and
+	// forego its benefits and responsibilities." Offered before the
+	// Check, so declining throws nothing.
+	ChooseResignReserves ChoiceID = "resign_reserves"
+
 	// ChooseBranch selects the Armed Forces branch where the character
 	// passes the chart's Branch check ("Select Branch Soc", chart 08
 	// p. 82); a failed check rolls one instead.

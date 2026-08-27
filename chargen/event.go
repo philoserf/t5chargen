@@ -212,6 +212,11 @@ const (
 	// the Reserves".
 	ConsequenceReserve ConsequenceKind = "reserve"
 
+	// ConsequenceResigned records a resignation from the Reserves
+	// (p. 67), which forfeits the Reserve Pension. Skill carries the
+	// Reserve Rank given up.
+	ConsequenceResigned ConsequenceKind = "resigned_reserves"
+
 	// ConsequenceCareerChanged records a voluntary career change: "A
 	// character may avoid the Continue roll ... by voluntarily ending his
 	// service in the current career and selecting a different career for

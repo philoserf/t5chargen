@@ -1,8 +1,8 @@
 {
-  "schema_version": "0.31.0",
+  "schema_version": "0.32.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
   "engine_version": "0.41.0",
-  "policy_version": "0.22.0",
+  "policy_version": "0.23.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 659
@@ -4034,6 +4034,20 @@
     },
     {
       "seq": 267,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Resign from the Reserves?",
+        "options": [
+          "Resign",
+          "Remain in the Reserves"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 67 (A character may resign from the Reserves (Check Continue))"
+      }
+    },
+    {
+      "seq": 268,
       "kind": "step",
       "step": {
         "name": "Determine Fame",
@@ -4041,7 +4055,7 @@
       }
     },
     {
-      "seq": 268,
+      "seq": 269,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4055,10 +4069,10 @@
       }
     },
     {
-      "seq": 269,
+      "seq": 270,
       "kind": "consequence",
       "consequence": {
-        "cause": 268,
+        "cause": 269,
         "kind": "fame_computed",
         "skill": "World",
         "value": 10,
@@ -4083,7 +4097,7 @@
       }
     },
     {
-      "seq": 270,
+      "seq": 271,
       "kind": "step",
       "step": {
         "name": "Muster Out",
@@ -4091,7 +4105,7 @@
       }
     },
     {
-      "seq": 271,
+      "seq": 272,
       "kind": "step",
       "step": {
         "name": "Muster Out: Spacer",
@@ -4099,7 +4113,7 @@
       }
     },
     {
-      "seq": 272,
+      "seq": 273,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4113,7 +4127,7 @@
       }
     },
     {
-      "seq": 273,
+      "seq": 274,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4131,7 +4145,7 @@
       }
     },
     {
-      "seq": 274,
+      "seq": 275,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -4144,28 +4158,14 @@
       }
     },
     {
-      "seq": 275,
+      "seq": 276,
       "kind": "consequence",
       "consequence": {
-        "cause": 274,
+        "cause": 275,
         "kind": "benefit",
         "skill": "Money",
         "career": "Spacer",
         "delta": 60000
-      }
-    },
-    {
-      "seq": 276,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Spacer muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
       }
     },
     {
@@ -4173,6 +4173,20 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
+        "prompt": "Which column for this Spacer muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 278,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
         "prompt": "How much of the Terms DM to apply?",
         "options": [
           "+0",
@@ -4187,7 +4201,7 @@
       }
     },
     {
-      "seq": 278,
+      "seq": 279,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -4200,28 +4214,14 @@
       }
     },
     {
-      "seq": 279,
+      "seq": 280,
       "kind": "consequence",
       "consequence": {
-        "cause": 278,
+        "cause": 279,
         "kind": "benefit",
         "skill": "Money",
         "career": "Spacer",
         "delta": 40000
-      }
-    },
-    {
-      "seq": 280,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Spacer muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
       }
     },
     {
@@ -4229,6 +4229,20 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
+        "prompt": "Which column for this Spacer muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 282,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
         "prompt": "How much of the Terms DM to apply?",
         "options": [
           "+0",
@@ -4243,7 +4257,7 @@
       }
     },
     {
-      "seq": 282,
+      "seq": 283,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -4256,10 +4270,10 @@
       }
     },
     {
-      "seq": 283,
+      "seq": 284,
       "kind": "consequence",
       "consequence": {
-        "cause": 282,
+        "cause": 283,
         "kind": "benefit",
         "skill": "Money",
         "career": "Spacer",
@@ -4267,7 +4281,7 @@
       }
     },
     {
-      "seq": 284,
+      "seq": 285,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4281,7 +4295,7 @@
       }
     },
     {
-      "seq": 285,
+      "seq": 286,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4299,7 +4313,7 @@
       }
     },
     {
-      "seq": 286,
+      "seq": 287,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -4312,10 +4326,10 @@
       }
     },
     {
-      "seq": 287,
+      "seq": 288,
       "kind": "consequence",
       "consequence": {
-        "cause": 286,
+        "cause": 287,
         "kind": "benefit",
         "skill": "Money",
         "career": "Spacer",
@@ -4323,7 +4337,7 @@
       }
     },
     {
-      "seq": 288,
+      "seq": 289,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4337,7 +4351,7 @@
       }
     },
     {
-      "seq": 289,
+      "seq": 290,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4355,7 +4369,7 @@
       }
     },
     {
-      "seq": 290,
+      "seq": 291,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -4368,10 +4382,10 @@
       }
     },
     {
-      "seq": 291,
+      "seq": 292,
       "kind": "consequence",
       "consequence": {
-        "cause": 290,
+        "cause": 291,
         "kind": "benefit",
         "skill": "Money",
         "career": "Spacer",
@@ -4379,7 +4393,7 @@
       }
     },
     {
-      "seq": 292,
+      "seq": 293,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4393,7 +4407,7 @@
       }
     },
     {
-      "seq": 293,
+      "seq": 294,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4411,7 +4425,7 @@
       }
     },
     {
-      "seq": 294,
+      "seq": 295,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -4424,10 +4438,10 @@
       }
     },
     {
-      "seq": 295,
+      "seq": 296,
       "kind": "consequence",
       "consequence": {
-        "cause": 294,
+        "cause": 295,
         "kind": "benefit",
         "skill": "Retirement x2",
         "career": "Spacer",
@@ -4435,7 +4449,7 @@
       }
     },
     {
-      "seq": 296,
+      "seq": 297,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4449,7 +4463,7 @@
       }
     },
     {
-      "seq": 297,
+      "seq": 298,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4467,7 +4481,7 @@
       }
     },
     {
-      "seq": 298,
+      "seq": 299,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -4480,10 +4494,10 @@
       }
     },
     {
-      "seq": 299,
+      "seq": 300,
       "kind": "consequence",
       "consequence": {
-        "cause": 298,
+        "cause": 299,
         "kind": "benefit",
         "skill": "Retirement x2",
         "career": "Spacer",
@@ -4491,7 +4505,7 @@
       }
     },
     {
-      "seq": 300,
+      "seq": 301,
       "kind": "step",
       "step": {
         "name": "Muster Out: Entitlements",
@@ -4499,7 +4513,7 @@
       }
     },
     {
-      "seq": 301,
+      "seq": 302,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4513,10 +4527,10 @@
       }
     },
     {
-      "seq": 302,
+      "seq": 303,
       "kind": "consequence",
       "consequence": {
-        "cause": 301,
+        "cause": 302,
         "kind": "entitlement",
         "skill": "Reserve Pension",
         "delta": 2800,
@@ -4524,7 +4538,7 @@
       }
     },
     {
-      "seq": 303,
+      "seq": 304,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4538,10 +4552,10 @@
       }
     },
     {
-      "seq": 304,
+      "seq": 305,
       "kind": "consequence",
       "consequence": {
-        "cause": 303,
+        "cause": 304,
         "kind": "entitlement",
         "skill": "Officer Retirement",
         "delta": 45000,
@@ -4549,7 +4563,7 @@
       }
     },
     {
-      "seq": 305,
+      "seq": 306,
       "kind": "step",
       "step": {
         "name": "Record the Character's Birthdate",
@@ -4557,7 +4571,7 @@
       }
     },
     {
-      "seq": 306,
+      "seq": 307,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -4572,10 +4586,10 @@
       }
     },
     {
-      "seq": 307,
+      "seq": 308,
       "kind": "consequence",
       "consequence": {
-        "cause": 306,
+        "cause": 307,
         "kind": "birthdate",
         "detail": "Forday 159-1067",
         "value": 1067
