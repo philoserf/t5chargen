@@ -2906,3 +2906,53 @@ used, not what the row pays.
 The offer is made only where there is a previous career to take. A prompt
 listing one option is not a choice, and a Rogue who has served nothing
 else has nothing the rule could give him.
+
+### I-110: where Flight School is attended, and who may attend it (pp. 60-61)
+
+Chart C files Flight School among the Military rows with the Pre-Req
+"Honors BA", which reads as a row a school leaver applies to at step C.
+Three printed sentences say otherwise, and none of them is in the chart.
+
+**It is attended inside a career.** "The character attends Flight School
+in the first year of his first term in the Navy, Army, or Marines"
+(p. 60). That is the same sentence Command College gets — "A Character
+must attend Command College in the first year of the term after he is
+promoted" — and Command College is an assigned school. So Flight School
+runs through the same machinery, in the first term of an Armed Forces
+career, and never appears on the step C menu. The worked example agrees
+from the other side: "Because Flight School took a year, this first Term
+is reduced to three years" (p. 66), which only makes sense of a year
+spent inside the term.
+
+**It is offered, not assigned.** Both sentences that admit a character say
+he "may attend", where Command College's says he "must". So it is a
+choice point rather than a consequence of rank, and the default policy
+declines it.
+
+**There are two routes in, and either will do.** "College or University
+Honors Graduates who participated in OTC or NOTC may attend Flight
+School" (p. 61); "Service Academy Honors Graduates may attend Flight
+School" (p. 60). The Honors half of both is chart C's own Pre-Req, and is
+waivable — the worked example waives it, with the cumulative Mod for
+previous attempts, and is accepted. The course named beside it is not
+waivable: p. 59's waivers overturn "an adverse die roll or decision", and
+a course a character never took is neither. The example is the evidence
+either way round — it waives the Honors BA and has the NOTC to show.
+
+**Participated, not passed.** p. 61 says "participated in", so a
+character who failed OTC's Pass/Fail roll still took the course.
+
+**"His first term" is the first term of the career.** The sentence names
+the service — "his first term in the Navy, Army, or Marines" — so a
+Soldier who later changes to the Navy is in his first term in the Navy. A
+program is attempted once regardless (I-100), so nobody attends twice.
+
+The award needs no interpretation but is easy to misread: "1x Pilot-3" is
+one Pass/Fail roll carrying three levels, not three rolls of one. "He
+receives Pilot+3 for a total of Pilot-4" (p. 61), from a character
+holding Pilot-1.
+
+The Graduation column's "Flight Branch" confers no Branch. p. 66 says so
+outright, in the sentence the Branch selection already cites: "he rolls 7
+and chooses Flight (otherwise a Flight School graduate does not
+automatically receive Branch= Flight)".

@@ -138,6 +138,13 @@ const (
 	// Check, so declining throws nothing.
 	ChooseResignReserves ChoiceID = "resign_reserves"
 
+	// ChooseFlightSchool offers chart C's Flight School to a character
+	// in the first year of his first Armed Forces term: "Service
+	// Academy Honors Graduates may attend Flight School" (p. 60);
+	// "College or University Honors Graduates who participated in OTC
+	// or NOTC may attend Flight School" (p. 61).
+	ChooseFlightSchool ChoiceID = "attend_flight_school"
+
 	// ChooseBranch selects the Armed Forces branch where the character
 	// passes the chart's Branch check ("Select Branch Soc", chart 08
 	// p. 82); a failed check rolls one instead.

@@ -86,6 +86,26 @@ type Program struct {
 	// for programs without majors.
 	MajorsFrom string `json:"majors_from,omitempty"`
 
+	// RequiresProgram names, by Name as the character record spells it,
+	// the programs a character must have attended
+	// for the row to be open to him, beyond the Pre-Req column's own
+	// entry: "College or University Honors Graduates who participated in
+	// OTC or NOTC may attend Flight School" (p. 61). Any one of them
+	// satisfies it.
+	//
+	// Chart C's Pre-Req column has one cell and this is a second
+	// condition printed in the prose, which is why it is a field of its
+	// own rather than a Prereq kind (interpretation I-110).
+	RequiresProgram []string `json:"requires_program,omitempty"`
+
+	// InFirstTerm marks a row attended inside a career rather than
+	// chosen at step C: "The character attends Flight School in the
+	// first year of his first term in the Navy, Army, or Marines"
+	// (p. 60). Command College says the same of itself and reaches the
+	// character as an assigned school; Flight School is elective, so it
+	// is offered there instead (interpretation I-110).
+	InFirstTerm bool `json:"in_first_term,omitempty"`
+
 	// PreCareerOnly withholds the program from Later Education, which
 	// otherwise offers "any Educational Institution or Training" at the
 	// beginning of any term (p. 59).
@@ -176,23 +196,62 @@ func (t *tableData) validate() error {
 		}
 	}
 
+	if err := t.validateSkills(); err != nil {
+		return err
+	}
+
+	if err := t.validateRequiredPrograms(); err != nil {
+		return err
+	}
+
+	return t.validateNamedAwards()
+}
+
+// validateSkills holds every Available Skills row to the Master Skill
+// List.
+//
+// Chart C's matrix names Master Skill List entries; the chart
+// abbreviations are canonicalized in the transcription (ERRATA.md I-9).
+// Unlike the career charts, every row here is unambiguous — the three
+// Grav rows are distinguished by their parent group (ERRATA.md I-10) — so
+// an ambiguous name is a transcription error too.
+func (t *tableData) validateSkills() error {
 	for _, s := range t.Skills {
 		if s.Name == "" || s.Group == "" {
 			return fmt.Errorf("%w: skill row %+v", errBadTable, s)
 		}
 
-		// Chart C's Available Skills matrix names Master Skill List
-		// entries; the chart abbreviations are canonicalized in the
-		// transcription (ERRATA.md I-9). Unlike the career charts, every
-		// row here is unambiguous — the three Grav rows are distinguished
-		// by their parent group (ERRATA.md I-10) — so an ambiguous name
-		// is a transcription error too.
 		if _, err := skill.Resolve(s.Name); err != nil {
 			return fmt.Errorf("%w: skill row %q: %w", errBadTable, s.Name, err)
 		}
 	}
 
-	return t.validateNamedAwards()
+	return nil
+}
+
+// validateRequiredPrograms holds every RequiresProgram entry to a program
+// the table actually has.
+//
+// The field names programs the way the character record spells them,
+// which is by Name rather than by ID, so a typo would silently withhold
+// the row from everyone instead of failing — Flight School would simply
+// never be offered and nothing would say why.
+func (t *tableData) validateRequiredPrograms() error {
+	names := map[string]bool{}
+	for _, p := range t.Programs {
+		names[p.Name] = true
+	}
+
+	for _, p := range t.Programs {
+		for _, required := range p.RequiresProgram {
+			if !names[required] {
+				return fmt.Errorf("%w: program %q requires %q, which no program is named",
+					errBadTable, p.ID, required)
+			}
+		}
+	}
+
+	return nil
 }
 
 // validateNamedAwards holds the two professional schools to their own
@@ -337,6 +396,13 @@ const (
 const (
 	// MedicalAward is Medical School's "Medic-4".
 	MedicalAward = "Medic"
+
+	// FlightAward and FlightAwardLevels are Flight School's "1x Pilot-3"
+	// (chart C p. 60): one Pass/Fail roll, and three levels on it rather
+	// than the one level a Pass usually carries. The worked example is
+	// unambiguous — "He receives Pilot+3 for a total of Pilot-4" (p. 61).
+	FlightAward       = "Pilot"
+	FlightAwardLevels = 3
 
 	// LawAward is Law School's "Advocate-2".
 	LawAward = "Advocate"

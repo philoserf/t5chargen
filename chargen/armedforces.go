@@ -380,6 +380,10 @@ func (m *armedForcesMechanics) resolveTerm(r *careerRun, cc string) (termOutcome
 		}
 	}
 
+	if err := r.offerFlightSchool(); err != nil {
+		return termOutcome{}, err
+	}
+
 	columns, opsMod, err := m.operations(r)
 	if err != nil {
 		return termOutcome{}, err

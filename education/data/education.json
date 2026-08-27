@@ -239,12 +239,14 @@
         "kind": "degree",
         "value_name": "Honors BA"
       },
+      "requires_program": ["OTC", "NOTC", "Service Academy"],
+      "in_first_term": true,
       "apply_check": [],
       "duration_years": 1,
       "pass_check": ["Dex"],
       "rolls": 1,
       "graduation_degree": "Flight Branch",
-      "implemented": false
+      "implemented": true
     },
     {
       "id": "command_college",
