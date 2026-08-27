@@ -854,6 +854,7 @@ func TestEveryChoicePointHasAPolicy
 func TestEveryCareerHasCoverage
 func TestCareerSectionsAreInChartOrder
 func TestNoRowDefersToAClosedMilestone
+func TestPolicyDocumentStatesItsVersion
 func TestNoCommentNamesAClosedMilestone
 func TestNoPromptShowsAnIdentifier
 func TestEveryFixtureValidates

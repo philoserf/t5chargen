@@ -1,6 +1,6 @@
 # POLICY.md — auto-mode default policy
 
-Version: **0.21.0** (`policy_version` in every character record). Changing any
+Version: **0.22.0** (`policy_version` in every character record). Changing any
 rule here is a policy version bump (docs/PRD.md, Replay and provenance
 contract). 0.2.0 added the homeworld choice points; 0.3.0 the education
 choice points; 0.4.0 the Scout career choice points (chart 05, p. 79) and
@@ -84,7 +84,7 @@ lists them; the policy returns an index.
 | `apply_later_education`             | **Masters or Professors** where he qualifies; otherwise decline and serve the term.                                                                 | "Characters may suspend career resolution to return to school" (p. 59). The offer is real every term — Apprenticeship has no prerequisite — but the trade is a term of career for a term of school, and the policy has no way to value a program against the rank, skills and muster-out roll the term would have earned. Declining is also the only stable answer: the offer recurs every term, so a policy that accepted would send every auto-generated character back to school until aging killed him. A player weighing a specific program against a specific career is the interactive case the rule is written for. **Amended in 0.20.0**, once chart C's Higher Education block ran past a Bachelors. The reasoning above holds for every row below one — the trade cannot be valued, and the offer recurs — but the rows above a degree are bounded and are the only place the ladder leads: a program is attempted once (I-100), so Masters and then Professors is at most two terms given over to school, and the Bachelors the character already holds is exactly what chart C prints them against. Declining them would leave four implemented rows that no generated record reaches, which is the blindness that kept the Service Academy's bugs out of every golden. Professors is preferred only because a character holding an MA qualifies for it and not for Masters; the two never compete. |
 | `attempt_retry`                     | Always attempt.                                                                                                                                     | The I-8 Reward retry has no stated cost.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 
-## Known limitations (0.4.0)
+## Known limitations
 
 - Every auto-generated Citizen's hobby is the first-listed table E entry
   (excluding the determined Job, per ERRATA I-3).
@@ -109,3 +109,14 @@ lists them; the policy returns an index.
   unreachable in auto mode. Their fixtures are generated with a test
   Decider and carry `policy_version: "none"`; that is the policy working as
   written, not a defect.
+- **No auto-generated character is commissioned by OTC or NOTC**, because
+  `volunteer_officer_training` declines. A commission would remove the
+  career choice — "The character is required to serve one term in the
+  service" (p. 61) — so accepting would send every auto character who
+  attends College into Soldier. The two chart C rows are exercised by a
+  volunteering decider instead (`TestOfficerTrainingCommissions`).
+- **No auto-generated Rogue schemes against a career he has served**,
+  because `select_scheme_career` rolls. Since no auto character changes
+  careers, none has a previous career to take and the offer is never even
+  made; a decider that changes into Rogue is what reaches it
+  (`TestRogueMaySelectAPreviousCareerAsHisScheme`).
