@@ -110,6 +110,14 @@ func chooseOutright(c Choice) (int, bool) {
 	case ChooseOfficerTraining:
 		// POLICY.md: decline, which is the last option.
 		return declineOfficerTrainingIndex(c), true
+	case ChooseSchemeCareer:
+		// POLICY.md: roll for it, which is the last option. Chart 10
+		// ranks its schemes only by Flux, so a previous career is not a
+		// better Scheme than the one the table would have given — and
+		// taking one would make every Rogue's second term scheme
+		// against his own first career, which is a habit the chart
+		// permits and does not recommend.
+		return len(c.Options) - 1, true
 	}
 
 	return 0, false

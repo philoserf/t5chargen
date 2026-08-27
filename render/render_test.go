@@ -240,6 +240,17 @@ func TestHistoryConsequenceTexts(t *testing.T) {
 		{Seq: 4, Kind: chargen.EventConsequence, Consequence: &chargen.ConsequenceEvent{
 			Cause: 1, Kind: chargen.ConsequenceBenefitLost, Career: "Craftsman", Skill: "Trade",
 		}},
+		{Seq: 5, Kind: chargen.EventConsequence, Consequence: &chargen.ConsequenceEvent{
+			Cause: 1, Kind: chargen.ConsequenceScheme, Career: "Rogue", Skill: "Noble", Value: 4,
+		}},
+		// A Scheme taken rather than rolled threw no Flux (chart 10,
+		// p. 84), so the transcript must not print one: the zero Value
+		// a selection carries is Flux +0 on the chart, which is a
+		// Spacer, and printing it would be the record inventing a roll.
+		{Seq: 6, Kind: chargen.EventConsequence, Consequence: &chargen.ConsequenceEvent{
+			Cause: 1, Kind: chargen.ConsequenceScheme, Career: "Rogue", Skill: "Scout",
+			Detail: "selected, not rolled",
+		}},
 	}}
 
 	got := render.History(c)
@@ -249,6 +260,8 @@ func TestHistoryConsequenceTexts(t *testing.T) {
 		"no award (Admin at the Skill-15 cap)",
 		"Masterpiece created (55 Master Points, worth Cr600000)",
 		"benefit lost (every Trade already held)",
+		"Scheme: Noble (Flux +4)",
+		"Scheme: Scout (selected, not rolled)",
 	} {
 		if !strings.Contains(got, want) {
 			t.Errorf("History() missing %q:\n%s", want, got)

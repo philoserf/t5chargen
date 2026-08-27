@@ -320,7 +320,7 @@ matters: it means a policy can weigh a stake without parsing prompt text,
 and rewording a prompt cannot change what character a seed produces.
 
 ```bash
-sed -n '182,208p' chargen/decider.go
+awk '/^type Choice struct/,/^}/' chargen/decider.go
 ```
 
 ```output
@@ -939,7 +939,7 @@ go run ./cmd/t5chargen render /tmp/demo.json | tail -5
 ```output
 ---
 
-Seed 314 (math/rand/v2-pcg) · schema 0.31.0 · engine 0.41.0 · policy 0.21.0
+Seed 314 (math/rand/v2-pcg) · schema 0.31.0 · engine 0.41.0 · policy 0.22.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1
 ```

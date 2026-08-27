@@ -125,6 +125,12 @@ const (
 	// may be modified (after roll) plus or minus 1" (chart 10, p. 84).
 	ChooseSchemeFlux ChoiceID = "adjust_scheme_flux"
 
+	// ChooseSchemeCareer takes a career already served as the Scheme in
+	// place of rolling for one: "A Rogue may select for his Scheme
+	// (rather than roll) any previous career" (chart 10, p. 84). Offered
+	// only where there is a previous career to take.
+	ChooseSchemeCareer ChoiceID = "select_scheme_career"
+
 	// ChooseBranch selects the Armed Forces branch where the character
 	// passes the chart's Branch check ("Select Branch Soc", chart 08
 	// p. 82); a failed check rolls one instead.
