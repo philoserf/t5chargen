@@ -6,10 +6,9 @@ package chargen
 // roll is made to determine Success or Failure. No Mods are used." (p. 65)
 //
 // Citizens have no rank ("The Citizen, Entertainer, Craftsman, Scout,
-// Agent, and Rogue careers have no rank", p. 65). Muster out, aging, and
-// career changes are deferred to docs/PRD.md milestone 4. The generic term
-// loop, controlling-characteristic rotation, skills table, and Continue
-// throw live in careerrun.go.
+// Agent, and Rogue careers have no rank", p. 65). The generic term loop,
+// controlling-characteristic rotation, skills table, and Continue throw
+// live in careerrun.go.
 
 import (
 	"fmt"

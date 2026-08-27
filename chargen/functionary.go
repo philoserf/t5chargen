@@ -25,9 +25,6 @@ package chargen
 //
 // "Functionary is never a first career" (box Not A First Career), and "a
 // Noble may not become a Functionary".
-//
-// Deferred: the muster-out table D, its Gold Watch and Directorship
-// automatics (milestone 4 muster out).
 
 import (
 	"fmt"

@@ -17,11 +17,6 @@ package chargen
 // — a character elevated to Soc c is a Baronet, and the next elevation
 // keeps Soc 12 while the title becomes Baron (p. 51) — which is what the
 // chart's "(if any)" allows for.
-//
-// Deferred: Land Grant hexes and their economics, and the muster-out
-// Proxy column (docs/PRD.md milestone 4); the Base Fame of 1.5 times Soc,
-// which nothing in the career consumes (milestone 4 chart F); "A Noble may
-// not pursue another career after this one" (career changes, milestone 4).
 
 import (
 	"fmt"
@@ -291,8 +286,9 @@ func (m *nobleMechanics) characteristicRaised(r *careerRun, name string, cause i
 	m.grantLand(r, cause)
 }
 
-// grantLand records one Land Grant. The hexes and their economics land
-// with muster out (docs/PRD.md milestone 4).
+// grantLand records one Land Grant. Muster out prices the hexes: "Cr10,000
+// per TC annually (equal to Cr5,000 if there are no TCs)" (p. 88), sited
+// on the character's homeworld (entitlement.go).
 func (*nobleMechanics) grantLand(r *careerRun, cause int) {
 	r.record.LandGrants++
 

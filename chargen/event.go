@@ -252,8 +252,9 @@ const (
 	// arithmetic the chart's own example shows ("Fame = 1 x 3 = 3").
 	ConsequenceFameComputed ConsequenceKind = "fame_computed"
 
-	// ConsequenceFameChange records a Fame change (chart 05: "Fame +1";
-	// the full Fame system, chart F p. 91, lands with milestone 4).
+	// ConsequenceFameChange records a Fame change a career awards in
+	// passing (chart 05: "Fame +1"), as against the Fame chart F prices
+	// at muster out, which is ConsequenceFameComputed above.
 	// Delta is the change, Value the new Fame.
 	ConsequenceFameChange ConsequenceKind = "fame_change"
 

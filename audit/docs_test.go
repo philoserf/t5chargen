@@ -11,6 +11,13 @@
 // has a POLICY.md rule, and that every career the engine can run has a
 // section.
 //
+// One check reaches past the documents into the Go source. A doc comment
+// is a claim about the code as much as COVERAGE.md is, and it rots the
+// same way: twenty-six of them still deferred work to milestones 3 and 4
+// long after those delivered it. TestNoCommentNamesAClosedMilestone
+// gates that, and it belongs here rather than beside the code it reads,
+// because what makes a milestone closed is a fact about docs/PRD.md.
+//
 // # What this package deliberately does not gate
 //
 // Named here so their absence reads as a decision rather than an
@@ -26,11 +33,18 @@
 //
 // COVERAGE.md's Status column is half gated. "covered" is not
 // mechanically checkable, and the deferred half cannot be narrowed to
-// "names no implementation" — two legitimately deferred M6 rows name real
-// code. What is checkable is that a deferral does not name a milestone
-// that has already shipped, which TestNoRowDefersToAClosedMilestone
-// enforces after that claim rotted twice in two days. The rest of the
-// column is still reviewed.
+// "names no implementation" — legitimately deferred rows name real code.
+// What is checkable is that a deferral does not name a milestone that has
+// already shipped, which TestNoRowDefersToAClosedMilestone enforces after
+// that claim rotted twice in two days. The rest of the column is still
+// reviewed.
+//
+// COVERAGE.md's prose is reviewed, not gated, and this is where the rot
+// keeps going next. Three stale claims in a week lived in a note or a
+// paragraph rather than a Status cell, each one invisible to the gate
+// standing beside it. No mechanical rule was found for prose that would
+// not either miss most of it or flag most of it, so the honest position
+// is that the gates cover the table and a reader covers the rest.
 //
 // COVERAGE.md's Implementation column is reviewed, not gated, for the
 // reason given at TestCoverageNamesRealTests.
@@ -342,6 +356,116 @@ func TestNoRowDefersToAClosedMilestone(t *testing.T) {
 			}
 		}
 	}
+}
+
+// TestNoCommentNamesAClosedMilestone verifies no Go source comment cites
+// a milestone that has shipped.
+//
+// It is the same claim TestNoRowDefersToAClosedMilestone makes about
+// COVERAGE.md, pointed at the place the rot actually went. Twenty-six
+// comments read as deliberate deferrals — "the muster-out table D
+// (milestone 4)", "terms run long until aging lands", "v1 ships the
+// Citizen career only" — long after milestone 4 delivered muster out and
+// aging and milestone 3 delivered all thirteen careers. Four cleanups of
+// this shape shipped in a week, each in a place the previous gate could
+// not see.
+//
+// Unlike the COVERAGE check this needs no deferral word, and the stricter
+// rule is the simpler one: once a milestone ships, its number tells a
+// reader nothing the code does not. Where the work is done the citation
+// is noise; where a gap remains, the gap is what to name. Historical
+// attribution belongs to git history and docs/MILESTONE-*.md. Nothing
+// then has to decide whether a given sentence is a deferral, which is the
+// judgement the COVERAGE check has to make and the reason it can only
+// gate half a column.
+//
+// Test files are excluded because a guard has to quote what it guards
+// against: this comment names four closed milestones, and so does the one
+// above it.
+//
+// The bare "M4" form COVERAGE.md uses is not matched here, and cannot be.
+// In Go source a bare M1 or M2 means chart M1 or chart M2 some fifty
+// times over — the muster-out chart is the whole subject of three
+// packages — and "chart" does not always sit next to it: career.go says
+// "chart M2 reprints it" and then "M2 is transcribed" two lines later.
+// So this matches the spelled-out word and the parenthesised "(M4)",
+// which never names a chart. A bare "M4" meaning a milestone would slip
+// past, and that is the deliberate trade: the alternative flags fifty
+// chart citations, and a gate that cries wolf gets read as noise, which
+// is how the claims it guards rotted in the first place.
+func TestNoCommentNamesAClosedMilestone(t *testing.T) {
+	sources, scanned := locate(t,
+		func(path string) bool {
+			return strings.HasSuffix(path, ".go") && !strings.HasSuffix(path, "_test.go")
+		},
+		regexp.MustCompile(`(?i)\bmilestone\s+([1-9])\b|\(M([1-9])\)`))
+
+	// Files, not matches. The healthy state of this gate is zero matches,
+	// so counting those would make a broken walk indistinguishable from a
+	// clean tree — and would have passed silently the moment the last
+	// comment was fixed.
+	if scanned < 20 {
+		t.Fatalf("scanned only %d Go files; the walk is not working", scanned)
+	}
+
+	for _, found := range sources {
+		named := found.match[1]
+		if named == "" {
+			named = found.match[2]
+		}
+
+		if slices.Contains(closedMilestones, "M"+named) {
+			t.Errorf("%s:%d names milestone %s, which has shipped: %s",
+				found.path, found.line, named, strings.TrimSpace(found.text))
+		}
+	}
+}
+
+// hit is one regexp match and where it was found, which is what a reader
+// of the failure needs and what scan discards.
+type hit struct {
+	path  string
+	line  int
+	text  string
+	match []string
+}
+
+// locate is scan with the location kept, and reports how many files it
+// read. The two differ only in what they return: scan collects a
+// vocabulary, locate reports places to go and fix.
+func locate(t *testing.T, keep func(path string) bool, pattern *regexp.Regexp) ([]hit, int) {
+	t.Helper()
+
+	var (
+		found   []hit
+		scanned int
+	)
+
+	err := filepath.WalkDir("..", func(path string, entry os.DirEntry, err error) error {
+		if err != nil || entry.IsDir() || !keep(path) {
+			return err
+		}
+
+		data, err := os.ReadFile(path) //nolint:gosec // G304: walking the module's own tree.
+		if err != nil {
+			return fmt.Errorf("reading %s: %w", path, err)
+		}
+
+		scanned++
+
+		for i, text := range strings.Split(string(data), "\n") {
+			for _, match := range pattern.FindAllStringSubmatch(text, -1) {
+				found = append(found, hit{path: path, line: i + 1, text: text, match: match})
+			}
+		}
+
+		return nil
+	})
+	if err != nil {
+		t.Fatalf("walking the module: %v", err)
+	}
+
+	return found, scanned
 }
 
 // firstCell and lastCell return a Markdown table row's first and last

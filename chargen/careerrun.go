@@ -72,7 +72,7 @@ type termOutcome struct {
 
 	// endCareer ends the career after the term completes, without a
 	// Continue roll — a disabled character "Musters Out at Term end"
-	// (chart 05 p. 79; muster out itself is milestone 4).
+	// (chart 05 p. 79).
 	endCareer bool
 
 	// termColumns restricts the term's skill rolls to named columns, for
@@ -292,8 +292,8 @@ func runCareerByName(
 	}
 
 	// The baseline is captured before mechanics.begin deliberately: a
-	// skill granted during career entry (a To Begin outcome, milestone 3)
-	// is a career receipt under interpretation I-2 (ERRATA.md) and demotes
+	// skill granted during career entry (a To Begin outcome) is a career
+	// receipt under interpretation I-2 (ERRATA.md) and demotes
 	// a later Job/Hobby determination of the same skill to a later receipt.
 	entryLevels := heldSkillLevels(character)
 

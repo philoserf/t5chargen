@@ -4,8 +4,9 @@
 // notes), this package is data only — orchestration and career-specific
 // mechanics are typed Go in the chargen package.
 //
-// v1 ships the Citizen career only (docs/PRD.md milestone 1); the remaining
-// twelve careers land with milestone 3.
+// All thirteen careers are here (charts 01-13). A career's own mechanics
+// — what its Risk and Reward do, what its rank ladder means — live beside
+// its chart in the chargen package; what is transcribed here is the chart.
 package career
 
 import (
@@ -61,9 +62,9 @@ const (
 	EntryAnyKnowledge EntryKind = "any_knowledge"
 
 	// EntryCapital is chart 11's "Capital***" cell: "World Knowledge (of
-	// world of highest held noble Land Grant)" (p. 85), which needs the
-	// Land Grant worlds that land with muster out (docs/PRD.md
-	// milestone 4).
+	// world of highest held noble Land Grant)" (p. 85). Transcribed and
+	// not awarded: a World Knowledge is a Knowledge, and the
+	// Skill/Knowledge distinction is a v1 non-goal (docs/PRD.md).
 	EntryCapital EntryKind = "capital"
 
 	// EntryNewTrade is chart 01's "New Trade***" cell: "Any Trade not
@@ -125,8 +126,8 @@ type Definition struct {
 	// (chart 02: "Continue Edu*" with "*Mod +Pubs"). Unlike ContinueTarget
 	// it is not bounded to 2-11 (see validateContinue): the printed rule
 	// carries the target past 12 routinely, where the only remaining exit
-	// is the p. 134 automatic failure on a natural 12 (dice.resolveCheck),
-	// so terms run long until aging lands (docs/PRD.md milestone 4).
+	// is the p. 134 automatic failure on a natural 12 (dice.resolveCheck).
+	// Aging is what ends such a career in practice (chart A, p. 89).
 	ContinueMod ContinueModKind `json:"continue_mod,omitempty"`
 
 	// ContinueWaiver offers a Waiver on a failed Continue throw — the

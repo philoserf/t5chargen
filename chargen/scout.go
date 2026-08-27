@@ -15,9 +15,6 @@ package chargen
 // rather than applied, because no Sanity value is generated during
 // character generation (p. 52): careerrun.go's recordSanityMod, driven by
 // the career's sanity_per_terms, interpretation I-47 in ERRATA.md.
-//
-// Deferred: Land Grant values and the Discovery grant economics (chart 05,
-// milestone 4 muster out); muster-out table D.
 
 import (
 	"fmt"
