@@ -8,19 +8,22 @@ Go module: `github.com/philoserf/t5chargen`. Standard library only.
 
 ## Status
 
-The spec is [docs/PRD.md](docs/PRD.md). Milestones 1 (foundations), 2
-(pre-career: homeworld skills, education), 3 (careers), 4 (the rest of the
-lifepath) and 5 (the two modes, batch, and replay verification) are
-complete. A character runs end to end: characteristics, homeworld,
-education, all thirteen careers with aging and career changes, Fame,
-muster out, and a birthdate.
+The spec is [docs/PRD.md](docs/PRD.md). All six milestones are complete:
+1 (foundations), 2 (pre-career: homeworld skills, education), 3 (careers),
+4 (the rest of the lifepath), 5 (the two modes, batch, and replay
+verification) and 6 (the rules those left). A character runs end to end:
+characteristics, homeworld, education, all thirteen careers with aging and
+career changes, Fame, muster out, and a birthdate.
 
 What works today:
 
 - Characteristic generation, UPP, homeworld skills from UWP trade
-  classifications, and pre-career education — chart C's twelve implemented
-  programmes, from ED5 up through the Professors programme, plus the two
-  schools a career assigns (ANM School, Command College).
+  classifications, and pre-career education — chart C's fourteen
+  implemented programmes: ten a character may apply to, from ED5 through
+  the four graduate rows (Masters, Professors, Medical School, Law
+  School); the two schools a career assigns (ANM School, Command
+  College); and the two officer training corps a College or University
+  student may volunteer for (OTC, NOTC).
 - All thirteen careers end-to-end — **Citizen**, **Scholar**,
   **Entertainer**, **Scout**, **Merchant**, **Noble**, **Agent**,
   **Rogue**, **Craftsman**, **Functionary**, and the Armed Forces
@@ -28,7 +31,8 @@ What works today:
   per-term skills, Risk & Reward, injury and death, rank with commission,
   promotion and tenure, the Entertainer's Fame and Talent, the Scholar's
   publications and waivers, the Noble's exile and elevation, the Rogue's
-  schemes, prison, and payoffs, continuation checks.
+  schemes — rolled or selected from a career he already served — prison,
+  and payoffs, continuation checks.
 - A deterministic engine: one seeded RNG stream, every choice through the
   `Decider` interface, a fixed auto-mode policy ([POLICY.md](docs/POLICY.md)), and
   an event log recording every throw, choice, and consequence with page
@@ -45,7 +49,10 @@ first event that disagrees. The record's shape is written down as
 
 Chart C's Higher Education block runs the whole way up: College or
 University to a Bachelors, then Masters, then the Professors programme,
-with Medical School and Law School beside them on an Honors Bachelors.
+with Medical School and Law School beside them on an Honors Bachelors. A
+student at either may also volunteer for OTC or NOTC, which commission him
+into the Army, the Navy or the Marines and oblige him a term there (p. 61)
+— the same obligation a Service Academy graduate carries.
 
 Everything the PRD asks for is implemented. What is deliberately left out
 is listed as a non-goal there — the Skill/Knowledge distinction most
@@ -83,9 +90,11 @@ answers them all. Optional flags:
 `--name`, `--career citizen|scholar|entertainer|scout|merchant|spacer|soldier|noble|marine|agent|rogue`, `--homeworld "UWP TC TC..."` (for example
 `"A788899-C Ph Pa Ri"`; `random` rolls one on chart B; naming none leaves
 the choice open, where a player is offered chart B's thirty-four worlds and
-the auto policy takes the tool-owned default, Regina), `--force`. Omitting `--seed`
-draws one from OS entropy; the seed is recorded, so any record can be
-regenerated exactly.
+the auto policy takes the tool-owned default, Regina), `--current-year`
+(the Imperial year adventuring begins in, default 1105 — p. 58's own
+date; the birth year is the character's age at muster out subtracted from
+it), and `--force`. Omitting `--seed` draws one from OS entropy; the seed is
+recorded, so any record can be regenerated exactly.
 
 ## Relationship to sibling repos
 

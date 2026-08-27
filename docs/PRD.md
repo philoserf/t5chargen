@@ -172,6 +172,8 @@ The auto policy is **total** (it can decide every valid choice point: education,
 5. Interactive mode polish; batch mode; replay verification.
 6. The rules milestone 5 left, now that the Skill/Knowledge distinction is a v1 non-goal: the Rogue's previous-career Scheme (chart 10). Chart 11's `Capital***` cell goes with the non-goal — it awards a World Knowledge — and so do p. 134's progression, the `Career:`/`World:` knowledges and the Knowledge-6 cap, which were the rest of this milestone. OTC and NOTC (p. 61) are the substantial rules actually left, and they are chart C rows rather than milestone 6.
 
+_Closed (2026-08-27):_ all six are complete, and this bullet's last sentence is now history rather than a plan — OTC and NOTC shipped alongside the Rogue's Scheme. `docs/MILESTONE-6.md` records what the milestone turned out to be: one rule of the seven planned, six scoped out, and forty pull requests in the same span that belonged to no milestone at all.
+
 ## Decisions (2026-08-19)
 
 - **Names**: blank by default, `--name` flag to supply one. No generator in v1 — T5 core has no name-gen rules, and names are setting-dependent.

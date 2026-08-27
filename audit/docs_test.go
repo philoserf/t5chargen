@@ -8,8 +8,8 @@
 // make it trustworthy are checked here rather than by eye: that every
 // test COVERAGE.md names exists, that every interpretation ERRATA.md
 // records is cited from it, that every choice point the engine presents
-// has a POLICY.md rule, and that every career the engine can run has a
-// section.
+// has a POLICY.md rule, that POLICY.md states the version the engine
+// stamps, and that every career the engine can run has a section.
 //
 // One check reaches past the documents into the Go source. A doc comment
 // is a claim about the code as much as COVERAGE.md is, and it rots the
@@ -65,6 +65,8 @@ import (
 	"strconv"
 	"strings"
 	"testing"
+
+	"github.com/philoserf/t5chargen/chargen"
 )
 
 // read returns a repository file relative to the module root.
@@ -355,6 +357,31 @@ func TestNoRowDefersToAClosedMilestone(t *testing.T) {
 				t.Errorf("a row defers to M%s, which has shipped: %s", named[2], firstCell(row))
 			}
 		}
+	}
+}
+
+// TestPolicyDocumentStatesItsVersion verifies POLICY.md's stated version
+// is the one the engine stamps on every record.
+//
+// The document names the version in its own first paragraph, and nothing
+// held the two together: PolicyVersion went to 0.22.0 with the Rogue's
+// previous-career Scheme and POLICY.md's header stayed at 0.21.0, in the
+// same pull request that added the rule. Every record written in between
+// cited a decision table by a number the document disclaimed.
+//
+// This is the cheapest gate in the package and the one with the least
+// judgement in it: two strings, and they either match or a record's
+// provenance points at nothing.
+func TestPolicyDocumentStatesItsVersion(t *testing.T) {
+	stated := regexp.MustCompile(`(?m)^Version: \*\*([0-9]+\.[0-9]+\.[0-9]+)\*\*`).
+		FindStringSubmatch(read(t, docsDir+"POLICY.md"))
+	if stated == nil {
+		t.Fatal("POLICY.md states no version; the header it is read from has moved")
+	}
+
+	if stated[1] != chargen.PolicyVersion {
+		t.Errorf("POLICY.md states version %s; the engine stamps %s on every record",
+			stated[1], chargen.PolicyVersion)
 	}
 }
 
