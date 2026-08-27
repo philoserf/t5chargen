@@ -654,6 +654,13 @@ func consequenceArmedForcesText(c *chargen.ConsequenceEvent) string {
 func consequenceRogueText(c *chargen.ConsequenceEvent) string {
 	switch c.Kind {
 	case chargen.ConsequenceScheme:
+		// A selected Scheme threw no Flux (chart 10, p. 84), and
+		// printing one it never rolled would be the transcript making
+		// something up.
+		if c.Detail != "" {
+			return fmt.Sprintf("Scheme: %s (%s)", c.Skill, c.Detail)
+		}
+
 		return fmt.Sprintf("Scheme: %s (Flux %+d)", c.Skill, c.Value)
 	case chargen.ConsequenceSentenced:
 		return "sentenced to " + plural(c.Value, "year") + " in prison"

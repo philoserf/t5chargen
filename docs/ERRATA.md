@@ -2859,3 +2859,32 @@ The commission itself needs no interpretation: OTC's "Army Officer1" and
 NOTC's "Navy Officer1 or Marine Officer1" carry the same Officer1 token as
 the Service Academy's "BA Officer1", and the obligation it creates is
 I-99's, already implemented.
+
+### I-109: what "any previous career" means for a Rogue's Scheme (p. 84)
+
+Chart 10 prints, beside the Rogue Schemes table, "A Rogue may select for
+his Scheme (rather than roll) any previous career." It leaves three things
+to reading.
+
+**Selection replaces the roll.** "(rather than roll)" is taken at its
+word: a Rogue who selects throws no Flux for that Scheme, and the table's
+other note — "Flux may be modified (after roll) plus or minus 1" — never
+reaches him, because it scopes itself to a roll that was made. The
+alternative, rolling and then overriding the result, would spend a die on
+nothing and leave the record showing a Flux the Scheme did not come from.
+
+**"Previous" is served, not attempted.** A career whose To Begin failed
+was never held — "If both Begin and Retry fail, this career may not be
+used" (p. 65) — which is the reading I-54 already takes of that sentence.
+The stint in progress is not previous to itself either: the Rogue is
+standing in it. An earlier Rogue stint does count, and chart 10 prints a
+Rogue row (+3, Cr100,000) for exactly that character.
+
+**The Value is the chart's own.** Chart 10 gives a row to every one of the
+thirteen careers, so a selection always names a printed row and takes its
+payoff. Nothing is invented, and the selection changes only which row is
+used, not what the row pays.
+
+The offer is made only where there is a previous career to take. A prompt
+listing one option is not a choice, and a Rogue who has served nothing
+else has nothing the rule could give him.
