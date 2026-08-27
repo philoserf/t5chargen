@@ -2970,3 +2970,36 @@ The Graduation column's "Flight Branch" confers no Branch. p. 66 says so
 outright, in the sentence the Branch selection already cites: "he rolls 7
 and chooses Flight (otherwise a Flight School graduate does not
 automatically receive Branch= Flight)".
+
+### I-111: Musician is a container with nothing to contain (p. 134; p. 157)
+
+p. 134 names Musician among the eleven skills that contain Knowledges,
+and its own entry agrees: "Musician follows a standard pattern:
+Knowledge, Knowledge, Skill" and "The use of Musician skill requires
+knowledge in at least one specific instrument type" (p. 157).
+
+No list is printed. Every other container has one — a `KNOWLEDGES`
+sidebar for Driver, Fighter, Flyer, Gunner, Heavy Weapons and Seafarer, a
+titled box for Engineer, an inline enumeration for Animals and Pilot —
+and chart MS, which groups Musician with the Arts, prints none either.
+The nearest the page comes is "That instrument type can be Voice (or, if
+capable, Poice)", which names one type and calls it an example.
+
+**Musician is therefore awarded whole**, outside the
+Knowledge-Knowledge-Skill progression the rest of the containers follow.
+The alternative is to invent an instrument list, which is the one thing
+the ground rules forbid: the transcription would have no page behind it,
+and the chart's own note that "The lists of Knowledges and Talents are
+advisory; many different and additional Knowledges and Talents are
+possible" says the list is open rather than absent by omission.
+
+The cost is a Musician who receives the skill three times leaving with
+Musician-3 where p. 134 would give him a Knowledge-2 and Musician-1. It
+is the same shape as the cost the whole cluster carried while it was a
+non-goal, now reduced to one skill of the eleven, and it is recorded here
+rather than hidden because a reader comparing a sheet against p. 134
+should know which of the two he is looking at.
+
+Language is the other exception, and needs no interpretation: p. 134
+excepts it in the sentence that lists the containers — "except Language
+which is handled differently".

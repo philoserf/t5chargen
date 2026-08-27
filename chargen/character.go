@@ -278,7 +278,7 @@ func (c *Character) currentMinor() string {
 }
 
 // Skill is one acquired skill or knowledge at its current level. The
-// Skill/Knowledge distinction is a v1 non-goal (docs/PRD.md), so a
+// Skill/Knowledge distinction lands with milestone 7 (docs/PRD.md), so a
 // container skill is held whole: a character receiving Fighter five times
 // leaves with Fighter-5, where p. 134 would give him Fighter-3 and Slug
 // Thrower-2.

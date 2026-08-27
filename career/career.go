@@ -64,7 +64,7 @@ const (
 	// EntryCapital is chart 11's "Capital***" cell: "World Knowledge (of
 	// world of highest held noble Land Grant)" (p. 85). Transcribed and
 	// not awarded: a World Knowledge is a Knowledge, and the
-	// Skill/Knowledge distinction is a v1 non-goal (docs/PRD.md).
+	// Skill/Knowledge distinction lands with milestone 7 (docs/PRD.md).
 	EntryCapital EntryKind = "capital"
 
 	// EntryNewTrade is chart 01's "New Trade***" cell: "Any Trade not
