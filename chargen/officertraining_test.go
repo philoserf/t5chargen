@@ -45,12 +45,21 @@ func (d volunteerDecider) Choose(c chargen.Choice) (int, error) {
 
 func (volunteerDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
+// officerTrainingSeedSearch is how wide the sweeps look. The rows are
+// reached only through College or University and then only past a
+// Pass/Fail roll, so the hit rate is well under the Academy's and the
+// search is correspondingly wider.
+const officerTrainingSeedSearch = 400
+
 // TestOfficerTrainingCommissions verifies chart C's two volunteer rows
 // confer the commission their Graduation column prints: OTC "Army
 // Officer1", NOTC "Navy Officer1 or Marine Officer1" (p. 60; p. 61).
 //
-// A commission obliges the character to the service (I-99), which is why
-// the assertion is on the career he opens with as well as on the degree.
+// The assertion is on the degree alone. What the commission then obliges
+// — the term owed and the officer rank entered at — is I-99's, and
+// TestCommissionedGraduateOwesHisService and
+// TestCommissionedGraduateEntersAsAnOfficer sweep these rows alongside
+// the Academy's rather than asserting it twice.
 func TestOfficerTrainingCommissions(t *testing.T) {
 	for _, tt := range []struct {
 		name     string
@@ -63,17 +72,15 @@ func TestOfficerTrainingCommissions(t *testing.T) {
 		{"NOTC into the Marines", "NOTC", "Marine", []string{"Marine"}},
 	} {
 		t.Run(tt.name, func(t *testing.T) {
-			seen := false
+			graduated := 0
 
-			for seed := range uint64(400) {
+			for seed := range uint64(officerTrainingSeedSearch) {
 				c := generate(t, chargen.Options{Seed: seed, Decider: volunteerDecider{want: tt.row, service: tt.service}})
 
 				record, ok := educationRecord(c, tt.row)
 				if !ok {
 					continue
 				}
-
-				seen = true
 
 				if !slices.Contains(tt.services, record.Service) {
 					t.Fatalf("seed %d: %s commissioned into %q, want one of %v",
@@ -84,18 +91,19 @@ func TestOfficerTrainingCommissions(t *testing.T) {
 					continue // a failed roll confers nothing, which is the rule
 				}
 
+				graduated++
+
 				if want := record.Service + " Officer1"; record.Degree != want {
 					t.Errorf("seed %d: %s graduated with %q, want %q", seed, tt.row, record.Degree, want)
 				}
-
-				if len(c.Careers) > 0 && c.Careers[0].Career != careerForService(record.Service) {
-					t.Errorf("seed %d: a %s commission opened with %q, not %q",
-						seed, record.Service, c.Careers[0].Career, careerForService(record.Service))
-				}
 			}
 
-			if !seen {
-				t.Skipf("no seed in 400 reached %s", tt.row)
+			// Not a Skip: a run where every attempt failed its roll
+			// reaches the row and still says nothing about the degree,
+			// and a skip would pass either way.
+			if graduated == 0 {
+				t.Fatalf("no seed under %d graduates %s into the %s; the sweep is asserting nothing",
+					officerTrainingSeedSearch, tt.row, tt.services)
 			}
 		})
 	}
@@ -109,7 +117,7 @@ func TestOfficerTrainingCommissions(t *testing.T) {
 // later attends University meets the offer again — that is the rule, not a
 // leak. What he cannot do is hold two commissions.
 func TestOfficerTrainingIsTakenOnce(t *testing.T) {
-	for seed := range uint64(200) {
+	for seed := range uint64(officerTrainingSeedSearch) {
 		c := generate(t, chargen.Options{Seed: seed, Decider: volunteerDecider{want: "OTC"}})
 
 		taken, hosts, offers := 0, 0, 0
@@ -149,18 +157,4 @@ func educationRecord(c chargen.Character, program string) (chargen.EducationReco
 	}
 
 	return chargen.EducationRecord{}, false
-}
-
-// careerForService is the career a commission into a service obliges.
-func careerForService(service string) string {
-	switch service {
-	case "Army":
-		return "Soldier"
-	case "Navy":
-		return "Spacer"
-	case "Marine":
-		return "Marine"
-	}
-
-	return ""
 }
