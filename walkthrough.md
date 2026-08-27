@@ -173,7 +173,7 @@ const usage = `usage:
                 (without --auto the player answers each choice; --auto applies POLICY.md)
   t5chargen batch --count N --auto [--seed N] [--name X] [--career citizen]
                   [--homeworld "UWP TC..."|random] [--current-year 1105] [-o dir/|file.jsonl] [--force]
-  t5chargen render [--format md] [--history] character.json
+  t5chargen render [--history] character.json
   t5chargen replay [--ignore-provenance] character.json
 ```
 

@@ -584,13 +584,22 @@ player each choice point and records that he answered
 option lists the policy indexes, so a session a person drove replays like
 any other record.
 
-`render --format txt` is the one thing in the PRD's CLI sketch that still
-refuses. It was taken into milestone 5 deliberately — it is in the sketch,
-and the usage string had drifted from it — and then not built, which is a
-scope miss rather than a decision. It belongs to no numbered requirement:
-the milestone bullet does not name it, and Markdown is already readable in
-a terminal, so what it buys is output with the emphasis markers stripped.
-Deferred with no milestone owning it, which is the honest place for it: the paragraph above already argues it belongs to no numbered requirement, and holding it in a milestone would have said the opposite. It waits until a second set of golden sheets is worth what stripping the emphasis markers buys.
+`render --format txt` is **dropped rather than deferred**, and with it
+the `--format` flag. It was taken into milestone 5 deliberately — it was
+in the CLI sketch, and the usage string had drifted from it — and then
+not built, which was a scope miss rather than a decision. Making it a
+decision meant choosing, and this is the choice: it belonged to no
+numbered requirement, the milestone bullet did not name it, and Markdown
+is already readable in a terminal, so what it bought was output with the
+emphasis markers stripped, at the price of a second set of golden sheets
+to hold that output honest. The sketch (`docs/PRD.md`), the README and
+the usage string now all say the tool renders Markdown, which is what it
+does.
+
+A deferral kept for four milestones without ever being weighed is not a
+plan, and calling it one is the same kind of untrue claim the rest of
+this document exists to prevent. `render --format md` is now a usage
+error rather than a no-op, guarded by `TestErrors/render_rejects_--format`.
 
 ## Cross-cutting interpretations
 
