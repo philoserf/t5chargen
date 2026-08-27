@@ -574,6 +574,20 @@ func (s *Schemes) SchemeAt(flux int) SchemeRow {
 	return best
 }
 
+// SchemeFor returns the scheme row for a named career, which is how
+// chart 10's "A Rogue may select for his Scheme (rather than roll) any
+// previous career" resolves: the table prints a row for every career, so
+// a selection names one of them rather than inventing a payoff.
+func (s *Schemes) SchemeFor(name string) (SchemeRow, bool) {
+	for _, row := range s.Rows {
+		if row.Career == name {
+			return row, true
+		}
+	}
+
+	return SchemeRow{}, false
+}
+
 // Undercover is chart 09's Agent Undercover Assignment table.
 type Undercover struct {
 	Cite string          `json:"cite"`

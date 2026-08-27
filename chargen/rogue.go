@@ -19,11 +19,11 @@ package chargen
 // badge and cannot die at his own trade (interpretation I-41, ERRATA.md).
 //
 // Deferred: spending the Payoff, and the muster-out table D (docs/PRD.md
-// milestone 4); selecting a previous career as the Scheme, which needs
-// career changes (milestone 4).
+// milestone 4).
 
 import (
 	"fmt"
+	"slices"
 	"strconv"
 
 	"github.com/philoserf/t5chargen/career"
@@ -39,6 +39,15 @@ const (
 	// roguePrisonColumns is the chart's restriction: "In Prison: Prison
 	// Skills from the Rogue Skills table column 1 or 2 only".
 	roguePrisonColumns = 2
+
+	// rogueRollTheScheme is the option that declines the chart's
+	// alternative and rolls Flux as usual. Last in the list, so the
+	// policy can name it by position.
+	rogueRollTheScheme = "Roll for it"
+
+	// rogueSchemeSelected marks a Scheme taken rather than rolled, so the
+	// transcript does not print a Flux that was never thrown.
+	rogueSchemeSelected = "selected, not rolled"
 )
 
 // rogueMechanics is the Rogue careerMechanics implementation.
@@ -202,7 +211,11 @@ func rogueMods(caution, terms, sign int) []Mod {
 
 // scheme rolls the term's Scheme and offers the chart's adjustment: "Flux
 // may be modified (after roll) plus or minus 1" (chart 10).
-func (*rogueMechanics) scheme(r *careerRun) (career.SchemeRow, error) {
+func (m *rogueMechanics) scheme(r *careerRun) (career.SchemeRow, error) {
+	if scheme, taken, err := m.selectScheme(r); err != nil || taken {
+		return scheme, err
+	}
+
 	flux := r.roller.Flux()
 	seq := r.log.Flux(flux, r.def.Schemes.Cite)
 
@@ -227,6 +240,84 @@ func (*rogueMechanics) scheme(r *careerRun) (career.SchemeRow, error) {
 	})
 
 	return scheme, nil
+}
+
+// selectScheme offers the chart's alternative to rolling: "A Rogue may
+// select for his Scheme (rather than roll) any previous career" (chart
+// 10, p. 84). It reports the scheme and whether one was taken.
+//
+// Selection replaces the roll rather than steering it, so a Rogue who
+// takes a previous career consumes no Flux and the "Flux may be modified
+// (after roll)" clause never reaches him — it scopes itself to a roll
+// that was made (interpretation I-109, ERRATA.md).
+//
+// The offer is made only where there is something to take, so a Rogue who
+// has served nothing else is asked nothing. Chart 10 prints a row for
+// every career, so a selection always names one of them and the Value is
+// the chart's own rather than an invented one.
+func (*rogueMechanics) selectScheme(r *careerRun) (career.SchemeRow, bool, error) {
+	previous := previousCareers(r.character)
+	if len(previous) == 0 {
+		return career.SchemeRow{}, false, nil
+	}
+
+	options := make([]string, 0, len(previous)+1)
+	options = append(options, previous...)
+	options = append(options, rogueRollTheScheme)
+
+	chosen, seq, err := choose(r.log, r.decider, Choice{
+		ID:      ChooseSchemeCareer,
+		Prompt:  "Select a previous career as the Scheme?",
+		Options: options,
+		Cite: r.def.Schemes.Cite +
+			" (A Rogue may select for his Scheme (rather than roll) any previous career)",
+	})
+	if err != nil {
+		return career.SchemeRow{}, false, err
+	}
+
+	if options[chosen] == rogueRollTheScheme {
+		return career.SchemeRow{}, false, nil
+	}
+
+	scheme, ok := r.def.Schemes.SchemeFor(options[chosen])
+	if !ok {
+		// Unreachable while previousCareers draws on the same career
+		// registry the Schemes table names, and stated rather than
+		// assumed: a career with no row would otherwise pay Cr0.
+		return career.SchemeRow{}, false, fmt.Errorf("%w: chart 10 prints no Scheme row for %q",
+			errNotImplemented, options[chosen])
+	}
+
+	r.record.Scheme = scheme.Career
+
+	r.log.Consequence(ConsequenceEvent{
+		Cause: seq, Kind: ConsequenceScheme, Career: r.def.Name,
+		Skill: scheme.Career, Detail: rogueSchemeSelected,
+	})
+
+	return scheme, true, nil
+}
+
+// previousCareers lists the careers the character has served, in the
+// order he served them and without repeats.
+//
+// Served, not attempted: a career whose To Begin failed was never held,
+// which is the same reading I-54 takes of "this career may not be used"
+// (p. 65). The career now in progress is not among them — its record
+// joins the character only when the run ends — so a Rogue cannot take
+// the stint he is standing in, though an earlier Rogue stint counts and
+// chart 10 prints a Rogue row for it.
+func previousCareers(c *Character) []string {
+	names := make([]string, 0, len(c.Careers))
+
+	for _, record := range c.Careers {
+		if record.Began && !slices.Contains(names, record.Career) {
+			names = append(names, record.Career)
+		}
+	}
+
+	return names
 }
 
 // imprison applies a Risk failure: "Prison for (sum of negative Mods +
