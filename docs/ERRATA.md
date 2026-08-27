@@ -2818,3 +2818,44 @@ derived value clamped to a rules floor.
 
 Death is unaffected: p. 65 turns on the value reaching zero, and it still
 reaches zero.
+
+### I-108: when a character volunteers for OTC or NOTC (pp. 60-61)
+
+Chart C gives both rows the Pre-Req "volunteer" and the Apply "auto", and
+p. 61 says "A character attending College or University may also volunteer
+to participate in OTC (Officer Training Corps) or NOTC (Naval Officer
+Training Corps)." Neither says _when_ during the programme.
+
+Two readings, and the page settles neither:
+
+1. **While attending**, so a character who fails out still had the offer.
+   (Implemented.)
+2. On graduation, alongside Honors.
+
+Reading 1 is taken on the wording — "attending", not "graduating" — and on
+the worked example, which puts the check inside the College years and
+before the degree: "During his College years, Eneri volunteers for NOTC
+and is automatically accepted. Check Edu (roll 6 or less; he rolls 6) and
+succeeds." Only afterwards does he attempt Honors, fail, and graduate with
+a BA.
+
+The offer is therefore made after the programme's Pass/Fail years and
+before graduation is resolved, which is the one point that is both inside
+the attendance and after the rolls that decide it.
+
+Two further readings the page leaves open, taken the same way:
+
+**One row, once.** A character is offered OTC and NOTC together and takes
+at most one. The two commission into different services and p. 61 requires
+a term in "the service", singular; a character owing terms to two is not a
+state the careers can express.
+
+**A failed attempt is spent.** Chart C's Apply is "auto", so there is no
+admission to retry, and the single Pass/Fail roll is the whole course. A
+character who fails it is not offered it again — the same reading I-100
+takes of every other chart C row.
+
+The commission itself needs no interpretation: OTC's "Army Officer1" and
+NOTC's "Navy Officer1 or Marine Officer1" carry the same Officer1 token as
+the Service Academy's "BA Officer1", and the obligation it creates is
+I-99's, already implemented.

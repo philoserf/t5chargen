@@ -32,7 +32,7 @@ const (
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
-	PolicyVersion = "0.20.0"
+	PolicyVersion = "0.21.0"
 
 	// RNGAlgorithm names the recorded random stream: Go math/rand/v2 PCG,
 	// seeded as documented at dice.New. The exact string is compared on
@@ -850,11 +850,11 @@ func commissionedCareer(character *Character, options []string) ([]string, error
 
 	owed, err := career.ForService(service)
 	if err != nil {
-		return nil, fmt.Errorf("the commission from the %s Academy: %w", service, err)
+		return nil, fmt.Errorf("the %s commission: %w", service, err)
 	}
 
 	if !slices.Contains(options, owed) {
-		return nil, fmt.Errorf("%w: a %s Academy graduate owes a term as %s, which is not open to him (available: %s)",
+		return nil, fmt.Errorf("%w: a %s commission owes a term as %s, which is not open to him (available: %s)",
 			ErrCareerUnavailable, service, owed, strings.Join(options, ", "))
 	}
 

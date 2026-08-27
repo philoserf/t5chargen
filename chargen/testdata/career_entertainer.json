@@ -2,7 +2,7 @@
   "schema_version": "0.31.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
   "engine_version": "0.41.0",
-  "policy_version": "0.20.0",
+  "policy_version": "0.21.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 572
@@ -722,6 +722,21 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
+        "prompt": "Volunteer for officer training?",
+        "options": [
+          "OTC",
+          "NOTC",
+          "Decline"
+        ],
+        "chosen": 2,
+        "cite": "Book 1 p. 60 chart C (OTC, NOTC: volunteer, auto); p. 61"
+      }
+    },
+    {
+      "seq": 41,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
         "prompt": "Attempt the optional Honors roll?",
         "options": [
           "Attempt Honors",
@@ -732,7 +747,7 @@
       }
     },
     {
-      "seq": 41,
+      "seq": 42,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -746,7 +761,7 @@
       }
     },
     {
-      "seq": 42,
+      "seq": 43,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -761,10 +776,10 @@
       }
     },
     {
-      "seq": 43,
+      "seq": 44,
       "kind": "consequence",
       "consequence": {
-        "cause": 42,
+        "cause": 43,
         "kind": "skill_awarded",
         "skill": "Athlete",
         "delta": 1,
@@ -772,10 +787,10 @@
       }
     },
     {
-      "seq": 44,
+      "seq": 45,
       "kind": "consequence",
       "consequence": {
-        "cause": 42,
+        "cause": 43,
         "kind": "characteristic_change",
         "characteristic": "Edu",
         "delta": 2,
@@ -783,7 +798,7 @@
       }
     },
     {
-      "seq": 45,
+      "seq": 46,
       "kind": "step",
       "step": {
         "name": "Select Career",
@@ -791,7 +806,7 @@
       }
     },
     {
-      "seq": 46,
+      "seq": 47,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -804,7 +819,7 @@
       }
     },
     {
-      "seq": 47,
+      "seq": 48,
       "kind": "step",
       "step": {
         "name": "Entertainer: To Begin",
@@ -812,7 +827,7 @@
       }
     },
     {
-      "seq": 48,
+      "seq": 49,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -830,7 +845,7 @@
       }
     },
     {
-      "seq": 49,
+      "seq": 50,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -843,7 +858,7 @@
       }
     },
     {
-      "seq": 50,
+      "seq": 51,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -857,7 +872,7 @@
       }
     },
     {
-      "seq": 51,
+      "seq": 52,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -872,36 +887,36 @@
       }
     },
     {
-      "seq": 52,
+      "seq": 53,
       "kind": "consequence",
       "consequence": {
-        "cause": 51,
+        "cause": 52,
         "kind": "specialty_set",
         "skill": "Artist",
         "career": "Entertainer"
       }
     },
     {
-      "seq": 53,
+      "seq": 54,
       "kind": "consequence",
       "consequence": {
-        "cause": 49,
+        "cause": 50,
         "kind": "fame_change",
         "delta": 6,
         "value": 6
       }
     },
     {
-      "seq": 54,
+      "seq": 55,
       "kind": "consequence",
       "consequence": {
-        "cause": 49,
+        "cause": 50,
         "kind": "talent_set",
         "value": 6
       }
     },
     {
-      "seq": 55,
+      "seq": 56,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -919,7 +934,7 @@
       }
     },
     {
-      "seq": 56,
+      "seq": 57,
       "kind": "step",
       "step": {
         "name": "Later Education: Masters",
@@ -927,7 +942,7 @@
       }
     },
     {
-      "seq": 57,
+      "seq": 58,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -941,7 +956,7 @@
       }
     },
     {
-      "seq": 58,
+      "seq": 59,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -956,7 +971,7 @@
       }
     },
     {
-      "seq": 59,
+      "seq": 60,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1008,7 +1023,7 @@
       }
     },
     {
-      "seq": 60,
+      "seq": 61,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1059,7 +1074,7 @@
       }
     },
     {
-      "seq": 61,
+      "seq": 62,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1073,7 +1088,7 @@
       }
     },
     {
-      "seq": 62,
+      "seq": 63,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1088,19 +1103,19 @@
       }
     },
     {
-      "seq": 63,
+      "seq": 64,
       "kind": "consequence",
       "consequence": {
-        "cause": 62,
+        "cause": 63,
         "kind": "years_elapsed",
         "value": 1
       }
     },
     {
-      "seq": 64,
+      "seq": 65,
       "kind": "consequence",
       "consequence": {
-        "cause": 62,
+        "cause": 63,
         "kind": "skill_awarded",
         "skill": "Athlete",
         "delta": 1,
@@ -1108,7 +1123,7 @@
       }
     },
     {
-      "seq": 65,
+      "seq": 66,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1123,19 +1138,19 @@
       }
     },
     {
-      "seq": 66,
+      "seq": 67,
       "kind": "consequence",
       "consequence": {
-        "cause": 65,
+        "cause": 66,
         "kind": "years_elapsed",
         "value": 1
       }
     },
     {
-      "seq": 67,
+      "seq": 68,
       "kind": "consequence",
       "consequence": {
-        "cause": 65,
+        "cause": 66,
         "kind": "skill_awarded",
         "skill": "Athlete",
         "delta": 1,
@@ -1143,10 +1158,10 @@
       }
     },
     {
-      "seq": 68,
+      "seq": 69,
       "kind": "consequence",
       "consequence": {
-        "cause": 65,
+        "cause": 66,
         "kind": "skill_awarded",
         "skill": "Broker",
         "delta": 1,
@@ -1154,7 +1169,7 @@
       }
     },
     {
-      "seq": 69,
+      "seq": 70,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1168,7 +1183,7 @@
       }
     },
     {
-      "seq": 70,
+      "seq": 71,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1182,7 +1197,7 @@
       }
     },
     {
-      "seq": 71,
+      "seq": 72,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1197,10 +1212,10 @@
       }
     },
     {
-      "seq": 72,
+      "seq": 73,
       "kind": "consequence",
       "consequence": {
-        "cause": 71,
+        "cause": 72,
         "kind": "skill_awarded",
         "skill": "Athlete",
         "delta": 1,
@@ -1208,10 +1223,10 @@
       }
     },
     {
-      "seq": 73,
+      "seq": 74,
       "kind": "consequence",
       "consequence": {
-        "cause": 71,
+        "cause": 72,
         "kind": "characteristic_change",
         "characteristic": "Edu",
         "delta": 1,
@@ -1219,16 +1234,16 @@
       }
     },
     {
-      "seq": 74,
+      "seq": 75,
       "kind": "consequence",
       "consequence": {
-        "cause": 55,
+        "cause": 56,
         "kind": "years_elapsed",
         "value": 2
       }
     },
     {
-      "seq": 75,
+      "seq": 76,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1245,7 +1260,7 @@
       }
     },
     {
-      "seq": 76,
+      "seq": 77,
       "kind": "step",
       "step": {
         "name": "Later Education: Professors",
@@ -1253,7 +1268,7 @@
       }
     },
     {
-      "seq": 77,
+      "seq": 78,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1267,7 +1282,7 @@
       }
     },
     {
-      "seq": 78,
+      "seq": 79,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1282,7 +1297,7 @@
       }
     },
     {
-      "seq": 79,
+      "seq": 80,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1334,7 +1349,7 @@
       }
     },
     {
-      "seq": 80,
+      "seq": 81,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1385,7 +1400,7 @@
       }
     },
     {
-      "seq": 81,
+      "seq": 82,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1399,7 +1414,7 @@
       }
     },
     {
-      "seq": 82,
+      "seq": 83,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1414,19 +1429,19 @@
       }
     },
     {
-      "seq": 83,
+      "seq": 84,
       "kind": "consequence",
       "consequence": {
-        "cause": 82,
+        "cause": 83,
         "kind": "years_elapsed",
         "value": 1
       }
     },
     {
-      "seq": 84,
+      "seq": 85,
       "kind": "consequence",
       "consequence": {
-        "cause": 82,
+        "cause": 83,
         "kind": "skill_awarded",
         "skill": "Athlete",
         "delta": 1,
@@ -1434,7 +1449,7 @@
       }
     },
     {
-      "seq": 85,
+      "seq": 86,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1449,19 +1464,19 @@
       }
     },
     {
-      "seq": 86,
+      "seq": 87,
       "kind": "consequence",
       "consequence": {
-        "cause": 85,
+        "cause": 86,
         "kind": "years_elapsed",
         "value": 1
       }
     },
     {
-      "seq": 87,
+      "seq": 88,
       "kind": "consequence",
       "consequence": {
-        "cause": 85,
+        "cause": 86,
         "kind": "skill_awarded",
         "skill": "Athlete",
         "delta": 1,
@@ -1469,10 +1484,10 @@
       }
     },
     {
-      "seq": 88,
+      "seq": 89,
       "kind": "consequence",
       "consequence": {
-        "cause": 85,
+        "cause": 86,
         "kind": "skill_awarded",
         "skill": "Broker",
         "delta": 1,
@@ -1480,7 +1495,7 @@
       }
     },
     {
-      "seq": 89,
+      "seq": 90,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1494,7 +1509,7 @@
       }
     },
     {
-      "seq": 90,
+      "seq": 91,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1508,7 +1523,7 @@
       }
     },
     {
-      "seq": 91,
+      "seq": 92,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1523,10 +1538,10 @@
       }
     },
     {
-      "seq": 92,
+      "seq": 93,
       "kind": "consequence",
       "consequence": {
-        "cause": 91,
+        "cause": 92,
         "kind": "skill_awarded",
         "skill": "Athlete",
         "delta": 1,
@@ -1534,10 +1549,10 @@
       }
     },
     {
-      "seq": 93,
+      "seq": 94,
       "kind": "consequence",
       "consequence": {
-        "cause": 91,
+        "cause": 92,
         "kind": "characteristic_change",
         "characteristic": "Edu",
         "delta": 2,
@@ -1545,16 +1560,16 @@
       }
     },
     {
-      "seq": 94,
+      "seq": 95,
       "kind": "consequence",
       "consequence": {
-        "cause": 75,
+        "cause": 76,
         "kind": "years_elapsed",
         "value": 2
       }
     },
     {
-      "seq": 95,
+      "seq": 96,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1570,7 +1585,7 @@
       }
     },
     {
-      "seq": 96,
+      "seq": 97,
       "kind": "step",
       "step": {
         "name": "Entertainer: Term 1",
@@ -1578,7 +1593,7 @@
       }
     },
     {
-      "seq": 97,
+      "seq": 98,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1597,7 +1612,7 @@
       }
     },
     {
-      "seq": 98,
+      "seq": 99,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1609,10 +1624,10 @@
       }
     },
     {
-      "seq": 99,
+      "seq": 100,
       "kind": "consequence",
       "consequence": {
-        "cause": 98,
+        "cause": 99,
         "kind": "skill_awarded",
         "skill": "Animals",
         "delta": 1,
@@ -1620,7 +1635,7 @@
       }
     },
     {
-      "seq": 100,
+      "seq": 101,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1639,7 +1654,7 @@
       }
     },
     {
-      "seq": 101,
+      "seq": 102,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1651,10 +1666,10 @@
       }
     },
     {
-      "seq": 102,
+      "seq": 103,
       "kind": "consequence",
       "consequence": {
-        "cause": 101,
+        "cause": 102,
         "kind": "skill_awarded",
         "skill": "Animals",
         "delta": 1,
@@ -1662,7 +1677,7 @@
       }
     },
     {
-      "seq": 103,
+      "seq": 104,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1681,7 +1696,7 @@
       }
     },
     {
-      "seq": 104,
+      "seq": 105,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1693,10 +1708,10 @@
       }
     },
     {
-      "seq": 105,
+      "seq": 106,
       "kind": "consequence",
       "consequence": {
-        "cause": 104,
+        "cause": 105,
         "kind": "skill_awarded",
         "skill": "Hostile Environ",
         "delta": 1,
@@ -1704,7 +1719,7 @@
       }
     },
     {
-      "seq": 106,
+      "seq": 107,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1723,7 +1738,7 @@
       }
     },
     {
-      "seq": 107,
+      "seq": 108,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1735,10 +1750,10 @@
       }
     },
     {
-      "seq": 108,
+      "seq": 109,
       "kind": "consequence",
       "consequence": {
-        "cause": 107,
+        "cause": 108,
         "kind": "skill_awarded",
         "skill": "Navigator",
         "delta": 1,
@@ -1746,7 +1761,7 @@
       }
     },
     {
-      "seq": 109,
+      "seq": 110,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1760,7 +1775,7 @@
       }
     },
     {
-      "seq": 110,
+      "seq": 111,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1775,16 +1790,16 @@
       }
     },
     {
-      "seq": 111,
+      "seq": 112,
       "kind": "consequence",
       "consequence": {
-        "cause": 110,
+        "cause": 111,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 112,
+      "seq": 113,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1799,7 +1814,7 @@
       }
     },
     {
-      "seq": 113,
+      "seq": 114,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1814,7 +1829,7 @@
       }
     },
     {
-      "seq": 114,
+      "seq": 115,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1829,7 +1844,7 @@
       }
     },
     {
-      "seq": 115,
+      "seq": 116,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1845,7 +1860,7 @@
       }
     },
     {
-      "seq": 116,
+      "seq": 117,
       "kind": "step",
       "step": {
         "name": "Entertainer: Term 2",
@@ -1853,7 +1868,7 @@
       }
     },
     {
-      "seq": 117,
+      "seq": 118,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1867,7 +1882,7 @@
       }
     },
     {
-      "seq": 118,
+      "seq": 119,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1880,25 +1895,25 @@
       }
     },
     {
-      "seq": 119,
+      "seq": 120,
       "kind": "consequence",
       "consequence": {
-        "cause": 118,
+        "cause": 119,
         "kind": "comeback",
         "value": 6
       }
     },
     {
-      "seq": 120,
+      "seq": 121,
       "kind": "consequence",
       "consequence": {
-        "cause": 118,
+        "cause": 119,
         "kind": "fame_change",
         "value": 6
       }
     },
     {
-      "seq": 121,
+      "seq": 122,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1917,7 +1932,7 @@
       }
     },
     {
-      "seq": 122,
+      "seq": 123,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1929,10 +1944,10 @@
       }
     },
     {
-      "seq": 123,
+      "seq": 124,
       "kind": "consequence",
       "consequence": {
-        "cause": 122,
+        "cause": 123,
         "kind": "skill_awarded",
         "skill": "Survey",
         "delta": 1,
@@ -1940,7 +1955,7 @@
       }
     },
     {
-      "seq": 124,
+      "seq": 125,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1959,7 +1974,7 @@
       }
     },
     {
-      "seq": 125,
+      "seq": 126,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1971,10 +1986,10 @@
       }
     },
     {
-      "seq": 126,
+      "seq": 127,
       "kind": "consequence",
       "consequence": {
-        "cause": 125,
+        "cause": 126,
         "kind": "skill_awarded",
         "skill": "Survey",
         "delta": 1,
@@ -1982,7 +1997,7 @@
       }
     },
     {
-      "seq": 127,
+      "seq": 128,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2001,7 +2016,7 @@
       }
     },
     {
-      "seq": 128,
+      "seq": 129,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2013,10 +2028,10 @@
       }
     },
     {
-      "seq": 129,
+      "seq": 130,
       "kind": "consequence",
       "consequence": {
-        "cause": 128,
+        "cause": 129,
         "kind": "skill_awarded",
         "skill": "Survival",
         "delta": 1,
@@ -2024,7 +2039,7 @@
       }
     },
     {
-      "seq": 130,
+      "seq": 131,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2043,7 +2058,7 @@
       }
     },
     {
-      "seq": 131,
+      "seq": 132,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2055,10 +2070,10 @@
       }
     },
     {
-      "seq": 132,
+      "seq": 133,
       "kind": "consequence",
       "consequence": {
-        "cause": 131,
+        "cause": 132,
         "kind": "skill_awarded",
         "skill": "Survey",
         "delta": 1,
@@ -2066,7 +2081,7 @@
       }
     },
     {
-      "seq": 133,
+      "seq": 134,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2080,7 +2095,7 @@
       }
     },
     {
-      "seq": 134,
+      "seq": 135,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2095,27 +2110,12 @@
       }
     },
     {
-      "seq": 135,
+      "seq": 136,
       "kind": "consequence",
       "consequence": {
-        "cause": 134,
+        "cause": 135,
         "kind": "years_elapsed",
         "value": 4
-      }
-    },
-    {
-      "seq": 136,
-      "kind": "throw",
-      "throw": {
-        "expr": "2D",
-        "dice": [
-          5,
-          2
-        ],
-        "total": 7,
-        "target": 5,
-        "success": false,
-        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
       }
     },
     {
@@ -2124,10 +2124,10 @@
       "throw": {
         "expr": "2D",
         "dice": [
-          6,
+          5,
           2
         ],
-        "total": 8,
+        "total": 7,
         "target": 5,
         "success": false,
         "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
@@ -2150,15 +2150,30 @@
     },
     {
       "seq": 139,
+      "kind": "throw",
+      "throw": {
+        "expr": "2D",
+        "dice": [
+          6,
+          2
+        ],
+        "total": 8,
+        "target": 5,
+        "success": false,
+        "cite": "Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 5, age 38)"
+      }
+    },
+    {
+      "seq": 140,
       "kind": "consequence",
       "consequence": {
-        "cause": 134,
+        "cause": 135,
         "kind": "career_ended",
         "career": "Entertainer"
       }
     },
     {
-      "seq": 140,
+      "seq": 141,
       "kind": "step",
       "step": {
         "name": "Determine Fame",
@@ -2166,7 +2181,7 @@
       }
     },
     {
-      "seq": 141,
+      "seq": 142,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2180,10 +2195,10 @@
       }
     },
     {
-      "seq": 142,
+      "seq": 143,
       "kind": "consequence",
       "consequence": {
-        "cause": 141,
+        "cause": 142,
         "kind": "fame_computed",
         "skill": "City",
         "value": 6,
@@ -2196,7 +2211,7 @@
       }
     },
     {
-      "seq": 143,
+      "seq": 144,
       "kind": "step",
       "step": {
         "name": "Muster Out",
@@ -2204,7 +2219,7 @@
       }
     },
     {
-      "seq": 144,
+      "seq": 145,
       "kind": "step",
       "step": {
         "name": "Muster Out: Entertainer",
@@ -2212,7 +2227,7 @@
       }
     },
     {
-      "seq": 145,
+      "seq": 146,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2226,7 +2241,7 @@
       }
     },
     {
-      "seq": 146,
+      "seq": 147,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2241,7 +2256,7 @@
       }
     },
     {
-      "seq": 147,
+      "seq": 148,
       "kind": "throw",
       "throw": {
         "expr": "1D+2",
@@ -2254,28 +2269,14 @@
       }
     },
     {
-      "seq": 148,
+      "seq": 149,
       "kind": "consequence",
       "consequence": {
-        "cause": 147,
+        "cause": 148,
         "kind": "benefit",
         "skill": "Money",
         "career": "Entertainer",
         "delta": 30000
-      }
-    },
-    {
-      "seq": 149,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Entertainer muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
       }
     },
     {
@@ -2283,6 +2284,20 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
+        "prompt": "Which column for this Entertainer muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 151,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
         "prompt": "How much of the Fame/3 DM to apply?",
         "options": [
           "+0",
@@ -2294,7 +2309,7 @@
       }
     },
     {
-      "seq": 151,
+      "seq": 152,
       "kind": "throw",
       "throw": {
         "expr": "1D+2",
@@ -2307,10 +2322,10 @@
       }
     },
     {
-      "seq": 152,
+      "seq": 153,
       "kind": "consequence",
       "consequence": {
-        "cause": 151,
+        "cause": 152,
         "kind": "benefit",
         "skill": "Money",
         "career": "Entertainer",
@@ -2318,7 +2333,7 @@
       }
     },
     {
-      "seq": 153,
+      "seq": 154,
       "kind": "step",
       "step": {
         "name": "Record the Character's Birthdate",
@@ -2326,7 +2341,7 @@
       }
     },
     {
-      "seq": 154,
+      "seq": 155,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -2341,7 +2356,7 @@
       }
     },
     {
-      "seq": 155,
+      "seq": 156,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -2356,10 +2371,10 @@
       }
     },
     {
-      "seq": 156,
+      "seq": 157,
       "kind": "consequence",
       "consequence": {
-        "cause": 155,
+        "cause": 156,
         "kind": "birthdate",
         "detail": "Fiday 279-1067",
         "value": 1067

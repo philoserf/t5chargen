@@ -215,7 +215,7 @@
       "pass_check": ["Int", "Edu"],
       "rolls": 1,
       "graduation_degree": "Army Officer1",
-      "implemented": false
+      "implemented": true
     },
     {
       "id": "notc",
@@ -229,7 +229,7 @@
       "pass_check": ["Int", "Edu"],
       "rolls": 1,
       "graduation_degree": "Navy Officer1",
-      "implemented": false
+      "implemented": true
     },
     {
       "id": "flight_school",
