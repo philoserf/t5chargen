@@ -2,7 +2,7 @@
   "schema_version": "0.32.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
   "engine_version": "0.41.0",
-  "policy_version": "0.23.0",
+  "policy_version": "0.24.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 659
@@ -1100,6 +1100,20 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
+        "prompt": "Select a new Branch?",
+        "options": [
+          "Change Branch",
+          "Keep his current Branch"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 81 chart 07 (Naval Branch) (Enlisted may select a new Branch upon Promotion)"
+      }
+    },
+    {
+      "seq": 62,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
         "prompt": "Select a Spacer Skills column",
         "options": [
           "Personal",
@@ -1111,7 +1125,7 @@
       }
     },
     {
-      "seq": 62,
+      "seq": 63,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1123,10 +1137,10 @@
       }
     },
     {
-      "seq": 63,
+      "seq": 64,
       "kind": "consequence",
       "consequence": {
-        "cause": 62,
+        "cause": 63,
         "kind": "skill_awarded",
         "skill": "Comms",
         "delta": 1,
@@ -1134,7 +1148,7 @@
       }
     },
     {
-      "seq": 64,
+      "seq": 65,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1149,7 +1163,7 @@
       }
     },
     {
-      "seq": 65,
+      "seq": 66,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1161,10 +1175,10 @@
       }
     },
     {
-      "seq": 66,
+      "seq": 67,
       "kind": "consequence",
       "consequence": {
-        "cause": 65,
+        "cause": 66,
         "kind": "skill_awarded",
         "skill": "Diplomat",
         "delta": 1,
@@ -1172,7 +1186,7 @@
       }
     },
     {
-      "seq": 67,
+      "seq": 68,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1187,7 +1201,7 @@
       }
     },
     {
-      "seq": 68,
+      "seq": 69,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1199,7 +1213,7 @@
       }
     },
     {
-      "seq": 69,
+      "seq": 70,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1218,10 +1232,10 @@
       }
     },
     {
-      "seq": 70,
+      "seq": 71,
       "kind": "consequence",
       "consequence": {
-        "cause": 69,
+        "cause": 70,
         "kind": "skill_awarded",
         "skill": "Astrogator",
         "delta": 1,
@@ -1229,7 +1243,7 @@
       }
     },
     {
-      "seq": 71,
+      "seq": 72,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1244,7 +1258,7 @@
       }
     },
     {
-      "seq": 72,
+      "seq": 73,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1256,10 +1270,10 @@
       }
     },
     {
-      "seq": 73,
+      "seq": 74,
       "kind": "consequence",
       "consequence": {
-        "cause": 72,
+        "cause": 73,
         "kind": "skill_awarded",
         "skill": "Liaison",
         "delta": 1,
@@ -1267,7 +1281,7 @@
       }
     },
     {
-      "seq": 74,
+      "seq": 75,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1286,7 +1300,7 @@
       }
     },
     {
-      "seq": 75,
+      "seq": 76,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1298,10 +1312,10 @@
       }
     },
     {
-      "seq": 76,
+      "seq": 77,
       "kind": "consequence",
       "consequence": {
-        "cause": 75,
+        "cause": 76,
         "kind": "skill_awarded",
         "skill": "Liaison",
         "delta": 1,
@@ -1309,7 +1323,7 @@
       }
     },
     {
-      "seq": 77,
+      "seq": 78,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1323,7 +1337,7 @@
       }
     },
     {
-      "seq": 78,
+      "seq": 79,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1338,16 +1352,16 @@
       }
     },
     {
-      "seq": 79,
+      "seq": 80,
       "kind": "consequence",
       "consequence": {
-        "cause": 78,
+        "cause": 79,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 80,
+      "seq": 81,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1368,7 +1382,7 @@
       }
     },
     {
-      "seq": 81,
+      "seq": 82,
       "kind": "step",
       "step": {
         "name": "Spacer: Term 2",
@@ -1376,7 +1390,7 @@
       }
     },
     {
-      "seq": 82,
+      "seq": 83,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1390,7 +1404,7 @@
       }
     },
     {
-      "seq": 83,
+      "seq": 84,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1402,17 +1416,17 @@
       }
     },
     {
-      "seq": 84,
+      "seq": 85,
       "kind": "consequence",
       "consequence": {
-        "cause": 83,
+        "cause": 84,
         "kind": "operation",
         "skill": "ANM School",
         "career": "Spacer"
       }
     },
     {
-      "seq": 85,
+      "seq": 86,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1424,17 +1438,17 @@
       }
     },
     {
-      "seq": 86,
+      "seq": 87,
       "kind": "consequence",
       "consequence": {
-        "cause": 85,
+        "cause": 86,
         "kind": "operation",
         "skill": "Siege",
         "career": "Spacer"
       }
     },
     {
-      "seq": 87,
+      "seq": 88,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1446,10 +1460,10 @@
       }
     },
     {
-      "seq": 88,
+      "seq": 89,
       "kind": "consequence",
       "consequence": {
-        "cause": 87,
+        "cause": 88,
         "kind": "operation",
         "skill": "Battle",
         "career": "Spacer",
@@ -1457,7 +1471,7 @@
       }
     },
     {
-      "seq": 89,
+      "seq": 90,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1469,10 +1483,10 @@
       }
     },
     {
-      "seq": 90,
+      "seq": 91,
       "kind": "consequence",
       "consequence": {
-        "cause": 89,
+        "cause": 90,
         "kind": "operation",
         "skill": "Strike",
         "career": "Spacer",
@@ -1480,7 +1494,7 @@
       }
     },
     {
-      "seq": 91,
+      "seq": 92,
       "kind": "step",
       "step": {
         "name": "Assigned school: ANM School",
@@ -1488,7 +1502,7 @@
       }
     },
     {
-      "seq": 92,
+      "seq": 93,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1502,7 +1516,7 @@
       }
     },
     {
-      "seq": 93,
+      "seq": 94,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1517,7 +1531,7 @@
       }
     },
     {
-      "seq": 94,
+      "seq": 95,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1573,10 +1587,10 @@
       }
     },
     {
-      "seq": 95,
+      "seq": 96,
       "kind": "consequence",
       "consequence": {
-        "cause": 94,
+        "cause": 95,
         "kind": "skill_awarded",
         "skill": "ACV",
         "delta": 1,
@@ -1584,7 +1598,7 @@
       }
     },
     {
-      "seq": 96,
+      "seq": 97,
       "kind": "step",
       "step": {
         "name": "Spacer: Term 2",
@@ -1592,7 +1606,7 @@
       }
     },
     {
-      "seq": 97,
+      "seq": 98,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1623,7 +1637,7 @@
       }
     },
     {
-      "seq": 98,
+      "seq": 99,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1648,17 +1662,17 @@
       }
     },
     {
-      "seq": 99,
+      "seq": 100,
       "kind": "consequence",
       "consequence": {
-        "cause": 98,
+        "cause": 99,
         "kind": "service_badge",
         "career": "Spacer",
         "value": 1
       }
     },
     {
-      "seq": 100,
+      "seq": 101,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1683,10 +1697,10 @@
       }
     },
     {
-      "seq": 101,
+      "seq": 102,
       "kind": "consequence",
       "consequence": {
-        "cause": 100,
+        "cause": 101,
         "kind": "medal",
         "skill": "XS",
         "career": "Spacer",
@@ -1694,7 +1708,7 @@
       }
     },
     {
-      "seq": 102,
+      "seq": 103,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1708,7 +1722,7 @@
       }
     },
     {
-      "seq": 103,
+      "seq": 104,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1723,20 +1737,34 @@
       }
     },
     {
-      "seq": 104,
+      "seq": 105,
       "kind": "consequence",
       "consequence": {
-        "cause": 103,
+        "cause": 104,
         "kind": "rank_set",
         "skill": "Ensign",
         "career": "Spacer"
       }
     },
     {
-      "seq": 105,
+      "seq": 106,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Roll for a new Branch?",
+        "options": [
+          "Change Branch",
+          "Keep his current Branch"
+        ],
+        "chosen": 1,
+        "cite": "Book 1 p. 66 (A character who receives a Commission may roll for Branch or keep his current Branch)"
+      }
+    },
+    {
+      "seq": 107,
       "kind": "consequence",
       "consequence": {
-        "cause": 103,
+        "cause": 104,
         "kind": "skill_awarded",
         "skill": "Astrogator",
         "delta": 1,
@@ -1744,7 +1772,7 @@
       }
     },
     {
-      "seq": 106,
+      "seq": 108,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1760,7 +1788,7 @@
       }
     },
     {
-      "seq": 107,
+      "seq": 109,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1772,10 +1800,10 @@
       }
     },
     {
-      "seq": 108,
+      "seq": 110,
       "kind": "consequence",
       "consequence": {
-        "cause": 107,
+        "cause": 109,
         "kind": "characteristic_change",
         "characteristic": "Edu",
         "delta": 1,
@@ -1783,7 +1811,7 @@
       }
     },
     {
-      "seq": 109,
+      "seq": 111,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1799,7 +1827,7 @@
       }
     },
     {
-      "seq": 110,
+      "seq": 112,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1811,10 +1839,10 @@
       }
     },
     {
-      "seq": 111,
+      "seq": 113,
       "kind": "consequence",
       "consequence": {
-        "cause": 110,
+        "cause": 112,
         "kind": "characteristic_change",
         "characteristic": "End",
         "delta": 1,
@@ -1822,7 +1850,7 @@
       }
     },
     {
-      "seq": 112,
+      "seq": 114,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1838,7 +1866,7 @@
       }
     },
     {
-      "seq": 113,
+      "seq": 115,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1850,10 +1878,10 @@
       }
     },
     {
-      "seq": 114,
+      "seq": 116,
       "kind": "consequence",
       "consequence": {
-        "cause": 113,
+        "cause": 115,
         "kind": "characteristic_change",
         "characteristic": "Dex",
         "delta": 1,
@@ -1861,7 +1889,7 @@
       }
     },
     {
-      "seq": 115,
+      "seq": 117,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1877,7 +1905,7 @@
       }
     },
     {
-      "seq": 116,
+      "seq": 118,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1889,10 +1917,10 @@
       }
     },
     {
-      "seq": 117,
+      "seq": 119,
       "kind": "consequence",
       "consequence": {
-        "cause": 116,
+        "cause": 118,
         "kind": "characteristic_change",
         "characteristic": "Dex",
         "delta": 1,
@@ -1900,7 +1928,7 @@
       }
     },
     {
-      "seq": 118,
+      "seq": 120,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1919,7 +1947,7 @@
       }
     },
     {
-      "seq": 119,
+      "seq": 121,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -1931,10 +1959,10 @@
       }
     },
     {
-      "seq": 120,
+      "seq": 122,
       "kind": "consequence",
       "consequence": {
-        "cause": 119,
+        "cause": 121,
         "kind": "skill_awarded",
         "skill": "Diplomat",
         "delta": 1,
@@ -1942,7 +1970,7 @@
       }
     },
     {
-      "seq": 121,
+      "seq": 123,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -1956,7 +1984,7 @@
       }
     },
     {
-      "seq": 122,
+      "seq": 124,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -1971,24 +1999,24 @@
       }
     },
     {
-      "seq": 123,
+      "seq": 125,
       "kind": "consequence",
       "consequence": {
-        "cause": 122,
+        "cause": 124,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 124,
+      "seq": 126,
       "kind": "consequence",
       "consequence": {
-        "cause": 122,
+        "cause": 124,
         "kind": "mandatory_continue"
       }
     },
     {
-      "seq": 125,
+      "seq": 127,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2009,7 +2037,7 @@
       }
     },
     {
-      "seq": 126,
+      "seq": 128,
       "kind": "step",
       "step": {
         "name": "Spacer: Term 3",
@@ -2017,7 +2045,7 @@
       }
     },
     {
-      "seq": 127,
+      "seq": 129,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2030,7 +2058,7 @@
       }
     },
     {
-      "seq": 128,
+      "seq": 130,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2042,10 +2070,10 @@
       }
     },
     {
-      "seq": 129,
+      "seq": 131,
       "kind": "consequence",
       "consequence": {
-        "cause": 128,
+        "cause": 130,
         "kind": "operation",
         "skill": "Patrol",
         "career": "Spacer",
@@ -2053,7 +2081,7 @@
       }
     },
     {
-      "seq": 130,
+      "seq": 132,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2065,17 +2093,17 @@
       }
     },
     {
-      "seq": 131,
+      "seq": 133,
       "kind": "consequence",
       "consequence": {
-        "cause": 130,
+        "cause": 132,
         "kind": "operation",
         "skill": "ANM School",
         "career": "Spacer"
       }
     },
     {
-      "seq": 132,
+      "seq": 134,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2087,10 +2115,10 @@
       }
     },
     {
-      "seq": 133,
+      "seq": 135,
       "kind": "consequence",
       "consequence": {
-        "cause": 132,
+        "cause": 134,
         "kind": "operation",
         "skill": "Strike",
         "career": "Spacer",
@@ -2098,7 +2126,7 @@
       }
     },
     {
-      "seq": 134,
+      "seq": 136,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2110,17 +2138,17 @@
       }
     },
     {
-      "seq": 135,
+      "seq": 137,
       "kind": "consequence",
       "consequence": {
-        "cause": 134,
+        "cause": 136,
         "kind": "operation",
         "skill": "ANM School",
         "career": "Spacer"
       }
     },
     {
-      "seq": 136,
+      "seq": 138,
       "kind": "step",
       "step": {
         "name": "Assigned school: ANM School",
@@ -2128,7 +2156,7 @@
       }
     },
     {
-      "seq": 137,
+      "seq": 139,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2142,7 +2170,7 @@
       }
     },
     {
-      "seq": 138,
+      "seq": 140,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2157,7 +2185,7 @@
       }
     },
     {
-      "seq": 139,
+      "seq": 141,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2213,10 +2241,10 @@
       }
     },
     {
-      "seq": 140,
+      "seq": 142,
       "kind": "consequence",
       "consequence": {
-        "cause": 139,
+        "cause": 141,
         "kind": "skill_awarded",
         "skill": "ACV",
         "delta": 1,
@@ -2224,7 +2252,7 @@
       }
     },
     {
-      "seq": 141,
+      "seq": 143,
       "kind": "step",
       "step": {
         "name": "Spacer: Term 3",
@@ -2232,7 +2260,7 @@
       }
     },
     {
-      "seq": 142,
+      "seq": 144,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2263,7 +2291,7 @@
       }
     },
     {
-      "seq": 143,
+      "seq": 145,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2288,17 +2316,17 @@
       }
     },
     {
-      "seq": 144,
+      "seq": 146,
       "kind": "consequence",
       "consequence": {
-        "cause": 143,
+        "cause": 145,
         "kind": "service_badge",
         "career": "Spacer",
         "value": 2
       }
     },
     {
-      "seq": 145,
+      "seq": 147,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2323,10 +2351,10 @@
       }
     },
     {
-      "seq": 146,
+      "seq": 148,
       "kind": "consequence",
       "consequence": {
-        "cause": 145,
+        "cause": 147,
         "kind": "medal",
         "skill": "XS",
         "career": "Spacer",
@@ -2334,7 +2362,7 @@
       }
     },
     {
-      "seq": 147,
+      "seq": 149,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2348,7 +2376,7 @@
       }
     },
     {
-      "seq": 148,
+      "seq": 150,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2369,17 +2397,17 @@
       }
     },
     {
-      "seq": 149,
+      "seq": 151,
       "kind": "consequence",
       "consequence": {
-        "cause": 148,
+        "cause": 150,
         "kind": "rank_set",
         "skill": "Sublieutenant",
         "career": "Spacer"
       }
     },
     {
-      "seq": 150,
+      "seq": 152,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2393,7 +2421,7 @@
       }
     },
     {
-      "seq": 151,
+      "seq": 153,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2405,10 +2433,10 @@
       }
     },
     {
-      "seq": 152,
+      "seq": 154,
       "kind": "consequence",
       "consequence": {
-        "cause": 151,
+        "cause": 153,
         "kind": "characteristic_change",
         "characteristic": "Str",
         "delta": 1,
@@ -2416,7 +2444,7 @@
       }
     },
     {
-      "seq": 153,
+      "seq": 155,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2430,7 +2458,7 @@
       }
     },
     {
-      "seq": 154,
+      "seq": 156,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2442,10 +2470,10 @@
       }
     },
     {
-      "seq": 155,
+      "seq": 157,
       "kind": "consequence",
       "consequence": {
-        "cause": 154,
+        "cause": 156,
         "kind": "characteristic_change",
         "characteristic": "Str",
         "delta": 1,
@@ -2453,7 +2481,7 @@
       }
     },
     {
-      "seq": 156,
+      "seq": 158,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2467,7 +2495,7 @@
       }
     },
     {
-      "seq": 157,
+      "seq": 159,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2479,10 +2507,10 @@
       }
     },
     {
-      "seq": 158,
+      "seq": 160,
       "kind": "consequence",
       "consequence": {
-        "cause": 157,
+        "cause": 159,
         "kind": "characteristic_change",
         "characteristic": "Int",
         "delta": 1,
@@ -2490,7 +2518,7 @@
       }
     },
     {
-      "seq": 159,
+      "seq": 161,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2504,7 +2532,7 @@
       }
     },
     {
-      "seq": 160,
+      "seq": 162,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2516,10 +2544,10 @@
       }
     },
     {
-      "seq": 161,
+      "seq": 163,
       "kind": "consequence",
       "consequence": {
-        "cause": 160,
+        "cause": 162,
         "kind": "characteristic_change",
         "characteristic": "Soc",
         "delta": 1,
@@ -2527,7 +2555,7 @@
       }
     },
     {
-      "seq": 162,
+      "seq": 164,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2546,7 +2574,7 @@
       }
     },
     {
-      "seq": 163,
+      "seq": 165,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2558,10 +2586,10 @@
       }
     },
     {
-      "seq": 164,
+      "seq": 166,
       "kind": "consequence",
       "consequence": {
-        "cause": 163,
+        "cause": 165,
         "kind": "skill_awarded",
         "skill": "Liaison",
         "delta": 1,
@@ -2569,7 +2597,7 @@
       }
     },
     {
-      "seq": 165,
+      "seq": 167,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2583,7 +2611,7 @@
       }
     },
     {
-      "seq": 166,
+      "seq": 168,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2598,16 +2626,16 @@
       }
     },
     {
-      "seq": 167,
+      "seq": 169,
       "kind": "consequence",
       "consequence": {
-        "cause": 166,
+        "cause": 168,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 168,
+      "seq": 170,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2628,7 +2656,7 @@
       }
     },
     {
-      "seq": 169,
+      "seq": 171,
       "kind": "step",
       "step": {
         "name": "Spacer: Term 4",
@@ -2636,7 +2664,7 @@
       }
     },
     {
-      "seq": 170,
+      "seq": 172,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2651,7 +2679,7 @@
       }
     },
     {
-      "seq": 171,
+      "seq": 173,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2663,17 +2691,17 @@
       }
     },
     {
-      "seq": 172,
+      "seq": 174,
       "kind": "consequence",
       "consequence": {
-        "cause": 171,
+        "cause": 173,
         "kind": "operation",
         "skill": "ANM School",
         "career": "Spacer"
       }
     },
     {
-      "seq": 173,
+      "seq": 175,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2685,10 +2713,10 @@
       }
     },
     {
-      "seq": 174,
+      "seq": 176,
       "kind": "consequence",
       "consequence": {
-        "cause": 173,
+        "cause": 175,
         "kind": "operation",
         "skill": "Mission",
         "career": "Spacer",
@@ -2696,7 +2724,7 @@
       }
     },
     {
-      "seq": 175,
+      "seq": 177,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2708,10 +2736,10 @@
       }
     },
     {
-      "seq": 176,
+      "seq": 178,
       "kind": "consequence",
       "consequence": {
-        "cause": 175,
+        "cause": 177,
         "kind": "operation",
         "skill": "Battle",
         "career": "Spacer",
@@ -2719,7 +2747,7 @@
       }
     },
     {
-      "seq": 177,
+      "seq": 179,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -2731,10 +2759,10 @@
       }
     },
     {
-      "seq": 178,
+      "seq": 180,
       "kind": "consequence",
       "consequence": {
-        "cause": 177,
+        "cause": 179,
         "kind": "operation",
         "skill": "Mission",
         "career": "Spacer",
@@ -2742,7 +2770,7 @@
       }
     },
     {
-      "seq": 179,
+      "seq": 181,
       "kind": "step",
       "step": {
         "name": "Assigned school: ANM School",
@@ -2750,7 +2778,7 @@
       }
     },
     {
-      "seq": 180,
+      "seq": 182,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2764,7 +2792,7 @@
       }
     },
     {
-      "seq": 181,
+      "seq": 183,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2779,7 +2807,7 @@
       }
     },
     {
-      "seq": 182,
+      "seq": 184,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2835,10 +2863,10 @@
       }
     },
     {
-      "seq": 183,
+      "seq": 185,
       "kind": "consequence",
       "consequence": {
-        "cause": 182,
+        "cause": 184,
         "kind": "skill_awarded",
         "skill": "ACV",
         "delta": 1,
@@ -2846,7 +2874,7 @@
       }
     },
     {
-      "seq": 184,
+      "seq": 186,
       "kind": "step",
       "step": {
         "name": "Spacer: Term 4",
@@ -2854,7 +2882,7 @@
       }
     },
     {
-      "seq": 185,
+      "seq": 187,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2885,7 +2913,7 @@
       }
     },
     {
-      "seq": 186,
+      "seq": 188,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2910,17 +2938,17 @@
       }
     },
     {
-      "seq": 187,
+      "seq": 189,
       "kind": "consequence",
       "consequence": {
-        "cause": 186,
+        "cause": 188,
         "kind": "service_badge",
         "career": "Spacer",
         "value": 3
       }
     },
     {
-      "seq": 188,
+      "seq": 190,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2945,10 +2973,10 @@
       }
     },
     {
-      "seq": 189,
+      "seq": 191,
       "kind": "consequence",
       "consequence": {
-        "cause": 188,
+        "cause": 190,
         "kind": "medal",
         "skill": "XS",
         "career": "Spacer",
@@ -2956,7 +2984,7 @@
       }
     },
     {
-      "seq": 190,
+      "seq": 192,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -2970,7 +2998,7 @@
       }
     },
     {
-      "seq": 191,
+      "seq": 193,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -2991,20 +3019,20 @@
       }
     },
     {
-      "seq": 192,
+      "seq": 194,
       "kind": "consequence",
       "consequence": {
-        "cause": 191,
+        "cause": 193,
         "kind": "rank_set",
         "skill": "Lieutenant",
         "career": "Spacer"
       }
     },
     {
-      "seq": 193,
+      "seq": 195,
       "kind": "consequence",
       "consequence": {
-        "cause": 191,
+        "cause": 193,
         "kind": "skill_awarded",
         "skill": "Engineer",
         "delta": 1,
@@ -3012,7 +3040,7 @@
       }
     },
     {
-      "seq": 194,
+      "seq": 196,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3027,7 +3055,7 @@
       }
     },
     {
-      "seq": 195,
+      "seq": 197,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3039,10 +3067,10 @@
       }
     },
     {
-      "seq": 196,
+      "seq": 198,
       "kind": "consequence",
       "consequence": {
-        "cause": 195,
+        "cause": 197,
         "kind": "skill_awarded",
         "skill": "Comms",
         "delta": 1,
@@ -3050,7 +3078,7 @@
       }
     },
     {
-      "seq": 197,
+      "seq": 199,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3065,7 +3093,7 @@
       }
     },
     {
-      "seq": 198,
+      "seq": 200,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3077,7 +3105,7 @@
       }
     },
     {
-      "seq": 199,
+      "seq": 201,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3096,10 +3124,10 @@
       }
     },
     {
-      "seq": 200,
+      "seq": 202,
       "kind": "consequence",
       "consequence": {
-        "cause": 199,
+        "cause": 201,
         "kind": "skill_awarded",
         "skill": "Astrogator",
         "delta": 1,
@@ -3107,7 +3135,7 @@
       }
     },
     {
-      "seq": 201,
+      "seq": 203,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3122,7 +3150,7 @@
       }
     },
     {
-      "seq": 202,
+      "seq": 204,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3134,10 +3162,10 @@
       }
     },
     {
-      "seq": 203,
+      "seq": 205,
       "kind": "consequence",
       "consequence": {
-        "cause": 202,
+        "cause": 204,
         "kind": "skill_awarded",
         "skill": "Comms",
         "delta": 1,
@@ -3145,7 +3173,7 @@
       }
     },
     {
-      "seq": 204,
+      "seq": 206,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3160,7 +3188,7 @@
       }
     },
     {
-      "seq": 205,
+      "seq": 207,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3172,10 +3200,10 @@
       }
     },
     {
-      "seq": 206,
+      "seq": 208,
       "kind": "consequence",
       "consequence": {
-        "cause": 205,
+        "cause": 207,
         "kind": "skill_awarded",
         "skill": "Diplomat",
         "delta": 1,
@@ -3183,7 +3211,7 @@
       }
     },
     {
-      "seq": 207,
+      "seq": 209,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3202,7 +3230,7 @@
       }
     },
     {
-      "seq": 208,
+      "seq": 210,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3214,7 +3242,7 @@
       }
     },
     {
-      "seq": 209,
+      "seq": 211,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3233,10 +3261,10 @@
       }
     },
     {
-      "seq": 210,
+      "seq": 212,
       "kind": "consequence",
       "consequence": {
-        "cause": 209,
+        "cause": 211,
         "kind": "skill_awarded",
         "skill": "Astrogator",
         "delta": 1,
@@ -3244,7 +3272,7 @@
       }
     },
     {
-      "seq": 211,
+      "seq": 213,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3258,7 +3286,7 @@
       }
     },
     {
-      "seq": 212,
+      "seq": 214,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3273,16 +3301,16 @@
       }
     },
     {
-      "seq": 213,
+      "seq": 215,
       "kind": "consequence",
       "consequence": {
-        "cause": 212,
+        "cause": 214,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 214,
+      "seq": 216,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3297,10 +3325,10 @@
       }
     },
     {
-      "seq": 215,
+      "seq": 217,
       "kind": "consequence",
       "consequence": {
-        "cause": 214,
+        "cause": 216,
         "kind": "aging_effect",
         "characteristic": "Str",
         "delta": -1,
@@ -3308,7 +3336,7 @@
       }
     },
     {
-      "seq": 216,
+      "seq": 218,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3323,7 +3351,7 @@
       }
     },
     {
-      "seq": 217,
+      "seq": 219,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3338,7 +3366,7 @@
       }
     },
     {
-      "seq": 218,
+      "seq": 220,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3359,7 +3387,7 @@
       }
     },
     {
-      "seq": 219,
+      "seq": 221,
       "kind": "step",
       "step": {
         "name": "Spacer: Term 5",
@@ -3367,7 +3395,7 @@
       }
     },
     {
-      "seq": 220,
+      "seq": 222,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3378,29 +3406,6 @@
         ],
         "chosen": 0,
         "cite": "Book 1 p. 65 (Risk and Reward: Select the CC)"
-      }
-    },
-    {
-      "seq": 221,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D",
-        "dice": [
-          5
-        ],
-        "total": 5,
-        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
-      }
-    },
-    {
-      "seq": 222,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 221,
-        "kind": "operation",
-        "skill": "Mission",
-        "career": "Spacer",
-        "value": 3
       }
     },
     {
@@ -3432,9 +3437,9 @@
       "throw": {
         "expr": "1D",
         "dice": [
-          6
+          5
         ],
-        "total": 6,
+        "total": 5,
         "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
       }
     },
@@ -3444,8 +3449,9 @@
       "consequence": {
         "cause": 225,
         "kind": "operation",
-        "skill": "ANM School",
-        "career": "Spacer"
+        "skill": "Mission",
+        "career": "Spacer",
+        "value": 3
       }
     },
     {
@@ -3472,6 +3478,28 @@
     },
     {
       "seq": 229,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D",
+        "dice": [
+          6
+        ],
+        "total": 6,
+        "cite": "Book 1 p. 81 chart 07 (Naval Operations)"
+      }
+    },
+    {
+      "seq": 230,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 229,
+        "kind": "operation",
+        "skill": "ANM School",
+        "career": "Spacer"
+      }
+    },
+    {
+      "seq": 231,
       "kind": "step",
       "step": {
         "name": "Assigned school: ANM School",
@@ -3479,7 +3507,7 @@
       }
     },
     {
-      "seq": 230,
+      "seq": 232,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3493,7 +3521,7 @@
       }
     },
     {
-      "seq": 231,
+      "seq": 233,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3508,7 +3536,7 @@
       }
     },
     {
-      "seq": 232,
+      "seq": 234,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3564,10 +3592,10 @@
       }
     },
     {
-      "seq": 233,
+      "seq": 235,
       "kind": "consequence",
       "consequence": {
-        "cause": 232,
+        "cause": 234,
         "kind": "skill_awarded",
         "skill": "ACV",
         "delta": 1,
@@ -3575,7 +3603,7 @@
       }
     },
     {
-      "seq": 234,
+      "seq": 236,
       "kind": "step",
       "step": {
         "name": "Spacer: Term 5",
@@ -3583,7 +3611,7 @@
       }
     },
     {
-      "seq": 235,
+      "seq": 237,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3614,7 +3642,7 @@
       }
     },
     {
-      "seq": 236,
+      "seq": 238,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3639,17 +3667,17 @@
       }
     },
     {
-      "seq": 237,
+      "seq": 239,
       "kind": "consequence",
       "consequence": {
-        "cause": 236,
+        "cause": 238,
         "kind": "service_badge",
         "career": "Spacer",
         "value": 4
       }
     },
     {
-      "seq": 238,
+      "seq": 240,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3674,10 +3702,10 @@
       }
     },
     {
-      "seq": 239,
+      "seq": 241,
       "kind": "consequence",
       "consequence": {
-        "cause": 238,
+        "cause": 240,
         "kind": "medal",
         "skill": "SEH",
         "career": "Spacer",
@@ -3685,7 +3713,7 @@
       }
     },
     {
-      "seq": 240,
+      "seq": 242,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3699,7 +3727,7 @@
       }
     },
     {
-      "seq": 241,
+      "seq": 243,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3720,20 +3748,20 @@
       }
     },
     {
-      "seq": 242,
+      "seq": 244,
       "kind": "consequence",
       "consequence": {
-        "cause": 241,
+        "cause": 243,
         "kind": "rank_set",
         "skill": "Lt Commander",
         "career": "Spacer"
       }
     },
     {
-      "seq": 243,
+      "seq": 245,
       "kind": "consequence",
       "consequence": {
-        "cause": 241,
+        "cause": 243,
         "kind": "skill_awarded",
         "skill": "Pilot",
         "delta": 1,
@@ -3741,7 +3769,7 @@
       }
     },
     {
-      "seq": 244,
+      "seq": 246,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3755,7 +3783,7 @@
       }
     },
     {
-      "seq": 245,
+      "seq": 247,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3767,10 +3795,10 @@
       }
     },
     {
-      "seq": 246,
+      "seq": 248,
       "kind": "consequence",
       "consequence": {
-        "cause": 245,
+        "cause": 247,
         "kind": "skill_awarded",
         "skill": "Liaison",
         "delta": 1,
@@ -3778,7 +3806,7 @@
       }
     },
     {
-      "seq": 247,
+      "seq": 249,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3792,7 +3820,7 @@
       }
     },
     {
-      "seq": 248,
+      "seq": 250,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3804,10 +3832,10 @@
       }
     },
     {
-      "seq": 249,
+      "seq": 251,
       "kind": "consequence",
       "consequence": {
-        "cause": 248,
+        "cause": 250,
         "kind": "skill_awarded",
         "skill": "Diplomat",
         "delta": 1,
@@ -3815,7 +3843,7 @@
       }
     },
     {
-      "seq": 250,
+      "seq": 252,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3829,7 +3857,7 @@
       }
     },
     {
-      "seq": 251,
+      "seq": 253,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3841,10 +3869,10 @@
       }
     },
     {
-      "seq": 252,
+      "seq": 254,
       "kind": "consequence",
       "consequence": {
-        "cause": 251,
+        "cause": 253,
         "kind": "skill_awarded",
         "skill": "Comms",
         "delta": 1,
@@ -3852,7 +3880,7 @@
       }
     },
     {
-      "seq": 253,
+      "seq": 255,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3866,7 +3894,7 @@
       }
     },
     {
-      "seq": 254,
+      "seq": 256,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3878,10 +3906,10 @@
       }
     },
     {
-      "seq": 255,
+      "seq": 257,
       "kind": "consequence",
       "consequence": {
-        "cause": 254,
+        "cause": 256,
         "kind": "skill_awarded",
         "skill": "Language",
         "delta": 1,
@@ -3889,7 +3917,7 @@
       }
     },
     {
-      "seq": 256,
+      "seq": 258,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3908,7 +3936,7 @@
       }
     },
     {
-      "seq": 257,
+      "seq": 259,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -3920,10 +3948,10 @@
       }
     },
     {
-      "seq": 258,
+      "seq": 260,
       "kind": "consequence",
       "consequence": {
-        "cause": 257,
+        "cause": 259,
         "kind": "skill_awarded",
         "skill": "Admin",
         "delta": 1,
@@ -3931,7 +3959,7 @@
       }
     },
     {
-      "seq": 259,
+      "seq": 261,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -3945,7 +3973,7 @@
       }
     },
     {
-      "seq": 260,
+      "seq": 262,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3960,16 +3988,16 @@
       }
     },
     {
-      "seq": 261,
+      "seq": 263,
       "kind": "consequence",
       "consequence": {
-        "cause": 260,
+        "cause": 262,
         "kind": "years_elapsed",
         "value": 4
       }
     },
     {
-      "seq": 262,
+      "seq": 264,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3984,7 +4012,7 @@
       }
     },
     {
-      "seq": 263,
+      "seq": 265,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -3999,7 +4027,7 @@
       }
     },
     {
-      "seq": 264,
+      "seq": 266,
       "kind": "throw",
       "throw": {
         "expr": "2D",
@@ -4014,16 +4042,16 @@
       }
     },
     {
-      "seq": 265,
+      "seq": 267,
       "kind": "consequence",
       "consequence": {
-        "cause": 260,
+        "cause": 262,
         "kind": "career_ended",
         "career": "Spacer"
       }
     },
     {
-      "seq": 266,
+      "seq": 268,
       "kind": "consequence",
       "consequence": {
         "cause": 24,
@@ -4033,7 +4061,7 @@
       }
     },
     {
-      "seq": 267,
+      "seq": 269,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4047,7 +4075,7 @@
       }
     },
     {
-      "seq": 268,
+      "seq": 270,
       "kind": "step",
       "step": {
         "name": "Determine Fame",
@@ -4055,7 +4083,7 @@
       }
     },
     {
-      "seq": 269,
+      "seq": 271,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4069,10 +4097,10 @@
       }
     },
     {
-      "seq": 270,
+      "seq": 272,
       "kind": "consequence",
       "consequence": {
-        "cause": 269,
+        "cause": 271,
         "kind": "fame_computed",
         "skill": "World",
         "value": 10,
@@ -4097,7 +4125,7 @@
       }
     },
     {
-      "seq": 271,
+      "seq": 273,
       "kind": "step",
       "step": {
         "name": "Muster Out",
@@ -4105,7 +4133,7 @@
       }
     },
     {
-      "seq": 272,
+      "seq": 274,
       "kind": "step",
       "step": {
         "name": "Muster Out: Spacer",
@@ -4113,7 +4141,7 @@
       }
     },
     {
-      "seq": 273,
+      "seq": 275,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4124,196 +4152,84 @@
         ],
         "chosen": 0,
         "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 274,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5"
-        ],
-        "chosen": 5,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 275,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+5",
-        "dice": [
-          5
-        ],
-        "mod": 5,
-        "total": 10,
-        "cite": "Book 1 p. 81 chart 07 D (Money column, 1D+5)"
       }
     },
     {
       "seq": 276,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 275,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Spacer",
-        "delta": 60000
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
       }
     },
     {
       "seq": 277,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Spacer muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          5
         ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
+        "mod": 5,
+        "total": 10,
+        "cite": "Book 1 p. 81 chart 07 D (Money column, 1D+5)"
       }
     },
     {
       "seq": 278,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5"
-        ],
-        "chosen": 5,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      "kind": "consequence",
+      "consequence": {
+        "cause": 277,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Spacer",
+        "delta": 60000
       }
     },
     {
       "seq": 279,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+5",
-        "dice": [
-          1
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Spacer muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
         ],
-        "mod": 5,
-        "total": 6,
-        "cite": "Book 1 p. 81 chart 07 D (Money column, 1D+5)"
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
       }
     },
     {
       "seq": 280,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 279,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Spacer",
-        "delta": 40000
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
       }
     },
     {
       "seq": 281,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Spacer muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 282,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5"
-        ],
-        "chosen": 5,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 283,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+5",
-        "dice": [
-          5
-        ],
-        "mod": 5,
-        "total": 10,
-        "cite": "Book 1 p. 81 chart 07 D (Money column, 1D+5)"
-      }
-    },
-    {
-      "seq": 284,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 283,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Spacer",
-        "delta": 60000
-      }
-    },
-    {
-      "seq": 285,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Spacer muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 286,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5"
-        ],
-        "chosen": 5,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 287,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -4326,10 +4242,10 @@
       }
     },
     {
-      "seq": 288,
+      "seq": 282,
       "kind": "consequence",
       "consequence": {
-        "cause": 287,
+        "cause": 281,
         "kind": "benefit",
         "skill": "Money",
         "career": "Spacer",
@@ -4337,7 +4253,7 @@
       }
     },
     {
-      "seq": 289,
+      "seq": 283,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4351,7 +4267,7 @@
       }
     },
     {
-      "seq": 290,
+      "seq": 284,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4369,7 +4285,7 @@
       }
     },
     {
-      "seq": 291,
+      "seq": 285,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -4382,10 +4298,10 @@
       }
     },
     {
-      "seq": 292,
+      "seq": 286,
       "kind": "consequence",
       "consequence": {
-        "cause": 291,
+        "cause": 285,
         "kind": "benefit",
         "skill": "Money",
         "career": "Spacer",
@@ -4393,7 +4309,7 @@
       }
     },
     {
-      "seq": 293,
+      "seq": 287,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4407,7 +4323,7 @@
       }
     },
     {
-      "seq": 294,
+      "seq": 288,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4425,7 +4341,119 @@
       }
     },
     {
+      "seq": 289,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          1
+        ],
+        "mod": 5,
+        "total": 6,
+        "cite": "Book 1 p. 81 chart 07 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 290,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 289,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Spacer",
+        "delta": 40000
+      }
+    },
+    {
+      "seq": 291,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Spacer muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 292,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 293,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          5
+        ],
+        "mod": 5,
+        "total": 10,
+        "cite": "Book 1 p. 81 chart 07 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 294,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 293,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Spacer",
+        "delta": 60000
+      }
+    },
+    {
       "seq": 295,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Spacer muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 296,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 297,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -4438,10 +4466,10 @@
       }
     },
     {
-      "seq": 296,
+      "seq": 298,
       "kind": "consequence",
       "consequence": {
-        "cause": 295,
+        "cause": 297,
         "kind": "benefit",
         "skill": "Retirement x2",
         "career": "Spacer",
@@ -4449,7 +4477,7 @@
       }
     },
     {
-      "seq": 297,
+      "seq": 299,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4463,7 +4491,7 @@
       }
     },
     {
-      "seq": 298,
+      "seq": 300,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4481,7 +4509,7 @@
       }
     },
     {
-      "seq": 299,
+      "seq": 301,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -4494,10 +4522,10 @@
       }
     },
     {
-      "seq": 300,
+      "seq": 302,
       "kind": "consequence",
       "consequence": {
-        "cause": 299,
+        "cause": 301,
         "kind": "benefit",
         "skill": "Retirement x2",
         "career": "Spacer",
@@ -4505,7 +4533,7 @@
       }
     },
     {
-      "seq": 301,
+      "seq": 303,
       "kind": "step",
       "step": {
         "name": "Muster Out: Entitlements",
@@ -4513,7 +4541,7 @@
       }
     },
     {
-      "seq": 302,
+      "seq": 304,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4527,10 +4555,10 @@
       }
     },
     {
-      "seq": 303,
+      "seq": 305,
       "kind": "consequence",
       "consequence": {
-        "cause": 302,
+        "cause": 304,
         "kind": "entitlement",
         "skill": "Reserve Pension",
         "delta": 2800,
@@ -4538,7 +4566,7 @@
       }
     },
     {
-      "seq": 304,
+      "seq": 306,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4552,10 +4580,10 @@
       }
     },
     {
-      "seq": 305,
+      "seq": 307,
       "kind": "consequence",
       "consequence": {
-        "cause": 304,
+        "cause": 306,
         "kind": "entitlement",
         "skill": "Officer Retirement",
         "delta": 45000,
@@ -4563,7 +4591,7 @@
       }
     },
     {
-      "seq": 306,
+      "seq": 308,
       "kind": "step",
       "step": {
         "name": "Record the Character's Birthdate",
@@ -4571,7 +4599,7 @@
       }
     },
     {
-      "seq": 307,
+      "seq": 309,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -4586,10 +4614,10 @@
       }
     },
     {
-      "seq": 308,
+      "seq": 310,
       "kind": "consequence",
       "consequence": {
-        "cause": 307,
+        "cause": 309,
         "kind": "birthdate",
         "detail": "Forday 159-1067",
         "value": 1067

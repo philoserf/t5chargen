@@ -24,7 +24,6 @@ package chargen
 // rank rather than at the enlisted rank p. 65 gives every other recruit
 // (interpretation I-94; entryRank, academy.go).
 //
-// Deferred: the branch changes of interpretation I-34.
 
 import (
 	"fmt"
@@ -323,6 +322,12 @@ func (m *armedForcesMechanics) enterRank(r *careerRun, id string, cause int) err
 		return fmt.Errorf("%w: %q", errUnknownRank, id)
 	}
 
+	// Captured before the rank moves: "Officers may not change Branch;
+	// Enlisted may select a new Branch upon Promotion" turns on the side
+	// he was on when the advancement was won, and a commission is
+	// exactly the case where the two differ.
+	wasOfficer := m.isOfficer(r)
+
 	m.rank = rank.ID
 	r.record.Rank = rank.ID
 	r.record.RankTitle = rank.Title
@@ -351,6 +356,10 @@ func (m *armedForcesMechanics) enterRank(r *careerRun, id string, cause int) err
 		}
 	}
 
+	if err := m.offerBranchChange(r, wasOfficer); err != nil {
+		return err
+	}
+
 	if rank.AutoSkill == "" {
 		return nil
 	}
@@ -363,6 +372,74 @@ func (m *armedForcesMechanics) enterRank(r *careerRun, id string, cause int) err
 	r.awardAndLog(name, 1, cause)
 
 	return nil
+}
+
+// The two answers to a branch-change offer. Keeping is listed last, so
+// the policy names it by position as it does elsewhere.
+const (
+	changeBranch = "Change Branch"
+	keepBranch   = "Keep his current Branch"
+)
+
+// offerBranchChange offers the branch change an advancement entitles the
+// character to. There are two, and the printed rules differ in kind about
+// them.
+//
+// **On promotion, for an enlisted character.** All three Armed Forces
+// charts print the same sentence: "Officers may not change Branch;
+// Enlisted may select a new Branch upon Promotion" (charts 07 p. 81, 08
+// p. 82, 12 p. 86). p. 66's prose says instead that "A non-officer
+// character may change (reselect or reroll) Branch at the end of each
+// Term". The charts win, being three statements agreeing with each other
+// against one, and the narrower of the two (interpretation I-34). The
+// change is the chart's own Select Branch procedure, which checks the
+// characteristic and rolls on a failure — "select a new Branch" is what
+// that procedure is called.
+//
+// **On commission.** "A character who receives a Commission may roll for
+// Branch or keep his current Branch (for Spacers, Crew becomes Line)"
+// (p. 66). Nothing disputes this one, and it is a roll rather than a
+// selection — the page says roll. The parenthesis is the side-shift
+// above, which happens either way.
+//
+// An officer promoted to a higher officer rank is offered nothing, all
+// three charts saying he may not change.
+func (m *armedForcesMechanics) offerBranchChange(r *careerRun, wasOfficer bool) error {
+	// No branch yet: enterRank runs before selectBranch at career entry,
+	// and the branch a character enters with is not a change.
+	if wasOfficer || m.branch.Name == "" {
+		return nil
+	}
+
+	forces := r.def.ArmedForces
+	commissioned := m.isOfficer(r)
+
+	prompt, cite := "Select a new Branch?",
+		forces.BranchCite+" (Enlisted may select a new Branch upon Promotion)"
+	if commissioned {
+		prompt, cite = "Roll for a new Branch?",
+			"Book 1 p. 66 (A character who receives a Commission may roll for Branch "+
+				"or keep his current Branch)"
+	}
+
+	chosen, _, err := choose(r.log, r.decider, Choice{
+		ID:      ChooseBranchChange,
+		Prompt:  prompt,
+		Options: []string{changeBranch, keepBranch},
+		Cite:    cite,
+	})
+	if err != nil || chosen != 0 {
+		return err
+	}
+
+	if !commissioned {
+		return m.selectBranch(r)
+	}
+
+	roll := r.roller.Roll(1)
+	seq := r.log.Roll(roll, cite)
+
+	return m.enterBranch(r, forces.BranchAt(roll.Total+m.eduDM(r)), seq)
 }
 
 // resolveTerm rolls the term's assignments, runs Risk & Reward with their
