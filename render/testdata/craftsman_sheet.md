@@ -18,7 +18,7 @@
 
 **Career**: Citizen (4 terms), Job Electronics, Hobby ACV
 
-**Career**: Scholar (1 term), 1 Publication, Instructor S2
+**Career**: Scholar (1 term), 1 Publication, Instructor of ACV S2
 
 **Career**: Craftsman (5 terms), 4 Masterpieces (2 Perfect)
 

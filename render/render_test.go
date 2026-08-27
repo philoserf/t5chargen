@@ -273,6 +273,59 @@ func TestHistoryConsequenceTexts(t *testing.T) {
 	}
 }
 
+// TestScholarRankTitlesInterpolateTheMajor verifies chart 02's rank
+// ladder, which prints a place for the Major in six of its eight rows:
+// "Lecturer <of Major>" up to "Distinguished Professor <of Major>"
+// (p. 76).
+//
+// Composed on the sheet rather than stored, so the record keeps the
+// title the chart prints. The two rows without a bracket take no Major,
+// and neither does any other career's ladder — a Marine Captain is not a
+// Captain of anything.
+func TestScholarRankTitlesInterpolateTheMajor(t *testing.T) {
+	for _, tc := range []struct {
+		name   string
+		career chargen.CareerRecord
+		majors []string
+		want   string
+	}{
+		{
+			name:   "a bracketed rank takes the career's own Major",
+			career: chargen.CareerRecord{Career: "Scholar", Began: true, Rank: "S1", RankTitle: "Lecturer", Major: "Astronomy"},
+			want:   "Lecturer of Astronomy S1",
+		},
+		{
+			name:   "and falls back to the degree he graduated with",
+			career: chargen.CareerRecord{Career: "Scholar", Began: true, Rank: "S6", RankTitle: "Distinguished Professor"},
+			majors: []string{"Athlete"},
+			want:   "Distinguished Professor of Athlete S6",
+		},
+		{
+			// "0 Amateur" and "X Non-Traditional Scholar" print no
+			// bracket (chart 02 p. 76).
+			name:   "Amateur is printed without one",
+			career: chargen.CareerRecord{Career: "Scholar", Began: true, Rank: "S0", RankTitle: "Amateur", Major: "ACV"},
+			want:   "Amateur S0",
+		},
+		{
+			name:   "and no other career's ladder takes one",
+			career: chargen.CareerRecord{Career: "Marine", Began: true, Rank: "O3", RankTitle: "Captain", Major: "Astronomy"},
+			want:   "Captain O3",
+		},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			c := chargen.Character{Careers: []chargen.CareerRecord{tc.career}}
+			for _, major := range tc.majors {
+				c.Education = append(c.Education, chargen.EducationRecord{Program: "College", Major: major})
+			}
+
+			if got := render.Sheet(c); !strings.Contains(got, tc.want) {
+				t.Errorf("Sheet() missing %q:\n%s", tc.want, got)
+			}
+		})
+	}
+}
+
 // TestSheetCraftsmanValues pins what a Craftsman career shows on the card:
 // the Masterpieces it produced and how many are Perfect (chart 01 p. 75).
 // Without it the sheet said only how many terms he served, which is the

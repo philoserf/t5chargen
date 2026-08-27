@@ -5,6 +5,7 @@ package render
 
 import (
 	"fmt"
+	"slices"
 	"strconv"
 	"strings"
 
@@ -55,7 +56,7 @@ func Sheet(c chargen.Character) string {
 	}
 
 	for _, careerRecord := range c.Careers {
-		b.WriteString(careerLine(careerRecord))
+		b.WriteString(careerLine(careerRecord, majorHeldDuring(c, careerRecord)))
 	}
 
 	if len(c.Skills) > 0 {
@@ -113,7 +114,7 @@ func educationLine(record chargen.EducationRecord) string {
 
 // careerLine renders one career of the record: name, terms served, and the
 // Citizen Job and Hobby when determined.
-func careerLine(record chargen.CareerRecord) string {
+func careerLine(record chargen.CareerRecord, major string) string {
 	line := fmt.Sprintf("**Career**: %s (%s)", record.Career, plural(len(record.Terms), "term"))
 
 	if record.Job != "" {
@@ -124,7 +125,7 @@ func careerLine(record chargen.CareerRecord) string {
 		line += ", Hobby " + record.Hobby
 	}
 
-	line += careerValues(record)
+	line += careerValues(record, major)
 
 	if !record.Began {
 		line += " — did not begin"
@@ -137,7 +138,7 @@ func careerLine(record chargen.CareerRecord) string {
 // Scholar's publications and Tenure, the Entertainer's specialty and
 // Talent, rank, the Scout's Discoveries and pending Sanity modifier, and
 // the Merchant's Ship Shares.
-func careerValues(record chargen.CareerRecord) string {
+func careerValues(record chargen.CareerRecord, major string) string {
 	var parts []string
 
 	parts = append(parts, careerSpecificValues(record)...)
@@ -155,7 +156,7 @@ func careerValues(record chargen.CareerRecord) string {
 		// rank as a Reserve Rank ('I'm a Marine Reserve Sergeant')"
 		// (p. 67) — which is what the character is once the career ends,
 		// so the sheet says so rather than printing the active rank.
-		rank := record.RankTitle + " " + record.Rank
+		rank := rankTitleOf(record, major) + " " + record.Rank
 		if record.Reserve {
 			rank = "Reserve " + rank
 		}
@@ -176,6 +177,56 @@ func careerValues(record chargen.CareerRecord) string {
 	}
 
 	return ", " + strings.Join(parts, ", ")
+}
+
+// majorHeldDuring names the Major a career was served under, which the
+// chart 02 rank titles interpolate.
+//
+// A career may select its own — "Every Scholar has a Major and a Minor.
+// If no degree (and an associated Major and Minor) then select any Skill
+// or Knowledge" (p. 76) — and otherwise it is the one he graduated with,
+// so the career record is asked first and the schooling behind it after.
+func majorHeldDuring(c chargen.Character, record chargen.CareerRecord) string {
+	if record.Major != "" {
+		return record.Major
+	}
+
+	for _, schooling := range slices.Backward(c.Education) {
+		if schooling.Major != "" {
+			return schooling.Major
+		}
+	}
+
+	return ""
+}
+
+// rankTitleOf renders a rank title, interpolating the Major where the
+// chart prints a place for one: chart 02 gives the Scholar "Lecturer <of
+// Major>" up to "Distinguished Professor <of Major>" (p. 76).
+//
+// Composed here rather than stored. The record keeps the title the chart
+// prints, which is the stable half — a Major selected later would
+// otherwise leave a rank recorded under the wrong one, and the same
+// title means the same rank whatever the character studied.
+//
+// Only the ranks the chart brackets take one. "Amateur" (Rank 0) and
+// "Non-Traditional Scholar" (Rank X) print none, and neither do the
+// other twelve careers. The chart brackets level 5 as "Professor of
+// <Major>" and the rest as "<of Major>", which renders identically and
+// is a typesetting difference rather than a rule.
+func rankTitleOf(record chargen.CareerRecord, major string) string {
+	if major == "" || !slices.Contains(majorRankTitles, record.RankTitle) {
+		return record.RankTitle
+	}
+
+	return record.RankTitle + " of " + major
+}
+
+// majorRankTitles are the chart 02 Scholar ranks printed with a place for
+// the Major (p. 76).
+var majorRankTitles = []string{
+	"Lecturer", "Instructor", "Assistant Professor",
+	"Associate Professor", "Professor", "Distinguished Professor",
 }
 
 // scoutValues renders what a Scout career carries: the Discoveries it
