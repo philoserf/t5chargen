@@ -1,7 +1,7 @@
 {
-  "schema_version": "0.32.0",
+  "schema_version": "0.33.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.41.0",
+  "engine_version": "0.43.0",
   "policy_version": "none",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -39,7 +39,7 @@
   "skills": [
     {
       "name": "ACV",
-      "level": 15
+      "level": 6
     },
     {
       "name": "Actor",
@@ -114,7 +114,7 @@
       "career": "Craftsman",
       "began": true,
       "masterpieces": 4,
-      "perfect_masterpieces": 2,
+      "perfect_masterpieces": 1,
       "end_age": 59,
       "terms": [
         {
@@ -3230,10 +3230,8 @@
       "kind": "consequence",
       "consequence": {
         "cause": 190,
-        "kind": "skill_awarded",
-        "skill": "ACV",
-        "delta": 1,
-        "value": 7
+        "kind": "no_award",
+        "skill": "ACV"
       }
     },
     {
@@ -3379,7 +3377,7 @@
           5
         ],
         "total": 34,
-        "target": 42,
+        "target": 41,
         "success": true,
         "mods": [
           {
@@ -3392,7 +3390,7 @@
           },
           {
             "name": "Skills at 6+",
-            "value": 7
+            "value": 6
           }
         ],
         "cite": "Book 1 p. 75 chart 01 (Creating A Masterpiece) (Masterpiece vs Master Points, Str governing)"
@@ -3405,8 +3403,8 @@
         "cause": 201,
         "kind": "masterpiece",
         "career": "Craftsman",
-        "delta": 170000,
-        "value": 42
+        "delta": 160000,
+        "value": 41
       }
     },
     {
@@ -3710,10 +3708,8 @@
       "kind": "consequence",
       "consequence": {
         "cause": 222,
-        "kind": "skill_awarded",
-        "skill": "ACV",
-        "delta": 1,
-        "value": 8
+        "kind": "no_award",
+        "skill": "ACV"
       }
     },
     {
@@ -3922,7 +3918,7 @@
           6
         ],
         "total": 38,
-        "target": 53,
+        "target": 51,
         "success": true,
         "mods": [
           {
@@ -3935,7 +3931,7 @@
           },
           {
             "name": "Skills at 6+",
-            "value": 17
+            "value": 15
           }
         ],
         "cite": "Book 1 p. 75 chart 01 (Creating A Masterpiece) (Masterpiece vs Master Points, Int governing)"
@@ -3948,8 +3944,8 @@
         "cause": 238,
         "kind": "masterpiece",
         "career": "Craftsman",
-        "delta": 280000,
-        "value": 53
+        "delta": 260000,
+        "value": 51
       }
     },
     {
@@ -4063,10 +4059,8 @@
       "kind": "consequence",
       "consequence": {
         "cause": 246,
-        "kind": "skill_awarded",
-        "skill": "ACV",
-        "delta": 1,
-        "value": 9
+        "kind": "no_award",
+        "skill": "ACV"
       }
     },
     {
@@ -4211,10 +4205,8 @@
       "kind": "consequence",
       "consequence": {
         "cause": 256,
-        "kind": "skill_awarded",
-        "skill": "ACV",
-        "delta": 1,
-        "value": 10
+        "kind": "no_award",
+        "skill": "ACV"
       }
     },
     {
@@ -4295,10 +4287,8 @@
       "kind": "consequence",
       "consequence": {
         "cause": 262,
-        "kind": "skill_awarded",
-        "skill": "ACV",
-        "delta": 1,
-        "value": 11
+        "kind": "no_award",
+        "skill": "ACV"
       }
     },
     {
@@ -4464,7 +4454,7 @@
           1
         ],
         "total": 29,
-        "target": 59,
+        "target": 54,
         "success": true,
         "mods": [
           {
@@ -4477,7 +4467,7 @@
           },
           {
             "name": "Skills at 6+",
-            "value": 22
+            "value": 17
           }
         ],
         "cite": "Book 1 p. 75 chart 01 (Creating A Masterpiece) (Masterpiece vs Master Points, End governing)"
@@ -4490,8 +4480,8 @@
         "cause": 275,
         "kind": "masterpiece",
         "career": "Craftsman",
-        "delta": 680000,
-        "value": 59
+        "delta": 290000,
+        "value": 54
       }
     },
     {
@@ -4789,10 +4779,8 @@
       "kind": "consequence",
       "consequence": {
         "cause": 296,
-        "kind": "skill_awarded",
-        "skill": "ACV",
-        "delta": 1,
-        "value": 12
+        "kind": "no_award",
+        "skill": "ACV"
       }
     },
     {
@@ -4992,7 +4980,7 @@
           4
         ],
         "total": 32,
-        "target": 63,
+        "target": 57,
         "success": true,
         "mods": [
           {
@@ -5005,7 +4993,7 @@
           },
           {
             "name": "Skills at 6+",
-            "value": 27
+            "value": 21
           }
         ],
         "cite": "Book 1 p. 75 chart 01 (Creating A Masterpiece) (Masterpiece vs Master Points, Dex governing)"
@@ -5018,8 +5006,8 @@
         "cause": 311,
         "kind": "masterpiece",
         "career": "Craftsman",
-        "delta": 760000,
-        "value": 63
+        "delta": 640000,
+        "value": 57
       }
     },
     {
@@ -5169,10 +5157,8 @@
       "kind": "consequence",
       "consequence": {
         "cause": 322,
-        "kind": "skill_awarded",
-        "skill": "ACV",
-        "delta": 1,
-        "value": 13
+        "kind": "no_award",
+        "skill": "ACV"
       }
     },
     {
@@ -5211,10 +5197,8 @@
       "kind": "consequence",
       "consequence": {
         "cause": 325,
-        "kind": "skill_awarded",
-        "skill": "ACV",
-        "delta": 1,
-        "value": 14
+        "kind": "no_award",
+        "skill": "ACV"
       }
     },
     {
@@ -5315,10 +5299,8 @@
       "kind": "consequence",
       "consequence": {
         "cause": 332,
-        "kind": "skill_awarded",
-        "skill": "ACV",
-        "delta": 1,
-        "value": 15
+        "kind": "no_award",
+        "skill": "ACV"
       }
     },
     {
@@ -5509,7 +5491,7 @@
           },
           {
             "name": "Craftsman Perfect Masterpieces x5",
-            "value": 10
+            "value": 5
           }
         ]
       }

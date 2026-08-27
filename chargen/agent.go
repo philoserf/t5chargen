@@ -143,7 +143,9 @@ func (*agentMechanics) undercoverJobTable(r *careerRun, row career.UndercoverRow
 		return err
 	}
 
-	r.awardAndLog(name, 1, seq)
+	if err := r.awardAndLog(name, 1, seq); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -171,7 +173,9 @@ func (*agentMechanics) undercoverSkill(r *careerRun, row career.UndercoverRow) e
 		return err
 	}
 
-	r.awardAndLog(options[chosen], 1, seq)
+	if err := r.awardAndLog(options[chosen], 1, seq); err != nil {
+		return err
+	}
 
 	return nil
 }

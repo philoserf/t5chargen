@@ -130,6 +130,10 @@
         },
         "level": {
           "type": "integer"
+        },
+        "receipts": {
+          "type": "integer",
+          "minimum": 1
         }
       },
       "required": ["name", "level"],

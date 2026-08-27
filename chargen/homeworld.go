@@ -9,6 +9,8 @@ package chargen
 import (
 	"fmt"
 
+	"github.com/philoserf/t5chargen/skill"
+
 	"github.com/philoserf/t5chargen/dice"
 	"github.com/philoserf/t5chargen/world"
 )
@@ -130,7 +132,9 @@ func grantTC(tc string, cause int, log *Log, decider Decider, character *Charact
 	switch grant.Kind {
 	case world.GrantSkill:
 		for _, name := range grant.Skills {
-			awardSkillAndLog(name, 1, cause, log, character)
+			if err := awardSkillAndLog(name, 1, cause, log, decider, character); err != nil {
+				return err
+			}
 		}
 	case world.GrantArt, world.GrantTrade:
 		return grantSelection(grant, log, decider, character)
@@ -168,7 +172,9 @@ func grantSelection(grant world.Grant, log *Log, decider Decider, character *Cha
 		return err
 	}
 
-	awardSkillAndLog(options[chosen], 1, seq, log, character)
+	if err := awardSkillAndLog(options[chosen], 1, seq, log, decider, character); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -176,9 +182,47 @@ func grantSelection(grant world.Grant, log *Log, decider Decider, character *Cha
 // awardSkillAndLog awards skill levels (capped at SkillMax, p. 134) and
 // emits the matching consequence: skill_awarded, or no_award if the cap
 // absorbed the whole receipt. Career-independent; the citizen runner
-// delegates here.
-func awardSkillAndLog(name string, levels, cause int, log *Log, character *Character) {
-	level, applied := character.awardSkill(name, levels)
+// awardSkillAndLog awards skill levels and records the consequence. It is
+// the one funnel every award goes through, which is what lets p. 134's
+// Knowledge-Knowledge-Skill sequence apply everywhere a container skill
+// is received without each of the thirty award sites knowing about it.
+func awardSkillAndLog(name string, levels, cause int, log *Log, decider Decider, character *Character) error {
+	handled, err := awardContainer(name, levels, cause, log, decider, character)
+	if handled {
+		return err
+	}
+
+	awardSkillLevels(name, levels, cause, log, character)
+
+	return nil
+}
+
+// awardSkillLevels awards levels of a named skill or knowledge and
+// records what landed.
+//
+// The cap follows the name rather than the caller: "Skill, Knowledge, and
+// Talent Maximums: Skill-15" and "The maximum level of a Knowledge is 6"
+// are both p. 134, and a Knowledge is capped at 6 however it was
+// received. Several career tables award one by name — chart 07's
+// Starship cells reach Bay Weapons, chart 08's reach Exotics — and
+// capping by call site let those past 6.
+func awardSkillLevels(name string, levels, cause int, log *Log, character *Character) {
+	level, applied := character.awardSkill(name, levels, levelCap(name))
+	logAward(name, level, applied, cause, log)
+}
+
+// levelCap is the maximum a name may reach: 6 for a Knowledge, 15 for
+// everything else (p. 134).
+func levelCap(name string) int {
+	if entry, ok := skill.Lookup(name); ok && entry.Kind == skill.KindKnowledge {
+		return KnowledgeMax
+	}
+
+	return SkillMax
+}
+
+// logAward records an award, or records that the cap refused it.
+func logAward(name string, level, applied, cause int, log *Log) {
 	if applied == 0 {
 		log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceNoAward, Skill: name})
 

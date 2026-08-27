@@ -690,8 +690,8 @@ func (r *careerRun) firstReceiptLevels(name string, firstReceipt int) int {
 
 // awardAndLog awards skill levels via the career-independent
 // awardSkillAndLog.
-func (r *careerRun) awardAndLog(name string, levels, cause int) {
-	awardSkillAndLog(name, levels, cause, r.log, r.character)
+func (r *careerRun) awardAndLog(name string, levels, cause int) error {
+	return awardSkillAndLog(name, levels, cause, r.log, r.decider, r.character)
 }
 
 // groupCells maps the chart's open-selection cells to the Master Skill
@@ -874,7 +874,9 @@ func (r *careerRun) awardNewTrade() error {
 		return err
 	}
 
-	r.awardAndLog(options[chosen], 1, seq)
+	if err := r.awardAndLog(options[chosen], 1, seq); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -902,7 +904,9 @@ func (r *careerRun) awardFromGroup(kind career.EntryKind) error {
 		return err
 	}
 
-	r.awardAndLog(options[chosen], 1, seq)
+	if err := r.awardAndLog(options[chosen], 1, seq); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -1046,9 +1050,29 @@ func (r *careerRun) awardMajorOrMinor(name string, cause int) error {
 		return fmt.Errorf("%w: no Major or Minor to take", errNotImplemented)
 	}
 
-	r.awardAndLog(name, 1, cause)
+	if err := r.awardAndLog(name, 1, cause); err != nil {
+		return err
+	}
 
 	return nil
+}
+
+// awardMajorCell applies a Major or Minor cell: "If the character does
+// not have a Major/Minor this benefit is lost." (p. 78) The current
+// Major and Minor are the most recent ones selected (p. 59).
+func (r *careerRun) awardMajorCell(kind career.EntryKind, cause int) error {
+	name := r.major()
+	if kind == career.EntryMinor {
+		name = r.minor()
+	}
+
+	if name == "" {
+		r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceBenefitLost})
+
+		return nil
+	}
+
+	return r.awardAndLog(name, 1, cause)
 }
 
 // awardTableC applies one career skills table cell.
@@ -1062,25 +1086,13 @@ func (r *careerRun) awardTableC(entry career.Entry, cause int) error {
 			return err
 		}
 
-		r.awardAndLog(name, 1, cause)
+		if err := r.awardAndLog(name, 1, cause); err != nil {
+			return err
+		}
 	case career.EntryCharacteristic:
 		return r.awardCharacteristic(entry.Name, cause)
 	case career.EntryMajor, career.EntryMinor:
-		// "If the character does not have a Major/Minor this benefit is
-		// lost." (p. 78) The current Major/Minor are the most recent ones
-		// selected (p. 59).
-		name := r.major()
-		if entry.Kind == career.EntryMinor {
-			name = r.minor()
-		}
-
-		if name == "" {
-			r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceBenefitLost})
-
-			return nil
-		}
-
-		r.awardAndLog(name, 1, cause)
+		return r.awardMajorCell(entry.Kind, cause)
 	case career.EntryNone:
 		r.log.Consequence(ConsequenceEvent{Cause: cause, Kind: ConsequenceNoAward})
 	default:

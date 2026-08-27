@@ -22,12 +22,12 @@
 
 **Career**: Scout (6 terms), 5 Land Grants, 5 Discoveries, San -3 when generated
 
-**Skills**: Actor-1, Animals-5, Athlete-11, Broker-4, Hostile Environ-7, Navigator-7, Survey-7, Survival-4, Trader-1, Vacc Suit-10
+**Skills**: Actor-1, Animals-3, Athlete-11, Broker-4, Hostile Environ-7, Navigator-7, Rider-2, Survey-7, Survival-4, Trader-1, Vacc Suit-10
 
 **Status**: Fame 20 (Sector), Wound Badges 1, DEAD
 
 ---
 
-Seed 26 (math/rand/v2-pcg) · schema 0.32.0 · engine 0.41.0 · policy 0.24.0
+Seed 26 (math/rand/v2-pcg) · schema 0.33.0 · engine 0.43.0 · policy 0.25.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

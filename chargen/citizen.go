@@ -90,7 +90,9 @@ func (m *citizenMechanics) awardCitizenLife(r *careerRun, cause int) error {
 			name = r.record.Hobby
 		}
 
-		r.awardAndLog(name, 1, cause)
+		if err := r.awardAndLog(name, 1, cause); err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -130,7 +132,10 @@ func (*citizenMechanics) determineJob(r *careerRun) error {
 
 	r.record.Job = name
 	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceJobSet, Skill: name})
-	r.awardAndLog(name, r.firstReceiptLevels(name, 4), seq)
+
+	if err := r.awardAndLog(name, r.firstReceiptLevels(name, 4), seq); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -169,7 +174,10 @@ func (*citizenMechanics) determineHobby(r *careerRun) error {
 
 	r.record.Hobby = name
 	r.log.Consequence(ConsequenceEvent{Cause: seq, Kind: ConsequenceHobbySet, Skill: name})
-	r.awardAndLog(name, r.firstReceiptLevels(name, 2), seq)
+
+	if err := r.awardAndLog(name, r.firstReceiptLevels(name, 2), seq); err != nil {
+		return err
+	}
 
 	return nil
 }

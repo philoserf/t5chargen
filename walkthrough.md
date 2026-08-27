@@ -940,7 +940,7 @@ go run ./cmd/t5chargen render /tmp/demo.json | tail -5
 ```output
 ---
 
-Seed 314 (math/rand/v2-pcg) · schema 0.32.0 · engine 0.41.0 · policy 0.24.0
+Seed 314 (math/rand/v2-pcg) · schema 0.33.0 · engine 0.43.0 · policy 0.25.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1
 ```

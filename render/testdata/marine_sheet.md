@@ -24,7 +24,7 @@
 
 **Career**: Marine (8 terms), Medical, XS-6, MCG-1, MCUF-1, Reserve Brigadier O7
 
-**Skills**: Actor-1, Admin-2, Athlete-9, Broker-2, Fighter-15, Gunner-1, Hostile Environ-2, Language-1, Leader-10, Medic-1, Stealth-1, Survival-4, Tactics-2, Trader-1, Vacc Suit-2
+**Skills**: Actor-1, Admin-2, Athlete-9, Battle Dress-2, Bay Weapons-1, Broker-2, Fighter-14, Gunner-0, Hostile Environ-2, Language-1, Leader-10, Medic-1, Stealth-1, Survival-4, Tactics-2, Trader-1, Vacc Suit-2
 
 **Credits**: Cr360000
 
@@ -40,6 +40,6 @@
 
 ---
 
-Seed 529 (math/rand/v2-pcg) · schema 0.32.0 · engine 0.41.0 · policy 0.24.0
+Seed 529 (math/rand/v2-pcg) · schema 0.33.0 · engine 0.43.0 · policy 0.25.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

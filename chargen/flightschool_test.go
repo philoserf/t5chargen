@@ -117,30 +117,35 @@ func admittingCourse(c chargen.Character) bool {
 // (p. 60): one Pass/Fail roll carrying three levels, not three rolls of
 // one.
 //
-// The worked example is what settles the reading: "He receives Pilot+3
-// for a total of Pilot-4" (p. 61), from a character who already held
-// Pilot-1.
+// Three levels, not three levels of Pilot. Pilot is one of p. 134's
+// container skills, so the three are three receipts and the first two of
+// them buy Knowledges — which is exactly what the worked example shows
+// happening to a character who is already past that point: "He receives
+// Pilot+3 for a total of Pilot-4" (p. 61), from a character who held
+// Pilot-1 and had therefore had three receipts already. The assertion is
+// on the three receipts landing, not on where they land.
 func TestFlightSchoolAwardsPilotThree(t *testing.T) {
 	c, ok := flightRun(t)
 	if !ok {
 		t.Fatalf("no seed under %d graduates Flight School; widen the search", flightSeedSearch)
 	}
 
-	awards := 0
+	// The school's step bounds the receipts it paid for.
+	awarded, inSchool := 0, false
 
 	for _, event := range c.Events {
-		if event.Consequence == nil || event.Consequence.Kind != chargen.ConsequenceSkillAwarded ||
-			event.Consequence.Skill != "Pilot" {
-			continue
+		if event.Step != nil {
+			inSchool = event.Step.Name == "School: Flight School"
 		}
 
-		if event.Consequence.Delta == 3 {
-			awards++
+		if inSchool && event.Consequence != nil &&
+			event.Consequence.Kind == chargen.ConsequenceSkillAwarded {
+			awarded += event.Consequence.Delta
 		}
 	}
 
-	if awards == 0 {
-		t.Error("Flight School graduated and awarded no Pilot+3")
+	if awarded != 3 {
+		t.Errorf("Flight School awarded %d levels, want the 3 of \"1x Pilot-3\"", awarded)
 	}
 }
 

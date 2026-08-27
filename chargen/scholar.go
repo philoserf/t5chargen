@@ -277,7 +277,9 @@ func (m *scholarMechanics) researchAndPublication(r *careerRun, cc string) (term
 
 	// "Research Success Major +2" (chart 02 table B).
 	if name := r.major(); name != "" {
-		r.awardAndLog(name, scholarResearchMajor, seq)
+		if err := r.awardAndLog(name, scholarResearchMajor, seq); err != nil {
+			return termOutcome{}, err
+		}
 	}
 
 	return outcome, m.publish(r, cc, value, mod)

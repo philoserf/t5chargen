@@ -113,7 +113,7 @@ Implemented in `world/data/homeworld_skills.json`,
 
 Chart C p. 60 abbreviates further; `education/data/education.json`
 normalizes nine of its printed forms to the registry spellings already in
-`career/data/citizen.json` so grants stack: Hvy Wpns → Heavy Wpns,
+`career/data/citizen.json` so grants stack: Hvy Wpns → Heavy Weapons,
 Battle Dress → BattleDress, Slug Throw → Slug Thrower, J-Drives → Jump
 Drive, M-Drive → Maneuver, P-Systems → Power System, Winged → Wing,
 Sub → Submersible, Navigation → Navigator. (Chart C's "Ship" is left as

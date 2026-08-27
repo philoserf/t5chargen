@@ -18,7 +18,7 @@
 
 **Career**: Merchant (4 terms), Second Officer M3, 10 Ship Shares
 
-**Skills**: Actor-1, Advocate-4, Astrogator-1, Comms-3, Computer-3, Driver-2, Engineer-1, Steward-5, Trader-3
+**Skills**: ACV-2, Actor-1, Advocate-4, Astrogator-1, Comms-3, Computer-3, Driver-0, Engineer-0, Jump Drives-1, Steward-5, Trader-3
 
 **Credits**: Cr120000
 
@@ -30,6 +30,6 @@
 
 ---
 
-Seed 17 (math/rand/v2-pcg) · schema 0.32.0 · engine 0.41.0 · policy 0.24.0
+Seed 17 (math/rand/v2-pcg) · schema 0.33.0 · engine 0.43.0 · policy 0.25.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

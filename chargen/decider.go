@@ -152,6 +152,12 @@ const (
 	// (p. 66).
 	ChooseBranchChange ChoiceID = "change_branch"
 
+	// ChooseKnowledge selects which of a container skill's Knowledges a
+	// receipt awards: "A character who receives a Skill may always
+	// choose one of its contained Knowledges instead" (p. 134), and the
+	// first two receipts award one whether he likes it or not.
+	ChooseKnowledge ChoiceID = "select_knowledge"
+
 	// ChooseBranch selects the Armed Forces branch where the character
 	// passes the chart's Branch check ("Select Branch Soc", chart 08
 	// p. 82); a failed check rolls one instead.

@@ -28,13 +28,13 @@
 
 **Career**: Spacer (5 terms), Engineer, MCG-1, XS-3, SEH-1, Reserve Lt Commander O4
 
-**Skills**: ACV-6, Actor-1, Admin-1, Astrogator-4, Comms-4, Diplomat-4, Engineer-1, Fighter-1, Language-1, Liaison-4, Pilot-1, Trader-1
+**Skills**: ACV-6, Actor-1, Admin-1, Astrogator-4, Battle Dress-1, Comms-4, Diplomat-4, Engineer-0, Fighter-0, Jump Drives-1, Language-1, Liaison-4, Pilot-0, Small Craft-1, Trader-1
 
 **Credits**: Cr260000
 
 **Benefits**: 2 Retirement x2
 
-**Automatics**: Personal Weapons, Medal, Fame, TAS Life Membership
+**Automatics**: Medal, Fame, TAS Life Membership
 
 **Reserve Pension**: Cr2800 a year from age 66
 
@@ -44,6 +44,6 @@
 
 ---
 
-Seed 659 (math/rand/v2-pcg) · schema 0.32.0 · engine 0.41.0 · policy 0.24.0
+Seed 659 (math/rand/v2-pcg) · schema 0.33.0 · engine 0.43.0 · policy 0.25.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1
