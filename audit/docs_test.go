@@ -889,3 +889,39 @@ func TestEveryImplementedEntryRestsOnATest(t *testing.T) {
 		}
 	}
 }
+
+// TestEveryDeviationIsDeclared holds the engine's deviation set equal to
+// ERRATA.md's Deviation-classified headings, both directions.
+//
+// This is the gate the stamping gap needed and did not have. I-82 and
+// I-112 both said plainly that they departed from the printed rule while
+// docs/PRD.md required every record to carry "any applied ERRATA.md
+// deviations", and `Character.Errata` went unwritten for as long as both
+// entries existed. Nothing connected the classification to the engine,
+// so the next entry classified as a Deviation would have failed to stamp
+// exactly as silently.
+func TestEveryDeviationIsDeclared(t *testing.T) {
+	var classified []string
+
+	for _, match := range errataHeading.FindAllStringSubmatch(read(t, docsDir+"ERRATA.md"), -1) {
+		if match[2] == "Deviation" {
+			classified = append(classified, match[1])
+		}
+	}
+
+	if len(classified) == 0 {
+		t.Fatal("ERRATA.md classifies no entry as a Deviation; the scan is not working")
+	}
+
+	for _, entry := range classified {
+		if !slices.Contains(chargen.Deviations, entry) {
+			t.Errorf("ERRATA.md classifies %s as a Deviation, which the engine never stamps", entry)
+		}
+	}
+
+	for _, entry := range chargen.Deviations {
+		if !slices.Contains(classified, entry) {
+			t.Errorf("the engine stamps %s, which ERRATA.md does not classify as a Deviation", entry)
+		}
+	}
+}

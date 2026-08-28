@@ -14,21 +14,29 @@ entry owes depends on which of the four it is.
 | **Accepted exception** | a rule in v1 scope this tool declines to implement   | a COVERAGE.md row that says so           |
 | **Open question**      | undecided; no reading has been chosen                | that no rule resting on it reads covered |
 
-Two of those obligations are machine-checked (`audit/docs_test.go`) —
-the accepted exception's coverage row, and the open question's — and the
-third is the gap named below. Checking any of them is the point of
-classifying at all: I-47 sat unclassified for four
+All three obligations are machine-checked (`audit/docs_test.go`), which
+is the point of classifying at all: I-47 sat unclassified for four
 milestones while the engine had quietly chosen a reading and COVERAGE.md
 called the rule covered. A heading that must say "Open question" makes
 that visible the day it becomes true.
 
-**Two entries are Deviations — I-82 and I-112 — and neither is stamped.**
+Two entries are Deviations — I-82 and I-112 — and both are stamped.
 docs/PRD.md requires every character JSON to carry "any applied
-`ERRATA.md` deviations"; `Character.Errata` is declared, described in
-character.schema.json, and never written. That gap is stated here rather
-than left to the sentence this preamble used to carry, which asserted the
-stamping as though it happened. Closing it moves every fixture and the
-schema version, so it is its own change.
+`ERRATA.md` deviations", and for as long as both entries existed
+`Character.Errata` was declared, described in character.schema.json, and
+never written. What connects them now is `chargen.Deviations`, which
+audit holds equal to the headings classified here in both directions, so
+an entry classified a Deviation that the engine does not declare fails
+the gate rather than passing quietly. Declaring is not stamping: a new
+entry also needs a case in `TestDeviationsAreStamped` binding it to the
+site that applies it.
+
+A deviation is stamped when its reading governed a value in the record,
+not when the value provably differs from the printed rule. The stronger
+test is not decidable for I-82: its counterfactual is the per-title hex
+table, and inventing that is what I-83 declined to do. So a character
+who never musters out carries no I-82 even holding Land Grants, because
+nothing priced them.
 
 ## Entries
 
