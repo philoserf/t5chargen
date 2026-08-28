@@ -1,0 +1,55 @@
+# The gate, run on GitHub. This is deliberately `task` and not a
+# reimplementation of it: a CI job that lists the checks itself can drift
+# from the one a developer runs, and then green means two different
+# things. Everything below exists to put the tools on the runner so that
+# one command can be the whole job.
+#
+# `task citations` is not run. It holds ERRATA.md's quotations to the
+# pages they cite, against Book 1 Print Edition 5.1 — a purchased artifact
+# this repository does not redistribute and cannot. The gate skips
+# wherever T5_RULES_PDF is unset, which on a runner is always, so running
+# it here would report a pass it never performed.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# A superseded run proves nothing; cancel it and keep the queue honest.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    name: task (check + test)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # go-version-file reads go.mod, so the floor the module declares is
+      # the version CI proves it against.
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      # Pinned rather than @latest: a formatter or linter that moves on
+      # its own turns an unrelated pull request red, and the version is
+      # part of what the gate means. These track the Brewfile.
+      - name: Install the toolchain
+        run: |
+          go install github.com/go-task/task/v3/cmd/task@v3.53.1
+          go install mvdan.cc/gofumpt@v0.11.0
+          go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.13.1
+          npm install --global prettier@3.9.6
+
+      - name: task
+        run: task
