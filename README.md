@@ -152,6 +152,8 @@ several rules a player can take.
 | [docs/ERRATA.md](docs/ERRATA.md)                       | every interpretation and deviation, with the reasoning |
 | [docs/POLICY.md](docs/POLICY.md)                       | what `--auto` decides, choice by choice                |
 | [docs/KNOWN_LIMITATIONS.md](docs/KNOWN_LIMITATIONS.md) | what it does not do                                    |
+| [docs/RELEASE_READINESS.md](docs/RELEASE_READINESS.md) | what was verified before the tag                       |
+| [docs/RELEASING.md](docs/RELEASING.md)                 | the release procedure                                  |
 
 ## Traveller5
 
