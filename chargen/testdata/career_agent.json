@@ -1,7 +1,7 @@
 {
   "schema_version": "0.33.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.43.0",
+  "engine_version": "0.44.0",
   "policy_version": "0.25.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -66,6 +66,10 @@
       "level": 13
     },
     {
+      "name": "Career: Agent",
+      "level": 6
+    },
+    {
       "name": "Hostile Environ",
       "level": 12
     },
@@ -88,6 +92,10 @@
     {
       "name": "Trader",
       "level": 2
+    },
+    {
+      "name": "World: Regina",
+      "level": 4
     }
   ],
   "careers": [
@@ -8874,12 +8882,42 @@
       "seq": 556,
       "kind": "step",
       "step": {
+        "name": "Career and World Knowledges",
+        "cite": "Book 1 p. 134; chart MS p. 132"
+      }
+    },
+    {
+      "seq": 557,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 556,
+        "kind": "skill_awarded",
+        "skill": "Career: Agent",
+        "delta": 6,
+        "value": 6
+      }
+    },
+    {
+      "seq": 558,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 556,
+        "kind": "skill_awarded",
+        "skill": "World: Regina",
+        "delta": 4,
+        "value": 4
+      }
+    },
+    {
+      "seq": 559,
+      "kind": "step",
+      "step": {
         "name": "Determine Fame",
         "cite": "Book 1 p. 91 chart F"
       }
     },
     {
-      "seq": 557,
+      "seq": 560,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -8893,10 +8931,10 @@
       }
     },
     {
-      "seq": 558,
+      "seq": 561,
       "kind": "consequence",
       "consequence": {
-        "cause": 557,
+        "cause": 560,
         "kind": "fame_computed",
         "skill": "City",
         "value": 6,
@@ -8909,7 +8947,7 @@
       }
     },
     {
-      "seq": 559,
+      "seq": 562,
       "kind": "step",
       "step": {
         "name": "Muster Out",
@@ -8917,7 +8955,7 @@
       }
     },
     {
-      "seq": 560,
+      "seq": 563,
       "kind": "step",
       "step": {
         "name": "Muster Out: Agent",
@@ -8925,7 +8963,7 @@
       }
     },
     {
-      "seq": 561,
+      "seq": 564,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -8936,59 +8974,6 @@
         ],
         "chosen": 0,
         "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 562,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16"
-        ],
-        "chosen": 16,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 563,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+16",
-        "dice": [
-          1
-        ],
-        "mod": 16,
-        "total": 17,
-        "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
-      }
-    },
-    {
-      "seq": 564,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 563,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Agent",
-        "delta": 90000
       }
     },
     {
@@ -8996,20 +8981,6 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Which column for this Agent muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 566,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
         "prompt": "How much of the Terms DM to apply?",
         "options": [
           "+0",
@@ -9035,27 +9006,41 @@
       }
     },
     {
-      "seq": 567,
+      "seq": 566,
       "kind": "throw",
       "throw": {
         "expr": "1D+16",
         "dice": [
-          4
+          1
         ],
         "mod": 16,
-        "total": 20,
+        "total": 17,
         "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
       }
     },
     {
-      "seq": 568,
+      "seq": 567,
       "kind": "consequence",
       "consequence": {
-        "cause": 567,
+        "cause": 566,
         "kind": "benefit",
         "skill": "Money",
         "career": "Agent",
         "delta": 90000
+      }
+    },
+    {
+      "seq": 568,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Agent muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
       }
     },
     {
@@ -9063,20 +9048,6 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Which column for this Agent muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 570,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
         "prompt": "How much of the Terms DM to apply?",
         "options": [
           "+0",
@@ -9102,27 +9073,41 @@
       }
     },
     {
-      "seq": 571,
+      "seq": 570,
       "kind": "throw",
       "throw": {
         "expr": "1D+16",
         "dice": [
-          6
+          4
         ],
         "mod": 16,
-        "total": 22,
+        "total": 20,
         "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
       }
     },
     {
-      "seq": 572,
+      "seq": 571,
       "kind": "consequence",
       "consequence": {
-        "cause": 571,
+        "cause": 570,
         "kind": "benefit",
         "skill": "Money",
         "career": "Agent",
         "delta": 90000
+      }
+    },
+    {
+      "seq": 572,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Agent muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
       }
     },
     {
@@ -9130,20 +9115,6 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Which column for this Agent muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 574,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
         "prompt": "How much of the Terms DM to apply?",
         "options": [
           "+0",
@@ -9169,27 +9140,41 @@
       }
     },
     {
-      "seq": 575,
+      "seq": 574,
       "kind": "throw",
       "throw": {
         "expr": "1D+16",
         "dice": [
-          3
+          6
         ],
         "mod": 16,
-        "total": 19,
+        "total": 22,
         "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
       }
     },
     {
-      "seq": 576,
+      "seq": 575,
       "kind": "consequence",
       "consequence": {
-        "cause": 575,
+        "cause": 574,
         "kind": "benefit",
         "skill": "Money",
         "career": "Agent",
         "delta": 90000
+      }
+    },
+    {
+      "seq": 576,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Agent muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
       }
     },
     {
@@ -9197,20 +9182,6 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Which column for this Agent muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 578,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
         "prompt": "How much of the Terms DM to apply?",
         "options": [
           "+0",
@@ -9236,7 +9207,7 @@
       }
     },
     {
-      "seq": 579,
+      "seq": 578,
       "kind": "throw",
       "throw": {
         "expr": "1D+16",
@@ -9249,14 +9220,28 @@
       }
     },
     {
-      "seq": 580,
+      "seq": 579,
       "kind": "consequence",
       "consequence": {
-        "cause": 579,
+        "cause": 578,
         "kind": "benefit",
         "skill": "Money",
         "career": "Agent",
         "delta": 90000
+      }
+    },
+    {
+      "seq": 580,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Agent muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
       }
     },
     {
@@ -9264,20 +9249,6 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Which column for this Agent muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 582,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
         "prompt": "How much of the Terms DM to apply?",
         "options": [
           "+0",
@@ -9303,27 +9274,41 @@
       }
     },
     {
-      "seq": 583,
+      "seq": 582,
       "kind": "throw",
       "throw": {
         "expr": "1D+16",
         "dice": [
-          5
+          3
         ],
         "mod": 16,
-        "total": 21,
+        "total": 19,
         "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
       }
     },
     {
-      "seq": 584,
+      "seq": 583,
       "kind": "consequence",
       "consequence": {
-        "cause": 583,
+        "cause": 582,
         "kind": "benefit",
         "skill": "Money",
         "career": "Agent",
         "delta": 90000
+      }
+    },
+    {
+      "seq": 584,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Agent muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
       }
     },
     {
@@ -9331,20 +9316,6 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Which column for this Agent muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 586,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
         "prompt": "How much of the Terms DM to apply?",
         "options": [
           "+0",
@@ -9370,27 +9341,41 @@
       }
     },
     {
-      "seq": 587,
+      "seq": 586,
       "kind": "throw",
       "throw": {
         "expr": "1D+16",
         "dice": [
-          6
+          5
         ],
         "mod": 16,
-        "total": 22,
+        "total": 21,
         "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
       }
     },
     {
-      "seq": 588,
+      "seq": 587,
       "kind": "consequence",
       "consequence": {
-        "cause": 587,
+        "cause": 586,
         "kind": "benefit",
         "skill": "Money",
         "career": "Agent",
         "delta": 90000
+      }
+    },
+    {
+      "seq": 588,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Agent muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
       }
     },
     {
@@ -9398,20 +9383,6 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Which column for this Agent muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 590,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
         "prompt": "How much of the Terms DM to apply?",
         "options": [
           "+0",
@@ -9437,27 +9408,41 @@
       }
     },
     {
-      "seq": 591,
+      "seq": 590,
       "kind": "throw",
       "throw": {
         "expr": "1D+16",
         "dice": [
-          5
+          6
         ],
         "mod": 16,
-        "total": 21,
+        "total": 22,
         "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
       }
     },
     {
-      "seq": 592,
+      "seq": 591,
       "kind": "consequence",
       "consequence": {
-        "cause": 591,
+        "cause": 590,
         "kind": "benefit",
         "skill": "Money",
         "career": "Agent",
         "delta": 90000
+      }
+    },
+    {
+      "seq": 592,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Agent muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
       }
     },
     {
@@ -9465,20 +9450,6 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Which column for this Agent muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 594,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
         "prompt": "How much of the Terms DM to apply?",
         "options": [
           "+0",
@@ -9504,27 +9475,41 @@
       }
     },
     {
-      "seq": 595,
+      "seq": 594,
       "kind": "throw",
       "throw": {
         "expr": "1D+16",
         "dice": [
-          2
+          5
         ],
         "mod": 16,
-        "total": 18,
+        "total": 21,
         "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
       }
     },
     {
-      "seq": 596,
+      "seq": 595,
       "kind": "consequence",
       "consequence": {
-        "cause": 595,
+        "cause": 594,
         "kind": "benefit",
         "skill": "Money",
         "career": "Agent",
         "delta": 90000
+      }
+    },
+    {
+      "seq": 596,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Agent muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
       }
     },
     {
@@ -9532,247 +9517,32 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Which column for this Agent muster-out roll?",
+        "prompt": "How much of the Terms DM to apply?",
         "options": [
-          "Money",
-          "Benefits"
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16"
         ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
+        "chosen": 16,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
       }
     },
     {
       "seq": 598,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16"
-        ],
-        "chosen": 16,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 599,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+16",
-        "dice": [
-          3
-        ],
-        "mod": 16,
-        "total": 19,
-        "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
-      }
-    },
-    {
-      "seq": 600,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 599,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Agent",
-        "delta": 90000
-      }
-    },
-    {
-      "seq": 601,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Agent muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 602,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16"
-        ],
-        "chosen": 16,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 603,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+16",
-        "dice": [
-          4
-        ],
-        "mod": 16,
-        "total": 20,
-        "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
-      }
-    },
-    {
-      "seq": 604,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 603,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Agent",
-        "delta": 90000
-      }
-    },
-    {
-      "seq": 605,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Agent muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 606,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16"
-        ],
-        "chosen": 16,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 607,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+16",
-        "dice": [
-          4
-        ],
-        "mod": 16,
-        "total": 20,
-        "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
-      }
-    },
-    {
-      "seq": 608,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 607,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Agent",
-        "delta": 90000
-      }
-    },
-    {
-      "seq": 609,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Agent muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 610,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16"
-        ],
-        "chosen": 16,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 611,
       "kind": "throw",
       "throw": {
         "expr": "1D+16",
@@ -9785,10 +9555,10 @@
       }
     },
     {
-      "seq": 612,
+      "seq": 599,
       "kind": "consequence",
       "consequence": {
-        "cause": 611,
+        "cause": 598,
         "kind": "benefit",
         "skill": "Money",
         "career": "Agent",
@@ -9796,7 +9566,7 @@
       }
     },
     {
-      "seq": 613,
+      "seq": 600,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -9810,7 +9580,7 @@
       }
     },
     {
-      "seq": 614,
+      "seq": 601,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -9839,409 +9609,7 @@
       }
     },
     {
-      "seq": 615,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+16",
-        "dice": [
-          6
-        ],
-        "mod": 16,
-        "total": 22,
-        "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
-      }
-    },
-    {
-      "seq": 616,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 615,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Agent",
-        "delta": 90000
-      }
-    },
-    {
-      "seq": 617,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Agent muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 618,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16"
-        ],
-        "chosen": 16,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 619,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+16",
-        "dice": [
-          5
-        ],
-        "mod": 16,
-        "total": 21,
-        "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
-      }
-    },
-    {
-      "seq": 620,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 619,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Agent",
-        "delta": 90000
-      }
-    },
-    {
-      "seq": 621,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Agent muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 622,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16"
-        ],
-        "chosen": 16,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 623,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+16",
-        "dice": [
-          6
-        ],
-        "mod": 16,
-        "total": 22,
-        "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
-      }
-    },
-    {
-      "seq": 624,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 623,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Agent",
-        "delta": 90000
-      }
-    },
-    {
-      "seq": 625,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Agent muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 626,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16"
-        ],
-        "chosen": 16,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 627,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+16",
-        "dice": [
-          5
-        ],
-        "mod": 16,
-        "total": 21,
-        "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
-      }
-    },
-    {
-      "seq": 628,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 627,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Agent",
-        "delta": 90000
-      }
-    },
-    {
-      "seq": 629,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Agent muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 630,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16"
-        ],
-        "chosen": 16,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 631,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+16",
-        "dice": [
-          5
-        ],
-        "mod": 16,
-        "total": 21,
-        "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
-      }
-    },
-    {
-      "seq": 632,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 631,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Agent",
-        "delta": 90000
-      }
-    },
-    {
-      "seq": 633,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Agent muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 634,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16"
-        ],
-        "chosen": 16,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 635,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+16",
-        "dice": [
-          1
-        ],
-        "mod": 16,
-        "total": 17,
-        "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
-      }
-    },
-    {
-      "seq": 636,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 635,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Agent",
-        "delta": 90000
-      }
-    },
-    {
-      "seq": 637,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Agent muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 638,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16"
-        ],
-        "chosen": 16,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 639,
+      "seq": 602,
       "kind": "throw",
       "throw": {
         "expr": "1D+16",
@@ -10254,10 +9622,10 @@
       }
     },
     {
-      "seq": 640,
+      "seq": 603,
       "kind": "consequence",
       "consequence": {
-        "cause": 639,
+        "cause": 602,
         "kind": "benefit",
         "skill": "Money",
         "career": "Agent",
@@ -10265,7 +9633,7 @@
       }
     },
     {
-      "seq": 641,
+      "seq": 604,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -10279,7 +9647,7 @@
       }
     },
     {
-      "seq": 642,
+      "seq": 605,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -10308,7 +9676,275 @@
       }
     },
     {
-      "seq": 643,
+      "seq": 606,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+16",
+        "dice": [
+          4
+        ],
+        "mod": 16,
+        "total": 20,
+        "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
+      }
+    },
+    {
+      "seq": 607,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 606,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Agent",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 608,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Agent muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 609,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16"
+        ],
+        "chosen": 16,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 610,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+16",
+        "dice": [
+          4
+        ],
+        "mod": 16,
+        "total": 20,
+        "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
+      }
+    },
+    {
+      "seq": 611,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 610,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Agent",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 612,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Agent muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 613,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16"
+        ],
+        "chosen": 16,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 614,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+16",
+        "dice": [
+          2
+        ],
+        "mod": 16,
+        "total": 18,
+        "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
+      }
+    },
+    {
+      "seq": 615,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 614,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Agent",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 616,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Agent muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 617,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16"
+        ],
+        "chosen": 16,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 618,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+16",
+        "dice": [
+          6
+        ],
+        "mod": 16,
+        "total": 22,
+        "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
+      }
+    },
+    {
+      "seq": 619,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 618,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Agent",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 620,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Agent muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 621,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16"
+        ],
+        "chosen": 16,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 622,
       "kind": "throw",
       "throw": {
         "expr": "1D+16",
@@ -10321,10 +9957,10 @@
       }
     },
     {
-      "seq": 644,
+      "seq": 623,
       "kind": "consequence",
       "consequence": {
-        "cause": 643,
+        "cause": 622,
         "kind": "benefit",
         "skill": "Money",
         "career": "Agent",
@@ -10332,7 +9968,7 @@
       }
     },
     {
-      "seq": 645,
+      "seq": 624,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -10346,7 +9982,7 @@
       }
     },
     {
-      "seq": 646,
+      "seq": 625,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -10375,7 +10011,208 @@
       }
     },
     {
-      "seq": 647,
+      "seq": 626,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+16",
+        "dice": [
+          6
+        ],
+        "mod": 16,
+        "total": 22,
+        "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
+      }
+    },
+    {
+      "seq": 627,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 626,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Agent",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 628,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Agent muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 629,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16"
+        ],
+        "chosen": 16,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 630,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+16",
+        "dice": [
+          5
+        ],
+        "mod": 16,
+        "total": 21,
+        "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
+      }
+    },
+    {
+      "seq": 631,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 630,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Agent",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 632,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Agent muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 633,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16"
+        ],
+        "chosen": 16,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 634,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+16",
+        "dice": [
+          5
+        ],
+        "mod": 16,
+        "total": 21,
+        "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
+      }
+    },
+    {
+      "seq": 635,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 634,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Agent",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 636,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Agent muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 637,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16"
+        ],
+        "chosen": 16,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 638,
       "kind": "throw",
       "throw": {
         "expr": "1D+16",
@@ -10388,10 +10225,10 @@
       }
     },
     {
-      "seq": 648,
+      "seq": 639,
       "kind": "consequence",
       "consequence": {
-        "cause": 647,
+        "cause": 638,
         "kind": "benefit",
         "skill": "Money",
         "career": "Agent",
@@ -10399,7 +10236,208 @@
       }
     },
     {
+      "seq": 640,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Agent muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 641,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16"
+        ],
+        "chosen": 16,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 642,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+16",
+        "dice": [
+          3
+        ],
+        "mod": 16,
+        "total": 19,
+        "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
+      }
+    },
+    {
+      "seq": 643,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 642,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Agent",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 644,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Agent muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 645,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16"
+        ],
+        "chosen": 16,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 646,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+16",
+        "dice": [
+          5
+        ],
+        "mod": 16,
+        "total": 21,
+        "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
+      }
+    },
+    {
+      "seq": 647,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 646,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Agent",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 648,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Agent muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
       "seq": 649,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16"
+        ],
+        "chosen": 16,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 650,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+16",
+        "dice": [
+          1
+        ],
+        "mod": 16,
+        "total": 17,
+        "cite": "Book 1 p. 83 chart 09 D (Money column, 1D+16)"
+      }
+    },
+    {
+      "seq": 651,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 650,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Agent",
+        "delta": 90000
+      }
+    },
+    {
+      "seq": 652,
       "kind": "step",
       "step": {
         "name": "Record the Character's Birthdate",
@@ -10407,7 +10445,7 @@
       }
     },
     {
-      "seq": 650,
+      "seq": 653,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -10422,10 +10460,10 @@
       }
     },
     {
-      "seq": 651,
+      "seq": 654,
       "kind": "consequence",
       "consequence": {
-        "cause": 650,
+        "cause": 653,
         "kind": "birthdate",
         "detail": "Wonday 044-1021",
         "value": 1021

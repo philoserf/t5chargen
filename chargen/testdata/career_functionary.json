@@ -1,7 +1,7 @@
 {
   "schema_version": "0.33.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.43.0",
+  "engine_version": "0.44.0",
   "policy_version": "none",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -66,6 +66,14 @@
       "level": 12
     },
     {
+      "name": "Career: Functionary",
+      "level": 6
+    },
+    {
+      "name": "Career: Scholar",
+      "level": 1
+    },
+    {
       "name": "Hostile Environ",
       "level": 1
     },
@@ -80,6 +88,10 @@
     {
       "name": "Trader",
       "level": 1
+    },
+    {
+      "name": "World: Regina",
+      "level": 4
     }
   ],
   "careers": [
@@ -4913,12 +4925,53 @@
       "seq": 291,
       "kind": "step",
       "step": {
+        "name": "Career and World Knowledges",
+        "cite": "Book 1 p. 134; chart MS p. 132"
+      }
+    },
+    {
+      "seq": 292,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 291,
+        "kind": "skill_awarded",
+        "skill": "Career: Scholar",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 293,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 291,
+        "kind": "skill_awarded",
+        "skill": "Career: Functionary",
+        "delta": 6,
+        "value": 6
+      }
+    },
+    {
+      "seq": 294,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 291,
+        "kind": "skill_awarded",
+        "skill": "World: Regina",
+        "delta": 4,
+        "value": 4
+      }
+    },
+    {
+      "seq": 295,
+      "kind": "step",
+      "step": {
         "name": "Determine Fame",
         "cite": "Book 1 p. 91 chart F"
       }
     },
     {
-      "seq": 292,
+      "seq": 296,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -4932,10 +4985,10 @@
       }
     },
     {
-      "seq": 293,
+      "seq": 297,
       "kind": "consequence",
       "consequence": {
-        "cause": 292,
+        "cause": 296,
         "kind": "fame_computed",
         "skill": "Close Family",
         "value": 2,
@@ -4948,7 +5001,7 @@
       }
     },
     {
-      "seq": 294,
+      "seq": 298,
       "kind": "step",
       "step": {
         "name": "Muster Out",
@@ -4956,7 +5009,7 @@
       }
     },
     {
-      "seq": 295,
+      "seq": 299,
       "kind": "step",
       "step": {
         "name": "Muster Out: Scholar",
@@ -4964,7 +5017,7 @@
       }
     },
     {
-      "seq": 296,
+      "seq": 300,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -4978,7 +5031,7 @@
       }
     },
     {
-      "seq": 297,
+      "seq": 301,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -4990,10 +5043,10 @@
       }
     },
     {
-      "seq": 298,
+      "seq": 302,
       "kind": "consequence",
       "consequence": {
-        "cause": 297,
+        "cause": 301,
         "kind": "benefit",
         "skill": "Low Passage",
         "career": "Scholar",
@@ -5001,70 +5054,11 @@
       }
     },
     {
-      "seq": 299,
+      "seq": 303,
       "kind": "step",
       "step": {
         "name": "Muster Out: Functionary",
         "cite": "Book 1 p. 87 chart 13 D"
-      }
-    },
-    {
-      "seq": 300,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Which column for this Functionary muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 301,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8"
-        ],
-        "chosen": 8,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 302,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+8",
-        "dice": [
-          4
-        ],
-        "mod": 8,
-        "total": 12,
-        "cite": "Book 1 p. 87 chart 13 D (Money column, 1D+8)"
-      }
-    },
-    {
-      "seq": 303,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 302,
-        "kind": "benefit",
-        "skill": "Pension x2",
-        "career": "Functionary",
-        "value": 1
       }
     },
     {
@@ -5226,10 +5220,10 @@
       "throw": {
         "expr": "1D+8",
         "dice": [
-          6
+          4
         ],
         "mod": 8,
-        "total": 14,
+        "total": 12,
         "cite": "Book 1 p. 87 chart 13 D (Money column, 1D+8)"
       }
     },
@@ -5285,10 +5279,10 @@
       "throw": {
         "expr": "1D+8",
         "dice": [
-          2
+          6
         ],
         "mod": 8,
-        "total": 10,
+        "total": 14,
         "cite": "Book 1 p. 87 chart 13 D (Money column, 1D+8)"
       }
     },
@@ -5344,10 +5338,10 @@
       "throw": {
         "expr": "1D+8",
         "dice": [
-          6
+          2
         ],
         "mod": 8,
-        "total": 14,
+        "total": 10,
         "cite": "Book 1 p. 87 chart 13 D (Money column, 1D+8)"
       }
     },
@@ -5403,10 +5397,10 @@
       "throw": {
         "expr": "1D+8",
         "dice": [
-          4
+          6
         ],
         "mod": 8,
-        "total": 12,
+        "total": 14,
         "cite": "Book 1 p. 87 chart 13 D (Money column, 1D+8)"
       }
     },
@@ -5462,10 +5456,10 @@
       "throw": {
         "expr": "1D+8",
         "dice": [
-          1
+          4
         ],
         "mod": 8,
-        "total": 9,
+        "total": 12,
         "cite": "Book 1 p. 87 chart 13 D (Money column, 1D+8)"
       }
     },
@@ -5475,13 +5469,72 @@
       "consequence": {
         "cause": 330,
         "kind": "benefit",
+        "skill": "Pension x2",
+        "career": "Functionary",
+        "value": 1
+      }
+    },
+    {
+      "seq": 332,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Functionary muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 333,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8"
+        ],
+        "chosen": 8,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 334,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+8",
+        "dice": [
+          1
+        ],
+        "mod": 8,
+        "total": 9,
+        "cite": "Book 1 p. 87 chart 13 D (Money column, 1D+8)"
+      }
+    },
+    {
+      "seq": 335,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 334,
+        "kind": "benefit",
         "skill": "Money",
         "career": "Functionary",
         "delta": 35000
       }
     },
     {
-      "seq": 332,
+      "seq": 336,
       "kind": "step",
       "step": {
         "name": "Muster Out: Entitlements",
@@ -5489,7 +5542,7 @@
       }
     },
     {
-      "seq": 333,
+      "seq": 337,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5503,10 +5556,10 @@
       }
     },
     {
-      "seq": 334,
+      "seq": 338,
       "kind": "consequence",
       "consequence": {
-        "cause": 333,
+        "cause": 337,
         "kind": "entitlement",
         "skill": "Functionary's Pension",
         "delta": 120000,
@@ -5514,7 +5567,7 @@
       }
     },
     {
-      "seq": 335,
+      "seq": 339,
       "kind": "step",
       "step": {
         "name": "Record the Character's Birthdate",
@@ -5522,7 +5575,7 @@
       }
     },
     {
-      "seq": 336,
+      "seq": 340,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -5537,10 +5590,10 @@
       }
     },
     {
-      "seq": 337,
+      "seq": 341,
       "kind": "consequence",
       "consequence": {
-        "cause": 336,
+        "cause": 340,
         "kind": "birthdate",
         "detail": "Forday 243-1050",
         "value": 1050

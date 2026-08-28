@@ -2098,6 +2098,12 @@ because at the moment they are emitted there is no throw:
   every term served.
 - `chargen/careerrun.go` — chart 01's New Trade cell when every Trade is
   already held (p. 75). The exhaustion is the sum of every prior award.
+- `chargen/specialized.go` — the Career and World Knowledges (p. 134),
+  added 2026-08-27. Each is a total over the finished record — terms
+  served in a career, terms lived on a world — and p. 134 awards them by
+  arithmetic rather than by a throw. This is the clearest of the four: the
+  rule itself says "receives Knowledge equal to the number of terms
+  served", with no die named anywhere in it.
 
 Each follows from accumulated state rather than from dice. Read as: the
 cause may be the step that established the state, and FR10 is amended to say
@@ -3019,3 +3025,40 @@ should know which of the two he is looking at.
 Language is the other exception, and needs no interpretation: p. 134
 excepts it in the sentence that lists the containers — "except Language
 which is handled differently".
+
+### I-112: which terms a World Knowledge counts (p. 134)
+
+"A character who has spent time on a world receives Knowledge equal to
+the number of terms he has lived there (but a maximum 6)." The worked
+example anchors the counting: Eneri Dinsha "begins adventuring at age 34
+(8 terms counting from age 2 through 34)", which is thirty-two years over
+the four-year Term.
+
+**The anchor is taken as printed**, so the count runs from age 2.
+
+**The span is not.** The example counts a whole life because its
+character "has lived all his life on Egareva" — a Citizen who never left.
+This engine does not model where a character lives once a career has him:
+a Scout serving four terms is somewhere the record never names, and chart
+B fixes only the world he was born on. So the count runs from age 2 to
+the age career resolution begins, and stops there.
+
+**Deviation, stated plainly.** For a character who genuinely never leaves
+his homeworld the printed rule gives more — Eneri's 8 terms, capped to 6,
+against the 4 this engine records for a school leaver of 18. The
+alternative was to assume every character lives on his homeworld for
+every term of every career, which would hand a spacegoing Scout a
+World: Regina-6 for twenty-four years he spent elsewhere. Between
+claiming too little and claiming what the record cannot support, this
+takes the first.
+
+The decline the same paragraph prints — "reduce this value -1 every Term
+(four years) once adventuring begins" — is post-generation and outside
+this tool, as the Fame decline is.
+
+Career Knowledge needs no interpretation and is implemented as printed:
+"Knowledge equal to the number of terms served (to a maximum of 6)",
+totalled across a career left and returned to, since it is one career he
+has served. The cap is the rule's own point — eight terms as a Scout
+still leave Career: Scout-6, "he knows a lot, but he has also forgotten
+some things along the way".

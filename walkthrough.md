@@ -456,6 +456,12 @@ func Generate(opts Options) (Character, error) {
 		return Character{}, err
 	}
 
+	// The age careers begin at, which is what a World Knowledge counts
+	// the terms of (p. 134, interpretation I-112). Captured here because
+	// education has just finished moving it and nothing afterwards can
+	// tell how much of the character's age was spent at home.
+	careerStartAge := character.Age
+
 	if err := runCareer(opts.Career, roller, &log, opts.Decider, &character); err != nil {
 		return Character{}, err
 	}
@@ -463,7 +469,7 @@ func Generate(opts Options) (Character, error) {
 	// Fame is calculated over the finished record, not accumulated
 	// (chart F p. 91), and muster out reads it — "one additional roll if
 	// Fame 19+" (p. 68).
-	if err := afterCareers(&character, roller, &log, opts.Decider, opts.CurrentYear); err != nil {
+	if err := afterCareers(&character, roller, &log, opts.Decider, opts.CurrentYear, careerStartAge); err != nil {
 		return Character{}, err
 	}
 
@@ -922,7 +928,7 @@ go run ./cmd/t5chargen new --auto --seed 314 --current-year 1105 --force -o /tmp
 
 **Career**: Citizen (2 terms), Job Mechanic, Hobby ACV
 
-**Skills**: ACV-2, Actor-1, Admin-1, Broker-2, Bureaucrat-2, Computer-2, Mechanic-4, Trader-2
+**Skills**: ACV-2, Actor-1, Admin-1, Broker-2, Bureaucrat-2, Career: Citizen-2, Computer-2, Mechanic-4, Trader-2, World: Regina-4
 
 **Credits**: Cr30000
 
@@ -940,7 +946,7 @@ go run ./cmd/t5chargen render /tmp/demo.json | tail -5
 ```output
 ---
 
-Seed 314 (math/rand/v2-pcg) · schema 0.33.0 · engine 0.43.0 · policy 0.25.0
+Seed 314 (math/rand/v2-pcg) · schema 0.33.0 · engine 0.44.0 · policy 0.25.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1
 ```
@@ -993,7 +999,7 @@ go run ./cmd/t5chargen replay /tmp/demo.json
 ```
 
 ```output
-replayed /tmp/demo.json: 109 events reproduced from seed 314
+replayed /tmp/demo.json: 112 events reproduced from seed 314
 ```
 
 ## The development gate

@@ -1,7 +1,7 @@
 {
   "schema_version": "0.33.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.43.0",
+  "engine_version": "0.44.0",
   "policy_version": "0.25.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -78,6 +78,10 @@
       "level": 4
     },
     {
+      "name": "Career: Scout",
+      "level": 6
+    },
+    {
       "name": "Hostile Environ",
       "level": 7
     },
@@ -104,6 +108,10 @@
     {
       "name": "Vacc Suit",
       "level": 10
+    },
+    {
+      "name": "World: Regina",
+      "level": 5
     }
   ],
   "careers": [
@@ -4614,12 +4622,42 @@
       "seq": 312,
       "kind": "step",
       "step": {
+        "name": "Career and World Knowledges",
+        "cite": "Book 1 p. 134; chart MS p. 132"
+      }
+    },
+    {
+      "seq": 313,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 312,
+        "kind": "skill_awarded",
+        "skill": "Career: Scout",
+        "delta": 6,
+        "value": 6
+      }
+    },
+    {
+      "seq": 314,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 312,
+        "kind": "skill_awarded",
+        "skill": "World: Regina",
+        "delta": 5,
+        "value": 5
+      }
+    },
+    {
+      "seq": 315,
+      "kind": "step",
+      "step": {
         "name": "Determine Fame",
         "cite": "Book 1 p. 91 chart F"
       }
     },
     {
-      "seq": 313,
+      "seq": 316,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4633,10 +4671,10 @@
       }
     },
     {
-      "seq": 314,
+      "seq": 317,
       "kind": "consequence",
       "consequence": {
-        "cause": 313,
+        "cause": 316,
         "kind": "fame_computed",
         "skill": "Sector",
         "value": 20,
@@ -4649,7 +4687,7 @@
       }
     },
     {
-      "seq": 315,
+      "seq": 318,
       "kind": "step",
       "step": {
         "name": "Record the Character's Birthdate",
@@ -4657,7 +4695,7 @@
       }
     },
     {
-      "seq": 316,
+      "seq": 319,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -4672,7 +4710,7 @@
       }
     },
     {
-      "seq": 317,
+      "seq": 320,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -4687,10 +4725,10 @@
       }
     },
     {
-      "seq": 318,
+      "seq": 321,
       "kind": "consequence",
       "consequence": {
-        "cause": 317,
+        "cause": 320,
         "kind": "birthdate",
         "detail": "Wonday 023-1051",
         "value": 1051

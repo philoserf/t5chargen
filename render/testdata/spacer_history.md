@@ -352,12 +352,19 @@ _Book 1 p. 81 chart 07_
   - #271 (from #24) enters the Reserves as a Reserve Lt Commander O4 (Spacer)
 - #272 policy chose "Remain in the Reserves" of [Resign, Remain in the Reserves]: Resign from the Reserves? — Book 1 p. 67 (A character may resign from the Reserves (Check Continue))
 
+## Career and World Knowledges
+
+_Book 1 p. 134; chart MS p. 132_
+
+  - #274 (from #273) Career: Spacer +5 = Career: Spacer-5
+  - #275 (from #273) World: Regina +4 = World: Regina-4
+
 ## Determine Fame
 
 _Book 1 p. 91 chart F_
 
-- #274 policy chose "Keep this Fame" of [Keep this Fame, Add Flux to Fame]: Invoke the Fame Flux Event? (Fame 10 so far) — Book 1 p. 91 chart F (The Fame Flux Event)
-  - #275 (from #274) Fame 10 (World) = Spacer Officer Rank +4, Spacer WB x1 +1, Spacer MCG x2 +2, Spacer SEH x3 +3
+- #277 policy chose "Keep this Fame" of [Keep this Fame, Add Flux to Fame]: Invoke the Fame Flux Event? (Fame 10 so far) — Book 1 p. 91 chart F (The Fame Flux Event)
+  - #278 (from #277) Fame 10 (World) = Spacer Officer Rank +4, Spacer WB x1 +1, Spacer MCG x2 +2, Spacer SEH x3 +3
 
 ## Muster Out
 
@@ -368,47 +375,47 @@ _Book 1 p. 67; chart M1 p. 70_
 
 _Book 1 p. 81 chart 07 D_
 
-- #278 policy chose "Money" of [Money, Benefits]: Which column for this Spacer muster-out roll? — Book 1 p. 68 (Which Column?)
-- #279 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #280 1D+5 = 5 = 10 — Book 1 p. 81 chart 07 D (Money column, 1D+5)
-  - #281 (from #280) Money, worth Cr60000
-- #282 policy chose "Money" of [Money, Benefits]: Which column for this Spacer muster-out roll? — Book 1 p. 68 (Which Column?)
-- #283 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #284 1D+5 = 1 = 6 — Book 1 p. 81 chart 07 D (Money column, 1D+5)
-  - #285 (from #284) Money, worth Cr40000
-- #286 policy chose "Money" of [Money, Benefits]: Which column for this Spacer muster-out roll? — Book 1 p. 68 (Which Column?)
-- #287 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #288 1D+5 = 5 = 10 — Book 1 p. 81 chart 07 D (Money column, 1D+5)
-  - #289 (from #288) Money, worth Cr60000
-- #290 policy chose "Money" of [Money, Benefits]: Which column for this Spacer muster-out roll? — Book 1 p. 68 (Which Column?)
-- #291 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #292 1D+5 = 1 = 6 — Book 1 p. 81 chart 07 D (Money column, 1D+5)
-  - #293 (from #292) Money, worth Cr40000
-- #294 policy chose "Money" of [Money, Benefits]: Which column for this Spacer muster-out roll? — Book 1 p. 68 (Which Column?)
-- #295 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #296 1D+5 = 5 = 10 — Book 1 p. 81 chart 07 D (Money column, 1D+5)
-  - #297 (from #296) Money, worth Cr60000
-- #298 policy chose "Money" of [Money, Benefits]: Which column for this Spacer muster-out roll? — Book 1 p. 68 (Which Column?)
-- #299 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #300 1D+5 = 3 = 8 — Book 1 p. 81 chart 07 D (Money column, 1D+5)
-  - #301 (from #300) Retirement x2
-- #302 policy chose "Money" of [Money, Benefits]: Which column for this Spacer muster-out roll? — Book 1 p. 68 (Which Column?)
-- #303 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #304 1D+5 = 4 = 9 — Book 1 p. 81 chart 07 D (Money column, 1D+5)
-  - #305 (from #304) Retirement x2
+- #281 policy chose "Money" of [Money, Benefits]: Which column for this Spacer muster-out roll? — Book 1 p. 68 (Which Column?)
+- #282 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #283 1D+5 = 5 = 10 — Book 1 p. 81 chart 07 D (Money column, 1D+5)
+  - #284 (from #283) Money, worth Cr60000
+- #285 policy chose "Money" of [Money, Benefits]: Which column for this Spacer muster-out roll? — Book 1 p. 68 (Which Column?)
+- #286 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #287 1D+5 = 1 = 6 — Book 1 p. 81 chart 07 D (Money column, 1D+5)
+  - #288 (from #287) Money, worth Cr40000
+- #289 policy chose "Money" of [Money, Benefits]: Which column for this Spacer muster-out roll? — Book 1 p. 68 (Which Column?)
+- #290 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #291 1D+5 = 5 = 10 — Book 1 p. 81 chart 07 D (Money column, 1D+5)
+  - #292 (from #291) Money, worth Cr60000
+- #293 policy chose "Money" of [Money, Benefits]: Which column for this Spacer muster-out roll? — Book 1 p. 68 (Which Column?)
+- #294 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #295 1D+5 = 1 = 6 — Book 1 p. 81 chart 07 D (Money column, 1D+5)
+  - #296 (from #295) Money, worth Cr40000
+- #297 policy chose "Money" of [Money, Benefits]: Which column for this Spacer muster-out roll? — Book 1 p. 68 (Which Column?)
+- #298 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #299 1D+5 = 5 = 10 — Book 1 p. 81 chart 07 D (Money column, 1D+5)
+  - #300 (from #299) Money, worth Cr60000
+- #301 policy chose "Money" of [Money, Benefits]: Which column for this Spacer muster-out roll? — Book 1 p. 68 (Which Column?)
+- #302 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #303 1D+5 = 3 = 8 — Book 1 p. 81 chart 07 D (Money column, 1D+5)
+  - #304 (from #303) Retirement x2
+- #305 policy chose "Money" of [Money, Benefits]: Which column for this Spacer muster-out roll? — Book 1 p. 68 (Which Column?)
+- #306 policy chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #307 1D+5 = 4 = 9 — Book 1 p. 81 chart 07 D (Money column, 1D+5)
+  - #308 (from #307) Retirement x2
 
 ## Muster Out: Entitlements
 
 _Book 1 p. 70 chart M1_
 
-- #307 policy chose "Keep it (Cr2800 a year from age 66)" of [Keep it (Cr2800 a year from age 66), Cash out (Cr14000)]: Cash out the Reserve Pension? — Book 1 p. 69 (Cashing Out)
-  - #308 (from #307) Reserve Pension, Cr2800 a year from age 66
-- #309 policy chose "Keep it (Cr45000 a year from age 38)" of [Keep it (Cr45000 a year from age 38), Cash out (Cr225000)]: Cash out the Officer Retirement? — Book 1 p. 69 (Cashing Out)
-  - #310 (from #309) Officer Retirement, Cr45000 a year from age 38
+- #310 policy chose "Keep it (Cr2800 a year from age 66)" of [Keep it (Cr2800 a year from age 66), Cash out (Cr14000)]: Cash out the Reserve Pension? — Book 1 p. 69 (Cashing Out)
+  - #311 (from #310) Reserve Pension, Cr2800 a year from age 66
+- #312 policy chose "Keep it (Cr45000 a year from age 38)" of [Keep it (Cr45000 a year from age 38), Cash out (Cr225000)]: Cash out the Officer Retirement? — Book 1 p. 69 (Cashing Out)
+  - #313 (from #312) Officer Retirement, Cr45000 a year from age 38
 
 ## Record the Character's Birthdate
 
 _Book 1 p. 58; p. 263_
 
-- #312 4D = 2+3+3+5 = 13 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
-  - #313 (from #312) born Forday 159-1067
+- #315 4D = 2+3+3+5 = 13 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
+  - #316 (from #315) born Forday 159-1067

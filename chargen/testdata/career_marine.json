@@ -1,7 +1,7 @@
 {
   "schema_version": "0.33.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.43.0",
+  "engine_version": "0.44.0",
   "policy_version": "0.25.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -90,6 +90,10 @@
       "level": 2
     },
     {
+      "name": "Career: Marine",
+      "level": 6
+    },
+    {
       "name": "Fighter",
       "level": 14,
       "receipts": 16
@@ -134,6 +138,10 @@
     {
       "name": "Vacc Suit",
       "level": 2
+    },
+    {
+      "name": "World: Regina",
+      "level": 5
     }
   ],
   "careers": [
@@ -6762,12 +6770,42 @@
       "seq": 443,
       "kind": "step",
       "step": {
+        "name": "Career and World Knowledges",
+        "cite": "Book 1 p. 134; chart MS p. 132"
+      }
+    },
+    {
+      "seq": 444,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 443,
+        "kind": "skill_awarded",
+        "skill": "Career: Marine",
+        "delta": 6,
+        "value": 6
+      }
+    },
+    {
+      "seq": 445,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 443,
+        "kind": "skill_awarded",
+        "skill": "World: Regina",
+        "delta": 5,
+        "value": 5
+      }
+    },
+    {
+      "seq": 446,
+      "kind": "step",
+      "step": {
         "name": "Determine Fame",
         "cite": "Book 1 p. 91 chart F"
       }
     },
     {
-      "seq": 444,
+      "seq": 447,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6781,10 +6819,10 @@
       }
     },
     {
-      "seq": 445,
+      "seq": 448,
       "kind": "consequence",
       "consequence": {
-        "cause": 444,
+        "cause": 447,
         "kind": "fame_computed",
         "skill": "World",
         "value": 10,
@@ -6805,7 +6843,7 @@
       }
     },
     {
-      "seq": 446,
+      "seq": 449,
       "kind": "step",
       "step": {
         "name": "Muster Out",
@@ -6813,7 +6851,7 @@
       }
     },
     {
-      "seq": 447,
+      "seq": 450,
       "kind": "step",
       "step": {
         "name": "Muster Out: Marine",
@@ -6821,7 +6859,7 @@
       }
     },
     {
-      "seq": 448,
+      "seq": 451,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6832,51 +6870,6 @@
         ],
         "chosen": 0,
         "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 449,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8"
-        ],
-        "chosen": 8,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 450,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+8",
-        "dice": [
-          3
-        ],
-        "mod": 8,
-        "total": 11,
-        "cite": "Book 1 p. 86 chart 12 D (Money column, 1D+8)"
-      }
-    },
-    {
-      "seq": 451,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 450,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Marine",
-        "delta": 60000
       }
     },
     {
@@ -6884,20 +6877,6 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Which column for this Marine muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 453,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
         "prompt": "How much of the Terms DM to apply?",
         "options": [
           "+0",
@@ -6915,7 +6894,7 @@
       }
     },
     {
-      "seq": 454,
+      "seq": 453,
       "kind": "throw",
       "throw": {
         "expr": "1D+8",
@@ -6928,14 +6907,28 @@
       }
     },
     {
-      "seq": 455,
+      "seq": 454,
       "kind": "consequence",
       "consequence": {
-        "cause": 454,
+        "cause": 453,
         "kind": "benefit",
         "skill": "Money",
         "career": "Marine",
         "delta": 60000
+      }
+    },
+    {
+      "seq": 455,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Marine muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
       }
     },
     {
@@ -6943,20 +6936,6 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Which column for this Marine muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 457,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
         "prompt": "How much of the Terms DM to apply?",
         "options": [
           "+0",
@@ -6974,7 +6953,7 @@
       }
     },
     {
-      "seq": 458,
+      "seq": 457,
       "kind": "throw",
       "throw": {
         "expr": "1D+8",
@@ -6987,14 +6966,28 @@
       }
     },
     {
-      "seq": 459,
+      "seq": 458,
       "kind": "consequence",
       "consequence": {
-        "cause": 458,
+        "cause": 457,
         "kind": "benefit",
         "skill": "Money",
         "career": "Marine",
         "delta": 60000
+      }
+    },
+    {
+      "seq": 459,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Marine muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
       }
     },
     {
@@ -7002,20 +6995,6 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Which column for this Marine muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 461,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
         "prompt": "How much of the Terms DM to apply?",
         "options": [
           "+0",
@@ -7033,27 +7012,41 @@
       }
     },
     {
-      "seq": 462,
+      "seq": 461,
       "kind": "throw",
       "throw": {
         "expr": "1D+8",
         "dice": [
-          1
+          3
         ],
         "mod": 8,
-        "total": 9,
+        "total": 11,
         "cite": "Book 1 p. 86 chart 12 D (Money column, 1D+8)"
       }
     },
     {
-      "seq": 463,
+      "seq": 462,
       "kind": "consequence",
       "consequence": {
-        "cause": 462,
+        "cause": 461,
         "kind": "benefit",
-        "skill": "Retirement x2",
+        "skill": "Money",
         "career": "Marine",
-        "value": 1
+        "delta": 60000
+      }
+    },
+    {
+      "seq": 463,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Marine muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
       }
     },
     {
@@ -7061,20 +7054,6 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Which column for this Marine muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 465,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
         "prompt": "How much of the Terms DM to apply?",
         "options": [
           "+0",
@@ -7092,7 +7071,7 @@
       }
     },
     {
-      "seq": 466,
+      "seq": 465,
       "kind": "throw",
       "throw": {
         "expr": "1D+8",
@@ -7105,14 +7084,28 @@
       }
     },
     {
-      "seq": 467,
+      "seq": 466,
       "kind": "consequence",
       "consequence": {
-        "cause": 466,
+        "cause": 465,
         "kind": "benefit",
         "skill": "Retirement x2",
         "career": "Marine",
         "value": 1
+      }
+    },
+    {
+      "seq": 467,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Marine muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
       }
     },
     {
@@ -7120,97 +7113,24 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Which column for this Marine muster-out roll?",
+        "prompt": "How much of the Terms DM to apply?",
         "options": [
-          "Money",
-          "Benefits"
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8"
         ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
+        "chosen": 8,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
       }
     },
     {
       "seq": 469,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8"
-        ],
-        "chosen": 8,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 470,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+8",
-        "dice": [
-          3
-        ],
-        "mod": 8,
-        "total": 11,
-        "cite": "Book 1 p. 86 chart 12 D (Money column, 1D+8)"
-      }
-    },
-    {
-      "seq": 471,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 470,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Marine",
-        "delta": 60000
-      }
-    },
-    {
-      "seq": 472,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Marine muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 473,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8"
-        ],
-        "chosen": 8,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 474,
       "kind": "throw",
       "throw": {
         "expr": "1D+8",
@@ -7223,10 +7143,10 @@
       }
     },
     {
-      "seq": 475,
+      "seq": 470,
       "kind": "consequence",
       "consequence": {
-        "cause": 474,
+        "cause": 469,
         "kind": "benefit",
         "skill": "Retirement x2",
         "career": "Marine",
@@ -7234,7 +7154,7 @@
       }
     },
     {
-      "seq": 476,
+      "seq": 471,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -7248,7 +7168,7 @@
       }
     },
     {
-      "seq": 477,
+      "seq": 472,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -7269,7 +7189,7 @@
       }
     },
     {
-      "seq": 478,
+      "seq": 473,
       "kind": "throw",
       "throw": {
         "expr": "1D+8",
@@ -7282,10 +7202,10 @@
       }
     },
     {
-      "seq": 479,
+      "seq": 474,
       "kind": "consequence",
       "consequence": {
-        "cause": 478,
+        "cause": 473,
         "kind": "benefit",
         "skill": "Money",
         "career": "Marine",
@@ -7293,7 +7213,7 @@
       }
     },
     {
-      "seq": 480,
+      "seq": 475,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -7307,7 +7227,7 @@
       }
     },
     {
-      "seq": 481,
+      "seq": 476,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -7328,7 +7248,125 @@
       }
     },
     {
+      "seq": 477,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+8",
+        "dice": [
+          1
+        ],
+        "mod": 8,
+        "total": 9,
+        "cite": "Book 1 p. 86 chart 12 D (Money column, 1D+8)"
+      }
+    },
+    {
+      "seq": 478,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 477,
+        "kind": "benefit",
+        "skill": "Retirement x2",
+        "career": "Marine",
+        "value": 1
+      }
+    },
+    {
+      "seq": 479,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Marine muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 480,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8"
+        ],
+        "chosen": 8,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 481,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+8",
+        "dice": [
+          3
+        ],
+        "mod": 8,
+        "total": 11,
+        "cite": "Book 1 p. 86 chart 12 D (Money column, 1D+8)"
+      }
+    },
+    {
       "seq": 482,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 481,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Marine",
+        "delta": 60000
+      }
+    },
+    {
+      "seq": 483,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Marine muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 484,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8"
+        ],
+        "chosen": 8,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 485,
       "kind": "throw",
       "throw": {
         "expr": "1D+8",
@@ -7341,10 +7379,10 @@
       }
     },
     {
-      "seq": 483,
+      "seq": 486,
       "kind": "consequence",
       "consequence": {
-        "cause": 482,
+        "cause": 485,
         "kind": "benefit",
         "skill": "Money",
         "career": "Marine",
@@ -7352,7 +7390,7 @@
       }
     },
     {
-      "seq": 484,
+      "seq": 487,
       "kind": "step",
       "step": {
         "name": "Muster Out: Entitlements",
@@ -7360,7 +7398,7 @@
       }
     },
     {
-      "seq": 485,
+      "seq": 488,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -7374,10 +7412,10 @@
       }
     },
     {
-      "seq": 486,
+      "seq": 489,
       "kind": "consequence",
       "consequence": {
-        "cause": 485,
+        "cause": 488,
         "kind": "entitlement",
         "skill": "Reserve Pension",
         "delta": 400,
@@ -7385,7 +7423,7 @@
       }
     },
     {
-      "seq": 487,
+      "seq": 490,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -7399,10 +7437,10 @@
       }
     },
     {
-      "seq": 488,
+      "seq": 491,
       "kind": "consequence",
       "consequence": {
-        "cause": 487,
+        "cause": 490,
         "kind": "entitlement",
         "skill": "Officer Retirement",
         "delta": 96000,
@@ -7410,7 +7448,7 @@
       }
     },
     {
-      "seq": 489,
+      "seq": 492,
       "kind": "step",
       "step": {
         "name": "Record the Character's Birthdate",
@@ -7418,7 +7456,7 @@
       }
     },
     {
-      "seq": 490,
+      "seq": 493,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -7433,10 +7471,10 @@
       }
     },
     {
-      "seq": 491,
+      "seq": 494,
       "kind": "consequence",
       "consequence": {
-        "cause": 490,
+        "cause": 493,
         "kind": "birthdate",
         "detail": "Thirday 361-1043",
         "value": 1043

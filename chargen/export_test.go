@@ -68,3 +68,10 @@ func AwardForTest(name string, levels int) (Character, error) {
 
 	return character, err
 }
+
+// TermsLivedForTest exports the World Knowledge count so the age it
+// anchors on can be measured directly. p. 134 counts "from age 2", and
+// at the ordinary career start of 18 that is indistinguishable from
+// counting from 0 — both give four terms — so a sweep over generated
+// characters cannot see the anchor at all.
+func TermsLivedForTest(careerStartAge int) int { return termsLived(careerStartAge) }

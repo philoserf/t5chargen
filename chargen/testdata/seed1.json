@@ -1,7 +1,7 @@
 {
   "schema_version": "0.33.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.43.0",
+  "engine_version": "0.44.0",
   "policy_version": "0.25.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -88,6 +88,10 @@
       "level": 8
     },
     {
+      "name": "Career: Citizen",
+      "level": 6
+    },
+    {
       "name": "Computer",
       "level": 15
     },
@@ -102,6 +106,10 @@
     {
       "name": "Trader",
       "level": 10
+    },
+    {
+      "name": "World: Regina",
+      "level": 5
     }
   ],
   "careers": [
@@ -9097,12 +9105,42 @@
       "seq": 637,
       "kind": "step",
       "step": {
+        "name": "Career and World Knowledges",
+        "cite": "Book 1 p. 134; chart MS p. 132"
+      }
+    },
+    {
+      "seq": 638,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 637,
+        "kind": "skill_awarded",
+        "skill": "Career: Citizen",
+        "delta": 6,
+        "value": 6
+      }
+    },
+    {
+      "seq": 639,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 637,
+        "kind": "skill_awarded",
+        "skill": "World: Regina",
+        "delta": 5,
+        "value": 5
+      }
+    },
+    {
+      "seq": 640,
+      "kind": "step",
+      "step": {
         "name": "Determine Fame",
         "cite": "Book 1 p. 91 chart F"
       }
     },
     {
-      "seq": 638,
+      "seq": 641,
       "kind": "throw",
       "throw": {
         "expr": "1D",
@@ -9114,7 +9152,7 @@
       }
     },
     {
-      "seq": 639,
+      "seq": 642,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -9128,10 +9166,10 @@
       }
     },
     {
-      "seq": 640,
+      "seq": 643,
       "kind": "consequence",
       "consequence": {
-        "cause": 639,
+        "cause": 642,
         "kind": "fame_computed",
         "skill": "Close Family",
         "value": 2,
@@ -9144,7 +9182,7 @@
       }
     },
     {
-      "seq": 641,
+      "seq": 644,
       "kind": "step",
       "step": {
         "name": "Muster Out",
@@ -9152,7 +9190,7 @@
       }
     },
     {
-      "seq": 642,
+      "seq": 645,
       "kind": "step",
       "step": {
         "name": "Muster Out: Citizen",
@@ -9160,7 +9198,7 @@
       }
     },
     {
-      "seq": 643,
+      "seq": 646,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -9171,63 +9209,6 @@
         ],
         "chosen": 0,
         "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 644,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16",
-          "+17",
-          "+18",
-          "+19",
-          "+20"
-        ],
-        "chosen": 20,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 645,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+20",
-        "dice": [
-          4
-        ],
-        "mod": 20,
-        "total": 24,
-        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
-      }
-    },
-    {
-      "seq": 646,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 645,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Citizen",
-        "delta": 50000
       }
     },
     {
@@ -9235,334 +9216,36 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Which column for this Citizen muster-out roll?",
+        "prompt": "How much of the Terms DM to apply?",
         "options": [
-          "Money",
-          "Benefits"
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17",
+          "+18",
+          "+19",
+          "+20"
         ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
+        "chosen": 20,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
       }
     },
     {
       "seq": 648,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16",
-          "+17",
-          "+18",
-          "+19",
-          "+20"
-        ],
-        "chosen": 20,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 649,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+20",
-        "dice": [
-          2
-        ],
-        "mod": 20,
-        "total": 22,
-        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
-      }
-    },
-    {
-      "seq": 650,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 649,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Citizen",
-        "delta": 50000
-      }
-    },
-    {
-      "seq": 651,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Citizen muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 652,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16",
-          "+17",
-          "+18",
-          "+19",
-          "+20"
-        ],
-        "chosen": 20,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 653,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+20",
-        "dice": [
-          5
-        ],
-        "mod": 20,
-        "total": 25,
-        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
-      }
-    },
-    {
-      "seq": 654,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 653,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Citizen",
-        "delta": 50000
-      }
-    },
-    {
-      "seq": 655,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Citizen muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 656,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16",
-          "+17",
-          "+18",
-          "+19",
-          "+20"
-        ],
-        "chosen": 20,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 657,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+20",
-        "dice": [
-          6
-        ],
-        "mod": 20,
-        "total": 26,
-        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
-      }
-    },
-    {
-      "seq": 658,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 657,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Citizen",
-        "delta": 50000
-      }
-    },
-    {
-      "seq": 659,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Citizen muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 660,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16",
-          "+17",
-          "+18",
-          "+19",
-          "+20"
-        ],
-        "chosen": 20,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 661,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+20",
-        "dice": [
-          1
-        ],
-        "mod": 20,
-        "total": 21,
-        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
-      }
-    },
-    {
-      "seq": 662,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 661,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Citizen",
-        "delta": 50000
-      }
-    },
-    {
-      "seq": 663,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Citizen muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 664,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16",
-          "+17",
-          "+18",
-          "+19",
-          "+20"
-        ],
-        "chosen": 20,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 665,
       "kind": "throw",
       "throw": {
         "expr": "1D+20",
@@ -9575,10 +9258,10 @@
       }
     },
     {
-      "seq": 666,
+      "seq": 649,
       "kind": "consequence",
       "consequence": {
-        "cause": 665,
+        "cause": 648,
         "kind": "benefit",
         "skill": "Money",
         "career": "Citizen",
@@ -9586,7 +9269,7 @@
       }
     },
     {
-      "seq": 667,
+      "seq": 650,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -9600,7 +9283,7 @@
       }
     },
     {
-      "seq": 668,
+      "seq": 651,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -9633,504 +9316,7 @@
       }
     },
     {
-      "seq": 669,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+20",
-        "dice": [
-          1
-        ],
-        "mod": 20,
-        "total": 21,
-        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
-      }
-    },
-    {
-      "seq": 670,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 669,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Citizen",
-        "delta": 50000
-      }
-    },
-    {
-      "seq": 671,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Citizen muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 672,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16",
-          "+17",
-          "+18",
-          "+19",
-          "+20"
-        ],
-        "chosen": 20,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 673,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+20",
-        "dice": [
-          6
-        ],
-        "mod": 20,
-        "total": 26,
-        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
-      }
-    },
-    {
-      "seq": 674,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 673,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Citizen",
-        "delta": 50000
-      }
-    },
-    {
-      "seq": 675,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Citizen muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 676,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16",
-          "+17",
-          "+18",
-          "+19",
-          "+20"
-        ],
-        "chosen": 20,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 677,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+20",
-        "dice": [
-          6
-        ],
-        "mod": 20,
-        "total": 26,
-        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
-      }
-    },
-    {
-      "seq": 678,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 677,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Citizen",
-        "delta": 50000
-      }
-    },
-    {
-      "seq": 679,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Citizen muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 680,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16",
-          "+17",
-          "+18",
-          "+19",
-          "+20"
-        ],
-        "chosen": 20,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 681,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+20",
-        "dice": [
-          1
-        ],
-        "mod": 20,
-        "total": 21,
-        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
-      }
-    },
-    {
-      "seq": 682,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 681,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Citizen",
-        "delta": 50000
-      }
-    },
-    {
-      "seq": 683,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Citizen muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 684,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16",
-          "+17",
-          "+18",
-          "+19",
-          "+20"
-        ],
-        "chosen": 20,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 685,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+20",
-        "dice": [
-          5
-        ],
-        "mod": 20,
-        "total": 25,
-        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
-      }
-    },
-    {
-      "seq": 686,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 685,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Citizen",
-        "delta": 50000
-      }
-    },
-    {
-      "seq": 687,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Citizen muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 688,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16",
-          "+17",
-          "+18",
-          "+19",
-          "+20"
-        ],
-        "chosen": 20,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 689,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+20",
-        "dice": [
-          6
-        ],
-        "mod": 20,
-        "total": 26,
-        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
-      }
-    },
-    {
-      "seq": 690,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 689,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Citizen",
-        "delta": 50000
-      }
-    },
-    {
-      "seq": 691,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Citizen muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 692,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16",
-          "+17",
-          "+18",
-          "+19",
-          "+20"
-        ],
-        "chosen": 20,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 693,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+20",
-        "dice": [
-          6
-        ],
-        "mod": 20,
-        "total": 26,
-        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
-      }
-    },
-    {
-      "seq": 694,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 693,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Citizen",
-        "delta": 50000
-      }
-    },
-    {
-      "seq": 695,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Citizen muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 696,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16",
-          "+17",
-          "+18",
-          "+19",
-          "+20"
-        ],
-        "chosen": 20,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 697,
+      "seq": 652,
       "kind": "throw",
       "throw": {
         "expr": "1D+20",
@@ -10143,10 +9329,10 @@
       }
     },
     {
-      "seq": 698,
+      "seq": 653,
       "kind": "consequence",
       "consequence": {
-        "cause": 697,
+        "cause": 652,
         "kind": "benefit",
         "skill": "Money",
         "career": "Citizen",
@@ -10154,7 +9340,7 @@
       }
     },
     {
-      "seq": 699,
+      "seq": 654,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -10168,7 +9354,7 @@
       }
     },
     {
-      "seq": 700,
+      "seq": 655,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -10201,7 +9387,7 @@
       }
     },
     {
-      "seq": 701,
+      "seq": 656,
       "kind": "throw",
       "throw": {
         "expr": "1D+20",
@@ -10214,10 +9400,10 @@
       }
     },
     {
-      "seq": 702,
+      "seq": 657,
       "kind": "consequence",
       "consequence": {
-        "cause": 701,
+        "cause": 656,
         "kind": "benefit",
         "skill": "Money",
         "career": "Citizen",
@@ -10225,7 +9411,7 @@
       }
     },
     {
-      "seq": 703,
+      "seq": 658,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -10239,7 +9425,7 @@
       }
     },
     {
-      "seq": 704,
+      "seq": 659,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -10272,7 +9458,859 @@
       }
     },
     {
+      "seq": 660,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+20",
+        "dice": [
+          6
+        ],
+        "mod": 20,
+        "total": 26,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
+      }
+    },
+    {
+      "seq": 661,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 660,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Citizen",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 662,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Citizen muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 663,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17",
+          "+18",
+          "+19",
+          "+20"
+        ],
+        "chosen": 20,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 664,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+20",
+        "dice": [
+          1
+        ],
+        "mod": 20,
+        "total": 21,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
+      }
+    },
+    {
+      "seq": 665,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 664,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Citizen",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 666,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Citizen muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 667,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17",
+          "+18",
+          "+19",
+          "+20"
+        ],
+        "chosen": 20,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 668,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+20",
+        "dice": [
+          4
+        ],
+        "mod": 20,
+        "total": 24,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
+      }
+    },
+    {
+      "seq": 669,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 668,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Citizen",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 670,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Citizen muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 671,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17",
+          "+18",
+          "+19",
+          "+20"
+        ],
+        "chosen": 20,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 672,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+20",
+        "dice": [
+          1
+        ],
+        "mod": 20,
+        "total": 21,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
+      }
+    },
+    {
+      "seq": 673,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 672,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Citizen",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 674,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Citizen muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 675,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17",
+          "+18",
+          "+19",
+          "+20"
+        ],
+        "chosen": 20,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 676,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+20",
+        "dice": [
+          6
+        ],
+        "mod": 20,
+        "total": 26,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
+      }
+    },
+    {
+      "seq": 677,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 676,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Citizen",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 678,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Citizen muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 679,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17",
+          "+18",
+          "+19",
+          "+20"
+        ],
+        "chosen": 20,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 680,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+20",
+        "dice": [
+          6
+        ],
+        "mod": 20,
+        "total": 26,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
+      }
+    },
+    {
+      "seq": 681,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 680,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Citizen",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 682,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Citizen muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 683,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17",
+          "+18",
+          "+19",
+          "+20"
+        ],
+        "chosen": 20,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 684,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+20",
+        "dice": [
+          1
+        ],
+        "mod": 20,
+        "total": 21,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
+      }
+    },
+    {
+      "seq": 685,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 684,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Citizen",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 686,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Citizen muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 687,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17",
+          "+18",
+          "+19",
+          "+20"
+        ],
+        "chosen": 20,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 688,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+20",
+        "dice": [
+          5
+        ],
+        "mod": 20,
+        "total": 25,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
+      }
+    },
+    {
+      "seq": 689,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 688,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Citizen",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 690,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Citizen muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 691,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17",
+          "+18",
+          "+19",
+          "+20"
+        ],
+        "chosen": 20,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 692,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+20",
+        "dice": [
+          6
+        ],
+        "mod": 20,
+        "total": 26,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
+      }
+    },
+    {
+      "seq": 693,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 692,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Citizen",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 694,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Citizen muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 695,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17",
+          "+18",
+          "+19",
+          "+20"
+        ],
+        "chosen": 20,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 696,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+20",
+        "dice": [
+          6
+        ],
+        "mod": 20,
+        "total": 26,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
+      }
+    },
+    {
+      "seq": 697,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 696,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Citizen",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 698,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Citizen muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 699,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17",
+          "+18",
+          "+19",
+          "+20"
+        ],
+        "chosen": 20,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 700,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+20",
+        "dice": [
+          2
+        ],
+        "mod": 20,
+        "total": 22,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
+      }
+    },
+    {
+      "seq": 701,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 700,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Citizen",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 702,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Citizen muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 703,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17",
+          "+18",
+          "+19",
+          "+20"
+        ],
+        "chosen": 20,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 704,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+20",
+        "dice": [
+          5
+        ],
+        "mod": 20,
+        "total": 25,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
+      }
+    },
+    {
       "seq": 705,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 704,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Citizen",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 706,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Citizen muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 707,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17",
+          "+18",
+          "+19",
+          "+20"
+        ],
+        "chosen": 20,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 708,
       "kind": "throw",
       "throw": {
         "expr": "1D+20",
@@ -10285,10 +10323,10 @@
       }
     },
     {
-      "seq": 706,
+      "seq": 709,
       "kind": "consequence",
       "consequence": {
-        "cause": 705,
+        "cause": 708,
         "kind": "benefit",
         "skill": "Money",
         "career": "Citizen",
@@ -10296,7 +10334,7 @@
       }
     },
     {
-      "seq": 707,
+      "seq": 710,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -10307,63 +10345,6 @@
         ],
         "chosen": 0,
         "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 708,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6",
-          "+7",
-          "+8",
-          "+9",
-          "+10",
-          "+11",
-          "+12",
-          "+13",
-          "+14",
-          "+15",
-          "+16",
-          "+17",
-          "+18",
-          "+19",
-          "+20"
-        ],
-        "chosen": 20,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 709,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+20",
-        "dice": [
-          2
-        ],
-        "mod": 20,
-        "total": 22,
-        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
-      }
-    },
-    {
-      "seq": 710,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 709,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Citizen",
-        "delta": 50000
       }
     },
     {
@@ -10371,20 +10352,6 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Which column for this Citizen muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 712,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
         "prompt": "How much of the Terms DM to apply?",
         "options": [
           "+0",
@@ -10414,7 +10381,7 @@
       }
     },
     {
-      "seq": 713,
+      "seq": 712,
       "kind": "throw",
       "throw": {
         "expr": "1D+20",
@@ -10427,10 +10394,10 @@
       }
     },
     {
-      "seq": 714,
+      "seq": 713,
       "kind": "consequence",
       "consequence": {
-        "cause": 713,
+        "cause": 712,
         "kind": "benefit",
         "skill": "Money",
         "career": "Citizen",
@@ -10438,7 +10405,7 @@
       }
     },
     {
-      "seq": 715,
+      "seq": 714,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -10452,7 +10419,7 @@
       }
     },
     {
-      "seq": 716,
+      "seq": 715,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -10485,7 +10452,78 @@
       }
     },
     {
+      "seq": 716,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+20",
+        "dice": [
+          2
+        ],
+        "mod": 20,
+        "total": 22,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+20)"
+      }
+    },
+    {
       "seq": 717,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 716,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Citizen",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 718,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Citizen muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 719,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6",
+          "+7",
+          "+8",
+          "+9",
+          "+10",
+          "+11",
+          "+12",
+          "+13",
+          "+14",
+          "+15",
+          "+16",
+          "+17",
+          "+18",
+          "+19",
+          "+20"
+        ],
+        "chosen": 20,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 720,
       "kind": "throw",
       "throw": {
         "expr": "1D+20",
@@ -10498,10 +10536,10 @@
       }
     },
     {
-      "seq": 718,
+      "seq": 721,
       "kind": "consequence",
       "consequence": {
-        "cause": 717,
+        "cause": 720,
         "kind": "benefit",
         "skill": "Money",
         "career": "Citizen",
@@ -10509,7 +10547,7 @@
       }
     },
     {
-      "seq": 719,
+      "seq": 722,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -10523,7 +10561,7 @@
       }
     },
     {
-      "seq": 720,
+      "seq": 723,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -10556,7 +10594,7 @@
       }
     },
     {
-      "seq": 721,
+      "seq": 724,
       "kind": "throw",
       "throw": {
         "expr": "1D+20",
@@ -10569,10 +10607,10 @@
       }
     },
     {
-      "seq": 722,
+      "seq": 725,
       "kind": "consequence",
       "consequence": {
-        "cause": 721,
+        "cause": 724,
         "kind": "benefit",
         "skill": "Money",
         "career": "Citizen",
@@ -10580,7 +10618,7 @@
       }
     },
     {
-      "seq": 723,
+      "seq": 726,
       "kind": "step",
       "step": {
         "name": "Muster Out: Entitlements",
@@ -10588,7 +10626,7 @@
       }
     },
     {
-      "seq": 724,
+      "seq": 727,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -10602,10 +10640,10 @@
       }
     },
     {
-      "seq": 725,
+      "seq": 728,
       "kind": "consequence",
       "consequence": {
-        "cause": 724,
+        "cause": 727,
         "kind": "entitlement",
         "skill": "Citizen's Pension",
         "delta": 5000,
@@ -10613,7 +10651,7 @@
       }
     },
     {
-      "seq": 726,
+      "seq": 729,
       "kind": "step",
       "step": {
         "name": "Record the Character's Birthdate",
@@ -10621,7 +10659,7 @@
       }
     },
     {
-      "seq": 727,
+      "seq": 730,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -10636,10 +10674,10 @@
       }
     },
     {
-      "seq": 728,
+      "seq": 731,
       "kind": "consequence",
       "consequence": {
-        "cause": 727,
+        "cause": 730,
         "kind": "birthdate",
         "detail": "Forday 103-995",
         "value": 995

@@ -1,7 +1,7 @@
 {
   "schema_version": "0.33.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.43.0",
+  "engine_version": "0.44.0",
   "policy_version": "0.25.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -77,6 +77,10 @@
       "level": 15
     },
     {
+      "name": "Career: Rogue",
+      "level": 6
+    },
+    {
       "name": "Computer",
       "level": 15
     },
@@ -96,6 +100,10 @@
     {
       "name": "Trader",
       "level": 11
+    },
+    {
+      "name": "World: Regina",
+      "level": 5
     }
   ],
   "careers": [
@@ -9068,12 +9076,42 @@
       "seq": 607,
       "kind": "step",
       "step": {
+        "name": "Career and World Knowledges",
+        "cite": "Book 1 p. 134; chart MS p. 132"
+      }
+    },
+    {
+      "seq": 608,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 607,
+        "kind": "skill_awarded",
+        "skill": "Career: Rogue",
+        "delta": 6,
+        "value": 6
+      }
+    },
+    {
+      "seq": 609,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 607,
+        "kind": "skill_awarded",
+        "skill": "World: Regina",
+        "delta": 5,
+        "value": 5
+      }
+    },
+    {
+      "seq": 610,
+      "kind": "step",
+      "step": {
         "name": "Determine Fame",
         "cite": "Book 1 p. 91 chart F"
       }
     },
     {
-      "seq": 608,
+      "seq": 611,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -9087,10 +9125,10 @@
       }
     },
     {
-      "seq": 609,
+      "seq": 612,
       "kind": "consequence",
       "consequence": {
-        "cause": 608,
+        "cause": 611,
         "kind": "fame_computed",
         "skill": "Sector",
         "value": 20,
@@ -9107,7 +9145,7 @@
       }
     },
     {
-      "seq": 610,
+      "seq": 613,
       "kind": "step",
       "step": {
         "name": "Record the Character's Birthdate",
@@ -9115,7 +9153,7 @@
       }
     },
     {
-      "seq": 611,
+      "seq": 614,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -9130,10 +9168,10 @@
       }
     },
     {
-      "seq": 612,
+      "seq": 615,
       "kind": "consequence",
       "consequence": {
-        "cause": 611,
+        "cause": 614,
         "kind": "birthdate",
         "detail": "Senday 274-1007",
         "value": 1007

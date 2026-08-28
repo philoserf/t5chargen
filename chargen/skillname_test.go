@@ -21,7 +21,11 @@ func TestAwardedSkillsAreCanonical(t *testing.T) {
 		}
 
 		for _, held := range c.Skills {
-			if _, ok := skill.Lookup(held.Name); !ok {
+			// Chart MS's Specialized block prints two open patterns —
+			// "Career: <Name>", "World: <Name>", "[others are
+			// possible]" — so those names are chart MS entries without
+			// being rows Lookup can hold (p. 132).
+			if _, ok := skill.Lookup(held.Name); !ok && !skill.Specialized(held.Name) {
 				t.Errorf("seed %d: skill %q is not a Master Skill List entry", seed, held.Name)
 			}
 		}

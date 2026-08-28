@@ -20,7 +20,7 @@
 
 **Career**: Functionary (8 terms), 2nd UnderSecretary F7, associated with Scholar
 
-**Skills**: ACV-5, Actor-10, Admin-1, Archeology-3, Astrogator-1, Biologics-7, Bureaucrat-12, Hostile Environ-1, Leader-8, Survey-1, Trader-1
+**Skills**: ACV-5, Actor-10, Admin-1, Archeology-3, Astrogator-1, Biologics-7, Bureaucrat-12, Career: Functionary-6, Career: Scholar-1, Hostile Environ-1, Leader-8, Survey-1, Trader-1, World: Regina-4
 
 **Credits**: Cr35800
 
@@ -34,6 +34,6 @@
 
 ---
 
-Seed 305 (math/rand/v2-pcg) · schema 0.33.0 · engine 0.43.0 · policy none
+Seed 305 (math/rand/v2-pcg) · schema 0.33.0 · engine 0.44.0 · policy none
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

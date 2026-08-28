@@ -354,12 +354,20 @@ _Book 1 p. 87 chart 13_
 - #289 2D = 5+5 = 10 vs 7: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 7, age 54)
   - #290 (from #263) career ended (Functionary)
 
+## Career and World Knowledges
+
+_Book 1 p. 134; chart MS p. 132_
+
+  - #292 (from #291) Career: Scholar +1 = Career: Scholar-1
+  - #293 (from #291) Career: Functionary +6 = Career: Functionary-6
+  - #294 (from #291) World: Regina +4 = World: Regina-4
+
 ## Determine Fame
 
 _Book 1 p. 91 chart F_
 
-- #292 player chose "Keep this Fame" of [Keep this Fame, Add Flux to Fame]: Invoke the Fame Flux Event? (Fame 2 so far) — Book 1 p. 91 chart F (The Fame Flux Event)
-  - #293 (from #292) Fame 2 (Close Family) = Scholar Publications +2
+- #296 player chose "Keep this Fame" of [Keep this Fame, Add Flux to Fame]: Invoke the Fame Flux Event? (Fame 2 so far) — Book 1 p. 91 chart F (The Fame Flux Event)
+  - #297 (from #296) Fame 2 (Close Family) = Scholar Publications +2
 
 ## Muster Out
 
@@ -370,18 +378,14 @@ _Book 1 p. 67; chart M1 p. 70_
 
 _Book 1 p. 76 chart 02 D_
 
-- #296 player chose "Money" of [Money, Benefits]: Which column for this Scholar muster-out roll? — Book 1 p. 68 (Which Column?)
-- #297 1D = 2 = 2 — Book 1 p. 76 chart 02 D (Money column, 1D+0)
-  - #298 (from #297) Low Passage
+- #300 player chose "Money" of [Money, Benefits]: Which column for this Scholar muster-out roll? — Book 1 p. 68 (Which Column?)
+- #301 1D = 2 = 2 — Book 1 p. 76 chart 02 D (Money column, 1D+0)
+  - #302 (from #301) Low Passage
 
 ## Muster Out: Functionary
 
 _Book 1 p. 87 chart 13 D_
 
-- #300 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
-- #301 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #302 1D+8 = 4 = 12 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
-  - #303 (from #302) Pension x2
 - #304 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
 - #305 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
 - #306 1D+8 = 4 = 12 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
@@ -392,35 +396,39 @@ _Book 1 p. 87 chart 13 D_
   - #311 (from #310) Pension x2
 - #312 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
 - #313 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #314 1D+8 = 6 = 14 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
+- #314 1D+8 = 4 = 12 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
   - #315 (from #314) Pension x2
 - #316 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
 - #317 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #318 1D+8 = 2 = 10 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
+- #318 1D+8 = 6 = 14 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
   - #319 (from #318) Pension x2
 - #320 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
 - #321 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #322 1D+8 = 6 = 14 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
+- #322 1D+8 = 2 = 10 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
   - #323 (from #322) Pension x2
 - #324 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
 - #325 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #326 1D+8 = 4 = 12 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
+- #326 1D+8 = 6 = 14 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
   - #327 (from #326) Pension x2
 - #328 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
 - #329 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #330 1D+8 = 1 = 9 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
-  - #331 (from #330) Money, worth Cr35000
+- #330 1D+8 = 4 = 12 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
+  - #331 (from #330) Pension x2
+- #332 player chose "Money" of [Money, Benefits]: Which column for this Functionary muster-out roll? — Book 1 p. 68 (Which Column?)
+- #333 player chose "+8" of [+0, +1, +2, +3, +4, +5, +6, +7, +8]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #334 1D+8 = 1 = 9 — Book 1 p. 87 chart 13 D (Money column, 1D+8)
+  - #335 (from #334) Money, worth Cr35000
 
 ## Muster Out: Entitlements
 
 _Book 1 p. 70 chart M1_
 
-- #333 player chose "Keep it (Cr120000 a year from age 66)" of [Keep it (Cr120000 a year from age 66), Cash out (Cr600000)]: Cash out the Functionary's Pension? — Book 1 p. 69 (Cashing Out)
-  - #334 (from #333) Functionary's Pension, Cr120000 a year from age 66
+- #337 player chose "Keep it (Cr120000 a year from age 66)" of [Keep it (Cr120000 a year from age 66), Cash out (Cr600000)]: Cash out the Functionary's Pension? — Book 1 p. 69 (Cashing Out)
+  - #338 (from #337) Functionary's Pension, Cr120000 a year from age 66
 
 ## Record the Character's Birthdate
 
 _Book 1 p. 58; p. 263_
 
-- #336 4D = 4+5+3+2 = 14 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
-  - #337 (from #336) born Forday 243-1050
+- #340 4D = 4+5+3+2 = 14 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
+  - #341 (from #340) born Forday 243-1050

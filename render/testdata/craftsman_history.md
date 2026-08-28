@@ -424,12 +424,21 @@ _Book 1 p. 75 chart 01_
 - #343 2D = 6+5 = 11 vs 8: failure — Book 1 p. 89 chart A (The Stages of Life) (Aging Check vs Life Stage 8, age 58)
   - #344 (from #338) career ended (Craftsman)
 
+## Career and World Knowledges
+
+_Book 1 p. 134; chart MS p. 132_
+
+  - #346 (from #345) Career: Citizen +4 = Career: Citizen-4
+  - #347 (from #345) Career: Scholar +1 = Career: Scholar-1
+  - #348 (from #345) Career: Craftsman +5 = Career: Craftsman-5
+  - #349 (from #345) World: Regina +4 = World: Regina-4
+
 ## Determine Fame
 
 _Book 1 p. 91 chart F_
 
-- #346 player chose "Keep this Fame" of [Keep this Fame, Add Flux to Fame]: Invoke the Fame Flux Event? (Fame 20 so far) — Book 1 p. 91 chart F (The Fame Flux Event)
-  - #347 (from #346) Fame 20 (Sector) = Scholar Rank +2, Scholar Publications +1, Craftsman Masterpieces x3 +12, Craftsman Perfect Masterpieces x5 +5
+- #351 player chose "Keep this Fame" of [Keep this Fame, Add Flux to Fame]: Invoke the Fame Flux Event? (Fame 20 so far) — Book 1 p. 91 chart F (The Fame Flux Event)
+  - #352 (from #351) Fame 20 (Sector) = Scholar Rank +2, Scholar Publications +1, Craftsman Masterpieces x3 +12, Craftsman Perfect Masterpieces x5 +5
 
 ## Muster Out
 
@@ -440,72 +449,72 @@ _Book 1 p. 67; chart M1 p. 70_
 
 _Book 1 p. 78 chart 04 D_
 
-- #350 player chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #351 player chose "+4" of [+0, +1, +2, +3, +4]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #352 1D+4 = 3 = 7 — Book 1 p. 78 chart 04 D (Money column, 1D+4)
-  - #353 (from #352) Money, worth Cr25000
-- #354 player chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #355 player chose "+4" of [+0, +1, +2, +3, +4]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #356 1D+4 = 5 = 9 — Book 1 p. 78 chart 04 D (Money column, 1D+4)
-  - #357 (from #356) Money, worth Cr35000
-- #358 player chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #359 player chose "+4" of [+0, +1, +2, +3, +4]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #360 1D+4 = 1 = 5 — Book 1 p. 78 chart 04 D (Money column, 1D+4)
-  - #361 (from #360) Money, worth Cr15000
-- #362 player chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #363 player chose "+4" of [+0, +1, +2, +3, +4]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #364 1D+4 = 5 = 9 — Book 1 p. 78 chart 04 D (Money column, 1D+4)
-  - #365 (from #364) Money, worth Cr35000
-- #366 player chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #367 player chose "+4" of [+0, +1, +2, +3, +4]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #368 1D+4 = 5 = 9 — Book 1 p. 78 chart 04 D (Money column, 1D+4)
-  - #369 (from #368) Money, worth Cr35000
+- #355 player chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #356 player chose "+4" of [+0, +1, +2, +3, +4]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #357 1D+4 = 3 = 7 — Book 1 p. 78 chart 04 D (Money column, 1D+4)
+  - #358 (from #357) Money, worth Cr25000
+- #359 player chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #360 player chose "+4" of [+0, +1, +2, +3, +4]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #361 1D+4 = 5 = 9 — Book 1 p. 78 chart 04 D (Money column, 1D+4)
+  - #362 (from #361) Money, worth Cr35000
+- #363 player chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #364 player chose "+4" of [+0, +1, +2, +3, +4]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #365 1D+4 = 1 = 5 — Book 1 p. 78 chart 04 D (Money column, 1D+4)
+  - #366 (from #365) Money, worth Cr15000
+- #367 player chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #368 player chose "+4" of [+0, +1, +2, +3, +4]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #369 1D+4 = 5 = 9 — Book 1 p. 78 chart 04 D (Money column, 1D+4)
+  - #370 (from #369) Money, worth Cr35000
+- #371 player chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #372 player chose "+4" of [+0, +1, +2, +3, +4]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #373 1D+4 = 5 = 9 — Book 1 p. 78 chart 04 D (Money column, 1D+4)
+  - #374 (from #373) Money, worth Cr35000
 
 ## Muster Out: Scholar
 
 _Book 1 p. 76 chart 02 D_
 
-- #371 player chose "Money" of [Money, Benefits]: Which column for this Scholar muster-out roll? — Book 1 p. 68 (Which Column?)
-- #372 player chose "+2" of [+0, +1, +2]: How much of the Scholar Rank DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #373 1D+2 = 6 = 8 — Book 1 p. 76 chart 02 D (Money column, 1D+2)
-  - #374 (from #373) Money, worth Cr30000
+- #376 player chose "Money" of [Money, Benefits]: Which column for this Scholar muster-out roll? — Book 1 p. 68 (Which Column?)
+- #377 player chose "+2" of [+0, +1, +2]: How much of the Scholar Rank DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #378 1D+2 = 6 = 8 — Book 1 p. 76 chart 02 D (Money column, 1D+2)
+  - #379 (from #378) Money, worth Cr30000
 
 ## Muster Out: Craftsman
 
 _Book 1 p. 75 chart 01 D_
 
-- #376 player chose "Money" of [Money, Benefits]: Which column for this Craftsman muster-out roll? — Book 1 p. 68 (Which Column?)
-- #377 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #378 1D+5 = 4 = 9 — Book 1 p. 75 chart 01 D (Money column, 1D+5)
-  - #379 (from #378) Money, worth Cr35000
-- #380 player chose "Money" of [Money, Benefits]: Which column for this Craftsman muster-out roll? — Book 1 p. 68 (Which Column?)
-- #381 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #382 1D+5 = 5 = 10 — Book 1 p. 75 chart 01 D (Money column, 1D+5)
-  - #383 (from #382) Money, worth Cr40000
-- #384 player chose "Money" of [Money, Benefits]: Which column for this Craftsman muster-out roll? — Book 1 p. 68 (Which Column?)
-- #385 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #386 1D+5 = 6 = 11 — Book 1 p. 75 chart 01 D (Money column, 1D+5)
-  - #387 (from #386) Money, worth Cr50000
-- #388 player chose "Money" of [Money, Benefits]: Which column for this Craftsman muster-out roll? — Book 1 p. 68 (Which Column?)
-- #389 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #390 1D+5 = 1 = 6 — Book 1 p. 75 chart 01 D (Money column, 1D+5)
-  - #391 (from #390) StarPass
-- #392 player chose "Money" of [Money, Benefits]: Which column for this Craftsman muster-out roll? — Book 1 p. 68 (Which Column?)
-- #393 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #394 1D+5 = 2 = 7 — Book 1 p. 75 chart 01 D (Money column, 1D+5)
-  - #395 (from #394) Money, worth Cr25000
+- #381 player chose "Money" of [Money, Benefits]: Which column for this Craftsman muster-out roll? — Book 1 p. 68 (Which Column?)
+- #382 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #383 1D+5 = 4 = 9 — Book 1 p. 75 chart 01 D (Money column, 1D+5)
+  - #384 (from #383) Money, worth Cr35000
+- #385 player chose "Money" of [Money, Benefits]: Which column for this Craftsman muster-out roll? — Book 1 p. 68 (Which Column?)
+- #386 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #387 1D+5 = 5 = 10 — Book 1 p. 75 chart 01 D (Money column, 1D+5)
+  - #388 (from #387) Money, worth Cr40000
+- #389 player chose "Money" of [Money, Benefits]: Which column for this Craftsman muster-out roll? — Book 1 p. 68 (Which Column?)
+- #390 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #391 1D+5 = 6 = 11 — Book 1 p. 75 chart 01 D (Money column, 1D+5)
+  - #392 (from #391) Money, worth Cr50000
+- #393 player chose "Money" of [Money, Benefits]: Which column for this Craftsman muster-out roll? — Book 1 p. 68 (Which Column?)
+- #394 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #395 1D+5 = 1 = 6 — Book 1 p. 75 chart 01 D (Money column, 1D+5)
+  - #396 (from #395) StarPass
+- #397 player chose "Money" of [Money, Benefits]: Which column for this Craftsman muster-out roll? — Book 1 p. 68 (Which Column?)
+- #398 player chose "+5" of [+0, +1, +2, +3, +4, +5]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #399 1D+5 = 2 = 7 — Book 1 p. 75 chart 01 D (Money column, 1D+5)
+  - #400 (from #399) Money, worth Cr25000
 
 ## Muster Out: Entitlements
 
 _Book 1 p. 70 chart M1_
 
-- #397 player chose "Keep it (Cr5000 a year from age 66)" of [Keep it (Cr5000 a year from age 66), Cash out (Cr25000)]: Cash out the Citizen's Pension? — Book 1 p. 69 (Cashing Out)
-  - #398 (from #397) Citizen's Pension, Cr5000 a year from age 66
+- #402 player chose "Keep it (Cr5000 a year from age 66)" of [Keep it (Cr5000 a year from age 66), Cash out (Cr25000)]: Cash out the Citizen's Pension? — Book 1 p. 69 (Cashing Out)
+  - #403 (from #402) Citizen's Pension, Cr5000 a year from age 66
 
 ## Record the Character's Birthdate
 
 _Book 1 p. 58; p. 263_
 
-- #400 4D = 1+3+6+6 = 16 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
-- #401 4D = 4+2+6+3 = 15 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
-  - #402 (from #401) born Forday 264-1046
+- #405 4D = 1+3+6+6 = 16 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
+- #406 4D = 4+2+6+3 = 15 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
+  - #407 (from #406) born Forday 264-1046
