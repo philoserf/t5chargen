@@ -2,15 +2,37 @@
 
 Deliberate deviations from, and interpretations of ambiguities in,
 Traveller5 Core Rules Book 1, Print Edition 5.1. Nothing here is applied
-silently: entries are cited at the implementation site, and applied
-deviations are listed in each character record's `errata` field when they
-alter output relative to the printed rule. Interpretations (readings of
-ambiguous text, not deviations) are recorded here for audit but not stamped
-into records.
+silently: every entry is cited at the implementation site.
 
-## Interpretations
+Every entry names its classification on its heading line, because what an
+entry owes depends on which of the four it is.
 
-### I-1: Citizen Job roll landing on the "No Skill" cell (p. 78)
+| Classification         | What it is                                           | What it owes beyond a citation           |
+| ---------------------- | ---------------------------------------------------- | ---------------------------------------- |
+| **Interpretation**     | a reading of ambiguous text, inside the printed rule | nothing further                          |
+| **Deviation**          | a knowing departure from the printed rule            | a stamp in the record's `errata` field   |
+| **Accepted exception** | a rule in v1 scope this tool declines to implement   | a COVERAGE.md row that says so           |
+| **Open question**      | undecided; no reading has been chosen                | that no rule resting on it reads covered |
+
+Two of those obligations are machine-checked (`audit/docs_test.go`) —
+the accepted exception's coverage row, and the open question's — and the
+third is the gap named below. Checking any of them is the point of
+classifying at all: I-47 sat unclassified for four
+milestones while the engine had quietly chosen a reading and COVERAGE.md
+called the rule covered. A heading that must say "Open question" makes
+that visible the day it becomes true.
+
+**Two entries are Deviations — I-82 and I-112 — and neither is stamped.**
+docs/PRD.md requires every character JSON to carry "any applied
+`ERRATA.md` deviations"; `Character.Errata` is declared, described in
+character.schema.json, and never written. That gap is stated here rather
+than left to the sentence this preamble used to carry, which asserted the
+stamping as though it happened. Closing it moves every fixture and the
+schema version, so it is its own change.
+
+## Entries
+
+### I-1: Interpretation — Citizen Job roll landing on the "No Skill" cell (p. 78)
 
 Chart 04 table E contains a "No Skill" cell (A1 B3 C5). The chart says the
 first Citizen Life success "provides a Job, randomly on Citizen Skills and
@@ -26,7 +48,7 @@ Two readings:
 
 Implemented at `chargen/citizen.go` (`determineJob`).
 
-### I-2: Job/Hobby determination landing on a skill already held (p. 78)
+### I-2: Interpretation — Job/Hobby determination landing on a skill already held (p. 78)
 
 Chart 04 says the first success "provides a Job, randomly on Citizen Skills
 and Knowledges with Skill-4 (later receipts are Skill-1)" — but not what
@@ -84,7 +106,7 @@ container more than one level inside a career makes it live, and because
 levels gained, so a container received at an assigned school credits
 nothing. Both want `Skill.Receipts` rather than the level.
 
-### I-3: Hobby selection excludes the determined Job (p. 78)
+### I-3: Interpretation — Hobby selection excludes the determined Job (p. 78)
 
 Chart 04 has the second success provide "a Hobby selected from Citizen
 Skills and Knowledges", without saying whether the already-determined Job
@@ -101,7 +123,7 @@ Two readings:
 
 Implemented at `chargen/citizen.go` (`determineHobby`).
 
-### I-4: One skill, several printed spellings (pp. 56, 60, 78, 132, 154)
+### I-4: Interpretation — One skill, several printed spellings (pp. 56, 60, 78, 132, 154)
 
 Book 1 spells two skills inconsistently across its own charts, and the
 engine merges skill awards by exact name, so one spelling must be
@@ -141,7 +163,7 @@ Maneuver Drive, Power Systems), and `career/data/citizen.json` itself
 splits Navigator (chart C p. 78) from Navigation (job table). A
 registry-wide canonicalization is deferred to its own change.
 
-### I-5: a failed education year consumes a year (pp. 59-60)
+### I-5: Interpretation — a failed education year consumes a year (pp. 59-60)
 
 "Each Success is one year" (p. 59) says what a pass costs; the chart's
 Duration says what the full program costs. Neither states whether the year
@@ -156,7 +178,7 @@ Two readings:
 
 Implemented at `chargen/education.go` (`passFailYear`).
 
-### I-6: human Tra checks use Edu at half value, rounded up (pp. 55, 60)
+### I-6: Interpretation — human Tra checks use Edu at half value, rounded up (pp. 55, 60)
 
 Chart C's Apprenticeship Pass/Fail checks Tra, which v1 humans lack.
 "Training and Education can be substituted for each other at half value"
@@ -167,7 +189,7 @@ The alternative (round down) is a smaller target.
 
 Implemented at `chargen/education.go` (`checkValue`).
 
-### I-7: the Apprenticeship skill list is unrestricted (p. 60)
+### I-7: Interpretation — the Apprenticeship skill list is unrestricted (p. 60)
 
 Chart C's Apprenticeship provides "Skill+4 or Knowledge+4" with no source
 list (contrast Training Course's "from School=S"). Implemented as a free
@@ -176,7 +198,7 @@ restricts it to the School column like Training Course.
 
 Implemented at `chargen/education.go` (`awardApprenticeship`).
 
-### I-8: Scout "Retry R&R C5" (p. 79; Archive lineage)
+### I-8: Interpretation — Scout "Retry R&R C5" (p. 79; Archive lineage)
 
 Chart 05 box A reads: "To Begin C1 or C2 or C3 / Risk & Reward C1 C2 C3 /
 Retry R&R C5 / Continue Int". The Retry row's object is ambiguous. The
@@ -200,7 +222,7 @@ Retry", p. 65 — Scout's box lists none for Begin).
 
 Implemented at `chargen/scout.go` (`retryReward`).
 
-### I-9: Career and education chart labels vs the Master Skill List (pp. 75-88, 60 vs p. 132)
+### I-9: Interpretation — Career and education chart labels vs the Master Skill List (pp. 75-88, 60 vs p. 132)
 
 The career and education charts abbreviate skill names to fit their cells,
 and chart 04 prints two different names for one skill: table C row 3-2
@@ -241,7 +263,7 @@ Implemented at `skill/` (`skill.Resolve`), with the checks in
 `career.validateEntry`, `career.validateJobTable`, `education.validate`,
 and `world.Grant.validate`.
 
-### I-10: The three Grav knowledges (p. 132)
+### I-10: Interpretation — The three Grav knowledges (p. 132)
 
 Chart MS lists a knowledge named Grav under three different parent skills:
 Driver, Flyer, and Seafarer. They are distinct bodies of knowledge — driving
@@ -264,7 +286,7 @@ List order.
 Implemented at `skill/skill.go` (`addKnowledges`) and
 `chargen/careerrun.go` (`resolveSkillName`).
 
-### I-11: The "Spacecraft" cell (p. 78 chart 04 table E)
+### I-11: Interpretation — The "Spacecraft" cell (p. 78 chart 04 table E)
 
 Table E cell 3-6-6 reads "Spacecraft". Chart MS has no such entry: the
 Pilot knowledges are "Small Craft", "Spacecraft ACS", and "Spacecraft BCS"
@@ -279,7 +301,7 @@ closed and the knowledge list names both hull classes explicitly.
 Implemented at `skill/data/master_skill_list.json` (`labels`) and
 `chargen/careerrun.go` (`resolveSkillName`).
 
-### I-12: "Terms x2" counts completed terms (p. 80 chart 06)
+### I-12: Interpretation — "Terms x2" counts completed terms (p. 80 chart 06)
 
 Chart 06 box A gives the Officer Promotion target as "Terms x2". The chart
 does not say whether Terms counts terms completed or the term in progress.
@@ -297,7 +319,7 @@ service length.
 
 Implemented at `chargen/merchant.go` (`advancementTarget`).
 
-### I-13: Advancement at the top of a ladder (p. 80 chart 06)
+### I-13: Interpretation — Advancement at the top of a ladder (p. 80 chart 06)
 
 Chart 06 lists ranks R X through R2 for ratings and M1 through M6 for
 officers, and prints no rule for attempting promotion at the top of either.
@@ -314,7 +336,7 @@ next rank in class.
 
 Implemented at `chargen/merchant.go` (`eligibleForAdvancement`).
 
-### I-14: The seventh Ship Share receipt (p. 80 chart 06)
+### I-14: Interpretation — The seventh Ship Share receipt (p. 80 chart 06)
 
 Chart 06's Escalating Ship Shares table runs "First 1 Ship Share" through
 "Sixth 6 Ship Shares" and stops. A Merchant may serve more than six terms
@@ -331,7 +353,7 @@ the chart is silent, not because one reading is clearly right.
 
 Implemented at `chargen/merchant.go` (`awardShipShares`).
 
-### I-15: Entry-track failure (p. 80 chart 06)
+### I-15: Interpretation — Entry-track failure (p. 80 chart 06)
 
 Chart 06 offers three entry paths — "To Begin 4th Officer Int", "To Begin
 Spacehand Dex", "To Begin Temp Auto" — and lists no Begin retry.
@@ -348,7 +370,7 @@ chart marks only Temp as "Auto".
 
 Implemented at `chargen/merchant.go` (`begin`).
 
-### I-16: Disability and advancement (p. 80 chart 06)
+### I-16: Interpretation — Disability and advancement (p. 80 chart 06)
 
 Chart 06 says a Merchant disabled by a Risk failure "Muster[s] Out at Term
 end with Double Benefits" but does not say whether the term's remaining
@@ -362,7 +384,7 @@ retroactively cancel the promotion earned in the same four years.
 
 Implemented at `chargen/careerrun.go` (`term`) via `termOutcome.endCareer`.
 
-### I-17: Character generation throws are Checks (p. 134; chart 10 p. 84)
+### I-17: Interpretation — Character generation throws are Checks (p. 134; chart 10 p. 84)
 
 The career charts say "Roll for Risk against CC+ Mods" (chart 05 p. 79) and "Continue Str"
 without stating what happens on the highest possible roll. Taken literally
@@ -394,7 +416,7 @@ unbounded, which no printed rule supports.
 Implemented at `dice/throw.go` (`Check`), applied at every chargen throw
 site.
 
-### I-18: The Entertainer rolls no Risk and Reward (p. 77 chart 03; p. 66)
+### I-18: Interpretation — The Entertainer rolls no Risk and Reward (p. 77 chart 03; p. 66)
 
 Chart 03 box A reads "Risk & Reward Talent", but the page prints no Risk or
 Reward outcome box — unlike charts 05, 06, 08, 10 and 13, each of which
@@ -430,7 +452,7 @@ The Archive's preliminary Entertainer also prints no Risk and Reward box
 
 Implemented at `chargen/entertainer.go`.
 
-### I-19: The Entertainer's first term rolls no Fame Flux (p. 77 chart 03)
+### I-19: Interpretation — The Entertainer's first term rolls no Fame Flux (p. 77 chart 03)
 
 The prose says "At the start of each Term, events in the Entertainer's
 career may change Fame. Roll Flux up to three times (the first is
@@ -445,7 +467,7 @@ so the first term has no Flux, cannot increase Fame, and cannot earn the
 
 Implemented at `chargen/entertainer.go` (`resolveTerm`).
 
-### I-20: A Comeback replaces the term and earns no Talent (p. 77 chart 03)
+### I-20: Interpretation — A Comeback replaces the term and earns no Talent (p. 77 chart 03)
 
 The chart gives the Comeback as "Reset Fame to 2D; Talent is unchanged.
 Comeback is possible any number of times", without saying when in the term
@@ -478,7 +500,7 @@ version bump.
 
 Implemented at `chargen/entertainer.go` (`offerComeback`, `resolveFame`).
 
-### I-21: Fame is not floored at zero (p. 77 chart 03)
+### I-21: Interpretation — Fame is not floored at zero (p. 77 chart 03)
 
 Flux is 1D-1D, so a term can reduce Fame, and the chart prints no minimum.
 Its Fame descriptor table starts at 0 ("Unknown") and gives no descriptor
@@ -500,7 +522,7 @@ omitted as unsupported rather than as load-bearing.
 
 Implemented at `chargen/entertainer.go` (`setFame`).
 
-### I-22: Waivers draw on one pool (p. 76 chart 02; p. 59)
+### I-22: Interpretation — Waivers draw on one pool (p. 76 chart 02; p. 59)
 
 Chart 02 gives the Scholar "Waivers. An adverse die roll or decision (in
 Position, Promotion, Research, Publication, Tenure, or Continue) may be
@@ -530,7 +552,7 @@ Implemented at `chargen/waiver.go` (`offerWaiver`, `careerWaiver`),
 `chargen/careerrun.go` (`continueRoll`), counting
 `Character.WaiversAttempted`.
 
-### I-23: Every Scholar has a Major and a Minor (p. 76 chart 02)
+### I-23: Interpretation — Every Scholar has a Major and a Minor (p. 76 chart 02)
 
 Chart 02 reads: "Every Scholar has a Major and a Minor. If no degree (and
 an associated Major and Minor) then select any Skill or Knowledge from the
@@ -549,7 +571,7 @@ of a Major.
 
 Implemented at `chargen/scholar.go` (`selectAreas`).
 
-### I-24: "Research Success Major +2" awards two levels (p. 76 chart 02)
+### I-24: Interpretation — "Research Success Major +2" awards two levels (p. 76 chart 02)
 
 Table B reads "Per Term 4 / Promoted 1 / Research Success Major +2". The
 first two rows are counts of table C rolls, which invites reading the third
@@ -564,7 +586,7 @@ The Skill-15 cap (p. 134) absorbs the compounding over a long career.
 
 Implemented at `chargen/scholar.go` (`researchAndPublication`).
 
-### I-25: The Award-Winning publication margin (p. 76 chart 02)
+### I-25: Interpretation — The Award-Winning publication margin (p. 76 chart 02)
 
 Chart 02 reads: "If Publication Roll is 4 less than Characteristic, it is
 <Award-Winning> and counts as TWO."
@@ -586,7 +608,7 @@ qualifies the award by the Publication Roll and that roll did not publish.
 
 Implemented at `chargen/scholar.go` (`publish`).
 
-### I-26: The Scholar rank gates read against current Edu (p. 76 chart 02)
+### I-26: Interpretation — The Scholar rank gates read against current Edu (p. 76 chart 02)
 
 Chart 02 gates the ladder on Edu: entry is automatic at Scholar1 for
 Edu 8+, "A character with Edu 7 or less is an Amateur Scholar ... cannot be
@@ -601,7 +623,7 @@ late-blooming Amateur is not retroactively made a Lecturer.
 
 Implemented at `chargen/scholar.go` (`mayPromote`, `mayApplyForTenure`).
 
-### I-27: The Noble Return and Intrigue modifiers (p. 85 chart 11)
+### I-27: Interpretation — The Noble Return and Intrigue modifiers (p. 85 chart 11)
 
 Chart 11's Return & Intrigue box prints its rolls in two columns — "Roll
 R&R CC +Mods" under Return, "Roll R&R CC +(opposite sign) Mods" under
@@ -658,7 +680,7 @@ ambiguously.
 
 Implemented at `chargen/noble.go` (`nobleMods`).
 
-### I-28: An unmet Noble prerequisite is not a failed attempt (p. 85 chart 11)
+### I-28: Interpretation — An unmet Noble prerequisite is not a failed attempt (p. 85 chart 11)
 
 Chart 11 gives "To Begin Automatic* ... *if Soc B+" and prints no To Begin
 throw. A character below Social Standing B therefore makes no attempt.
@@ -693,7 +715,7 @@ Implemented at `career.Prerequisite` (`characteristic`, `minimum`),
 a guard, where reaching it unqualified is an engine fault rather than a
 failed entry, exactly as chart 01's automatic entry is handled.
 
-### I-29: A shared Social Standing enters at the lower title (p. 85 chart 11; p. 51)
+### I-29: Interpretation — A shared Social Standing enters at the lower title (p. 85 chart 11; p. 51)
 
 "Nobles begin with rank equal to their Social Standing" (p. 65), but three
 Social Standings carry two titles each: Soc 12 is Baronet and Baron, 14 is
@@ -716,7 +738,7 @@ Social Standing does not, and again no Land Grant follows.
 
 Implemented at `chargen/noble.go` (`nobleRankFor`, `raiseSoc`).
 
-### I-30: Land Grants follow Soc increases, not titles (p. 85 chart 11)
+### I-30: Interpretation — Land Grants follow Soc increases, not titles (p. 85 chart 11)
 
 Chart 11 states the Land Grant rule twice, and the two statements disagree.
 Box A: "Land Grants. Each increase in Soc during CharGen awards a Land
@@ -752,7 +774,7 @@ deviation.
 
 Implemented at `chargen/noble.go` (`raiseSoc`, `characteristicRaised`).
 
-### I-31: Wound Badges do not modify promotion (p. 82 chart 08; p. 70)
+### I-31: Interpretation — Wound Badges do not modify promotion (p. 82 chart 08; p. 70)
 
 Chart 08 stars its Officer Promotion and Enlisted Promotion rows and
 explains them as "*+Medals and WB Mods". The Imperial Medals table says the
@@ -774,7 +796,7 @@ services without distinguishing the ladders.
 Implemented at `chargen/armedforces.go` (`medalMod`), and in the data as
 `medal_mods` on the two promotion rows.
 
-### I-32: The Risk-success badge carries no promotion modifier (p. 82 chart 08)
+### I-32: Interpretation — The Risk-success badge carries no promotion modifier (p. 82 chart 08)
 
 Chart 08's Risk row awards on success an "XS Exemplary Service Badge", the
 same code the Imperial Medals table gives for a Reward roll of 2 through 8.
@@ -794,7 +816,7 @@ while never once succeeding at Reward.
 Implemented at `chargen/armedforces.go` (`riskAndReward`), recorded as
 `service_badges`.
 
-### I-33: Branch and Operations rolls that run off their tables (p. 82 chart 08)
+### I-33: Interpretation — Branch and Operations rolls that run off their tables (p. 82 chart 08)
 
 Chart 08 rolls 1D on an eight-row Branch table with "DM +2 if Edu 10+", and
 1D on a nine-row Operations table with "1D+Branch DM plus +2 if Edu 10+".
@@ -810,7 +832,7 @@ draw.
 
 Implemented at `career/career.go` (`BranchAt`, `OperationAt`).
 
-### I-34: when a Branch may change (charts 07, 08, 12; p. 66)
+### I-34: Interpretation — when a Branch may change (charts 07, 08, 12; p. 66)
 
 Three sentences bear on it, and only two of them disagree.
 
@@ -848,7 +870,7 @@ two, and that p. 66's commissioning clause is a separate rule nothing
 disputes — the entry mentioned the reroll it allows and then filed it
 with the disagreement instead of implementing it.
 
-### I-35: A Reward success awards only the table medal (p. 82 chart 08)
+### I-35: Interpretation — A Reward success awards only the table medal (p. 82 chart 08)
 
 Chart 08's Risk & Reward grid gives the Reward-success cell as "XS Exemplary
 Service, Medal", and the prose beside it as "Success: XS Exemplary Service
@@ -865,7 +887,7 @@ his first term and line 10 (MCUF) in his second, and his card reads
 Implemented at `chargen/armedforces.go` (`riskAndReward` calls `awardMedal`
 once on a Reward success).
 
-### I-36: A branch is selected on the side the character will serve (p. 81 chart 07; p. 66)
+### I-36: Interpretation — A branch is selected on the side the character will serve (p. 81 chart 07; p. 66)
 
 The Naval Branch table prints two sides for each row — row 3 is Line for
 an officer and Engineer for a rating, at Mods 1 and 0 (chart 07, p. 81).
@@ -915,7 +937,7 @@ disagreement the entry had filed it with.
 
 Implemented at `chargen/armedforces.go` (`chooseBranch`, `sameOnBothSides`).
 
-### I-37: The Peacekeeper column and the Peace Keeper assignment (pp. 82, 86)
+### I-37: Interpretation — The Peacekeeper column and the Peace Keeper assignment (pp. 82, 86)
 
 Charts 08 and 12 print the skills column as "Peacekeeper" and the
 Operations row as "Peace Keeper". Both are transcribed as printed, and the
@@ -930,7 +952,7 @@ the term quietly short of eligibility.
 Implemented at `career/data/soldier.json` and `marine.json`
 (`operations[].column`), enforced by the loader.
 
-### I-38: What an Agent may select from a cover career's table (p. 83 chart 09)
+### I-38: Interpretation — What an Agent may select from a cover career's table (p. 83 chart 09)
 
 Chart 09 sends an Agent undercover and says: "Select (not Roll) one skill
 from the skill tables of that Career." Table C of a career is not a list of
@@ -959,7 +981,7 @@ first-receipt accounting against it.
 
 Implemented at `chargen/agent.go` (`undercoverSkills`).
 
-### I-39: The Citizen rows roll rather than select (p. 83 chart 09)
+### I-39: Interpretation — The Citizen rows roll rather than select (p. 83 chart 09)
 
 Two rows of the Undercover Assignment table print, in place of titles,
 "Roll on Citizen Life Skills for Job" and "... for Hobby". These name
@@ -978,7 +1000,7 @@ none, needs no title at all.
 
 Implemented at `chargen/agent.go` (`undercover`, `undercoverJobTable`).
 
-### I-40: Functionary is transcribed as a reference career (p. 87 chart 13)
+### I-40: Interpretation — Functionary is transcribed as a reference career (p. 87 chart 13)
 
 The Undercover Assignment table's last row sends an Agent undercover as a
 Functionary, whose career chart 13 says "is never a first career" — so the
@@ -997,7 +1019,7 @@ Agent's use of the chart needs it.
 
 Implemented at `career/data/functionary.json` (`reference: true`).
 
-### I-41: A Rogue's Risk failure imprisons rather than injures (p. 84 chart 10)
+### I-41: Interpretation — A Rogue's Risk failure imprisons rather than injures (p. 84 chart 10)
 
 Every other Risk & Reward chart prints the same Risk-failure text (chart 05 p. 79; chart 01 p. 76; chart 06 p. 80) —
 "Reduce CC by negative Mods and Flux ... If reduced by 4 or more, then he
@@ -1018,7 +1040,7 @@ offset the negative Mods leaving the Rogue at liberty.
 
 Implemented at `chargen/rogue.go` (`imprison`).
 
-### I-42: The Rogue's controlling characteristic is chosen before To Begin (p. 84 chart 10)
+### I-42: Interpretation — The Rogue's controlling characteristic is chosen before To Begin (p. 84 chart 10)
 
 Chart 10 gives "To Begin CC", and separately "A Rogue selects one
 Controlling Characteristic (C1 C2 C3 C4 C5 C6) which is then used
@@ -1032,7 +1054,7 @@ event, and it is also the Continue target — chart 10's "Continue CC*".
 Implemented at `chargen/rogue.go` (`begin`) and `careerRun.chooseCC` via
 the `cc_fixed` flag.
 
-### I-43: One term serves a prison sentence (p. 84 chart 10)
+### I-43: Interpretation — One term serves a prison sentence (p. 84 chart 10)
 
 A sentence is "Prison for ... years at the start of the next Term (may be
 zero; maximum 4)", and a term is four years. A sentence of one to four
@@ -1051,7 +1073,7 @@ suspends it, and a Rogue may leave the career from prison.
 
 Implemented at `chargen/rogue.go` (`prisonTerm`).
 
-### I-44: The Payoff formula (p. 84 chart 10)
+### I-44: Interpretation — The Payoff formula (p. 84 chart 10)
 
 Chart 10 gives "Payoff= V x (1+CC-R+Mods)", where "V= Value of Scheme,
 CC= Controlling Characteristic, R= Reward Die Roll, Mods= Mods for
@@ -1073,7 +1095,7 @@ way, since the chart gives them as Values like any other.
 
 Implemented at `chargen/rogue.go` (`payoff`).
 
-### I-45: A term ending in disability still elapses its four years (p. 66; chart 05 p. 79)
+### I-45: Interpretation — A term ending in disability still elapses its four years (p. 66; chart 05 p. 79)
 
 Book 1 fixes the term at four years — "the 4-year Term" (p. 66) — and
 tells a disabled character to "Muster Out at Term end with Double
@@ -1094,7 +1116,7 @@ reaches, so such a term silently elapsed no time at all.
 
 Implemented at `chargen/careerrun.go` (`term`).
 
-### I-46: A term ending in death still elapses its four years (p. 66; p. 65; p. 69)
+### I-46: Interpretation — A term ending in death still elapses its four years (p. 66; p. 65; p. 69)
 
 "If the Controlling Characteristic is reduced to zero or less, the
 Character is dead" (p. 65). Book 1's dedicated paragraph on the subject,
@@ -1116,7 +1138,7 @@ the term the book already treats as indivisible.
 
 Implemented at `chargen/careerrun.go` (`term`).
 
-### I-47: Sanity is recorded as a pending modifier, never generated (p. 52; chart 05 p. 79)
+### I-47: Interpretation — Sanity is recorded as a pending modifier, never generated (p. 52; chart 05 p. 79)
 
 Two pages govern, and they pull in different directions.
 
@@ -1190,7 +1212,7 @@ there is no roll from which to take a first die.
 Implemented at `chargen/careerrun.go` (`recordSanityMod`), with the count
 of terms per point as a chart fact in `career/data/scout.json`.
 
-### I-48: The Retirement stage runs to 73, not the printed 71 (p. 89 chart A)
+### I-48: Interpretation — The Retirement stage runs to 73, not the printed 71 (p. 89 chart A)
 
 Chart A states its structure three times, and one statement disagrees with
 the other two.
@@ -1217,7 +1239,7 @@ row, so a later transcription cannot quietly resolve it or add another.
 Implemented at `lifestage/lifestage.go` (`Of`, `FirstYearOf`), with the
 printed columns kept in `lifestage/data/lifestages.json`.
 
-### I-49: Three characteristics at zero means three or more (p. 89 chart A)
+### I-49: Interpretation — Three characteristics at zero means three or more (p. 89 chart A)
 
 The chart escalates by count: one characteristic reduced to zero is reset
 to 1; two bring "a major illness ... four weeks in rest and recuperation";
@@ -1233,7 +1255,7 @@ Read as: three or more. The chart's sequence is plainly an escalation, and
 reading "three" strictly would make four characteristics at zero less
 severe than three — indeed harmless, since no clause would match.
 
-### I-50: Aging Checks fall on absolute ages, and illnesses cost no game years (p. 89 chart A)
+### I-50: Interpretation — Aging Checks fall on absolute ages, and illnesses cost no game years (p. 89 chart A)
 
 "Once Aging begins, it occurs every four years on the character's
 birthday."
@@ -1266,7 +1288,7 @@ are recorded on the character and in the transcript, and charged nothing.
 
 Implemented at `chargen/aging.go` (`ageEffects`, `illness`).
 
-### I-51: Death ends career resolution (p. 89 chart A; p. 65; p. 69)
+### I-51: Interpretation — Death ends career resolution (p. 89 chart A; p. 65; p. 69)
 
 Both deaths in character generation — a controlling characteristic reduced
 to zero by injury (p. 65), and the second extremely major illness (p. 89) —
@@ -1288,7 +1310,7 @@ tool. That question stays open in COVERAGE.
 Implemented at `chargen/careerrun.go` (`term`) and `chargen/character.go`
 (`runCareer`).
 
-### I-52: A character killed by aging may record an age past the year he died (p. 89 chart A; p. 66)
+### I-52: Interpretation — A character killed by aging may record an age past the year he died (p. 89 chart A; p. 66)
 
 The term is four years (p. 66) and the engine elapses them together, then
 resolves the Aging Checks the span crossed. A character who dies on a
@@ -1314,7 +1336,7 @@ that says 87.
 Implemented at `chargen/aging.go` (`illness`) and `render/render.go`
 (`consequenceDeadText`).
 
-### I-53: A failed Continue ends Career Resolution; only a voluntary change chains careers (p. 66)
+### I-53: Interpretation — A failed Continue ends Career Resolution; only a voluntary change chains careers (p. 66)
 
 Two sentences on the same page decide how many careers a character can
 hold. "At the end of the 4-year Term, the Character must successfully roll
@@ -1337,7 +1359,7 @@ none, and none is invented here. The practical bound is the one the rules
 supply: each new career must pass a To Begin, aging accumulates, and death
 ends resolution.
 
-### I-54: A career left may be re-entered; a career failed may not (p. 66; p. 65)
+### I-54: Interpretation — A career left may be re-entered; a career failed may not (p. 66; p. 65)
 
 "a different career for which he is eligible" (p. 66) is read as different
 from the current one, which is what the sentence is distinguishing. Nothing
@@ -1352,7 +1374,7 @@ scopes itself to the career rather than to the attempt. The engine reads
 it off the record — a career holding a `began:false` entry is excluded —
 so the exclusion survives a career change without separate bookkeeping.
 
-### I-55: when a character may resign from the Reserves (p. 67)
+### I-55: Interpretation — when a character may resign from the Reserves (p. 67)
 
 "A character who leaves a military, naval, or marine career is
 automatically in the Reserves until retirement at Life Stage 9, at which
@@ -1391,7 +1413,7 @@ the Reserves rather than about another term.
 Activation — "A member of the Reserves is subject to activation for the
 needs of the service" — is play, not generation, and stays out.
 
-### I-56: "Continue Office Politics" is not a throw (p. 87 chart 13)
+### I-56: Interpretation — "Continue Office Politics" is not a throw (p. 87 chart 13)
 
 Box A prints three lines: "To Begin Total Terms x3 / Office Politics C2 C3
 C4 C5 / Continue Office Politics". Every other career's Continue line names
@@ -1411,7 +1433,7 @@ and a Functionary reaching it with none would throw against zero and end
 every career after one term. The definition therefore declares Office
 Politics as its Continue form, and the term loop skips the throw.
 
-### I-57: The Auto Skill column pairs with F0, F2, and F3 (p. 87 chart 13)
+### I-57: Interpretation — The Auto Skill column pairs with F0, F2, and F3 (p. 87 chart 13)
 
 The Functionary Ranks table prints a rank ladder beside an Auto Skill
 column with three entries: Bureaucrat, Admin, Bureaucrat. Which ranks they
@@ -1428,7 +1450,7 @@ beside it.
 Worth recording because the result is not the pattern a reader expects. F0,
 F2, F4 — every other rank — would be the natural reading, and it is wrong.
 
-### I-58: A Noble cannot become a Functionary, by two rules that agree (p. 87 chart 13; p. 66)
+### I-58: Interpretation — A Noble cannot become a Functionary, by two rules that agree (p. 87 chart 13; p. 66)
 
 Chart 13 states it directly: "Note that a Noble may not become a
 Functionary." p. 66 states it more broadly: "A Functionary or Noble cannot
@@ -1443,7 +1465,7 @@ one.
 The redundancy is worth noting rather than resolving: chart 13 says it
 because a reader on that page has no reason to have read p. 66.
 
-### I-59: A failed Risk does not stop the Reward roll (p. 66; p. 87 chart 13)
+### I-59: Interpretation — A failed Risk does not stop the Reward roll (p. 66; p. 87 chart 13)
 
 Chart 13's Office Politics box prints six lines, and run together they read
 as though the Reward were nested inside a Risk success:
@@ -1479,7 +1501,7 @@ Implemented at `chargen/functionary.go` (`resolveTerm`), whose doc comment
 keeps the page's line breaks so the quote cannot be misread back into the
 nested form.
 
-### I-60: An automatic-but-conditional entry gates eligibility, it does not fail (p. 75 chart 01; p. 65)
+### I-60: Interpretation — An automatic-but-conditional entry gates eligibility, it does not fail (p. 75 chart 01; p. 65)
 
 Chart 01's box A reads "To Begin Automatic\*", footnoted "\*if TWO skill-6
 and Craftsman-1". Entry is automatic — there is no throw printed — but only
@@ -1505,7 +1527,7 @@ random-selection system, where 1 and 13 are simply unrollable.
 Implemented at `chargen/craftsman.go` (`meetsPrerequisite`) and
 `chargen/careerrun.go` (`eligibleCareers`).
 
-### I-61: Master Points count all four Controlling Characteristics (p. 75 chart 01)
+### I-61: Interpretation — Master Points count all four Controlling Characteristics (p. 75 chart 01)
 
 The Creating A Masterpiece box lists what a Craftsman totals:
 
@@ -1535,7 +1557,7 @@ among them.
 
 Implemented at `chargen/craftsman.go` (`masterPoints`).
 
-### I-62: The creation throw is roll-low inclusive, and QREBS is deferred (p. 75 chart 01)
+### I-62: Interpretation — The creation throw is roll-low inclusive, and QREBS is deferred (p. 75 chart 01)
 
 The page states the throw twice and the two disagree by one. The box prints
 "9D < Master Points"; the prose prints "Roll 9D for Master Points or less
@@ -1562,7 +1584,7 @@ Vintage appreciation is deferred with it: "A Masterpiece increases in value
 about 1% per year (simple interest), but are subject to Flux (in percent)
 when sold" prices a sale, and character generation makes none.
 
-### I-63: Fame stacks to 20 as a cap, not a cliff (p. 91 chart F)
+### I-63: Interpretation — Fame stacks to 20 as a cap, not a cliff (p. 91 chart F)
 
 "Fame Stacks. A character's Fame is the sum of all Fame points received to
 20; beyond 20, only the highest Fame applies."
@@ -1616,7 +1638,7 @@ would only ever pay. `TestFameFluxCanLose` holds the property.
 Implemented at `fame/fame.go` (`Stack`) and `chargen/fame.go`
 (`computeFame`).
 
-### I-64: "Merchant Ship Owner = 1D" is deferred (p. 91 chart F; p. 68)
+### I-64: Interpretation — "Merchant Ship Owner = 1D" is deferred (p. 91 chart F; p. 68)
 
 Chart F gives a Merchant Fame for his rank and again for owning a ship.
 Ownership is not established during career resolution: a Merchant
@@ -1632,7 +1654,7 @@ own.
 Deferred rather than guessed. The eligibility is recorded here so that
 whoever implements ship purchase knows Fame is waiting on it.
 
-### I-65: "Armed Forces Enlisted = no Fame" is read flat (p. 91 chart F)
+### I-65: Interpretation — "Armed Forces Enlisted = no Fame" is read flat (p. 91 chart F)
 
 Chart F's Armed Forces block lists "Army / Marine / Navy: Officer Rank *"
 above six decorations with their multipliers, and footnotes the block
@@ -1655,7 +1677,7 @@ file exists to avoid making silently.
 
 Implemented at `chargen/fame.go` (`armedForcesFame`).
 
-### I-66: "Imperial Noble Soc x1.5" rounds down (p. 91 chart F)
+### I-66: Interpretation — "Imperial Noble Soc x1.5" rounds down (p. 91 chart F)
 
 Fame points are whole numbers everywhere else on the chart — "xN = N Fame
 points per occurrence" — and this is the only eligibility that can produce
@@ -1668,7 +1690,7 @@ would make an odd Soc worth more per point than an even one.
 
 Implemented at `chargen/fame.go` (`nobleFame`).
 
-### I-67: A Rogue's failed scheme is a failed Reward, and his infamy is separate (p. 91 chart F; p. 84 chart 10)
+### I-67: Interpretation — A Rogue's failed scheme is a failed Reward, and his infamy is separate (p. 91 chart F; p. 84 chart 10)
 
 Chart F prices "Rogue Successful Schemes x2" and "Rogue Failed Schemes
 x3", and chart 10 has two rolls that could decide which a scheme was: the
@@ -1689,7 +1711,7 @@ scheme that still pays, and walk free from one that pays nothing.
 Implemented at `chargen/rogue.go` (`schemeTerm`, `imprison`) and
 `chargen/fame.go` (`rogueFame`).
 
-### I-68: A career's own Fame contributes nothing when it is negative (p. 91 chart F; p. 77 chart 03)
+### I-68: Interpretation — A career's own Fame contributes nothing when it is negative (p. 91 chart F; p. 77 chart 03)
 
 Chart F reads the Entertainer's Fame off his career — "Entertainer detailed
 under Career" — and chart 03 keeps that Fame as a running level: 2D at the
@@ -1715,7 +1737,7 @@ target and the number a Comeback measures against.
 
 Implemented at `chargen/fame.go` (`singleLineFame`).
 
-### I-69: "Merchant =Rank" reads the printed rank number (p. 91 chart F; p. 80 chart 06)
+### I-69: Interpretation — "Merchant =Rank" reads the printed rank number (p. 91 chart F; p. 80 chart 06)
 
 Chart 06 prints the Merchant ladder as RX Temp, R0 Spacehand, R1 Steward
 Apprentice, R2 Drive Helper, then M1 Fourth Officer through M6 Senior
@@ -1734,7 +1756,7 @@ at the implementation site.
 
 Implemented at `chargen/fame.go` (`rankNumber`).
 
-### I-70: Charts 12 and 01 print "Directorate" and "Director" where the rest print "Directorship" (pp. 86, 75; p. 71)
+### I-70: Interpretation — Charts 12 and 01 print "Directorate" and "Director" where the rest print "Directorship" (pp. 86, 75; p. 71)
 
 Chart 12's table D row 9 awards a "Directorate", and chart 01's row 11 a
 "Director". Chart M1's Non-Financial list names a "Directorship", as do
@@ -1750,7 +1772,7 @@ cell says both what the page says and what the engine does with it. Both
 appear twice — chart 12 and chart 01 agree with chart M2's reprint of them
 — so they are consistent spellings, not slips in one place.
 
-### I-71: Where chart M2 disagrees with a career page, the career page governs (p. 71; p. 67)
+### I-71: Interpretation — Where chart M2 disagrees with a career page, the career page governs (p. 71; p. 67)
 
 Printed page 71 is chart M2, a consolidated reprint of all thirteen
 muster-out tables. It disagrees with six of the pages it reprints:
@@ -1784,7 +1806,7 @@ the divergence set at exactly these six and fails if a later transcription
 resolves one or adds a seventh; `TestTheSevenTablesThatAgreeCarryNoReprint`
 holds the other half.
 
-### I-72: Fame is a table D benefit though chart M1 lists it only as an Automatic (p. 70; pp. 76-83)
+### I-72: Interpretation — Fame is a table D benefit though chart M1 lists it only as an Automatic (p. 70; pp. 76-83)
 
 Chart M1 splits benefits into Financial and Non-Financial columns, and
 Fame appears in neither. It appears instead among the Automatics, where
@@ -1802,7 +1824,7 @@ by default, which is no award at all.
 The omission is chart M1's, and the vocabulary records it so a reader
 comparing the two lists finds the note rather than the gap.
 
-### I-73: The Fame-19+ muster-out roll goes to the first career served (p. 68)
+### I-73: Interpretation — The Fame-19+ muster-out roll goes to the first career served (p. 68)
 
 "He is allowed one additional roll if Fame 19+", and "A character with a
 roll allowed by Fame-19+ may select which career-dictated table to use."
@@ -1817,7 +1839,7 @@ preference dressed as a rule.
 The roll is a character's rather than a career's, so it is added once
 across the whole muster out rather than once per career.
 
-### I-74: A duplicate benefit is rerolled until it differs, or until the table has nothing else (p. 69)
+### I-74: Interpretation — A duplicate benefit is rerolled until it differs, or until the table has nothing else (p. 69)
 
 "A result that duplicates a previous (unwanted or unusable) benefit may be
 rerolled until a different benefit is received, for example: Wafer Jack,
@@ -1844,7 +1866,7 @@ different rule, and because a Citizen sweep never shows the difference: it
 produces single rerolls in quantity and consecutive ones not at all. Chart
 02's Benefits column runs twelve deep on seed 72.
 
-### I-75: "+ Officer Rank" counts the number beside the rank, on either ladder (p. 68; charts 06, 08, 10, 12)
+### I-75: Interpretation — "+ Officer Rank" counts the number beside the rank, on either ladder (p. 68; charts 06, 08, 10, 12)
 
 Charts 06, 08, 10 and 12 head a muster-out DM column "+ Officer Rank", and
 their ladders number the enlisted ranks from 1 alongside the officers':
@@ -1876,7 +1898,7 @@ Implemented at `chargen/musterout.go` (`dmValue`), pinned by
 `TestKnighthoodFollowsItsThreeClauses`, whose non-officer sweep fails if
 the DM is withheld from the enlisted.
 
-### I-76: A passage is a benefit, not its cash value, until it is cashed out (pp. 68-69)
+### I-76: Interpretation — A passage is a benefit, not its cash value, until it is cashed out (pp. 68-69)
 
 p. 68 prices the non-money benefits — "StarPass ... has a value of
 Cr250,000", a High Passage Cr10,000 — and p. 69 describes cashing out.
@@ -1896,7 +1918,7 @@ can be cashed out for a lump sum" of five years' payments (p. 69).
 
 Implemented at `chargen/musterout.go` (`award`).
 
-### I-77: A dead character does not muster out (p. 67; p. 69)
+### I-77: Interpretation — A dead character does not muster out (p. 67; p. 69)
 
 "Mustering Out counts up the character's belongings (at least the major
 ones), the money, and the abilities that a character has accumulated
@@ -1914,7 +1936,7 @@ is computed for the dead and muster out is not, which is the distinction
 the two pages draw: Fame is what a character was known for, and benefits
 are what he takes with him.
 
-### I-78: Chart M1 lists the Medal automatic for the Spacer and Soldier only (p. 70; p. 86)
+### I-78: Interpretation — Chart M1 lists the Medal automatic for the Spacer and Soldier only (p. 70; p. 86)
 
 Chart M1's Automatics column reads "Medal — Spacer or Soldier". Chart 12
 awards Marines medals from the same Imperial Medals table on the same page,
@@ -1931,7 +1953,7 @@ recorded because a reader comparing a decorated Marine's sheet against a
 decorated Soldier's will find the difference and want to know whether it
 was noticed.
 
-### I-79: The Automatics are recorded, not logged (p. 70; docs/PRD.md FR10)
+### I-79: Interpretation — The Automatics are recorded, not logged (p. 70; docs/PRD.md FR10)
 
 "When a character ends character generation he may find that he already own
 some specific awards or items" (p. 67). The Automatics are read off the
@@ -1947,7 +1969,7 @@ The Entitlements are different, and are logged: p. 69 offers a decision on
 each of them — "Any Entitlement can be cashed out for a lump sum equal to
 five years of payments" — and that decision is what the record hangs from.
 
-### I-80: Reserve years are calendar years, not one stretch per service (p. 69)
+### I-80: Interpretation — Reserve years are calendar years, not one stretch per service (p. 69)
 
 "A character who leaves a military, naval, or marine career is
 automatically in the Reserves until retirement at Life Stage 9" (p. 67),
@@ -1965,7 +1987,7 @@ Recorded because the engine did the summing first, and the overlap is only
 reachable through a career change — no auto-generated character leaves two
 services, so nothing in the default sweep would have shown it.
 
-### I-81: A Pension x2 doubles the pension of the career it was rolled on (p. 68)
+### I-81: Interpretation — A Pension x2 doubles the pension of the career it was rolled on (p. 68)
 
 "Pension x 2 doubles the Pension the character receives from the career.
 Each doubling is of the original Pension: the first x2 doubles the Pension,
@@ -1984,7 +2006,7 @@ receive duplicate Entitlements (for example, a Reserve and a Functionary
 pension)". A benefit rolled on one career's table doubling another
 career's pension has nothing in the text behind it.
 
-### I-82: A Land Grant hex on a world the record does not name is priced at the no-TC floor (p. 88; p. 79)
+### I-82: Deviation — A Land Grant hex on a world the record does not name is priced at the no-TC floor (p. 88; p. 79)
 
 "An unimproved Land Grant generates income based on the Trade
 Classifications of the world and equal to Cr10,000 per TC annually (equal to
@@ -2020,7 +2042,7 @@ note is corrected in docs/MILESTONE-4.md.
 Implemented at `chargen/entitlement.go` (`landGrantIncome`, `hexIncome`),
 with the per-career hex layout in `benefit/data/benefits.json`.
 
-### I-83: The per-title Land Grant hex table is not applied (p. 88; chart 11 p. 85)
+### I-83: Accepted exception — The per-title Land Grant hex table is not applied (p. 88; chart 11 p. 85)
 
 p. 88's NOBLE LAND GRANTS table gives each title a hex count — a Gentleman
 one hex, a Knight one on the mainworld and one elsewhere, a Baron four and
@@ -2043,7 +2065,7 @@ the income rule this engine does implement, and its absence would otherwise
 read as an oversight. Applying it means reopening I-30, which is a decision
 about the count and not about the money.
 
-### I-84: Book 1 attaches no credit value to a Ship Share (p. 90; p. 69; p. 68)
+### I-84: Interpretation — Book 1 attaches no credit value to a Ship Share (p. 90; p. 69; p. 68)
 
 Chart S prices ships in shares and never prices a share: "one Share
 acquires 50 tons of the ship (thus, a 200-ton Free Trader requires 4 Ship
@@ -2075,7 +2097,7 @@ which is a decision among players and not one the generator can make.
 Implemented at `ship` (chart S) and `render` (`shipSharesLine`), which
 reports the count and the largest ship it reaches.
 
-### I-85: The Alternative Birthdate Option is not implemented (p. 263)
+### I-85: Interpretation — The Alternative Birthdate Option is not implemented (p. 263)
 
 "Alternative Birthdate Option. Use the Player's actual Birth Date to
 determine the day of the year for the Character's Birthdate. Dagin's
@@ -2093,7 +2115,7 @@ The printed table is implemented and is the rule's own default. The
 alternative remains available to a referee, who can simply write the day on
 the sheet; nothing downstream reads the birthdate.
 
-### I-86: Every character gets a birthdate, the dead included (p. 263; p. 58)
+### I-86: Interpretation — Every character gets a birthdate, the dead included (p. 263; p. 58)
 
 "Every character has a birthdate, used to track chronological age, to help
 produce an understanding of the passage of time, and as a trigger to
@@ -2115,7 +2137,7 @@ The step therefore runs outside the `if !c.Dead` that guards muster out,
 and every golden fixture carries a birthdate including the two whose
 characters died.
 
-### I-87: A consequence may name the step that established the state, where no throw or choice produced it (docs/PRD.md FR10)
+### I-87: Interpretation — A consequence may name the step that established the state, where no throw or choice produced it (docs/PRD.md FR10)
 
 FR10 required that "consequence events reference the sequence number of the
 throw or choice that caused them". Three consequences cannot satisfy it,
@@ -2155,7 +2177,7 @@ naming sequence zero refers to no event at all, and
 Implemented at `chargen/rogue.go` (`prisonTerm`), `chargen/craftsman.go`
 (`attempt`) and `chargen/careerrun.go` (`awardNewTrade`).
 
-### I-88: A suspended term costs the term's four years, not the program's duration (p. 59)
+### I-88: Interpretation — A suspended term costs the term's four years, not the program's duration (p. 59)
 
 "At the beginning of any term, the character may apply for any Educational
 Institution or Training, and if accepted substitutes that process for the
@@ -2181,7 +2203,7 @@ Implemented at `chargen/latereducation.go` (`attendMidCareer`), pinned by
 `TestLaterEducationSubstitutesTheTerm` on Trade School, where the two
 readings differ by three years.
 
-### I-89: A refused applicant serves the term, having already lost a year to the refusal (p. 59)
+### I-89: Interpretation — A refused applicant serves the term, having already lost a year to the refusal (p. 59)
 
 Substitution is conditional: "and **if accepted** substitutes that process
 for the entire term" (p. 59). A character who applies and is refused has not
@@ -2212,7 +2234,7 @@ printed reading is also the terminating one.
 Implemented at `chargen/latereducation.go` (`attendMidCareer`, the
 unadmitted return), pinned by `TestLaterEducationTerminates`.
 
-### I-90: Suspending a term suspends the Continue throw with the rest of resolution (p. 59)
+### I-90: Interpretation — Suspending a term suspends the Continue throw with the rest of resolution (p. 59)
 
 "Characters may **suspend career resolution** to return to school or
 training" (p. 59). The Continue throw is part of career resolution, so a
@@ -2254,7 +2276,7 @@ Implemented at `chargen/careerrun.go` (`term`) and
 `TestLaterEducationIsNotATermServed` and
 `TestLaterEducationDeathEndsTheLifepath`.
 
-### I-91: An assigned school is attended inside the term and costs no extra years (p. 59; charts 07, 08, 12; chart C p. 60)
+### I-91: Interpretation — An assigned school is attended inside the term and costs no extra years (p. 59; charts 07, 08, 12; chart C p. 60)
 
 "Some schools are attended during career resolution (assigned as part of
 career resolution)" (p. 59). That sentence follows Later Education and
@@ -2287,7 +2309,7 @@ Implemented at `chargen/assignedschool.go` (`attendAssignedSchool`, setting
 flag, read in `resolveTerm` and so never reached by a suspended term),
 pinned by `TestAnAssignedSchoolCostsNoExtraYears`.
 
-### I-92: An assigned school selects no Major or Minor (p. 59; chart C p. 60)
+### I-92: Interpretation — An assigned school selects no Major or Minor (p. 59; chart C p. 60)
 
 "The character attending an Educational Institution must select a Major and
 a Minor from the appropriate Skill and Knowledge list" (p. 59).
@@ -2308,7 +2330,7 @@ of institutions that ask for them, and an assigned school does not ask.
 Implemented at `chargen/assignedschool.go` (`attendAssignedSchool`, which
 does not call `selectMajors`).
 
-### I-93: ANM School is resolved once per term and after the four Operations rolls (charts 07, 08, 12; p. 66)
+### I-93: Interpretation — ANM School is resolved once per term and after the four Operations rolls (charts 07, 08, 12; p. 66)
 
 "Rolls 4 times per Term for Operations; select the highest Mod of the
 four" (chart 08 p. 82), and "Resolve ANM School using Education" (chart 08 p. 82).
@@ -2332,7 +2354,7 @@ separate postings.
 Implemented at `chargen/armedforces.go` (`operations`), pinned by
 `TestANMSchoolIsResolvedAsEducation`.
 
-### I-94: A Service Academy graduate enters his own service as an officer (chart C p. 60; p. 65)
+### I-94: Interpretation — A Service Academy graduate enters his own service as an officer (chart C p. 60; p. 65)
 
 Chart C gives the Service Academy a Graduation of "C5=8 BA Officer1". The
 Edu and the degree are applied where every graduation is; Officer1 is not a
@@ -2382,7 +2404,7 @@ Implemented at `chargen/armedforces.go` (`entryRank`) and
 `TestAcademyGraduateEntersAsAnOfficer` and
 `TestAcademyOfficerIsServiceSpecific`.
 
-### I-95: Every chart C row is offered, so the Prerequisite waiver has something to waive (p. 59; chart C p. 60)
+### I-95: Interpretation — Every chart C row is offered, so the Prerequisite waiver has something to waive (p. 59; chart C p. 60)
 
 "A student attending an Education Institution and who receives an adverse
 die roll or decision (Prerequisite, Application Check, Pass/Fail Check,
@@ -2419,7 +2441,7 @@ Implemented at `chargen/education.go` (`offeredPrograms`,
 `prerequisiteWaived`) and `chargen/latereducation.go`, pinned by
 `TestPrerequisiteWaiverIsOffered` and `TestPrerequisiteWaiverGatesAdmission`.
 
-### I-96: A waived Honors buys the status and not the level (p. 59; chart C p. 60)
+### I-96: Interpretation — A waived Honors buys the status and not the level (p. 59; chart C p. 60)
 
 Honors is the fourth waiver-able event p. 59 names, and the odd one. The
 other three end something: admission refused, a process terminated, a
@@ -2452,7 +2474,7 @@ Implemented at `chargen/education.go` (`honorsWaiver`) and
 `TestHonorsWaiverBuysTheStatusOnly` and
 `TestPolicyDeclinesTheHonorsWaiver`.
 
-### I-97: Chart B's last cell names no world, so it carries no UWP (p. 56)
+### I-97: Interpretation — Chart B's last cell names no world, so it carries no UWP (p. 56)
 
 Chart B's world list ends at 6 6 with "Space — Born In Deep Space — Ds".
 Every other cell gives a world name, a hex, a sector and a UWP; this one
@@ -2510,7 +2532,7 @@ Implemented at `world/homeworlds.go` (`ChartBWorld.validate`,
 partial-homeworld cases of `TestHomeworldErrors`, which is what caught the
 first reading.
 
-### I-98: A Service Academy belongs to step C, not to Later Education (pp. 59, 62)
+### I-98: Interpretation — A Service Academy belongs to step C, not to Later Education (pp. 59, 62)
 
 "Later Education or Training. Characters may suspend career resolution to
 return to school or training. At the beginning of any term, the character
@@ -2549,7 +2571,7 @@ sentence: p. 59 says "A character may attend one or more schools", and
 College, University, Trade School and Apprenticeship carry no entry rule
 the Academy's p. 62 paragraph supplies. They remain repeatable.
 
-### I-99: A Service Academy graduate's first career is the service he owes (p. 62)
+### I-99: Interpretation — A Service Academy graduate's first career is the service he owes (p. 62)
 
 "Service Academies ... provide graduates an Army or Navy Commission (a
 Naval Academy graduate may choose a Marine Commission instead). **The
@@ -2590,7 +2612,7 @@ Not applied to a cadet who failed out. "Provide **graduates**" is the
 printed condition, and the same test I-94 uses — graduation with the
 Officer1 degree — decides both.
 
-### I-100: A program is attempted once (pp. 59, 61)
+### I-100: Interpretation — A program is attempted once (pp. 59, 61)
 
 Book 1 states the limit once, for the simplest program: "A character with
 Edu less than 5 can attempt the ED5 program at the start the Education
@@ -2640,7 +2662,7 @@ pre-career because a commission and its term of service are entry rules —
 and is what still keeps it out of Later Education. I-100 is why no
 character sees any program twice.
 
-### I-101: Acceptance to the Academy is acceptance to the first term (pp. 62, 65)
+### I-101: Interpretation — Acceptance to the Academy is acceptance to the first term (pp. 62, 65)
 
 I-99 collects the term of service a Service Academy graduate owes: "The
 character is required to serve one term in the service" (p. 62). It left a
@@ -2674,7 +2696,7 @@ I-94 and I-99 decides this.
 
 This closes the question the Academy row in COVERAGE.md recorded as open.
 
-### I-102: A ceiling is not waivable, and a rung already climbed is not offered (pp. 59, 60, 61)
+### I-102: Interpretation — A ceiling is not waivable, and a rung already climbed is not offered (pp. 59, 60, 61)
 
 Two limits on what schooling a character is shown, both about the shape of
 chart C rather than about repetition, which I-100 already settled.
@@ -2716,7 +2738,7 @@ The military block is untouched. ANM School and Command College are
 assigned inside a term rather than applied for (I-91 to I-93) and never
 pass through this offer at all.
 
-### I-103: What satisfies a chart C credential prerequisite (pp. 60, 61)
+### I-103: Interpretation — What satisfies a chart C credential prerequisite (pp. 60, 61)
 
 Four of chart C's rows are gated on a credential rather than a
 characteristic: "A University Masters Program requires a Bachelors. A
@@ -2749,7 +2771,7 @@ Also note what the sentence's parenthesis settles for I-102: every
 requirement p. 61 calls waivable is a floor. ED5's ceiling is not among
 them.
 
-### I-104: The professional schools award their named skill one level per Pass (p. 60)
+### I-104: Interpretation — The professional schools award their named skill one level per Pass (p. 60)
 
 Medical School and Law School are the only chart C rows whose Provides
 names the skill they teach: "Medic-4" and "Advocate-2". Every other row
@@ -2777,7 +2799,7 @@ two columns are still read: the loader checks that the medical column lists
 Medic and the law column lists Advocate, so the award and the column are
 each other's proof against a transcription slip.
 
-### I-105: "Already at this level" is at that level, not past it (pp. 60, 62)
+### I-105: Interpretation — "Already at this level" is at that level, not past it (pp. 60, 62)
 
 Chart C's Graduation column gives fixed values — College "Edu=8 BA",
 Masters "Edu=9 MA", Professors "Edu=12 Professor" — under one parenthetical:
@@ -2808,7 +2830,7 @@ gains nothing from College now, without a rule that names College.
 One golden record moves: the Scholar's Edu falls from B to A, having
 graduated University while already above its Edu=9.
 
-### I-106: A credential prerequisite needs a school to have fallen short of (pp. 59, 61)
+### I-106: Interpretation — A credential prerequisite needs a school to have fallen short of (pp. 59, 61)
 
 Chart C's four credential-gated rows were offered at step C, where no
 character can qualify for any of them:
@@ -2851,7 +2873,7 @@ This is I-102's argument in its second form. There a ceiling could not be
 waived because exceeding it is not adverse; here a credential cannot be
 waived by a character who has no education to have earned one in.
 
-### I-107: a characteristic driven below zero by a single effect floors at zero (pp. 65, 89)
+### I-107: Interpretation — a characteristic driven below zero by a single effect floors at zero (pp. 65, 89)
 
 Chart A settles what happens at zero: "If one Characteristic is reduced to
 0, it is reset to 1" (p. 89). It does not say what happens when one effect
@@ -2909,7 +2931,7 @@ derived value clamped to a rules floor.
 Death is unaffected: p. 65 turns on the value reaching zero, and it still
 reaches zero.
 
-### I-108: when a character volunteers for OTC or NOTC (pp. 60-61)
+### I-108: Interpretation — when a character volunteers for OTC or NOTC (pp. 60-61)
 
 Chart C gives both rows the Pre-Req "volunteer" and the Apply "auto", and
 p. 61 says "A character attending College or University may also volunteer
@@ -2950,7 +2972,7 @@ NOTC's "Navy Officer1 or Marine Officer1" carry the same Officer1 token as
 the Service Academy's "BA Officer1", and the obligation it creates is
 I-99's, already implemented.
 
-### I-109: what "any previous career" means for a Rogue's Scheme (p. 84)
+### I-109: Interpretation — what "any previous career" means for a Rogue's Scheme (p. 84)
 
 Chart 10 prints, beside the Rogue Schemes table, "A Rogue may select for
 his Scheme (rather than roll) any previous career." It leaves three things
@@ -2979,7 +3001,7 @@ The offer is made only where there is a previous career to take. A prompt
 listing one option is not a choice, and a Rogue who has served nothing
 else has nothing the rule could give him.
 
-### I-110: where Flight School is attended, and who may attend it (pp. 60-61)
+### I-110: Interpretation — where Flight School is attended, and who may attend it (pp. 60-61)
 
 Chart C files Flight School among the Military rows with the Pre-Req
 "Honors BA", which reads as a row a school leaver applies to at step C.
@@ -3029,7 +3051,7 @@ outright, in the sentence the Branch selection already cites: "he rolls 7
 and chooses Flight (otherwise a Flight School graduate does not
 automatically receive Branch= Flight)".
 
-### I-111: Musician is a container with nothing to contain (p. 134; p. 157)
+### I-111: Interpretation — Musician is a container with nothing to contain (p. 134; p. 157)
 
 p. 134 names Musician among the eleven skills that contain Knowledges,
 and its own entry agrees: "Musician follows a standard pattern:
@@ -3062,7 +3084,7 @@ Language is the other exception, and needs no interpretation: p. 134
 excepts it in the sentence that lists the containers — "except Language
 which is handled differently".
 
-### I-112: which terms a World Knowledge counts (p. 134)
+### I-112: Deviation — which terms a World Knowledge counts (p. 134)
 
 "A character who has spent time on a world receives Knowledge equal to
 the number of terms he has lived there (but a maximum 6)." The worked
