@@ -44,14 +44,22 @@ task test     # go test -race ./...
 ```
 
 `main` is protected on GitHub: pushes to it are rejected, history is
-linear, and force-pushes and deletion are blocked. Every change lands
-through a pull request — branch, run the gate, push the branch, then
-`gh pr merge --squash --delete-branch`. No review approval is required, so
-this costs a solo workflow nothing beyond remembering to branch first. The
-rules apply to the repository owner too, which is the point: they exist to
-catch an accidental commit on `main`, and an owner exemption would defeat
-that. Lift them deliberately (repository settings, or the branches
-protection API) if you ever genuinely need to.
+linear, force-pushes and deletion are blocked, and the CI check
+`task (check + test)` must pass before a pull request can merge. Every
+change lands through a pull request — branch, run the gate, push the
+branch, then `gh pr merge --squash --delete-branch`. No review approval
+is required, so this costs a solo workflow nothing beyond remembering to
+branch first. The rules apply to the repository owner too, which is the
+point: they exist to catch an accidental commit on `main`, and an owner
+exemption would defeat that. Lift them deliberately (repository
+settings, or the branches protection API) if you ever genuinely need to.
+
+The required check is "strict": a branch must be up to date with `main`
+before it merges. That is what makes green mean the code as it will
+exist on `main` rather than as it existed when the branch left it, and
+the cost is updating a branch that has fallen behind. `task` and CI run
+the same thing, so a branch that passes locally and is current passes
+there.
 
 Prettier formats the embedded chart data and the documents, but never
 `chargen/testdata` or `render/testdata`: those are the engine's own output,
