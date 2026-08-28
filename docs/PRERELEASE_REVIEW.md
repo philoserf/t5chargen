@@ -512,3 +512,47 @@ stint of 3 terms owes San -2, want -1".
 Release bar item 2 is closed. Item 1 — whether `Capital***` is
 implemented or an accepted exception — was closed as an accepted
 exception in #112.
+
+## Citation Sweep
+
+Release bar item 9, run 2026-08-28 against Book 1, Print Edition 5.1.
+
+**Method.** Every page of the PDF extracted separately, then every quoted
+string in ERRATA.md checked against the pages its own entry cites.
+Matching normalises ligatures, smart quotes, dashes and hyphenation
+across line breaks; splits a quote at `...` and at the `/` that joins
+chart cells, requiring each run to appear; accepts an editorial `[s]`
+either kept or dropped; and searches consecutive cited pages joined, for
+a quote that runs over a page break.
+
+**Result.** 254 quotes checked across the 112 interpretations.
+
+|                                 |     |
+| ------------------------------- | --- |
+| found on a page the entry cites | 213 |
+| found only elsewhere            | 3   |
+| not matched                     | 38  |
+
+**Thirteen citations were wrong or missing, and are fixed.** The shape
+was consistent: an entry quotes chart text, names the chart by number,
+and never gives its page — "chart 13's" for a rule on p. 87, "chart 08"
+for one on p. 82. A reader who does not already know which page a chart
+sits on cannot check those. One was wrong rather than absent: I-107
+attributed "reduce CC by negative Mods and Flux" to p. 65, and the line
+is on the career charts.
+
+**The three remaining "elsewhere" are an artefact of the checker**, not
+of the document: the quotes belong to I-65, I-69 and I-77, each of which
+cites the right page, and the checker attributed them to a neighbouring
+entry. Verified by hand.
+
+**The 38 unmatched are not citation faults.** Three are the repo quoting
+its own earlier prose rather than the book. The rest are PDF extraction
+artefacts — the raw layout joins words across column boundaries
+("acharacter" for "A character" on p. 67), and chart cells and formulas
+extract in an order the page does not read in. Each was spot-checked
+against the page rather than assumed.
+
+**What the sweep does not establish.** That a quote appears on the page
+it cites is not that the reading drawn from it is right. This checks
+provenance, not interpretation.
