@@ -63,8 +63,13 @@ const (
 
 	// EntryCapital is chart 11's "Capital***" cell: "World Knowledge (of
 	// world of highest held noble Land Grant)" (p. 85). Transcribed and
-	// not awarded: a World Knowledge is a Knowledge, and the
-	// Skill/Knowledge distinction lands with milestone 7 (docs/PRD.md).
+	// not awarded, and the reason is no longer the Knowledge: those are
+	// modelled, and chart MS supplies the "World: <Name>" naming. What
+	// the cell still needs is "highest held", which ranks a character's
+	// grants against one another — I-83 declines to invent the per-title
+	// hex table that would give an answer, and I-82 prices grant income
+	// without ever ordering them. An accepted v1 exception, in
+	// COVERAGE.md.
 	EntryCapital EntryKind = "capital"
 
 	// EntryNewTrade is chart 01's "New Trade***" cell: "Any Trade not

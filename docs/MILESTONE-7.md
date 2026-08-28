@@ -137,6 +137,4 @@ value generation never reads, or a task-resolution concern: they are
 listed there with the reason, and each is a decision rather than an
 omission.
 
-What is open is not a rule. Nothing has been released — there are no tags
-— and `.issues/` holds four findings from the audit pass that no proposed
-fix was right for.
+What is open is not a rule. Nothing has been released — there are no tags.

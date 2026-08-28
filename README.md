@@ -62,10 +62,18 @@ student at either may also volunteer for OTC or NOTC, which commission him
 into the Army, the Navy or the Marines and oblige him a term there (p. 61)
 — the same obligation a Service Academy graduate carries.
 
-Everything the PRD asks for is implemented. What is deliberately left out
-is listed as a non-goal there — the Skill/Knowledge distinction most
-substantially — and [COVERAGE.md](docs/COVERAGE.md) records, rule by
-rule, what each of those is and why.
+Everything the PRD asks for is implemented but one rule, and that one is
+an accepted exception rather than an oversight: chart 11's `Capital***`
+cell awards "World Knowledge (of world of highest held noble Land Grant)"
+(p. 85), and nothing in the record says which of a character's grants is
+highest. Selecting it returns an error rather than awarding something
+invented.
+
+What is deliberately left out is listed as a non-goal in the PRD —
+non-human characteristics, psionics, combat, in-play advancement — and
+[COVERAGE.md](docs/COVERAGE.md) records, rule by rule, what each of those
+is and why. The Skill/Knowledge distinction was a non-goal and is not:
+p. 134's Knowledge-Knowledge-Skill progression is implemented.
 
 An earlier draft of this section listed FR7's Land Grant and Ship Share
 values and FR8's birthdate as deferred against the spec, on the strength of

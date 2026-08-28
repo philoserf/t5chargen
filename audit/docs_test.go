@@ -311,7 +311,14 @@ func TestCareerSectionsAreInChartOrder(t *testing.T) {
 // held. Closing it here guards rows written from now on and catches
 // nothing today: the one M6 claim left over was prose rather than a table
 // row, so this gate could not see it and a person had to.
-var closedMilestones = []string{"M1", "M2", "M3", "M4", "M5", "M6"}
+//
+// M7 closed with the Career and World Knowledges, and closing it here did
+// catch something: the Capital*** row still read "deferred (M7)" for a
+// rule the milestone did not deliver and was never going to. That is the
+// blind spot this gate has when a milestone is open — a row may defer to
+// it truthfully right up to the moment it closes — and the only thing
+// that shuts it is remembering to add the milestone here.
+var closedMilestones = []string{"M1", "M2", "M3", "M4", "M5", "M6", "M7"}
 
 // TestNoRowDefersToAClosedMilestone verifies COVERAGE.md's Status column
 // names no milestone that has already shipped.
