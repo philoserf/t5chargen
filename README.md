@@ -62,12 +62,16 @@ student at either may also volunteer for OTC or NOTC, which commission him
 into the Army, the Navy or the Marines and oblige him a term there (p. 61)
 — the same obligation a Service Academy graduate carries.
 
-Everything the PRD asks for is implemented but one rule, and that one is
-an accepted exception rather than an oversight: chart 11's `Capital***`
-cell awards "World Knowledge (of world of highest held noble Land Grant)"
+Two things the PRD asks for are not done. Chart 11's `Capital***` cell
+awards "World Knowledge (of world of highest held noble Land Grant)"
 (p. 85), and nothing in the record says which of a character's grants is
-highest. Selecting it returns an error rather than awarding something
-invented.
+highest; selecting it returns an error rather than awarding something
+invented. And the provenance contract asks each record to carry "any
+applied `ERRATA.md` deviations" — there are two, I-82 and I-112, and the
+`errata` field they belong in is never written. Both are recorded where
+they belong rather than left to be discovered: the first as
+COVERAGE.md's only accepted exception, the second in ERRATA.md's
+preamble.
 
 What is deliberately left out is listed as a non-goal in the PRD —
 non-human characteristics, psionics, combat, in-play advancement — and

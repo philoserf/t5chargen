@@ -38,13 +38,31 @@
 // never has (p. 75). The available set is character-dependent besides;
 // Noble drops out on a low Soc.
 //
-// COVERAGE.md's Status column is half gated. "covered" is not
-// mechanically checkable, and the deferred half cannot be narrowed to
-// "names no implementation" — legitimately deferred rows name real code.
-// What is checkable is that a deferral does not name a milestone that has
-// already shipped, which TestNoRowDefersToAClosedMilestone enforces after
-// that claim rotted twice in two days. The rest of the column is still
-// reviewed.
+// COVERAGE.md's Status column is gated on its vocabulary and on its
+// evidence, not on its truth. Whether a rule is really implemented is
+// not mechanically checkable; what is checkable is that the cell opens
+// with one of six words and that the two words claiming implementation
+// name a test or a gate, which TestEveryStatusIsInTheVocabulary
+// enforces. The other four words are the reasons a rule has no test, and
+// exempting them is what keeps the rule from demanding meaningless tests
+// on rows like Many Dice. TestNoRowDefersToAClosedMilestone survives
+// from when the column still carried deferrals.
+//
+// ERRATA.md's long historical narratives stay where they are. The
+// proposal was to move them to a separate decision-history document,
+// leaving each entry a short ruling. It was declined: reasoning at the
+// site is deliberate here — CLAUDE.md asks for the governing rule quoted
+// at the implementation — and splitting three thousand lines produces
+// two documents that can disagree about the same decision, which is the
+// failure this package exists to prevent. The classification on each
+// heading gives a reader the ruling without the split.
+//
+// ERRATA.md entries do not carry test references. The proposal was to
+// name a test in each implemented entry, some fifty of them. Instead
+// TestEveryImplementedEntryRestsOnATest requires the COVERAGE.md row
+// citing an entry to name one: the same guarantee, kept in the document
+// that already holds test names, rather than copied into a second place
+// that can rot against the first.
 //
 // COVERAGE.md's prose is reviewed, not gated, and this is where the rot
 // keeps going next. Three stale claims in a week lived in a note or a
@@ -547,16 +565,7 @@ func TestEveryStatusIsInTheVocabulary(t *testing.T) {
 	rows := coverageRows(t)
 
 	for _, row := range rows {
-		status := strings.ToLower(lastCell(row))
-
-		opening := ""
-
-		for name := range statuses {
-			if strings.HasPrefix(status, name) && len(name) > len(opening) {
-				opening = name
-			}
-		}
-
+		opening := statusOpening(row)
 		if opening == "" {
 			t.Errorf("%s: status opens %q, which is not in the vocabulary",
 				firstCell(row), trimStatus(lastCell(row)))
@@ -598,6 +607,22 @@ func coverageRows(t *testing.T) []string {
 }
 
 // testCell returns a row's Test column, or "" where it names none.
+// statusOpening returns the vocabulary word a row's Status opens with,
+// longest match first so "out of scope" is not read as an unknown word
+// beginning with "out". It returns "" for a status outside the six.
+func statusOpening(row string) string {
+	status := strings.ToLower(lastCell(row))
+	opening := ""
+
+	for name := range statuses {
+		if strings.HasPrefix(status, name) && len(name) > len(opening) {
+			opening = name
+		}
+	}
+
+	return opening
+}
+
 func testCell(row string) string {
 	cells := strings.Split(strings.Trim(row, "|"), "|")
 
@@ -680,5 +705,187 @@ func TestEveryCoverageRowFitsItsHeader(t *testing.T) {
 
 	if tables < 20 {
 		t.Fatalf("found only %d tables; the scan is not working", tables)
+	}
+}
+
+// classifications are what an ERRATA.md entry may be. Every entry
+// carries exactly one, on its heading line.
+//
+// The four are not decoration. An Interpretation reads ambiguous text
+// and stays inside the printed rule; a Deviation knowingly departs from
+// it and therefore owes the record an `errata` stamp (docs/PRD.md, "any
+// applied ERRATA.md deviations"); an Accepted exception is a rule in v1
+// scope this tool declines to implement; an Open question is undecided.
+// Those obligations differ, and an entry that does not say which it is
+// cannot be held to any of them — I-47 sat unclassified for four
+// milestones while the code silently picked a reading.
+var classifications = []string{
+	"Interpretation",
+	"Deviation",
+	"Accepted exception",
+	"Open question",
+}
+
+// errataHeading matches a classified entry heading:
+//
+//	### I-1: Interpretation — Citizen Job roll landing on ... (p. 78)
+var errataHeading = regexp.MustCompile(`(?m)^### (I-\d+): ([A-Z][a-z]+(?: [a-z]+)*) — (.+)$`)
+
+// TestEveryInterpretationIsClassified verifies that every ERRATA.md
+// entry names one of the four classifications on its heading line.
+func TestEveryInterpretationIsClassified(t *testing.T) {
+	errata := read(t, docsDir+"ERRATA.md")
+
+	all := regexp.MustCompile(`(?m)^### (I-\d+):.*$`).FindAllString(errata, -1)
+	if len(all) < 100 {
+		t.Fatalf("found only %d ERRATA.md entries; the scan is not working", len(all))
+	}
+
+	for _, heading := range all {
+		match := errataHeading.FindStringSubmatch(heading)
+		if match == nil {
+			t.Errorf("unclassified: %s", heading)
+
+			continue
+		}
+
+		if !slices.Contains(classifications, match[2]) {
+			t.Errorf("%s: classification %q is not one of %v", match[1], match[2], classifications)
+		}
+	}
+}
+
+// TestNoOpenQuestionIsCalledCovered verifies that no ERRATA.md entry
+// classified as an Open question is cited from a COVERAGE.md row that
+// calls itself covered or an interpretation.
+//
+// This is the I-47 failure in gate form. That entry recorded a
+// disagreement and left the reading open while the engine had already
+// chosen one, and the coverage map called the rule covered on its
+// strength. A question the map answers is not open, and a rule resting
+// on an open question is not covered; the two documents must not be able
+// to hold both positions at once.
+func TestNoOpenQuestionIsCalledCovered(t *testing.T) {
+	rows := coverageRows(t)
+
+	for _, match := range errataHeading.FindAllStringSubmatch(read(t, docsDir+"ERRATA.md"), -1) {
+		if match[2] != "Open question" {
+			continue
+		}
+
+		cites := regexp.MustCompile(`\b` + regexp.QuoteMeta(match[1]) + `\b`)
+
+		for _, row := range rows {
+			opening := statusOpening(row)
+			if !cites.MatchString(row) || !slices.Contains(evidenced, opening) {
+				continue
+			}
+
+			t.Errorf("%s is an Open question, but COVERAGE.md calls %q %s",
+				match[1], firstCell(row), opening)
+		}
+	}
+}
+
+// citingRows returns the COVERAGE.md rows that cite an ERRATA.md entry,
+// anchored so I-4 is not matched by a mention of I-44.
+func citingRows(rows []string, entry string) []string {
+	cites := regexp.MustCompile(`\b` + regexp.QuoteMeta(entry) + `\b`)
+
+	var citing []string
+
+	for _, row := range rows {
+		if cites.MatchString(row) {
+			citing = append(citing, row)
+		}
+	}
+
+	return citing
+}
+
+// TestAcceptedExceptionsAgree verifies that the two documents name the
+// same accepted exceptions. An ERRATA.md entry classified as one must be
+// cited from a COVERAGE.md row that calls the rule an accepted
+// exception, and every such row must cite such an entry.
+//
+// Both directions, because each half fails differently: a coverage row
+// claiming an exception nothing explains is a rule quietly dropped, and
+// an entry declining a rule the coverage map calls covered is the I-47
+// shape again.
+func TestAcceptedExceptionsAgree(t *testing.T) {
+	rows := coverageRows(t)
+	errata := read(t, docsDir+"ERRATA.md")
+
+	declined := map[string]bool{}
+
+	for _, match := range errataHeading.FindAllStringSubmatch(errata, -1) {
+		if match[2] != "Accepted exception" {
+			continue
+		}
+
+		declined[match[1]] = true
+
+		if !slices.ContainsFunc(citingRows(rows, match[1]), func(row string) bool {
+			return statusOpening(row) == "accepted exception"
+		}) {
+			t.Errorf("%s is an Accepted exception, which no COVERAGE.md row calls one", match[1])
+		}
+	}
+
+	for _, row := range rows {
+		if statusOpening(row) != "accepted exception" {
+			continue
+		}
+
+		named := false
+
+		for entry := range declined {
+			if regexp.MustCompile(`\b` + regexp.QuoteMeta(entry) + `\b`).MatchString(row) {
+				named = true
+			}
+		}
+
+		if !named {
+			t.Errorf("%q is an accepted exception citing no ERRATA.md entry classified as one", firstCell(row))
+		}
+	}
+}
+
+// TestEveryImplementedEntryRestsOnATest verifies that an ERRATA.md entry
+// naming an implementation site is cited from at least one COVERAGE.md
+// row that names a test.
+//
+// This is the adaptation recorded in the audit package doc. The review
+// asked for a test reference on each implemented interpretation, which
+// would copy some fifty test names into a second document that can rot
+// against the first. Requiring the citing coverage row to carry one puts
+// the same guarantee in the place that already holds it.
+func TestEveryImplementedEntryRestsOnATest(t *testing.T) {
+	rows := coverageRows(t)
+	implemented := regexp.MustCompile(`(?m)^Implemented at `)
+
+	// Split on the headings rather than matching whole entries: a
+	// non-greedy match that stops at the next "### " consumes it, and so
+	// returns every other entry.
+	parts := regexp.MustCompile(`(?m)^### (I-\d+):`).
+		Split(read(t, docsDir+"ERRATA.md"), -1)
+	names := regexp.MustCompile(`(?m)^### (I-\d+):`).
+		FindAllStringSubmatch(read(t, docsDir+"ERRATA.md"), -1)
+
+	if len(names) < 100 || len(parts) != len(names)+1 {
+		t.Fatalf("found %d ERRATA.md entries in %d parts; the scan is not working", len(names), len(parts))
+	}
+
+	for i, name := range names {
+		body := parts[i+1]
+		if !implemented.MatchString(body) {
+			continue
+		}
+
+		if !slices.ContainsFunc(citingRows(rows, name[1]), func(row string) bool {
+			return testCell(row) != ""
+		}) {
+			t.Errorf("%s names an implementation site, but no COVERAGE.md row citing it names a test", name[1])
+		}
 	}
 }
