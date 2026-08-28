@@ -848,7 +848,7 @@ two, and that p. 66's commissioning clause is a separate rule nothing
 disputes — the entry mentioned the reroll it allows and then filed it
 with the disagreement instead of implementing it.
 
-### I-35:### I-35: A Reward success awards only the table medal (p. 82 chart 08)
+### I-35: A Reward success awards only the table medal (p. 82 chart 08)
 
 Chart 08's Risk & Reward grid gives the Reward-success cell as "XS Exemplary
 Service, Medal", and the prose beside it as "Success: XS Exemplary Service
@@ -909,7 +909,9 @@ the case p. 66 names.
 The rows themselves are unaffected: a commission moves the character
 across the row he already holds, which is what "for Spacers, Crew becomes
 Line" (p. 66) describes. The other half of that sentence — the option to
-reroll Branch rather than keep it — is deferred under I-34.
+reroll Branch rather than keep it — is implemented under I-34, which
+resolved it as a rule nothing disputed rather than as part of the
+disagreement the entry had filed it with.
 
 Implemented at `chargen/armedforces.go` (`chooseBranch`, `sameOnBothSides`).
 
@@ -2586,8 +2588,12 @@ College are credentials, not characteristics: Masters requires a BA,
 Professors an MA, Medical School and Law School an Honors BA. p. 61 spells
 it out — "A University Masters Program requires a Bachelors. A Professors
 Program requires a Masters." The printed path after a degree leads upward,
-which is why nothing needed to forbid going round again. That the upward
-rungs are not implemented here is this repo's gap, not the book's.
+which is why nothing needed to forbid going round again.
+
+_Corrected (2026-08-28):_ this read "That the upward rungs are not
+implemented here is this repo's gap, not the book's." They were the gap
+when the entry was written and are not now — Masters, Professors, Medical
+School and Law School all run, and the auto policy climbs them.
 
 **Attempted, not graduated.** Every path through schooling leaves a record
 — refused applicant, failed cadet, graduate alike — and ED5's sentence

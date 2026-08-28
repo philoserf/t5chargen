@@ -109,12 +109,17 @@ func defaultHomeworldNames() []string {
 	return []string{home.Label()}
 }
 
-// chooseMilestone7 answers the four choice points milestone 7 added.
-// Split from chooseOutright for its size alone: each of them declines,
-// and the reason is in POLICY.md beside the rule it answers.
+// chooseDeclinedOffer answers the four choice points the policy turns
+// down, each by taking the option listed last: remain in the Reserves,
+// keep the current Branch, decline Flight School, roll the Scheme rather
+// than select one.
+//
+// Grouped because they share that shape and to keep chooseOutright
+// within a size a reader can hold, not because they arrived together —
+// the reason each declines is in POLICY.md beside the rule it answers.
 //
 //nolint:exhaustive // Deliberately partitioned: the rest are in chooseOutright.
-func chooseMilestone7(c Choice) (int, bool) {
+func chooseDeclinedOffer(c Choice) (int, bool) {
 	switch c.ID {
 	case ChooseBranchChange:
 		// POLICY.md: keep his current Branch, which is the last option.
@@ -156,7 +161,7 @@ func chooseMilestone7(c Choice) (int, bool) {
 // chooseOutright applies the POLICY.md rules that need no list to search:
 // each is a single choice point with an answer of its own.
 func chooseOutright(c Choice) (int, bool) {
-	if index, ok := chooseMilestone7(c); ok {
+	if index, ok := chooseDeclinedOffer(c); ok {
 		return index, ok
 	}
 
