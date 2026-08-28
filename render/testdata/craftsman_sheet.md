@@ -22,7 +22,7 @@
 
 **Career**: Craftsman (5 terms), 4 Masterpieces (1 Perfect)
 
-**Skills**: ACV-6, Actor-15, Craftsman-15, Electronics-4, Trader-1
+**Skills**: ACV-6, Actor-15, Career: Citizen-4, Career: Craftsman-5, Career: Scholar-1, Craftsman-15, Electronics-4, Trader-1, World: Regina-4
 
 **Credits**: Cr325000
 
@@ -36,6 +36,6 @@
 
 ---
 
-Seed 177 (math/rand/v2-pcg) · schema 0.33.0 · engine 0.43.0 · policy none
+Seed 177 (math/rand/v2-pcg) · schema 0.33.0 · engine 0.44.0 · policy none
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

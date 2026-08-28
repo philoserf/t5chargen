@@ -744,13 +744,20 @@ _Book 1 p. 78 chart 04_
   - #635 (from #632) major illness (2 characteristics at zero); four weeks recuperating
   - #636 (from #625) career ended (Citizen)
 
+## Career and World Knowledges
+
+_Book 1 p. 134; chart MS p. 132_
+
+  - #638 (from #637) Career: Citizen +6 = Career: Citizen-6
+  - #639 (from #637) World: Regina +5 = World: Regina-5
+
 ## Determine Fame
 
 _Book 1 p. 91 chart F_
 
-- #638 1D = 2 = 2 — Book 1 p. 91 chart F (If NO other eligibility, 1D)
-- #639 policy chose "Keep this Fame" of [Keep this Fame, Add Flux to Fame]: Invoke the Fame Flux Event? (Fame 2 so far) — Book 1 p. 91 chart F (The Fame Flux Event)
-  - #640 (from #639) Fame 2 (Close Family) = no other eligibility +2
+- #641 1D = 2 = 2 — Book 1 p. 91 chart F (If NO other eligibility, 1D)
+- #642 policy chose "Keep this Fame" of [Keep this Fame, Add Flux to Fame]: Invoke the Fame Flux Event? (Fame 2 so far) — Book 1 p. 91 chart F (The Fame Flux Event)
+  - #643 (from #642) Fame 2 (Close Family) = no other eligibility +2
 
 ## Muster Out
 
@@ -761,97 +768,97 @@ _Book 1 p. 67; chart M1 p. 70_
 
 _Book 1 p. 78 chart 04 D_
 
-- #643 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #644 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #645 1D+20 = 4 = 24 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
-  - #646 (from #645) Money, worth Cr50000
-- #647 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #648 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #649 1D+20 = 2 = 22 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
-  - #650 (from #649) Money, worth Cr50000
-- #651 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #652 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #653 1D+20 = 5 = 25 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
-  - #654 (from #653) Money, worth Cr50000
-- #655 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #656 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #657 1D+20 = 6 = 26 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
-  - #658 (from #657) Money, worth Cr50000
-- #659 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #660 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #661 1D+20 = 1 = 21 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
-  - #662 (from #661) Money, worth Cr50000
-- #663 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #664 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #665 1D+20 = 4 = 24 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
-  - #666 (from #665) Money, worth Cr50000
-- #667 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #668 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #669 1D+20 = 1 = 21 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
-  - #670 (from #669) Money, worth Cr50000
-- #671 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #672 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #673 1D+20 = 6 = 26 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
-  - #674 (from #673) Money, worth Cr50000
-- #675 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #676 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #677 1D+20 = 6 = 26 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
-  - #678 (from #677) Money, worth Cr50000
-- #679 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #680 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #681 1D+20 = 1 = 21 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
-  - #682 (from #681) Money, worth Cr50000
-- #683 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #684 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #685 1D+20 = 5 = 25 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
-  - #686 (from #685) Money, worth Cr50000
-- #687 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #688 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #689 1D+20 = 6 = 26 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
-  - #690 (from #689) Money, worth Cr50000
-- #691 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #692 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #693 1D+20 = 6 = 26 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
-  - #694 (from #693) Money, worth Cr50000
-- #695 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #696 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #697 1D+20 = 2 = 22 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
-  - #698 (from #697) Money, worth Cr50000
-- #699 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #700 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #701 1D+20 = 5 = 25 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
-  - #702 (from #701) Money, worth Cr50000
-- #703 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #704 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #705 1D+20 = 3 = 23 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
-  - #706 (from #705) Money, worth Cr50000
-- #707 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #708 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #709 1D+20 = 2 = 22 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
-  - #710 (from #709) Money, worth Cr50000
-- #711 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #712 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #713 1D+20 = 2 = 22 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
-  - #714 (from #713) Money, worth Cr50000
-- #715 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #716 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #717 1D+20 = 6 = 26 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
-  - #718 (from #717) Money, worth Cr50000
-- #719 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
-- #720 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
-- #721 1D+20 = 5 = 25 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
-  - #722 (from #721) Money, worth Cr50000
+- #646 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #647 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #648 1D+20 = 4 = 24 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
+  - #649 (from #648) Money, worth Cr50000
+- #650 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #651 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #652 1D+20 = 2 = 22 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
+  - #653 (from #652) Money, worth Cr50000
+- #654 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #655 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #656 1D+20 = 5 = 25 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
+  - #657 (from #656) Money, worth Cr50000
+- #658 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #659 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #660 1D+20 = 6 = 26 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
+  - #661 (from #660) Money, worth Cr50000
+- #662 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #663 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #664 1D+20 = 1 = 21 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
+  - #665 (from #664) Money, worth Cr50000
+- #666 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #667 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #668 1D+20 = 4 = 24 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
+  - #669 (from #668) Money, worth Cr50000
+- #670 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #671 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #672 1D+20 = 1 = 21 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
+  - #673 (from #672) Money, worth Cr50000
+- #674 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #675 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #676 1D+20 = 6 = 26 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
+  - #677 (from #676) Money, worth Cr50000
+- #678 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #679 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #680 1D+20 = 6 = 26 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
+  - #681 (from #680) Money, worth Cr50000
+- #682 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #683 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #684 1D+20 = 1 = 21 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
+  - #685 (from #684) Money, worth Cr50000
+- #686 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #687 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #688 1D+20 = 5 = 25 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
+  - #689 (from #688) Money, worth Cr50000
+- #690 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #691 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #692 1D+20 = 6 = 26 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
+  - #693 (from #692) Money, worth Cr50000
+- #694 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #695 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #696 1D+20 = 6 = 26 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
+  - #697 (from #696) Money, worth Cr50000
+- #698 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #699 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #700 1D+20 = 2 = 22 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
+  - #701 (from #700) Money, worth Cr50000
+- #702 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #703 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #704 1D+20 = 5 = 25 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
+  - #705 (from #704) Money, worth Cr50000
+- #706 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #707 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #708 1D+20 = 3 = 23 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
+  - #709 (from #708) Money, worth Cr50000
+- #710 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #711 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #712 1D+20 = 2 = 22 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
+  - #713 (from #712) Money, worth Cr50000
+- #714 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #715 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #716 1D+20 = 2 = 22 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
+  - #717 (from #716) Money, worth Cr50000
+- #718 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #719 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #720 1D+20 = 6 = 26 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
+  - #721 (from #720) Money, worth Cr50000
+- #722 policy chose "Money" of [Money, Benefits]: Which column for this Citizen muster-out roll? — Book 1 p. 68 (Which Column?)
+- #723 policy chose "+20" of [+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, +10, +11, +12, +13, +14, +15, +16, +17, +18, +19, +20]: How much of the Terms DM to apply? — Book 1 p. 68 (the DMs ... may be partially applied)
+- #724 1D+20 = 5 = 25 — Book 1 p. 78 chart 04 D (Money column, 1D+20)
+  - #725 (from #724) Money, worth Cr50000
 
 ## Muster Out: Entitlements
 
 _Book 1 p. 70 chart M1_
 
-- #724 policy chose "Keep it (Cr5000 a year from age 66)" of [Keep it (Cr5000 a year from age 66), Cash out (Cr25000)]: Cash out the Citizen's Pension? — Book 1 p. 69 (Cashing Out)
-  - #725 (from #724) Citizen's Pension, Cr5000 a year from age 66
+- #727 policy chose "Keep it (Cr5000 a year from age 66)" of [Keep it (Cr5000 a year from age 66), Cash out (Cr25000)]: Cash out the Citizen's Pension? — Book 1 p. 69 (Cashing Out)
+  - #728 (from #727) Citizen's Pension, Cr5000 a year from age 66
 
 ## Record the Character's Birthdate
 
 _Book 1 p. 58; p. 263_
 
-- #727 4D = 1+6+1+3 = 11 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
-  - #728 (from #727) born Forday 103-995
+- #730 4D = 1+6+1+3 = 11 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
+  - #731 (from #730) born Forday 103-995

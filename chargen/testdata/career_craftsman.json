@@ -1,7 +1,7 @@
 {
   "schema_version": "0.33.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.43.0",
+  "engine_version": "0.44.0",
   "policy_version": "none",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -46,6 +46,18 @@
       "level": 15
     },
     {
+      "name": "Career: Citizen",
+      "level": 4
+    },
+    {
+      "name": "Career: Craftsman",
+      "level": 5
+    },
+    {
+      "name": "Career: Scholar",
+      "level": 1
+    },
+    {
       "name": "Craftsman",
       "level": 15
     },
@@ -56,6 +68,10 @@
     {
       "name": "Trader",
       "level": 1
+    },
+    {
+      "name": "World: Regina",
+      "level": 4
     }
   ],
   "careers": [
@@ -5450,12 +5466,64 @@
       "seq": 345,
       "kind": "step",
       "step": {
+        "name": "Career and World Knowledges",
+        "cite": "Book 1 p. 134; chart MS p. 132"
+      }
+    },
+    {
+      "seq": 346,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 345,
+        "kind": "skill_awarded",
+        "skill": "Career: Citizen",
+        "delta": 4,
+        "value": 4
+      }
+    },
+    {
+      "seq": 347,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 345,
+        "kind": "skill_awarded",
+        "skill": "Career: Scholar",
+        "delta": 1,
+        "value": 1
+      }
+    },
+    {
+      "seq": 348,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 345,
+        "kind": "skill_awarded",
+        "skill": "Career: Craftsman",
+        "delta": 5,
+        "value": 5
+      }
+    },
+    {
+      "seq": 349,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 345,
+        "kind": "skill_awarded",
+        "skill": "World: Regina",
+        "delta": 4,
+        "value": 4
+      }
+    },
+    {
+      "seq": 350,
+      "kind": "step",
+      "step": {
         "name": "Determine Fame",
         "cite": "Book 1 p. 91 chart F"
       }
     },
     {
-      "seq": 346,
+      "seq": 351,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5469,10 +5537,10 @@
       }
     },
     {
-      "seq": 347,
+      "seq": 352,
       "kind": "consequence",
       "consequence": {
-        "cause": 346,
+        "cause": 351,
         "kind": "fame_computed",
         "skill": "Sector",
         "value": 20,
@@ -5497,7 +5565,7 @@
       }
     },
     {
-      "seq": 348,
+      "seq": 353,
       "kind": "step",
       "step": {
         "name": "Muster Out",
@@ -5505,7 +5573,7 @@
       }
     },
     {
-      "seq": 349,
+      "seq": 354,
       "kind": "step",
       "step": {
         "name": "Muster Out: Citizen",
@@ -5513,7 +5581,7 @@
       }
     },
     {
-      "seq": 350,
+      "seq": 355,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5527,7 +5595,7 @@
       }
     },
     {
-      "seq": 351,
+      "seq": 356,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5544,7 +5612,7 @@
       }
     },
     {
-      "seq": 352,
+      "seq": 357,
       "kind": "throw",
       "throw": {
         "expr": "1D+4",
@@ -5557,10 +5625,10 @@
       }
     },
     {
-      "seq": 353,
+      "seq": 358,
       "kind": "consequence",
       "consequence": {
-        "cause": 352,
+        "cause": 357,
         "kind": "benefit",
         "skill": "Money",
         "career": "Citizen",
@@ -5568,7 +5636,7 @@
       }
     },
     {
-      "seq": 354,
+      "seq": 359,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5582,7 +5650,7 @@
       }
     },
     {
-      "seq": 355,
+      "seq": 360,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5599,7 +5667,7 @@
       }
     },
     {
-      "seq": 356,
+      "seq": 361,
       "kind": "throw",
       "throw": {
         "expr": "1D+4",
@@ -5612,10 +5680,10 @@
       }
     },
     {
-      "seq": 357,
+      "seq": 362,
       "kind": "consequence",
       "consequence": {
-        "cause": 356,
+        "cause": 361,
         "kind": "benefit",
         "skill": "Money",
         "career": "Citizen",
@@ -5623,7 +5691,7 @@
       }
     },
     {
-      "seq": 358,
+      "seq": 363,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5637,7 +5705,7 @@
       }
     },
     {
-      "seq": 359,
+      "seq": 364,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5654,7 +5722,7 @@
       }
     },
     {
-      "seq": 360,
+      "seq": 365,
       "kind": "throw",
       "throw": {
         "expr": "1D+4",
@@ -5667,10 +5735,10 @@
       }
     },
     {
-      "seq": 361,
+      "seq": 366,
       "kind": "consequence",
       "consequence": {
-        "cause": 360,
+        "cause": 365,
         "kind": "benefit",
         "skill": "Money",
         "career": "Citizen",
@@ -5678,79 +5746,24 @@
       }
     },
     {
-      "seq": 362,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Which column for this Citizen muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 363,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4"
-        ],
-        "chosen": 4,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 364,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+4",
-        "dice": [
-          5
-        ],
-        "mod": 4,
-        "total": 9,
-        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+4)"
-      }
-    },
-    {
-      "seq": 365,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 364,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Citizen",
-        "delta": 35000
-      }
-    },
-    {
-      "seq": 366,
-      "kind": "choice",
-      "choice": {
-        "decider": "player",
-        "prompt": "Which column for this Citizen muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
       "seq": 367,
       "kind": "choice",
       "choice": {
         "decider": "player",
+        "prompt": "Which column for this Citizen muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 368,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
         "prompt": "How much of the Terms DM to apply?",
         "options": [
           "+0",
@@ -5764,7 +5777,7 @@
       }
     },
     {
-      "seq": 368,
+      "seq": 369,
       "kind": "throw",
       "throw": {
         "expr": "1D+4",
@@ -5777,10 +5790,10 @@
       }
     },
     {
-      "seq": 369,
+      "seq": 370,
       "kind": "consequence",
       "consequence": {
-        "cause": 368,
+        "cause": 369,
         "kind": "benefit",
         "skill": "Money",
         "career": "Citizen",
@@ -5788,7 +5801,62 @@
       }
     },
     {
-      "seq": 370,
+      "seq": 371,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "Which column for this Citizen muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 372,
+      "kind": "choice",
+      "choice": {
+        "decider": "player",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4"
+        ],
+        "chosen": 4,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 373,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+4",
+        "dice": [
+          5
+        ],
+        "mod": 4,
+        "total": 9,
+        "cite": "Book 1 p. 78 chart 04 D (Money column, 1D+4)"
+      }
+    },
+    {
+      "seq": 374,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 373,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Citizen",
+        "delta": 35000
+      }
+    },
+    {
+      "seq": 375,
       "kind": "step",
       "step": {
         "name": "Muster Out: Scholar",
@@ -5796,7 +5864,7 @@
       }
     },
     {
-      "seq": 371,
+      "seq": 376,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5810,7 +5878,7 @@
       }
     },
     {
-      "seq": 372,
+      "seq": 377,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5825,7 +5893,7 @@
       }
     },
     {
-      "seq": 373,
+      "seq": 378,
       "kind": "throw",
       "throw": {
         "expr": "1D+2",
@@ -5838,10 +5906,10 @@
       }
     },
     {
-      "seq": 374,
+      "seq": 379,
       "kind": "consequence",
       "consequence": {
-        "cause": 373,
+        "cause": 378,
         "kind": "benefit",
         "skill": "Money",
         "career": "Scholar",
@@ -5849,7 +5917,7 @@
       }
     },
     {
-      "seq": 375,
+      "seq": 380,
       "kind": "step",
       "step": {
         "name": "Muster Out: Craftsman",
@@ -5857,7 +5925,7 @@
       }
     },
     {
-      "seq": 376,
+      "seq": 381,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5871,7 +5939,7 @@
       }
     },
     {
-      "seq": 377,
+      "seq": 382,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5889,7 +5957,7 @@
       }
     },
     {
-      "seq": 378,
+      "seq": 383,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -5902,10 +5970,10 @@
       }
     },
     {
-      "seq": 379,
+      "seq": 384,
       "kind": "consequence",
       "consequence": {
-        "cause": 378,
+        "cause": 383,
         "kind": "benefit",
         "skill": "Money",
         "career": "Craftsman",
@@ -5913,7 +5981,7 @@
       }
     },
     {
-      "seq": 380,
+      "seq": 385,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5927,7 +5995,7 @@
       }
     },
     {
-      "seq": 381,
+      "seq": 386,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5945,7 +6013,7 @@
       }
     },
     {
-      "seq": 382,
+      "seq": 387,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -5958,10 +6026,10 @@
       }
     },
     {
-      "seq": 383,
+      "seq": 388,
       "kind": "consequence",
       "consequence": {
-        "cause": 382,
+        "cause": 387,
         "kind": "benefit",
         "skill": "Money",
         "career": "Craftsman",
@@ -5969,7 +6037,7 @@
       }
     },
     {
-      "seq": 384,
+      "seq": 389,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -5983,7 +6051,7 @@
       }
     },
     {
-      "seq": 385,
+      "seq": 390,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -6001,7 +6069,7 @@
       }
     },
     {
-      "seq": 386,
+      "seq": 391,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -6014,10 +6082,10 @@
       }
     },
     {
-      "seq": 387,
+      "seq": 392,
       "kind": "consequence",
       "consequence": {
-        "cause": 386,
+        "cause": 391,
         "kind": "benefit",
         "skill": "Money",
         "career": "Craftsman",
@@ -6025,7 +6093,7 @@
       }
     },
     {
-      "seq": 388,
+      "seq": 393,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -6039,7 +6107,7 @@
       }
     },
     {
-      "seq": 389,
+      "seq": 394,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -6057,7 +6125,7 @@
       }
     },
     {
-      "seq": 390,
+      "seq": 395,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -6070,10 +6138,10 @@
       }
     },
     {
-      "seq": 391,
+      "seq": 396,
       "kind": "consequence",
       "consequence": {
-        "cause": 390,
+        "cause": 395,
         "kind": "benefit",
         "skill": "StarPass",
         "career": "Craftsman",
@@ -6081,7 +6149,7 @@
       }
     },
     {
-      "seq": 392,
+      "seq": 397,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -6095,7 +6163,7 @@
       }
     },
     {
-      "seq": 393,
+      "seq": 398,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -6113,7 +6181,7 @@
       }
     },
     {
-      "seq": 394,
+      "seq": 399,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -6126,10 +6194,10 @@
       }
     },
     {
-      "seq": 395,
+      "seq": 400,
       "kind": "consequence",
       "consequence": {
-        "cause": 394,
+        "cause": 399,
         "kind": "benefit",
         "skill": "Money",
         "career": "Craftsman",
@@ -6137,7 +6205,7 @@
       }
     },
     {
-      "seq": 396,
+      "seq": 401,
       "kind": "step",
       "step": {
         "name": "Muster Out: Entitlements",
@@ -6145,7 +6213,7 @@
       }
     },
     {
-      "seq": 397,
+      "seq": 402,
       "kind": "choice",
       "choice": {
         "decider": "player",
@@ -6159,10 +6227,10 @@
       }
     },
     {
-      "seq": 398,
+      "seq": 403,
       "kind": "consequence",
       "consequence": {
-        "cause": 397,
+        "cause": 402,
         "kind": "entitlement",
         "skill": "Citizen's Pension",
         "delta": 5000,
@@ -6170,7 +6238,7 @@
       }
     },
     {
-      "seq": 399,
+      "seq": 404,
       "kind": "step",
       "step": {
         "name": "Record the Character's Birthdate",
@@ -6178,7 +6246,7 @@
       }
     },
     {
-      "seq": 400,
+      "seq": 405,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -6193,7 +6261,7 @@
       }
     },
     {
-      "seq": 401,
+      "seq": 406,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -6208,10 +6276,10 @@
       }
     },
     {
-      "seq": 402,
+      "seq": 407,
       "kind": "consequence",
       "consequence": {
-        "cause": 401,
+        "cause": 406,
         "kind": "birthdate",
         "detail": "Forday 264-1046",
         "value": 1046

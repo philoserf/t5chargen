@@ -1,7 +1,7 @@
 {
   "schema_version": "0.33.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.43.0",
+  "engine_version": "0.44.0",
   "policy_version": "0.25.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -86,6 +86,10 @@
       "level": 6
     },
     {
+      "name": "Career: Scholar",
+      "level": 6
+    },
+    {
       "name": "Hostile Environ",
       "level": 13
     },
@@ -104,6 +108,10 @@
     {
       "name": "Trader",
       "level": 1
+    },
+    {
+      "name": "World: Regina",
+      "level": 5
     }
   ],
   "careers": [
@@ -5726,12 +5734,42 @@
       "seq": 369,
       "kind": "step",
       "step": {
+        "name": "Career and World Knowledges",
+        "cite": "Book 1 p. 134; chart MS p. 132"
+      }
+    },
+    {
+      "seq": 370,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 369,
+        "kind": "skill_awarded",
+        "skill": "Career: Scholar",
+        "delta": 6,
+        "value": 6
+      }
+    },
+    {
+      "seq": 371,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 369,
+        "kind": "skill_awarded",
+        "skill": "World: Regina",
+        "delta": 5,
+        "value": 5
+      }
+    },
+    {
+      "seq": 372,
+      "kind": "step",
+      "step": {
         "name": "Determine Fame",
         "cite": "Book 1 p. 91 chart F"
       }
     },
     {
-      "seq": 370,
+      "seq": 373,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5745,10 +5783,10 @@
       }
     },
     {
-      "seq": 371,
+      "seq": 374,
       "kind": "consequence",
       "consequence": {
-        "cause": 370,
+        "cause": 373,
         "kind": "fame_computed",
         "skill": "World System",
         "value": 12,
@@ -5765,7 +5803,7 @@
       }
     },
     {
-      "seq": 372,
+      "seq": 375,
       "kind": "step",
       "step": {
         "name": "Muster Out",
@@ -5773,7 +5811,7 @@
       }
     },
     {
-      "seq": 373,
+      "seq": 376,
       "kind": "step",
       "step": {
         "name": "Muster Out: Scholar",
@@ -5781,7 +5819,7 @@
       }
     },
     {
-      "seq": 374,
+      "seq": 377,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5795,7 +5833,7 @@
       }
     },
     {
-      "seq": 375,
+      "seq": 378,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5814,7 +5852,7 @@
       }
     },
     {
-      "seq": 376,
+      "seq": 379,
       "kind": "throw",
       "throw": {
         "expr": "1D+6",
@@ -5827,10 +5865,10 @@
       }
     },
     {
-      "seq": 377,
+      "seq": 380,
       "kind": "consequence",
       "consequence": {
-        "cause": 376,
+        "cause": 379,
         "kind": "benefit",
         "skill": "Money",
         "career": "Scholar",
@@ -5838,7 +5876,7 @@
       }
     },
     {
-      "seq": 378,
+      "seq": 381,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5852,7 +5890,7 @@
       }
     },
     {
-      "seq": 379,
+      "seq": 382,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5871,7 +5909,7 @@
       }
     },
     {
-      "seq": 380,
+      "seq": 383,
       "kind": "throw",
       "throw": {
         "expr": "1D+6",
@@ -5884,10 +5922,10 @@
       }
     },
     {
-      "seq": 381,
+      "seq": 384,
       "kind": "consequence",
       "consequence": {
-        "cause": 380,
+        "cause": 383,
         "kind": "benefit",
         "skill": "Money",
         "career": "Scholar",
@@ -5895,7 +5933,7 @@
       }
     },
     {
-      "seq": 382,
+      "seq": 385,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5909,7 +5947,7 @@
       }
     },
     {
-      "seq": 383,
+      "seq": 386,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5928,7 +5966,7 @@
       }
     },
     {
-      "seq": 384,
+      "seq": 387,
       "kind": "throw",
       "throw": {
         "expr": "1D+6",
@@ -5941,10 +5979,10 @@
       }
     },
     {
-      "seq": 385,
+      "seq": 388,
       "kind": "consequence",
       "consequence": {
-        "cause": 384,
+        "cause": 387,
         "kind": "benefit",
         "skill": "Money",
         "career": "Scholar",
@@ -5952,7 +5990,7 @@
       }
     },
     {
-      "seq": 386,
+      "seq": 389,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5966,7 +6004,7 @@
       }
     },
     {
-      "seq": 387,
+      "seq": 390,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -5985,7 +6023,7 @@
       }
     },
     {
-      "seq": 388,
+      "seq": 391,
       "kind": "throw",
       "throw": {
         "expr": "1D+6",
@@ -5998,10 +6036,10 @@
       }
     },
     {
-      "seq": 389,
+      "seq": 392,
       "kind": "consequence",
       "consequence": {
-        "cause": 388,
+        "cause": 391,
         "kind": "benefit",
         "skill": "Money",
         "career": "Scholar",
@@ -6009,7 +6047,7 @@
       }
     },
     {
-      "seq": 390,
+      "seq": 393,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6023,7 +6061,7 @@
       }
     },
     {
-      "seq": 391,
+      "seq": 394,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6042,7 +6080,7 @@
       }
     },
     {
-      "seq": 392,
+      "seq": 395,
       "kind": "throw",
       "throw": {
         "expr": "1D+6",
@@ -6055,10 +6093,10 @@
       }
     },
     {
-      "seq": 393,
+      "seq": 396,
       "kind": "consequence",
       "consequence": {
-        "cause": 392,
+        "cause": 395,
         "kind": "benefit",
         "skill": "Money",
         "career": "Scholar",
@@ -6066,7 +6104,7 @@
       }
     },
     {
-      "seq": 394,
+      "seq": 397,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6080,7 +6118,7 @@
       }
     },
     {
-      "seq": 395,
+      "seq": 398,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6099,7 +6137,7 @@
       }
     },
     {
-      "seq": 396,
+      "seq": 399,
       "kind": "throw",
       "throw": {
         "expr": "1D+6",
@@ -6112,10 +6150,10 @@
       }
     },
     {
-      "seq": 397,
+      "seq": 400,
       "kind": "consequence",
       "consequence": {
-        "cause": 396,
+        "cause": 399,
         "kind": "benefit",
         "skill": "Money",
         "career": "Scholar",
@@ -6123,7 +6161,7 @@
       }
     },
     {
-      "seq": 398,
+      "seq": 401,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6134,49 +6172,6 @@
         ],
         "chosen": 0,
         "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 399,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Scholar Rank DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6"
-        ],
-        "chosen": 6,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 400,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+6",
-        "dice": [
-          6
-        ],
-        "mod": 6,
-        "total": 12,
-        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
-      }
-    },
-    {
-      "seq": 401,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 400,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Scholar",
-        "delta": 50000
       }
     },
     {
@@ -6184,20 +6179,6 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Which column for this Scholar muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 403,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
         "prompt": "How much of the Scholar Rank DM to apply?",
         "options": [
           "+0",
@@ -6213,27 +6194,41 @@
       }
     },
     {
-      "seq": 404,
+      "seq": 403,
       "kind": "throw",
       "throw": {
         "expr": "1D+6",
         "dice": [
-          4
+          6
         ],
         "mod": 6,
-        "total": 10,
+        "total": 12,
         "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
       }
     },
     {
-      "seq": 405,
+      "seq": 404,
       "kind": "consequence",
       "consequence": {
-        "cause": 404,
+        "cause": 403,
         "kind": "benefit",
         "skill": "Money",
         "career": "Scholar",
-        "delta": 40000
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 405,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
       }
     },
     {
@@ -6241,20 +6236,6 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Which column for this Scholar muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 407,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
         "prompt": "How much of the Scholar Rank DM to apply?",
         "options": [
           "+0",
@@ -6270,7 +6251,7 @@
       }
     },
     {
-      "seq": 408,
+      "seq": 407,
       "kind": "throw",
       "throw": {
         "expr": "1D+6",
@@ -6283,10 +6264,10 @@
       }
     },
     {
-      "seq": 409,
+      "seq": 408,
       "kind": "consequence",
       "consequence": {
-        "cause": 408,
+        "cause": 407,
         "kind": "benefit",
         "skill": "Money",
         "career": "Scholar",
@@ -6294,7 +6275,7 @@
       }
     },
     {
-      "seq": 410,
+      "seq": 409,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6308,7 +6289,7 @@
       }
     },
     {
-      "seq": 411,
+      "seq": 410,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6327,27 +6308,41 @@
       }
     },
     {
-      "seq": 412,
+      "seq": 411,
       "kind": "throw",
       "throw": {
         "expr": "1D+6",
         "dice": [
-          6
+          4
         ],
         "mod": 6,
-        "total": 12,
+        "total": 10,
         "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
       }
     },
     {
-      "seq": 413,
+      "seq": 412,
       "kind": "consequence",
       "consequence": {
-        "cause": 412,
+        "cause": 411,
         "kind": "benefit",
         "skill": "Money",
         "career": "Scholar",
-        "delta": 50000
+        "delta": 40000
+      }
+    },
+    {
+      "seq": 413,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
       }
     },
     {
@@ -6355,20 +6350,6 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Which column for this Scholar muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 415,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
         "prompt": "How much of the Scholar Rank DM to apply?",
         "options": [
           "+0",
@@ -6384,7 +6365,7 @@
       }
     },
     {
-      "seq": 416,
+      "seq": 415,
       "kind": "throw",
       "throw": {
         "expr": "1D+6",
@@ -6397,10 +6378,10 @@
       }
     },
     {
-      "seq": 417,
+      "seq": 416,
       "kind": "consequence",
       "consequence": {
-        "cause": 416,
+        "cause": 415,
         "kind": "benefit",
         "skill": "Money",
         "career": "Scholar",
@@ -6408,7 +6389,7 @@
       }
     },
     {
-      "seq": 418,
+      "seq": 417,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6422,7 +6403,7 @@
       }
     },
     {
-      "seq": 419,
+      "seq": 418,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6441,7 +6422,64 @@
       }
     },
     {
+      "seq": 419,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          6
+        ],
+        "mod": 6,
+        "total": 12,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
+      }
+    },
+    {
       "seq": 420,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 419,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scholar",
+        "delta": 50000
+      }
+    },
+    {
+      "seq": 421,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 422,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Scholar Rank DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 423,
       "kind": "throw",
       "throw": {
         "expr": "1D+6",
@@ -6454,10 +6492,10 @@
       }
     },
     {
-      "seq": 421,
+      "seq": 424,
       "kind": "consequence",
       "consequence": {
-        "cause": 420,
+        "cause": 423,
         "kind": "benefit",
         "skill": "Money",
         "career": "Scholar",
@@ -6465,7 +6503,7 @@
       }
     },
     {
-      "seq": 422,
+      "seq": 425,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6479,7 +6517,7 @@
       }
     },
     {
-      "seq": 423,
+      "seq": 426,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6498,7 +6536,7 @@
       }
     },
     {
-      "seq": 424,
+      "seq": 427,
       "kind": "throw",
       "throw": {
         "expr": "1D+6",
@@ -6511,10 +6549,10 @@
       }
     },
     {
-      "seq": 425,
+      "seq": 428,
       "kind": "consequence",
       "consequence": {
-        "cause": 424,
+        "cause": 427,
         "kind": "benefit",
         "skill": "Money",
         "career": "Scholar",
@@ -6522,7 +6560,7 @@
       }
     },
     {
-      "seq": 426,
+      "seq": 429,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6536,7 +6574,7 @@
       }
     },
     {
-      "seq": 427,
+      "seq": 430,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6555,7 +6593,7 @@
       }
     },
     {
-      "seq": 428,
+      "seq": 431,
       "kind": "throw",
       "throw": {
         "expr": "1D+6",
@@ -6568,10 +6606,10 @@
       }
     },
     {
-      "seq": 429,
+      "seq": 432,
       "kind": "consequence",
       "consequence": {
-        "cause": 428,
+        "cause": 431,
         "kind": "benefit",
         "skill": "Money",
         "career": "Scholar",
@@ -6579,7 +6617,7 @@
       }
     },
     {
-      "seq": 430,
+      "seq": 433,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6593,7 +6631,7 @@
       }
     },
     {
-      "seq": 431,
+      "seq": 434,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6612,7 +6650,7 @@
       }
     },
     {
-      "seq": 432,
+      "seq": 435,
       "kind": "throw",
       "throw": {
         "expr": "1D+6",
@@ -6625,10 +6663,10 @@
       }
     },
     {
-      "seq": 433,
+      "seq": 436,
       "kind": "consequence",
       "consequence": {
-        "cause": 432,
+        "cause": 435,
         "kind": "benefit",
         "skill": "Money",
         "career": "Scholar",
@@ -6636,7 +6674,7 @@
       }
     },
     {
-      "seq": 434,
+      "seq": 437,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6647,49 +6685,6 @@
         ],
         "chosen": 0,
         "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 435,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Scholar Rank DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5",
-          "+6"
-        ],
-        "chosen": 6,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 436,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+6",
-        "dice": [
-          1
-        ],
-        "mod": 6,
-        "total": 7,
-        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
-      }
-    },
-    {
-      "seq": 437,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 436,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Scholar",
-        "delta": 25000
       }
     },
     {
@@ -6697,20 +6692,6 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Which column for this Scholar muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 439,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
         "prompt": "How much of the Scholar Rank DM to apply?",
         "options": [
           "+0",
@@ -6726,7 +6707,7 @@
       }
     },
     {
-      "seq": 440,
+      "seq": 439,
       "kind": "throw",
       "throw": {
         "expr": "1D+6",
@@ -6739,10 +6720,10 @@
       }
     },
     {
-      "seq": 441,
+      "seq": 440,
       "kind": "consequence",
       "consequence": {
-        "cause": 440,
+        "cause": 439,
         "kind": "benefit",
         "skill": "Money",
         "career": "Scholar",
@@ -6750,7 +6731,7 @@
       }
     },
     {
-      "seq": 442,
+      "seq": 441,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6764,7 +6745,7 @@
       }
     },
     {
-      "seq": 443,
+      "seq": 442,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6783,7 +6764,64 @@
       }
     },
     {
+      "seq": 443,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+6",
+        "dice": [
+          1
+        ],
+        "mod": 6,
+        "total": 7,
+        "cite": "Book 1 p. 76 chart 02 D (Money column, 1D+6)"
+      }
+    },
+    {
       "seq": 444,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 443,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Scholar",
+        "delta": 25000
+      }
+    },
+    {
+      "seq": 445,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Scholar muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 446,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Scholar Rank DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5",
+          "+6"
+        ],
+        "chosen": 6,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 447,
       "kind": "throw",
       "throw": {
         "expr": "1D+6",
@@ -6796,10 +6834,10 @@
       }
     },
     {
-      "seq": 445,
+      "seq": 448,
       "kind": "consequence",
       "consequence": {
-        "cause": 444,
+        "cause": 447,
         "kind": "benefit",
         "skill": "Money",
         "career": "Scholar",
@@ -6807,7 +6845,7 @@
       }
     },
     {
-      "seq": 446,
+      "seq": 449,
       "kind": "step",
       "step": {
         "name": "Muster Out: Entitlements",
@@ -6815,7 +6853,7 @@
       }
     },
     {
-      "seq": 447,
+      "seq": 450,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -6829,10 +6867,10 @@
       }
     },
     {
-      "seq": 448,
+      "seq": 451,
       "kind": "consequence",
       "consequence": {
-        "cause": 447,
+        "cause": 450,
         "kind": "entitlement",
         "skill": "Tenured Professor's Pension",
         "delta": 10000,
@@ -6840,7 +6878,7 @@
       }
     },
     {
-      "seq": 449,
+      "seq": 452,
       "kind": "step",
       "step": {
         "name": "Record the Character's Birthdate",
@@ -6848,7 +6886,7 @@
       }
     },
     {
-      "seq": 450,
+      "seq": 453,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -6863,10 +6901,10 @@
       }
     },
     {
-      "seq": 451,
+      "seq": 454,
       "kind": "consequence",
       "consequence": {
-        "cause": 450,
+        "cause": 453,
         "kind": "birthdate",
         "detail": "Fiday 286-1038",
         "value": 1038

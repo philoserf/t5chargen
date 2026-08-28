@@ -363,17 +363,24 @@ _Book 1 p. 79 chart 05_
   - #310 (from #304) career ended (Scout)
   - #311 (from #47) Sanity -3 when generated
 
+## Career and World Knowledges
+
+_Book 1 p. 134; chart MS p. 132_
+
+  - #313 (from #312) Career: Scout +6 = Career: Scout-6
+  - #314 (from #312) World: Regina +5 = World: Regina-5
+
 ## Determine Fame
 
 _Book 1 p. 91 chart F_
 
-- #313 policy chose "Keep this Fame" of [Keep this Fame, Add Flux to Fame]: Invoke the Fame Flux Event? (Fame 20 so far) — Book 1 p. 91 chart F (The Fame Flux Event)
-  - #314 (from #313) Fame 20 (Sector) = Scout Discoveries x4 +20
+- #316 policy chose "Keep this Fame" of [Keep this Fame, Add Flux to Fame]: Invoke the Fame Flux Event? (Fame 20 so far) — Book 1 p. 91 chart F (The Fame Flux Event)
+  - #317 (from #316) Fame 20 (Sector) = Scout Discoveries x4 +20
 
 ## Record the Character's Birthdate
 
 _Book 1 p. 58; p. 263_
 
-- #316 4D = 5+2+2+6 = 15 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
-- #317 4D = 1+4+5+1 = 11 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
-  - #318 (from #317) born Wonday 023-1051
+- #319 4D = 5+2+2+6 = 15 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
+- #320 4D = 1+4+5+1 = 11 — Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)
+  - #321 (from #320) born Wonday 023-1051

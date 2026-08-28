@@ -283,8 +283,14 @@ func TestCitizenEventIntegrity(t *testing.T) {
 			t.Errorf("event %d: cause %d is not an earlier event", event.Seq, cause)
 		}
 
-		if k := kinds[cause]; k != chargen.EventThrow && k != chargen.EventChoice {
-			t.Errorf("event %d: cause %d is a %q, want throw or choice", event.Seq, cause, k)
+		// A step is a legitimate cause where accumulated state, not
+		// dice, produced the consequence: FR10 was amended to say so
+		// (interpretation I-87), and the Career and World Knowledges
+		// are the plainest case — p. 134 awards them by arithmetic over
+		// the finished record and names no die.
+		if k := kinds[cause]; k != chargen.EventThrow && k != chargen.EventChoice &&
+			k != chargen.EventStep {
+			t.Errorf("event %d: cause %d is a %q, want throw, choice or step", event.Seq, cause, k)
 		}
 	}
 }

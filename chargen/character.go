@@ -28,7 +28,7 @@ const (
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.43.0"
+	EngineVersion = "0.44.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
@@ -693,6 +693,12 @@ func Generate(opts Options) (Character, error) {
 		return Character{}, err
 	}
 
+	// The age careers begin at, which is what a World Knowledge counts
+	// the terms of (p. 134, interpretation I-112). Captured here because
+	// education has just finished moving it and nothing afterwards can
+	// tell how much of the character's age was spent at home.
+	careerStartAge := character.Age
+
 	if err := runCareer(opts.Career, roller, &log, opts.Decider, &character); err != nil {
 		return Character{}, err
 	}
@@ -700,7 +706,7 @@ func Generate(opts Options) (Character, error) {
 	// Fame is calculated over the finished record, not accumulated
 	// (chart F p. 91), and muster out reads it — "one additional roll if
 	// Fame 19+" (p. 68).
-	if err := afterCareers(&character, roller, &log, opts.Decider, opts.CurrentYear); err != nil {
+	if err := afterCareers(&character, roller, &log, opts.Decider, opts.CurrentYear, careerStartAge); err != nil {
 		return Character{}, err
 	}
 
@@ -709,7 +715,13 @@ func Generate(opts Options) (Character, error) {
 
 // afterCareers runs checklist step E and what follows it: Fame, which
 // muster out reads (p. 68), then muster out itself (p. 67).
-func afterCareers(c *Character, roller *dice.Roller, log *Log, decider Decider, currentYear int) error {
+func afterCareers(c *Character, roller *dice.Roller, log *Log, decider Decider,
+	currentYear, careerStartAge int,
+) error {
+	// Before Fame, because these are the finished record's own totals and
+	// everything after reads the skills.
+	awardSpecializedKnowledges(c, log, careerStartAge)
+
 	log.Step("Determine Fame", "Book 1 p. 91 chart F")
 
 	if err := computeFame(c, roller, log, decider); err != nil {

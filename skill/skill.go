@@ -211,6 +211,38 @@ func UnderParent(parent string) []string {
 	return append([]string(nil), r.byParent[parent]...)
 }
 
+// The prefixes chart MS's Specialized block prints its two open
+// knowledge patterns with (p. 132).
+const (
+	CareerKnowledgePrefix = "Career: "
+	WorldKnowledgePrefix  = "World: "
+)
+
+// Specialized reports whether a name matches one of chart MS's two open
+// knowledge patterns.
+//
+// The chart prints them as a pattern with examples rather than as a
+// closed list:
+//
+//	Specialized
+//	Career: Academia   Career: Army   Career: Navy   Career: <Name>
+//	World: Capital     World: Regina  World: <Name>
+//	[others are possible]
+//
+// So they cannot be transcribed as rows — the set is every career and
+// every world — and this predicate is what stands in for a lookup. A
+// name matching one is a Master Skill List entry as much as a printed
+// row is, and is a Knowledge, so it caps at 6 like the rest (p. 134).
+func Specialized(name string) bool {
+	for _, prefix := range []string{CareerKnowledgePrefix, WorldKnowledgePrefix} {
+		if after, found := strings.CutPrefix(name, prefix); found && after != "" {
+			return true
+		}
+	}
+
+	return false
+}
+
 // Names returns every canonical name in the list, sorted.
 func Names() []string {
 	r, err := registry()

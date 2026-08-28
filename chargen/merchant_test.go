@@ -124,6 +124,29 @@ func TestMerchantTempIsAutomatic(t *testing.T) {
 	}
 }
 
+// checkCause holds one consequence to the event that caused it: an
+// earlier event, and one of the three kinds that may cause anything.
+//
+// A step is legitimate where accumulated state rather than dice produced
+// the consequence — FR10 was amended to say so (interpretation I-87), and
+// the Career and World Knowledges are the plainest case, p. 134 awarding
+// them by arithmetic over the finished record.
+func checkCause(t *testing.T, seed uint64, event chargen.Event, kinds map[int]chargen.EventKind) {
+	t.Helper()
+
+	cause := event.Consequence.Cause
+	if cause <= 0 || cause >= event.Seq {
+		t.Fatalf("seed %d: event %d (%s): cause %d is not an earlier event",
+			seed, event.Seq, event.Consequence.Kind, cause)
+	}
+
+	if k := kinds[cause]; k != chargen.EventThrow && k != chargen.EventChoice &&
+		k != chargen.EventStep {
+		t.Fatalf("seed %d: event %d (%s): cause %d is a %q, want throw, choice or step",
+			seed, event.Seq, event.Consequence.Kind, cause, k)
+	}
+}
+
 // TestMerchantEventIntegrity verifies every Merchant consequence references
 // an earlier throw or choice event (docs/PRD.md FR10) on every entry track —
 // the automatic Temp berth makes no throw, so its rank_set must name the
@@ -144,16 +167,7 @@ func TestMerchantEventIntegrity(t *testing.T) {
 						continue
 					}
 
-					cause := event.Consequence.Cause
-					if cause <= 0 || cause >= event.Seq {
-						t.Fatalf("seed %d: event %d (%s): cause %d is not an earlier event",
-							seed, event.Seq, event.Consequence.Kind, cause)
-					}
-
-					if k := kinds[cause]; k != chargen.EventThrow && k != chargen.EventChoice {
-						t.Fatalf("seed %d: event %d (%s): cause %d is a %q, want throw or choice",
-							seed, event.Seq, event.Consequence.Kind, cause, k)
-					}
+					checkCause(t, seed, event, kinds)
 				}
 			}
 		})

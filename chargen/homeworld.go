@@ -218,6 +218,14 @@ func levelCap(name string) int {
 		return KnowledgeMax
 	}
 
+	// Chart MS's Specialized knowledges are generated from the record
+	// rather than transcribed — its list is a pattern with examples and
+	// "[others are possible]" (p. 132) — so Lookup does not find them and
+	// the prefix is what says they are Knowledges.
+	if skill.Specialized(name) {
+		return KnowledgeMax
+	}
+
 	return SkillMax
 }
 

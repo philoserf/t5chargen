@@ -1,7 +1,7 @@
 {
   "schema_version": "0.33.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.43.0",
+  "engine_version": "0.44.0",
   "policy_version": "0.25.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
@@ -84,6 +84,10 @@
       "level": 1
     },
     {
+      "name": "Career: Spacer",
+      "level": 5
+    },
+    {
       "name": "Comms",
       "level": 4
     },
@@ -125,6 +129,10 @@
     {
       "name": "Trader",
       "level": 1
+    },
+    {
+      "name": "World: Regina",
+      "level": 4
     }
   ],
   "careers": [
@@ -4142,12 +4150,42 @@
       "seq": 273,
       "kind": "step",
       "step": {
+        "name": "Career and World Knowledges",
+        "cite": "Book 1 p. 134; chart MS p. 132"
+      }
+    },
+    {
+      "seq": 274,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 273,
+        "kind": "skill_awarded",
+        "skill": "Career: Spacer",
+        "delta": 5,
+        "value": 5
+      }
+    },
+    {
+      "seq": 275,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 273,
+        "kind": "skill_awarded",
+        "skill": "World: Regina",
+        "delta": 4,
+        "value": 4
+      }
+    },
+    {
+      "seq": 276,
+      "kind": "step",
+      "step": {
         "name": "Determine Fame",
         "cite": "Book 1 p. 91 chart F"
       }
     },
     {
-      "seq": 274,
+      "seq": 277,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4161,10 +4199,10 @@
       }
     },
     {
-      "seq": 275,
+      "seq": 278,
       "kind": "consequence",
       "consequence": {
-        "cause": 274,
+        "cause": 277,
         "kind": "fame_computed",
         "skill": "World",
         "value": 10,
@@ -4189,7 +4227,7 @@
       }
     },
     {
-      "seq": 276,
+      "seq": 279,
       "kind": "step",
       "step": {
         "name": "Muster Out",
@@ -4197,7 +4235,7 @@
       }
     },
     {
-      "seq": 277,
+      "seq": 280,
       "kind": "step",
       "step": {
         "name": "Muster Out: Spacer",
@@ -4205,7 +4243,7 @@
       }
     },
     {
-      "seq": 278,
+      "seq": 281,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4216,48 +4254,6 @@
         ],
         "chosen": 0,
         "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 279,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5"
-        ],
-        "chosen": 5,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 280,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+5",
-        "dice": [
-          5
-        ],
-        "mod": 5,
-        "total": 10,
-        "cite": "Book 1 p. 81 chart 07 D (Money column, 1D+5)"
-      }
-    },
-    {
-      "seq": 281,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 280,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Spacer",
-        "delta": 60000
       }
     },
     {
@@ -4265,20 +4261,6 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Which column for this Spacer muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 283,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
         "prompt": "How much of the Terms DM to apply?",
         "options": [
           "+0",
@@ -4293,27 +4275,41 @@
       }
     },
     {
-      "seq": 284,
+      "seq": 283,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
         "dice": [
-          1
+          5
         ],
         "mod": 5,
-        "total": 6,
+        "total": 10,
         "cite": "Book 1 p. 81 chart 07 D (Money column, 1D+5)"
       }
     },
     {
-      "seq": 285,
+      "seq": 284,
       "kind": "consequence",
       "consequence": {
-        "cause": 284,
+        "cause": 283,
         "kind": "benefit",
         "skill": "Money",
         "career": "Spacer",
-        "delta": 40000
+        "delta": 60000
+      }
+    },
+    {
+      "seq": 285,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Spacer muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
       }
     },
     {
@@ -4321,91 +4317,21 @@
       "kind": "choice",
       "choice": {
         "decider": "policy",
-        "prompt": "Which column for this Spacer muster-out roll?",
+        "prompt": "How much of the Terms DM to apply?",
         "options": [
-          "Money",
-          "Benefits"
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
         ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
       }
     },
     {
       "seq": 287,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5"
-        ],
-        "chosen": 5,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 288,
-      "kind": "throw",
-      "throw": {
-        "expr": "1D+5",
-        "dice": [
-          5
-        ],
-        "mod": 5,
-        "total": 10,
-        "cite": "Book 1 p. 81 chart 07 D (Money column, 1D+5)"
-      }
-    },
-    {
-      "seq": 289,
-      "kind": "consequence",
-      "consequence": {
-        "cause": 288,
-        "kind": "benefit",
-        "skill": "Money",
-        "career": "Spacer",
-        "delta": 60000
-      }
-    },
-    {
-      "seq": 290,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "Which column for this Spacer muster-out roll?",
-        "options": [
-          "Money",
-          "Benefits"
-        ],
-        "chosen": 0,
-        "cite": "Book 1 p. 68 (Which Column?)"
-      }
-    },
-    {
-      "seq": 291,
-      "kind": "choice",
-      "choice": {
-        "decider": "policy",
-        "prompt": "How much of the Terms DM to apply?",
-        "options": [
-          "+0",
-          "+1",
-          "+2",
-          "+3",
-          "+4",
-          "+5"
-        ],
-        "chosen": 5,
-        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
-      }
-    },
-    {
-      "seq": 292,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -4418,10 +4344,10 @@
       }
     },
     {
-      "seq": 293,
+      "seq": 288,
       "kind": "consequence",
       "consequence": {
-        "cause": 292,
+        "cause": 287,
         "kind": "benefit",
         "skill": "Money",
         "career": "Spacer",
@@ -4429,7 +4355,7 @@
       }
     },
     {
-      "seq": 294,
+      "seq": 289,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4443,7 +4369,7 @@
       }
     },
     {
-      "seq": 295,
+      "seq": 290,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4461,7 +4387,7 @@
       }
     },
     {
-      "seq": 296,
+      "seq": 291,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -4474,10 +4400,10 @@
       }
     },
     {
-      "seq": 297,
+      "seq": 292,
       "kind": "consequence",
       "consequence": {
-        "cause": 296,
+        "cause": 291,
         "kind": "benefit",
         "skill": "Money",
         "career": "Spacer",
@@ -4485,7 +4411,7 @@
       }
     },
     {
-      "seq": 298,
+      "seq": 293,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4499,7 +4425,7 @@
       }
     },
     {
-      "seq": 299,
+      "seq": 294,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4517,7 +4443,119 @@
       }
     },
     {
+      "seq": 295,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          1
+        ],
+        "mod": 5,
+        "total": 6,
+        "cite": "Book 1 p. 81 chart 07 D (Money column, 1D+5)"
+      }
+    },
+    {
+      "seq": 296,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 295,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Spacer",
+        "delta": 40000
+      }
+    },
+    {
+      "seq": 297,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Spacer muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 298,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 299,
+      "kind": "throw",
+      "throw": {
+        "expr": "1D+5",
+        "dice": [
+          5
+        ],
+        "mod": 5,
+        "total": 10,
+        "cite": "Book 1 p. 81 chart 07 D (Money column, 1D+5)"
+      }
+    },
+    {
       "seq": 300,
+      "kind": "consequence",
+      "consequence": {
+        "cause": 299,
+        "kind": "benefit",
+        "skill": "Money",
+        "career": "Spacer",
+        "delta": 60000
+      }
+    },
+    {
+      "seq": 301,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "Which column for this Spacer muster-out roll?",
+        "options": [
+          "Money",
+          "Benefits"
+        ],
+        "chosen": 0,
+        "cite": "Book 1 p. 68 (Which Column?)"
+      }
+    },
+    {
+      "seq": 302,
+      "kind": "choice",
+      "choice": {
+        "decider": "policy",
+        "prompt": "How much of the Terms DM to apply?",
+        "options": [
+          "+0",
+          "+1",
+          "+2",
+          "+3",
+          "+4",
+          "+5"
+        ],
+        "chosen": 5,
+        "cite": "Book 1 p. 68 (the DMs ... may be partially applied)"
+      }
+    },
+    {
+      "seq": 303,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -4530,10 +4568,10 @@
       }
     },
     {
-      "seq": 301,
+      "seq": 304,
       "kind": "consequence",
       "consequence": {
-        "cause": 300,
+        "cause": 303,
         "kind": "benefit",
         "skill": "Retirement x2",
         "career": "Spacer",
@@ -4541,7 +4579,7 @@
       }
     },
     {
-      "seq": 302,
+      "seq": 305,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4555,7 +4593,7 @@
       }
     },
     {
-      "seq": 303,
+      "seq": 306,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4573,7 +4611,7 @@
       }
     },
     {
-      "seq": 304,
+      "seq": 307,
       "kind": "throw",
       "throw": {
         "expr": "1D+5",
@@ -4586,10 +4624,10 @@
       }
     },
     {
-      "seq": 305,
+      "seq": 308,
       "kind": "consequence",
       "consequence": {
-        "cause": 304,
+        "cause": 307,
         "kind": "benefit",
         "skill": "Retirement x2",
         "career": "Spacer",
@@ -4597,7 +4635,7 @@
       }
     },
     {
-      "seq": 306,
+      "seq": 309,
       "kind": "step",
       "step": {
         "name": "Muster Out: Entitlements",
@@ -4605,7 +4643,7 @@
       }
     },
     {
-      "seq": 307,
+      "seq": 310,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4619,10 +4657,10 @@
       }
     },
     {
-      "seq": 308,
+      "seq": 311,
       "kind": "consequence",
       "consequence": {
-        "cause": 307,
+        "cause": 310,
         "kind": "entitlement",
         "skill": "Reserve Pension",
         "delta": 2800,
@@ -4630,7 +4668,7 @@
       }
     },
     {
-      "seq": 309,
+      "seq": 312,
       "kind": "choice",
       "choice": {
         "decider": "policy",
@@ -4644,10 +4682,10 @@
       }
     },
     {
-      "seq": 310,
+      "seq": 313,
       "kind": "consequence",
       "consequence": {
-        "cause": 309,
+        "cause": 312,
         "kind": "entitlement",
         "skill": "Officer Retirement",
         "delta": 45000,
@@ -4655,7 +4693,7 @@
       }
     },
     {
-      "seq": 311,
+      "seq": 314,
       "kind": "step",
       "step": {
         "name": "Record the Character's Birthdate",
@@ -4663,7 +4701,7 @@
       }
     },
     {
-      "seq": 312,
+      "seq": 315,
       "kind": "throw",
       "throw": {
         "expr": "4D",
@@ -4678,10 +4716,10 @@
       }
     },
     {
-      "seq": 313,
+      "seq": 316,
       "kind": "consequence",
       "consequence": {
-        "cause": 312,
+        "cause": 315,
         "kind": "birthdate",
         "detail": "Forday 159-1067",
         "value": 1067

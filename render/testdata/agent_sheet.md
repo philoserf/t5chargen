@@ -18,7 +18,7 @@
 
 **Career**: Agent (16 terms), undercover as Entertainer (Chef), 6 Commendations
 
-**Skills**: Actor-1, Animals-7, Athlete-1, Automotive-1, Biologics-14, Bureaucrat-13, Hostile Environ-12, Navigator-10, Rider-2, Survey-5, Survival-7, Trader-2
+**Skills**: Actor-1, Animals-7, Athlete-1, Automotive-1, Biologics-14, Bureaucrat-13, Career: Agent-6, Hostile Environ-12, Navigator-10, Rider-2, Survey-5, Survival-7, Trader-2, World: Regina-4
 
 **Credits**: Cr1980000
 
@@ -28,6 +28,6 @@
 
 ---
 
-Seed 1717 (math/rand/v2-pcg) · schema 0.33.0 · engine 0.43.0 · policy 0.25.0
+Seed 1717 (math/rand/v2-pcg) · schema 0.33.0 · engine 0.44.0 · policy 0.25.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1
