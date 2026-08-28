@@ -486,3 +486,29 @@ against the code on 2026-08-28.
 forward — consolidating the injury outcome tail across five career files —
 describes work already done. There is one call site, `careerrun.go:179`,
 and the comment above it records the consolidation.
+
+## I-47 Disposition
+
+**Decided 2026-08-28: charged per stint.** The review was right that the
+entry described an open question while the code silently chose a reading;
+it had done so since career changes made two Scout stints possible.
+
+The reading stands as implemented, for reasons the entry now carries:
+chart 05 prints the Sanity rule inside the Scout's own box rather than in
+a chapter about the character, it rounds within a period of service —
+three terms cost what two cost — and the reason it gives is an unbroken
+stretch of endurance that leaving ends. p. 134's "Knowledge equal to the
+number of terms served" totals across stints instead, and the difference
+between the two is where each sentence is printed and what it is for.
+
+What was missing was not the decision but the evidence. A Scout who
+serves three terms, leaves and returns for one owes -1 where summing the
+stints would owe -2, and nothing tested it because the auto policy never
+changes careers. `TestScoutSanityIsChargedPerStint` drives it with a
+decider that leaves and returns, and rejects the summed reading
+specifically: mutating the engine to total the stints fails it at "a
+stint of 3 terms owes San -2, want -1".
+
+Release bar item 2 is closed. Item 1 — whether `Capital***` is
+implemented or an accepted exception — was closed as an accepted
+exception in #112.

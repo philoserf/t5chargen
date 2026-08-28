@@ -1147,12 +1147,41 @@ every downstream throw for no outcome.
 Partial terms owe nothing. The chart charges per two terms, so three terms
 cost what two cost.
 
-**Open where career changes make it reachable (milestone 4).** "for each
-TWO Terms served" is charged here against the terms of a single career
-record. Should a character serve as a Scout, leave, and return, three
-terms followed by one would owe -1 under this reading but -2 if the two
-stints were summed first. Nothing in the book settles it, and until career
-changes land no character can serve two Scout stints.
+**Charged per stint, not per lifetime.** "for each TWO Terms served" is
+charged against the terms of one period of Scout service. A character who
+serves three terms, leaves, and returns for one owes -1: three terms cost
+one point and a single term costs nothing. Summing the stints first would
+cost him -2.
+
+_Decided 2026-08-28._ The entry recorded this as open until career changes
+made two Scout stints possible; they landed in milestone 4 and the code
+went on charging per stint without anyone saying so, which is what a
+prerelease review caught. Three things settle it for the per-stint
+reading.
+
+**The rule is printed inside the career's own box.** Chart 05's Sanity
+sidebar sits in the Scout chart, beside its Risk & Reward, and prices what
+that service costs. It is a career rule in the place career rules live,
+and a stint is one service in that career. Contrast p. 134's "Knowledge
+equal to the number of terms served", which is printed in the skills
+chapter, is about what a character accumulated, and carries a cap and an
+example about forgetting: that one totals across stints (I-112's
+neighbour, implemented in `awardSpecializedKnowledges`) and this one does
+not. The same phrase, in two places, doing two jobs.
+
+**The chart already rounds within a period rather than tracking a
+running total.** "For each TWO Terms" with partial terms owing nothing
+means three terms cost what two cost. A rule that meant to track a
+lifetime would have no reason to discard the odd term, and the discarding
+is what tells you the unit is a period of service rather than a career.
+
+**The reason given is endurance, and leaving ends it.** "Because of the
+long-term isolation that a Scout must endure" prices an unbroken stretch.
+A character who musters out and comes back has had the break.
+
+The record follows the reading: `SanityMod` is a field on the career
+record and the sheet prints it against that career's line, which is where
+a per-stint charge belongs and where a lifetime total would not fit.
 
 The genetic-die rule — "Sanity Is Genetic. The first die of Sanity is
 recorded as the genetic D" (p. 52) — is out of reach for the same reason:
