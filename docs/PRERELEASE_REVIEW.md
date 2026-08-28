@@ -553,6 +553,19 @@ artefacts — the raw layout joins words across column boundaries
 extract in an order the page does not read in. Each was spot-checked
 against the page rather than assumed.
 
+**The sweep is now a gate.** `task citations` runs it, against a PDF the
+caller names; everywhere else it skips, the rules being a purchased
+artifact this repository does not redistribute. Rerunning it after every
+change to ERRATA.md is cheaper than another manual pass, and it already
+caught three citations a manual pass had missed — the first run of it as
+a gate failed on I-75 twice and I-86 once, each quoting text and naming a
+chart or a cross-reference where a page belonged.
+
+It fails only where a quotation is printed **somewhere the entry does not
+cite**, which is what a wrong citation looks like. A quotation the
+extraction cannot find at all is reported and not held against the
+citation: that is usually the extraction, and thirty-eight of them are.
+
 **What the sweep does not establish.** That a quote appears on the page
 it cites is not that the reading drawn from it is right. This checks
 provenance, not interpretation.

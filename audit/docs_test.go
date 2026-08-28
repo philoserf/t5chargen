@@ -11,6 +11,13 @@
 // has a POLICY.md rule, that POLICY.md states the version the engine
 // stamps, and that every career the engine can run has a section.
 //
+// One check reaches past the repository entirely. ERRATA.md quotes the
+// printed rules on every page it cites, and citations_test.go holds the
+// quotations to the pages — against a PDF this repository does not
+// contain and cannot, the rules being a purchased artifact. It runs from
+// `task citations` and skips everywhere else, which is the most a gate
+// on an artifact nobody else has can honestly do.
+//
 // One check reaches past the documents into the Go source. A doc comment
 // is a claim about the code as much as COVERAGE.md is, and it rots the
 // same way: twenty-six of them still deferred work to milestones 3 and 4
