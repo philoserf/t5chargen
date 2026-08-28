@@ -22,7 +22,7 @@
 
 **Career**: Scholar (9 terms), 6 Publications, Tenured, Distinguished Professor of Athlete S6
 
-**Skills**: Actor-1, Animals-6, Astrogator-5, Athlete-15, Broker-4, Bureaucrat-6, Hostile Environ-13, Survey-5, Survival-6, Trader-1
+**Skills**: Actor-1, Animals-4, Astrogator-5, Athlete-15, Broker-4, Bureaucrat-6, Hostile Environ-13, Rider-2, Survey-5, Survival-6, Trader-1
 
 **Credits**: Cr730000
 
@@ -34,6 +34,6 @@
 
 ---
 
-Seed 23 (math/rand/v2-pcg) · schema 0.32.0 · engine 0.41.0 · policy 0.24.0
+Seed 23 (math/rand/v2-pcg) · schema 0.33.0 · engine 0.43.0 · policy 0.25.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

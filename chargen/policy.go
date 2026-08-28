@@ -14,6 +14,30 @@ func (p DefaultPolicy) Choose(c Choice) (int, error) {
 	return p.decide(c), nil
 }
 
+// concentratedKnowledge picks the Knowledge to take on a container's
+// first two receipts (p. 134).
+//
+// The policy concentrates: the same Knowledge each time, which is what
+// p. 134's own example does — "He took the first two knowledges as
+// Slug-Thrower, and mustered out with Fighter-3, Slug Thrower-2" — and
+// what the page says is worth having, a Knowledge being the level that
+// stacks on top of the Skill for tasks in its area.
+//
+// Spreading is the alternative the other worked example shows, and it is
+// a player's call rather than a policy's: the two produce the same
+// arithmetic and different characters. First-listed among the uncapped
+// is the house tie-break; Scores carry the levels already held, so the
+// cap is visible without reading the prompt.
+func concentratedKnowledge(c Choice) int {
+	for i, level := range c.Scores {
+		if level < KnowledgeMax {
+			return i
+		}
+	}
+
+	return 0
+}
+
 // declineOfficerTrainingIndex answers OTC and NOTC with the last option,
 // which is Decline (POLICY.md).
 //
@@ -85,31 +109,13 @@ func defaultHomeworldNames() []string {
 	return []string{home.Label()}
 }
 
-// chooseOutright applies the POLICY.md rules that need no list to search:
-// each is a single choice point with an answer of its own.
-func chooseOutright(c Choice) (int, bool) {
-	switch c.ID { //nolint:exhaustive // Deliberately partitioned: the rest are in chooseNamed and Choose.
-	case ChooseCashOut:
-		// POLICY.md: keep it. A pension outlives five years of itself
-		// for any character who lives, and the record is more useful
-		// carrying the stream than the lump.
-		return 0, true
-	case ChooseBenefitDM:
-		// POLICY.md: apply the DM in full. The tables run from cheap to
-		// dear, so a partial DM only ever reaches a lower row.
-		return len(c.Options) - 1, true
-	case ChooseHomeworld:
-		// POLICY.md: the tool-owned default, Regina, by name. Where the
-		// caller named no homeworld the list is chart B's own, and
-		// first-listed there is Alell — the policy assigns the default
-		// rather than picking a world off the chart.
-		return preferredIndex(c.Options, defaultHomeworldNames(), 0), true
-	case ChooseFameFlux:
-		// POLICY.md: invoke only when Flux could reach Fame 19.
-		return fameFluxChoice(c), true
-	case ChooseOfficerTraining:
-		// POLICY.md: decline, which is the last option.
-		return declineOfficerTrainingIndex(c), true
+// chooseMilestone7 answers the four choice points milestone 7 added.
+// Split from chooseOutright for its size alone: each of them declines,
+// and the reason is in POLICY.md beside the rule it answers.
+//
+//nolint:exhaustive // Deliberately partitioned: the rest are in chooseOutright.
+func chooseMilestone7(c Choice) (int, bool) {
+	switch c.ID {
 	case ChooseBranchChange:
 		// POLICY.md: keep his current Branch, which is the last option.
 		// The branch he holds was taken for the best Mod the table
@@ -142,6 +148,44 @@ func chooseOutright(c Choice) (int, bool) {
 		// against his own first career, which is a habit the chart
 		// permits and does not recommend.
 		return len(c.Options) - 1, true
+	}
+
+	return 0, false
+}
+
+// chooseOutright applies the POLICY.md rules that need no list to search:
+// each is a single choice point with an answer of its own.
+func chooseOutright(c Choice) (int, bool) {
+	if index, ok := chooseMilestone7(c); ok {
+		return index, ok
+	}
+
+	switch c.ID { //nolint:exhaustive // Deliberately partitioned: the rest are in chooseNamed and Choose.
+	case ChooseCashOut:
+		// POLICY.md: keep it. A pension outlives five years of itself
+		// for any character who lives, and the record is more useful
+		// carrying the stream than the lump.
+		return 0, true
+	case ChooseBenefitDM:
+		// POLICY.md: apply the DM in full. The tables run from cheap to
+		// dear, so a partial DM only ever reaches a lower row.
+		return len(c.Options) - 1, true
+	case ChooseHomeworld:
+		// POLICY.md: the tool-owned default, Regina, by name. Where the
+		// caller named no homeworld the list is chart B's own, and
+		// first-listed there is Alell — the policy assigns the default
+		// rather than picking a world off the chart.
+		return preferredIndex(c.Options, defaultHomeworldNames(), 0), true
+	case ChooseFameFlux:
+		// POLICY.md: invoke only when Flux could reach Fame 19.
+		return fameFluxChoice(c), true
+	case ChooseOfficerTraining:
+		// POLICY.md: decline, which is the last option.
+		return declineOfficerTrainingIndex(c), true
+	case ChooseKnowledge:
+		// POLICY.md: concentrate. Take the first-listed Knowledge every
+		// time until it caps, then the next.
+		return concentratedKnowledge(c), true
 	}
 
 	return 0, false

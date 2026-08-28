@@ -11,6 +11,7 @@ import (
 	"github.com/philoserf/t5chargen/career"
 	"github.com/philoserf/t5chargen/chargen"
 	"github.com/philoserf/t5chargen/dice"
+	"github.com/philoserf/t5chargen/skill"
 )
 
 // autoPolicy answers a choice with the default policy, for the test fakes
@@ -110,9 +111,24 @@ func TestCitizenInvariants(t *testing.T) {
 func checkSkills(t *testing.T, seed uint64, c chargen.Character) {
 	t.Helper()
 
-	for _, skill := range c.Skills {
-		if skill.Level < 1 || skill.Level > chargen.SkillMax {
-			t.Errorf("seed %d: skill %s at level %d outside 1-%d", seed, skill.Name, skill.Level, chargen.SkillMax)
+	for _, held := range c.Skills {
+		// Level 0 is a real state for a container skill received once
+		// or twice: "he has the Knowledges but only Skill-0" (p. 134).
+		// The floor is 1 for everything else, and for a container the
+		// receipts are what say it was earned.
+		floor := 1
+		if held.Receipts > 0 {
+			floor = 0
+		}
+
+		ceiling := chargen.SkillMax
+		if entry, ok := skill.Lookup(held.Name); ok && entry.Kind == skill.KindKnowledge {
+			ceiling = chargen.KnowledgeMax
+		}
+
+		if held.Level < floor || held.Level > ceiling {
+			t.Errorf("seed %d: skill %s at level %d outside %d-%d",
+				seed, held.Name, held.Level, floor, ceiling)
 		}
 	}
 }

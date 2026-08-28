@@ -202,7 +202,10 @@ func (r *eduRun) awardOfficerTraining() error {
 		return err
 	}
 
-	awardSkillAndLog(options[chosen], r.receipt(options[chosen], 1), seq, r.log, r.character)
+	if err := awardSkillAndLog(options[chosen], r.receipt(options[chosen], 1),
+		seq, r.log, r.decider, r.character); err != nil {
+		return err
+	}
 
 	return nil
 }

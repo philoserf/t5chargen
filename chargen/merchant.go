@@ -131,7 +131,9 @@ func (m *merchantMechanics) enterRank(r *careerRun, id string, cause int) error 
 		return err
 	}
 
-	r.awardAndLog(name, 1, cause)
+	if err := r.awardAndLog(name, 1, cause); err != nil {
+		return err
+	}
 
 	return nil
 }

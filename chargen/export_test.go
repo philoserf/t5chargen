@@ -51,3 +51,20 @@ func HoldsDegree(c *Character, want string) bool { return c.holdsDegree(want) }
 // parenthetical above it, which is a pure function of two numbers and best
 // pinned as one.
 func GraduationEdu(edu, graduation int) (int, bool) { return graduationEdu(edu, graduation) }
+
+// AwardForTest runs one skill award through the funnel every award goes
+// through, and returns the character it landed on.
+//
+// The Knowledge-Knowledge-Skill sequence is the funnel's own business
+// (p. 134), so exercising it needs no career, no seed and no term — which
+// is the point of there being one funnel.
+func AwardForTest(name string, levels int) (Character, error) {
+	var (
+		character Character
+		log       Log
+	)
+
+	err := awardSkillAndLog(name, levels, 0, &log, DefaultPolicy{}, &character)
+
+	return character, err
+}

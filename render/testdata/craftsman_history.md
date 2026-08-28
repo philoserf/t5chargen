@@ -253,7 +253,7 @@ _Book 1 p. 75 chart 01 (Creating A Masterpiece)_
   - #188 (from #187) Craftsman +1 = Craftsman-9
 - #189 player chose "Academic" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Craftsman Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #190 1D = 1 = 1 — Book 1 p. 75 chart 01 table C, column Academic
-  - #191 (from #190) ACV +1 = ACV-7
+  - #191 (from #190) no award (ACV at the Skill-15 cap)
 - #192 player chose "Continue in Craftsman" of [Continue in Craftsman, Change careers]: Leave Craftsman for another career? — Book 1 p. 66 (Changing Careers)
 - #193 2D = 2+5 = 7 vs 18: success — Book 1 p. 75 chart 01 (Continue Craftsman x2; p. 66)
   - #194 (from #193) +4 years
@@ -267,8 +267,8 @@ _Book 1 p. 75 chart 01 (Creating A Masterpiece)_
 _Book 1 p. 75 chart 01_
 
 - #200 player chose "Str" of [Str, End, Int]: Select the term's controlling characteristic — Book 1 p. 65 (Risk and Reward: Select the CC)
-- #201 9D = 2+4+6+1+5+4+4+3+5 = 34 vs 42 (Controlling Characteristics +26) (Craftsman +9) (Skills at 6+ +7): success — Book 1 p. 75 chart 01 (Creating A Masterpiece) (Masterpiece vs Master Points, Str governing)
-  - #202 (from #201) Masterpiece created (42 Master Points, worth Cr170000)
+- #201 9D = 2+4+6+1+5+4+4+3+5 = 34 vs 41 (Controlling Characteristics +26) (Craftsman +9) (Skills at 6+ +6): success — Book 1 p. 75 chart 01 (Creating A Masterpiece) (Masterpiece vs Master Points, Str governing)
+  - #202 (from #201) Masterpiece created (41 Master Points, worth Cr160000)
   - #203 (from #201) Craftsman +1 = Craftsman-10
 - #204 player chose "Academic" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Craftsman Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #205 1D = 3 = 3 — Book 1 p. 75 chart 01 table C, column Academic
@@ -289,7 +289,7 @@ _Book 1 p. 75 chart 01_
   - #220 (from #219) Craftsman +1 = Craftsman-12
 - #221 player chose "Academic" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Craftsman Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #222 1D = 1 = 1 — Book 1 p. 75 chart 01 table C, column Academic
-  - #223 (from #222) ACV +1 = ACV-8
+  - #223 (from #222) no award (ACV at the Skill-15 cap)
 - #224 player chose "Academic" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Craftsman Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #225 1D = 3 = 3 — Book 1 p. 75 chart 01 table C, column Academic
   - #226 (from #225) Actor +1 = Actor-9
@@ -308,8 +308,8 @@ _Book 1 p. 75 chart 01_
 _Book 1 p. 75 chart 01_
 
 - #237 player chose "Int" of [End, Int]: Select the term's controlling characteristic — Book 1 p. 65 (Risk and Reward: Select the CC)
-- #238 9D = 5+4+5+1+5+5+2+5+6 = 38 vs 53 (Controlling Characteristics +24) (Craftsman +12) (Skills at 6+ +17): success — Book 1 p. 75 chart 01 (Creating A Masterpiece) (Masterpiece vs Master Points, Int governing)
-  - #239 (from #238) Masterpiece created (53 Master Points, worth Cr280000)
+- #238 9D = 5+4+5+1+5+5+2+5+6 = 38 vs 51 (Controlling Characteristics +24) (Craftsman +12) (Skills at 6+ +15): success — Book 1 p. 75 chart 01 (Creating A Masterpiece) (Masterpiece vs Master Points, Int governing)
+  - #239 (from #238) Masterpiece created (51 Master Points, worth Cr260000)
   - #240 (from #238) Craftsman +1 = Craftsman-13
 - #241 player chose "Academic" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Craftsman Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #242 1D = 5 = 5 — Book 1 p. 75 chart 01 table C, column Academic
@@ -317,7 +317,7 @@ _Book 1 p. 75 chart 01_
   - #244 (from #243) Craftsman +1 = Craftsman-14
 - #245 player chose "Academic" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Craftsman Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #246 1D = 1 = 1 — Book 1 p. 75 chart 01 table C, column Academic
-  - #247 (from #246) ACV +1 = ACV-9
+  - #247 (from #246) no award (ACV at the Skill-15 cap)
 - #248 player chose "Academic" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Craftsman Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #249 1D = 6 = 6 — Book 1 p. 75 chart 01 table C, column Academic
 - #250 player chose "Craftsman" of [Biologics, Craftsman, Electronics, Fluidics, Gravitics, Magnetics, Mechanic, Photonics, Polymers, Programmer]: Select One Trade — Book 1 p. 75 chart 01 table C; Book 1 p. 132 chart MS
@@ -327,13 +327,13 @@ _Book 1 p. 75 chart 01_
   - #254 (from #253) Actor +1 = Actor-10
 - #255 player chose "Academic" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Craftsman Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #256 1D = 2 = 2 — Book 1 p. 75 chart 01 table C, column Academic
-  - #257 (from #256) ACV +1 = ACV-10
+  - #257 (from #256) no award (ACV at the Skill-15 cap)
 - #258 player chose "Academic" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Craftsman Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #259 1D = 3 = 3 — Book 1 p. 75 chart 01 table C, column Academic
   - #260 (from #259) Actor +1 = Actor-11
 - #261 player chose "Academic" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Craftsman Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #262 1D = 1 = 1 — Book 1 p. 75 chart 01 table C, column Academic
-  - #263 (from #262) ACV +1 = ACV-11
+  - #263 (from #262) no award (ACV at the Skill-15 cap)
 - #264 player chose "Continue in Craftsman" of [Continue in Craftsman, Change careers]: Leave Craftsman for another career? — Book 1 p. 66 (Changing Careers)
 - #265 2D = 3+2 = 5 vs 30: success — Book 1 p. 75 chart 01 (Continue Craftsman x2; p. 66)
   - #266 (from #265) +4 years
@@ -349,8 +349,8 @@ _Book 1 p. 75 chart 01_
 _Book 1 p. 75 chart 01_
 
 - #274 player chose "End" of [End]: Select the term's controlling characteristic — Book 1 p. 65 (Risk and Reward: Select the CC)
-- #275 9D = 5+4+2+1+5+1+4+6+1 = 29 vs 59 (Controlling Characteristics +22) (Craftsman +15) (Skills at 6+ +22): success — Book 1 p. 75 chart 01 (Creating A Masterpiece) (Masterpiece vs Master Points, End governing)
-  - #276 (from #275) Masterpiece created (59 Master Points, worth Cr680000)
+- #275 9D = 5+4+2+1+5+1+4+6+1 = 29 vs 54 (Controlling Characteristics +22) (Craftsman +15) (Skills at 6+ +17): success — Book 1 p. 75 chart 01 (Creating A Masterpiece) (Masterpiece vs Master Points, End governing)
+  - #276 (from #275) Masterpiece created (54 Master Points, worth Cr290000)
   - #277 (from #275) no award (Craftsman at the Skill-15 cap)
 - #278 player chose "Academic" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Craftsman Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #279 1D = 6 = 6 — Book 1 p. 75 chart 01 table C, column Academic
@@ -371,7 +371,7 @@ _Book 1 p. 75 chart 01_
   - #294 (from #293) Actor +1 = Actor-14
 - #295 player chose "Academic" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Craftsman Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #296 1D = 1 = 1 — Book 1 p. 75 chart 01 table C, column Academic
-  - #297 (from #296) ACV +1 = ACV-12
+  - #297 (from #296) no award (ACV at the Skill-15 cap)
 - #298 player chose "Academic" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Craftsman Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #299 1D = 4 = 4 — Book 1 p. 75 chart 01 table C, column Academic
   - #300 (from #299) Actor +1 = Actor-15
@@ -389,8 +389,8 @@ _Book 1 p. 75 chart 01_
 _Book 1 p. 75 chart 01_
 
 - #310 player chose "Dex" of [Str, Dex, End, Int]: Select the term's controlling characteristic — Book 1 p. 65 (Risk and Reward: Select the CC)
-- #311 9D = 5+3+1+2+2+6+6+3+4 = 32 vs 63 (Controlling Characteristics +21) (Craftsman +15) (Skills at 6+ +27): success — Book 1 p. 75 chart 01 (Creating A Masterpiece) (Masterpiece vs Master Points, Dex governing)
-  - #312 (from #311) Masterpiece created (63 Master Points, worth Cr760000)
+- #311 9D = 5+3+1+2+2+6+6+3+4 = 32 vs 57 (Controlling Characteristics +21) (Craftsman +15) (Skills at 6+ +21): success — Book 1 p. 75 chart 01 (Creating A Masterpiece) (Masterpiece vs Master Points, Dex governing)
+  - #312 (from #311) Masterpiece created (57 Master Points, worth Cr640000)
   - #313 (from #311) no award (Craftsman at the Skill-15 cap)
 - #314 player chose "Academic" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Craftsman Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #315 1D = 3 = 3 — Book 1 p. 75 chart 01 table C, column Academic
@@ -401,17 +401,17 @@ _Book 1 p. 75 chart 01_
   - #320 (from #319) no award (Craftsman at the Skill-15 cap)
 - #321 player chose "Academic" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Craftsman Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #322 1D = 2 = 2 — Book 1 p. 75 chart 01 table C, column Academic
-  - #323 (from #322) ACV +1 = ACV-13
+  - #323 (from #322) no award (ACV at the Skill-15 cap)
 - #324 player chose "Academic" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Craftsman Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #325 1D = 1 = 1 — Book 1 p. 75 chart 01 table C, column Academic
-  - #326 (from #325) ACV +1 = ACV-14
+  - #326 (from #325) no award (ACV at the Skill-15 cap)
 - #327 player chose "Academic" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Craftsman Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #328 1D = 6 = 6 — Book 1 p. 75 chart 01 table C, column Academic
 - #329 player chose "Craftsman" of [Biologics, Craftsman, Electronics, Fluidics, Gravitics, Magnetics, Mechanic, Photonics, Polymers, Programmer]: Select One Trade — Book 1 p. 75 chart 01 table C; Book 1 p. 132 chart MS
   - #330 (from #329) no award (Craftsman at the Skill-15 cap)
 - #331 player chose "Academic" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Craftsman Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #332 1D = 1 = 1 — Book 1 p. 75 chart 01 table C, column Academic
-  - #333 (from #332) ACV +1 = ACV-15
+  - #333 (from #332) no award (ACV at the Skill-15 cap)
 - #334 player chose "Academic" of [Personal, Academic, Travel, General, Business, Vocation, Avocation]: Select a Craftsman Skills column — Book 1 p. 65 (the character selects a column and rolls 1D)
 - #335 1D = 3 = 3 — Book 1 p. 75 chart 01 table C, column Academic
   - #336 (from #335) no award (Actor at the Skill-15 cap)
@@ -429,7 +429,7 @@ _Book 1 p. 75 chart 01_
 _Book 1 p. 91 chart F_
 
 - #346 player chose "Keep this Fame" of [Keep this Fame, Add Flux to Fame]: Invoke the Fame Flux Event? (Fame 20 so far) — Book 1 p. 91 chart F (The Fame Flux Event)
-  - #347 (from #346) Fame 20 (Sector) = Scholar Rank +2, Scholar Publications +1, Craftsman Masterpieces x3 +12, Craftsman Perfect Masterpieces x5 +10
+  - #347 (from #346) Fame 20 (Sector) = Scholar Rank +2, Scholar Publications +1, Craftsman Masterpieces x3 +12, Craftsman Perfect Masterpieces x5 +5
 
 ## Muster Out
 

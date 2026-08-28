@@ -68,6 +68,22 @@ runner extraction, applying to every registered career) and
 `chargen/latereducation.go` (`creditSchooling`), pinned by
 `TestLaterEducationIsNotACareerReceipt`.
 
+_Noted (2026-08-27):_ `firstReceiptLevels` tests "already received" by
+comparing the skill's level against the level held at career entry, and
+that proxy stopped being sound for the eleven container skills when
+p. 134's progression landed. A container sits at Skill-0 through its
+first two receipts, so a second award inside one career reads as a first
+and would pay the full stated level instead of demoting to 1.
+
+No call site reaches it today: a Citizen's Job and Hobby are each
+determined once, the assigned schools award either a single level or a
+Knowledge rather than a container, and Flight School runs before the
+term's skills. It is recorded because the next rule that awards a
+container more than one level inside a career makes it live, and because
+`creditSchooling` has the same root — it credits the entry baseline by
+levels gained, so a container received at an assigned school credits
+nothing. Both want `Skill.Receipts` rather than the level.
+
 ### I-3: Hobby selection excludes the determined Job (p. 78)
 
 Chart 04 has the second success provide "a Hobby selected from Citizen
@@ -113,7 +129,7 @@ Implemented in `world/data/homeworld_skills.json`,
 
 Chart C p. 60 abbreviates further; `education/data/education.json`
 normalizes nine of its printed forms to the registry spellings already in
-`career/data/citizen.json` so grants stack: Hvy Wpns → Heavy Wpns,
+`career/data/citizen.json` so grants stack: Hvy Wpns → Heavy Weapons,
 Battle Dress → BattleDress, Slug Throw → Slug Thrower, J-Drives → Jump
 Drive, M-Drive → Maneuver, P-Systems → Power System, Winged → Wing,
 Sub → Submersible, Navigation → Navigator. (Chart C's "Ship" is left as

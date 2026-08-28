@@ -21,18 +21,18 @@ import (
 // is hand-bumped in v1 (no build-info plumbing).
 const (
 	// SchemaVersion identifies the character JSON schema.
-	SchemaVersion = "0.32.0"
+	SchemaVersion = "0.33.0"
 
 	// Ruleset is pinned: all rule citations resolve against this artifact.
 	Ruleset = "Traveller5 Core Rules Book 1, Print Edition 5.1"
 
 	// EngineVersion identifies this implementation of the generation
 	// procedure, including the seeded stream's consumption order.
-	EngineVersion = "0.41.0"
+	EngineVersion = "0.43.0"
 
 	// PolicyVersion identifies the auto-mode decision table in POLICY.md
 	// (docs/PRD.md, CLI sketch). Changing the policy is a version bump.
-	PolicyVersion = "0.24.0"
+	PolicyVersion = "0.25.0"
 
 	// RNGAlgorithm names the recorded random stream: Go math/rand/v2 PCG,
 	// seeded as documented at dice.New. The exact string is compared on
@@ -277,14 +277,23 @@ func (c *Character) currentMinor() string {
 	return ""
 }
 
-// Skill is one acquired skill or knowledge at its current level. The
-// Skill/Knowledge distinction lands with milestone 7 (docs/PRD.md), so a
-// container skill is held whole: a character receiving Fighter five times
-// leaves with Fighter-5, where p. 134 would give him Fighter-3 and Slug
-// Thrower-2.
+// Skill is one acquired skill or knowledge at its current level.
+// Knowledges are recorded the same way skills are — p. 134, "the
+// knowledge name plus the level" — so one list holds both and a reader
+// tells them apart by the Master Skill List rather than by the record.
 type Skill struct {
 	Name  string `json:"name"`
 	Level int    `json:"level"`
+
+	// Receipts counts how many times a container skill has been
+	// received, which is what p. 134's progression turns on and what the
+	// level alone cannot carry: a character at Fighter-0 has had it once
+	// or twice, and the two differ in what the next receipt does.
+	//
+	// Recorded only for the containers. A Knowledge acquired directly
+	// "increases without affecting Skill" (p. 134), so it advances no
+	// count, and an ordinary skill has no progression to count toward.
+	Receipts int `json:"receipts,omitempty"`
 }
 
 // CareerRecord is one career's history, term by term (docs/PRD.md FR8).
@@ -517,22 +526,45 @@ const CharacteristicMax = 15
 // keeping Skills sorted by name (binary find-or-insert preserves the
 // invariant without re-sorting). It returns the resulting level, then the
 // levels actually applied.
-func (c *Character) awardSkill(name string, levels int) (int, int) {
+func (c *Character) awardSkill(name string, levels, ceiling int) (int, int) {
 	i, found := slices.BinarySearchFunc(c.Skills, name, func(s Skill, target string) int {
 		return strings.Compare(s.Name, target)
 	})
 
 	if found {
-		applied := min(levels, SkillMax-c.Skills[i].Level)
+		applied := min(levels, ceiling-c.Skills[i].Level)
 		c.Skills[i].Level += applied
 
 		return c.Skills[i].Level, applied
 	}
 
-	applied := min(levels, SkillMax)
+	applied := min(levels, ceiling)
 	c.Skills = slices.Insert(c.Skills, i, Skill{Name: name, Level: applied})
 
 	return applied, applied
+}
+
+// recordReceipt records one receipt of a container skill and reports the
+// running total (p. 134).
+//
+// The entry is created at level 0 if the character did not hold it, which
+// is what "he has the Knowledges but only Skill-0" asks for: the
+// container appears on the sheet from the first receipt, and its level is
+// the thing the progression moves afterwards.
+func (c *Character) recordReceipt(name string) int {
+	i, found := slices.BinarySearchFunc(c.Skills, name, func(s Skill, target string) int {
+		return strings.Compare(s.Name, target)
+	})
+
+	if !found {
+		c.Skills = slices.Insert(c.Skills, i, Skill{Name: name, Receipts: 1})
+
+		return 1
+	}
+
+	c.Skills[i].Receipts++
+
+	return c.Skills[i].Receipts
 }
 
 // skillLevel reports the current level of a skill, 0 if not held.

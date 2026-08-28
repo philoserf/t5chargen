@@ -22,7 +22,7 @@
 
 **Career**: Entertainer (2 terms), Artist, Talent 6
 
-**Skills**: Actor-1, Animals-2, Athlete-11, Broker-4, Hostile Environ-1, Navigator-1, Survey-3, Survival-1, Trader-1
+**Skills**: Actor-1, Animals-0, Athlete-11, Broker-4, Hostile Environ-1, Navigator-1, Rider-2, Survey-3, Survival-1, Trader-1
 
 **Credits**: Cr60000
 
@@ -32,6 +32,6 @@
 
 ---
 
-Seed 572 (math/rand/v2-pcg) · schema 0.32.0 · engine 0.41.0 · policy 0.24.0
+Seed 572 (math/rand/v2-pcg) · schema 0.33.0 · engine 0.43.0 · policy 0.25.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

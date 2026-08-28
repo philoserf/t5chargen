@@ -22,7 +22,7 @@
 
 **Career**: Citizen (20 terms), Job Slug Throwers, Hobby ACV
 
-**Skills**: ACV-5, Actor-1, Admin-10, Animals-15, Athlete-9, Broker-15, Bureaucrat-8, Computer-15, Slug Throwers-8, Trader-10
+**Skills**: ACV-5, Actor-1, Admin-10, Animals-15, Athlete-9, Broker-15, Bureaucrat-8, Computer-15, Rider-2, Slug Throwers-6, Trader-10
 
 **Credits**: Cr1000000
 
@@ -34,6 +34,6 @@
 
 ---
 
-Seed 1 (math/rand/v2-pcg) · schema 0.32.0 · engine 0.41.0 · policy 0.24.0
+Seed 1 (math/rand/v2-pcg) · schema 0.33.0 · engine 0.43.0 · policy 0.25.0
 
 Ruleset: Traveller5 Core Rules Book 1, Print Edition 5.1

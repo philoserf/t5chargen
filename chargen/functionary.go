@@ -227,7 +227,9 @@ func (m *functionaryMechanics) enterRank(r *careerRun, id string, cause int) err
 		return err
 	}
 
-	r.awardAndLog(name, 1, cause)
+	if err := r.awardAndLog(name, 1, cause); err != nil {
+		return err
+	}
 
 	return nil
 }

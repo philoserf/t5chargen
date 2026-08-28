@@ -87,7 +87,9 @@ func (m *craftsmanMechanics) resolveTerm(r *careerRun, cc string) (termOutcome, 
 		outcome.bonusRolls = box.SkillsPerSuccess
 	}
 
-	r.awardAndLog("Craftsman", 1, cause)
+	if err := r.awardAndLog("Craftsman", 1, cause); err != nil {
+		return termOutcome{}, err
+	}
 
 	return outcome, nil
 }

@@ -304,7 +304,9 @@ func (m *armedForcesMechanics) enterBranch(r *careerRun, branch career.Branch, c
 			return err
 		}
 
-		r.awardAndLog(name, 1, cause)
+		if err := r.awardAndLog(name, 1, cause); err != nil {
+			return err
+		}
 	}
 
 	if branch.AutoTrade {
@@ -369,7 +371,9 @@ func (m *armedForcesMechanics) enterRank(r *careerRun, id string, cause int) err
 		return err
 	}
 
-	r.awardAndLog(name, 1, cause)
+	if err := r.awardAndLog(name, 1, cause); err != nil {
+		return err
+	}
 
 	return nil
 }

@@ -502,26 +502,25 @@ func (r *eduRun) awardPass(cause int) error {
 		return nil // ED5 provides only its graduation Edu-5
 	case "trade_school":
 		// "Major+2".
-		awardSkillAndLog(r.record.Major, r.majorRate(r.record.Major, 2), cause, r.log, r.character)
+		if err := awardSkillAndLog(r.record.Major, r.majorRate(r.record.Major, 2),
+			cause, r.log, r.decider, r.character); err != nil {
+			return err
+		}
 	case "medical_school", "law_school":
 		// "Medic-4" over four Pass/Fail rolls, "Advocate-2" over two
 		// (I-104).
-		r.awardNamedSkill(cause)
+		return r.awardNamedSkill(cause)
 	case flightSchoolID:
 		// "1x Pilot-3" (chart C p. 60): one roll carrying three levels,
 		// not three rolls of one. The worked example settles it — "He
 		// receives Pilot+3 for a total of Pilot-4" (p. 61), from a
 		// character who already held Pilot-1.
-		awardSkillAndLog(education.FlightAward,
-			r.receipt(education.FlightAward, education.FlightAwardLevels), cause, r.log, r.character)
-	case "college", "university", "academy", "masters", "professors":
-		// "Major+1 per Pass and Minor+1 per 2 Passes" — one cell on the
-		// chart, merged across these five rows (p. 60).
-		awardSkillAndLog(r.record.Major, r.majorRate(r.record.Major, 1), cause, r.log, r.character)
-
-		if r.record.Passes%2 == 1 { // this call precedes the Passes increment: 2nd, 4th, ... pass
-			awardSkillAndLog(r.record.Minor, r.majorRate(r.record.Minor, 1), cause, r.log, r.character)
+		if err := awardSkillAndLog(education.FlightAward,
+			r.receipt(education.FlightAward, education.FlightAwardLevels), cause, r.log, r.decider, r.character); err != nil {
+			return err
 		}
+	case "college", "university", "academy", "masters", "professors":
+		return r.awardMajorAndMinor(cause)
 	default:
 		return fmt.Errorf("%w: education program %q", errNotImplemented, r.program.ID)
 	}
@@ -561,7 +560,10 @@ func (r *eduRun) awardANMKnowledge() error {
 		return err
 	}
 
-	awardSkillAndLog(names[chosen], r.receipt(names[chosen], 2), seq, r.log, r.character)
+	if err := awardSkillAndLog(names[chosen], r.receipt(names[chosen], 2),
+		seq, r.log, r.decider, r.character); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -587,7 +589,10 @@ func (r *eduRun) awardCommandCollege() error {
 			return err
 		}
 
-		awardSkillAndLog(names[chosen], r.receipt(names[chosen], 1), seq, r.log, r.character)
+		if err := awardSkillAndLog(names[chosen], r.receipt(names[chosen], 1),
+			seq, r.log, r.decider, r.character); err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -617,7 +622,9 @@ func (r *eduRun) awardApprenticeship() error {
 	}
 
 	r.record.Skill = names[chosen]
-	awardSkillAndLog(names[chosen], 4, seq, r.log, r.character)
+	if err := awardSkillAndLog(names[chosen], 4, seq, r.log, r.decider, r.character); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -660,8 +667,12 @@ func (r *eduRun) honors() error {
 	}
 
 	r.lastThrowSeq = seq
+
 	r.record.Honors = true
-	awardSkillAndLog(r.record.Major, r.majorRate(r.record.Major, 1), seq, r.log, r.character)
+	if err := awardSkillAndLog(r.record.Major, r.majorRate(r.record.Major, 1),
+		seq, r.log, r.decider, r.character); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -967,6 +978,27 @@ func carries(degree, credential string) bool {
 // prints the prerequisite that asks for one.
 const honorsPrefix = "Honors "
 
+// awardMajorAndMinor applies the cell chart C merges across College,
+// University, the Service Academy, Masters and Professors: "Major+1 per
+// Pass and Minor+1 per 2 Passes" (p. 60).
+func (r *eduRun) awardMajorAndMinor(cause int) error {
+	// "Major+1 per Pass and Minor+1 per 2 Passes" — one cell on the
+	// chart, merged across these five rows (p. 60).
+	if err := awardSkillAndLog(r.record.Major, r.majorRate(r.record.Major, 1),
+		cause, r.log, r.decider, r.character); err != nil {
+		return err
+	}
+
+	if r.record.Passes%2 == 1 { // this call precedes the Passes increment: 2nd, 4th, ... pass
+		if err := awardSkillAndLog(r.record.Minor, r.majorRate(r.record.Minor, 1),
+			cause, r.log, r.decider, r.character); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 // awardNamedSkill applies the Provides of the two professional schools,
 // the only chart C rows that name the skill they teach: "Medic-4" and
 // "Advocate-2" (p. 60).
@@ -974,11 +1006,11 @@ const honorsPrefix = "Honors "
 // One level per Pass, so the stated level is what a full run of passes
 // reaches — four rolls to Medic-4, two to Advocate-2 — and a student who
 // fails some of his years leaves with correspondingly less (I-104).
-func (r *eduRun) awardNamedSkill(cause int) {
+func (r *eduRun) awardNamedSkill(cause int) error {
 	name := education.MedicalAward
 	if r.program.ID == "law_school" {
 		name = education.LawAward
 	}
 
-	awardSkillAndLog(name, r.receipt(name, 1), cause, r.log, r.character)
+	return awardSkillAndLog(name, r.receipt(name, 1), cause, r.log, r.decider, r.character)
 }
