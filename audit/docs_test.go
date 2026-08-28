@@ -1,8 +1,8 @@
 // Package docs_test enforces the milestone-3 exit criterion
 // (docs/PRD.md): "a living COVERAGE.md in the tool repo mapping every E1
 // step and career rule to its page cite, implementation, and golden test
-// — no career is 'done' until its uncommon branches are listed there as
-// covered or explicitly deferred."
+// — no career is 'done' until its uncommon branches are listed there
+// under one of that document's statuses."
 //
 // A document is only living if it cannot drift, so the invariants that
 // make it trustworthy are checked here rather than by eye: that every
