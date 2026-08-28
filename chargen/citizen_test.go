@@ -505,3 +505,67 @@ func TestGenerateDeciderContract(t *testing.T) {
 		t.Errorf("policy_version with default policy = %q, want %q", auto.PolicyVersion, chargen.PolicyVersion)
 	}
 }
+
+// TestNoSkillCellRetriesOnTheNextSuccess pins interpretation I-1: a Job
+// determination landing on table E's "No Skill" cell (chart 04, p. 78)
+// leaves the Job undetermined, and the next success retries it rather
+// than moving on to the Hobby.
+//
+// Both halves are pinned, because the retry is structural — the dispatch
+// gates on an empty Job — and a change that let the ladder advance would
+// silently hand the character a Hobby he has no Job for. Seed 169 is the
+// case where no further success arrives: the Job stays unset, and no
+// Hobby is determined ahead of it.
+func TestNoSkillCellRetriesOnTheNextSuccess(t *testing.T) {
+	t.Run("the next success retries the Job", func(t *testing.T) {
+		c := generate(t, chargen.Options{Seed: 114, Career: "Citizen"})
+
+		kinds := jobLadder(c)
+		want := []string{"job_undetermined", "job_set", "hobby_set"}
+
+		if !slices.Equal(kinds, want) {
+			t.Errorf("ladder = %v, want %v", kinds, want)
+		}
+
+		if got := c.Careers[0].Job; got != "Launcher" {
+			t.Errorf("Job = %q, want %q", got, "Launcher")
+		}
+	})
+
+	t.Run("with no further success the Job stays undetermined", func(t *testing.T) {
+		c := generate(t, chargen.Options{Seed: 169, Career: "Citizen"})
+
+		if kinds := jobLadder(c); !slices.Equal(kinds, []string{"job_undetermined"}) {
+			t.Errorf("ladder = %v, want only job_undetermined", kinds)
+		}
+
+		if got := c.Careers[0]; got.Job != "" || got.Hobby != "" {
+			t.Errorf("Job = %q, Hobby = %q, want both empty", got.Job, got.Hobby)
+		}
+	})
+}
+
+// jobLadderKinds are the consequences the Job and Hobby ladder emits.
+var jobLadderKinds = []chargen.ConsequenceKind{
+	chargen.ConsequenceJobUndetermined,
+	chargen.ConsequenceJobSet,
+	chargen.ConsequenceHobbySet,
+}
+
+// jobLadder lists the Job and Hobby consequences a record carries, in the
+// order the log records them.
+func jobLadder(c chargen.Character) []string {
+	var kinds []string
+
+	for _, e := range c.Events {
+		if e.Consequence == nil {
+			continue
+		}
+
+		if slices.Contains(jobLadderKinds, e.Consequence.Kind) {
+			kinds = append(kinds, string(e.Consequence.Kind))
+		}
+	}
+
+	return kinds
+}

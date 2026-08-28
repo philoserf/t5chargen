@@ -509,6 +509,115 @@ func locate(t *testing.T, keep func(path string) bool, pattern *regexp.Regexp) (
 	return found, scanned
 }
 
+// statuses is the fixed vocabulary a COVERAGE.md row's Status cell may
+// open with, and what each promises.
+//
+// The document used to name three and use nine, which is the drift a
+// prerelease review caught: a vocabulary nobody enforces stops meaning
+// anything, and "covered", "transcribed" and "implemented; unexercised"
+// were three ways of saying different things under one heading.
+//
+// The list is closed on purpose. A row that fits none of these is a row
+// whose author has not decided what it is claiming.
+var statuses = map[string]string{
+	"covered":            "implemented, and names a test or a gate",
+	"interpretation":     "covered under the cited ERRATA.md reading",
+	"accepted exception": "in v1 scope and deliberately incomplete",
+	"out of scope":       "excluded by a docs/PRD.md non-goal",
+	"unreachable":        "cannot occur for a v1 human",
+	"play-time rule":     "a real rule, outside character generation",
+}
+
+// evidenced are the statuses that must name a test or a gate. The other
+// three describe rules the engine does not run, and demanding a test of
+// those would be demanding a test of nothing.
+var evidenced = []string{"covered", "interpretation"}
+
+// TestEveryStatusIsInTheVocabulary verifies COVERAGE.md's Status column
+// against the list its own header prints, and holds the two statuses
+// that claim implementation to naming their evidence.
+//
+// Both halves come from the same failure. A status column with an open
+// vocabulary cannot be read mechanically, so nothing checked it, so rows
+// accumulated statuses like "transcribed" and "implemented; unexercised"
+// that say something real and say it in a way no gate can see. Fixing
+// the vocabulary is what makes the second half — every claim of
+// implementation names its evidence — checkable at all.
+func TestEveryStatusIsInTheVocabulary(t *testing.T) {
+	rows := coverageRows(t)
+
+	for _, row := range rows {
+		status := strings.ToLower(lastCell(row))
+
+		opening := ""
+
+		for name := range statuses {
+			if strings.HasPrefix(status, name) && len(name) > len(opening) {
+				opening = name
+			}
+		}
+
+		if opening == "" {
+			t.Errorf("%s: status opens %q, which is not in the vocabulary",
+				firstCell(row), trimStatus(lastCell(row)))
+
+			continue
+		}
+
+		if slices.Contains(evidenced, opening) && testCell(row) == "" {
+			t.Errorf("%s: status is %q and names no test", firstCell(row), opening)
+		}
+	}
+}
+
+// coverageRows returns COVERAGE.md's rule rows, without its headers,
+// separators, or the tables that are not rule maps.
+func coverageRows(t *testing.T) []string {
+	t.Helper()
+
+	var rows []string
+
+	for _, row := range regexp.MustCompile(`(?m)^\|.*\|`).FindAllString(read(t, docsDir+"COVERAGE.md"), -1) {
+		cells := strings.Split(strings.Trim(row, "|"), "|")
+		if len(cells) < 5 || strings.HasPrefix(strings.TrimSpace(cells[0]), "---") {
+			continue
+		}
+
+		if first := strings.TrimSpace(cells[0]); first == "" || first == "Rule" || first == "Status" {
+			continue
+		}
+
+		rows = append(rows, row)
+	}
+
+	if len(rows) < 50 {
+		t.Fatalf("found only %d COVERAGE.md rule rows; the scan is not working", len(rows))
+	}
+
+	return rows
+}
+
+// testCell returns a row's Test column, or "" where it names none.
+func testCell(row string) string {
+	cells := strings.Split(strings.Trim(row, "|"), "|")
+
+	got := strings.TrimSpace(cells[3])
+	if got == "—" || got == "-" {
+		return ""
+	}
+
+	return got
+}
+
+// trimStatus shortens a status for a failure message.
+func trimStatus(status string) string {
+	if len(status) <= 60 {
+		return status
+	}
+
+	return status[:60] + "…"
+}
+
 // firstCell and lastCell return a Markdown table row's first and last
 // cells — the rule it names and the status it claims.
 func firstCell(row string) string {
@@ -521,4 +630,55 @@ func lastCell(row string) string {
 	cells := strings.Split(strings.Trim(row, "|"), "|")
 
 	return strings.TrimSpace(cells[len(cells)-1])
+}
+
+// coverageColumns is the shape every COVERAGE.md table has. The document
+// is one table repeated, and the gates below read the Test and Status
+// cells by position.
+var coverageColumns = []string{"Rule", "Cite", "Implementation", "Test", "Status"}
+
+// TestEveryCoverageRowFitsItsHeader verifies that every table in
+// COVERAGE.md has the five columns named above and that no row carries
+// more or fewer cells than its header.
+//
+// A row with extra cells is not a cosmetic fault. Markdown drops the
+// surplus, so the Implementation, Test and Status a reader sees are not
+// the ones the source holds — three rows carried two spare "—" cells and
+// rendered as though they named nothing, while a positional gate read a
+// cell over and reported them as untested. The document lied in both
+// directions at once, and neither was visible in the rendered page.
+func TestEveryCoverageRowFitsItsHeader(t *testing.T) {
+	var (
+		columns int
+		header  int
+		tables  int
+	)
+
+	for i, line := range strings.Split(read(t, docsDir+"COVERAGE.md"), "\n") {
+		if !strings.HasPrefix(line, "|") {
+			continue
+		}
+
+		cells := strings.Split(strings.Trim(strings.TrimSpace(line), "|"), "|")
+		for j := range cells {
+			cells[j] = strings.TrimSpace(cells[j])
+		}
+
+		switch {
+		case cells[0] == "Rule":
+			if !slices.Equal(cells, coverageColumns) {
+				t.Errorf("line %d: header is %v, want %v", i+1, cells, coverageColumns)
+			}
+
+			columns, header, tables = len(cells), i+1, tables+1
+		case strings.HasPrefix(cells[0], "---"):
+		case columns != 0 && len(cells) != columns:
+			t.Errorf("line %d: %d cells, but the header on line %d has %d: %q",
+				i+1, len(cells), header, columns, cells[0])
+		}
+	}
+
+	if tables < 20 {
+		t.Fatalf("found only %d tables; the scan is not working", tables)
+	}
 }
