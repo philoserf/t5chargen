@@ -9,7 +9,8 @@ The review itself is in git.
 
 |                |                                                                                                           |
 | -------------- | --------------------------------------------------------------------------------------------------------- |
-| **Commit**     | to be filled with the tagged commit                                                                       |
+| **Tag**        | `v0.1.0-alpha.1`, prerelease                                                                              |
+| **Commit**     | `5fabd48f12fc4cb8cf7fd822d51b2995a61976a3`                                                                |
 | **Ruleset**    | Traveller5 Core Rules Book 1, Print Edition 5.1                                                           |
 | **Versions**   | schema 0.33.0 · engine 0.45.0 · policy 0.25.0                                                             |
 | **Gate**       | `task` — 17 packages, `-race`, green                                                                      |
@@ -124,9 +125,28 @@ The review's own ten items, each checked rather than assumed.
 
 ## Decision
 
-**Ready to tag `v0.1.0-alpha.1`**, once this document names the commit.
+**Tagged `v0.1.0-alpha.1` at `5fabd48`, 2026-08-28.** The first release
+of this repository.
 
-Alpha rather than 1.0 because nothing has been released before and
+Alpha rather than 1.0 because nothing had been released before and
 nobody has used it: the rules are implemented and gated, and what is
 untested is contact with users. The procedure is
 [RELEASING.md](RELEASING.md).
+
+## After the tag
+
+Every check the procedure asks for, run against the released artifact
+rather than a local build.
+
+- `go install github.com/philoserf/t5chargen/cmd/t5chargen@v0.1.0-alpha.1`
+  into an empty `GOPATH` succeeds from the module proxy.
+- `t5chargen version` reports **`v0.1.0-alpha.1`** — not `(devel)`, not a
+  pseudo-version. This was the one line in README that could not be
+  verified before the tag existed, and it is why the check installs
+  rather than builds: a `go build` in the work tree reports a VCS
+  pseudo-version whatever the tag says.
+- The five workflows run on that binary: automatic, interactive, batch,
+  render, replay. The automatic record replayed at 151 events and the
+  interactive one at 241.
+- The released binary reproduces README's pasted character exactly,
+  compared byte for byte against the page.
