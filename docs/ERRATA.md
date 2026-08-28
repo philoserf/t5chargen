@@ -364,7 +364,7 @@ Implemented at `chargen/careerrun.go` (`term`) via `termOutcome.endCareer`.
 
 ### I-17: Character generation throws are Checks (p. 134; chart 10 p. 84)
 
-The career charts say "Roll for Risk against CC+ Mods" and "Continue Str"
+The career charts say "Roll for Risk against CC+ Mods" (chart 05 p. 79) and "Continue Str"
 without stating what happens on the highest possible roll. Taken literally
 as a roll-low comparison, a target at or above the maximum roll can never
 fail — and because several careers set the Continue target from a
@@ -422,8 +422,8 @@ name a series of characteristics.
 
 Implemented with no Risk or Reward throw, and with the term's outcome being
 whether Fame increased — which is what table B keys its extra skills to
-("If Fame Increases 2 and Talent+1"). Consistent with chart 01, which says
-of the Craftsman in the same breath: "He does not roll Risk and Reward."
+("If Fame Increases 2 and Talent+1"). Consistent with chart 01 (p. 75), which says of the Craftsman in the
+same breath: "He does not roll Risk and Reward."
 
 The Archive's preliminary Entertainer also prints no Risk and Reward box
 (locate-only; Book 1 governs).
@@ -681,7 +681,7 @@ Scholar career, but not other careers)" (p. 59), so the row was not a long
 shot but a dead end.
 
 Chart 11's "*if Soc B+" is now a `begin_prerequisite` in the career data,
-the same field chart 01's "*if TWO skill-6 and Craftsman-1" already used,
+the same field chart 01's "*if TWO skill-6 and Craftsman-1" (p. 75) already used,
 and `careerIsOpen` filters on it for both the first career and a change.
 The conclusion is unchanged: no throw, no year. What changed is that a
 character is no longer offered a title he has no way to hold. A Social
@@ -780,7 +780,7 @@ Chart 08's Risk row awards on success an "XS Exemplary Service Badge", the
 same code the Imperial Medals table gives for a Reward roll of 2 through 8.
 Read literally, every unharmed term would also add +1 to later promotions.
 
-The Medals table is indexed by "Rew= Successful unmodified **Reward** Roll"
+The Medals table is indexed by "Rew= Successful unmodified **Reward** Roll" (chart M1 p. 70)
 and has no row for a Risk result, so a Risk success awards a decoration
 outside the table. It is counted on the record and carries no modifier.
 The p. 66 Marine example agrees in spirit, awarding a _Campaign Ribbon_ on
@@ -999,7 +999,7 @@ Implemented at `career/data/functionary.json` (`reference: true`).
 
 ### I-41: A Rogue's Risk failure imprisons rather than injures (p. 84 chart 10)
 
-Every other Risk & Reward chart prints the same Risk-failure text —
+Every other Risk & Reward chart prints the same Risk-failure text (chart 05 p. 79; chart 01 p. 76; chart 06 p. 80) —
 "Reduce CC by negative Mods and Flux ... If reduced by 4 or more, then he
 is disabled." Chart 10 prints something else entirely: "Prison for (sum of
 negative Mods + Flux) years at the start of the next Term (may be zero;
@@ -1497,7 +1497,7 @@ The practical effect is that Craftsman is unreachable at eighteen without
 being barred: a character leaving education has neither the craft nor two
 skills at level 6, and acquires both only over several terms in another
 career. That is a different mechanism from chart 13's, which states the
-bar as a rule ("Functionary is never a first career"), and chart 01 states
+bar as a rule ("Functionary is never a first career") (p. 87), and chart 01 states
 no such rule. p. 63 mentions both together — "Craftsman (1) and Functionary
 (13) are unavailable as initial careers" — but scopes that to the 2D
 random-selection system, where 1 and 13 are simply unrollable.
@@ -1636,7 +1636,7 @@ whoever implements ship purchase knows Fame is waiting on it.
 
 Chart F's Armed Forces block lists "Army / Marine / Navy: Officer Rank *"
 above six decorations with their multipliers, and footnotes the block
-"*Armed Forces Enlisted = no Fame."
+"*Armed Forces Enlisted = no Fame." (chart F p. 91)
 
 Read as: an enlisted character earns no Fame from that career at all —
 neither from rank, which he has none of, nor from his decorations.
@@ -1720,7 +1720,7 @@ Implemented at `chargen/fame.go` (`singleLineFame`).
 Chart 06 prints the Merchant ladder as RX Temp, R0 Spacehand, R1 Steward
 Apprentice, R2 Drive Helper, then M1 Fourth Officer through M6 Senior
 Captain, and notes "R-Ranks are Ratings (or Enlisted). M-Ranks are
-Officers." The numbering restarts at the commission.
+Officers." (chart 06 p. 80) The numbering restarts at the commission.
 
 Read as: "=Rank" is the number printed beside the title, so a Drive Helper
 is Rank 2 and a Fourth Officer is Rank 1.
@@ -2276,7 +2276,7 @@ entire term" and costs all four (I-88), because there the term is what is
 being replaced.
 
 One consequence of siting the school inside a term: Command College waits
-for a term that is actually served. "In Year 1 of next Term (if Continue)"
+for a term that is actually served. "In Year 1 of next Term (if Continue)" (charts 07, 08, 12; pp. 81, 82, 86)
 names a term, and a term suspended for Later Education is "not a term
 served" (I-90) — there is no Year 1 of service to hold the college in. So
 an officer who takes the footnote and then suspends the following term
@@ -2311,7 +2311,7 @@ does not call `selectMajors`).
 ### I-93: ANM School is resolved once per term and after the four Operations rolls (charts 07, 08, 12; p. 66)
 
 "Rolls 4 times per Term for Operations; select the highest Mod of the
-four" (chart 08), and "Resolve ANM School using Education".
+four" (chart 08 p. 82), and "Resolve ANM School using Education" (chart 08 p. 82).
 
 Two things the charts leave open.
 
@@ -2856,7 +2856,8 @@ waived by a character who has no education to have earned one in.
 Chart A settles what happens at zero: "If one Characteristic is reduced to
 0, it is reset to 1" (p. 89). It does not say what happens when one effect
 carries a characteristic past zero in a single step, which the Risk failure
-can: "reduce CC by negative Mods and Flux" (p. 65) subtracts a Flux of up
+can: "reduce CC by negative Mods and Flux" (chart 05 p. 79, and the
+same line on every Risk & Reward chart) subtracts a Flux of up
 to −5 from a characteristic that may already be at 2.
 
 Three readings, and the printed rules exclude none of them:
@@ -3046,7 +3047,7 @@ capable, Poice)", which names one type and calls it an example.
 Knowledge-Knowledge-Skill progression the rest of the containers follow.
 The alternative is to invent an instrument list, which is the one thing
 the ground rules forbid: the transcription would have no page behind it,
-and the chart's own note that "The lists of Knowledges and Talents are
+and the chart's own note (chart MS p. 132) that "The lists of Knowledges and Talents are
 advisory; many different and additional Knowledges and Talents are
 possible" says the list is open rather than absent by omission.
 
