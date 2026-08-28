@@ -1,5 +1,9 @@
 # Milestone 4 — the rest of the lifepath
 
+> **Historical snapshot.** Status and deferrals reflect the repository
+> when this milestone closed. See [COVERAGE.md](COVERAGE.md) for current
+> coverage.
+
 The lifepath is implemented end to end. A character runs from
 characteristics to muster out: aging bounds the careers, career changes
 chain them, all thirteen charts are in, Fame is calculated over the

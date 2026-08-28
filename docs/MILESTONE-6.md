@@ -1,5 +1,15 @@
 # Milestone 6 — the rules that were left, and the ones that were not rules
 
+> **Historical snapshot.** Status and deferrals reflect the repository
+> when this milestone closed. See [COVERAGE.md](COVERAGE.md) for current
+> coverage.
+
+> Milestone 7 reversed this milestone's central conclusion: the
+> Skill/Knowledge distinction is no longer a v1 non-goal, and p. 134's
+> progression, the Knowledge caps, the Career and World Knowledges and
+> Flight School are all implemented. See
+> [MILESTONE-7.md](MILESTONE-7.md).
+
 Milestone 6 was planned as seven COVERAGE.md rows. One of them shipped as
 a rule, six became a v1 non-goal, and the substantial work of the span
 belonged to no milestone at all.
