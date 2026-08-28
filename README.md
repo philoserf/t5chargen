@@ -8,12 +8,14 @@ Go module: `github.com/philoserf/t5chargen`. Standard library only.
 
 ## Status
 
-The spec is [docs/PRD.md](docs/PRD.md). All six milestones are complete:
+The spec is [docs/PRD.md](docs/PRD.md). All seven milestones are complete:
 1 (foundations), 2 (pre-career: homeworld skills, education), 3 (careers),
 4 (the rest of the lifepath), 5 (the two modes, batch, and replay
-verification) and 6 (the rules those left). A character runs end to end:
-characteristics, homeworld, education, all thirteen careers with aging and
-career changes, Fame, muster out, and a birthdate.
+verification), 6 (the rules those left) and 7 (the deferrals that were
+still real once 6 closed, and the Skill/Knowledge distinction, which
+returned to scope). A character runs end to end: characteristics,
+homeworld, education, all thirteen careers with aging and career changes,
+Fame, muster out, and a birthdate.
 
 What works today:
 
@@ -46,6 +48,12 @@ of them at once, and any record re-run from its own file and checked
 against itself: `t5chargen replay character.json` exits non-zero at the
 first event that disagrees. The record's shape is written down as
 [docs/character.schema.json](docs/character.schema.json).
+
+Skills follow p. 134's Knowledge-Knowledge-Skill sequence: the first two
+receipts of a container skill award one of its Knowledges instead, so a
+character receiving Fighter five times leaves with Fighter-3 and a
+Knowledge-2 rather than Fighter-5. Careers and worlds leave Knowledges of
+their own — `Career: Scout`, `World: Regina` — each capped at 6.
 
 Chart C's Higher Education block runs the whole way up: College or
 University to a Bachelors, then Masters, then the Professors programme,
