@@ -569,3 +569,38 @@ citation: that is usually the extraction, and thirty-eight of them are.
 **What the sweep does not establish.** That a quote appears on the page
 it cites is not that the reading drawn from it is right. This checks
 provenance, not interpretation.
+
+## Smoke Test
+
+Release bar item 8, run 2026-08-28 against a built binary at d7dbd10,
+schema 0.33.0 / engine 0.44.0 / policy 0.25.0.
+
+`task` green across all 17 packages; `task citations` green.
+
+| workflow    | checked                                                                                                                                                    |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| automatic   | a record written, its provenance and `inputs` complete, and the same seed twice byte-identical                                                             |
+| interactive | answers on stdin produce `policy_version: "none"`, every choice event recording `player`, and prompts shown; an abandoned session writes no file           |
+| batch       | five records to JSONL with seeds derived 100–104, three to a directory as `character-2NN.json`; refused without `--auto`                                   |
+| render      | sheet and history transcript, a JSONL run rendered a card at a time, a directory refused, and `--format` gone as of #101                                   |
+| replay      | the automatic record, the interactive one, and every line of the run; tampering refused; foreign provenance refused and re-run under `--ignore-provenance` |
+
+Flags exercised: `--name`, `--seed`, `--current-year`, `--career`,
+`--homeworld` both supplied and `random`, `-o`, `--force`. A partial UWP
+and a career that cannot open a lifepath are both refused with a usage
+status.
+
+**Two things the smoke test confirmed rather than assumed.** The
+interactive record replays — the milestone-5 guarantee that a session a
+person drove is a record like any other. And the two records it generated
+were dropped into `chargen/testdata` and validated against
+`character.schema.json` by the repository's own gate, which globs that
+directory, so the schema describes what the binary writes and not only
+what the fixtures happen to contain.
+
+One thing looked wrong and was not: `rolled_homeworld` is absent from the
+top level of a record generated with `--homeworld random`. It belongs to
+the `inputs` block, which is where replay reads it, and the record round
+trips.
+
+Release bar items 8 and 9 are closed. What remains is item 10, the tag.
