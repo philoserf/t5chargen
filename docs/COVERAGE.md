@@ -33,10 +33,12 @@ engine presents must have a POLICY.md rule, and every career the engine
 can run must have a section. A document that can drift is not a living
 one.
 
-What milestone 3 does not cover, by design, is listed against its owning
-milestone in the rows below — chiefly muster out, aging, career changes,
-and the fame system, all milestone 4, which docs/MILESTONE-4.md scopes and
-sequences.
+All seven milestones have closed, so this file records coverage rather
+than a plan: muster out, aging, career changes and the fame system were
+milestone 4's and shipped there, and the rows below say what is covered
+now, not what is next. One rule in v1 scope is deliberately incomplete —
+chart 11's `Capital***` cell — and it is the only row carrying an
+accepted exception.
 
 ## Foundations
 

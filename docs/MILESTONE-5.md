@@ -1,5 +1,9 @@
 # Milestone 5 — the two modes, and the record as a contract
 
+> **Historical snapshot.** Status and deferrals reflect the repository
+> when this milestone closed. See [COVERAGE.md](COVERAGE.md) for current
+> coverage.
+
 The tool now does what the PRD said it would. A character can be generated
 by a person answering each choice or by the policy answering all of them;
 a run of characters can be generated at once; any record can be re-run from

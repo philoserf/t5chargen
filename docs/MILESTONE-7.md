@@ -1,5 +1,9 @@
 # Milestone 7 — the deferrals that were still real
 
+> **Historical snapshot.** Status and deferrals reflect the repository
+> when this milestone closed. See [COVERAGE.md](COVERAGE.md) for current
+> coverage.
+
 Milestone 6 closed and every requirement was met, so the question was what
 deferred work was left that was worth doing. A sweep of COVERAGE.md's
 deferred rows, every `Deferred:` block in the Go source and the ERRATA
@@ -122,15 +126,19 @@ test doing its job.
 
 ## What is left
 
-Nothing the PRD asks for. All ten functional requirements and all seven
-milestones are complete, and 112 interpretations are recorded.
+**One accepted exception.** All ten functional requirements and all
+seven milestones are complete, and 112 interpretations are recorded, but
+chart 11's `Capital***` cell is a rule inside v1 scope that this does not
+implement. FR4 and FR5 ask for the Noble's mechanics and its skill
+awards; the cell is one of them, and selecting it returns an error rather
+than awarding something invented.
 
-One rule stays genuinely deferred: chart 11's `Capital***` cell. Its
-stated blockers were answered in this milestone — a World Knowledge is
-modelled and chart MS gives the naming — but the other half of the cell
-survives them, "highest held noble Land Grant" ranking a character's
-grants against one another, which needs the per-title hex table I-83
-declines to invent.
+The exception is not the Knowledge it names. That blocker was answered in
+this milestone — a World Knowledge is modelled and chart MS gives the
+`World: <Name>` naming — and what survives is the other half of the cell:
+"highest held noble Land Grant" ranks a character's grants against one
+another, and nothing in the record orders them, I-83 having declined to
+invent the per-title hex table that would.
 
 Everything else in COVERAGE.md that is not covered is a non-human rule, a
 value generation never reads, or a task-resolution concern: they are
