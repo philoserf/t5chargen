@@ -42,6 +42,7 @@ const usage = `usage:
                   [--homeworld "UWP TC..."|random] [--current-year 1105] [-o dir/|file.jsonl] [--force]
   t5chargen render [--history] character.json
   t5chargen replay [--ignore-provenance] character.json
+  t5chargen version                (also --version; the build, and the versions a record stamps)
 `
 
 func main() {
@@ -72,6 +73,14 @@ func run(args []string, seedFn func() (uint64, error), stdin io.Reader, stdout, 
 	}
 
 	switch args[0] {
+	// Accepted as a subcommand and as a flag. The flag form is what a
+	// reporter reaches for first, and this CLI takes flags after the
+	// subcommand everywhere else, so there is no subcommand for it to be
+	// ambiguous with.
+	case "version", "--version", "-version":
+		writeVersion(stdout)
+
+		return exitOK
 	case "new":
 		return runNew(args[1:], seedFn, stdin, stdout, stderr)
 	case "batch":

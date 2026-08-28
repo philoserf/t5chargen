@@ -96,7 +96,10 @@ t5chargen new [--seed N] [--auto] [--career scout] [--homeworld A867A69-F] [--na
 t5chargen batch --count 20 --auto [--career ...] [-o dir|file.jsonl]
 t5chargen render [--history] character.json
 t5chargen replay [--ignore-provenance] character.json
+t5chargen version
 ```
+
+`version` reports the build and the three versions a record stamps, so a bug report can be matched against any record the binary wrote. It is read from the build info the toolchain embeds, which means it names what the binary is rather than what a build flag was told to say.
 
 Flags precede the filename. Go's `flag` package stops parsing at the first non-flag argument, so `render char.json --history` leaves `--history` standing as a second positional argument and exits with a usage error.
 

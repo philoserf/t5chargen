@@ -105,6 +105,7 @@ t5chargen batch --count 20 --auto -o npcs/    # a run of NPCs, one file each
 t5chargen batch --count 20 --auto -o npcs.jsonl  # or one file, a record a line
 t5chargen replay npcs.jsonl                   # a JSONL run replays record by record
 t5chargen render npcs/character-1.json        # render names one record; a directory is refused
+t5chargen version                            # the build, and the versions a record stamps
 ```
 
 `new` without `--auto` asks the player each choice; with it, POLICY.md
