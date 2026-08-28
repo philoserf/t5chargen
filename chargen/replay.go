@@ -215,6 +215,15 @@ func compareRecords(stored, replayed Character, provenanceWaived bool) error {
 		stored.RNG.Algorithm, replayed.RNG.Algorithm = "", ""
 	}
 
+	// errata is deliberately not waived with them. Every string above is
+	// an identifier the run stamps on itself; the errata list is
+	// generated content, naming the readings that governed values in this
+	// character. A record an older engine wrote before a deviation was
+	// stamped will differ here, and that is a real difference in what the
+	// record asserts rather than a restatement of the version mismatch
+	// the caller waived. He waived being told the versions disagree, not
+	// being told the output does.
+	//
 	// policy_version attests who decided, and on a re-run that is the
 	// replay decider, so the regenerated record always reports "none".
 	// Comparing it would fail every auto-generated record for saying

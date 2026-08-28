@@ -95,6 +95,13 @@ func (r *musterOutRun) landGrantIncome() error {
 			return fmt.Errorf("%w: land grant hexes for %q", errNotImplemented, rec.Career)
 		}
 
+		if hexes.NoTCHexes > 0 {
+			// The hexes this character holds on worlds nobody has
+			// generated are priced at the floor rather than by their own
+			// Trade Classifications (I-82).
+			r.character.applyDeviation(DeviationLandGrantFloor)
+		}
+
 		perGrant := hexes.HomeworldHexes*hexIncome(grant, len(r.character.Homeworld.TradeClassifications)) +
 			hexes.NoTCHexes*grant.NoTCAnnualCredits
 

@@ -1,12 +1,13 @@
 {
   "schema_version": "0.33.0",
   "ruleset": "Traveller5 Core Rules Book 1, Print Edition 5.1",
-  "engine_version": "0.44.0",
+  "engine_version": "0.45.0",
   "policy_version": "0.25.0",
   "rng": {
     "algorithm": "math/rand/v2-pcg",
     "seed": 26
   },
+  "errata": ["I-112"],
   "inputs": {
     "career": "Scout",
     "current_year": 1105

@@ -45,6 +45,10 @@ func awardSpecializedKnowledges(c *Character, log *Log, careerStartAge int) {
 	}
 
 	if world := c.Homeworld.Name; world != "" {
+		// The count is the deviation, so it is stamped wherever a World
+		// Knowledge is awarded at all (I-112). A character with no named
+		// homeworld receives none and carries no stamp (I-97).
+		c.applyDeviation(DeviationWorldKnowledgeTerms)
 		awardSkillLevels(skill.WorldKnowledgePrefix+world, termsLived(careerStartAge), seq, log, c)
 	}
 }

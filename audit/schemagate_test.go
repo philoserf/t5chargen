@@ -402,8 +402,6 @@ func TestEverySchemaPropertyIsExercised(t *testing.T) {
 // why. Every entry is a rule the engine implements down a path the pinned
 // seeds do not reach — not a field that does nothing.
 var unexercised = map[string]string{
-	"errata": "the applied ERRATA.md deviations; no rule records one against a character yet, " +
-		"so the list is always absent",
 	"deep_space":       "chart B's cell 6 6 (I-97); no fixture rolls its homeworld, and none is assigned deep space",
 	"rolled_homeworld": "--homeworld random; every fixture takes the assigned world, so the input is false and omitted",
 	"homeworld_assigned": "--homeworld; no fixture names one, so step B offers chart B's list " +

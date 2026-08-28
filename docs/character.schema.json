@@ -739,7 +739,7 @@
           "$ref": "#/$defs/rng"
         },
         "errata": {
-          "description": "The ERRATA.md interpretations applied to this record. Absent means none were.",
+          "description": "The ERRATA.md deviations applied to this record, in the order ERRATA.md numbers them. A deviation is listed when its reading governed a value here. Absent means none were.",
           "type": "array",
           "items": {
             "type": "string"
