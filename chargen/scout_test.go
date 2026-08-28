@@ -2,6 +2,7 @@ package chargen_test
 
 import (
 	"errors"
+	"slices"
 	"strings"
 	"testing"
 
@@ -328,4 +329,103 @@ func TestEveryScoutDutyHasSkillEligibility(t *testing.T) {
 			t.Errorf("%q allows %d skill rolls", duty, rolls)
 		}
 	}
+}
+
+// returnsToTheScouts serves the Scouts, leaves at the first opportunity,
+// and comes back — which the auto policy never does, `change_career`
+// declining, so no golden record holds two stints in one career.
+type returnsToTheScouts struct{ changes int }
+
+func (d *returnsToTheScouts) Choose(c chargen.Choice) (int, error) {
+	switch c.ID { //nolint:exhaustive // Only the choice points this decider steers; the rest fall through to the policy.
+	case chargen.ChooseCareerChange:
+		// Twice: out of the Scouts, then back. A change offers only the
+		// careers he is not in, so returning takes a second one.
+		if d.changes >= 2 {
+			return 0, nil
+		}
+
+		d.changes++
+
+		return 1, nil // "Change careers"
+	case chargen.ChooseCareer:
+		if i := slices.Index(c.Options, "Scout"); i >= 0 {
+			return i, nil
+		}
+	}
+
+	return autoPolicy(c)
+}
+
+func (*returnsToTheScouts) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
+
+// TestScoutSanityIsChargedPerStint verifies interpretation I-47's reading
+// of "for each TWO Terms served" (chart 05 p. 79): the terms of one
+// period of Scout service, not of every stint the character has served.
+//
+// A Scout who serves three terms, leaves, and returns for one owes -1 —
+// three terms cost one point and a single term costs nothing — where
+// summing the stints first would cost him -2. The engine charged per
+// stint from the day career changes made two stints possible, and said
+// so nowhere until this test.
+func TestScoutSanityIsChargedPerStint(t *testing.T) {
+	stints, split := 0, 0
+
+	for seed := range uint64(400) {
+		c := generate(t, chargen.Options{Seed: seed, Career: "Scout", Decider: &returnsToTheScouts{}})
+
+		total, records := 0, 0
+
+		for _, record := range c.Careers {
+			if record.Career != "Scout" || !record.Began {
+				continue
+			}
+
+			records++
+			total += len(record.Terms)
+
+			// Each record is charged against its own terms alone.
+			if want := -(len(record.Terms) / 2); record.SanityMod != want {
+				t.Errorf("seed %d: a stint of %d terms owes San %+d, want %+d",
+					seed, len(record.Terms), record.SanityMod, want)
+			}
+		}
+
+		if records < 2 {
+			continue
+		}
+
+		stints++
+
+		// The reading is only visible where the two answers differ, which
+		// is where at least one stint has an odd term count: 3+1 owes -1
+		// per stint and -2 summed. A sweep that never saw one would pass
+		// under either reading.
+		if -(total / 2) != sumOfStintCharges(c) {
+			split++
+		}
+	}
+
+	if stints == 0 {
+		t.Fatalf("no seed under 400 serves two Scout stints; the sweep is asserting nothing")
+	}
+
+	if split == 0 {
+		t.Fatal("no seed splits the two readings; every stint had an even term count and " +
+			"the test would pass under either")
+	}
+}
+
+// sumOfStintCharges totals what the record actually charged, stint by
+// stint.
+func sumOfStintCharges(c chargen.Character) int {
+	total := 0
+
+	for _, record := range c.Careers {
+		if record.Career == "Scout" {
+			total += record.SanityMod
+		}
+	}
+
+	return total
 }

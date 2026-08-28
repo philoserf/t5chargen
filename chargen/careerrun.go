@@ -1423,6 +1423,10 @@ func (r *careerRun) injury(cc string, mod, cause int, cite string) (bool, bool) 
 //
 // Partial terms owe nothing: two terms are what the chart charges for, so
 // three terms cost the same as two.
+// Charged per stint: the terms of this career record, not of every stint
+// the character has served in the career. Chart 05 prints the rule inside
+// the Scout's own box and rounds within it — three terms cost what two
+// cost — so the unit is one period of service (interpretation I-47).
 func (r *careerRun) recordSanityMod(cause int) {
 	if r.def.SanityPerTerms == 0 {
 		return
