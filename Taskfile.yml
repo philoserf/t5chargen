@@ -98,6 +98,16 @@ tasks:
       - go test ./chargen ./render -update
       - task: default
 
+  citations:
+    desc: Check ERRATA.md's quotations against the printed rules (needs the private Book 1 PDF)
+    vars:
+      RULES: '{{.T5_RULES_PDF | default "$HOME/Documents/Traveller/T5/Traveller5 Core Rules Book 1 Characters and Combat.pdf"}}'
+    cmds:
+      # Skipped, not failed, where the PDF is absent: the rules are a
+      # purchased artifact this repository does not redistribute, so the
+      # gate cannot run in CI and does not run in `task`.
+      - T5_RULES_PDF="{{.RULES}}" go test -count=1 -run TestEveryQuotationIsOnThePageItCites -v ./audit
+
   tidy:
     desc: Run go mod tidy
     cmds:

@@ -1849,7 +1849,7 @@ produces single rerolls in quantity and consecutive ones not at all. Chart
 Charts 06, 08, 10 and 12 head a muster-out DM column "+ Officer Rank", and
 their ladders number the enlisted ranks from 1 alongside the officers':
 chart 08 runs S1-S6 beside O1-O7, and chart 06 "R-Ranks are Ratings (or
-Enlisted). M-Ranks are Officers."
+Enlisted). M-Ranks are Officers." (p. 80)
 
 Read as: the number printed beside the character's rank, whichever ladder
 he stands on. An enlisted S4 counts 4.
@@ -1866,7 +1866,7 @@ to reach the Knighthood row and no further. That is a system, not a
 coincidence.
 
 Chart F shows what the book does when it means to exclude the enlisted: it
-footnotes the block "*Armed Forces Enlisted = no Fame" (interpretation
+footnotes the block "*Armed Forces Enlisted = no Fame" (chart F p. 91) (interpretation
 I-65). The muster-out box carries no such footnote. And I-68 already reads
 this DM the same way — "chart 06's own muster-out DM says '+ Officer Rank',
 which likewise counts the M-number" — with the non-monotonicity that
@@ -2102,7 +2102,7 @@ acquiring experience" (p. 263).
 Read as written: every character. This differs from muster out, which a
 character who died in generation does not reach (interpretation I-77), and
 the difference is in the two rules. Muster out "counts up the character's
-belongings ... as assets for the adventuring situations to come" and a dead
+belongings ... as assets for the adventuring situations to come" (p. 67) and a dead
 character has none; a birthdate is a fact about when he was born, and dying
 does not unmake it.
 
