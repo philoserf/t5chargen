@@ -183,6 +183,12 @@ The auto policy is **total** (it can decide every valid choice point: education,
 6. The rules milestone 5 left, now that the Skill/Knowledge distinction is a v1 non-goal: the Rogue's previous-career Scheme (chart 10). Chart 11's `Capital***` cell goes with the non-goal — it awards a World Knowledge — and so do p. 134's progression, the `Career:`/`World:` knowledges and the Knowledge-6 cap, which were the rest of this milestone. OTC and NOTC (p. 61) are the substantial rules actually left, and they are chart C rows rather than milestone 6.
 7. The deferrals that were still real once milestone 6 closed: resigning from the Reserves (p. 67), Flight School (pp. 60-61), the Branch changes of I-34, the Scholar's rank titles, and the Skill/Knowledge distinction, which returns to scope — see `docs/MILESTONE-6.md` for how the last of those came to be a non-goal and the FR5 note above for why that was wrong.
 
+_Closed (2026-08-27):_ all seven are complete. `docs/MILESTONE-7.md`
+records what the milestone turned out to be: four deferrals of which two
+rested on reasons that were no longer true, a non-goal reversed because
+its premise was wrong, and a progression that changed every generated
+character. Nothing the PRD asks for is outstanding.
+
 _Closed (2026-08-27):_ all six are complete, and this bullet's last sentence is now history rather than a plan — OTC and NOTC shipped alongside the Rogue's Scheme. `docs/MILESTONE-6.md` records what the milestone turned out to be: one rule of the seven planned, six scoped out, and forty pull requests in the same span that belonged to no milestone at all.
 
 ## Decisions (2026-08-19)
