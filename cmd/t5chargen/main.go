@@ -43,6 +43,64 @@ const usage = `usage:
   t5chargen render [--history] character.json
   t5chargen replay [--ignore-provenance] character.json
   t5chargen version                (also --version; the build, and the versions a record stamps)
+  t5chargen help                   (examples, troubleshooting, and how to report a problem)
+`
+
+// help is what `t5chargen help` prints: usage, plus the things a person
+// meeting this tool needs and cannot get from a flag list.
+//
+// It is deliberately separate from usage. usage is printed on every
+// misuse, where a wall of prose buries the one line saying what went
+// wrong; this is printed only when someone asked for it.
+//
+// The paragraph on --auto is here rather than in a prompt on purpose. A
+// choice's Prompt is recorded in the event log and compared byte for byte
+// on replay (docs/PRD.md FR10), so explanatory text inside one would
+// invalidate every record already written. Help text costs nothing and is
+// where an explanation belongs.
+const help = usage + `
+examples:
+  t5chargen new --auto --seed 7                  a character, decided by policy
+  t5chargen new                                  a character, decided by you
+  t5chargen new --auto --seed 7 -o char.json     write the record
+  t5chargen render char.json                     the character sheet
+  t5chargen render --history char.json           every throw and choice that made him
+  t5chargen replay char.json                     regenerate the record and compare
+  t5chargen batch --auto --count 20 -o crew/     twenty characters, one file each
+
+--auto and interactive runs differ, and the difference is not a bug:
+  --auto answers every choice from the default policy (docs/POLICY.md).
+  The policy declines career changes, so careers reachable only by
+  changing into one — Craftsman and Functionary — never appear in an
+  automatic run. Answer the choices yourself and they do. A record says
+  which decided it: policy_version is "none" when a player did.
+
+troubleshooting:
+  replay refuses
+      A record replays only under the engine version that wrote it; that
+      is the provenance contract, not a defect. ` + "`t5chargen version`" + `
+      prints what this build is, and the record names what wrote it.
+      --ignore-provenance runs it anyway, and says so.
+  version reports (devel) or a long pseudo-version
+      The binary was built from a work tree rather than installed from a
+      released version. Install with
+      ` + "`go install github.com/philoserf/t5chargen/cmd/t5chargen@<tag>`" + `.
+  a file will not be overwritten
+      Nothing is overwritten without --force, so a mistyped -o cannot
+      cost you a character.
+
+report a problem:
+  https://github.com/philoserf/t5chargen/issues
+
+  A rules report is worth far more with the record attached. Include the
+  output of ` + "`t5chargen version`" + `, the record JSON, the rule you
+  expected with its Book 1 page, and what happened instead.
+
+stability:
+  Prerelease. The record format is versioned and the schema is published
+  (docs/character.schema.json); records written by a released version
+  render under later released versions. Replay stays pinned to the engine
+  that wrote the record. Flags and output may still change.
 `
 
 func main() {
@@ -79,6 +137,14 @@ func run(args []string, seedFn func() (uint64, error), stdin io.Reader, stdout, 
 	// ambiguous with.
 	case "version", "--version", "-version":
 		writeVersion(stdout)
+
+		return exitOK
+	// Asked for rather than blundered into, so it goes to stdout and
+	// exits zero: `t5chargen help | less` should work, and a script that
+	// checks the exit status should not read a request for help as a
+	// failure.
+	case "help", "--help", "-help", "-h":
+		fmt.Fprint(stdout, help)
 
 		return exitOK
 	case "new":
