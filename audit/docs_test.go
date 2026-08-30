@@ -82,7 +82,6 @@
 package audit_test
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -115,36 +114,6 @@ func read(t *testing.T, name string) string {
 	}
 
 	return string(data)
-}
-
-// scan returns the first submatch of every match of pattern across the
-// module's source files that keep accepts.
-func scan(t *testing.T, keep func(path string) bool, pattern *regexp.Regexp) []string {
-	t.Helper()
-
-	var found []string
-
-	err := filepath.WalkDir("..", func(path string, entry os.DirEntry, err error) error {
-		if err != nil || entry.IsDir() || !keep(path) {
-			return err
-		}
-
-		data, err := os.ReadFile(path) //nolint:gosec // G304: walking the module's own tree.
-		if err != nil {
-			return fmt.Errorf("reading %s: %w", path, err)
-		}
-
-		for _, match := range pattern.FindAllStringSubmatch(string(data), -1) {
-			found = append(found, match[1])
-		}
-
-		return nil
-	})
-	if err != nil {
-		t.Fatalf("walking the module: %v", err)
-	}
-
-	return found
 }
 
 // TestCoverageNamesRealTests verifies every test COVERAGE.md cites as
@@ -478,53 +447,6 @@ func TestNoCommentNamesAClosedMilestone(t *testing.T) {
 				found.path, found.line, named, strings.TrimSpace(found.text))
 		}
 	}
-}
-
-// hit is one regexp match and where it was found, which is what a reader
-// of the failure needs and what scan discards.
-type hit struct {
-	path  string
-	line  int
-	text  string
-	match []string
-}
-
-// locate is scan with the location kept, and reports how many files it
-// read. The two differ only in what they return: scan collects a
-// vocabulary, locate reports places to go and fix.
-func locate(t *testing.T, keep func(path string) bool, pattern *regexp.Regexp) ([]hit, int) {
-	t.Helper()
-
-	var (
-		found   []hit
-		scanned int
-	)
-
-	err := filepath.WalkDir("..", func(path string, entry os.DirEntry, err error) error {
-		if err != nil || entry.IsDir() || !keep(path) {
-			return err
-		}
-
-		data, err := os.ReadFile(path) //nolint:gosec // G304: walking the module's own tree.
-		if err != nil {
-			return fmt.Errorf("reading %s: %w", path, err)
-		}
-
-		scanned++
-
-		for i, text := range strings.Split(string(data), "\n") {
-			for _, match := range pattern.FindAllStringSubmatch(text, -1) {
-				found = append(found, hit{path: path, line: i + 1, text: text, match: match})
-			}
-		}
-
-		return nil
-	})
-	if err != nil {
-		t.Fatalf("walking the module: %v", err)
-	}
-
-	return found, scanned
 }
 
 // statuses is the fixed vocabulary a COVERAGE.md row's Status cell may

@@ -1,6 +1,7 @@
 package chargen_test
 
 import (
+	"slices"
 	"strings"
 	"testing"
 
@@ -17,6 +18,8 @@ import (
 // It takes the craft wherever a Trade is offered, changes careers once it
 // has served a few terms, and settles as soon as Craftsman appears.
 type craftsmanPath struct {
+	playerKind
+
 	offers  int
 	arrived bool
 }
@@ -33,7 +36,7 @@ func (d *craftsmanPath) Choose(c chargen.Choice) (int, error) {
 	case chargen.ChooseCareer:
 		return d.pickCareer(c)
 	case chargen.ChooseSkill, chargen.ChooseTrade:
-		if i := indexOf(c.Options, "Craftsman"); i >= 0 {
+		if i := slices.Index(c.Options, "Craftsman"); i >= 0 {
 			return i, nil
 		}
 	case chargen.ChooseSkillColumn:
@@ -46,28 +49,16 @@ func (d *craftsmanPath) Choose(c chargen.Choice) (int, error) {
 	return autoPolicy(c)
 }
 
-func indexOf(options []string, want string) int {
-	for i, option := range options {
-		if option == want {
-			return i
-		}
-	}
-
-	return -1
-}
-
-func (*craftsmanPath) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
-
 // pickCareer takes Craftsman the moment it is offered and otherwise builds
 // toward it in a Citizen career, whose table C offers Trades.
 func (d *craftsmanPath) pickCareer(c chargen.Choice) (int, error) {
-	if i := indexOf(c.Options, "Craftsman"); i >= 0 {
+	if i := slices.Index(c.Options, "Craftsman"); i >= 0 {
 		d.arrived = true
 
 		return i, nil
 	}
 
-	if i := indexOf(c.Options, "Citizen"); i >= 0 {
+	if i := slices.Index(c.Options, "Citizen"); i >= 0 {
 		return i, nil
 	}
 

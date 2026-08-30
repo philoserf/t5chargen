@@ -40,7 +40,7 @@ var skipCall = regexp.MustCompile(`\bt\.Skipf?\(`)
 func TestOnlyTheRulesSweepBowsOut(t *testing.T) {
 	found, scanned := locate(t,
 		func(path string) bool {
-			return strings.HasSuffix(path, "_test.go") && !strings.HasSuffix(path, rulesSweep)
+			return isGoTest(path) && !strings.HasSuffix(path, rulesSweep)
 		},
 		skipCall)
 

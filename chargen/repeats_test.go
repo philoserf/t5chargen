@@ -10,7 +10,11 @@ import (
 // which is how the pump was found: each College graduation past the first
 // awards Edu+1 under chart C's "(If Edu already at this level, award
 // Edu+1)", so twenty-three of them reached Edu-F at age 110.
-type repeater struct{ program string }
+type repeater struct {
+	playerKind
+
+	program string
+}
 
 func (d repeater) Choose(c chargen.Choice) (int, error) {
 	for i, option := range c.Options {
@@ -21,8 +25,6 @@ func (d repeater) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (repeater) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // repeatable names every program a player can reach through step C or
 // Later Education. Assigned schools are deliberately absent: they are

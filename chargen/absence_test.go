@@ -93,7 +93,7 @@ func TestTheNobleSelectsNoRiskMod(t *testing.T) {
 
 // intriguingNoble changes into the Noble career, which the auto policy
 // never does and which needs Soc B+ (p. 85).
-type intriguingNoble struct{}
+type intriguingNoble struct{ playerKind }
 
 func (intriguingNoble) Choose(c chargen.Choice) (int, error) {
 	switch c.ID { //nolint:exhaustive // Only the choice points this decider steers.
@@ -109,8 +109,6 @@ func (intriguingNoble) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (intriguingNoble) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // servedAs reports whether the record shows a term of the named career.
 func servedAs(c chargen.Character, name string) bool {

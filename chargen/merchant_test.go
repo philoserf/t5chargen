@@ -12,7 +12,11 @@ import (
 // trackDecider begins the Merchant career on a named berth and otherwise
 // answers first-listed, exercising the rating tracks the default policy
 // never reaches (it always takes the first-listed 4th Officer berth).
-type trackDecider struct{ track string }
+type trackDecider struct {
+	playerKind
+
+	track string
+}
 
 func (d trackDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseBeginTrack {
@@ -26,8 +30,6 @@ func (d trackDecider) Choose(c chargen.Choice) (int, error) {
 	// change what it tested whenever a chart's option list grew.
 	return autoPolicy(c)
 }
-
-func (trackDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // merchantRun generates a Merchant and returns the character and its
 // career record.

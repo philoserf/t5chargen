@@ -18,7 +18,7 @@ const apprenticeSeedSearch = 200
 // auto policy never does: it declines every row below a Bachelors
 // (POLICY.md), so both rules below are unreachable in auto mode and no
 // golden record exercises either.
-type takesApprenticeship struct{}
+type takesApprenticeship struct{ playerKind }
 
 func (takesApprenticeship) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseEducation {
@@ -29,8 +29,6 @@ func (takesApprenticeship) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (takesApprenticeship) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestApprenticeshipChecksTraAtHalfEdu verifies interpretation I-6.
 //

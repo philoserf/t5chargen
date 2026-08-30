@@ -96,7 +96,7 @@ func checkScoutEvents(t *testing.T, seed uint64, c chargen.Character) {
 
 // braveryDecider is the default policy except it always selects Bravery -9
 // (guaranteeing a 4+ reduction on any Risk failure) and Explorer Duty.
-type braveryDecider struct{}
+type braveryDecider struct{ playerKind }
 
 func (braveryDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseRiskMod {
@@ -109,8 +109,6 @@ func (braveryDecider) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (braveryDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestScoutInjuryOutcomes drives Bravery -9 scouts until the sweep has
 // produced both a disabled scout ("If CC is reduced by 4 or more, then he
@@ -183,7 +181,7 @@ func TestScoutBeginFallback(t *testing.T) {
 }
 
 // scoutFirstDecider prefers the Scout career, otherwise the default policy.
-type scoutFirstDecider struct{}
+type scoutFirstDecider struct{ playerKind }
 
 func (scoutFirstDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseCareer {
@@ -196,8 +194,6 @@ func (scoutFirstDecider) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (scoutFirstDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestScoutSanityModifier pins chart 05's "Because of the long-term
 // isolation that a Scout must endure, reduce San= -1 for each TWO Terms
@@ -336,7 +332,11 @@ func TestEveryScoutDutyHasSkillEligibility(t *testing.T) {
 // returnsToTheScouts serves the Scouts, leaves at the first opportunity,
 // and comes back — which the auto policy never does, `change_career`
 // declining, so no golden record holds two stints in one career.
-type returnsToTheScouts struct{ changes int }
+type returnsToTheScouts struct {
+	playerKind
+
+	changes int
+}
 
 func (d *returnsToTheScouts) Choose(c chargen.Choice) (int, error) {
 	switch c.ID { //nolint:exhaustive // Only the choice points this decider steers; the rest fall through to the policy.
@@ -358,8 +358,6 @@ func (d *returnsToTheScouts) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (*returnsToTheScouts) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestScoutSanityIsChargedPerStint verifies interpretation I-47's reading
 // of "for each TWO Terms served" (chart 05 p. 79): the terms of one

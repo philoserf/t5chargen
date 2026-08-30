@@ -243,27 +243,16 @@ func productionSource(t *testing.T) string {
 
 	var source strings.Builder
 
-	err := filepath.WalkDir("..", func(path string, entry os.DirEntry, err error) error {
-		if err != nil || entry.IsDir() {
-			return err
-		}
-
-		if !strings.HasSuffix(path, ".go") || strings.HasSuffix(path, "_test.go") {
-			return nil
-		}
-
-		body, err := readOutsideValidators(path)
+	walkFiles(t, isGoSource, func(path string, body []byte) error {
+		kept, err := readOutsideValidators(path, body)
 		if err != nil {
 			return err
 		}
 
-		source.WriteString(body)
+		source.WriteString(kept)
 
 		return nil
 	})
-	if err != nil {
-		t.Fatalf("walking the module: %v", err)
-	}
 
 	return source.String()
 }
@@ -271,12 +260,7 @@ func productionSource(t *testing.T) string {
 // readOutsideValidators returns a file's source with every validate*
 // function body blanked out. It parses rather than brace-matching, because
 // a brace inside a string literal or a comment would defeat the latter.
-func readOutsideValidators(path string) (string, error) {
-	body, err := os.ReadFile(path) //nolint:gosec // G304: the module's own tree.
-	if err != nil {
-		return "", fmt.Errorf("reading %s: %w", path, err)
-	}
-
+func readOutsideValidators(path string, body []byte) (string, error) {
 	file, err := parser.ParseFile(token.NewFileSet(), path, body, parser.SkipObjectResolution)
 	if err != nil {
 		return "", fmt.Errorf("parsing %s: %w", path, err)

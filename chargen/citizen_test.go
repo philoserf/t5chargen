@@ -397,16 +397,14 @@ func TestGenerateForcedCareer(t *testing.T) {
 }
 
 // playerDecider is a well-behaved non-policy Decider for provenance tests.
-type playerDecider struct{}
+type playerDecider struct{ playerKind }
 
 func (playerDecider) Choose(chargen.Choice) (int, error) { return 0, nil }
-func (playerDecider) Kind() chargen.DeciderKind          { return chargen.DeciderPlayer }
 
 // badDecider always answers out of range.
-type badDecider struct{}
+type badDecider struct{ playerKind }
 
 func (badDecider) Choose(chargen.Choice) (int, error) { return 99, nil }
-func (badDecider) Kind() chargen.DeciderKind          { return chargen.DeciderPlayer }
 
 // errRefused is the sentinel refusingDecider returns; the point of the
 // test is that it survives to the caller intact.
@@ -415,14 +413,13 @@ var errRefused = errors.New("refused")
 // refusingDecider declines the first choice it is offered, standing in for
 // an abandoned interactive session or a replay whose recorded choice no
 // longer matches the one presented.
-type refusingDecider struct{}
+type refusingDecider struct{ playerKind }
 
 func (refusingDecider) Choose(chargen.Choice) (int, error) { return 0, errRefused }
-func (refusingDecider) Kind() chargen.DeciderKind          { return chargen.DeciderPlayer }
 
 // personalDecider always selects the Personal skill column and otherwise
 // answers first-listed, to exercise characteristic increases.
-type personalDecider struct{}
+type personalDecider struct{ playerKind }
 
 func (personalDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseSkillColumn {
@@ -431,8 +428,6 @@ func (personalDecider) Choose(c chargen.Choice) (int, error) {
 
 	return 0, nil
 }
-
-func (personalDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestCharacteristicMaximum verifies "Characteristics for Humans cannot
 // exceed 15. If a benefit elevates a characteristic above 15, that benefit

@@ -10,7 +10,11 @@ import (
 // changer accepts every career change it is offered and otherwise defers
 // to the default policy, so a test can reach the path the auto policy
 // declines (POLICY.md `change_career`).
-type changer struct{ accepted int }
+type changer struct {
+	playerKind
+
+	accepted int
+}
 
 func (d *changer) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseCareerChange {
@@ -21,8 +25,6 @@ func (d *changer) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (*changer) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestChangingCareersRunsAnotherCareer is the point of the chunk: "A
 // character may avoid the Continue roll ... by voluntarily ending his

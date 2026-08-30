@@ -12,6 +12,8 @@ import (
 // rolls Edu 12 and then took ED5, a programme for a character with Edu
 // under 5, for a level.
 type greedyStudent struct {
+	playerKind
+
 	edu    int
 	offers []eduOffer
 }
@@ -47,8 +49,6 @@ func (d *greedyStudent) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (*greedyStudent) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // climb reaches for the highest rung on offer.
 //

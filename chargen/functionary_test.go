@@ -14,7 +14,11 @@ import (
 // career" (p. 87), and the auto policy declines every career change
 // (POLICY.md `change_career`). Records generated this way carry
 // policy_version "none".
-type functionaryPath struct{ first string }
+type functionaryPath struct {
+	playerKind
+
+	first string
+}
 
 func (d functionaryPath) Choose(c chargen.Choice) (int, error) {
 	//nolint:exhaustive // Deliberately partitioned: the rest defer to the auto policy.
@@ -38,8 +42,6 @@ func (d functionaryPath) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (functionaryPath) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // functionaryRun generates the pinned Functionary character and returns
 // its record: eight terms rising to F7, which passes through F6 and so
