@@ -1,7 +1,9 @@
 #!/bin/sh
 # Pre-push gate: run the full local gate (check + test) before any push.
 # `task` runs check (modernize + gofumpt + vet + lint) then test (race).
-# This repo has no CI — local hooks are the only automated gate.
+# CI runs this same `task` on every pull request and is required to
+# merge, so this hook is the earlier of two identical gates: it catches
+# a failure before the push rather than after.
 #
 # Bypass for an emergency push with:  git push --no-verify
 set -e

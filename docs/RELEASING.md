@@ -71,9 +71,10 @@ merged — not a branch head, and not a commit with anything unpushed.
 
 ```sh
 git checkout main && git pull
-git tag -a v0.1.0-alpha.1 -m "v0.1.0-alpha.1"
-git push origin v0.1.0-alpha.1
-gh release create v0.1.0-alpha.1 --title "v0.1.0-alpha.1" --notes-file <notes>
+version=v0.1.0-alpha.1   # the tag being released
+git tag -a "$version" -m "$version"
+git push origin "$version"
+gh release create "$version" --title "$version" --notes-file <notes>
 ```
 
 Prereleases take `-alpha.N` / `-beta.N`. Mark them as prereleases
@@ -89,7 +90,7 @@ Install from the line the README tells a stranger to use, from a clean
 module cache, and run it:
 
 ```sh
-GOPATH=$(mktemp -d) go install github.com/philoserf/t5chargen/cmd/t5chargen@v0.1.0-alpha.1
+GOPATH=$(mktemp -d) go install "github.com/philoserf/t5chargen/cmd/t5chargen@$version"
 t5chargen version   # must report the tag, not (devel)
 ```
 
