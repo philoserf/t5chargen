@@ -152,7 +152,7 @@ func TestAnInjuryPastZeroFloorsAndSaysSo(t *testing.T) {
 	}
 
 	if !found {
-		t.Skip("no seed in 400 drove a characteristic past zero")
+		t.Error("no seed in 400 drove a characteristic past zero; widen the sweep")
 	}
 }
 

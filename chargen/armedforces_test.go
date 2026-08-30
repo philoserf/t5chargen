@@ -251,8 +251,12 @@ func TestSoldierServiceBadgeCarriesNoMod(t *testing.T) {
 		total += award.Count
 	}
 
+	// Guard the premise: the interpretation is that badges outnumber
+	// medals, so a fixture where the two counts coincide proves nothing
+	// about which of them carries the modifier.
 	if record.ServiceBadges == total {
-		t.Skip("the fixture cannot distinguish badges from medals this run")
+		t.Fatalf("seed %d records %d badges and %d medals; the fixture cannot "+
+			"distinguish them, so re-pin it", soldierGoldenSeed, record.ServiceBadges, total)
 	}
 }
 
@@ -443,7 +447,7 @@ func (branchDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 // row (chart 07), so a commission moves the rating across without a new
 // roll.
 func TestSpacerCrewBecomesLine(t *testing.T) {
-	if branch, ok := commissionedBranch(t, "Crew"); ok && branch != "Line" {
+	if branch := commissionedBranch(t, "Crew"); branch != "Line" {
 		t.Errorf("commissioned Spacer who selected Crew serves in %q, want Line", branch)
 	}
 }
@@ -456,17 +460,18 @@ func TestSpacerCrewBecomesLine(t *testing.T) {
 // Engineer once commissioned, at the Mod he weighed on entry, rather than
 // crossing into Line.
 func TestSpacerBranchNameBindsStableRow(t *testing.T) {
-	if branch, ok := commissionedBranch(t, "Engineer"); ok && branch != "Engineer" {
+	if branch := commissionedBranch(t, "Engineer"); branch != "Engineer" {
 		t.Errorf("commissioned Spacer who selected Engineer serves in %q, want Engineer", branch)
 	}
 }
 
 // commissionedBranch generates Spacers until one selects the named branch
 // as a rating and is then commissioned, and reports the branch he serves
-// in. A branch is rolled instead whenever the Soc check fails, so no seed
-// is guaranteed to reach the case; the sweep reports that rather than
-// asserting on a run it never made.
-func commissionedBranch(t *testing.T, selected string) (string, bool) {
+// in. A branch is rolled instead whenever the Soc check fails, so not
+// every seed reaches the case — but the stream is seeded and the bound is
+// fixed, so whether one in 1..200 does is a fact about this engine. A
+// sweep that stops reaching it is a sweep to widen, not a run to skip.
+func commissionedBranch(t *testing.T, selected string) string {
 	t.Helper()
 
 	for seed := uint64(1); seed <= 200; seed++ {
@@ -482,12 +487,13 @@ func commissionedBranch(t *testing.T, selected string) (string, bool) {
 			continue
 		}
 
-		return record.Branch, true
+		return record.Branch
 	}
 
-	t.Skipf("no seed in 1..200 selected %s as a rating and was then commissioned", selected)
+	t.Fatalf("no seed in 1..200 selected %s as a rating and was then commissioned; widen the sweep",
+		selected)
 
-	return "", false
+	return ""
 }
 
 // reachedEnsign reports whether the character was commissioned into the

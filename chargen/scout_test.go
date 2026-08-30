@@ -1,7 +1,6 @@
 package chargen_test
 
 import (
-	"errors"
 	"slices"
 	"strings"
 	"testing"
@@ -239,36 +238,39 @@ func TestScoutSanityModifier(t *testing.T) {
 // reduction (p. 79). Swept over career.Available rather than a written-out
 // list, so a career added later is covered without editing this test.
 func TestOnlyTheScoutChargesSanity(t *testing.T) {
+	checked := 0
+
 	for _, name := range career.Available() {
 		if name == "Scout" {
 			continue
 		}
 
-		t.Run(name, func(t *testing.T) {
-			for seed := uint64(1); seed <= 40; seed++ {
-				c, err := chargen.Generate(chargen.Options{
-					Seed: seed, Career: name, Decider: chargen.DefaultPolicy{},
-				})
+		for seed := uint64(1); seed <= 40; seed++ {
+			// A career the rules deny this seed opens nothing, so there
+			// is no record to check. Craftsman and Functionary are
+			// denied every seed (p. 75, p. 87); Noble is denied the
+			// seeds below chart 11's Soc B+. This used to skip, which
+			// abandoned the remaining seeds of whichever career hit it
+			// first — Noble stopped at seed 1 and the other 39 never ran.
+			c, open := generateIfOpen(t, chargen.Options{
+				Seed: seed, Career: name, Decider: chargen.DefaultPolicy{},
+			})
+			if !open {
+				continue
+			}
 
-				// Craftsman and Functionary cannot open a lifepath
-				// (p. 75, p. 87), so forcing one is refused rather than
-				// generating a character. Nothing to check, and nothing
-				// wrong.
-				if errors.Is(err, chargen.ErrCareerUnavailable) {
-					t.Skipf("%s cannot be a first career", name)
-				}
+			checked++
 
-				if err != nil {
-					t.Fatalf("seed %d: %v", seed, err)
-				}
-
-				for _, record := range c.Careers {
-					if record.SanityMod != 0 {
-						t.Fatalf("seed %d: %s recorded San %+d", seed, record.Career, record.SanityMod)
-					}
+			for _, record := range c.Careers {
+				if record.SanityMod != 0 {
+					t.Fatalf("%s seed %d: %s recorded San %+d", name, seed, record.Career, record.SanityMod)
 				}
 			}
-		})
+		}
+	}
+
+	if checked == 0 {
+		t.Error("no seed opened a non-Scout career; widen the sweep")
 	}
 }
 
