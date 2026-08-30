@@ -777,18 +777,6 @@ func assertVocabulary(t *testing.T, def, property string, declared []string) {
 	}
 }
 
-// inPackage keeps one package's own source, excluding tests.
-func inPackage(dir string) func(string) bool {
-	return func(path string) bool {
-		return strings.Contains(path, "/"+dir+"/") && isGoSource(path)
-	}
-}
-
-// isGoSource keeps the engine's own source, excluding tests.
-func isGoSource(path string) bool {
-	return strings.HasSuffix(path, ".go") && !strings.HasSuffix(path, "_test.go")
-}
-
 // schemaEnum reads one property's enum out of the schema.
 func schemaEnum(t *testing.T, def, property string) []string {
 	t.Helper()

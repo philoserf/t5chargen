@@ -88,37 +88,17 @@ func TestNoPromptShowsAnIdentifier(t *testing.T) {
 func scanPromptLiterals(t *testing.T) {
 	t.Helper()
 
-	sources, err := filepath.Glob(filepath.Join("..", "chargen", "*.go"))
-	if err != nil {
-		t.Fatal(err)
-	}
+	found, _ := locate(t, inPackage("chargen"), regexp.MustCompile(`Prompt:\s*"([^"]*)"`))
 
-	literal := regexp.MustCompile(`Prompt:\s*"([^"]*)"`)
-
-	found := 0
-
-	for _, file := range sources {
-		if strings.HasSuffix(file, "_test.go") {
-			continue
-		}
-
-		data, err := os.ReadFile(file) //nolint:gosec // a source path the caller globbed
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		for _, match := range literal.FindAllStringSubmatch(string(data), -1) {
-			found++
-
-			if shown := identifier.FindString(match[1]); shown != "" {
-				t.Errorf("%s writes the prompt %q, which shows the identifier %q",
-					filepath.Base(file), match[1], shown)
-			}
+	for _, h := range found {
+		if shown := identifier.FindString(h.match[1]); shown != "" {
+			t.Errorf("%s writes the prompt %q, which shows the identifier %q",
+				filepath.Base(h.path), h.match[1], shown)
 		}
 	}
 
-	if found < 30 {
-		t.Fatalf("only %d prompt literals found; the source scan is not working", found)
+	if len(found) < 30 {
+		t.Fatalf("only %d prompt literals found; the source scan is not working", len(found))
 	}
 }
 
