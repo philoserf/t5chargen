@@ -121,7 +121,7 @@ The review's own ten items, each checked rather than assumed.
 | 7. Closed-milestone gate includes M7              | `closedMilestones` in `audit/docs_test.go`   |
 | 8. Full suite and the five workflows smoke-tested | run above                                    |
 | 9. Citations verified against Book 1              | `task citations` passes                      |
-| 10. Tag the reviewed commit and record it         | pending the tag                              |
+| 10. Tag the reviewed commit and record it         | `v0.1.0-alpha.1` at `5fabd48`, 2026-08-28    |
 
 ## Decision
 
