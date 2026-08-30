@@ -37,6 +37,12 @@ cannot substitute for it.
 
 ### 2. Define record compatibility before another engine release
 
+**Done** — `docs/COMPATIBILITY.md` states both promises (render forward,
+replay pinned), how to obtain an older executable, how long artifacts
+last, and what bumps `schema_version`. The corpus is
+`audit/testdata/corpus`, one record per released version written by that
+version's own binary, gated by `audit/compat_test.go`.
+
 The project carefully versions records, but deliberately has no upgrade path
 for records rejected by newer provenance checks. Before beta, decide and
 document:
