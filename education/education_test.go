@@ -93,7 +93,7 @@ func TestMajors(t *testing.T) {
 	}
 
 	if len(college) != 40 {
-		t.Errorf("college majors = %d, want 40", len(college))
+		t.Fatalf("college majors = %d, want 40", len(college))
 	}
 
 	if college[0] != "Athlete" || college[1] != "Broker" {
