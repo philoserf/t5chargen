@@ -55,8 +55,13 @@ Every rule carries a page citation.
 go install github.com/philoserf/t5chargen/cmd/t5chargen@v0.1.0-alpha.1
 ```
 
-Go 1.26.6 or later. No other dependencies — the tool is standard library
+Go 1.27 or later. No other dependencies — the tool is standard library
 only.
+
+Supported on macOS and Linux, which CI builds and tests on both the Go
+version `go.mod` declares and the current release. Windows is not
+supported: the tool is pure Go and may well run there, but nothing tests
+it, and an untested platform is not a supported one.
 
 The version is named explicitly rather than `@latest`, which stops
 resolving to a prerelease once a stable version exists.
