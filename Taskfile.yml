@@ -83,6 +83,26 @@ tasks:
     cmds:
       - go test -race ./...
 
+  # Deliberately not part of `task`. The gate runs each fuzz target's seed
+  # corpus, which costs microseconds and is what keeps a target honest as
+  # the code moves; the fuzzing engine itself is a search, and a search
+  # with a time limit belongs to whoever chose the limit.
+  #
+  # Seeds are small on purpose. Seeding these from chargen/testdata, whose
+  # records run to ~220KB, drops the engine from millions of executions to
+  # eighteen: mutating an input that size costs more than the code it is
+  # testing. docs/character.minimal.json is 732 bytes and reaches the same
+  # paths.
+  fuzz:
+    desc: Run each fuzz target's engine (default 30s each; FUZZTIME=2m to extend)
+    vars:
+      FUZZTIME: '{{.FUZZTIME | default "30s"}}'
+    cmds:
+      - go test -run '^$' -fuzz FuzzValidateUWP -fuzztime {{.FUZZTIME}} ./world/
+      - go test -run '^$' -fuzz FuzzEhexRoundTrip -fuzztime {{.FUZZTIME}} ./world/
+      - go test -run '^$' -fuzz FuzzRenderMalformedRecord -fuzztime {{.FUZZTIME}} ./render/
+      - go test -run '^$' -fuzz FuzzReplayMalformedRecord -fuzztime {{.FUZZTIME}} ./chargen/
+
   # The fixtures under chargen/testdata and render/testdata are the
   # engine's own output, compared byte for byte. Regenerating them is a
   # deliberate act: run this only when a change was meant to move them,
