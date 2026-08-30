@@ -1,7 +1,6 @@
 package chargen_test
 
 import (
-	"errors"
 	"slices"
 	"strings"
 	"testing"
@@ -97,7 +96,7 @@ func checkScoutEvents(t *testing.T, seed uint64, c chargen.Character) {
 
 // braveryDecider is the default policy except it always selects Bravery -9
 // (guaranteeing a 4+ reduction on any Risk failure) and Explorer Duty.
-type braveryDecider struct{}
+type braveryDecider struct{ playerKind }
 
 func (braveryDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseRiskMod {
@@ -110,8 +109,6 @@ func (braveryDecider) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (braveryDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestScoutInjuryOutcomes drives Bravery -9 scouts until the sweep has
 // produced both a disabled scout ("If CC is reduced by 4 or more, then he
@@ -184,7 +181,7 @@ func TestScoutBeginFallback(t *testing.T) {
 }
 
 // scoutFirstDecider prefers the Scout career, otherwise the default policy.
-type scoutFirstDecider struct{}
+type scoutFirstDecider struct{ playerKind }
 
 func (scoutFirstDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseCareer {
@@ -197,8 +194,6 @@ func (scoutFirstDecider) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (scoutFirstDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestScoutSanityModifier pins chart 05's "Because of the long-term
 // isolation that a Scout must endure, reduce San= -1 for each TWO Terms
@@ -239,36 +234,39 @@ func TestScoutSanityModifier(t *testing.T) {
 // reduction (p. 79). Swept over career.Available rather than a written-out
 // list, so a career added later is covered without editing this test.
 func TestOnlyTheScoutChargesSanity(t *testing.T) {
+	checked := 0
+
 	for _, name := range career.Available() {
 		if name == "Scout" {
 			continue
 		}
 
-		t.Run(name, func(t *testing.T) {
-			for seed := uint64(1); seed <= 40; seed++ {
-				c, err := chargen.Generate(chargen.Options{
-					Seed: seed, Career: name, Decider: chargen.DefaultPolicy{},
-				})
+		for seed := uint64(1); seed <= 40; seed++ {
+			// A career the rules deny this seed opens nothing, so there
+			// is no record to check. Craftsman and Functionary are
+			// denied every seed (p. 75, p. 87); Noble is denied the
+			// seeds below chart 11's Soc B+. This used to skip, which
+			// abandoned the remaining seeds of whichever career hit it
+			// first — Noble stopped at seed 1 and the other 39 never ran.
+			c, open := generateIfOpen(t, chargen.Options{
+				Seed: seed, Career: name, Decider: chargen.DefaultPolicy{},
+			})
+			if !open {
+				continue
+			}
 
-				// Craftsman and Functionary cannot open a lifepath
-				// (p. 75, p. 87), so forcing one is refused rather than
-				// generating a character. Nothing to check, and nothing
-				// wrong.
-				if errors.Is(err, chargen.ErrCareerUnavailable) {
-					t.Skipf("%s cannot be a first career", name)
-				}
+			checked++
 
-				if err != nil {
-					t.Fatalf("seed %d: %v", seed, err)
-				}
-
-				for _, record := range c.Careers {
-					if record.SanityMod != 0 {
-						t.Fatalf("seed %d: %s recorded San %+d", seed, record.Career, record.SanityMod)
-					}
+			for _, record := range c.Careers {
+				if record.SanityMod != 0 {
+					t.Fatalf("%s seed %d: %s recorded San %+d", name, seed, record.Career, record.SanityMod)
 				}
 			}
-		})
+		}
+	}
+
+	if checked == 0 {
+		t.Error("no seed opened a non-Scout career; widen the sweep")
 	}
 }
 
@@ -334,7 +332,11 @@ func TestEveryScoutDutyHasSkillEligibility(t *testing.T) {
 // returnsToTheScouts serves the Scouts, leaves at the first opportunity,
 // and comes back — which the auto policy never does, `change_career`
 // declining, so no golden record holds two stints in one career.
-type returnsToTheScouts struct{ changes int }
+type returnsToTheScouts struct {
+	playerKind
+
+	changes int
+}
 
 func (d *returnsToTheScouts) Choose(c chargen.Choice) (int, error) {
 	switch c.ID { //nolint:exhaustive // Only the choice points this decider steers; the rest fall through to the policy.
@@ -356,8 +358,6 @@ func (d *returnsToTheScouts) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (*returnsToTheScouts) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestScoutSanityIsChargedPerStint verifies interpretation I-47's reading
 // of "for each TWO Terms served" (chart 05 p. 79): the terms of one

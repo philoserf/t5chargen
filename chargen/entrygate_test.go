@@ -60,6 +60,8 @@ func TestARefusalToBeginNamesAThrow(t *testing.T) {
 
 // automaticPeek records the Select Career offer and its scores.
 type automaticPeek struct {
+	playerKind
+
 	options []string
 	scores  []int
 }
@@ -72,8 +74,6 @@ func (d *automaticPeek) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (*automaticPeek) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestAnAutomaticEntryNeverFails ties the declaration to the behaviour.
 //

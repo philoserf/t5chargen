@@ -1,0 +1,130 @@
+# Release automation, run when a version tag is pushed.
+#
+# The binaries are built with `go install module@tag` from the proxy, not
+# `go build` from this checkout. That is deliberate and it buys two
+# things at once. The version this tool reports is read from the build
+# info the toolchain embeds rather than stamped with -ldflags
+# (cmd/t5chargen/version.go), and only an install from a resolved module
+# version records the tag — a `go build` inside the git tree records a
+# pseudo-version instead. So building this way is the only way the
+# artifacts report the tag, and doing it proves the published module
+# installs, which is the check docs/RELEASING.md has been running by
+# hand after every tag.
+#
+# The release is created as a draft. docs/RELEASING.md asks notes to say
+# what the release is, what works, what the known limitations are, and
+# that the rules belong to Far Future Enterprises. That is a paragraph a
+# person writes; the workflow does everything around it and then stops.
+#
+# `task citations` is not run here for the same reason CI does not run
+# it: it needs Book 1, which this repository cannot redistribute.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: build, verify and draft
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      # The same pinned set CI installs, for the same reason: the version
+      # of a formatter or linter is part of what the gate means.
+      - name: Install the toolchain
+        run: |
+          go install github.com/go-task/task/v3/cmd/task@v3.53.1
+          go install mvdan.cc/gofumpt@v0.11.0
+          go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.13.1
+          npm install --global prettier@3.9.6
+
+      # The tagged commit passed the gate as a branch, but a tag can be
+      # pushed at anything. Prove it again on what was actually tagged.
+      - name: task
+        run: task
+
+      # The proxy has not necessarily seen the tag the moment it is
+      # pushed, so ask until it has rather than failing the first time.
+      - name: Wait for the module proxy
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          for attempt in $(seq 1 30); do
+            if go list -m "github.com/philoserf/t5chargen@$TAG" >/dev/null 2>&1; then
+              echo "proxy has $TAG after $attempt attempt(s)"
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "the proxy never served $TAG" >&2
+          exit 1
+
+      - name: Build the artifacts from the tag
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          set -eu
+          mkdir -p dist
+          for target in darwin/arm64 darwin/amd64 linux/amd64 linux/arm64; do
+            goos=${target%/*}
+            goarch=${target#*/}
+            gopath=$(mktemp -d)
+            env GOPATH="$gopath" GOBIN= GOOS="$goos" GOARCH="$goarch" \
+              go install "github.com/philoserf/t5chargen/cmd/t5chargen@$TAG"
+            # A cross-compiled install lands under bin/<goos>_<goarch>;
+            # a native one lands directly in bin.
+            built="$gopath/bin/${goos}_${goarch}/t5chargen"
+            [ -f "$built" ] || built="$gopath/bin/t5chargen"
+            cp "$built" "dist/t5chargen_${goos}_${goarch}"
+          done
+          ls -l dist
+
+      # The artifact must say what it is. A pseudo-version here means the
+      # build did not come from the tag, and shipping it would make every
+      # bug report ambiguous.
+      - name: The native binary reports the tag
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          set -eu
+          reported=$(./dist/t5chargen_linux_amd64 version | head -1)
+          echo "$reported"
+          case "$reported" in
+            *"$TAG"*) ;;
+            *) echo "version does not name $TAG" >&2; exit 1 ;;
+          esac
+
+      - name: Checksums
+        run: cd dist && sha256sum t5chargen_* > SHA256SUMS && cat SHA256SUMS
+
+      # A semver prerelease carries a hyphen: v0.1.0-alpha.1 does,
+      # v0.1.0 does not. Marking them keeps @latest resolving past them
+      # once a stable version exists.
+      - name: Draft the release
+        env:
+          TAG: ${{ github.ref_name }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eu
+          case "$TAG" in
+            *-*) prerelease=--prerelease ;;
+            *) prerelease= ;;
+          esac
+          gh release create "$TAG" \
+            --draft $prerelease \
+            --title "$TAG" \
+            --generate-notes \
+            dist/t5chargen_* dist/SHA256SUMS

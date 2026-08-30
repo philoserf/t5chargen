@@ -17,7 +17,11 @@ import (
 // not take one and no golden record reaches these paths. This decider is
 // how they are reached instead — the same answer the postgraduate note
 // gives, applied to a rule the policy cannot afford to exercise.
-type volunteerDecider struct{ want, service string }
+type volunteerDecider struct {
+	playerKind
+
+	want, service string
+}
 
 func (d volunteerDecider) Choose(c chargen.Choice) (int, error) {
 	switch c.ID { //nolint:exhaustive // Only the choice points this decider steers; the rest fall through to the policy.
@@ -42,8 +46,6 @@ func (d volunteerDecider) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (volunteerDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // officerTrainingSeedSearch is how wide the sweeps look. The rows are
 // reached only through College or University and then only past a

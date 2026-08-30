@@ -6,6 +6,12 @@
 chargen/testdata/
 render/testdata/
 
+# The compatibility corpus. Each record is the byte-for-byte output of the
+# released binary that wrote it (docs/COMPATIBILITY.md), so a formatter
+# touching one destroys the only thing it is evidence of: what that
+# version actually produced.
+audit/testdata/corpus/
+
 # Showboat document. Every fenced block is re-executed and diffed against
 # its captured output by `uvx showboat verify`, so reformatting the file
 # breaks the verification it exists to provide.

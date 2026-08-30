@@ -71,37 +71,64 @@ merged — not a branch head, and not a commit with anything unpushed.
 
 ```sh
 git checkout main && git pull
-git tag -a v0.1.0-alpha.1 -m "v0.1.0-alpha.1"
-git push origin v0.1.0-alpha.1
-gh release create v0.1.0-alpha.1 --title "v0.1.0-alpha.1" --notes-file <notes>
+version=v0.1.0-alpha.1   # the tag being released
+git tag -a "$version" -m "$version"
+git push origin "$version"
 ```
 
-Prereleases take `-alpha.N` / `-beta.N`. Mark them as prereleases
-(`--prerelease`), which keeps `@latest` resolving past them once a stable
-version exists.
+Pushing the tag is now the whole of it. `.github/workflows/release.yml`
+runs the gate again on the tagged commit, waits for the module proxy to
+serve the tag, installs the four platform binaries from it, checks the
+native one reports the tag, writes `SHA256SUMS`, and opens a **draft**
+release with the artifacts attached.
 
-Release notes say what it is, what works, what the known limitations are,
-and that the rules belong to Far Future Enterprises.
+Prereleases take `-alpha.N` / `-beta.N`, and the workflow marks anything
+with a hyphen in its tag as a prerelease, which keeps `@latest` resolving
+past them once a stable version exists.
 
 ## After tagging
 
-Install from the line the README tells a stranger to use, from a clean
-module cache, and run it:
+Write the notes and publish the draft. This is the step that stays
+manual: release notes say what it is, what works, what the known
+limitations are, and that the rules belong to Far Future Enterprises —
+which is a paragraph a person writes, and the reason the workflow drafts
+rather than publishes.
+
+The install check that used to live here is now the way the artifacts are
+built. It was always the point of installing rather than building: a
+`go build` in the work tree reports a VCS pseudo-version, and only a
+module install proves the tag reaches the binary. Building the release
+that way makes the proof and the artifact the same act.
+
+To check it by hand anyway:
 
 ```sh
-GOPATH=$(mktemp -d) go install github.com/philoserf/t5chargen/cmd/t5chargen@v0.1.0-alpha.1
+GOPATH=$(mktemp -d) go install "github.com/philoserf/t5chargen/cmd/t5chargen@$version"
 t5chargen version   # must report the tag, not (devel)
 ```
-
-That last check is the point of installing rather than building: a
-`go build` in the work tree reports a VCS pseudo-version, and only a
-module install proves the tag reaches the binary.
 
 Then update [RELEASE_READINESS.md](RELEASE_READINESS.md) with the tag it
 names.
 
 ## What is not automated, and why
 
-No Homebrew formula, no prebuilt binaries, no release workflow. `go
-install` is enough for an alpha, and each of those is a maintenance
-commitment better made once there are users asking for it.
+No Homebrew formula. It is a maintenance commitment better made once
+there are users asking for it, and `go install` plus the attached
+binaries covers everyone until then.
+
+The release notes are not generated. The workflow drafts the release and
+attaches the artifacts; what the release _is_ stays a paragraph a person
+writes.
+
+`task citations` does not run in either workflow. It holds ERRATA.md's
+quotations to the pages they cite against Book 1, Print Edition 5.1 — a
+purchased artifact this repository does not redistribute and cannot. The
+gate skips wherever `T5_RULES_PDF` is unset, which on a runner is always,
+so running it there would report a pass it never performed. Run it
+locally before tagging; it is step 3 above.
+
+Prebuilt binaries and the release workflow were the alpha's deliberate
+omissions, on the reasoning that `go install` was enough and neither was
+worth the commitment yet. `docs/BETA_READINESS.md` §4 revisits that for
+beta: checksummed binaries widen the tester pool and make reports easier
+to reproduce, which is the point of the cycle.

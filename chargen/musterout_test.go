@@ -11,7 +11,7 @@ import (
 // benefitsColumn takes the Benefits column at every muster-out roll, which
 // the auto policy never does — it falls back to first-listed, and Money is
 // listed first on every table D (POLICY.md `select_benefit_column`).
-type benefitsColumn struct{}
+type benefitsColumn struct{ playerKind }
 
 func (benefitsColumn) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseBenefitColumn {
@@ -20,8 +20,6 @@ func (benefitsColumn) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (benefitsColumn) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // benefitsOf gathers a character's muster-out awards by kind.
 func benefitsOf(c chargen.Character) map[benefit.Kind]int {
@@ -124,20 +122,45 @@ func lostToTheMaximum(c chargen.Character) int {
 // TestDoubleBenefitsDoublesTheCount pins the wording precisely: "Double
 // Benefits is twice the count of Benefits (rather than two of each
 // Benefit)" (p. 69).
+// It sweeps rather than pinning a seed. A pinned Soldier used to carry
+// this rule, and when the fixture stopped being disabled the test skipped
+// instead of failing — COVERAGE.md went on calling p. 69 covered while
+// nothing checked it. The sweep cannot go quiet the same way: if no seed
+// reaches a Disability Muster Out, that is a failure asking for a wider
+// bound.
 func TestDoubleBenefitsDoublesTheCount(t *testing.T) {
-	c := generate(t, chargen.Options{Seed: 305, Career: "Soldier"})
+	checked := 0
 
-	var disabled *chargen.CareerRecord
+	for seed := range uint64(200) {
+		c := generate(t, chargen.Options{Seed: seed, Career: "Soldier"})
 
-	for i := range c.Careers {
-		if c.Careers[i].Disabled {
-			disabled = &c.Careers[i]
+		// A characteristic improvement past the human maximum "is lost"
+		// (p. 68): it consumed a roll and recorded nothing, so the
+		// benefit count only equals the roll count when none was lost.
+		if lostToTheMaximum(c) != 0 {
+			continue
+		}
+
+		for i := range c.Careers {
+			if !c.Careers[i].Disabled {
+				continue
+			}
+
+			checked++
+
+			checkDoubledBenefits(t, seed, c, c.Careers[i])
 		}
 	}
 
-	if disabled == nil {
-		t.Skip("the pinned seed is no longer disabled")
+	if checked == 0 {
+		t.Error("no seed in 200 mustered out disabled; widen the sweep")
 	}
+}
+
+// checkDoubledBenefits asserts one disabled career drew twice its
+// undoubled roll count in benefits.
+func checkDoubledBenefits(t *testing.T, seed uint64, c chargen.Character, disabled chargen.CareerRecord) {
+	t.Helper()
 
 	from := 0
 
@@ -147,9 +170,9 @@ func TestDoubleBenefitsDoublesTheCount(t *testing.T) {
 		}
 	}
 
-	if want := rollsAllowed(*disabled); from != want {
-		t.Errorf("a disabled %s took %d benefits, want %d — Double Benefits is twice the count",
-			disabled.Career, from, want)
+	if want := rollsAllowed(disabled); from != want {
+		t.Errorf("seed %d: a disabled %s took %d benefits, want %d — Double Benefits is twice the count",
+			seed, disabled.Career, from, want)
 	}
 }
 

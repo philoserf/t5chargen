@@ -147,7 +147,7 @@ func TestSpecializedKnowledgesCapAtSix(t *testing.T) {
 // noSchooling declines pre-career education, which the auto policy never
 // does — every generated character goes to school, so the age careers
 // begin at is never StartAge on its own.
-type noSchooling struct{}
+type noSchooling struct{ playerKind }
 
 func (noSchooling) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseEducation {
@@ -156,8 +156,6 @@ func (noSchooling) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (noSchooling) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestWorldKnowledgeCountsFromAgeTwo pins the anchor p. 134 gives: its
 // example reaches "8 terms counting from age 2 through 34", which is

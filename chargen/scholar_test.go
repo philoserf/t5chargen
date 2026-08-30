@@ -332,7 +332,7 @@ func TestScholarWaiverPolicy(t *testing.T) {
 // rejected on its own roll but rescued by a Waiver, whose roll can still
 // sit inside the Award-Winning margin because Caution raises the
 // characteristic above the target.
-type cautiousWaiverDecider struct{}
+type cautiousWaiverDecider struct{ playerKind }
 
 func (cautiousWaiverDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseCareerWaiver {
@@ -354,8 +354,6 @@ const (
 	cautionMod   = "Caution +6"
 	cautionValue = 6
 )
-
-func (cautiousWaiverDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestScholarWaivedPublicationIsNotAwardWinning verifies that the
 // Award-Winning margin is read off a roll that carried the Publication on
@@ -430,4 +428,81 @@ func publicationAfter(events []chargen.Event) (int, bool) {
 	}
 
 	return 0, false
+}
+
+// majorOrMinorDecider takes the Major or Minor whenever a Scholar Skills
+// column is offered. Chart 02's table C appends the two to the column
+// names (p. 65), so they are the options past the chart's own.
+type majorOrMinorDecider struct{ playerKind }
+
+func (majorOrMinorDecider) Choose(c chargen.Choice) (int, error) {
+	if c.ID == chargen.ChooseSkillColumn && len(c.Options) > 0 {
+		return len(c.Options) - 1, nil
+	}
+
+	return autoPolicy(c)
+}
+
+// TestScholarTakesTheMajorInsteadOfTableC verifies "A Scholar may always
+// take a skill in his Major or Minor instead of from this table" (chart 02
+// table C): the award is a level in the named skill, and it costs no 1D
+// roll — the selecting choice is the whole of it.
+//
+// The cause chain is the point (docs/PRD.md FR10). A table C award is
+// caused by the 1D throw; this one has no throw to point at, so it is
+// caused by the choice that took it, and a reader of the transcript can
+// tell the two apart.
+func TestScholarTakesTheMajorInsteadOfTableC(t *testing.T) {
+	c, err := chargen.Generate(chargen.Options{
+		Seed: scholarAmateurSeed, Career: "Scholar", Decider: majorOrMinorDecider{},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	record := c.Careers[len(c.Careers)-1]
+	if record.Major == "" && record.Minor == "" {
+		t.Fatalf("seed %d records neither Major nor Minor; the fixture cannot reach the cell",
+			scholarAmateurSeed)
+	}
+
+	if taken := majorOrMinorAwards(t, c, record); taken == 0 {
+		t.Errorf("seed %d never took the Major or Minor instead of table C; widen the sweep",
+			scholarAmateurSeed)
+	}
+}
+
+// majorOrMinorAwards counts the skill awards caused by a choice rather
+// than a throw whose skill is the record's Major or Minor, and checks each
+// carries a level.
+func majorOrMinorAwards(t *testing.T, c chargen.Character, record chargen.CareerRecord) int {
+	t.Helper()
+
+	kinds := make(map[int]chargen.EventKind, len(c.Events))
+	for _, e := range c.Events {
+		kinds[e.Seq] = e.Kind
+	}
+
+	taken := 0
+
+	for _, e := range c.Events {
+		if e.Kind != chargen.EventConsequence ||
+			e.Consequence.Kind != chargen.ConsequenceSkillAwarded ||
+			kinds[e.Consequence.Cause] != chargen.EventChoice {
+			continue
+		}
+
+		if e.Consequence.Skill != record.Major && e.Consequence.Skill != record.Minor {
+			continue
+		}
+
+		taken++
+
+		if e.Consequence.Delta < 1 {
+			t.Errorf("event %d awards %s a delta of %d, want at least 1",
+				e.Seq, e.Consequence.Skill, e.Consequence.Delta)
+		}
+	}
+
+	return taken
 }

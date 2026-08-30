@@ -55,11 +55,36 @@ Every rule carries a page citation.
 go install github.com/philoserf/t5chargen/cmd/t5chargen@v0.1.0-alpha.1
 ```
 
-Go 1.26.6 or later. No other dependencies — the tool is standard library
+Go 1.27 or later. No other dependencies — the tool is standard library
 only.
+
+Supported on macOS and Linux, which CI builds and tests on both the Go
+version `go.mod` declares and the current release. Windows is not
+supported: the tool is pure Go and may well run there, but nothing tests
+it, and an untested platform is not a supported one.
 
 The version is named explicitly rather than `@latest`, which stops
 resolving to a prerelease once a stable version exists.
+
+## Stability
+
+Prerelease. Flags and output may still change, and
+[CHANGELOG.md](CHANGELOG.md) says what moved between releases.
+
+The record format is the part that is held still. It is versioned, its
+schema is published (`docs/character.schema.json`), and a record written
+by a released version renders under later released versions. Replay stays
+pinned to the engine that wrote the record — that is the provenance
+contract, not a limitation to route around, and `--ignore-provenance` is
+there when you mean to.
+
+## Report a problem
+
+<https://github.com/philoserf/t5chargen/issues>
+
+A rules report is worth far more with the record attached: it carries the
+seed and every choice, so it reproduces exactly. `t5chargen help` says
+what else to include, and the issue templates ask for it.
 
 ## Use
 

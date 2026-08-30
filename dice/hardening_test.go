@@ -44,5 +44,5 @@ func TestUnderDoesNotReportRollLowSpectaculars(t *testing.T) {
 		return
 	}
 
-	t.Skip("no seed in 400 rolled three ones on 3D")
+	t.Error("no seed in 400 rolled three ones on 3D; widen the sweep")
 }

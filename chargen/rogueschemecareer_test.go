@@ -29,7 +29,11 @@ const rollTheSchemeOption = "Roll for it"
 //
 // The auto policy rolls instead (POLICY.md), which is why no golden
 // record reaches this path and a decider is what reaches it.
-type schemesOnHisPast struct{ inRogue bool }
+type schemesOnHisPast struct {
+	playerKind
+
+	inRogue bool
+}
 
 func (d *schemesOnHisPast) Choose(c chargen.Choice) (int, error) {
 	switch c.ID { //nolint:exhaustive // Only the choice points this decider steers; the rest fall through to the policy.
@@ -51,8 +55,6 @@ func (d *schemesOnHisPast) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (*schemesOnHisPast) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // schemeSelectionRun finds a seed whose character serves a career, changes
 // into Rogue, and is offered a previous career as a Scheme.
@@ -255,7 +257,11 @@ func mostSchemesInATerm(c chargen.Character) int {
 // laterRogue serves whatever career comes first, then changes into Rogue
 // and back out again, so a To Begin can fail somewhere in the record
 // before a later Scheme offer is made.
-type laterRogue struct{ picks int }
+type laterRogue struct {
+	playerKind
+
+	picks int
+}
 
 func (d *laterRogue) Choose(c chargen.Choice) (int, error) {
 	switch c.ID { //nolint:exhaustive // Only the choice points this decider steers; the rest fall through to the policy.
@@ -277,8 +283,6 @@ func (d *laterRogue) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (*laterRogue) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestTheSchemeOfferNamesOnlyCareersServed verifies the two limits on
 // "any previous career": a career whose To Begin failed was never served

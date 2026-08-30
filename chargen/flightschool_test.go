@@ -22,7 +22,7 @@ const flightPrompt = "Attend Flight School?"
 // The auto policy declines officer training and never selects the Service
 // Academy, so neither route in is reachable in auto mode and no golden
 // record passes this way (POLICY.md).
-type flyer struct{}
+type flyer struct{ playerKind }
 
 func (flyer) Choose(c chargen.Choice) (int, error) {
 	switch c.ID { //nolint:exhaustive // Only the choice points this decider steers; the rest fall through to the policy.
@@ -42,8 +42,6 @@ func (flyer) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (flyer) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // flightRun finds a seed whose character graduates Flight School.
 func flightRun(t *testing.T) (chargen.Character, bool) {
@@ -289,7 +287,7 @@ func honorsDegree(r chargen.EducationRecord) bool {
 // honoursOnly takes University and Honors and declines officer training,
 // which is the auto policy's answer — an Honors graduate with no course
 // that admits him.
-type honoursOnly struct{}
+type honoursOnly struct{ playerKind }
 
 func (honoursOnly) Choose(c chargen.Choice) (int, error) {
 	switch c.ID { //nolint:exhaustive // Only the choice points this decider steers; the rest fall through to the policy.
@@ -303,5 +301,3 @@ func (honoursOnly) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (honoursOnly) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }

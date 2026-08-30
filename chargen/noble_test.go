@@ -24,8 +24,12 @@ func nobleRun(t *testing.T, seed uint64) (chargen.Character, chargen.CareerRecor
 	c, open := generateIfOpen(t, chargen.Options{
 		Seed: seed, Career: "Noble", Decider: careerOnly{},
 	})
+	// Guard the premise: nobleRun is called only with pinned seeds, so a
+	// seed that stops qualifying is a fixture to repair, not a run to
+	// skip. Skipping would leave four tests reporting green while
+	// asserting nothing.
 	if !open {
-		t.Skipf("seed %d falls below chart 11's Soc B+ prerequisite", seed)
+		t.Fatalf("seed %d falls below chart 11's Soc B+ prerequisite; re-pin the fixture", seed)
 	}
 
 	if len(c.Careers) == 0 {
@@ -118,7 +122,11 @@ func TestNobleRequiresSocB(t *testing.T) {
 }
 
 // careerMenu records the first Select Career offer.
-type careerMenu struct{ first []string }
+type careerMenu struct {
+	playerKind
+
+	first []string
+}
 
 func (d *careerMenu) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseCareer && d.first == nil {
@@ -127,8 +135,6 @@ func (d *careerMenu) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (*careerMenu) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestNobleEntersAtLowerTitle verifies that a Social Standing shared by
 // two rungs enters at the lower title: "A character elevated to Soc = c
@@ -146,21 +152,10 @@ func TestNobleEntersAtLowerTitle(t *testing.T) {
 	}
 
 	// Whatever the entry rung, no Baron may appear before a Baronet.
-	baronet, baron := indexOfTitle(titles, "Baronet"), indexOfTitle(titles, "Baron")
+	baronet, baron := slices.Index(titles, "Baronet"), slices.Index(titles, "Baron")
 	if baron >= 0 && (baronet < 0 || baronet > baron) {
 		t.Errorf("rank history %v reaches Baron without passing Baronet", titles)
 	}
-}
-
-// indexOfTitle returns the first index of a title, or -1.
-func indexOfTitle(titles []string, want string) int {
-	for i, title := range titles {
-		if title == want {
-			return i
-		}
-	}
-
-	return -1
 }
 
 // TestNobleElevationRaisesSocOnlyWhereTheLadderDoes verifies chart 11's
