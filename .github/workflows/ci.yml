@@ -53,3 +53,48 @@ jobs:
 
       - name: task
         run: task
+
+  # The gate above is the authority, and it runs once: lint, formatting
+  # and the modernize check are properties of the source, not of the
+  # machine, so proving them on four runners would only prove them four
+  # times.
+  #
+  # What is worth repeating per platform is the part that can differ —
+  # compiling and running. This job is `task test`, the same target the
+  # gate's second half runs, so the two cannot drift into meaning
+  # different things.
+  #
+  # Windows is deliberately absent. README says macOS and Linux are the
+  # supported platforms; the code is pure Go and may well work elsewhere,
+  # but an untested platform is not a supported one and this repository
+  # would rather say so than imply otherwise.
+  smoke:
+    name: test (${{ matrix.os }}, go ${{ matrix.go }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        # "file" is the floor go.mod declares; "stable" is whatever Go is
+        # current. They coincide whenever the module tracks the newest
+        # release, and diverge the moment it stops — which is the case
+        # this matrix exists to catch.
+        go: [file, stable]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        if: matrix.go == 'file'
+        with:
+          go-version-file: go.mod
+
+      - uses: actions/setup-go@v5
+        if: matrix.go == 'stable'
+        with:
+          go-version: stable
+
+      - name: Install task
+        run: go install github.com/go-task/task/v3/cmd/task@v3.53.1
+
+      - name: task test
+        run: task test
