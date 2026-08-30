@@ -66,6 +66,26 @@ it, and an untested platform is not a supported one.
 The version is named explicitly rather than `@latest`, which stops
 resolving to a prerelease once a stable version exists.
 
+## Stability
+
+Prerelease. Flags and output may still change, and
+[CHANGELOG.md](CHANGELOG.md) says what moved between releases.
+
+The record format is the part that is held still. It is versioned, its
+schema is published (`docs/character.schema.json`), and a record written
+by a released version renders under later released versions. Replay stays
+pinned to the engine that wrote the record — that is the provenance
+contract, not a limitation to route around, and `--ignore-provenance` is
+there when you mean to.
+
+## Report a problem
+
+<https://github.com/philoserf/t5chargen/issues>
+
+A rules report is worth far more with the record attached: it carries the
+seed and every choice, so it reproduces exactly. `t5chargen help` says
+what else to include, and the issue templates ask for it.
+
 ## Use
 
 ```sh

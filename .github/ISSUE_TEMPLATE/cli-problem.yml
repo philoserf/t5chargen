@@ -1,0 +1,40 @@
+name: CLI problem
+description: A command failed, confused, or did something unexpected.
+title: "cli: "
+labels: ["cli"]
+body:
+  - type: textarea
+    id: command
+    attributes:
+      label: The command
+      description: The exact command line, and its output.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: Platform
+      description: >
+        macOS and Linux are supported. Windows is not tested, and a report
+        from there is still welcome — it just says so up front.
+      placeholder: macOS 15.2, arm64
+    validations:
+      required: true
+  - type: textarea
+    id: version
+    attributes:
+      label: t5chargen version
+      description: >
+        The output of `t5chargen version`. If it reports `(devel)` or a long
+        pseudo-version, the binary came from a work tree rather than a
+        released version — worth saying which.
+      render: shell
+    validations:
+      required: true

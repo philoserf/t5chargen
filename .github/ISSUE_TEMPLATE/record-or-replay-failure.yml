@@ -1,0 +1,53 @@
+name: Record or replay failure
+description: A saved character will not render, will not replay, or came back changed.
+title: "record: "
+labels: ["record"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A record replays only under the engine version that wrote it. That
+        is the provenance contract rather than a defect, and `replay` says
+        so when it refuses. `--ignore-provenance` runs it anyway.
+
+        Report it here when something else happened: a refusal you cannot
+        explain, a divergence under the engine that wrote the record, a
+        render that failed, or a record you can no longer read at all.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What happened
+      options:
+        - replay diverged under the engine that wrote the record
+        - replay refused and I do not understand why
+        - render failed or produced something wrong
+        - the record cannot be read at all
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: The command and its output
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: record
+    attributes:
+      label: The record
+      description: >
+        Attach the character JSON. Without it a replay failure cannot be
+        reproduced, because the seed and the choices live in the record.
+      render: json
+    validations:
+      required: true
+  - type: textarea
+    id: version
+    attributes:
+      label: t5chargen version
+      description: >
+        The output of `t5chargen version`. The record names the engine that
+        wrote it; this says which one is reading it.
+      render: shell
+    validations:
+      required: true
