@@ -1,6 +1,7 @@
 package chargen_test
 
 import (
+	"slices"
 	"strings"
 	"testing"
 
@@ -13,6 +14,8 @@ import (
 // Academy (POLICY.md), so nothing but a scripted decider reaches the
 // Officer1 graduation this test is about.
 type academyPath struct {
+	playerKind
+
 	service string
 }
 
@@ -28,15 +31,11 @@ func (d academyPath) Choose(c chargen.Choice) (int, error) {
 	}
 }
 
-func (academyPath) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
-
 // pick selects a named option, falling back to the auto policy when the
 // engine did not offer it.
 func pick(c chargen.Choice, want string) (int, error) {
-	for i, option := range c.Options {
-		if option == want {
-			return i, nil
-		}
+	if i := slices.Index(c.Options, want); i >= 0 {
+		return i, nil
 	}
 
 	return autoPolicy(c)
@@ -290,8 +289,6 @@ func (d *changesToArmy) Choose(c chargen.Choice) (int, error) {
 	return d.academyPath.Choose(c)
 }
 
-func (*changesToArmy) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
-
 // commissionedPath is one route to an Officer1 commission and the career
 // it obliges. There are two: the Service Academy (p. 62) and chart C's
 // two volunteer rows (p. 61), which confer the same Officer1 token and so
@@ -438,7 +435,11 @@ const academySeedSearch = 300
 // it, which is the shape of the defect this file guards against: nothing
 // counted attendances, so a player who kept choosing it kept being
 // admitted. Twenty-three times, on seed 1, to Edu-F at age 110.
-type academyHound struct{ offers []chargen.Choice }
+type academyHound struct {
+	playerKind
+
+	offers []chargen.Choice
+}
 
 func (d *academyHound) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseLaterEducation {
@@ -453,8 +454,6 @@ func (d *academyHound) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (*academyHound) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 const serviceAcademyName = "Service Academy"
 

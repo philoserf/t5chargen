@@ -330,6 +330,8 @@ func assertDoubling(t *testing.T, seed uint64, c chargen.Character, doublings in
 // twoServices leaves one Armed Forces career for another, which the auto
 // policy never does, so the Reserve years of two services overlap.
 type twoServices struct {
+	playerKind
+
 	offers int
 	second bool
 }
@@ -346,13 +348,13 @@ func (d *twoServices) Choose(c chargen.Choice) (int, error) {
 
 		return 1, nil
 	case chargen.ChooseCareer:
-		if i := indexOf(c.Options, "Spacer"); i >= 0 && d.offers > 0 {
+		if i := slices.Index(c.Options, "Spacer"); i >= 0 && d.offers > 0 {
 			d.second = true
 
 			return i, nil
 		}
 
-		if i := indexOf(c.Options, "Soldier"); i >= 0 {
+		if i := slices.Index(c.Options, "Soldier"); i >= 0 {
 			return i, nil
 		}
 	default:
@@ -360,8 +362,6 @@ func (d *twoServices) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (*twoServices) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestReserveYearsAreCalendarYears pins p. 69: "the Reserve Pension is
 // paid for years actually served as a Reservist". A character who leaves
@@ -390,6 +390,8 @@ func TestReserveYearsAreCalendarYears(t *testing.T) {
 // Reserve Pension, for the Functionary, whose Money column carries the
 // Pension x2 cells. No auto-generated character does either.
 type serviceThenFunctionary struct {
+	playerKind
+
 	offers  int
 	arrived bool
 }
@@ -406,13 +408,13 @@ func (d *serviceThenFunctionary) Choose(c chargen.Choice) (int, error) {
 
 		return 1, nil
 	case chargen.ChooseCareer:
-		if i := indexOf(c.Options, "Functionary"); i >= 0 {
+		if i := slices.Index(c.Options, "Functionary"); i >= 0 {
 			d.arrived = true
 
 			return i, nil
 		}
 
-		if i := indexOf(c.Options, "Soldier"); i >= 0 {
+		if i := slices.Index(c.Options, "Soldier"); i >= 0 {
 			return i, nil
 		}
 	default:
@@ -420,8 +422,6 @@ func (d *serviceThenFunctionary) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (*serviceThenFunctionary) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestADoublingBelongsToItsCareer pins p. 68: "Pension x 2 doubles the
 // Pension the character receives from the career" — the career the

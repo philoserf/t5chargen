@@ -15,6 +15,8 @@ import (
 // took them in chart order would spend the lower rows first and never
 // present the case these tests are about — the mistake #72 caught.
 type scholarPath struct {
+	playerKind
+
 	wants  []string
 	honors bool
 
@@ -49,8 +51,6 @@ func (d *scholarPath) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (*scholarPath) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // rung takes the first wanted programme the character actually qualifies
 // for, and otherwise serves.

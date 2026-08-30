@@ -1,6 +1,7 @@
 package chargen_test
 
 import (
+	"slices"
 	"strings"
 	"testing"
 
@@ -11,6 +12,8 @@ import (
 // term, so a test can suspend exactly one term and compare the record
 // against the same seed run straight through.
 type schoolAt struct {
+	playerKind
+
 	program string
 	at      int
 	seen    int
@@ -44,12 +47,10 @@ func (d *schoolAt) Choose(c chargen.Choice) (int, error) {
 	return 0, nil
 }
 
-func (*schoolAt) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
-
 // schoolAlways never serves a term while any program is on offer, which is
 // the unbounded case: the offer recurs every term and Apprenticeship has
 // no prerequisite, so nothing but the passage of time ends the lifepath.
-type schoolAlways struct{}
+type schoolAlways struct{ playerKind }
 
 func (schoolAlways) Choose(c chargen.Choice) (int, error) {
 	// As schoolAt: no degree before the career, so every Basic row is
@@ -75,8 +76,6 @@ func (schoolAlways) Choose(c chargen.Choice) (int, error) {
 
 	return 0, nil
 }
-
-func (schoolAlways) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // laterEducationSeed is pinned: seed 1's Citizen serves enough terms to be
 // offered school more than once, so "at the second offer" is reachable.
@@ -402,6 +401,8 @@ func hobbyAward(c chargen.Character, name string) (int, bool) {
 // in one named skill, serves every later term, and takes the same skill as
 // its Hobby wherever the ladder offers one.
 type apprenticeIn struct {
+	playerKind
+
 	skill string
 	taken bool
 }
@@ -412,19 +413,17 @@ func (d *apprenticeIn) Choose(c chargen.Choice) (int, error) {
 			return 0, nil
 		}
 
-		index := indexOf(c.Options, "Apprenticeship")
+		index := slices.Index(c.Options, "Apprenticeship")
 		d.taken = index > 0
 
 		return max(index, 0), nil
 	}
 
 	if c.ID == chargen.ChooseSkill || c.ID == chargen.ChooseHobby {
-		if index := indexOf(c.Options, d.skill); index >= 0 {
+		if index := slices.Index(c.Options, d.skill); index >= 0 {
 			return index, nil
 		}
 	}
 
 	return autoPolicy(c)
 }
-
-func (*apprenticeIn) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }

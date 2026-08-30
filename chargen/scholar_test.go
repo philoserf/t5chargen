@@ -332,7 +332,7 @@ func TestScholarWaiverPolicy(t *testing.T) {
 // rejected on its own roll but rescued by a Waiver, whose roll can still
 // sit inside the Award-Winning margin because Caution raises the
 // characteristic above the target.
-type cautiousWaiverDecider struct{}
+type cautiousWaiverDecider struct{ playerKind }
 
 func (cautiousWaiverDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseCareerWaiver {
@@ -354,8 +354,6 @@ const (
 	cautionMod   = "Caution +6"
 	cautionValue = 6
 )
-
-func (cautiousWaiverDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestScholarWaivedPublicationIsNotAwardWinning verifies that the
 // Award-Winning margin is read off a roll that carried the Publication on
@@ -435,7 +433,7 @@ func publicationAfter(events []chargen.Event) (int, bool) {
 // majorOrMinorDecider takes the Major or Minor whenever a Scholar Skills
 // column is offered. Chart 02's table C appends the two to the column
 // names (p. 65), so they are the options past the chart's own.
-type majorOrMinorDecider struct{}
+type majorOrMinorDecider struct{ playerKind }
 
 func (majorOrMinorDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseSkillColumn && len(c.Options) > 0 {
@@ -444,8 +442,6 @@ func (majorOrMinorDecider) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (majorOrMinorDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestScholarTakesTheMajorInsteadOfTableC verifies "A Scholar may always
 // take a skill in his Major or Minor instead of from this table" (chart 02

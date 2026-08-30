@@ -88,7 +88,7 @@ func TestEducationWaiverPinned(t *testing.T) {
 
 // languageDecider is the default policy except that it majors in Language,
 // to exercise the double-rate rule.
-type languageDecider struct{}
+type languageDecider struct{ playerKind }
 
 func (languageDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseMajor {
@@ -101,8 +101,6 @@ func (languageDecider) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (languageDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestLanguageDoubleRate verifies "When a specific Language is specified
 // as a Major or Minor, it is acquired at double rate" (p. 59), per the

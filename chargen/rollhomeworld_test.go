@@ -263,7 +263,11 @@ func homeworldChoice(t *testing.T, c chargen.Character) chargen.ChoiceEvent {
 }
 
 // pickHomeworld chooses one world off chart B and defers the rest.
-type pickHomeworld struct{ index int }
+type pickHomeworld struct {
+	playerKind
+
+	index int
+}
 
 func (d pickHomeworld) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseHomeworld {
@@ -272,5 +276,3 @@ func (d pickHomeworld) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (pickHomeworld) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }

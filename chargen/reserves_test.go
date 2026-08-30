@@ -23,7 +23,7 @@ const reserveSeedSearch = 300
 //
 // The auto policy remains (POLICY.md), which is why no golden record
 // reaches this path and a decider is what reaches it.
-type resigns struct{}
+type resigns struct{ playerKind }
 
 func (resigns) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseResignReserves {
@@ -34,8 +34,6 @@ func (resigns) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (resigns) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestAResignedCharacterLeavesTheReserves verifies p. 67: "A character may
 // resign from the Reserves (Check Continue) and forego its benefits and

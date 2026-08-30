@@ -315,7 +315,7 @@ func findMod(mods []chargen.Mod, name string) (chargen.Mod, bool) {
 
 // cautionDecider is the default policy except it always selects Caution
 // +1, the positive Risk Mod the injury rule must ignore.
-type cautionDecider struct{}
+type cautionDecider struct{ playerKind }
 
 func (cautionDecider) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseRiskMod {
@@ -326,8 +326,6 @@ func (cautionDecider) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (cautionDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestSoldierInjuryIgnoresPositiveMods verifies p. 65: "Reduce the
 // Controlling Characteristic by all negative Mods; ignore any positive
@@ -426,6 +424,8 @@ func soldierInjuryDelta(e chargen.Event) int {
 // I-36), so the names it asks for are enlisted ones; it reaches the rows
 // the policy cannot, which takes the lowest Branch Mod.
 type branchDecider struct {
+	playerKind
+
 	name string
 }
 
@@ -438,8 +438,6 @@ func (d branchDecider) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (branchDecider) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // TestSpacerCrewBecomesLine verifies p. 66: "A character who receives a
 // Commission may roll for Branch or keep his current Branch (for Spacers,

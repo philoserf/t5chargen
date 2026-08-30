@@ -11,7 +11,7 @@ import (
 // benefitsColumn takes the Benefits column at every muster-out roll, which
 // the auto policy never does — it falls back to first-listed, and Money is
 // listed first on every table D (POLICY.md `select_benefit_column`).
-type benefitsColumn struct{}
+type benefitsColumn struct{ playerKind }
 
 func (benefitsColumn) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseBenefitColumn {
@@ -20,8 +20,6 @@ func (benefitsColumn) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (benefitsColumn) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // benefitsOf gathers a character's muster-out awards by kind.
 func benefitsOf(c chargen.Character) map[benefit.Kind]int {

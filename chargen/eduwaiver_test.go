@@ -10,6 +10,8 @@ import (
 // reachPast selects a named program whether or not the character qualifies
 // for it, and answers every waiver the way the case under test needs.
 type reachPast struct {
+	playerKind
+
 	program string
 	waive   bool
 }
@@ -29,8 +31,6 @@ func (d reachPast) Choose(c chargen.Choice) (int, error) {
 		return autoPolicy(c)
 	}
 }
-
-func (reachPast) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // waiverPrompts collects the reasons the record shows a waiver offered
 // for.

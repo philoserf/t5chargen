@@ -15,7 +15,7 @@ const branchSeedSearch = 300
 
 // changesBranch takes every branch change offered, which the auto policy
 // never does (POLICY.md).
-type changesBranch struct{}
+type changesBranch struct{ playerKind }
 
 func (changesBranch) Choose(c chargen.Choice) (int, error) {
 	if c.ID == chargen.ChooseBranchChange {
@@ -24,8 +24,6 @@ func (changesBranch) Choose(c chargen.Choice) (int, error) {
 
 	return autoPolicy(c)
 }
-
-func (changesBranch) Kind() chargen.DeciderKind { return chargen.DeciderPlayer }
 
 // branchesHeld returns the branches the record shows the character in,
 // in order, which is what a change has to move.
