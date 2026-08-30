@@ -87,7 +87,7 @@ The schema is `docs/character.schema.json`, draft 2020-12, with `docs/character.
 
 `schema_version` tracks **the shape of the records the engine writes**, not the precision of the document describing it. A constraint that narrows the schema to what the engine already produced is a clarification and does not bump; one that would invalidate a record the current engine writes is a bump. The case that settled it was the `upp` pattern: added after the clamp that made an unrepresentable UPP impossible, so every record engine 0.41.0 wrote was already inside it, and the only records it newly rejects are ones an older engine should not have written. Records carry the version, so the test is about them and not about the file.
 
-Validation is a hand-written checker over the subset of JSON Schema the document uses, rather than a library: it is 250 lines against six third-party modules, in a repo that has none. The risk in writing one is that a validator with a bug passes everything, so it is not trusted on the fixtures passing — every rule the schema states has a record that must fail because of it, and each of the checker's keywords is mutation-tested.
+Validation is a hand-written checker over the subset of JSON Schema the document uses, rather than a library: it is a few hundred lines against six third-party modules, in a repo that has none. The risk in writing one is that a validator with a bug passes everything, so it is not trusted on the fixtures passing — every rule the schema states has a record that must fail because of it, and each of the checker's keywords is mutation-tested.
 
 ## CLI sketch
 
