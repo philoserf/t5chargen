@@ -54,6 +54,12 @@ This is more important than pushing raw coverage higher.
 
 ### 3. Test the supported installation surface
 
+**Done** — `.github/workflows/ci.yml` gained a `smoke` matrix over macOS
+and Linux against both the Go version `go.mod` declares and the current
+release; README declares Windows unsupported. Installation from the
+tagged module is proved by the release workflow, which builds the
+artifacts that way.
+
 CI currently tests one Linux environment and the Go version declared in
 `go.mod`. Before beta, add lightweight smoke jobs for:
 
@@ -67,6 +73,11 @@ it only if the code needs it.
 
 ### 4. Automate release artifacts when users need easier installation
 
+**Done** — `.github/workflows/release.yml`. A pushed version tag runs the
+gate on the tagged commit, builds four platform binaries, checksums them
+and opens a draft release. The notes stay manual, which is the one part
+of a release a person has to write.
+
 The release procedure explicitly postpones binaries and release automation.
 That was sensible for alpha. For beta, signed or checksummed binaries for
 macOS and Linux would widen the tester pool and make reports easier to
@@ -77,6 +88,12 @@ checksums, and create the prerelease. Keep the citation check manual because
 the source PDF cannot enter CI.
 
 ### 5. Harden externally supplied data
+
+**Done** — four fuzz targets over UWP parsing, the eHex digits, render
+and replay, run by `task fuzz` rather than by the gate. All four ran
+clean at millions of executions. Interactive input and extreme
+`batch --count` remain covered by the existing hostile-input tests
+rather than by fuzzing.
 
 The highest-value additional testing is fuzzing rather than more example
 tests. Good targets are:
