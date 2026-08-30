@@ -24,8 +24,12 @@ func nobleRun(t *testing.T, seed uint64) (chargen.Character, chargen.CareerRecor
 	c, open := generateIfOpen(t, chargen.Options{
 		Seed: seed, Career: "Noble", Decider: careerOnly{},
 	})
+	// Guard the premise: nobleRun is called only with pinned seeds, so a
+	// seed that stops qualifying is a fixture to repair, not a run to
+	// skip. Skipping would leave four tests reporting green while
+	// asserting nothing.
 	if !open {
-		t.Skipf("seed %d falls below chart 11's Soc B+ prerequisite", seed)
+		t.Fatalf("seed %d falls below chart 11's Soc B+ prerequisite; re-pin the fixture", seed)
 	}
 
 	if len(c.Careers) == 0 {
