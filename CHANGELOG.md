@@ -11,7 +11,16 @@ This file starts at the first release. Everything before it is in git.
 
 ## Unreleased
 
-Nothing released yet since `v0.1.0-alpha.1`. Landed on `main`:
+Nothing since `v0.1.0-alpha.2`.
+
+## v0.1.0-alpha.2 — 2026-08-30
+
+schema 0.33.0 · engine 0.45.0 · policy 0.25.0 — **all three unchanged.**
+
+Nothing about a generated character moved. A record written by
+`v0.1.0-alpha.1` replays under this release exactly, which is the
+strongest thing this entry says: everything below is the scaffolding
+around the engine rather than the engine.
 
 - Beta preparation: a smoke matrix over macOS and Linux against both the
   Go version `go.mod` declares and the current release; Windows declared
@@ -25,9 +34,15 @@ Nothing released yet since `v0.1.0-alpha.1`. Landed on `main`:
 - Go 1.27 is the declared floor.
 - Test-suite repairs: seven tests that declined to run now assert or
   fail, with a gate that keeps it that way, and one rule — chart 02's
-  Major-or-Minor cell — that had no test at all now has one.
+  Major-or-Minor cell — that had no test at all now has one. COVERAGE.md
+  had called both covered.
+- `LICENSE` is verbatim MIT again; the Far Future Enterprises attribution
+  it also carried is in [README](README.md), where it always was too.
 
-No schema, engine or policy version changed.
+This is the first release built by
+[.github/workflows/release.yml](.github/workflows/release.yml), so it is
+also the first with attached binaries and checksums for macOS and Linux.
+`go install` remains the route the README names.
 
 ## v0.1.0-alpha.1 — 2026-08-28
 
