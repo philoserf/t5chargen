@@ -1,0 +1,58 @@
+name: Rules discrepancy
+description: The generator disagrees with Traveller5 Core Rules Book 1.
+title: "rules: "
+labels: ["rules"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is the report worth the most, and the one that needs the most
+        from you: a rules claim is only actionable against a page. Cites
+        are to **Book 1, Print Edition 5.1** — the same edition the
+        generator implements.
+
+        Before filing, `docs/ERRATA.md` is worth a look. Where the printed
+        rules are ambiguous this project records the reading it chose and
+        why. If your case is already there and you disagree with the
+        reading, say so — that is a better report, not a duplicate.
+  - type: textarea
+    id: rule
+    attributes:
+      label: The rule, and its page
+      description: Quote the printed text and give the page.
+      placeholder: |
+        p. 65: "Armed Forces characters begin with enlisted rank"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should have happened
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: What happened instead
+      description: The character sheet or transcript line that is wrong.
+    validations:
+      required: true
+  - type: textarea
+    id: record
+    attributes:
+      label: The record
+      description: >
+        Attach or paste the character JSON. The record carries the seed and
+        every choice, so it is the difference between a report that can be
+        reproduced exactly and one that cannot be reproduced at all.
+      render: json
+    validations:
+      required: true
+  - type: textarea
+    id: version
+    attributes:
+      label: t5chargen version
+      description: The output of `t5chargen version`.
+      render: shell
+    validations:
+      required: true

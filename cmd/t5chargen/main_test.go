@@ -954,3 +954,50 @@ func recordFromAnotherBuild(t *testing.T) string {
 
 	return record
 }
+
+// TestHelpIsAskedForNotBlunderedInto verifies `help` and its flag forms
+// print to stdout and exit zero, while a misuse still prints the terse
+// usage to stderr. The distinction is the point: usage accompanies every
+// error, where prose would bury the line saying what went wrong.
+func TestHelpIsAskedForNotBlunderedInto(t *testing.T) {
+	for _, arg := range []string{"help", "--help", "-help", "-h"} {
+		t.Run(arg, func(t *testing.T) {
+			var stdout, stderr bytes.Buffer
+
+			if code := run([]string{arg}, noSeed(t), noInput(), &stdout, &stderr); code != exitOK {
+				t.Fatalf("exit %d, stderr: %s", code, stderr.String())
+			}
+
+			if stderr.Len() != 0 {
+				t.Errorf("help wrote to stderr: %s", stderr.String())
+			}
+
+			// The three things §6 of docs/BETA_READINESS.md asked for,
+			// and the one place the --auto explanation is allowed to
+			// live: a prompt is replay-compared, help text is not.
+			for _, want := range []string{
+				"examples:",
+				"troubleshooting:",
+				"report a problem:",
+				"https://github.com/philoserf/t5chargen/issues",
+				"stability:",
+				"policy declines career changes",
+			} {
+				if !strings.Contains(stdout.String(), want) {
+					t.Errorf("help does not mention %q", want)
+				}
+			}
+		})
+	}
+
+	// A misuse gets the short form, not the essay.
+	var stdout, stderr bytes.Buffer
+
+	if code := run(nil, noSeed(t), noInput(), &stdout, &stderr); code != exitUsage {
+		t.Fatalf("no arguments: exit %d, want %d", code, exitUsage)
+	}
+
+	if strings.Contains(stderr.String(), "troubleshooting:") {
+		t.Error("a usage error printed the full help")
+	}
+}

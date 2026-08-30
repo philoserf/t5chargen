@@ -13,6 +13,11 @@ for the CLI, 90.7% for rendering, and 97.6% for dice.
 
 ### 1. Run an intentional alpha feedback cycle
 
+**Partly done** — the three issue templates exist
+(`.github/ISSUE_TEMPLATE/`), and the rules template asks for the version,
+record JSON, expected rule with its page, and observed result. Recruiting
+testers and running the cycle is the part no amount of tooling does.
+
 Recruit several Traveller5 users, including at least one rules expert and
 one person unfamiliar with the project. Ask them to:
 
@@ -87,6 +92,12 @@ tests and ensure malformed records cannot panic, allocate without practical
 bounds, or leave partial output behind.
 
 ### 6. Improve beta-facing product ergonomics
+
+**Done** — `t5chargen help` carries examples, troubleshooting, the
+report-a-problem link and stability expectations; README gained Stability
+and Report a problem sections; CHANGELOG.md starts at the first release.
+The `--auto` explanation lives in help text rather than in a prompt,
+because a prompt is recorded and replay-compared.
 
 The README explains the product well, but beta users will need:
 
