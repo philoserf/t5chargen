@@ -5,6 +5,11 @@ decision. This replaces the long prerelease review, whose own last
 recommendation was to become this once its findings were dispositioned.
 The review itself is in git.
 
+The bulk of this document records `v0.1.0-alpha.1`, the release it was
+written for. Later releases add a section rather than overwrite it: what
+was verified before a tag is a fact about that tag, and rewriting it
+would lose the record the document exists to keep.
+
 ## Validated
 
 |                |                                                                                                           |
@@ -150,3 +155,43 @@ rather than a local build.
   interactive one at 241.
 - The released binary reproduces README's pasted character exactly,
   compared byte for byte against the page.
+
+---
+
+## v0.1.0-alpha.2 — 2026-08-30
+
+|                |                                                               |
+| -------------- | ------------------------------------------------------------- |
+| **Tag**        | `v0.1.0-alpha.2`, prerelease                                  |
+| **Commit**     | `9733452`                                                     |
+| **Versions**   | schema 0.33.0 · engine 0.45.0 · policy 0.25.0 — **unchanged** |
+| **Goldens**    | `task goldens` — no fixture moved                             |
+| **Gate**       | `task` — green, locally and on the tagged commit in CI        |
+| **Citations**  | `task citations` — 254 quotations checked against Book 1      |
+| **Smoke test** | the five workflows against a built binary                     |
+
+Nothing about a generated character changed: the only non-test Go to move
+since the first tag was the CLI's help text. That is why all three record
+versions stand, and it is the claim this release is really making.
+
+### After the tag
+
+The first release built by
+[.github/workflows/release.yml](.github/workflows/release.yml), so the
+workflow's own first run is part of what was verified.
+
+- The artifacts are built with `go install module@tag`, which is both the
+  build and the proof that the published module installs.
+- The downloaded `t5chargen_darwin_arm64` matches its line in
+  `SHA256SUMS`, reports **`v0.1.0-alpha.2`**, and generates a character.
+- That released binary replays a record written by `v0.1.0-alpha.1` —
+  151 events from seed 7 — which is
+  [COMPATIBILITY.md](COMPATIBILITY.md)'s render-forward promise held
+  against a real artifact rather than a fixture.
+
+### Knowingly incomplete
+
+The beta bar in [BETA_READINESS.md](BETA_READINESS.md) is met on every
+item tooling can meet. What remains is the part no tooling does: several
+independent users completing the core workflows, and their reports
+dispositioned. That is what this alpha is for.
