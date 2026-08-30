@@ -18,6 +18,10 @@ Nothing released yet since `v0.1.0-alpha.1`. Landed on `main`:
   unsupported; fuzz targets over UWP parsing, the eHex digits, render and
   replay; a release workflow that builds from a pushed tag and drafts the
   release; `t5chargen help`; issue templates; this file.
+- [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md): a record written by a
+  released version renders under every later released version, and replay
+  stays pinned to the engine that wrote it. Held by a corpus of records
+  written by each released binary, not by the paragraph saying so.
 - Go 1.27 is the declared floor.
 - Test-suite repairs: seven tests that declined to run now assert or
   fail, with a gate that keeps it that way, and one rule — chart 02's
