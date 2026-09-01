@@ -29,15 +29,15 @@ jobs:
     name: task (check + test)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # go-version-file reads go.mod, so the floor the module declares is
       # the version CI proves it against.
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v7
         with:
           go-version-file: go.mod
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: "22"
 
@@ -81,14 +81,14 @@ jobs:
         # this matrix exists to catch.
         go: [file, stable]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v7
         if: matrix.go == 'file'
         with:
           go-version-file: go.mod
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v7
         if: matrix.go == 'stable'
         with:
           go-version: stable
