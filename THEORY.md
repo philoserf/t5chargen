@@ -3,7 +3,7 @@
 This is not a description of the code. It is an attempt to write down the
 understanding that makes the code make sense, for whoever picks it up next.
 Read `docs/PRD.md` for what the system is supposed to do and
-`walkthrough.md` for how it runs. This document is about why it is shaped
+`WALKTHROUGH.md` for how it runs. This document is about why it is shaped
 the way it is, and which of its shapes you can change without breaking
 something you did not know was load-bearing.
 
