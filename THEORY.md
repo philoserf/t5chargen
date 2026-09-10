@@ -1,382 +1,425 @@
-# THEORY.md — what you need to hold in mind to change this safely
+# THEORY.md — the understanding this repository runs on
 
-This is not a description of the code. It is an attempt to write down the
-understanding that makes the code make sense, for whoever picks it up next.
-Read `docs/PRD.md` for what the system is supposed to do and
-`WALKTHROUGH.md` for how it runs. This document is about why it is shaped
-the way it is, and which of its shapes you can change without breaking
-something you did not know was load-bearing.
+This is not a description of the files. It is the account of _why_ the code is
+shaped as it is, written for whoever changes it next. `docs/PRD.md` says what
+the system must do; `WALKTHROUGH.md` walks one run end to end; `CLAUDE.md`
+states the working rules. This document is the layer underneath all three: the
+handful of commitments that, once you hold them, make every otherwise-arbitrary
+decision here look forced.
 
-## What the system is actually modelling
+Read it before changing anything structural. Most of what looks like ceremony
+in this repository is load-bearing, and the parts that genuinely are incidental
+are named as such below.
 
-The obvious answer is "a Traveller5 character." That answer will lead you
-astray.
+## 1. What is actually being modelled
 
-The system models **a procedure printed in a book**, and its product is not
-a character but a _defensible derivation_ of one. Traveller5 character
-generation is a lifepath: a player walks a checklist (Book 1 chart E1,
-p. 72), rolling dice and making choices, and the character that falls out
-at the end is the residue of forty or a hundred small decisions. The
-interesting object is the walk, not the residue.
+The tempting answer is "a Traveller5 character". Take it and you will make
+wrong changes confidently.
 
-Once you see that, a lot of otherwise-odd decisions become forced. The
-character record embeds its entire event log, and that log is bigger than
-everything else in the file combined. The Markdown output has two forms —
-a character sheet and a _generation transcript_ — and the transcript is
-the one that carries page citations. `replay` does not check that a seed
-still produces a valid character; it checks that the recorded walk
-reproduces itself step for step. The engine's core loop is not "compute a
-character" but "emit events which incidentally accumulate into one."
+What the system models is **a procedure printed in a book**, and what it
+produces is not a character but a _defensible derivation_ of one. Traveller5
+character generation is a lifepath: a person walks the Master Chargen Checklist
+(Book 1 chart E1, p. 72), rolling dice and answering questions, and the
+character that falls out at the end is the residue of a hundred small
+determinations. The interesting object is the walk. The character is its
+by-product.
 
-The domain vocabulary is the book's, and it is used as if settled, because
-within the book it is. A **term** is four years of a career. A **Continue**
-throw at the end of one decides whether there is another. A **controlling
-characteristic** (CC) is the attribute a career's Risk and Reward rolls
-check, rotated so none is reused until all have been. **Muster out** is
-what happens when the careers stop. **Flux** is a signed die mechanic
-running -5 to +5 — "Light Die minus Dark Die" (p. 261), and `light` and
-`dark` are the variable names in `dice/flux.go`. **eHex** is the extended
-hex notation that lets a characteristic above 9 fit in one character of a
-UPP. When you meet one of
-these words in the code it means exactly what the page means, and the doc
-comment quoting the page is at the implementation site because the page is
-the specification.
+Everything expensive in this codebase follows from taking the walk seriously:
 
-There are 106 numbered interpretations in `docs/ERRATA.md`. That number is
-the single most informative fact about this domain: the printed rules are
-ambiguous _constantly_, and a working implementation is mostly a sequence
-of decisions about what a sentence meant. The interpretations are not
-footnotes. They are the design.
+- The character record embeds its own complete event log, and that log is
+  larger than every other field combined. A 34-year-old Citizen from seed 7
+  carries 151 events.
+- There are two renderings, not one: a character sheet and a _generation
+  transcript_ (`render --history`), and only the transcript carries the page
+  citations. The sheet is for playing; the transcript is for arguing.
+- `replay` does not ask whether a seed still yields a valid character. It asks
+  whether the recorded walk reproduces itself, step for step, and stops at the
+  first event where it does not.
+- Every implemented rule carries the printed sentence it implements, quoted in
+  a doc comment at the site. Where the printed rule is ambiguous, the reading
+  taken is numbered in `docs/ERRATA.md` and cited from the code.
 
-## The three invariants
+A sibling project that only wanted characters would have none of this. It would
+compute six characteristics, loop some terms, and print a sheet. The reason
+this one is 20,000 lines of non-test Go is that it is building an _audit trail_
+and the character comes along for free.
 
-Everything structural in this repo defends one of three properties. If you
-are about to change something and you cannot tell which one it serves, find
-out before you change it.
+The corollary is the single most useful sentence in this document: **the record
+is the product.** Rendered output is derived, disposable, and explicitly not
+covered by any compatibility promise (`docs/COMPATIBILITY.md`, "During beta").
+The JSON is what a user keeps and what a bug report attaches.
 
-**One seed produces one character, exactly.** This is enforced at three
-seams rather than by discipline. All randomness comes from a single
-`dice.Roller` wrapping a seeded PCG stream, consumed sequentially — the
-package doc says so and the type is explicitly not concurrency-safe,
-because concurrent consumption would reorder the stream. Every choice goes
-through one function, `choose()` in `chargen/character.go`. And nothing
-in the engine reads a clock. The subtler half is _ordering_: maps in this
-codebase are for lookup and never for iteration. `career.Available()` is a
-literal slice in chart order; `skill.Names()` ranges a map and then sorts
-before returning. If you introduce a `range` over a map whose order reaches
-an option list, you have broken determinism in a way no test will
-obviously catch and every stored record will silently fail to replay.
+## 2. The event log, and why the engine's core loop is inside out
 
-**Every throw, choice, and consequence is recorded, with its page cite.**
-`CLAUDE.md` states the rule that a mechanic is not done until its events
-render in the transcript and replay verifies them. The consequence events
-carry the sequence number of the event that caused them, which is what lets
-the transcript say _this skill was awarded because of that choice_. This is
-why the `Log` methods are `Step`, `Roll`, `Flux`, `Throw`, `Choice`,
-`Consequence` — those are the six things the book's procedure does.
+`chargen/event.go` defines four event kinds: `step`, `throw`, `choice`,
+`consequence`. Events carry monotonic sequence numbers from 1, and a
+consequence names the sequence number of the throw or choice that caused it.
+That `Cause` field is not decoration — it is what lets the transcript say _why_
+a characteristic moved, and what lets a reader follow the derivation backwards.
 
-**A stored record can be re-run and checked years later.** This is the
-provenance contract, and it is the reason for the four version fields.
-`schema_version` describes the record's shape, `engine_version` the
-generation logic and the dice stream, `policy_version` the auto-mode
-decision table, plus the `ruleset` string and the RNG algorithm and seed.
-Read `docs/POLICY.md`'s version history and notice what it records: not
-merely what each bump changed but _which records it moves_. "offered at the
-beginning of every term of every career and so shifting every subsequent
-event in every record" is a blast-radius annotation. The versions are
-claims about which stored files remain replayable, which is why bumping one
-is a deliberate act and not bookkeeping.
+The consequence of this design is that the engine's inner loop is not "compute
+the character" but "emit events which incidentally accumulate into a
+character". Concretely: `Character.advanceYears` is the _only_ place a
+character ages, and it exists as one function not for tidiness but because
+aging is a rule about elapsed time (chart A, p. 89), not about any of the nine
+things that elapse it. Put a `c.Age += 4` anywhere else and you have silently
+skipped an Aging Check and emitted no event saying so.
 
-## The choice funnel, and why it is one function
+This is the shape to preserve when adding a mechanic. `CLAUDE.md` states the
+rule as "New mechanics are not done until their events render in the history
+transcript and replay verifies them", and that is not a process nicety: an
+effect with no event is invisible to replay, so it is a value nothing verifies,
+in a record whose whole claim is that everything in it was verified.
 
-`Decider` is the load-bearing abstraction. It has two methods and three
-implementations: the interactive front end, the fixed auto policy, and a
-replay decider that hands back recorded answers in order.
+A consequence kind is added, never repurposed. `ConsequenceCharacteristicFloored`
+exists because `CLAUDE.md`'s clamping rule (§7 below) demands that a clamp be
+visible, and the only way to make it visible is to give it an event.
 
-The reason this is a single interface with a single call site rather than
-a callback here and a flag there is that **replay is only possible if
-every decision is capturable in the same shape**. A choice that bypassed
-`choose()` would be invisible to the log and would diverge on re-run.
+## 3. The Decider seam
 
-Two details of `Choice` are worth understanding before you extend it.
+This is the narrowest and most important waist in the system.
 
-First, `Scores`, `ScoreLabel`, `Nth`, and `Of` are engine-provided decision
-aids that are deliberately **not recorded**. Their purpose is to let a
-policy weigh a stake without parsing prompt text. The consequence is the
-part that matters: because they are not recorded, rewording a prompt cannot
-change what character a seed produces. If you record them, you have coupled
-presentation to output and every prompt edit becomes a version bump.
+Every point where the printed rules ask a person something goes through
+`chargen.Decider` — one method, `Choose(Choice) (int, error)`, plus `Kind()`
+saying who is answering. There are about forty such choice points, each a
+`ChoiceID` constant in `chargen/decider.go` carrying the sentence from Book 1
+that creates it.
 
-Second, `choose()` distinguishes three failure modes that a naive
-implementation would collapse: an empty option list (an engine bug — a
-rule reached a state with nothing to offer), a decider that _refused_ by
-returning an error (an abandoned interactive session, or a replay
-divergence), and a decider that answered out of range (a decider that
-replied wrongly). Refusal and wrong answer are different events with
-different causes, and the error text says which.
+There are exactly three implementations, and the fact that there are three
+rather than two is the point:
 
-Around this sits a fourth interface, `Watcher`, which is worth studying as
-a small masterclass in defending an invariant at a type boundary. It exists
-so the interactive front end can narrate events as they occur. Its doc
-comment enumerates why it cannot affect a character: it gets copies, it
-returns nothing, it is consulted after the event is already recorded, and
-neither `DefaultPolicy` nor the replay decider implements it. That is four
-independent reasons, written down, for a feature that could have been a
-one-line callback. Match that standard when you add a seam near the engine.
+| Implementation          | Where                            | What it does                                         |
+| ----------------------- | -------------------------------- | ---------------------------------------------------- |
+| `chargen.DefaultPolicy` | `chargen/policy.go`              | the fixed, total, versioned auto-mode decision table |
+| `interactive.Decider`   | `interactive/`                   | asks a person, line by line                          |
+| `replayDecider`         | `chargen/replay.go` (unexported) | replays the recorded answers                         |
 
-## Where the data/logic boundary actually falls
+Replay works _because_ it is a Decider. It is not a separate code path through
+the engine; it is the same engine with a third answering strategy. That is why
+the replay contract can be as strong as it is: there is no "replay mode" that
+could drift from generation.
 
-`CLAUDE.md` says tables, thresholds, and labels are embedded data;
-orchestration and career-specific mechanics are typed Go; no rules language
-in the data. That is true, but the useful version is more specific.
+Three properties fall out of the seam and are easy to break by accident:
 
-**The data holds what the chart tabulates. Go holds what the chart's
-footnotes say.** `career.Definition` reads as a transcription of a printed
-career chart, and its most instructive field group is the Continue target:
-`ContinueTarget`, `ContinueCharacteristic`, and `ContinueFame`, exactly one
-of which is set. The printed rule takes three forms across the thirteen
-charts — a fixed roll-low number, a characteristic, or the career's own
-tracked value — and the data models all three rather than flattening them
-into a number the code would have to reinterpret. That is the boundary
-working: the data stays a transcription, and the code branches on shape.
+**An answer is an index.** `ChoiceEvent.Chosen` is an integer into
+`ChoiceEvent.Options`. Reorder the options a choice point presents and every
+record already written now means something different — the same digit selecting
+a different thing. `POLICY.md`'s own 0.10.0 entry records this hazard having
+been hit.
 
-What is left over goes behind `careerMechanics`, an unexported interface
-with two methods, `begin` and `resolveTerm`. Thirteen careers implement it.
-The Scholar's publications and tenure, the Noble's exile, the Rogue's
-schemes and prison, the Craftsman's Masterpieces — all genuinely
-procedural, none expressible as a table.
+**A prompt is part of the record.** `choose` (`chargen/character.go:983`)
+writes the presented prompt, option list and citation into the event, and
+`compareEvents` compares events as marshalled JSON. So rewording a prompt
+invalidates every existing record. This is why `t5chargen help` carries the
+long explanation of what `--auto` does and does not do: help text is free to
+change, prompt text is not. If you find yourself wanting to explain something
+in a prompt, the answer is always the help text.
 
-Two optional interfaces extend that seam by type assertion rather than by
-widening it, and both are worth knowing about because they are the pattern
-you should follow rather than adding a method every career must stub.
-`characteristicRaiser` notifies a career when a characteristic award lands,
-and exists for exactly one rule: chart 11's "each increase in Soc during
-CharGen awards a Land Grant." Look at its guard — the notification fires
-only when the increase _actually landed_, because the p. 68 maximum can
-refuse one, and a refused increase must not award a grant. That
-three-line check is a rule, not defensive coding.
+**Decision aids are deliberately outside the record.** `Choice.Scores`,
+`Choice.ScoreLabel`, `Choice.Nth`, `Choice.Of` are engine-computed hints — the
+current characteristic values behind a controlling-characteristic pick, whether
+a career is entered automatically, whether an education row will cost a waiver
+attempt. They are shown to people and read by the policy, and they are _not_
+logged. That asymmetry is what lets a front end get better at helping without
+invalidating a single record. Keep new decision data on that side of the line.
 
-The boundary's honest weakness is that the data grew a validation language.
-`career/career.go` carries 29 `validate*` functions, and load-time
-validation across the eleven chart packages runs from 29 down to zero
-(`medal` validates nothing). Nothing in the gate requires a chart package
-to validate its chart, so how much checking a chart gets is a matter of
-who wrote it and when.
+The `Watcher` interface (`newLog`, `chargen/character.go`) is the same idea in
+the other direction: a Decider may opt in to seeing events as they are logged,
+which is how the interactive session shows a running "age 19 · UPP C469B7 · 2
+skills · Select Career" banner above each question. It is an observation
+channel, not a control channel, and nothing in the engine's behaviour may
+depend on whether anyone is watching.
 
-## Apparent duplication that is not
+## 4. Determinism, and the three versions a record stamps
 
-Two places will look like copy-paste until you find the distinguishing
-detail, and in both cases the detail is the whole point.
+One seeded PCG stream (`math/rand/v2`), created in `Generate` and threaded
+through everything as `*dice.Roller`. No wall-clock time. No unseeded
+randomness in the engine at all. The single deliberate exception is
+`randomSeed` in `cmd/t5chargen/main.go`, which draws a seed from OS entropy
+when `--seed` is absent — and the drawn seed is immediately recorded, so the
+exception never escapes the CLI boundary.
 
-`chargen/education.go` and `chargen/assignedschool.go` both put a character
-through schooling during a career. They are separate because of one clause:
-Later Education substitutes a process "for the entire term" (p. 59), while
-an assigned school — ANM School, Command College — is sited _inside_ a term
-the character is already spending. One costs a term and one does not. If
-you unify them you will silently start charging four years for a Command
-College year that chart 07 expressly places in Year 1 of a term the officer
-is serving anyway.
+A record carries three independent versions, and understanding what each
+entitles you to is most of understanding the compatibility story:
 
-`education/data/education.json`'s Graduation column looks like a reward and
-is not. Page 62 settles it: "a character with Edu=9 can function at the
-equivalent of a Masters in Educational situations even if he does not have
-the formal diploma." The Edu values _are_ credential-equivalents — 8
-Bachelors, 9 Masters, 10 Doctor, 12 Professor — which is why the chart
-writes `Edu=8` and not `Edu+8`. Schooling moves you _to_ the level its
-credential represents. Reading that as "at or above, award +1" turns
-graduation into a ratchet, and that single misreading was the root cause of
-a run of play-found bugs fixed across PRs #67–#75 (a character taking the
-Service Academy three times, and College after University). Interpretations
-I-98 through I-105 record the repair. If you touch chart C, re-read I-105
-first.
+- **`schema_version`** — the shape of the record. Bumped when the current
+  engine's output would be invalid against the previous schema, or vice versa.
+  Not bumped for a narrowing constraint that every existing record already
+  satisfies (`docs/COMPATIBILITY.md` records the `upp` pattern as the case that
+  settled the rule).
+- **`engine_version`** — this implementation of the _procedure_, explicitly
+  including **the order in which the seeded stream is consumed**. This is the
+  subtle one. Adding a roll, removing one, or reordering two rolls changes
+  every character from every seed, even if not one rule changed meaning.
+- **`policy_version`** — the auto-mode decision table. Deliberately _not_ part
+  of the provenance check, because replay reapplies recorded choices and never
+  consults the policy. This is also why fixtures stamped `"none"` (generated by
+  test deciders) replay at all.
 
-## The seams
+The rule that `engine_version` covers stream consumption order is not left to
+discipline. `chargen/character_test.go` around line 100 holds the gate: if a
+golden fixture's replay-relevant shape moves while `engine_version` and
+`policy_version` both stay put, the test fails with an explanation of why the
+bump is needed. That gate is the reason `task goldens` is safe to run — without
+it, regenerating fixtures would launder an unversioned engine change into a
+green build.
 
-**The rulebook** is the most important external dependency and it is not in
-the repo. Book 1, Print Edition 5.1, lives at `~/Documents/Traveller/T5/`
-and is not redistributed. `CLAUDE.md` forbids implementing from memory or
-from the 2008-preliminary extracts in that collection's `Archive/` — locate
-a topic there if you must, verify in Book 1. Every rule carries a page cite
-so a reader with the book can check the claim. This is the seam where
-correctness is ultimately decided, and it is the one your tests cannot
-reach.
+The second half of the same guarantee is `audit/testdata/corpus`: one record
+per released version, written by that version's own binary and never
+regenerated. `task goldens` names `./chargen ./render` explicitly so it cannot
+reach the corpus. A corpus a later engine can rewrite proves nothing about what
+an earlier engine wrote — that sentence is the whole justification for the
+directory's existence, and anyone "tidying" the test data will delete the only
+evidence the compatibility promise has.
 
-**The CLI/engine boundary** carries one deliberate exception to the
-determinism rule, marked as such: `randomSeed()` draws from OS entropy when
-the user supplies no seed. The rule is engine-scoped — the CLI may pick a
-seed, and the chosen seed is recorded, so replay stays exact.
+## 5. Two rules about the record that read as contradictory and are not
 
-**`chargen` and the front ends.** `render` and `interactive` both consume
-the record and neither can influence it. Every prompt and option a player
-sees originates in the engine, because that text is recorded content —
-which is why a gate reading only auto-generated fixtures still covers it.
-`interactive` does own a little player-facing text of its own, but only
-presentation-only annotations on options the engine supplied (`"  [needs a
-waiver]"`, `"  [automatic]"`, from the `Scores` a `Choice` carries). Those
-are never recorded, so they sit outside both the identifier gate and the
-version contract. Keep it that way: text that reaches a record belongs to
-the engine.
+`docs/COMPATIBILITY.md` promises that a record written by a released version
+**renders** under every later released version, and separately that **replay
+stays pinned** to the engine that wrote the record. Those look like opposite
+commitments about the same file, and the difference is what each operation
+claims.
 
-**The golden fixtures** are the seam between a change and its blast radius.
-Fourteen JSON records and eighteen Markdown files, regenerated only by
-`task goldens`, never edited by hand, excluded from prettier so a formatter
-cannot decide what a character record looks like. In a system where one
-clause change shifts every downstream event, the fixture diff is the only
-practical way to see what a change did. Read it; do not accept it.
+Rendering reads the record and formats it; it is a pure function of the record
+(`render` returns strings, never errors, and degrades to omitting a line rather
+than failing when an embedded table has moved). "Renders" means "can be read",
+not "produces identical bytes" — the sheet's layout is explicitly outside the
+promise. Replay re-runs the _generation procedure_, so it needs the procedure
+it is checking. A cross-engine replay could only ever report a difference that
+is not a defect.
 
-**`audit`** is the seam between the code and the documents, and it is the
-most unusual thing in the repo. It is a test-only package holding no rules,
-whose entire job is to fail the build when a document stops describing the
-code: that every test COVERAGE.md cites exists, that every ERRATA
-interpretation is cited, that every choice point has a POLICY.md rule, that
-no chart field is transcribed and then read by nothing, that no prompt
-shows a player an identifier where the chart prints a name, that the JSON
-Schema describes what the engine actually writes.
+`--ignore-provenance` is the escape hatch, and its doc comment is worth reading
+before you touch it: it exists for the one record that cannot be regenerated
+any other way — a record made by a player answering each choice, whose
+`policy_version` is `"none"`, so re-running from its seed under the auto policy
+produces a different character entirely. It reads and never writes. It is not
+an upgrade path, and there is deliberately no upgrade path.
 
-## The habit that explains the documents
+## 6. Charts are data; mechanics are Go
 
-The repo treats its own fallibility as a first-class artifact, and it does
-so _in the place where being wrong would recur_. This is the thread that
-ties the documents together, and once you see it you will stop reading them
-as ordinary documentation.
+`CLAUDE.md` states the boundary — "tables, thresholds, and labels are embedded
+data files; orchestration and career-specific mechanics are typed Go. No rules
+language" — and the boundary holds in practice. `career/data/*.json` is 120 KB
+of skill tables, target numbers, benefit rows, rank titles and citations. What
+it never contains is conditional logic: the keys are `kind`, `name`, `roll`,
+`money`, `benefit`, `target`, `mod`, `cite`. Where a career needs a rule that
+cannot be expressed as a table cell, it gets Go.
 
-The dead-data gate's doc comment names the field that escaped it and
-explains why name-matching cannot catch a field whose name collides with a
-read one. `replayDecider.Kind()` documents what replay does **not** prove:
-a record whose decider fields were altered replays clean, so replay attests
-that the recorded choices rebuild the recorded character, not that the
-named decider would make them. `MusterOutM2` is transcribed specifically so
-its disagreement with the career pages stays visible. `docs/MILESTONE-4.md`
-opens by saying the milestone was called complete once, was wrong, and is
-closed on the second attempt. The PRD carries a "Verified at
-implementation" amendment recording that the UWP alone does not suffice for
-homeworld skills. The README has a paragraph about its own earlier draft
-being wrong.
+The plug point is `careerMechanics` plus `careerRegistry` in
+`chargen/careerrun.go` — thirteen names mapped to constructors
+(`newCitizen`, `newScholar`, …), each returning a definition loaded from JSON
+and the Go type carrying that chart's peculiarities. `careerrun.go` itself is
+the generic term loop: controlling characteristic, skills, risk and reward,
+continue roll, aging, career change, muster out. It is the largest file in the
+repository (1,580 lines) and it is large for a defensible reason — the thirteen
+charts share one procedure with thirteen sets of exceptions, and the
+alternative to one long shared loop is thirteen slightly divergent copies of
+it.
 
-This is why the gates in `audit` exist at all. This repo was built in six
-days across 79 commits, and at that velocity a document that merely
-_claims_ to describe the code will drift within a week. So the claims that
-can be checked mechanically are checked, and the ones that cannot are
-written down as known limits.
+A career listed in `career.Available` with no registry entry is a wiring bug,
+not a user error, and the code says so. That distinction — internal
+inconsistency versus bad input — recurs throughout and is worth matching:
+`ErrUnknownCareer` and `ErrCareerUnavailable` are user errors that exit 2 via
+`isUsageError`; a missing registry entry is not.
 
-Notice the commit subjects while you are here: "a program is attempted
-once, which is what stops the Edu ratchet"; "do not offer a title the
-character has no way to hold"; "say what a row costs, not that it is out
-of reach". The log is written in the domain's voice, describing what
-changed for the character rather than what changed in the code. That is a
-convention worth continuing — it makes `git log` a rules changelog.
+The other ten packages (`benefit`, `calendar`, `career`, `education`, `ehex`,
+`fame`, `lifestage`, `medal`, `ship`, `skill`, `world`) are each one chart or
+vocabulary, all built on the same `go:embed` plus `sync.OnceValues` pattern
+with load-time validation. That uniformity is real and worth preserving; the
+package _boundaries_ between them are mostly incidental, chosen so each chart
+has an obvious home rather than because anything depends on the split.
 
-## What the system is shaped to accommodate
+## 7. Out-of-range values: one answer, not one per site
 
-**Another career.** This is the best-supported change. Add the definition
-to `career/data/`, implement `careerMechanics`, register it in
-`careerRegistry`, add a COVERAGE section in chart order. The gates will
-tell you what you forgot.
+`CLAUDE.md` fixes this and it is a genuine invariant rather than a style
+preference:
 
-**Another decider.** The interface is two methods. A weighted-random
-policy, or one reading answers from a file, drops in without touching the
-engine — provided it does not become a second thing that decides _what
-options exist_, which is the engine's job.
+- A value a **caller** supplies — a day, a dice count, an eHex digit, a UWP —
+  is **refused with an error**. Never repaired. `Options.Homeworld` is the
+  clearest case: only the all-zero struct falls back to the default; a
+  partly-filled homeworld is validated and rejected.
+- A value the **engine derives** **clamps to the rule's own floor and emits a
+  consequence saying so.** The record is the product; a clamp nobody can see is
+  worse than one they can.
+- Nothing exported panics.
 
-**Another interpretation.** Number it in ERRATA, cite it in COVERAGE, cite
-it at the implementation site. The gates enforce two of the three.
+The reason the split falls where it does: a caller can be told, and telling
+them is cheaper than guessing. The engine, mid-lifepath, has nobody to tell and
+no defensible way to abort — so it does the arithmetic the rule implies and
+leaves an event behind for the auditor.
 
-**Another output format.** `render` reads the finished record and has no
-path back into the engine.
+## 8. Documents are artifacts, and `audit/` is their compiler
 
-What would require rethinking something fundamental:
+This is the most unusual thing about the repository and the easiest to
+misread as over-engineering.
 
-**Non-human characters** are excluded by the PRD, and the exclusion runs
-deeper than a flag. Characteristic C6 is Soc for humans and Caste for some
-sophonts; the Scholar's chart branches on C5=Tra; several deferred rules
-are deferred _because_ they are non-human. Adding sophonts means the
-characteristic set stops being fixed, which reaches the UPP, the eHex
-encoding, every career's controlling characteristics, and chart C.
+The authority for this system is a printed book that cannot be imported,
+executed, or diffed. No test can check the code against Book 1. So the project
+does the next thing available: it makes _claims about the book_ into structured
+documents, and then gates the documents mechanically.
 
-**Concurrency inside a generation** contradicts the sequential-stream
-requirement. Batch mode parallelises across characters, each with its own
-`Roller`, which is the only shape that works.
+- `docs/ERRATA.md` — 3,130 lines of numbered interpretations (I-1 … I-112),
+  each quoting the printed sentence, on a named page, with the reading taken.
+- `docs/COVERAGE.md` — every rule, with a status drawn from a closed
+  six-word vocabulary (`covered`, `interpretation`, `accepted exception`,
+  `out of scope`, `unreachable`, `play-time rule`) and the test or gate that
+  holds it.
+- `docs/POLICY.md` — one rule per choice point, versioned.
 
-**Making the engine incremental** — pausing a lifepath and resuming it —
-would break the assumption that `Generate` runs start to finish from a
-seed. Replay works by re-running everything.
+`audit/` is test-only, holds no rules, and is the machinery that keeps those
+honest: every test COVERAGE.md cites exists; every ERRATA interpretation is
+cited from code; every choice point has a POLICY rule; no chart field is
+transcribed and then read by nothing; no prompt shows an identifier where the
+chart prints a name; `character.schema.json` describes what the engine actually
+writes; the compatibility corpus still replays; every ERRATA quotation is on
+the page it names (`task citations`, which needs the private PDF and skips
+rather than fails without it).
 
-If a new requirement arrives, the maintainer who understands the theory
-asks first: _does this add a decision?_ If yes, it needs a `ChoiceID`, a
-POLICY.md rule, and a version bump, and it will move every fixture. The
-maintainer who does not understand the theory adds a parameter, reads a
-chart value directly instead of through its package, or "simplifies" one of
-the optional interfaces into a required method — and the failure will
-surface as a fixture diff they cannot explain.
+Understand `audit/` as a compiler for the documents and its size stops looking
+disproportionate. Delete a gate and the corresponding document immediately
+begins to rot, because nothing else can notice.
 
-## Uncertainties, and where the theory is thin
+Three directories, three kinds of thing, and the split is principled: `docs/`
+holds documents, `audit/` holds the code that checks them, the root holds what
+convention puts there plus the two whole-system documents (`THEORY.md`,
+`WALKTHROUGH.md`).
 
-Everything below is inference from code, tests, comments, and history
-unless marked otherwise. Where a claim rests on something the author said
-rather than on the artifact, I say so.
+## 9. The seams, and which are principled
 
-**COVERAGE's Status column has drifted, and I am confident about this
-one.** Five rows still say `deferred (M3)` for rules that shipped in
-milestones 3 and 4 — Trade/Art/Science cells, generic Risk/Reward, To Begin
-throws with retry, Rank/Commission/Promotion, and Starship Skill cells.
-Verified against the code. The seven rows
-marked `deferred (M6)` are correct. What makes this worth flagging in a
-theory document rather than only as a bug is _why it was invisible_: line
-220 and line 343 carry textually identical claims — "(errors if selected)"
-— and only one is true. `EntryCapital` does still error, deliberately;
-`EntryStarship` has not since `groupCells` gained it. When the true and the
-false claim are the same sentence, review cannot distinguish them. Treat
-COVERAGE's Status column as reviewed rather than gated, and verify a
-deferral against the code before planning work from it.
+**CLI ↔ engine** (`cmd/t5chargen/main.go` ↔ `chargen.Generate`). Principled.
+The engine is the single validator; the CLI's job is to decide whether a
+returned error was the user's fault (`isUsageError` → exit 2) or the
+operation's (exit 1). The comment on `isUsageError` names the one case that
+does not fit cleanly — a `--current-year` the character has outlived is only
+knowable once the age is, so it surfaces from the engine and is still the
+caller's flag that was wrong.
 
-**"The event log is the primary artifact" is nearly but not entirely
-true.** `compareRecords` exists because derived values — final credits, the
-skill list, Fame — appear in no event, so the log agreeing is not
-sufficient for replay. The record is therefore not a pure projection of the
-log. I believe the intended reading is that the log is primary _for the
-procedure_ and the record is primary _for the result_, but I am inferring
-that from the shape of the comparison rather than from a stated rule.
+**Engine ↔ front end** (`Decider`, `Watcher`). Principled, and the strongest
+boundary in the system. `interactive/` is a line-based front end written so it
+is fully testable with a scripted reader and no terminal; a fancier terminal UI
+would be a view over it, not a replacement for it, because what the engine
+consumes is indices into option lists.
 
-**There is no codebase-wide convention for out-of-range values**, and I
-cannot tell whether that is an oversight or a decision never written down.
-Twelve sites answer the question at least six different ways, four of them
-by panicking, and `chargen/fame.go:210` clamps a negative where `:232` does
-not — a disagreement inside one file, which reads more like accretion than
-intent. The convention that settles it is now recorded in `CLAUDE.md`
-under "Values outside the rules' range"; the sites that predate it have not
-all been brought into line.
+**Record ↔ render.** Principled: `render` is a pure function of the record, and
+that is what makes the sheet and the transcript trustworthy as evidence.
 
-**The code-to-data direction of the skill vocabulary is unguarded**, and
-this looks like a genuine gap rather than a decision. Data-to-code is
-thorough — every transcribed skill name is validated against chart MS at
-load. But five Go constants name chart MS group headings
-(`skill/skill.go:176-180`) and `skill.validate()` checks only the list
-length and the cite, so a renamed group in the data still loads clean.
-`awardNewTrade` then reads the resulting empty list as chart 01's "all
-trades already held" and silently drops the benefit.
+**Record ↔ replay.** Principled, and stated as a contract in the PRD.
 
-**The `Err()` accessors on `skill` and `medal` are half a pattern.**
-They exist because those two packages return bare values rather than
-`(value, error)`, so a load failure has no return path. `chargen.checkSharedData`
-calls `skill.Err()`; nothing calls `medal.Err()`. My reading is that
-`checkSharedData` is the right idea applied to two charts out of eleven and
-never finished — but it is equally consistent with a deliberate decision
-that only the shared registries need an early check, and I cannot tell
-which from the code.
+**`chargen` internal structure.** Historical. Thirty-four non-test files in one
+package, ~25,000 lines, with the term loop, the thirteen careers, education,
+muster out, fame, aging, the policy and replay all sharing a package namespace.
+Everything in it is unexported-to-the-world by Go's rules, so the package
+boundary is doing real work; the _file_ boundaries within it are convention.
+This is the place where the theory is thinnest — see §11.
 
-**Milestone 6 is genuinely open, not merely unimplemented** — and this is
-the author's stated position, not my reading of the code. Page 134's
-container-skill rules — Knowledge-Knowledge-Skill progression, the
-Knowledge-6 maximum, Career and World knowledges — need design decisions
-before code. Implementing the container rule adds a choice point to every
-container award, which needs a POLICY.md rule for what auto picks; "terms
-lived on a world" is an open interpretation; and Musician reads as a
-container by pp. 134 and 157 but is not one in chart MS. Do not treat those
-seven COVERAGE rows as a to-do list.
+**`interactive` ↔ `chargen` label coupling.** Nearly principled, and honestly
+flagged in the code itself. The front end reads two `ScoreLabel` string
+constants (`ScoreQualifies`, `ScoreAutomatic`) to decide how to render a score
+as words rather than a digit. The doc comment on `boolean` names the cost — a
+coupling to two strings — and names the trigger for revisiting it: a third such
+label.
 
-**On the audit backlog:** a systematic package-by-package audit produced
-46 findings, kept in a local `.issues/` directory that is ignored globally
-and so is not part of this repository. They were verified when filed; their
-suggested fixes were not, and two were later proven wrong. If you have that
-directory, weight the findings and re-derive the fixes. If you do not, the
-uncertainties above are the part worth keeping.
+## 10. What the system is shaped to accommodate
+
+Cheap, because the design anticipated them:
+
+- **A new career.** Add the chart JSON, a constructor, a registry entry, a
+  `careerMechanics` implementation for its peculiarities, COVERAGE rows, ERRATA
+  entries for its ambiguities, POLICY rules for its choice points. Long, but
+  entirely on rails.
+- **A new choice point.** A `ChoiceID`, a POLICY rule (gated — a choice point
+  without one fails the audit), and a case in the policy's `decide`.
+- **A new consequence kind.** A constant, an emit site, a line in the
+  transcript renderer.
+- **A new interpretation.** An ERRATA entry; if it is a _Deviation_ rather than
+  a reading, also a constant in `chargen/deviation.go`, membership in
+  `Deviations`, a stamping site, and a case in `TestDeviationsAreStamped`. The
+  gate holds the ERRATA headings and the Go constants equal in both directions.
+- **A new front end.** Implement `Decider`; optionally `Watcher`.
+
+Expensive, because it contradicts something structural:
+
+- **Non-human characters.** `Characteristics` is six named fields and `UPP()`
+  formats exactly six eHex digits. The PRD's non-goals exclude sophont variants
+  precisely because they are not a table change.
+- **An upgrade path for old records.** Deliberately absent, and the absence is
+  the contract. Anyone who "fixes" replay to accept mismatched engines has not
+  removed a limitation; they have removed the meaning of replay.
+- **Concurrency, or generating several characters in one engine instance.** One
+  seeded stream, threaded as a pointer, consumed in a strict order that is
+  itself versioned. `batch` runs generations sequentially and derives per-record
+  seeds; that is the supported shape.
+- **Undo in interactive generation.** The log is append-only and the stream has
+  been consumed. Abandoning is the only reverse gear, and by design it leaves
+  no file at all.
+- **Anything time-dependent.** No wall clock anywhere. `--current-year` is an
+  input for exactly this reason.
+
+Where a maintainer who _doesn't_ hold the theory does damage: reordering a
+choice's options to be alphabetical; rewording a prompt to be clearer;
+regenerating the compatibility corpus so the diff goes away; adding a rule
+effect without an event; adding a convenience `rand` call; changing a chart
+label because it reads oddly. Every one of those is a small, well-intentioned
+change that silently invalidates records already in users' hands.
+
+## 11. Uncertainties, and where I am inferring
+
+Marked honestly, because the difference between a theory and a design document
+is that a theory says which of its claims to trust.
+
+**Inferred from code alone, not from a stated decision.**
+
+- That the file split inside `chargen` is convention rather than structure. No
+  document says so; I am reading it off the fact that the files import each
+  other freely and share unexported helpers across boundaries. If there is an
+  intended internal layering, it is not written down and is not enforced.
+- That `careerrun.go`'s size is deliberate rather than deferred. The
+  alternative reading — that it was going to be split and never was — is
+  consistent with the evidence. The doc comments read as deliberate, and the
+  shared-loop-plus-exceptions design is coherent, so I lean toward deliberate;
+  I could be wrong.
+- Not inferred, but worth flagging as unenforced: the `Watcher` seam's
+  observation-only intent _is_ stated — "Watching is not deciding. A Watcher
+  cannot change anything" (`chargen/event.go`, on the `Watcher` interface) —
+  and nothing enforces it. A Decider that also watched could let observed
+  events change its answers. It would be legal, deterministic, replayable, and
+  squarely against the stated intent.
+
+**Where the theory is thinnest.**
+
+- The boundary between "a reading" and "a deviation" in ERRATA. 112
+  interpretations, but only two are classified as Deviations and stamped into
+  records. The classification is gated for consistency, but what makes an entry
+  one rather than the other is a judgement the documents describe more than
+  they define. A new ambiguity does not obviously sort itself.
+- `docs/BETA_READINESS.md` is the plan of record for the phase this project is
+  currently in, and it is the one document in `docs/` that has drifted: its
+  numbered sections each open with a **Done** annotation and then continue with
+  the original recommendation in unmarked present-tense imperative, so the same
+  section both reports work finished and instructs that it be done. Filed as
+  `beta-readiness-recommendations-contradict-their-own-done-annotations`.
+- Nothing enforces that a _new_ rule effect emits an event. The gates check
+  that documented rules have tests and that documented interpretations are
+  cited; the "every effect emits an event" rule lives in `CLAUDE.md` and in
+  review discipline. Replay would catch a _non-deterministic_ effect, but a
+  deterministic effect with no event replays perfectly and is simply invisible
+  in the transcript. This is the invariant with the widest gap between how
+  load-bearing it is and how much machinery protects it.
+
+**Where I looked and found no tension**, which is worth recording so the next
+reader does not re-do it: the data/logic boundary holds (no conditionals in
+`career/data`); `engine_version` bumps are gated; the compat corpus is
+protected from `task goldens`; the rules collection `CLAUDE.md` names
+(`~/Documents/Traveller/T5/`) exists; the milestone documents are all banner-
+labelled as historical snapshots; the CLI's error paths are specific, correctly
+coded (2 for usage, 1 for operational), and `--career` accepts lowercase names
+despite the error message listing them capitalised. The repository is in
+markedly better shape than a first review usually finds.
+
+## Index
+
+| #   | Severity | Issue                                                                  | Primary location                             |
+| --- | -------- | ---------------------------------------------------------------------- | -------------------------------------------- |
+| 1   | medium   | `beta-readiness-recommendations-contradict-their-own-done-annotations` | `docs/BETA_READINESS.md:56,68,76,86,103,125` |
+
+**Total: 1 issue (0 critical, 0 high, 1 medium, 0 low)**
