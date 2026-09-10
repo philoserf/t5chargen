@@ -20,10 +20,18 @@ conventions, the auto-policy requirements, and milestones.
   orchestration and career-specific mechanics are typed Go. No rules language.
 - **Determinism**: no wall-clock time or unseeded randomness in the engine. All rolls come
   from the seeded stream (Go `math/rand/v2` PCG); every choice goes through the `Decider`
-  interface. Changing the RNG or default policy is a version bump.
+  interface. Changing the RNG or default policy is a version bump. The provenance constants
+  — `SchemaVersion`, `Ruleset`, `EngineVersion`, `PolicyVersion`, `RNGAlgorithm` — live in
+  `chargen/character.go` and are hand-bumped; `EngineVersion` covers the seeded stream's
+  consumption order, not just the generation procedure.
 - **Event log first**: every throw, choice, and consequence emits an event (see PRD FR10).
   New mechanics are not done until their events render in the history transcript and replay
   verifies them.
+- **Prompts and option order are part of the record**: a choice event stores its prompt and
+  its option list, and replay compares every event as JSON. Rewording a prompt, or
+  reordering options, invalidates records already written — and since the recorded answer is
+  an index into that list, a reorder silently changes what past answers meant. Explanatory
+  text belongs in `t5chargen help`, never in a prompt.
 - **Values outside the rules' range**: one answer, not one per site. A value a _caller_
   supplies — a day, a dice count, an eHex value — is refused with an error. A value the
   _engine derives_ clamps to the rule's own floor and emits a consequence saying so: the
@@ -38,10 +46,29 @@ conventions, the auto-policy requirements, and milestones.
 ## Commands
 
 ```sh
-task          # check + test (the gate; also runs on pre-push via task hooks)
-task fmt      # gofumpt for Go, prettier for JSON and Markdown
-task test     # go test -race ./...
+task           # check + test (the gate; also runs on pre-push via task hooks)
+task fmt       # gofumpt for Go, prettier for JSON and Markdown
+task test      # go test -race ./...
+task goldens   # rewrite the golden fixtures, then run the full gate
+task fuzz      # each fuzz target's engine, 30s each (FUZZTIME=2m to extend)
+task citations # hold ERRATA.md's quotations to the pages they cite
+task hooks     # point core.hooksPath at .githooks (pre-push runs the gate)
+task deps      # install the toolchain from the Brewfile
+
+go test -run TestName ./chargen             # one test
+go test -race -run 'TestName/subtest' ./... # one subtest
 ```
+
+`fuzz` and `citations` are deliberately outside the gate. The gate runs
+each fuzz target's seed corpus, which is what keeps a target honest as
+the code moves; the fuzzing engine itself is a search, and a search with
+a time limit belongs to whoever chose the limit. `citations` needs the
+private Book 1 PDF (`T5_RULES_PDF`), which CI does not have and which the
+test skips rather than fails on when absent.
+
+`task check` runs `go fix ./...` and then fails if `git diff` sees any
+change to a `*.go` file. It cannot tell a modernization from work in
+progress, so stage or commit Go edits before running the gate.
 
 `main` is protected on GitHub: pushes to it are rejected, history is
 linear, force-pushes and deletion are blocked, and the CI check
@@ -73,6 +100,12 @@ rewrites the fixtures and then runs the full gate. A fixture is only
 allowed to move when a change was meant to move it, so read the diff
 before committing it.
 
+`audit/testdata/corpus` is a third kind of fixture, under the opposite
+rule: one record per released version, written by that version's own
+binary and never regenerated. `task goldens` names `./chargen ./render`
+explicitly so that it cannot reach the corpus — a corpus a later engine
+can rewrite proves nothing about what an earlier engine wrote.
+
 ## Layout
 
 - `cmd/t5chargen` — CLI (subcommands: new, batch, render, replay).
@@ -80,6 +113,12 @@ before committing it.
 - `chargen` — engine; consumes a `Decider` for all choice points.
 - `career` — data-driven career definitions.
 - `render` — character sheet and history transcript output.
+
+Careers plug into the shared term loop through the unexported
+`careerMechanics` interface and `careerRegistry` in `chargen/careerrun.go`;
+a career in `career.Available` with no registry entry is a wiring bug, not
+a user error. The module is standard-library only on Go 1.27 — `depguard`
+allows `$gostd` and this module and nothing else.
 
 The rest are one embedded chart or vocabulary each, loaded through the same
 `go:embed` plus `sync.OnceValues` pattern with load-time validation:
@@ -100,5 +139,9 @@ character.schema.json describes what the engine actually writes.
 Three folders, three kinds of thing. `docs` holds documents and nothing
 else: the spec, the living COVERAGE/ERRATA/POLICY, the milestone histories
 and the JSON Schema with its two examples. `audit` holds the code that
-checks them. The root holds only what convention puts there — README,
-LICENSE, this file, and the build configuration.
+checks them. The root holds what convention puts there — README, LICENSE,
+this file, and the build configuration — plus the two documents about the
+code as a whole: `THEORY.md`, the design rationale, which is what to read
+before changing anything structural, and `WALKTHROUGH.md`, a showboat
+document whose every fenced block is re-executed and diffed by
+`uvx showboat verify`, which is why prettier ignores it.

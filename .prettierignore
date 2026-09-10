@@ -15,7 +15,7 @@ audit/testdata/corpus/
 # Showboat document. Every fenced block is re-executed and diffed against
 # its captured output by `uvx showboat verify`, so reformatting the file
 # breaks the verification it exists to provide.
-walkthrough.md
+WALKTHROUGH.md
 
 # Local scratch. `.issues` is ignored globally (~/.gitignore), so these are
 # working notes rather than source; formatting them only makes `task` fail
