@@ -20,8 +20,6 @@ coverage.html
 # while working on this repo; the file itself is not redistributed.
 *.pdf
 
-# Local worktrees for spike / experimental work
-/.worktrees/
 
 # brew bundle lockfile (regenerated locally)
 Brewfile.lock.json
