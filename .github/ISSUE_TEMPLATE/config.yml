@@ -1,1 +1,8 @@
 blank_issues_enabled: true
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/philoserf/.github/blob/main/SECURITY.md
+    about: Report vulnerabilities privately by email rather than in a public issue.
+  - name: Contributing guidelines
+    url: https://github.com/philoserf/.github/blob/main/CONTRIBUTING.md
+    about: Conventions for issues, commits, and pull requests.

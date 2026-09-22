@@ -38,18 +38,24 @@ jobs:
         with:
           go-version-file: go.mod
 
-      - uses: actions/setup-node@v7
+      # The toolchain floats, as in every Go repo in the workspace: a tool
+      # that moves and turns the gate red on untouched code is the signal
+      # working. Answer the finding; do not pin the tool to silence it.
+      #
+      # golangci-lint comes from its official action, which installs the
+      # released binary -- `go install` is not a supported path for it and
+      # can build something that disagrees with the release. install-only,
+      # because CI runs exactly `task`, and `task lint` is what invokes it.
+      - uses: golangci/golangci-lint-action@v9
         with:
-          node-version: "22"
+          version: latest
+          install-only: true
 
-      # The same pinned set CI installs, for the same reason: the version
-      # of a formatter or linter is part of what the gate means.
-      - name: Install the toolchain
+      - name: Install the rest of the toolchain
         run: |
-          go install github.com/go-task/task/v3/cmd/task@v3.53.1
-          go install mvdan.cc/gofumpt@v0.11.0
-          go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.13.1
-          npm install --global prettier@3.9.6
+          go install github.com/go-task/task/v3/cmd/task@latest
+          go install mvdan.cc/gofumpt@latest
+          npm install --global prettier
 
       # The tagged commit passed the gate as a branch, but a tag can be
       # pushed at anything. Prove it again on what was actually tagged.
