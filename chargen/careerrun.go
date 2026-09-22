@@ -544,7 +544,7 @@ func (r *careerRun) serveTerm(number int) (termEnd, error) {
 		return termDied, r.diedInTerm(number, cc, outcome.endCause)
 	}
 
-	if err := r.termEligibilities(outcome); err != nil {
+	if err = r.termEligibilities(outcome); err != nil {
 		return termCareerEnded, err
 	}
 

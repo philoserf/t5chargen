@@ -131,7 +131,7 @@ func TestHighRollsHigh(t *testing.T) {
 	}
 
 	r = dice.New(1)
-	if got := r.High(2, 8, 0); got.Success {
+	if got = r.High(2, 8, 0); got.Success {
 		t.Error("7 against a target of 8 succeeded")
 	}
 

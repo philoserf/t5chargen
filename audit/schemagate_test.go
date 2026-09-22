@@ -124,7 +124,7 @@ func canonical(t *testing.T, path string) string {
 	}
 
 	var doc any
-	if err := json.Unmarshal(data, &doc); err != nil {
+	if err = json.Unmarshal(data, &doc); err != nil {
 		t.Fatal(err)
 	}
 
@@ -167,7 +167,7 @@ func TestAKeywordBesideARefStillApplies(t *testing.T) {
 	}
 
 	var schema map[string]any
-	if err := json.Unmarshal(data, &schema); err != nil {
+	if err = json.Unmarshal(data, &schema); err != nil {
 		t.Fatal(err)
 	}
 
@@ -344,7 +344,7 @@ func checkRecord(t *testing.T, record map[string]any) []string {
 	}
 
 	var parsed any
-	if err := json.Unmarshal(encoded, &parsed); err != nil {
+	if err = json.Unmarshal(encoded, &parsed); err != nil {
 		t.Fatal(err)
 	}
 

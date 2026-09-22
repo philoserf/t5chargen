@@ -376,9 +376,9 @@ func emitBatch(characters []chargen.Character, out string, force bool, stdout, s
 	for _, character := range characters {
 		// One record per line, so the stream stays greppable and a
 		// consumer can read it a character at a time.
-		line, err := json.Marshal(character)
-		if err != nil {
-			fmt.Fprintf(stderr, "t5chargen batch: encoding seed %d: %v\n", character.RNG.Seed, err)
+		line, encodeErr := json.Marshal(character)
+		if encodeErr != nil {
+			fmt.Fprintf(stderr, "t5chargen batch: encoding seed %d: %v\n", character.RNG.Seed, encodeErr)
 
 			return exitError
 		}

@@ -46,9 +46,10 @@ conventions, the auto-policy requirements, and milestones.
 ## Commands
 
 ```sh
-task           # check + test (the gate; also runs on pre-push via task hooks)
-task fmt       # gofumpt for Go, prettier for JSON and Markdown
-task test      # go test -race ./...
+task           # check + test + ratchet (the gate; also runs on pre-push via task hooks)
+task fmt       # golangci-lint fmt (gofumpt + goimports) for Go, prettier for JSON and Markdown
+task test      # go test -race with a -coverpkg coverage profile
+task ratchet:update  # record uncovered-statement counts after a deliberate coverage change
 task goldens   # rewrite the golden fixtures, then run the full gate
 task fuzz      # each fuzz target's engine, 30s each (FUZZTIME=2m to extend)
 task citations # hold ERRATA.md's quotations to the pages they cite

@@ -25,3 +25,4 @@ coverage.html
 
 # brew bundle lockfile (regenerated locally)
 Brewfile.lock.json
+coverage.counts.out

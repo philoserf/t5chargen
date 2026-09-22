@@ -68,9 +68,9 @@ func computeFame(c *Character, roller *dice.Roller, log *Log, decider Decider) e
 			continue
 		}
 
-		def, err := career.ByName(record.Career)
-		if err != nil {
-			return fmt.Errorf("fame: %w", err)
+		def, lookupErr := career.ByName(record.Career)
+		if lookupErr != nil {
+			return fmt.Errorf("fame: %w", lookupErr)
 		}
 
 		earned = append(earned, careerFame(table, record, def, c)...)
