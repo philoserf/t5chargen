@@ -1,0 +1,16 @@
+# The gate's toolchain floats; the actions do not, so Dependabot is what
+# reports them moving. No gomod entry: this module has no dependencies.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 3
+    groups:
+      actions:
+        patterns: ["*"]
+    assignees: [philoserf]
+    commit-message:
+      prefix: chore
