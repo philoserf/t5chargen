@@ -177,7 +177,6 @@ tasks:
           {{.UNCOVERED}}
         } > {{.RATCHET}}
 
-
   # Deliberately not part of `task`. The gate runs each fuzz target's seed
   # corpus, which costs microseconds and is what keeps a target honest as
   # the code moves; the fuzzing engine itself is a search, and a search
