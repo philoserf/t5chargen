@@ -36,9 +36,10 @@ Run in this order. Each step can invalidate the one before it.
    fixtures and then runs the gate. **Read the diff** — a fixture may
    only move when a change was meant to move it, and predicting what
    should move before running this is how a surprise gets noticed.
-2. **`task`** — the gate: `go fix` cleanliness, gofumpt, prettier, vet,
-   golangci-lint, and the tests under `-race`. This is what CI runs, so
-   green means the same thing in both places.
+2. **`task`** — the gate: `go fix` cleanliness, `go mod tidy -diff`,
+   prettier, vet, golangci-lint (formatting included), the tests under
+   `-race`, and the coverage ratchet. This is what CI runs, so green means
+   the same thing in both places.
 3. **`task citations`** — holds every ERRATA.md quotation to the page it
    cites, against Book 1 Print Edition 5.1. It needs the private PDF and
    skips without it, which is why CI cannot run it and a maintainer must.

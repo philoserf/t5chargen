@@ -53,7 +53,6 @@ jobs:
       - name: Install the rest of the toolchain
         run: |
           go install github.com/go-task/task/v3/cmd/task@latest
-          go install mvdan.cc/gofumpt@latest
           npm install --global prettier
 
       - name: task

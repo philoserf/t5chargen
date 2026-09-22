@@ -1,20 +1,25 @@
 version: "2"
 
-# Note: gofumpt is enforced by the `task check` recipe via the gofumpt CLI,
-# not by golangci-lint's bundled gofumpt (the CLI is the single source of
-# truth for formatting); golangci-lint stays focused on lint checks.
-
-run:
-  timeout: 5m
+# gofumpt and goimports run as golangci-lint formatters (below), so there is
+# one definition of formatted and `task lint` reports it.
 
 linters:
   default: all
   settings:
     errcheck:
+      check-type-assertions: true
       exclude-functions: # CLI diagnostics to injected writers; a failed usage/error print is not actionable
         - fmt.Fprint
         - fmt.Fprintf
         - fmt.Fprintln
+    govet:
+      enable-all: true
+      disable:
+        - fieldalignment
+    nolintlint:
+      require-explanation: true
+      require-specific: true
+      allow-unused: false
     depguard:
       rules:
         main:
@@ -26,6 +31,10 @@ linters:
         rules:
           json: snake # the PRD's JSON conventions use snake_case (schema_version, policy_version, ...)
   disable:
+    # Anything disabled beyond the superseded pairs carries a measured finding
+    # count and a reason, as in the other Go repos: count them, read them, and
+    # write down why they are wrong here before adding another entry.
+    #
     # Superseded in place. `default: all` turns on a deprecated linter and
     # its replacement together, so each pair runs twice and warns about
     # itself; the old one is switched off and the new one left on. Both
@@ -35,10 +44,23 @@ linters:
     - wsl # replaced by wsl_v5 (deprecated since golangci-lint v2.2.0)
     - gomodguard # replaced by gomodguard_v2 (deprecated since v2.12.0)
     - exhaustruct # T5 chart data and partial struct inits in tests are intentional
-    - exhaustruct_v5 # same rationale as exhaustruct: partial event/record inits are the norm
-    - mnd # the codebase transcribes Book 1 charts (magic numbers by nature)
-    - goconst # domain vocabulary (career/skill names) repeated across files, not consts
-    - varnamelen # terse notation vars (C1..C6, xD) mirror the book's own notation
-    - gochecknoglobals # embedded chart data are intentional package-level vars
-    - noinlineerr # `if err := f(); err != nil` is standard Go
-    - paralleltest # ~0 benefit on fast deterministic tests; huge manual churn
+    - exhaustruct_v5 # 597 findings (measured 2026-09-22); same rationale as exhaustruct: partial event/record inits are the norm
+    - mnd # 76 findings (measured 2026-09-22); the codebase transcribes Book 1 charts (magic numbers by nature)
+    - goconst # 207 findings (measured 2026-09-22); domain vocabulary (career/skill names) repeated across files, not consts
+    - varnamelen # 598 findings (measured 2026-09-22); terse notation vars (C1..C6, xD) mirror the book's own notation
+    - gochecknoglobals # 74 findings (measured 2026-09-22); embedded chart data are intentional package-level vars
+    - noinlineerr # 258 findings (measured 2026-09-22); `if err := f(); err != nil` is standard Go
+    - paralleltest # 484 findings (measured 2026-09-22); ~0 benefit on fast deterministic tests; huge manual churn
+
+formatters:
+  enable:
+    - gofumpt
+    - goimports
+  settings:
+    gofumpt:
+      extra:
+        group-params: true
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0

@@ -34,7 +34,7 @@ func goldenJSON(t *testing.T, c chargen.Character, file string) {
 	if *update {
 		requireVersionBump(t, file, got)
 
-		if err := os.WriteFile(file, got, 0o600); err != nil {
+		if err = os.WriteFile(file, got, 0o600); err != nil {
 			t.Fatal(err)
 		}
 

@@ -87,9 +87,9 @@ func runEducation(roller *dice.Roller, log *Log, decider Decider, character *Cha
 	}
 
 	if short {
-		waived, err := prerequisiteWaived(log, decider, roller, character, program)
-		if err != nil {
-			return err
+		waived, waiveErr := prerequisiteWaived(log, decider, roller, character, program)
+		if waiveErr != nil {
+			return waiveErr
 		}
 
 		if !waived {
@@ -365,7 +365,7 @@ func (r *eduRun) apply() (bool, error) {
 		return true, nil
 	}
 
-	if err := r.elapseYear(seq); err != nil {
+	if err = r.elapseYear(seq); err != nil {
 		return false, err
 	}
 
@@ -444,7 +444,7 @@ func (r *eduRun) passFailYear() (bool, bool, error) {
 	seq := r.log.Throw(throw, nil, "Book 1 p. 60 chart C ("+r.program.Name+" Pass/Fail Check "+r.checkName+")")
 	r.lastThrowSeq = seq
 
-	if err := r.elapseYear(seq); err != nil {
+	if err = r.elapseYear(seq); err != nil {
 		return false, false, err
 	}
 
