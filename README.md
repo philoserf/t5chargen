@@ -1,5 +1,7 @@
 # t5chargen
 
+![Status: Alpha](https://img.shields.io/badge/Status-Alpha-orange.svg)
+
 Generate Traveller5 characters from the command line — the full human
 lifepath, rolled by the book, with every throw and choice recorded so the
 result can be audited and reproduced exactly.
