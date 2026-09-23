@@ -150,6 +150,5 @@ fixture, `chargen/testdata/career_scout.json`). `audit` holds the code that
 checks them. The root holds what convention puts there — README, LICENSE,
 this file, and the build configuration — plus the two documents about the
 code as a whole: `THEORY.md`, the design rationale, which is what to read
-before changing anything structural, and `WALKTHROUGH.md`, a showboat
-document whose every fenced block is re-executed and diffed by
-`uvx showboat verify`, which is why prettier ignores it.
+before changing anything structural, and `WALKTHROUGH.md`, the code tour, which
+prettier ignores.
