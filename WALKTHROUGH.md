@@ -90,7 +90,7 @@ seed, and the seed it picks is written into the record, so replay stays
 exact.
 
 ```bash
-sed -n '108,123p' cmd/t5chargen/main.go
+sed -n '111,126p' cmd/t5chargen/main.go
 ```
 
 ```output
@@ -121,7 +121,7 @@ else that is the caller's fault exits 2; an operation that ran and failed
 exits 1.
 
 ```bash
-sed -n '128,165p' cmd/t5chargen/main.go
+sed -n '131,168p' cmd/t5chargen/main.go
 ```
 
 ```output
@@ -179,7 +179,7 @@ session leaves no file behind: it reports and returns before anything is
 written.
 
 ```bash
-sed -n '198,229p' cmd/t5chargen/main.go
+sed -n '251,282p' cmd/t5chargen/main.go
 ```
 
 ```output
@@ -481,7 +481,7 @@ also why `Prompt` is recorded and why explanatory text belongs in
 `t5chargen help` rather than in a prompt.
 
 ```bash
-sed -n '983,1006p' chargen/character.go
+sed -n '1007,1030p' chargen/character.go
 ```
 
 ```output
