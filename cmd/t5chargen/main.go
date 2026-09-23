@@ -12,6 +12,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"io/fs"
 	"os"
 	"path/filepath"
 	"strings"
@@ -86,8 +87,9 @@ troubleshooting:
       released version. Install with
       ` + "`go install github.com/philoserf/t5chargen/cmd/t5chargen@<tag>`" + `.
   a file will not be overwritten
-      Nothing is overwritten without --force, so a mistyped -o cannot
-      cost you a character.
+      Nothing is overwritten without --force, and -o is checked before
+      the first question, so a mistyped -o is refused before it can cost
+      you a character.
 
 report a problem:
   https://github.com/philoserf/t5chargen/issues
@@ -195,6 +197,12 @@ func runNew(args []string, seedFn func() (uint64, error), stdin io.Reader, stdou
 
 	if code := common.check("new", flags, stderr); code != exitOK {
 		return code
+	}
+
+	if err := checkOutput(*common.out, *common.force); err != nil {
+		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
+
+		return exitError
 	}
 
 	if err := resolveSeed(flags, common.seed, seedFn); err != nil {
@@ -758,7 +766,57 @@ func writeFile(path string, data []byte, force bool) error {
 	}
 
 	if err := os.Rename(tmp.Name(), path); err != nil {
+		// A LinkError prints both of its paths, and the first is a
+		// temporary name the reader never chose and cannot act on.
+		if linkErr, ok := errors.AsType[*os.LinkError](err); ok {
+			err = linkErr.Err
+		}
+
 		return fmt.Errorf("writing %s: %w", path, err)
+	}
+
+	return nil
+}
+
+// checkOutput refuses an -o that new cannot write, before anything is
+// generated. Until it existed the write was the check, and the write comes
+// after the last question: an interactive run aimed at a file that already
+// existed was refused only once the player had answered everything, and
+// the lifepath went with the refusal.
+//
+// It only looks. Claiming the path here, the way writeFile does, would
+// leave an empty file behind an abandoned session ("Interrupted interactive
+// sessions produce no output file", docs/PRD.md CLI sketch) and make
+// writeFile's own claim refuse the file this one had made. writeFile's
+// exclusive create is still what holds against a file that appears while
+// the session runs.
+func checkOutput(out string, force bool) error {
+	if out == "" {
+		return nil
+	}
+
+	// A trailing separator declares a directory, which is how batch's -o
+	// reads it. new has no directory form, and saying so beats writing a
+	// file named for one.
+	if os.IsPathSeparator(out[len(out)-1]) {
+		return fmt.Errorf("%s: %w", out, errDestIsDirectory)
+	}
+
+	// Lstat, so a dangling symlink counts as the thing writeFile's
+	// exclusive create will find there.
+	info, err := os.Lstat(out)
+
+	switch {
+	case errors.Is(err, fs.ErrNotExist):
+		if parent, statErr := os.Stat(filepath.Dir(out)); statErr != nil || !parent.IsDir() {
+			return fmt.Errorf("%s: %w", filepath.Dir(out), errNoParent)
+		}
+	case err != nil:
+		return fmt.Errorf("writing %s: %w", out, err)
+	case info.IsDir():
+		return fmt.Errorf("%s: %w", out, errDestIsDirectory)
+	case !force:
+		return fmt.Errorf("%s: %w", out, errExists)
 	}
 
 	return nil
@@ -935,6 +993,17 @@ var errExists = errors.New("exists; use --force to overwrite")
 // errIsDirectory reports a directory where a record was wanted — the
 // other shape batch writes, named one file at a time.
 var errIsDirectory = errors.New("is a directory; name one of the records inside it")
+
+// errDestIsDirectory reports a directory where new was told to write its
+// record. It is the write side of errIsDirectory, with the advice turned
+// round: new writes one file, and filling a directory is batch's job.
+var errDestIsDirectory = errors.New(
+	"names a directory; new writes one file, so name the file (batch fills a directory)")
+
+// errNoParent reports an output path whose directory does not exist. new
+// does not create one: a directory nobody asked for, made because of a
+// typo, is a mess of its own.
+var errNoParent = errors.New("no such directory")
 
 // errNotCharacter reports JSON that parsed but is not a character record.
 var errNotCharacter = errors.New("not a t5chargen character record (no schema_version)")

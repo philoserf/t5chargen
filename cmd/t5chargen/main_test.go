@@ -647,6 +647,120 @@ func TestInteractiveNewWritesACharacter(t *testing.T) {
 	}
 }
 
+// TestOutputIsCheckedBeforeTheFirstQuestion verifies that an interactive
+// run aimed at a file it may not overwrite is refused before it asks
+// anything. The write used to be the check, and the write comes after the
+// last answer, so the refusal took the whole lifepath with it.
+func TestOutputIsCheckedBeforeTheFirstQuestion(t *testing.T) {
+	record := filepath.Join(t.TempDir(), "character.json")
+	if err := os.WriteFile(record, []byte("already here\n"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+
+	var stdout, stderr bytes.Buffer
+
+	script := strings.NewReader(strings.Repeat("1\n", 4000))
+	if code := run([]string{"new", "--seed", "1", "-o", record}, noSeed(t), script, &stdout, &stderr); code != exitError {
+		t.Fatalf("exit %d, want %d (stderr: %s)", code, exitError, stderr.String())
+	}
+
+	// One line, the refusal: no rule, no prompt, nothing asked.
+	if got := strings.TrimSpace(stderr.String()); strings.Contains(got, "\n") || !strings.Contains(got, "--force") {
+		t.Errorf("stderr should be the refusal alone, got:\n%s", stderr.String())
+	}
+
+	data, err := os.ReadFile(record) //nolint:gosec // a temp path this test named
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if string(data) != "already here\n" {
+		t.Errorf("the existing file was changed: %q", data)
+	}
+}
+
+// TestNewRefusesAnOutputItCannotWrite verifies that -o naming a directory,
+// or a file in a directory that does not exist, is refused by name and
+// before generation, and that --force does not change the answer: no
+// amount of forcing puts a file where a directory is.
+func TestNewRefusesAnOutputItCannotWrite(t *testing.T) {
+	root := t.TempDir()
+
+	dir := filepath.Join(root, "crew")
+	if err := os.Mkdir(dir, 0o750); err != nil {
+		t.Fatal(err)
+	}
+
+	if err := os.WriteFile(filepath.Join(root, "crew.json"), nil, 0o600); err != nil {
+		t.Fatal(err)
+	}
+
+	tests := []struct {
+		name string
+		out  string
+		args []string
+		want string
+	}{
+		{"an existing directory", dir, nil, "names a directory"},
+		{"an existing directory, forced", dir, []string{"--force"}, "names a directory"},
+		{"a trailing separator", filepath.Join(root, "npcs") + string(filepath.Separator), nil, "names a directory"},
+		{"a missing parent", filepath.Join(root, "missing", "x.json"), nil, "no such directory"},
+		{"a file where a directory should be", filepath.Join(dir, "..", "crew.json", "x.json"), nil, "not a directory"},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var stdout, stderr bytes.Buffer
+
+			args := append([]string{"new", "--auto", "--seed", "1", "-o", tt.out}, tt.args...)
+			if code := run(args, noSeed(t), noInput(), &stdout, &stderr); code != exitError {
+				t.Fatalf("exit %d, want %d (stderr: %s)", code, exitError, stderr.String())
+			}
+
+			if !strings.Contains(stderr.String(), tt.want) {
+				t.Errorf("stderr does not say %q: %s", tt.want, stderr.String())
+			}
+
+			if strings.Contains(stderr.String(), ".t5chargen-") {
+				t.Errorf("stderr leaks a temporary file name: %s", stderr.String())
+			}
+
+			if stdout.Len() != 0 {
+				t.Errorf("a refused run wrote to stdout: %s", stdout.String())
+			}
+		})
+	}
+
+	// The trailing-separator case is a declaration new does not honour,
+	// so it must not have made the directory either.
+	if _, err := os.Stat(filepath.Join(root, "npcs")); err == nil {
+		t.Error("a refused -o npcs/ created the directory")
+	}
+}
+
+// TestAFailedWriteNamesNoTemporaryFile verifies that when the final rename
+// fails, the reader is told about the path they named and not about the
+// temporary file beside it. batch --force onto a member path that is a
+// directory is the case that reaches the rename: nothing checks the shape
+// of a path --force is allowed to replace.
+func TestAFailedWriteNamesNoTemporaryFile(t *testing.T) {
+	out := t.TempDir()
+	if err := os.Mkdir(filepath.Join(out, "character-7.json"), 0o750); err != nil {
+		t.Fatal(err)
+	}
+
+	var stdout, stderr bytes.Buffer
+
+	args := []string{"batch", "--auto", "--count", "1", "--seed", "7", "--force", "-o", out + string(filepath.Separator)}
+	if code := run(args, noSeed(t), noInput(), &stdout, &stderr); code != exitError {
+		t.Fatalf("exit %d, want %d (stderr: %s)", code, exitError, stderr.String())
+	}
+
+	if !strings.Contains(stderr.String(), "character-7.json") || strings.Contains(stderr.String(), ".t5chargen-") {
+		t.Errorf("stderr should name the record and not the temporary file: %s", stderr.String())
+	}
+}
+
 // TestAbandonedSessionWritesNothing verifies the PRD's own sentence:
 // "Interrupted interactive sessions produce no output file" (CLI sketch).
 // The file must not exist — not exist and be empty, and not hold a partial
