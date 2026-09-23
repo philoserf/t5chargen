@@ -1,6 +1,6 @@
 // Command t5chargen generates Traveller5 characters. See docs/PRD.md.
 //
-// Implemented subcommands: new, batch, render, replay.
+// Implemented subcommands: new, batch, render, replay, version, help.
 package main
 
 import (

@@ -15,7 +15,7 @@ conventions, the auto-policy requirements, and milestones.
   the 2008-preliminary extracts in that collection's `Archive/` (locate topics there, verify
   in Book 1). Quote the governing rule in doc comments at the implementation site.
 - **Deviations**: never silently deviate from the printed rule; record deliberate deviations
-  in `ERRATA.md` with the page cite and rationale.
+  in `docs/ERRATA.md` with the page cite and rationale.
 - **Data/logic boundary**: tables, thresholds, and labels are embedded data files;
   orchestration and career-specific mechanics are typed Go. No rules language.
 - **Determinism**: no wall-clock time or unseeded randomness in the engine. All rolls come
@@ -52,7 +52,7 @@ task test      # go test -race with a -coverpkg coverage profile
 task ratchet:update  # record uncovered-statement counts after a deliberate coverage change
 task goldens   # rewrite the golden fixtures, then run the full gate
 task fuzz      # each fuzz target's engine, 30s each (FUZZTIME=2m to extend)
-task citations # hold ERRATA.md's quotations to the pages they cite
+task citations # hold docs/ERRATA.md's quotations to the pages they cite
 task hooks     # point core.hooksPath at .githooks (pre-push runs the gate)
 task deps      # install the toolchain from the Brewfile
 
@@ -109,7 +109,7 @@ can rewrite proves nothing about what an earlier engine wrote.
 
 ## Layout
 
-- `cmd/t5chargen` — CLI (subcommands: new, batch, render, replay).
+- `cmd/t5chargen` — CLI (subcommands: new, batch, render, replay, version, help).
 - `dice` — dice engine: xD, Flux, target-number throws (PRD FR9).
 - `chargen` — engine; consumes a `Decider` for all choice points.
 - `career` — data-driven career definitions.
@@ -131,9 +131,9 @@ stages), `medal`, `ship` (chart S), `skill` (chart MS) and `world`
 generation.
 
 `audit` is test-only and holds no rules: it is the guards that keep the
-documents honest — that every test COVERAGE.md cites exists, that every
-ERRATA.md interpretation is cited, that every choice point has a POLICY.md
-rule, that no chart field is transcribed and then read by nothing, that no
+documents honest — that every test docs/COVERAGE.md cites exists, that
+every docs/ERRATA.md interpretation is cited, that every choice point has a
+docs/POLICY.md rule, that no chart field is transcribed and then read by nothing, that no
 prompt shows a player an identifier where the chart prints a name, and that
 character.schema.json describes what the engine actually writes.
 
