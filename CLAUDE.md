@@ -132,8 +132,11 @@ The rest are one embedded chart or vocabulary each, loaded through the same
 Generation, pp. 262-263), `career` (charts 01-13), `education` (chart C),
 `ehex` (the extended hex digits), `fame` (chart F), `lifestage` (chart A's
 stages), `medal`, `ship` (chart S), `skill` (chart MS) and `world`
-(chart B). `interactive` is the line-based front end for interactive
-generation.
+(chart B). A chart that fails to load says so once, through its package's
+`Err`, which `chargen` asks before a lifepath starts; its lookups return
+values, not errors, so do not add an error return to one for a fault only
+a corrupt embed can cause. `interactive` is the line-based front end for
+interactive generation.
 
 `audit` is test-only and holds no rules: it is the guards that keep the
 documents honest — that every test docs/COVERAGE.md cites exists, that
