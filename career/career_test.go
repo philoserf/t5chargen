@@ -78,7 +78,7 @@ func TestLoadValidation(t *testing.T) {
 			{"kind": "skill", "name": "Comms"}, {"kind": "skill", "name": "Driver"},
 			{"kind": "skill", "name": "Leader"}, {"kind": "skill", "name": "Medic"}]}]`
 
-	table := `, "job_table": [` + jobGroup() + `,` + jobGroup() + `,` + jobGroup() + `]}`
+	table := `, "job_table": [` + jobGroup(t) + `,` + jobGroup(t) + `,` + jobGroup(t) + `]}`
 
 	if _, err := career.Load("valid.json", []byte(valid+table)); err != nil {
 		t.Fatalf("valid definition rejected: %v", err)
@@ -152,8 +152,14 @@ func armedForces(key, value string) string {
 // jobGroup builds one syntactically valid table E group of 6x6 cells.
 // Cells name real Master Skill List entries, which the loader now
 // validates.
-func jobGroup() string {
+func jobGroup(t *testing.T) string {
+	t.Helper()
+
 	names := skill.Skills()
+	if len(names) == 0 {
+		t.Fatalf("the skills list did not load: %v", skill.Err())
+	}
+
 	rows := make([]string, 6)
 
 	for b := range 6 {

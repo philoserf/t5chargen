@@ -214,11 +214,13 @@ func (m *armedForcesMechanics) chooseBranch(r *careerRun) (career.Branch, error)
 	forces := r.def.ArmedForces
 	officer := m.isOfficer(r)
 
-	var (
-		options  []string
-		branches []career.Branch
-		scores   []int
-	)
+	// branches and scores run parallel to options, so an index found in
+	// options is an index into both; made rather than declared so that the
+	// parallel is visible to nilaway as well as to a reader.
+	var options []string
+
+	branches := make([]career.Branch, 0, len(forces.Branches))
+	scores := make([]int, 0, len(forces.Branches))
 
 	for _, branch := range forces.Branches {
 		// A branch is selected on the side the character will serve

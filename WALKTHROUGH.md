@@ -716,7 +716,7 @@ The death check between them is not defensive padding: once `Dead` is set,
 `ageEffects` stops checking, so without this the loop would be unbounded.
 
 ```bash
-sed -n '498,526p' chargen/careerrun.go
+sed -n '518,546p' chargen/careerrun.go
 ```
 
 ```output

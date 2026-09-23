@@ -199,11 +199,12 @@ const flightSchoolID = "flight_school"
 // are reselected "each time a new Educational Institution is attended"
 // (p. 59), which is a sentence about attending different ones.
 func offeredPrograms(programs []education.Program, character *Character) ([]education.Program, []string, []int) {
-	var (
-		offered   []education.Program
-		options   []string
-		qualified []int
-	)
+	// Made rather than declared: the three run parallel, and callers index
+	// offered and qualified by a position chosen from options. A made slice
+	// keeps that visible to nilaway.
+	offered := make([]education.Program, 0, len(programs))
+	options := make([]string, 0, len(programs))
+	qualified := make([]int, 0, len(programs))
 
 	for _, p := range programs {
 		// Three kinds of row are not chosen here. An assigned school

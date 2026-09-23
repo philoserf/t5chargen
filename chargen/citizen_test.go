@@ -263,6 +263,17 @@ func TestRegistryMatchesAvailable(t *testing.T) {
 	}
 }
 
+// TestRegistryRefusesWiringFaults pins the two faults registeredCareer
+// refuses rather than dispatching into: a name with no entry, and an
+// entry that builds no mechanics without reporting an error.
+func TestRegistryRefusesWiringFaults(t *testing.T) {
+	for fault, err := range chargen.RegisteredCareerFaults() {
+		if !errors.Is(err, chargen.ErrUnregisteredCareer) {
+			t.Errorf("%s: got %v, want %v", fault, err, chargen.ErrUnregisteredCareer)
+		}
+	}
+}
+
 // TestCitizenEventIntegrity verifies every consequence references an
 // earlier throw or choice event (docs/PRD.md FR10).
 func TestCitizenEventIntegrity(t *testing.T) {

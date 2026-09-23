@@ -456,7 +456,9 @@ func skillNames(keep func(SkillRow) bool) ([]string, error) {
 
 	seen := map[string]bool{}
 
-	var names []string
+	// Made rather than declared, so a successful load never returns a nil
+	// list: callers index it by a chosen position.
+	names := make([]string, 0, len(t.Skills))
 
 	for _, s := range t.Skills {
 		if !keep(s) || seen[s.Name] {

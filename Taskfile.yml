@@ -58,13 +58,19 @@ tasks:
       - task: ratchet
 
   check:
-    desc: Modernize gate + go mod tidy + prettier + go vet + golangci-lint (formatting included)
+    desc: Modernize gate + go mod tidy + prettier + go vet + golangci-lint (formatting included) + nilaway
     cmds:
       - task: modernize
       - task: tidy
       - task: fmt:check:docs
       - task: vet
       - task: lint
+      - task: nilaway
+
+  nilaway:
+    desc: Flow-sensitive nil-dereference analysis with NilAway
+    cmds:
+      - nilaway ./...
 
   # Apply Go modernizations (min/max, range over int, new(value), etc.)
   # and fail if the working tree is no longer clean against HEAD for *.go.
