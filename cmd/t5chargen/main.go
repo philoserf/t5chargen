@@ -26,7 +26,7 @@ import (
 )
 
 // Exit codes: 0 success, 1 operational error, 2 usage error (the flag
-// package's own convention). A replay divergence is an operational error:
+// package's own convention). docs/COMPATIBILITY.md promises them. A replay divergence is an operational error:
 // the command worked and the answer is no (docs/PRD.md, Replay and
 // provenance contract: "exits non-zero at the first mismatch").
 const (
@@ -99,10 +99,9 @@ report a problem:
   expected with its Book 1 page, and what happened instead.
 
 stability:
-  Prerelease. The record format is versioned and the schema is published
-  (docs/character.schema.json); records written by a released version
-  render under later released versions. Replay stays pinned to the engine
-  that wrote the record. Flags and output may still change.
+  Prerelease. docs/COMPATIBILITY.md says what a release promises: which
+  records render and replay, and which parts of the command line a
+  script may rely on.
 `
 
 func main() {

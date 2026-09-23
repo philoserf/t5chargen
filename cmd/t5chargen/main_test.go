@@ -433,6 +433,16 @@ func errorCases(garbage, noSchema, foreign string) []errorCase {
 	}
 }
 
+// TestTheExitStatusIsThePromisedOne holds the numbers docs/COMPATIBILITY.md
+// promises a script, so renumbering them breaks a test that names the
+// promise rather than seventy that only use the constants.
+func TestTheExitStatusIsThePromisedOne(t *testing.T) {
+	if exitOK != 0 || exitError != 1 || exitUsage != 2 {
+		t.Errorf("exit statuses are %d/%d/%d; docs/COMPATIBILITY.md promises 0 success, 1 failed, 2 the caller's fault",
+			exitOK, exitError, exitUsage)
+	}
+}
+
 // TestEveryErrorSentinelIsClassified is the ratchet under isUsageError.
 // Exit 2 means the caller's fault, and the engine says which errors those
 // are by putting chargen.ErrInput on their chain. What nothing used to say

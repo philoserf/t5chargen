@@ -75,11 +75,50 @@ was inside it.
 Records carry their version, so the question is always about a record in
 hand rather than about the file in this repository.
 
-## During beta
+## The command line
 
-Flags, output text and the character sheet's layout may change; they are
-not covered by either promise above. The record format is the part held
-still.
+The record is the product, but a referee scripting `t5chargen` binds to
+more than the record. This is what a script may rely on, and what it may
+not.
+
+### Held from the beta onward
+
+- **Exit status.** 0 is success. 2 is the caller's fault: a flag the
+  command cannot use, a career that does not exist or cannot open a
+  lifepath, a homeworld that is not one, a current year the character
+  cannot have been born before. 1 is an operation that ran and failed: a
+  file that cannot be read or written, a record that does not replay, an
+  abandoned session.
+- **The subcommands**: `new`, `batch`, `render`, `replay`, `version`,
+  `help`.
+- **Streams.** Records and sheets go to stdout; prompts, progress and
+  diagnostics go to stderr, so stdout is always parseable.
+- **`-o` is checked before anything is generated.** An interactive run is
+  never refused after its last question. `new -o` names one file: a
+  directory, or a path ending in a separator, is refused. If a record
+  cannot be written to `-o` after all, it goes to stdout, and the run
+  exits 1.
+- **`batch -o dir/`** writes one file per member, named
+  `character-<seed>.json` for the seed that produced it; member _i_ is
+  seed base+_i_. A path ending in a separator is a directory, created if
+  missing; an existing directory is one too; anything else is a JSONL file.
+- **JSONL** is one complete record per line. A JSONL file or a directory
+  is written whole or not at all. JSONL on stdout is a stream: a batch
+  that fails partway has already written the members before the failure,
+  and the non-zero exit status is what says the stream is incomplete.
+- Nothing is overwritten without `--force`.
+
+### Exempt, permanently
+
+- The character sheet's and the history transcript's layout and wording.
+  They are derived from the record and can be derived again; the record
+  is what is kept.
+- Diagnostic text. Match the exit status, not the message.
+
+### Still moving until 1.0
+
+Flags may be added, renamed or removed; a release that does so says so in
+`CHANGELOG.md`.
 
 The three versions a record stamps move independently of the release tag
 and of each other. `CHANGELOG.md` names the ones that moved.
