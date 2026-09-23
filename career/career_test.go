@@ -12,7 +12,7 @@ import (
 // TestCitizenDefinition verifies the embedded Citizen data parses and
 // matches the chart 04 (p. 78) fixed values.
 func TestCitizenDefinition(t *testing.T) {
-	d, err := career.Citizen()
+	d, err := career.ByName("Citizen")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -36,7 +36,7 @@ func TestCitizenDefinition(t *testing.T) {
 // TestCitizenSkillColumns verifies table C shape: seven named columns of
 // six entries each, in chart order (p. 78).
 func TestCitizenSkillColumns(t *testing.T) {
-	d, err := career.Citizen()
+	d, err := career.ByName("Citizen")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -177,7 +177,7 @@ func jobGroup(t *testing.T) string {
 // TestCitizenDerivedLists verifies the precomputed column-name and
 // hobby-choice lists.
 func TestCitizenDerivedLists(t *testing.T) {
-	d, err := career.Citizen()
+	d, err := career.ByName("Citizen")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -202,7 +202,7 @@ func TestCitizenDerivedLists(t *testing.T) {
 // TestCitizenJobTable verifies table E lookups, including the "No Skill"
 // cell at A1 B3 C5 (p. 78).
 func TestCitizenJobTable(t *testing.T) {
-	d, err := career.Citizen()
+	d, err := career.ByName("Citizen")
 	if err != nil {
 		t.Fatal(err)
 	}

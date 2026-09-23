@@ -29,7 +29,7 @@ type citizenMechanics struct {
 //
 //nolint:ireturn // Registry constructors return the careerMechanics seam by design.
 func newCitizen() (*career.Definition, careerMechanics, error) {
-	def, err := career.Citizen()
+	def, err := career.ByName("Citizen")
 	if err != nil {
 		return nil, nil, fmt.Errorf("citizen career: %w", err)
 	}

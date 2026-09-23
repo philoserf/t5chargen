@@ -583,7 +583,7 @@ FR7), career changes (p. 66) and the birthdate (FR8) are implemented; each
 has its own section above. This file previously said Book 1 printed no
 birthdate rule and that FR8's only cite was the Archive the ground rules
 exclude. The second half was true — FR8 does cite the Archive — and the
-first half was false. See docs/MILESTONE-4.md.
+first half was false: the rule is on pp. 262-263.
 
 Replay verification is implemented: `chargen.Replay` re-runs a record from
 its own file and compares every event and the whole record back
@@ -596,8 +596,8 @@ its index, so every member replays from the line or file it lands in
 `TestBatchWritesNothingOnConflict`). `render` and `replay` read a JSONL run
 as readily as a single record, a record at a time
 (`TestBatchOutputIsReadable`, `TestAPartlyBrokenRunNamesTheRecord`). The JSON Schema is written: `docs/character.schema.json` with its two
-examples, checked by a hand-written validator over the subset it uses
-(`TestEveryFixtureValidates`, `TestTheCheckerCatchesWhatItClaimsTo`,
+examples, checked by an imported, test-scoped JSON Schema validator
+(`TestEveryFixtureValidates`, `TestTheMinimalExampleIsMinimal`,
 `TestEverySchemaPropertyIsExercised`, `TestEachConsequenceKindKeepsItsShape`,
 `TestEveryConsequenceKindIsAccountedFor`). Interactive mode is implemented: without `--auto`, `t5chargen new` asks the
 player each choice point and records that he answered

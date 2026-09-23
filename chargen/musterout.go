@@ -67,10 +67,7 @@ type musterOutRun struct {
 
 // musterOut resolves the whole of a character's muster out.
 func musterOut(c *Character, roller *dice.Roller, log *Log, decider Decider) error {
-	table, err := benefit.Load()
-	if err != nil {
-		return fmt.Errorf("muster out: %w", err)
-	}
+	table := benefit.Load()
 
 	run := &musterOutRun{
 		character: c, roller: roller, log: log, decider: decider,

@@ -108,19 +108,13 @@ func TestGrantFor(t *testing.T) {
 
 // TestChoices verifies the chart B selection lists (p. 56).
 func TestChoices(t *testing.T) {
-	arts, err := world.ArtChoices()
-	if err != nil {
-		t.Fatal(err)
-	}
+	arts := world.ArtChoices()
 
 	if len(arts) != 6 || arts[0] != "Actor" || arts[5] != "Musician" {
 		t.Errorf("ArtChoices() = %v", arts)
 	}
 
-	trades, err := world.TradeChoices()
-	if err != nil {
-		t.Fatal(err)
-	}
+	trades := world.TradeChoices()
 
 	if len(trades) != 10 || trades[0] != "Biologics" || trades[9] != "Programmer" {
 		t.Errorf("TradeChoices() = %v", trades)
@@ -130,10 +124,7 @@ func TestChoices(t *testing.T) {
 // TestDefault verifies the tool-owned default homeworld (docs/PRD.md FR2):
 // Regina, chart B row R (p. 56).
 func TestDefault(t *testing.T) {
-	d, err := world.Default()
-	if err != nil {
-		t.Fatal(err)
-	}
+	d := world.Default()
 
 	if d.Name != "Regina" || d.UWP != "A788899-C" {
 		t.Errorf("Default() = %+v", d)

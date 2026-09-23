@@ -23,9 +23,19 @@ linters:
     depguard:
       rules:
         main:
+          files:
+            - $all
+            - "!$test"
           allow:
             - $gostd
             - github.com/philoserf/t5chargen # the module's own packages
+        test: # the shipped binary stays stdlib-only; tests may also use the one schema validator (#145)
+          files:
+            - $test
+          allow:
+            - $gostd
+            - github.com/philoserf/t5chargen
+            - github.com/santhosh-tekuri/jsonschema/v6
     tagliatelle:
       case:
         rules:

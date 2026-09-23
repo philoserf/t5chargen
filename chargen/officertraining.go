@@ -57,9 +57,9 @@ func (r *eduRun) volunteer() error {
 		return nil
 	}
 
-	rows, err := offeredOfficerTraining()
-	if err != nil || len(rows) == 0 {
-		return err
+	rows := offeredOfficerTraining()
+	if len(rows) == 0 {
+		return nil
 	}
 
 	options := make([]string, 0, len(rows)+1)
@@ -87,11 +87,8 @@ const declineOfficerTraining = "Decline"
 
 // offeredOfficerTraining returns the implemented officer-training rows in
 // chart order.
-func offeredOfficerTraining() ([]education.Program, error) {
-	programs, err := education.Programs()
-	if err != nil {
-		return nil, fmt.Errorf("education: %w", err)
-	}
+func offeredOfficerTraining() []education.Program {
+	programs := education.Programs()
 
 	var rows []education.Program
 
@@ -101,7 +98,7 @@ func offeredOfficerTraining() ([]education.Program, error) {
 		}
 	}
 
-	return rows, nil
+	return rows
 }
 
 // attemptedOfficerTraining reports whether the character has already taken

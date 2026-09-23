@@ -56,10 +56,7 @@ func (f famePoints) units() []int {
 
 // computeFame prices every accomplishment on the record and stacks them.
 func computeFame(c *Character, roller *dice.Roller, log *Log, decider Decider) error {
-	table, err := fame.Load()
-	if err != nil {
-		return fmt.Errorf("fame: %w", err)
-	}
+	table := fame.Load()
 
 	earned := make([]famePoints, 0, len(c.Careers))
 

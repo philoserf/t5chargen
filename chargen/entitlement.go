@@ -231,10 +231,7 @@ func (r *musterOutRun) entitlements() error {
 		return nil
 	}
 
-	stages, err := lifestage.Load()
-	if err != nil {
-		return fmt.Errorf("entitlements: %w", err)
-	}
+	stages := lifestage.Load()
 
 	// The step is not opened for a section that would hold nothing
 	// (interpretation I-77).
@@ -383,10 +380,7 @@ func (r *musterOutRun) annualFor(e benefit.Entitlement, from string) int {
 // Reserves: "Cr 100 per Reserve year" (chart M1), from when the service
 // ended (p. 67).
 func (r *musterOutRun) reserveYears() int {
-	stages, err := lifestage.Load()
-	if err != nil {
-		return 0
-	}
+	stages := lifestage.Load()
 
 	retirementAge := stages.FirstYearOf(stages.MentalStage)
 

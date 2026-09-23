@@ -9,10 +9,7 @@ import (
 func load(t *testing.T) *lifestage.Table {
 	t.Helper()
 
-	table, err := lifestage.Load()
-	if err != nil {
-		t.Fatal(err)
-	}
+	table := lifestage.Load()
 
 	return table
 }

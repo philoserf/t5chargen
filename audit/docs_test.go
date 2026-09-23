@@ -402,7 +402,7 @@ func TestPolicyDocumentStatesItsVersion(t *testing.T) {
 // rule is the simpler one: once a milestone ships, its number tells a
 // reader nothing the code does not. Where the work is done the citation
 // is noise; where a gap remains, the gap is what to name. Historical
-// attribution belongs to git history and docs/MILESTONE-*.md. Nothing
+// attribution belongs to git history and CHANGELOG.md. Nothing
 // then has to decide whether a given sentence is a deferral, which is the
 // judgement the COVERAGE check has to make and the reason it can only
 // gate half a column.

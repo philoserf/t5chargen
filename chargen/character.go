@@ -7,9 +7,13 @@ import (
 	"strings"
 
 	"github.com/philoserf/t5chargen/benefit"
+	"github.com/philoserf/t5chargen/calendar"
 	"github.com/philoserf/t5chargen/career"
 	"github.com/philoserf/t5chargen/dice"
+	"github.com/philoserf/t5chargen/education"
+	"github.com/philoserf/t5chargen/fame"
 	"github.com/philoserf/t5chargen/lifestage"
+	"github.com/philoserf/t5chargen/ship"
 	"github.com/philoserf/t5chargen/skill"
 	"github.com/philoserf/t5chargen/world"
 )
@@ -680,10 +684,7 @@ func Generate(opts Options) (Character, error) {
 
 	character.Characteristics = RollCharacteristics(roller, &log)
 
-	homeworld, err := homeworldOrDefault(opts.Homeworld)
-	if err != nil {
-		return Character{}, err
-	}
+	homeworld := homeworldOrDefault(opts.Homeworld)
 
 	if err := runHomeworld(homeworld, assigned, opts.RollHomeworld, roller, &log, opts.Decider, &character); err != nil {
 		return Character{}, err
@@ -759,10 +760,7 @@ func afterCareers(c *Character, roller *dice.Roller, log *Log, decider Decider,
 func (c *Character) finalize(log *Log) error {
 	c.UPP = c.Characteristics.UPP()
 
-	stages, err := lifestage.Load()
-	if err != nil {
-		return fmt.Errorf("life stages: %w", err)
-	}
+	stages := lifestage.Load()
 
 	c.LifeStage = stages.Of(c.Age)
 	c.Events = log.Events()
@@ -770,23 +768,38 @@ func (c *Character) finalize(log *Log) error {
 	return nil
 }
 
-// checkSharedData loads the two registries that several open-selection
-// cells read through helpers with no error return, so a fault in either is
-// reported once, before any dice are rolled.
+// checkSharedData loads every embedded chart the lifepath reads, so a
+// fault in any is reported once, before any dice are rolled.
 //
-// Without this, a broken Citizen transcription surfaces at whichever cell
-// first wants Citizen Life Skills, as "not implemented until education/
-// skill milestones" — sending the reader to COVERAGE.md for a deferral that
-// does not exist instead of to the data file that is broken. The same
-// lesson is recorded for careers that will not load: "A definition that
-// will not load is a build fault, not an ineligible career".
+// The charts are compiled in, so a failure is a build fault, and their
+// lookups do not return one: each chart package reports it through Err,
+// and this is where it is asked. Without the check, a broken chart would
+// surface at whichever step first read it — or, for a lookup with no
+// error return, as an empty list or a zero where the rule should be. The
+// same lesson is recorded for careers that will not load: "A definition
+// that will not load is a build fault, not an ineligible career".
 func checkSharedData() error {
-	if _, err := career.Citizen(); err != nil {
-		return fmt.Errorf("citizen life skills: %w", err)
+	// Every career loads together, so asking for one asks for all.
+	if _, err := career.ByName("Citizen"); err != nil {
+		return fmt.Errorf("careers: %w", err)
 	}
 
-	if err := skill.Err(); err != nil {
-		return fmt.Errorf("master skill list: %w", err)
+	for _, chart := range []struct {
+		name string
+		err  func() error
+	}{
+		{"master skill list", skill.Err},
+		{"chart M1", benefit.Err},
+		{"birth date generation", calendar.Err},
+		{"chart C", education.Err},
+		{"chart F", fame.Err},
+		{"life stages", lifestage.Err},
+		{"chart S", ship.Err},
+		{"homeworlds and chart B", world.Err},
+	} {
+		if err := chart.err(); err != nil {
+			return fmt.Errorf("%s: %w", chart.name, err)
+		}
 	}
 
 	return nil

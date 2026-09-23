@@ -179,10 +179,7 @@ func checkDoubledBenefits(t *testing.T, seed uint64, c chargen.Character, disabl
 // TestEveryBenefitIsInTheVocabulary holds that a muster-out award always
 // resolves to a chart M1 benefit, never to a bare string.
 func TestEveryBenefitIsInTheVocabulary(t *testing.T) {
-	table, err := benefit.Load()
-	if err != nil {
-		t.Fatal(err)
-	}
+	table := benefit.Load()
 
 	for seed := uint64(1); seed <= 100; seed++ {
 		for _, decider := range []chargen.Decider{chargen.DefaultPolicy{}, benefitsColumn{}} {
@@ -295,10 +292,7 @@ func assertCapLoses(t *testing.T, seed uint64, characteristic string) {
 // Soc +1 instead", and "In the Spacer, Soldier, and Marine careers,
 // Knighthood is only available to Officers. A non-officer receives Soc +1".
 func TestKnighthoodFollowsItsThreeClauses(t *testing.T) {
-	table, err := benefit.Load()
-	if err != nil {
-		t.Fatal(err)
-	}
+	table := benefit.Load()
 
 	knight, err := table.For(benefit.Knighthood)
 	if err != nil {

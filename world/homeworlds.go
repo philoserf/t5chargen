@@ -140,10 +140,10 @@ const diceFaces = 6
 // fresh per call, trade classifications included: the parsed table is a
 // process-wide singleton, so handing out its own slices would let one
 // caller's mutation reach every later lookup.
-func ChartB() ([]ChartBWorld, error) {
+func ChartB() []ChartBWorld {
 	t, err := chartB()
 	if err != nil {
-		return nil, err
+		return []ChartBWorld{}
 	}
 
 	worlds := make([]ChartBWorld, len(t.Worlds))
@@ -153,7 +153,7 @@ func ChartB() ([]ChartBWorld, error) {
 		worlds[i] = w
 	}
 
-	return worlds, nil
+	return worlds
 }
 
 // Selectable returns chart B's worlds for a character choosing one rather
@@ -164,10 +164,10 @@ func ChartB() ([]ChartBWorld, error) {
 // that weighting is a fact about the dice. A list to choose from wants
 // each world once — "Select or determine a Homeworld" (p. 56) is two
 // procedures, and this is the first.
-func Selectable() ([]ChartBWorld, error) {
+func Selectable() []ChartBWorld {
 	t, err := chartB()
 	if err != nil {
-		return nil, err
+		return []ChartBWorld{}
 	}
 
 	seen := map[string]bool{}
@@ -183,7 +183,7 @@ func Selectable() ([]ChartBWorld, error) {
 		worlds = append(worlds, w)
 	}
 
-	return worlds, nil
+	return worlds
 }
 
 // At returns the world in the cell the two dice name, D1 then D2 as the

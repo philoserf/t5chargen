@@ -17,8 +17,6 @@ package chargen
 // and is not implemented here.
 
 import (
-	"fmt"
-
 	"github.com/philoserf/t5chargen/education"
 )
 
@@ -59,10 +57,7 @@ func midCareerPrograms(programs []education.Program) []education.Program {
 // no TermRecord is appended, so it counts toward neither the muster-out
 // benefit rolls nor a pension, both of which count terms served.
 func (r *careerRun) laterEducation() (bool, error) {
-	programs, err := education.Programs()
-	if err != nil {
-		return false, fmt.Errorf("later education: %w", err)
-	}
+	programs := education.Programs()
 
 	offered, names, qualified := offeredPrograms(midCareerPrograms(programs), r.character)
 	if len(offered) == 0 {

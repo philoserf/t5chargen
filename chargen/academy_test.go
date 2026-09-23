@@ -69,11 +69,7 @@ func graduatedAcademy(c chargen.Character, service string) bool {
 func careerDef(t *testing.T, name string) *career.Definition {
 	t.Helper()
 
-	load := map[string]func() (*career.Definition, error){
-		"Soldier": career.Soldier, "Spacer": career.Spacer, "Marine": career.Marine,
-	}[name]
-
-	def, err := load()
+	def, err := career.ByName(name)
 	if err != nil {
 		t.Fatal(err)
 	}

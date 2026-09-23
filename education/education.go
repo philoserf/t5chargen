@@ -348,13 +348,24 @@ var (
 
 // Programs returns the chart C rows in chart order. The returned slice is
 // shared; callers must not mutate it.
-func Programs() ([]Program, error) {
+func Programs() []Program {
 	t, err := load()
 	if err != nil {
-		return nil, err
+		return []Program{}
 	}
 
-	return t.Programs, nil
+	return t.Programs
+}
+
+// Err reports whether the embedded chart C failed to load. It is compiled
+// in, so a failure is a build fault rather than anything a caller did, and
+// it is checked once — chargen.Generate asks before a lifepath starts —
+// rather than returned by every list. A list whose data failed to load is
+// empty.
+func Err() error {
+	_, err := load()
+
+	return err
 }
 
 // ErrUnknownProgram reports a program id outside chart C.
@@ -411,7 +422,7 @@ const (
 // Majors returns the institution's available skills in chart order,
 // deduplicated by name (Grav appears under Driver, Flyer, and Seafarer).
 // The returned slice is fresh per call.
-func Majors(inst Institution) ([]string, error) {
+func Majors(inst Institution) []string {
 	return skillNames(func(s SkillRow) bool { return s.flag(inst) })
 }
 
@@ -422,11 +433,8 @@ func Majors(inst Institution) ([]string, error) {
 // is what the row asks for, and what keeps the award clear of the open
 // question about awarding a bare container skill (COVERAGE.md, p. 134).
 // The returned slice is fresh per call.
-func ANMKnowledges() ([]string, error) {
-	names, err := skillNames(func(s SkillRow) bool { return s.Army || s.Navy || s.Marine })
-	if err != nil {
-		return nil, err
-	}
+func ANMKnowledges() []string {
+	names := skillNames(func(s SkillRow) bool { return s.Army || s.Navy || s.Marine })
 
 	knowledges := make([]string, 0, len(names))
 
@@ -436,22 +444,22 @@ func ANMKnowledges() ([]string, error) {
 		}
 	}
 
-	return knowledges, nil
+	return knowledges
 }
 
 // AllSkillNames returns every matrix skill name in chart order,
 // deduplicated — the unrestricted Apprenticeship selection list
 // (interpretation I-7, ERRATA.md). The returned slice is fresh per call.
-func AllSkillNames() ([]string, error) {
+func AllSkillNames() []string {
 	return skillNames(func(SkillRow) bool { return true })
 }
 
 // skillNames returns the matrix names matching keep, in chart order,
 // deduplicated first-wins by name.
-func skillNames(keep func(SkillRow) bool) ([]string, error) {
+func skillNames(keep func(SkillRow) bool) []string {
 	t, err := load()
 	if err != nil {
-		return nil, err
+		return []string{}
 	}
 
 	seen := map[string]bool{}
@@ -470,7 +478,7 @@ func skillNames(keep func(SkillRow) bool) ([]string, error) {
 		names = append(names, s.Name)
 	}
 
-	return names, nil
+	return names
 }
 
 // flag reads the institution's column.

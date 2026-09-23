@@ -85,10 +85,7 @@ func TestANMSchoolIsResolvedAsEducation(t *testing.T) {
 // for a Knowledge — not a skill, and not a bare container name, which is
 // the p. 134 question this award stays clear of.
 func TestANMSchoolAwardsAKnowledge(t *testing.T) {
-	knowledges, err := education.ANMKnowledges()
-	if err != nil {
-		t.Fatal(err)
-	}
+	knowledges := education.ANMKnowledges()
 
 	if len(knowledges) == 0 {
 		t.Fatal("the ANM source list is empty, so the award has nothing to choose from")
@@ -173,10 +170,7 @@ func TestCommandCollegeFollowsTheRank(t *testing.T) {
 // whole Available Skills matrix — the reading interpretation I-7 already
 // gives the Apprenticeship's unqualified "Skill+4".
 func TestCommandCollegeAwardsTwoSkills(t *testing.T) {
-	all, err := education.AllSkillNames()
-	if err != nil {
-		t.Fatal(err)
-	}
+	all := education.AllSkillNames()
 
 	for _, tc := range assignedSchoolSeeds {
 		t.Run(tc.career, func(t *testing.T) {

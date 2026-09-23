@@ -12,10 +12,7 @@ import (
 // Homeworld" (p. 56): determining it draws a world off chart B's list
 // rather than taking the assigned one.
 func TestRolledHomeworldComesFromChartB(t *testing.T) {
-	worlds, err := world.ChartB()
-	if err != nil {
-		t.Fatal(err)
-	}
+	worlds := world.ChartB()
 
 	onChart := map[string]bool{}
 	for _, w := range worlds {
@@ -164,10 +161,7 @@ func TestDeepSpaceBirthGrantsItsSkills(t *testing.T) {
 // thirty-four worlds transcribed from chart B were unreachable except by
 // rolling.
 func TestAnUnassignedHomeworldIsChosen(t *testing.T) {
-	worlds, err := world.Selectable()
-	if err != nil {
-		t.Fatal(err)
-	}
+	worlds := world.Selectable()
 
 	offered := homeworldChoice(t, generate(t, chargen.Options{Seed: 1}))
 
@@ -208,10 +202,7 @@ func TestAnAssignedHomeworldIsNotAChoice(t *testing.T) {
 // Classification" (p. 58), so choosing a different world must grant
 // different skills.
 func TestTheChosenHomeworldIsTheOneUsed(t *testing.T) {
-	worlds, err := world.Selectable()
-	if err != nil {
-		t.Fatal(err)
-	}
+	worlds := world.Selectable()
 
 	var earth int
 
@@ -235,10 +226,7 @@ func TestTheChosenHomeworldIsTheOneUsed(t *testing.T) {
 // the wider list. First-listed on chart B is Alell; the policy assigns the
 // tool-owned default instead, so no auto-generated character moves house.
 func TestThePolicyAssignsRatherThanPicks(t *testing.T) {
-	home, err := world.Default()
-	if err != nil {
-		t.Fatal(err)
-	}
+	home := world.Default()
 
 	for seed := range uint64(20) {
 		if got := generate(t, chargen.Options{Seed: seed}).Homeworld.Name; got != home.Name {

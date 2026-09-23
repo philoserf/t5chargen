@@ -84,10 +84,7 @@ func TestApprenticeshipChecksTraAtHalfEdu(t *testing.T) {
 // be an invention, and an invisible one — the record would show a legal
 // skill either way.
 func TestApprenticeshipOffersEverySkill(t *testing.T) {
-	all, err := education.AllSkillNames()
-	if err != nil {
-		t.Fatalf("education: %v", err)
-	}
+	all := education.AllSkillNames()
 
 	if len(all) == 0 {
 		t.Fatal("the Available Skills matrix is empty; the test is asserting nothing")

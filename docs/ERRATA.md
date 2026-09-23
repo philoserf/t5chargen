@@ -2044,8 +2044,8 @@ what the example does.
 
 The alternative was to leave grant income uncomputed, which is what this
 repo did until now on the stated ground that "a grant's income needs the
-world it sits on". That was wrong about the homeworld hex, and the earlier
-note is corrected in docs/MILESTONE-4.md.
+world it sits on". That was wrong about the homeworld hex, and this entry
+is the correction.
 
 Implemented at `chargen/entitlement.go` (`landGrantIncome`, `hexIncome`),
 with the per-career hex layout in `benefit/data/benefits.json`.

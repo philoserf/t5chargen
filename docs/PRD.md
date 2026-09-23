@@ -6,9 +6,10 @@ This document states what v1 is, once. It carried a dozen dated
 amendments recording how each requirement reached its final reading —
 those are folded into the requirements they amended, so a reader can
 judge the tool against this page without reconstructing the order the
-decisions were made in. The history is not lost: `docs/MILESTONE-4.md`
-through `-7.md` record what each milestone turned out to be, and git
-holds the rest.
+decisions were made in. The history is not lost: git holds it, including
+the milestone records that once sat in `docs/` (`git log --
+docs/MILESTONE-4.md` and its siblings), and `CHANGELOG.md` takes over from
+the first release.
 
 ## Problem
 
@@ -83,11 +84,11 @@ The seed and the choice events alone are not sufficient, which is why records ca
 
 Characteristics stored numeric with the UPP hex string derived and stored alongside; money as integer credits; dates as Imperial calendar day/year with age in years. Skills and Knowledges are distinct entries. Derived values are stored and recomputed on replay.
 
-The schema is `docs/character.schema.json`, draft 2020-12, with `docs/character.minimal.json` and `docs/character.complete.json` beside it, versioned by `schema_version`. It is precise about the envelope — every field's type, the vocabularies of event, consequence and benefit kinds, and the rule that an event carries exactly the payload its kind names — and deliberately loose about which payload fields each consequence kind uses, because `omitempty` makes those sets ragged and fifty-five branches in the schema would be a second copy of the code. That last rule is pinned in `docs` instead.
+The schema is `docs/character.schema.json`, draft 2020-12, with `docs/character.minimal.json` beside it as the minimal example and the golden fixture `chargen/testdata/career_scout.json` as the complete one, versioned by `schema_version`. It is precise about the envelope — every field's type, the vocabularies of event, consequence and benefit kinds, and the rule that an event carries exactly the payload its kind names — and deliberately loose about which payload fields each consequence kind uses, because `omitempty` makes those sets ragged and fifty-five branches in the schema would be a second copy of the code. That last rule is pinned in `docs` instead.
 
 `schema_version` tracks **the shape of the records the engine writes**, not the precision of the document describing it. A constraint that narrows the schema to what the engine already produced is a clarification and does not bump; one that would invalidate a record the current engine writes is a bump. The case that settled it was the `upp` pattern: added after the clamp that made an unrepresentable UPP impossible, so every record engine 0.41.0 wrote was already inside it, and the only records it newly rejects are ones an older engine should not have written. Records carry the version, so the test is about them and not about the file.
 
-Validation is a hand-written checker over the subset of JSON Schema the document uses, rather than a library: it is a few hundred lines against six third-party modules, in a repo that has none. The risk in writing one is that a validator with a bug passes everything, so it is not trusted on the fixtures passing — every rule the schema states has a record that must fail because of it, and each of the checker's keywords is mutation-tested.
+Validation uses an imported JSON Schema validator, scoped to the tests: the shipped module stays standard-library only, and `depguard` admits the validator in `_test.go` files alone. A hand-written checker came first, to keep the repository free of dependencies; it grew, with the meta-tests a hand-written checker needs so that a bug in it cannot pass everything, to some 650 lines, which is a worse trade than one test-only module.
 
 ## CLI sketch
 
@@ -124,7 +125,7 @@ The auto policy is **total** (it can decide every valid choice point: education,
 6. The rules milestone 5 left: the Rogue's previous-career Scheme (chart 10), and OTC and NOTC (p. 61).
 7. The deferrals that were still real once milestone 6 closed: resigning from the Reserves (p. 67), Flight School (pp. 60-61), the Branch changes of I-34, the Scholar's rank titles, and the Skill/Knowledge distinction, which milestone 6 had scoped out on a premise that proved wrong.
 
-_All seven are complete._ `docs/MILESTONE-6.md` and `docs/MILESTONE-7.md` record what each turned out to be, against what was planned here. Nothing this document asks for is outstanding but chart 11's `Capital***` cell, which `docs/COVERAGE.md` carries as its one accepted exception.
+_All seven are complete._ What each turned out to be, against what was planned here, is in git history. Nothing this document asks for is outstanding but chart 11's `Capital***` cell, which `docs/COVERAGE.md` carries as its one accepted exception.
 
 ## Decisions (2026-08-19)
 

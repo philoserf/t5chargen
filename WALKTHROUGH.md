@@ -19,8 +19,10 @@ recorded choices and checks that the walk reproduces itself event for
 event. `THEORY.md` argues why that shape is forced; this document follows
 the code that implements it.
 
-The module is standard-library only, on Go 1.27. Four subcommands: `new`,
-`batch`, `render`, `replay` (plus `version` and `help`).
+The shipped module is standard-library only, on Go 1.27; the one `require`
+below is a JSON Schema validator the tests import, which never reaches the
+binary. Four subcommands: `new`, `batch`, `render`, `replay` (plus
+`version` and `help`).
 
 ```bash
 cat go.mod
@@ -30,6 +32,10 @@ cat go.mod
 module github.com/philoserf/t5chargen
 
 go 1.27
+
+require github.com/santhosh-tekuri/jsonschema/v6 v6.0.3
+
+require golang.org/x/text v0.14.0 // indirect
 ```
 
 ## Architecture
@@ -42,6 +48,8 @@ all — it is the machinery that keeps the documents in `docs/` honest.
 
 Everything else is one embedded chart or vocabulary each, loaded with the
 same `go:embed` plus `sync.OnceValues` pattern and validated at load time.
+A chart that fails to load says so once, through its package's `Err`,
+which the engine asks before a lifepath starts.
 
 ```bash
 cat <<'TREE'
@@ -238,7 +246,7 @@ Three things to notice:
   spent at home, and a World Knowledge counts exactly that.
 
 ```bash
-sed -n '652,704p' chargen/character.go
+sed -n '656,705p' chargen/character.go
 ```
 
 ```output
@@ -273,10 +281,7 @@ func Generate(opts Options) (Character, error) {
 
 	character.Characteristics = RollCharacteristics(roller, &log)
 
-	homeworld, err := homeworldOrDefault(opts.Homeworld)
-	if err != nil {
-		return Character{}, err
-	}
+	homeworld := homeworldOrDefault(opts.Homeworld)
 
 	if err := runHomeworld(homeworld, assigned, opts.RollHomeworld, roller, &log, opts.Decider, &character); err != nil {
 		return Character{}, err
@@ -481,7 +486,7 @@ also why `Prompt` is recorded and why explanatory text belongs in
 `t5chargen help` rather than in a prompt.
 
 ```bash
-sed -n '1007,1030p' chargen/character.go
+sed -n '1020,1043p' chargen/character.go
 ```
 
 ```output
@@ -657,10 +662,11 @@ func parseIndex(answer string) (int, bool) {
 
 ## 6. Careers: one loop, thirteen sets of exceptions
 
-`chargen/careerrun.go` is the largest file in the repository, and it is
-large for a defensible reason: the thirteen charts share one procedure with
-thirteen sets of exceptions, and the alternative to one long shared loop is
-thirteen slightly divergent copies of it.
+`chargen/careerrun.go` is the engine's largest file, and it is large for a
+defensible reason: the thirteen charts share one procedure with thirteen
+sets of exceptions, and the alternative to one long shared loop is thirteen
+slightly divergent copies of it. The table C award helpers the loop calls
+into live beside it in `chargen/awards.go`, so the loop reads in order.
 
 Charts 01-13 are *data* — `career/data/*.json`, 120 KB of skill tables,
 target numbers, benefit rows and rank titles, with no conditional logic in
@@ -668,7 +674,7 @@ it anywhere. What a chart needs that a table cannot express becomes Go,
 behind a two-method unexported interface.
 
 ```bash
-sed -n '44,61p' chargen/careerrun.go
+sed -n '42,59p' chargen/careerrun.go
 ```
 
 ```output
@@ -698,7 +704,7 @@ internal bug (`errUnregisteredCareer`), deliberately distinct from the
 user-facing `ErrUnknownCareer` that the CLI maps to a usage exit.
 
 ```bash
-sed -n '107,123p' chargen/careerrun.go
+sed -n '105,121p' chargen/careerrun.go
 ```
 
 ```output
@@ -729,7 +735,7 @@ The death check between them is not defensive padding: once `Dead` is set,
 `ageEffects` stops checking, so without this the loop would be unbounded.
 
 ```bash
-sed -n '518,546p' chargen/careerrun.go
+sed -n '516,544p' chargen/careerrun.go
 ```
 
 ```output
@@ -774,7 +780,7 @@ elapse it. A stray `c.Age += 4` anywhere else would silently skip an Aging
 Check and emit no event saying so.
 
 ```bash
-sed -n '50,76p' chargen/character.go
+sed -n '54,80p' chargen/character.go
 ```
 
 ```output
@@ -820,7 +826,7 @@ is not even opened, because a section that would hold nothing should not
 appear in the transcript.
 
 ```bash
-sed -n '716,752p' chargen/character.go
+sed -n '717,753p' chargen/character.go
 ```
 
 ```output
@@ -881,7 +887,7 @@ replay-relevant shape moves while `engine_version` and `policy_version`
 both stay put, which is what makes `task goldens` safe to run.
 
 ```bash
-sed -n '22,41p' chargen/character.go
+sed -n '26,45p' chargen/character.go
 ```
 
 ```output
@@ -1232,15 +1238,14 @@ contract, `docs/COVERAGE.md` the rule-by-rule map, `docs/ERRATA.md` the 112
 numbered readings taken where the printed rules are ambiguous, and
 `docs/KNOWN_LIMITATIONS.md` the honest list of what the tool does not do.
 
-Two things this trace hit that a reader should not have to rediscover are
-filed in `.issues/`.
+Two things this trace hit that a reader should not have to rediscover were
+filed in `.issues/`; the second has since been fixed.
 
 ## Index
 
 | # | Severity | Issue | Primary location |
 | --- | --- | --- | --- |
 | 1 | low | `history-transcript-choice-lines-inline-whole-option-lists` | `render/render.go:446` |
-| 2 | low | `careerrun-interleaves-the-shared-term-loop-with-chart-specific-helpers` | `chargen/careerrun.go` |
+| 2 | low | `careerrun-interleaves-the-shared-term-loop-with-chart-specific-helpers` (fixed: `chargen/awards.go`) | `chargen/careerrun.go` |
 
 **Total: 2 issues (0 critical, 0 high, 0 medium, 2 low)**
-

@@ -740,12 +740,11 @@ func joinDice(faces []int) string {
 // unreadable table degrades to the number rather than failing the sheet:
 // the stage is context for the age, not the record.
 func lifeStageName(stage int) string {
-	table, err := lifestage.Load()
-	if err != nil {
+	if lifestage.Err() != nil {
 		return strconv.Itoa(stage)
 	}
 
-	if name := table.Name(stage); name != "" {
+	if name := lifestage.Load().Name(stage); name != "" {
 		return name
 	}
 
@@ -839,12 +838,11 @@ func fameComputedText(c *chargen.ConsequenceEvent) string {
 // fameDescriptor names a Fame level's reach (chart F p. 91). An unreadable
 // table degrades to the bare level rather than failing the sheet.
 func fameDescriptor(level int) string {
-	table, err := fame.Load()
-	if err != nil {
+	if fame.Err() != nil {
 		return strconv.Itoa(level)
 	}
 
-	if name := table.Descriptor(level); name != "" {
+	if name := fame.Load().Descriptor(level); name != "" {
 		return name
 	}
 
@@ -937,13 +935,13 @@ func shipSharesLine(shares int) string {
 
 	line := fmt.Sprintf("**Ship Shares**: %d", shares)
 
-	if table, err := ship.Load(); err == nil {
-		if best, ok := table.Largest(shares); ok {
-			line += fmt.Sprintf(", enough for a %d-ton %s (%d)", best.Tons, best.Name, best.Shares)
+	// A chart S that failed to load is empty, and an empty chart has no
+	// ship to name, so the line degrades to the share count.
+	if best, ok := ship.Load().Largest(shares); ok {
+		line += fmt.Sprintf(", enough for a %d-ton %s (%d)", best.Tons, best.Name, best.Shares)
 
-			if spare := shares - best.Shares; spare > 0 {
-				line += fmt.Sprintf(" with %d to spare", spare)
-			}
+		if spare := shares - best.Shares; spare > 0 {
+			line += fmt.Sprintf(" with %d to spare", spare)
 		}
 	}
 

@@ -230,7 +230,7 @@ func rankTitles(c chargen.Character) []string {
 // a row of the chart table: the top of each ladder bars further attempts
 // rather than running off the end (interpretation I-13).
 func TestMerchantRanksAreCharted(t *testing.T) {
-	def, err := career.Merchant()
+	def, err := career.ByName("Merchant")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -259,7 +259,7 @@ func TestMerchantRanksAreCharted(t *testing.T) {
 // gained in a term earns one extra table C roll on top of the per-term
 // four. The skill-column choices count the rolls taken.
 func TestMerchantAdvancementEarnsSkills(t *testing.T) {
-	def, err := career.Merchant()
+	def, err := career.ByName("Merchant")
 	if err != nil {
 		t.Fatal(err)
 	}

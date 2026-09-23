@@ -26,10 +26,7 @@ func entitlementNamed(c chargen.Character, name string) *chargen.EntitlementReco
 // The two Armed Forces retirements are the exception chart M1 marks
 // "Annual at Muster Out".
 func TestPensionsBeginAtLifeStageNine(t *testing.T) {
-	stages, err := lifestage.Load()
-	if err != nil {
-		t.Fatal(err)
-	}
+	stages := lifestage.Load()
 
 	retirement := stages.FirstYearOf(stages.MentalStage)
 	pensions, retirements := 0, 0

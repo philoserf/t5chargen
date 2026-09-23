@@ -11,10 +11,7 @@ import (
 func load(t *testing.T) *ship.Table {
 	t.Helper()
 
-	table, err := ship.Load()
-	if err != nil {
-		t.Fatal(err)
-	}
+	table := ship.Load()
 
 	return table
 }

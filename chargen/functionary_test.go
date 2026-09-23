@@ -89,7 +89,7 @@ func TestFunctionaryNeedsAPriorCareer(t *testing.T) {
 
 	// The bar is also the throw: "To Begin Total Terms x3" against no
 	// prior service is a target of zero.
-	def, err := career.Functionary()
+	def, err := career.ByName("Functionary")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -191,7 +191,7 @@ func TestNobleMayNotBecomeAFunctionary(t *testing.T) {
 // printed table aligns by eye: F0 Clerk gives Bureaucrat, F2 Senior
 // Supervisor Admin, and F3 Manager Bureaucrat. The other six give none.
 func TestFunctionaryAutoSkills(t *testing.T) {
-	def, err := career.Functionary()
+	def, err := career.ByName("Functionary")
 	if err != nil {
 		t.Fatal(err)
 	}

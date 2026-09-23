@@ -24,15 +24,12 @@ import (
 // Where the world was neither assigned nor rolled, the choice is a real
 // one and the options are chart B's own list. The worlds are returned
 // beside the labels because a chosen index has to name a world again.
-func homeworldOptions(homeworld world.Homeworld, assigned bool) ([]string, []world.Homeworld, error) {
+func homeworldOptions(homeworld world.Homeworld, assigned bool) ([]string, []world.Homeworld) {
 	if assigned {
-		return []string{homeworld.Label()}, nil, nil
+		return []string{homeworld.Label()}, nil
 	}
 
-	cells, err := world.Selectable()
-	if err != nil {
-		return nil, nil, fmt.Errorf("homeworld: %w", err)
-	}
+	cells := world.Selectable()
 
 	options := make([]string, 0, len(cells))
 	worlds := make([]world.Homeworld, 0, len(cells))
@@ -43,7 +40,7 @@ func homeworldOptions(homeworld world.Homeworld, assigned bool) ([]string, []wor
 		worlds = append(worlds, w)
 	}
 
-	return options, worlds, nil
+	return options, worlds
 }
 
 // rollHomeworld determines the homeworld on chart B's world list:
@@ -99,10 +96,7 @@ func runHomeworld(
 		return fmt.Errorf("homeworld: %w", err)
 	}
 
-	options, worlds, err := homeworldOptions(homeworld, assigned)
-	if err != nil {
-		return err
-	}
+	options, worlds := homeworldOptions(homeworld, assigned)
 
 	chosen, seq, err := choose(log, decider, Choice{
 		ID:      ChooseHomeworld,
@@ -157,16 +151,12 @@ func grantTC(tc string, cause int, log *Log, decider Decider, character *Charact
 func grantSelection(grant world.Grant, log *Log, decider Decider, character *Character) error {
 	id := ChooseArt
 	prompt := "Choose one Art"
-	options, err := world.ArtChoices()
+	options := world.ArtChoices()
 
 	if grant.Kind == world.GrantTrade {
 		id = ChooseTrade
 		prompt = "Choose one Trade"
-		options, err = world.TradeChoices()
-	}
-
-	if err != nil {
-		return fmt.Errorf("homeworld: %w", err)
+		options = world.TradeChoices()
 	}
 
 	chosen, seq, err := choose(log, decider, Choice{
@@ -271,15 +261,10 @@ func supplied(homeworld world.Homeworld) bool {
 		len(homeworld.TradeClassifications) > 0 || homeworld.DeepSpace
 }
 
-func homeworldOrDefault(homeworld world.Homeworld) (world.Homeworld, error) {
+func homeworldOrDefault(homeworld world.Homeworld) world.Homeworld {
 	if !supplied(homeworld) {
-		d, err := world.Default()
-		if err != nil {
-			return world.Homeworld{}, fmt.Errorf("homeworld: %w", err)
-		}
-
-		return d, nil
+		return world.Default()
 	}
 
-	return homeworld, nil
+	return homeworld
 }

@@ -11,10 +11,7 @@ import (
 func load(t *testing.T) *calendar.Table {
 	t.Helper()
 
-	table, err := calendar.Load()
-	if err != nil {
-		t.Fatal(err)
-	}
+	table := calendar.Load()
 
 	return table
 }

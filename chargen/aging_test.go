@@ -38,10 +38,7 @@ func countAging(c chargen.Character) agingCounts {
 // The count is derived from the final age rather than pinned to fixtures,
 // so it holds across every seed and both aging bands.
 func TestAgingCheckSchedule(t *testing.T) {
-	table, err := lifestage.Load()
-	if err != nil {
-		t.Fatal(err)
-	}
+	table := lifestage.Load()
 
 	physical := table.FirstYearOf(table.PhysicalStage)
 	mental := table.FirstYearOf(table.MentalStage)
@@ -167,10 +164,7 @@ func TestTheSecondExtremelyMajorIllnessKills(t *testing.T) {
 // TestLifeStageIsDerived holds the stored value against the table, as
 // TestGenerateDerivedUPP does for the UPP.
 func TestLifeStageIsDerived(t *testing.T) {
-	table, err := lifestage.Load()
-	if err != nil {
-		t.Fatal(err)
-	}
+	table := lifestage.Load()
 
 	for seed := uint64(1); seed <= 200; seed++ {
 		c := generate(t, chargen.Options{Seed: seed})
@@ -288,10 +282,7 @@ func TestAgingDeathRecordsTheAge(t *testing.T) {
 // it does not know, which would read as "reduced to zero" on every check
 // and reliably kill the character.
 func TestAgingAffectsThePrintedCharacteristics(t *testing.T) {
-	table, err := lifestage.Load()
-	if err != nil {
-		t.Fatal(err)
-	}
+	table := lifestage.Load()
 
 	if !slices.Equal(table.PhysicalCharacteristics, []string{"Str", "Dex", "End"}) {
 		t.Errorf("Physical Aging affects %v", table.PhysicalCharacteristics)

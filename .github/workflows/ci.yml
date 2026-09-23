@@ -36,9 +36,6 @@ jobs:
       - uses: actions/setup-go@v7
         with:
           go-version: stable
-          # No go.sum -- the module has no dependencies -- so there is nothing
-          # to key a module cache on.
-          cache: false
 
       # The toolchain floats, as in every Go repo in the workspace: a tool
       # that moves and turns the gate red on untouched code is the signal

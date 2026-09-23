@@ -9,10 +9,7 @@ import (
 func load(t *testing.T) *fame.Table {
 	t.Helper()
 
-	table, err := fame.Load()
-	if err != nil {
-		t.Fatal(err)
-	}
+	table := fame.Load()
 
 	return table
 }

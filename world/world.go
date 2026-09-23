@@ -47,16 +47,33 @@ type Homeworld struct {
 // files (docs/PRD.md FR2): Regina, the book's own worked example ("from:
 // Regina (1910 Spinward Marches)", p. 58; chart B row R, p. 56). The value
 // lives in data/homeworld_skills.json per the data/logic boundary.
-func Default() (Homeworld, error) {
+//
+// The zero Homeworld where the data failed to load: see Err.
+func Default() Homeworld {
 	t, err := table()
 	if err != nil {
-		return Homeworld{}, err
+		return Homeworld{}
 	}
 
 	d := t.Default
 	d.TradeClassifications = slices.Clone(d.TradeClassifications)
 
-	return d, nil
+	return d
+}
+
+// Err reports whether the embedded homeworld data or chart B failed to
+// load. Both are compiled in, so a failure is a build fault rather than
+// anything a caller did, and it is checked once — chargen.Generate asks
+// before a lifepath starts — rather than returned by every list. A list
+// whose data failed to load is empty.
+func Err() error {
+	if _, err := table(); err != nil {
+		return err
+	}
+
+	_, err := chartB()
+
+	return err
 }
 
 // Label renders the homeworld for display and choice events: the name (when
@@ -332,24 +349,24 @@ func GrantFor(tc string) (Grant, error) {
 
 // ArtChoices returns the "One Art (Choose One)" alternatives in chart
 // order (p. 56). The returned slice is shared; callers must not mutate it.
-func ArtChoices() ([]string, error) {
+func ArtChoices() []string {
 	t, err := table()
 	if err != nil {
-		return nil, err
+		return []string{}
 	}
 
-	return t.OneArt, nil
+	return t.OneArt
 }
 
 // TradeChoices returns "The Trades (Choose One)" alternatives in chart
 // order (p. 56). The returned slice is shared; callers must not mutate it.
-func TradeChoices() ([]string, error) {
+func TradeChoices() []string {
 	t, err := table()
 	if err != nil {
-		return nil, err
+		return []string{}
 	}
 
-	return t.OneTrade, nil
+	return t.OneTrade
 }
 
 // validateDeepSpace holds the deep space mark to what chart B's cell

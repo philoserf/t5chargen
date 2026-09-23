@@ -1,19 +1,19 @@
 # Uncovered statements per package. The gate fails in both directions:
 # a number that rises is lost coverage, one that falls is coverage to lock in.
 # Regenerate with: task ratchet:update
-github.com/philoserf/t5chargen/benefit 33
-github.com/philoserf/t5chargen/calendar 10
-github.com/philoserf/t5chargen/career 85
-github.com/philoserf/t5chargen/chargen 353
+github.com/philoserf/t5chargen/benefit 34
+github.com/philoserf/t5chargen/calendar 11
+github.com/philoserf/t5chargen/career 88
+github.com/philoserf/t5chargen/chargen 332
 github.com/philoserf/t5chargen/cmd/t5chargen 47
 github.com/philoserf/t5chargen/dice 1
-github.com/philoserf/t5chargen/education 22
+github.com/philoserf/t5chargen/education 21
 github.com/philoserf/t5chargen/ehex 0
-github.com/philoserf/t5chargen/fame 10
+github.com/philoserf/t5chargen/fame 11
 github.com/philoserf/t5chargen/interactive 2
-github.com/philoserf/t5chargen/lifestage 12
+github.com/philoserf/t5chargen/lifestage 13
 github.com/philoserf/t5chargen/medal 8
 github.com/philoserf/t5chargen/render 39
-github.com/philoserf/t5chargen/ship 11
+github.com/philoserf/t5chargen/ship 12
 github.com/philoserf/t5chargen/skill 28
-github.com/philoserf/t5chargen/world 32
+github.com/philoserf/t5chargen/world 33

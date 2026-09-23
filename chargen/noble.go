@@ -37,7 +37,7 @@ type nobleMechanics struct {
 //
 //nolint:ireturn // The registry's function type returns the interface.
 func newNoble() (*career.Definition, careerMechanics, error) {
-	def, err := career.Noble()
+	def, err := career.ByName("Noble")
 	if err != nil {
 		return nil, nil, fmt.Errorf("noble career: %w", err)
 	}
