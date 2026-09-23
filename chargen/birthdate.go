@@ -13,7 +13,9 @@ import (
 
 // ErrCurrentYear reports a current year that cannot yield a birthdate:
 // negative, or earlier than the character's own age.
-var ErrCurrentYear = errors.New("current year cannot yield a birth year")
+//
+//nolint:err113 // a package-level sentinel, marked once
+var ErrCurrentYear = asInput(errors.New("current year cannot yield a birth year"))
 
 // birthdateDice is the throw p. 263 calls for: "Roll four consecutive dice
 // to determine the specific day/date of the year." They are read as four

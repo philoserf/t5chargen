@@ -3,8 +3,13 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"go/ast"
+	"go/parser"
+	"go/token"
 	"io"
+	"io/fs"
 	"os"
 	"path/filepath"
 	"slices"
@@ -426,6 +431,127 @@ func errorCases(garbage, noSchema, foreign string) []errorCase {
 		// command worked and the answer is no.
 		{"replay a foreign record", []string{"replay", foreign}, exitError},
 	}
+}
+
+// TestEveryErrorSentinelIsClassified is the ratchet under isUsageError.
+// Exit 2 means the caller's fault, and the engine says which errors those
+// are by putting chargen.ErrInput on their chain. What nothing used to say
+// is whether a new sentinel had been thought about at all: the old
+// hand-kept list defaulted it to exit 1, and nothing failed. This table
+// names every exported Err* in the module as the caller's fault or not,
+// and a sentinel missing from it fails here until someone decides.
+func TestEveryErrorSentinelIsClassified(t *testing.T) {
+	callersFault := map[string]bool{
+		"career.ErrUnknownCareer":      false, // a registry lookup; --career reaches chargen's own
+		"benefit.ErrUnknownKind":       false,
+		"calendar.ErrDay":              false,
+		"calendar.ErrDice":             false,
+		"chargen.ErrCareerUnavailable": true,
+		"chargen.ErrCurrentYear":       true,
+		"chargen.ErrInput":             true, // the mark itself
+		"chargen.ErrReplayDiverged":    false,
+		"chargen.ErrReplayProvenance":  false,
+		"chargen.ErrUnknownCareer":     true,
+		"education.ErrUnknownProgram":  false,
+		"ehex.ErrDigit":                false, // reaches --homeworld only inside world.ErrInvalidUWP
+		"ehex.ErrRange":                false,
+		"interactive.ErrAbandoned":     false,
+		"medal.ErrOffTable":            false,
+		"skill.ErrUnknownSkill":        false,
+		// world cannot import chargen, so these are marked where the
+		// engine meets a supplied homeworld (chargen/homeworld.go) and
+		// exercised through --homeworld in errorCases.
+		"world.ErrDuplicateTC": true,
+		"world.ErrInvalidUWP":  true,
+		"world.ErrUnknownTC":   true,
+	}
+
+	found := exportedSentinels(t, filepath.Join("..", ".."))
+
+	for _, name := range found {
+		if _, ok := callersFault[name]; !ok {
+			t.Errorf("%s is not classified: decide whether a caller can cause it, and if so mark it with chargen.ErrInput", name)
+		}
+	}
+
+	for name := range callersFault {
+		if !slices.Contains(found, name) {
+			t.Errorf("%s is classified but no longer exists", name)
+		}
+	}
+
+	// chargen's own carry the mark themselves, wherever they are returned.
+	for _, sentinel := range []error{chargen.ErrCareerUnavailable, chargen.ErrCurrentYear, chargen.ErrUnknownCareer} {
+		if !errors.Is(sentinel, chargen.ErrInput) {
+			t.Errorf("%v does not carry chargen.ErrInput", sentinel)
+		}
+	}
+}
+
+// exportedSentinels lists every package-level exported Err* variable in
+// the module's non-test source, as "package.Name".
+func exportedSentinels(t *testing.T, root string) []string {
+	t.Helper()
+
+	var found []string
+
+	err := filepath.WalkDir(root, func(path string, entry fs.DirEntry, err error) error {
+		switch {
+		case err != nil:
+			return err
+		case entry.IsDir() && path != root && !isSourceDir(entry.Name()):
+			return filepath.SkipDir
+		case entry.IsDir() || !strings.HasSuffix(path, ".go") || strings.HasSuffix(path, "_test.go"):
+			return nil
+		}
+
+		file, err := parser.ParseFile(token.NewFileSet(), path, nil, parser.SkipObjectResolution)
+		if err != nil {
+			return fmt.Errorf("parsing %s: %w", path, err)
+		}
+
+		found = append(found, sentinelsIn(file)...)
+
+		return nil
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	return found
+}
+
+// isSourceDir reports whether a directory can hold the module's source:
+// not a dot-directory (worktrees live under .claude) and not testdata.
+func isSourceDir(name string) bool {
+	return !strings.HasPrefix(name, ".") && name != "testdata"
+}
+
+// sentinelsIn lists one file's package-level exported Err* variables.
+func sentinelsIn(file *ast.File) []string {
+	var found []string
+
+	for _, decl := range file.Decls {
+		gen, ok := decl.(*ast.GenDecl)
+		if !ok || gen.Tok != token.VAR {
+			continue
+		}
+
+		for _, spec := range gen.Specs {
+			value, ok := spec.(*ast.ValueSpec)
+			if !ok {
+				continue
+			}
+
+			for _, name := range value.Names {
+				if strings.HasPrefix(name.Name, "Err") && name.IsExported() {
+					found = append(found, file.Name.Name+"."+name.Name)
+				}
+			}
+		}
+	}
+
+	return found
 }
 
 func TestErrors(t *testing.T) {

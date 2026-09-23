@@ -88,7 +88,14 @@ func runHomeworld(
 		assigned = true
 	}
 
+	// A homeworld rolled on chart B that fails here is the chart's fault;
+	// one that arrived with the options is the caller's. world cannot say
+	// which — chargen imports world, not the other way — so it is said here.
 	if err := homeworld.Validate(); err != nil {
+		if !roll {
+			err = asInput(err)
+		}
+
 		return fmt.Errorf("homeworld: %w", err)
 	}
 
