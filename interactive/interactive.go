@@ -52,7 +52,14 @@ type Decider struct {
 // New returns a Decider reading answers from in and writing prompts to
 // out.
 func New(in io.Reader, out io.Writer) *Decider {
-	return &Decider{in: bufio.NewScanner(in), out: out, session: newSession()}
+	scanner := bufio.NewScanner(in)
+	// bufio's default token limit is 64 KB, and a line past it ends the
+	// session — and the lifepath with it. An accidental paste is the way a
+	// player reaches that, so the limit is set well past any paste, where
+	// the answer is a search that matches nothing rather than an error.
+	scanner.Buffer(nil, maxAnswer)
+
+	return &Decider{in: scanner, out: out, session: newSession()}
 }
 
 // Kind identifies the player in choice events (docs/PRD.md FR10: "who
@@ -101,10 +108,27 @@ func (d *Decider) resolve(c chargen.Choice, answer string) (int, bool, error) {
 
 		d.present(c, "")
 	default:
-		if index, ok := parseIndex(answer, len(c.Options)); ok {
-			return index, true, nil
-		}
+		return d.answer(c, answer)
+	}
 
+	return 0, false, nil
+}
+
+// answer takes an option number, refuses one the list does not hold, and
+// searches for anything else.
+func (d *Decider) answer(c chargen.Choice, answer string) (int, bool, error) {
+	index, isNumber := parseIndex(answer)
+
+	switch {
+	case isNumber && index >= 0 && index < len(c.Options):
+		return index, true, nil
+	case isNumber:
+		// Refused rather than searched for. Every UWP in the homeworld
+		// list is full of digits, so "99" used to narrow it to three
+		// worlds and say nothing, which reads as having worked; and 0,
+		// the natural typo, did the same with eleven.
+		fmt.Fprintf(d.out, "  there is no option %s; the options are numbered 1 to %d.\n", answer, len(c.Options))
+	default:
 		d.filter(c, answer)
 	}
 
@@ -152,6 +176,9 @@ func (d *Decider) announceCharacteristics() {
 	fmt.Fprintf(d.out, "  %s\n", d.session.characteristics())
 }
 
+// maxAnswer bounds one line of input. See New.
+const maxAnswer = 1 << 20
+
 // read takes one line of input, treating the end of it as abandonment: a
 // player who closed the session did not answer, and the engine must not be
 // told that he did.
@@ -159,7 +186,10 @@ func (d *Decider) read() (string, error) {
 	fmt.Fprint(d.out, "> ")
 
 	if !d.in.Scan() {
-		if err := d.in.Err(); err != nil {
+		switch err := d.in.Err(); {
+		case errors.Is(err, bufio.ErrTooLong):
+			return "", fmt.Errorf("reading the answer: longer than %d bytes: %w", maxAnswer, err)
+		case err != nil:
 			return "", fmt.Errorf("reading the answer: %w", err)
 		}
 
@@ -169,20 +199,25 @@ func (d *Decider) read() (string, error) {
 	return strings.TrimSpace(d.in.Text()), nil
 }
 
-// parseIndex reads an answer as a 1-based option number. Only bare digits
-// count: strconv.Atoi would read "+2" as 2, and the benefit DM menu lists
-// its options as "+0", "+1", "+2", so a player copying the option he wants
-// would silently select the one above it. A signed answer falls through to
-// the filter instead, which matches it against the option text and shows
-// it under its own number.
-func parseIndex(answer string, options int) (int, bool) {
+// parseIndex reads an answer as a 1-based option number, reporting the
+// 0-based index and whether the answer was a number at all; whether the
+// list holds that option is the caller's question. Only bare digits count:
+// strconv.Atoi would read "+2" as 2, and the benefit DM menu lists its
+// options as "+0", "+1", "+2", so a player copying the option he wants
+// would silently select the one above it. A signed answer is not a number
+// here, and falls through to the filter, which matches it against the
+// option text and shows it under its own number.
+//
+// A run of digits too long for an int is still a number, and one no list
+// holds, so it comes back as -1.
+func parseIndex(answer string) (int, bool) {
 	if answer == "" || strings.TrimLeft(answer, "0123456789") != "" {
 		return 0, false
 	}
 
 	n, err := strconv.Atoi(answer)
-	if err != nil || n < 1 || n > options {
-		return 0, false
+	if err != nil {
+		return -1, true
 	}
 
 	return n - 1, true
