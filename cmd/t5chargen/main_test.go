@@ -761,6 +761,58 @@ func TestAFailedWriteNamesNoTemporaryFile(t *testing.T) {
 	}
 }
 
+// TestARecordOutputCannotTakeGoesToStdout verifies the last line of
+// defence: a record the -o write fails on is written to stdout, and the
+// run still exits 1, because it did not do what it was asked. The file
+// appears after the session starts — past the pre-flight check, which
+// only looks — which is the case that check cannot catch.
+func TestARecordOutputCannotTakeGoesToStdout(t *testing.T) {
+	record := filepath.Join(t.TempDir(), "character.json")
+
+	var stdout, stderr bytes.Buffer
+
+	// The first answer the player gives, the file is made behind his back.
+	script := &onFirstRead{r: strings.NewReader(strings.Repeat("1\n", 4000)), do: func() {
+		if err := os.WriteFile(record, []byte("already here\n"), 0o600); err != nil {
+			t.Error(err)
+		}
+	}}
+
+	if code := run([]string{"new", "--seed", "1", "-o", record}, noSeed(t), script, &stdout, &stderr); code != exitError {
+		t.Fatalf("exit %d, want %d (stderr: %s)", code, exitError, stderr.String())
+	}
+
+	var character chargen.Character
+	if err := json.Unmarshal(stdout.Bytes(), &character); err != nil || character.RNG.Seed != 1 {
+		t.Errorf("stdout is not the record (seed %d, %v):\n%.200s", character.RNG.Seed, err, stdout.String())
+	}
+
+	if !strings.Contains(stderr.String(), "on stdout instead") {
+		t.Errorf("stderr does not say where the record went: %s", stderr.String())
+	}
+
+	data, err := os.ReadFile(record) //nolint:gosec // a temp path this test named
+	if err != nil || string(data) != "already here\n" {
+		t.Errorf("the file that appeared was overwritten without --force (%v)", err)
+	}
+}
+
+// onFirstRead runs do once, before the first read, and then reads from r.
+type onFirstRead struct {
+	r    io.Reader
+	do   func()
+	done bool
+}
+
+func (o *onFirstRead) Read(p []byte) (int, error) {
+	if !o.done {
+		o.done = true
+		o.do()
+	}
+
+	return o.r.Read(p) //nolint:wrapcheck // a pass-through reader
+}
+
 // TestAbandonedSessionWritesNothing verifies the PRD's own sentence:
 // "Interrupted interactive sessions produce no output file" (CLI sketch).
 // The file must not exist — not exist and be empty, and not hold a partial

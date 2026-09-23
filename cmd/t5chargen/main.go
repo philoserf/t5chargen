@@ -89,7 +89,7 @@ troubleshooting:
   a file will not be overwritten
       Nothing is overwritten without --force, and -o is checked before
       the first question, so a mistyped -o is refused before it can cost
-      you a character.
+      you a character. A record -o cannot take after all goes to stdout.
 
 report a problem:
   https://github.com/philoserf/t5chargen/issues
@@ -235,12 +235,25 @@ func runNew(args []string, seedFn func() (uint64, error), stdin io.Reader, stdou
 		return exitError
 	}
 
-	code := emitRecord(character, *common.out, *common.force, stdout, stderr)
-	if code == exitOK {
-		closeSession(player, character, *common.out, stderr)
+	return deliver(player, character, *common.out, *common.force, stdout, stderr)
+}
+
+// deliver writes the record, tells a player where it went, and returns the
+// exit status. A record that went to stdout because -o could not take it
+// was saved, but not where it was asked to be, and a script has to know.
+func deliver(
+	player *interactive.Decider, character chargen.Character, out string, force bool, stdout, stderr io.Writer,
+) int {
+	where, written := emitRecord(character, out, force, stdout, stderr)
+	if written {
+		closeSession(player, character, where, stderr)
 	}
 
-	return code
+	if !written || where != out {
+		return exitError
+	}
+
+	return exitOK
 }
 
 // runBatch generates a run of characters for NPC use: "batch emits JSONL
@@ -603,30 +616,40 @@ func (c commonFlags) options() chargen.Options {
 }
 
 // emitRecord marshals the record and writes it to stdout or the output
-// file.
-func emitRecord(character chargen.Character, out string, force bool, stdout, stderr io.Writer) int {
+// file, and reports where it went: out, or "" for stdout, and whether it
+// was written at all.
+//
+// A record -o could not take goes to stdout instead. checkOutput refuses the paths that can be refused before a
+// session starts, but not a file that appears while it runs, a full disk,
+// or a directory whose permissions changed; and after an interactive run
+// the record is the only copy of a player's answers, which no seed
+// reproduces. A record on stdout can be saved; a record nowhere cannot.
+func emitRecord(character chargen.Character, out string, force bool, stdout, stderr io.Writer) (string, bool) {
 	data, err := json.MarshalIndent(character, "", "  ")
 	if err != nil {
 		fmt.Fprintf(stderr, "t5chargen: encoding character: %v\n", err)
 
-		return exitError
+		return "", false
 	}
 
 	data = append(data, '\n')
 
-	if out == "" {
-		_, err = stdout.Write(data)
-	} else {
-		err = writeFile(out, data, force)
+	if out != "" {
+		err := writeFile(out, data, force)
+		if err == nil {
+			return out, true
+		}
+
+		fmt.Fprintf(stderr, "t5chargen: %v\nt5chargen new: the record is on stdout instead\n", err)
 	}
 
-	if err != nil {
+	if _, err := stdout.Write(data); err != nil {
 		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
 
-		return exitError
+		return "", false
 	}
 
-	return exitOK
+	return "", true
 }
 
 // resolveSeed draws a seed from seedFn when --seed was not given. --seed 0
