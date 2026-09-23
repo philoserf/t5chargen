@@ -596,8 +596,8 @@ its index, so every member replays from the line or file it lands in
 `TestBatchWritesNothingOnConflict`). `render` and `replay` read a JSONL run
 as readily as a single record, a record at a time
 (`TestBatchOutputIsReadable`, `TestAPartlyBrokenRunNamesTheRecord`). The JSON Schema is written: `docs/character.schema.json` with its two
-examples, checked by a hand-written validator over the subset it uses
-(`TestEveryFixtureValidates`, `TestTheCheckerCatchesWhatItClaimsTo`,
+examples, checked by an imported, test-scoped JSON Schema validator
+(`TestEveryFixtureValidates`, `TestTheMinimalExampleIsMinimal`,
 `TestEverySchemaPropertyIsExercised`, `TestEachConsequenceKindKeepsItsShape`,
 `TestEveryConsequenceKindIsAccountedFor`). Interactive mode is implemented: without `--auto`, `t5chargen new` asks the
 player each choice point and records that he answered

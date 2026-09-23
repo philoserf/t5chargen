@@ -1,17 +1,22 @@
 package audit_test
 
 // The gate on docs/character.schema.json: that it admits every record the
-// engine writes, that it refuses records the engine could not have
-// written, and that the checker enforcing it is not vacuous.
+// engine writes, that it names only what records carry, and that its
+// vocabularies are the engine's.
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 	"regexp"
 	"sort"
 	"strings"
+	"sync"
 	"testing"
+
+	"github.com/santhosh-tekuri/jsonschema/v6"
 
 	"github.com/philoserf/t5chargen/chargen"
 )
@@ -40,7 +45,7 @@ func TestEveryFixtureValidates(t *testing.T) {
 
 	for _, record := range records {
 		t.Run(filepath.Base(record), func(t *testing.T) {
-			problems, err := validate(schemaPath, record)
+			problems, err := validate(record)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -60,7 +65,7 @@ func TestEveryFixtureValidates(t *testing.T) {
 func TestExamplesValidate(t *testing.T) {
 	for _, example := range []string{minimalExample, completeExample} {
 		t.Run(example, func(t *testing.T) {
-			problems, err := validate(schemaPath, example)
+			problems, err := validate(example)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -136,164 +141,6 @@ func canonical(t *testing.T, path string) string {
 	return string(encoded)
 }
 
-// TestAnUnresolvableRefIsRefused is the mutation test for the load-time
-// check that every $ref names something. Without it a renamed $def would
-// delete every rule beneath the ref and leave every other test here
-// passing.
-func TestAnUnresolvableRefIsRefused(t *testing.T) {
-	data, err := os.ReadFile(filepath.Clean(schemaPath))
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	broken := strings.Replace(string(data), `"#/$defs/rng"`, `"#/$defs/rgn"`, 1)
-	if broken == string(data) {
-		t.Fatal("the schema no longer refers to #/$defs/rng; this gate would be asserting nothing")
-	}
-
-	if _, err := newChecker([]byte(broken)); err == nil {
-		t.Error("a schema referring to a $def it does not define was accepted")
-	}
-}
-
-// TestAKeywordBesideARefStillApplies is the mutation test for the other
-// half of $ref handling: draft 2020-12 applies the keywords written next
-// to a $ref as well, and a checker that let the ref replace its siblings
-// would silently drop every rule beside one.
-func TestAKeywordBesideARefStillApplies(t *testing.T) {
-	data, err := os.ReadFile(filepath.Clean(schemaPath))
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	var schema map[string]any
-	if err = json.Unmarshal(data, &schema); err != nil {
-		t.Fatal(err)
-	}
-
-	defs, _ := schema["$defs"].(map[string]any)
-	character, _ := defs["character"].(map[string]any)
-	properties, _ := character["properties"].(map[string]any)
-
-	rng, _ := properties["rng"].(map[string]any)
-	if _, ok := rng["$ref"]; !ok {
-		t.Fatal("the character's rng is no longer a $ref; this gate would be asserting nothing")
-	}
-
-	rng["required"] = []any{"nonesuch"}
-
-	doctored, err := json.Marshal(schema)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	c, err := newChecker(doctored)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if problems := c.check(c.root, readRecord(t, minimalExample), "record"); len(problems) == 0 {
-		t.Error("a rule written beside a $ref was not applied")
-	}
-}
-
-// brokenRecords are the ways a record can be wrong that the schema claims
-// to catch. Each is the minimal example with one thing done to it, and
-// each must fail — for a reason naming what was done.
-//
-// This is the list that makes the gate mean something. A checker that
-// silently passed everything would satisfy every other test in this file.
-var brokenRecords = map[string]struct {
-	blame  string
-	damage func(map[string]any)
-}{
-	"a required field is missing": {
-		blame:  "upp is required",
-		damage: func(r map[string]any) { delete(r, "upp") },
-	},
-	"an unknown field is present": {
-		blame:  "not a property",
-		damage: func(r map[string]any) { r["favourite_colour"] = "blue" },
-	},
-	"a string where an integer belongs": {
-		blame:  "want integer",
-		damage: func(r map[string]any) { r["age"] = "thirty" },
-	},
-	"a fractional integer": {
-		blame:  "want integer",
-		damage: func(r map[string]any) { r["age"] = 30.5 },
-	},
-	"a negative seed": {
-		blame:  "at least",
-		damage: func(r map[string]any) { nested(r, "rng")["seed"] = -1.0 },
-	},
-	"an event kind outside the vocabulary": {
-		blame:  "is not one of",
-		damage: func(r map[string]any) { firstEvent(r)["kind"] = "rumination" },
-	},
-	"an event carrying the wrong payload": {
-		blame: "forbids",
-		damage: func(r map[string]any) {
-			firstEvent(r)["throw"] = map[string]any{
-				"expr": "2D", "dice": []any{1.0, 2.0}, "total": 3.0, "cite": "somewhere",
-			}
-		},
-	},
-	"an event carrying no payload at all": {
-		blame:  "required and absent",
-		damage: func(r map[string]any) { delete(firstEvent(r), "step") },
-	},
-	"a nested required field is missing": {
-		blame:  "algorithm is required",
-		damage: func(r map[string]any) { delete(nested(r, "rng"), "algorithm") },
-	},
-	"a nested unknown field": {
-		blame:  "not a property",
-		damage: func(r map[string]any) { nested(r, "characteristics")["luck"] = 12.0 },
-	},
-}
-
-// nested reaches into an object property, which every damage function
-// knows is there because the minimal example carries it.
-func nested(record map[string]any, name string) map[string]any {
-	object, _ := record[name].(map[string]any)
-
-	return object
-}
-
-// firstEvent reaches the record's first event.
-func firstEvent(record map[string]any) map[string]any {
-	events, _ := record["events"].([]any)
-	if len(events) == 0 {
-		return map[string]any{}
-	}
-
-	event, _ := events[0].(map[string]any)
-
-	return event
-}
-
-// TestTheCheckerCatchesWhatItClaimsTo runs the broken records. Each must
-// be refused, and refused for the stated reason rather than incidentally.
-func TestTheCheckerCatchesWhatItClaimsTo(t *testing.T) {
-	for name, tc := range brokenRecords {
-		t.Run(name, func(t *testing.T) {
-			record := readRecord(t, minimalExample)
-			tc.damage(record)
-
-			problems := checkRecord(t, record)
-			if len(problems) == 0 {
-				t.Fatalf("%s was accepted; the schema claims to refuse it", name)
-			}
-
-			if !strings.Contains(strings.Join(problems, "\n"), tc.blame) {
-				t.Errorf("refused for the wrong reason.\nwant a problem mentioning %q\ngot:\n  %s",
-					tc.blame, strings.Join(problems, "\n  "))
-			}
-		})
-	}
-}
-
 // TestTheMinimalExampleIsMinimal verifies the minimal example earns its
 // name: removing any one of its top-level fields must break it. A minimal
 // example carrying something optional would misdocument what a record
@@ -328,13 +175,8 @@ func readRecord(t *testing.T, path string) map[string]any {
 	return record
 }
 
-// checkRecord validates an in-memory record.
-//
-// The record goes back through JSON first. A damaged record is built with
-// Go values, and Go has integers where parsed JSON has only float64 — so a
-// case written as -1 would reach the checker as a type it can never meet
-// in a file, and be refused for the wrong reason. Round-tripping puts the
-// damage in the value space the checker actually validates.
+// checkRecord validates an in-memory record. It goes back through JSON
+// first, so the validator meets the value space a file would give it.
 func checkRecord(t *testing.T, record map[string]any) []string {
 	t.Helper()
 
@@ -343,23 +185,78 @@ func checkRecord(t *testing.T, record map[string]any) []string {
 		t.Fatal(err)
 	}
 
-	var parsed any
-	if err = json.Unmarshal(encoded, &parsed); err != nil {
+	problems, err := validateJSON(encoded)
+	if err != nil {
 		t.Fatal(err)
 	}
 
+	return problems
+}
+
+// validate checks one document against the schema, returning its problems.
+func validate(docPath string) ([]string, error) {
+	data, err := os.ReadFile(filepath.Clean(docPath))
+	if err != nil {
+		return nil, fmt.Errorf("reading %s: %w", docPath, err)
+	}
+
+	return validateJSON(data)
+}
+
+// validateJSON checks one encoded document against the schema.
+func validateJSON(data []byte) ([]string, error) {
+	schema, err := compiledSchema()
+	if err != nil {
+		return nil, err
+	}
+
+	doc, err := jsonschema.UnmarshalJSON(bytes.NewReader(data))
+	if err != nil {
+		return nil, fmt.Errorf("parsing the record: %w", err)
+	}
+
+	// A validation failure is the answer, not an error: the problems are
+	// what the caller asked for.
+	if invalid := schema.Validate(doc); invalid != nil {
+		return []string{invalid.Error()}, nil //nolint:nilerr // a failed validation is the result, not an error
+	}
+
+	return nil, nil
+}
+
+// compiledSchema compiles docs/character.schema.json once.
+//
+// The validator is imported, test-scoped. It was once written here to keep
+// the repository dependency-free, and by the time it was re-priced it was
+// ~650 lines: the checker, and the meta-tests a hand-written checker needs
+// so that a bug in it cannot pass everything. It never reaches the binary:
+// depguard admits it in _test.go files only.
+var compiledSchema = sync.OnceValues(func() (*jsonschema.Schema, error) {
 	data, err := os.ReadFile(filepath.Clean(schemaPath))
 	if err != nil {
-		t.Fatal(err)
+		return nil, fmt.Errorf("reading the schema: %w", err)
 	}
 
-	c, err := newChecker(data)
+	doc, err := jsonschema.UnmarshalJSON(bytes.NewReader(data))
 	if err != nil {
-		t.Fatal(err)
+		return nil, fmt.Errorf("parsing the schema: %w", err)
 	}
 
-	return c.check(c.root, parsed, "record")
-}
+	compiler := jsonschema.NewCompiler()
+	if addErr := compiler.AddResource(schemaURL, doc); addErr != nil {
+		return nil, fmt.Errorf("loading the schema: %w", addErr)
+	}
+
+	schema, err := compiler.Compile(schemaURL)
+	if err != nil {
+		return nil, fmt.Errorf("compiling the schema: %w", err)
+	}
+
+	return schema, nil
+})
+
+// schemaURL is the schema's own $id, the name the compiler knows it by.
+const schemaURL = "https://philoserf.github.io/t5chargen/character.schema.json"
 
 // TestEverySchemaPropertyIsExercised is the dead-data gate applied to the
 // schema. A property nothing ever produces is either a field the engine no
@@ -799,87 +696,4 @@ func schemaEnum(t *testing.T, def, property string) []string {
 	}
 
 	return schema.Defs[def].Properties[property].Enum
-}
-
-// TestAWholeNumberSatisfiesTypeNumber pins the one place JSON Schema's
-// type names are not disjoint: every integer is a number, so a property
-// declared "number" must accept 5 as readily as 5.5.
-//
-// Constructed rather than drawn from the record, and deliberately so.
-// character.schema.json declares no "number" today, so nothing exercises
-// this and no fixture would notice if it broke. The first fractional
-// field added to the record — a rate, a multiplier — gets "number", and a
-// checker without this rule then fails every record whose value happened
-// to land whole, reading as a schema bug rather than a checker one.
-func TestAWholeNumberSatisfiesTypeNumber(t *testing.T) {
-	c, err := newChecker([]byte(`{"type": "object", "properties": {"rate": {"type": "number"}}}`))
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	for _, value := range []any{5.0, 5.5, -2.0} {
-		if problems := c.check(c.root, map[string]any{"rate": value}, "record"); len(problems) != 0 {
-			t.Errorf("rate %v refused under type number: %s", value, strings.Join(problems, "; "))
-		}
-	}
-
-	// The reverse still fails: a fractional value is not an integer.
-	c, err = newChecker([]byte(`{"type": "object", "properties": {"terms": {"type": "integer"}}}`))
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if problems := c.check(c.root, map[string]any{"terms": 2.5}, "record"); len(problems) == 0 {
-		t.Error("terms 2.5 was accepted under type integer")
-	}
-}
-
-// TestANonScalarConstIsCompared pins that the checker reports a mismatch
-// on an array or object const rather than crashing.
-//
-// Go's == on two any values panics when the dynamic type is uncomparable,
-// and a JSON array parses to []any. Every const in character.schema.json
-// is a string, so nothing exercises this and no fixture would notice if it
-// regressed — but the crash takes the whole test binary with it, which
-// reads as a broken build rather than a checker bug.
-func TestANonScalarConstIsCompared(t *testing.T) {
-	c, err := newChecker([]byte(`{"type": "object", "properties": {"pair": {"const": [1, 2]}}}`))
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if problems := c.check(c.root, map[string]any{"pair": []any{1.0, 2.0}}, "record"); len(problems) != 0 {
-		t.Errorf("the matching array was refused: %s", strings.Join(problems, "; "))
-	}
-
-	if problems := c.check(c.root, map[string]any{"pair": []any{1.0, 3.0}}, "record"); len(problems) == 0 {
-		t.Error("a different array was accepted under const [1, 2]")
-	}
-}
-
-// TestThePatternKeywordIsEnforced pins that the checker applies "pattern"
-// rather than ignoring it.
-//
-// The keyword was added to the schema and the checker in the same change,
-// and this is what stops them drifting apart: a keyword the schema states
-// and the checker skips is worse than no keyword, because the document
-// claims a constraint, every record passes, and the gate looks like it
-// works.
-func TestThePatternKeywordIsEnforced(t *testing.T) {
-	c, err := newChecker([]byte(`{"type": "object", "properties": {"upp": {"pattern": "^[0-9A-HJ-NP-Z]{6}$"}}}`))
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if problems := c.check(c.root, map[string]any{"upp": "704AC5"}, "record"); len(problems) != 0 {
-		t.Errorf("a valid UPP was refused: %s", strings.Join(problems, "; "))
-	}
-
-	// "?" is the symbol the engine used to emit for an unrepresentable
-	// characteristic; I and O are the two letters p. 22 omits.
-	for _, bad := range []string{"7?4AC5", "7I4AC5", "7O4AC5", "704AC", "704AC55"} {
-		if problems := c.check(c.root, map[string]any{"upp": bad}, "record"); len(problems) == 0 {
-			t.Errorf("%q was accepted as a UPP", bad)
-		}
-	}
 }

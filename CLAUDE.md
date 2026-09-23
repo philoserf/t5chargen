@@ -120,8 +120,11 @@ can rewrite proves nothing about what an earlier engine wrote.
 Careers plug into the shared term loop through the unexported
 `careerMechanics` interface and `careerRegistry` in `chargen/careerrun.go`;
 a career in `career.Available` with no registry entry is a wiring bug, not
-a user error. The module is standard-library only on Go 1.27 — `depguard`
-allows `$gostd` and this module and nothing else.
+a user error. The shipped module is standard-library only on Go 1.27 —
+`depguard` allows `$gostd` and this module and nothing else — with one
+exception scoped to tests: `audit` checks records against the JSON Schema
+with `github.com/santhosh-tekuri/jsonschema/v6`, which `depguard` admits in
+`_test.go` files only and which never reaches the binary.
 
 The rest are one embedded chart or vocabulary each, loaded through the same
 `go:embed` plus `sync.OnceValues` pattern with load-time validation:
