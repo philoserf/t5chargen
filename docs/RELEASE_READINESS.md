@@ -195,3 +195,36 @@ The beta bar in [BETA_READINESS.md](BETA_READINESS.md) is met on every
 item tooling can meet. What remains is the part no tooling does: several
 independent users completing the core workflows, and their reports
 dispositioned. That is what this alpha is for.
+
+## v0.1.0-alpha.3 — 2026-09-23
+
+|                |                                                                           |
+| -------------- | ------------------------------------------------------------------------- |
+| **Tag**        | `v0.1.0-alpha.3`, prerelease                                              |
+| **Commit**     | `3472021`                                                                 |
+| **Versions**   | schema 0.33.0 · engine 0.45.0 · policy 0.25.0 — **unchanged**             |
+| **Goldens**    | no fixture in `chargen/testdata` or `render/testdata` moved since alpha.2 |
+| **Gate**       | `task` — green, locally and on the tagged commit in CI; now with nilaway  |
+| **Citations**  | `task citations` — passed; ERRATA.md unchanged since alpha.2              |
+| **Smoke test** | the five workflows against a built binary                                 |
+
+The build handed to testers. Everything in it is the command line around
+the engine — the write path, the CLI contract in
+[COMPATIBILITY.md](COMPATIBILITY.md), help text, interactive input — so
+the record versions stand, and the corpus proves it: the alpha.3 records,
+written by the released binary from alpha.2's seeds, are byte-identical
+to alpha.2's.
+
+### After the tag
+
+- The downloaded `t5chargen_darwin_arm64` matches its line in
+  `SHA256SUMS`, reports **`v0.1.0-alpha.3`**, and replays a record
+  written by `v0.1.0-alpha.2` — 321 events from seed 26.
+- `go install ...@v0.1.0-alpha.3` wrote this release's corpus records,
+  and the corpus gate names the tag.
+
+### Knowingly incomplete
+
+Unchanged from alpha.2: the beta bar's human half — several independent
+users completing the core workflows, and their reports dispositioned.
+This is the build for that.

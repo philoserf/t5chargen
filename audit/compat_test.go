@@ -46,7 +46,7 @@ func TestTheCorpusHoldsEveryReleasedVersion(t *testing.T) {
 	// than derived from git tags: a tag can be deleted, and the promise
 	// this gate holds is about what was published, not about what the
 	// repository still remembers publishing.
-	for _, released := range []string{"v0.1.0-alpha.1", "v0.1.0-alpha.2"} {
+	for _, released := range []string{"v0.1.0-alpha.1", "v0.1.0-alpha.2", "v0.1.0-alpha.3"} {
 		if !versions[released] {
 			t.Errorf("no corpus record from %s; docs/COMPATIBILITY.md promises it still renders", released)
 		}
