@@ -16,8 +16,8 @@ import (
 //
 // docs/COMPATIBILITY.md makes two promises, and this is the gate under
 // them. Prose saying older records still render is worth nothing on its
-// own — the fixtures here were produced by `go install ...@v0.1.0-alpha.1`
-// and are the actual output of a version that no longer exists in the
+// own — each fixture here was produced by `go install ...@<its tag>`,
+// and is the actual output of a version that no longer exists in the
 // tree.
 //
 // `task goldens` must never touch these. It rewrites ./chargen and
@@ -46,7 +46,7 @@ func TestTheCorpusHoldsEveryReleasedVersion(t *testing.T) {
 	// than derived from git tags: a tag can be deleted, and the promise
 	// this gate holds is about what was published, not about what the
 	// repository still remembers publishing.
-	for _, released := range []string{"v0.1.0-alpha.1"} {
+	for _, released := range []string{"v0.1.0-alpha.1", "v0.1.0-alpha.2"} {
 		if !versions[released] {
 			t.Errorf("no corpus record from %s; docs/COMPATIBILITY.md promises it still renders", released)
 		}

@@ -20,8 +20,8 @@ This is the promise that matters to someone keeping characters. A record
 is the character; a version that could not read last month's records would
 make the format's careful versioning pointless.
 
-It is held by a test rather than by this paragraph. The corpus fixtures
-are the actual output of `go install ...@v0.1.0-alpha.1` and are never
+It is held by a test rather than by this paragraph. Each corpus fixture
+is the actual output of `go install ...@<its tag>`, and none is ever
 regenerated — `task goldens` rewrites `./chargen` and `./render`, and
 deliberately not that directory. A corpus a later engine can rewrite
 proves nothing about what an earlier engine wrote.
