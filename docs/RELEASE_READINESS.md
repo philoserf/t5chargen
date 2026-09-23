@@ -277,3 +277,37 @@ The plan's one standing piece of advice stays in force through the beta:
 no new Traveller mechanics unless testers consistently ask for the same
 one, so that stability and usability reports stay distinguishable from
 scope.
+
+## v0.1.0-beta.1 — 2026-09-23
+
+|                |                                                                                          |
+| -------------- | ---------------------------------------------------------------------------------------- |
+| **Tag**        | `v0.1.0-beta.1`, prerelease                                                              |
+| **Commit**     | `2589621`                                                                                |
+| **Versions**   | schema 0.33.0 · engine 0.45.0 · policy 0.25.0 — **unchanged**                            |
+| **Goldens**    | `chargen/testdata` unchanged since alpha.3; `render/testdata` moved on choice lines only |
+| **Gate**       | `task` — green, locally and on the tagged commit in CI                                   |
+| **Citations**  | `task citations` — 254 quotations checked against Book 1                                 |
+| **Smoke test** | the five workflows against a built binary                                                |
+
+The first beta, and the build for its testers. What the beta asks of them
+and what ends it is [From alpha to beta](#from-alpha-to-beta--2026-09-23)
+above. The record versions stand, and the corpus proves it: the beta.1
+records, written by the released binary from the earlier seeds, are
+byte-identical to alpha.3's.
+
+### After the tag
+
+- The downloaded `t5chargen_darwin_arm64` matches its line in
+  `SHA256SUMS`, reports **`v0.1.0-beta.1`**, and replays a record written
+  by `v0.1.0-alpha.3` — 321 events from seed 26.
+- `go install ...@v0.1.0-beta.1` wrote this release's corpus records, and
+  the corpus gate names the tag.
+
+### Knowingly incomplete
+
+The release gate's one warning was left standing: `golang.org/x/tools`
+v0.49.0 against v0.50.0. It is in the module graph only because the
+current `golang.org/x/text` requires it; no package here imports it,
+`go mod tidy` removes any direct bump, and it is test-only either way.
+It clears when `x/text` moves.
