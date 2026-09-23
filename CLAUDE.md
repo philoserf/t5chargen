@@ -145,7 +145,8 @@ every record's event log accounts for its characteristics, skills and age.
 
 Three folders, three kinds of thing. `docs` holds documents and nothing
 else: the spec, the living COVERAGE/ERRATA/POLICY, the milestone histories
-and the JSON Schema with its two examples. `audit` holds the code that
+and the JSON Schema with its minimal example (the complete one is a golden
+fixture, `chargen/testdata/career_scout.json`). `audit` holds the code that
 checks them. The root holds what convention puts there — README, LICENSE,
 this file, and the build configuration — plus the two documents about the
 code as a whole: `THEORY.md`, the design rationale, which is what to read
