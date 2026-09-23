@@ -8,6 +8,7 @@ import (
 	"slices"
 	"strconv"
 	"strings"
+	"unicode/utf8"
 
 	"github.com/philoserf/t5chargen/benefit"
 	"github.com/philoserf/t5chargen/chargen"
@@ -443,15 +444,69 @@ func throwLine(seq int, throw *chargen.ThrowEvent) string {
 // choiceLine renders a choice event: who decided, the alternatives, and
 // the selection. An out-of-range Chosen (corrupted or hand-edited record)
 // renders marked rather than panicking.
+//
+// Every option stays in the transcript, because the recorded answer is an
+// index into them. A list too long to read on one line — chart B's worlds,
+// Citizen's Job and Hobby skills — goes beneath the line instead, wrapped,
+// indented so Markdown keeps it in the same list item.
 func choiceLine(seq int, choice *chargen.ChoiceEvent) string {
 	selected := fmt.Sprintf("[chosen %d out of range]", choice.Chosen)
 	if choice.Chosen >= 0 && choice.Chosen < len(choice.Options) {
 		selected = fmt.Sprintf("%q", choice.Options[choice.Chosen])
 	}
 
-	return fmt.Sprintf("- #%d %s chose %s of [%s]: %s — %s\n",
-		seq, choice.Decider, selected,
-		strings.Join(choice.Options, ", "), choice.Prompt, choice.Cite)
+	options := "[" + strings.Join(choice.Options, ", ") + "]"
+
+	line := fmt.Sprintf("- #%d %s chose %s of %s: %s — %s\n",
+		seq, choice.Decider, selected, options, choice.Prompt, choice.Cite)
+	if utf8.RuneCountInString(line) <= choiceLineWidth {
+		return line
+	}
+
+	return fmt.Sprintf("- #%d %s chose %s: %s — %s\n%s",
+		seq, choice.Decider, selected, choice.Prompt, choice.Cite,
+		wrapOptions("of ", choice.Options))
+}
+
+// choiceLineWidth is the longest a choice line runs before its options go
+// beneath it; optionsWidth is how wide they are wrapped there.
+const (
+	choiceLineWidth = 160
+	optionsWidth    = 78
+)
+
+// wrapOptions lays a bracketed option list out under a list item, breaking
+// between options and never inside one.
+func wrapOptions(lead string, options []string) string {
+	var out strings.Builder
+
+	line := "  " + lead + "["
+
+	for i, option := range options {
+		item := option
+		if i < len(options)-1 {
+			item += ","
+		} else {
+			item += "]"
+		}
+
+		if i > 0 && utf8.RuneCountInString(line)+1+utf8.RuneCountInString(item) > optionsWidth {
+			out.WriteString(line + "\n")
+			line = "  " + item
+
+			continue
+		}
+
+		if i > 0 {
+			line += " "
+		}
+
+		line += item
+	}
+
+	out.WriteString(line + "\n")
+
+	return out.String()
 }
 
 // consequenceLine renders a consequence event indented under its causing
