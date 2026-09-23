@@ -1398,7 +1398,7 @@ func TestHelpIsAskedForNotBlunderedInto(t *testing.T) {
 				"report a problem:",
 				"https://github.com/philoserf/t5chargen/issues",
 				"stability:",
-				"policy declines career changes",
+				"every automatic character is a Citizen",
 			} {
 				if !strings.Contains(stdout.String(), want) {
 					t.Errorf("help does not mention %q", want)

@@ -67,14 +67,18 @@ examples:
   t5chargen render char.json                     the character sheet
   t5chargen render --history char.json           every throw and choice that made him
   t5chargen replay char.json                     regenerate the record and compare
-  t5chargen batch --auto --count 20 -o crew/     twenty characters, one file each
+  t5chargen batch --auto --count 20 -o crew/     twenty Citizens, one file each
+  t5chargen batch --auto --count 5 --career scout -o scouts/
+                                                 five Scouts
 
 --auto and interactive runs differ, and the difference is not a bug:
   --auto answers every choice from the default policy (docs/POLICY.md).
-  The policy declines career changes, so careers reachable only by
-  changing into one — Craftsman and Functionary — never appear in an
-  automatic run. Answer the choices yourself and they do. A record says
-  which decided it: policy_version is "none" when a player did.
+  The policy is fixed: it picks Citizen and never changes career, so
+  every automatic character is a Citizen. --career forces another first
+  career — scout, merchant or any career with no entry requirement; one
+  a character must qualify for, like noble, stops a batch at the first
+  member who does not. Answer the choices yourself for the rest. A record
+  says which decided it: policy_version is "none" when a player did.
 
 troubleshooting:
   replay refuses
