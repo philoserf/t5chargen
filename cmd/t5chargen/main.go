@@ -167,6 +167,58 @@ func run(args []string, seedFn func() (uint64, error), stdin io.Reader, stdout, 
 	}
 }
 
+// parseFlags parses a subcommand's flags, reporting whether to go on and,
+// if not, the exit status.
+//
+// -h and --help follow the rule `t5chargen help` states: asked for rather
+// than blundered into, so the flags go to stdout and the run exits 0 —
+// `t5chargen new --help | less` should work. A flag the set does not know
+// is a misuse: the flag package says which on stderr, and the short usage
+// follows it.
+func parseFlags(flags *flag.FlagSet, args []string, summary string, stdout, stderr io.Writer) (int, bool) {
+	flags.Usage = func() {} // said below, on the right stream
+
+	err := flags.Parse(args)
+
+	switch {
+	case err == nil:
+		return exitOK, true
+	case errors.Is(err, flag.ErrHelp):
+		fmt.Fprintf(stdout, "%s\n\nflags:\n", summary)
+		printFlags(flags, stdout)
+		fmt.Fprintln(stdout, "\nexamples, troubleshooting, and how to report a problem: t5chargen help")
+
+		return exitOK, false
+	default:
+		fmt.Fprint(stderr, usage)
+
+		return exitUsage, false
+	}
+}
+
+// printFlags lists a flag set the way usage and help spell flags: two
+// dashes for a word, one for a letter. The flag package prints one dash
+// for everything, which works but reads as a different tool.
+func printFlags(flags *flag.FlagSet, w io.Writer) {
+	flags.VisitAll(func(f *flag.Flag) {
+		dashes := "--"
+		if len(f.Name) == 1 {
+			dashes = "-"
+		}
+
+		kind, text := flag.UnquoteUsage(f)
+		if kind != "" {
+			kind = " " + kind
+		}
+
+		if f.DefValue != "" && f.DefValue != "0" && f.DefValue != "false" {
+			text += fmt.Sprintf(" (default %s)", f.DefValue)
+		}
+
+		fmt.Fprintf(w, "  %s%s%s\n      %s\n", dashes, f.Name, kind, text)
+	})
+}
+
 // isUsageError reports whether a generation failure is the caller's
 // fault rather than the engine's. The engine is the single validator for
 // careers, UWPs, trade classifications, and the current year, and it marks
@@ -190,8 +242,10 @@ func runNew(args []string, seedFn func() (uint64, error), stdin io.Reader, stdou
 		"apply the fixed default policy (POLICY.md) to every choice",
 		"output file (default: stdout)")
 
-	if err := flags.Parse(args); err != nil {
-		return exitUsage
+	if code, ok := parseFlags(flags, args,
+		"t5chargen new: make one character, answered by you or, with --auto, by the default policy",
+		stdout, stderr); !ok {
+		return code
 	}
 
 	if code := common.check("new", flags, stderr); code != exitOK {
@@ -269,8 +323,10 @@ func runBatch(args []string, seedFn func() (uint64, error), stdout, stderr io.Wr
 		"output directory, named with a trailing / and created if missing (one file per character), "+
 			"or a .jsonl file (default: JSONL on stdout)")
 
-	if err := flags.Parse(args); err != nil {
-		return exitUsage
+	if code, ok := parseFlags(flags, args,
+		"t5chargen batch: make a run of characters, all answered by the default policy",
+		stdout, stderr); !ok {
+		return code
 	}
 
 	if code := common.check("batch", flags, stderr); code != exitOK {
@@ -1012,8 +1068,10 @@ func runRender(args []string, stdout, stderr io.Writer) int {
 	flags.SetOutput(stderr)
 	history := flags.Bool("history", false, "render the generation-record transcript instead of the sheet")
 
-	if err := flags.Parse(args); err != nil {
-		return exitUsage
+	if code, ok := parseFlags(flags, args,
+		"t5chargen render [--history] character.json: the record as a character sheet, or as its transcript",
+		stdout, stderr); !ok {
+		return code
 	}
 
 	if flags.NArg() != 1 {
@@ -1059,8 +1117,10 @@ func runReplay(args []string, stdout, stderr io.Writer) int {
 	ignoreProvenance := flags.Bool("ignore-provenance", false,
 		"re-run a record made by a different build, and report where it disagrees")
 
-	if err := flags.Parse(args); err != nil {
-		return exitUsage
+	if code, ok := parseFlags(flags, args,
+		"t5chargen replay [--ignore-provenance] character.json: regenerate a record and compare",
+		stdout, stderr); !ok {
+		return code
 	}
 
 	if flags.NArg() != 1 {

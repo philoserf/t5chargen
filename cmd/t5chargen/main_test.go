@@ -1372,6 +1372,37 @@ func recordFromAnotherBuild(t *testing.T) string {
 	return record
 }
 
+// TestSubcommandHelpIsAskedFor verifies each subcommand's -h and --help
+// follow the rule top-level help states: stdout, exit 0, and a pointer on
+// to `t5chargen help`, where the examples are. The flags are spelled the
+// way usage spells them.
+func TestSubcommandHelpIsAskedFor(t *testing.T) {
+	for _, sub := range []string{"new", "batch", "render", "replay"} {
+		for _, arg := range []string{"-h", "--help"} {
+			t.Run(sub+" "+arg, func(t *testing.T) {
+				var stdout, stderr bytes.Buffer
+
+				if code := run([]string{sub, arg}, noSeed(t), noInput(), &stdout, &stderr); code != exitOK {
+					t.Fatalf("exit %d, want %d (stderr: %s)", code, exitOK, stderr.String())
+				}
+
+				if stderr.Len() != 0 {
+					t.Errorf("help wrote to stderr: %s", stderr.String())
+				}
+
+				out := stdout.String()
+				if !strings.HasPrefix(out, "t5chargen "+sub) || !strings.Contains(out, "t5chargen help") {
+					t.Errorf("help does not say what %s is or where to read more:\n%s", sub, out)
+				}
+
+				if strings.Contains(out, "  -auto") || strings.Contains(out, "  -history") {
+					t.Errorf("a word flag is spelled with one dash:\n%s", out)
+				}
+			})
+		}
+	}
+}
+
 // TestHelpIsAskedForNotBlunderedInto verifies `help` and its flag forms
 // print to stdout and exit zero, while a misuse still prints the terse
 // usage to stderr. The distinction is the point: usage accompanies every
