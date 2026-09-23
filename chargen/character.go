@@ -792,15 +792,39 @@ func checkSharedData() error {
 	return nil
 }
 
+// ErrInput is on the chain of every error caused by a value the caller
+// supplied — a forced career, a homeworld, a current year — which the
+// engine refuses rather than repairs. It is never returned bare. The CLI
+// reads it as the caller's fault, and so the engine, which knows which of
+// its errors those are, is where the distinction is made.
+var ErrInput = errors.New("invalid input")
+
+// inputError puts ErrInput on an error's chain without changing what it
+// says: the message is the error's own, and errors.Is still finds the
+// error itself.
+type inputError struct{ err error }
+
+func (e *inputError) Error() string { return e.err.Error() }
+
+func (e *inputError) Unwrap() error { return e.err }
+
+func (*inputError) Is(target error) bool { return target == ErrInput }
+
+// asInput marks err as caused by the caller's input.
+func asInput(err error) error { return &inputError{err} }
+
 // ErrCareerUnavailable reports a forced career the character cannot
 // enter: chart 01's entry is automatic only "if TWO skill-6 and
 // Craftsman-1" (p. 75), and chart 13's "is never a first career" (p. 87).
 // The career exists; this character may not open a lifepath with it.
-var ErrCareerUnavailable = errors.New("career unavailable to this character")
+//
+//nolint:err113 // a package-level sentinel, marked once
+var ErrCareerUnavailable = asInput(errors.New("career unavailable to this character"))
 
-// ErrUnknownCareer reports a forced career that is not implemented; the
-// CLI matches it to distinguish usage errors from operational ones.
-var ErrUnknownCareer = errors.New("unknown career")
+// ErrUnknownCareer reports a forced career that is not implemented.
+//
+//nolint:err113 // a package-level sentinel, marked once
+var ErrUnknownCareer = asInput(errors.New("unknown career"))
 
 // errNoDecider reports a Generate call without a Decider.
 var errNoDecider = errors.New("chargen: Options.Decider is required (pass DefaultPolicy{} for auto mode)")

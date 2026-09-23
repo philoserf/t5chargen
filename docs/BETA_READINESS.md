@@ -11,6 +11,10 @@ for the CLI, 90.7% for rendering, and 97.6% for dice.
 
 ## Recommended path to beta
 
+Each section keeps the review's original recommendation, quoted under
+"As reviewed", beneath a note of what has since been done. Only what is
+not quoted is still an instruction.
+
 ### 1. Run an intentional alpha feedback cycle
 
 **Partly done** — the three issue templates exist
@@ -43,19 +47,21 @@ last, and what bumps `schema_version`. The corpus is
 `audit/testdata/corpus`, one record per released version written by that
 version's own binary, gated by `audit/compat_test.go`.
 
-The project carefully versions records, but deliberately has no upgrade path
-for records rejected by newer provenance checks. Before beta, decide and
-document:
-
-- whether beta releases promise to render older records;
-- whether replay requires the original engine version;
-- how users obtain an older executable;
-- how long prerelease artifacts remain available;
-- what constitutes a breaking schema change.
-
-Add a compatibility corpus containing records from every released version.
-Each new release should prove the intended operations against that corpus.
-This is more important than pushing raw coverage higher.
+> **As reviewed**, before the work above:
+>
+> The project carefully versions records, but deliberately has no upgrade path
+> for records rejected by newer provenance checks. Before beta, decide and
+> document:
+>
+> - whether beta releases promise to render older records;
+> - whether replay requires the original engine version;
+> - how users obtain an older executable;
+> - how long prerelease artifacts remain available;
+> - what constitutes a breaking schema change.
+>
+> Add a compatibility corpus containing records from every released version.
+> Each new release should prove the intended operations against that corpus.
+> This is more important than pushing raw coverage higher.
 
 ### 3. Test the supported installation surface
 
@@ -65,16 +71,18 @@ release; README declares Windows unsupported. Installation from the
 tagged module is proved by the release workflow, which builds the
 artifacts that way.
 
-CI currently tests one Linux environment and the Go version declared in
-`go.mod`. Before beta, add lightweight smoke jobs for:
-
-- macOS and Linux;
-- the minimum supported Go version and the current Go version;
-- installation from the tagged module, not only repository builds.
-
-Windows is optional, but either test it or explicitly say it is unsupported.
-The requirement of Go 1.26.6 is also a meaningful adoption constraint; keep
-it only if the code needs it.
+> **As reviewed**, before the work above:
+>
+> CI currently tests one Linux environment and the Go version declared in
+> `go.mod`. Before beta, add lightweight smoke jobs for:
+>
+> - macOS and Linux;
+> - the minimum supported Go version and the current Go version;
+> - installation from the tagged module, not only repository builds.
+>
+> Windows is optional, but either test it or explicitly say it is unsupported.
+> The requirement of Go 1.26.6 is also a meaningful adoption constraint; keep
+> it only if the code needs it.
 
 ### 4. Automate release artifacts when users need easier installation
 
@@ -83,14 +91,16 @@ gate on the tagged commit, builds four platform binaries, checksums them
 and opens a draft release. The notes stay manual, which is the one part
 of a release a person has to write.
 
-The release procedure explicitly postpones binaries and release automation.
-That was sensible for alpha. For beta, signed or checksummed binaries for
-macOS and Linux would widen the tester pool and make reports easier to
-reproduce.
-
-A release workflow should build from the tag, run smoke tests, produce
-checksums, and create the prerelease. Keep the citation check manual because
-the source PDF cannot enter CI.
+> **As reviewed**, before the work above:
+>
+> The release procedure explicitly postpones binaries and release automation.
+> That was sensible for alpha. For beta, signed or checksummed binaries for
+> macOS and Linux would widen the tester pool and make reports easier to
+> reproduce.
+>
+> A release workflow should build from the tag, run smoke tests, produce
+> checksums, and create the prerelease. Keep the citation check manual because
+> the source PDF cannot enter CI.
 
 ### 5. Harden externally supplied data
 
@@ -100,19 +110,21 @@ clean at millions of executions. Interactive input and extreme
 `batch --count` remain covered by the existing hostile-input tests
 rather than by fuzzing.
 
-The highest-value additional testing is fuzzing rather than more example
-tests. Good targets are:
-
-- malformed character JSON;
-- schema validation;
-- `render` and `replay`;
-- UWP and trade-classification parsing;
-- interactive input;
-- extreme `batch --count` values and unusually long-lived characters.
-
-The existing hostile-input tests are a good foundation. Add bounded fuzz
-tests and ensure malformed records cannot panic, allocate without practical
-bounds, or leave partial output behind.
+> **As reviewed**, before the work above:
+>
+> The highest-value additional testing is fuzzing rather than more example
+> tests. Good targets are:
+>
+> - malformed character JSON;
+> - schema validation;
+> - `render` and `replay`;
+> - UWP and trade-classification parsing;
+> - interactive input;
+> - extreme `batch --count` values and unusually long-lived characters.
+>
+> The existing hostile-input tests are a good foundation. Add bounded fuzz
+> tests and ensure malformed records cannot panic, allocate without practical
+> bounds, or leave partial output behind.
 
 ### 6. Improve beta-facing product ergonomics
 
@@ -122,15 +134,17 @@ and Report a problem sections; CHANGELOG.md starts at the first release.
 The `--auto` explanation lives in help text rather than in a prompt,
 because a prompt is recorded and replay-compared.
 
-The README explains the product well, but beta users will need:
-
-- `--help` examples and troubleshooting;
-- a short "report a problem" link;
-- documented stability expectations;
-- a concise changelog or release-notes history;
-- explicit support-platform language;
-- a friendlier explanation of why interactive-only branches are absent
-  under `--auto`.
+> **As reviewed**, before the work above:
+>
+> The README explains the product well, but beta users will need:
+>
+> - `--help` examples and troubleshooting;
+> - a short "report a problem" link;
+> - documented stability expectations;
+> - a concise changelog or release-notes history;
+> - explicit support-platform language;
+> - a friendlier explanation of why interactive-only branches are absent
+>   under `--auto`.
 
 Do not add new Traveller mechanics during this cycle unless alpha users
 consistently request the same feature. Stability and usability feedback

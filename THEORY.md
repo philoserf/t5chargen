@@ -306,7 +306,7 @@ that is what makes the sheet and the transcript trustworthy as evidence.
 **Record ↔ replay.** Principled, and stated as a contract in the PRD.
 
 **`chargen` internal structure.** Historical. Thirty-four non-test files in one
-package, ~25,000 lines, with the term loop, the thirteen careers, education,
+package, ~12,000 lines of Go (25,000 with its tests), with the term loop, the thirteen careers, education,
 muster out, fame, aging, the policy and replay all sharing a package namespace.
 Everything in it is unexported-to-the-world by Go's rules, so the package
 boundary is doing real work; the _file_ boundaries within it are convention.

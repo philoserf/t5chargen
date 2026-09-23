@@ -97,13 +97,19 @@ t5chargen new --auto --seed 7 -o char.json # write the record
 t5chargen render char.json                 # the character sheet, again
 t5chargen render --history char.json       # every throw and choice, in order
 t5chargen replay char.json                 # check the record reproduces itself
-t5chargen batch --count 20 --auto -o npcs/ # twenty NPCs, one file each
+t5chargen batch --count 20 --auto -o npcs/ # twenty Citizens, one file each
 t5chargen version                          # the build, and what a record stamps
 ```
 
 `new` writes JSON to stdout unless given `-o`. Omitting `--seed` draws one
 from OS entropy and records it, so any character can be regenerated
 exactly.
+
+`--auto` is one fixed policy, and it makes every character a Citizen
+who never changes career. `--career scout` (or `merchant`, or any career
+with no entry requirement) forces a different first career, which is how
+a varied batch is made; the other careers are reached by answering the
+choices yourself.
 
 Useful flags: `--career scout` forces the first career, `--homeworld
 "A788899-C Ph Pa Ri"` supplies a world (`random` rolls one on chart B;

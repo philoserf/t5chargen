@@ -3,10 +3,16 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"go/ast"
+	"go/parser"
+	"go/token"
 	"io"
+	"io/fs"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 	"testing"
 
@@ -427,6 +433,137 @@ func errorCases(garbage, noSchema, foreign string) []errorCase {
 	}
 }
 
+// TestTheExitStatusIsThePromisedOne holds the numbers docs/COMPATIBILITY.md
+// promises a script, so renumbering them breaks a test that names the
+// promise rather than seventy that only use the constants.
+func TestTheExitStatusIsThePromisedOne(t *testing.T) {
+	if exitOK != 0 || exitError != 1 || exitUsage != 2 {
+		t.Errorf("exit statuses are %d/%d/%d; docs/COMPATIBILITY.md promises 0 success, 1 failed, 2 the caller's fault",
+			exitOK, exitError, exitUsage)
+	}
+}
+
+// TestEveryErrorSentinelIsClassified is the ratchet under isUsageError.
+// Exit 2 means the caller's fault, and the engine says which errors those
+// are by putting chargen.ErrInput on their chain. What nothing used to say
+// is whether a new sentinel had been thought about at all: the old
+// hand-kept list defaulted it to exit 1, and nothing failed. This table
+// names every exported Err* in the module as the caller's fault or not,
+// and a sentinel missing from it fails here until someone decides.
+func TestEveryErrorSentinelIsClassified(t *testing.T) {
+	callersFault := map[string]bool{
+		"career.ErrUnknownCareer":      false, // a registry lookup; --career reaches chargen's own
+		"benefit.ErrUnknownKind":       false,
+		"calendar.ErrDay":              false,
+		"calendar.ErrDice":             false,
+		"chargen.ErrCareerUnavailable": true,
+		"chargen.ErrCurrentYear":       true,
+		"chargen.ErrInput":             true, // the mark itself
+		"chargen.ErrReplayDiverged":    false,
+		"chargen.ErrReplayProvenance":  false,
+		"chargen.ErrUnknownCareer":     true,
+		"education.ErrUnknownProgram":  false,
+		"ehex.ErrDigit":                false, // reaches --homeworld only inside world.ErrInvalidUWP
+		"ehex.ErrRange":                false,
+		"interactive.ErrAbandoned":     false,
+		"medal.ErrOffTable":            false,
+		"skill.ErrUnknownSkill":        false,
+		// world cannot import chargen, so these are marked where the
+		// engine meets a supplied homeworld (chargen/homeworld.go) and
+		// exercised through --homeworld in errorCases.
+		"world.ErrDuplicateTC": true,
+		"world.ErrInvalidUWP":  true,
+		"world.ErrUnknownTC":   true,
+	}
+
+	found := exportedSentinels(t, filepath.Join("..", ".."))
+
+	for _, name := range found {
+		if _, ok := callersFault[name]; !ok {
+			t.Errorf("%s is not classified: decide whether a caller can cause it, and if so mark it with chargen.ErrInput", name)
+		}
+	}
+
+	for name := range callersFault {
+		if !slices.Contains(found, name) {
+			t.Errorf("%s is classified but no longer exists", name)
+		}
+	}
+
+	// chargen's own carry the mark themselves, wherever they are returned.
+	for _, sentinel := range []error{chargen.ErrCareerUnavailable, chargen.ErrCurrentYear, chargen.ErrUnknownCareer} {
+		if !errors.Is(sentinel, chargen.ErrInput) {
+			t.Errorf("%v does not carry chargen.ErrInput", sentinel)
+		}
+	}
+}
+
+// exportedSentinels lists every package-level exported Err* variable in
+// the module's non-test source, as "package.Name".
+func exportedSentinels(t *testing.T, root string) []string {
+	t.Helper()
+
+	var found []string
+
+	err := filepath.WalkDir(root, func(path string, entry fs.DirEntry, err error) error {
+		switch {
+		case err != nil:
+			return err
+		case entry.IsDir() && path != root && !isSourceDir(entry.Name()):
+			return filepath.SkipDir
+		case entry.IsDir() || !strings.HasSuffix(path, ".go") || strings.HasSuffix(path, "_test.go"):
+			return nil
+		}
+
+		file, err := parser.ParseFile(token.NewFileSet(), path, nil, parser.SkipObjectResolution)
+		if err != nil {
+			return fmt.Errorf("parsing %s: %w", path, err)
+		}
+
+		found = append(found, sentinelsIn(file)...)
+
+		return nil
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	return found
+}
+
+// isSourceDir reports whether a directory can hold the module's source:
+// not a dot-directory (worktrees live under .claude) and not testdata.
+func isSourceDir(name string) bool {
+	return !strings.HasPrefix(name, ".") && name != "testdata"
+}
+
+// sentinelsIn lists one file's package-level exported Err* variables.
+func sentinelsIn(file *ast.File) []string {
+	var found []string
+
+	for _, decl := range file.Decls {
+		gen, ok := decl.(*ast.GenDecl)
+		if !ok || gen.Tok != token.VAR {
+			continue
+		}
+
+		for _, spec := range gen.Specs {
+			value, ok := spec.(*ast.ValueSpec)
+			if !ok {
+				continue
+			}
+
+			for _, name := range value.Names {
+				if strings.HasPrefix(name.Name, "Err") && name.IsExported() {
+					found = append(found, file.Name.Name+"."+name.Name)
+				}
+			}
+		}
+	}
+
+	return found
+}
+
 func TestErrors(t *testing.T) {
 	garbage := filepath.Join(t.TempDir(), "garbage.json")
 	if err := os.WriteFile(garbage, []byte("not json"), 0o600); err != nil {
@@ -620,6 +757,115 @@ func TestBatchWritesNothingOnConflict(t *testing.T) {
 	}
 }
 
+// A batch whose second member fails: seed 2 is young enough for Imperial
+// year 40 and seed 3 is not, so the engine refuses member 2 of 2 for the
+// caller's --current-year.
+var failsOnTheSecondMember = []string{"batch", "--auto", "--count", "2", "--seed", "2", "--current-year", "40"}
+
+// TestABatchThatFailsHalfwayWritesNothing verifies the batch contract for
+// the destinations that can be staged: a JSONL file and a directory are
+// put in place only once every member has generated, so a run that fails
+// on its second member leaves no file, no directory, and nothing staged.
+func TestABatchThatFailsHalfwayWritesNothing(t *testing.T) {
+	for _, out := range []string{"run.jsonl", filepath.Join("deep", "npcs") + string(filepath.Separator)} {
+		t.Run(out, func(t *testing.T) {
+			root := t.TempDir()
+
+			var stdout, stderr bytes.Buffer
+
+			// Joined by hand: filepath.Join would clean away the
+			// trailing separator that makes npcs/ a directory.
+			args := append(slices.Clone(failsOnTheSecondMember), "-o", root+string(filepath.Separator)+out)
+			if code := run(args, noSeed(t), noInput(), &stdout, &stderr); code != exitUsage {
+				t.Fatalf("exit %d, want %d (stderr: %s)", code, exitUsage, stderr.String())
+			}
+
+			if !strings.Contains(stderr.String(), "character 2 of 2") {
+				t.Errorf("the failure does not name the member: %s", stderr.String())
+			}
+
+			if entries, err := os.ReadDir(root); err != nil || len(entries) != 0 {
+				t.Errorf("a failed batch left %v behind (%v)", entries, err)
+			}
+		})
+	}
+}
+
+// TestAStreamThatFailsHalfwayStops pins the one destination that cannot
+// be staged. JSONL on stdout streams — holding the run back would hold
+// all of it in memory — so the members before the failure are already
+// out, as whole lines, and the exit status is what says the stream is
+// incomplete.
+func TestAStreamThatFailsHalfwayStops(t *testing.T) {
+	var stdout, stderr bytes.Buffer
+
+	if code := run(failsOnTheSecondMember, noSeed(t), noInput(), &stdout, &stderr); code != exitUsage {
+		t.Fatalf("exit %d, want %d (stderr: %s)", code, exitUsage, stderr.String())
+	}
+
+	if members := readJSONL(t, stdout.String()); len(members) != 1 || members[0].RNG.Seed != 2 {
+		t.Errorf("stdout should hold member 1 alone, whole; got %d records", len(members))
+	}
+}
+
+// TestABatchDestinationIsCheckedFirst verifies -o is resolved before
+// anything is generated: a conflict is refused without a run, and a
+// directory that cannot exist is refused by name.
+func TestABatchDestinationIsCheckedFirst(t *testing.T) {
+	root := t.TempDir()
+
+	existing := filepath.Join(root, "run.jsonl")
+	if err := os.WriteFile(existing, []byte("{}\n"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+
+	tests := []struct {
+		name, out, want string
+	}{
+		{"an existing JSONL file", existing, "exists"},
+		{"a file where the directory would be", existing + string(filepath.Separator), "not a directory"},
+		{"a file above the directory", filepath.Join(existing, "npcs") + string(filepath.Separator), "not a directory"},
+		{"a JSONL file with no directory", filepath.Join(root, "missing", "run.jsonl"), "no such directory"},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var stdout, stderr bytes.Buffer
+
+			// --career nosuch would exit 2 if generation were reached.
+			args := []string{"batch", "--auto", "--count", "2", "--seed", "1", "--career", "nosuch", "-o", tt.out}
+			if code := run(args, noSeed(t), noInput(), &stdout, &stderr); code != exitError {
+				t.Fatalf("exit %d, want %d (stderr: %s)", code, exitError, stderr.String())
+			}
+
+			if !strings.Contains(stderr.String(), tt.want) {
+				t.Errorf("stderr does not say %q: %s", tt.want, stderr.String())
+			}
+		})
+	}
+}
+
+// TestARefusedBatchMakesNoDirectory verifies that resolving -o only looks.
+// "-o newdir/" declares a directory, but a run refused before it wrote
+// anything must not leave an empty one behind.
+func TestARefusedBatchMakesNoDirectory(t *testing.T) {
+	dir := filepath.Join(t.TempDir(), "newdir")
+
+	var stdout, stderr bytes.Buffer
+
+	args := []string{
+		"batch", "--auto", "--count", "2", "--seed", "1", "--career", "nosuch",
+		"-o", dir + string(filepath.Separator),
+	}
+	if code := run(args, noSeed(t), noInput(), &stdout, &stderr); code != exitUsage {
+		t.Fatalf("exit %d, want %d (stderr: %s)", code, exitUsage, stderr.String())
+	}
+
+	if _, err := os.Stat(dir); err == nil {
+		t.Error("a refused batch created its directory")
+	}
+}
+
 // TestInteractiveNewWritesACharacter verifies the default mode. Without
 // --auto the player answers, and the record attests that he did.
 func TestInteractiveNewWritesACharacter(t *testing.T) {
@@ -759,6 +1005,58 @@ func TestAFailedWriteNamesNoTemporaryFile(t *testing.T) {
 	if !strings.Contains(stderr.String(), "character-7.json") || strings.Contains(stderr.String(), ".t5chargen-") {
 		t.Errorf("stderr should name the record and not the temporary file: %s", stderr.String())
 	}
+}
+
+// TestARecordOutputCannotTakeGoesToStdout verifies the last line of
+// defence: a record the -o write fails on is written to stdout, and the
+// run still exits 1, because it did not do what it was asked. The file
+// appears after the session starts — past the pre-flight check, which
+// only looks — which is the case that check cannot catch.
+func TestARecordOutputCannotTakeGoesToStdout(t *testing.T) {
+	record := filepath.Join(t.TempDir(), "character.json")
+
+	var stdout, stderr bytes.Buffer
+
+	// The first answer the player gives, the file is made behind his back.
+	script := &onFirstRead{r: strings.NewReader(strings.Repeat("1\n", 4000)), do: func() {
+		if err := os.WriteFile(record, []byte("already here\n"), 0o600); err != nil {
+			t.Error(err)
+		}
+	}}
+
+	if code := run([]string{"new", "--seed", "1", "-o", record}, noSeed(t), script, &stdout, &stderr); code != exitError {
+		t.Fatalf("exit %d, want %d (stderr: %s)", code, exitError, stderr.String())
+	}
+
+	var character chargen.Character
+	if err := json.Unmarshal(stdout.Bytes(), &character); err != nil || character.RNG.Seed != 1 {
+		t.Errorf("stdout is not the record (seed %d, %v):\n%.200s", character.RNG.Seed, err, stdout.String())
+	}
+
+	if !strings.Contains(stderr.String(), "on stdout instead") {
+		t.Errorf("stderr does not say where the record went: %s", stderr.String())
+	}
+
+	data, err := os.ReadFile(record) //nolint:gosec // a temp path this test named
+	if err != nil || string(data) != "already here\n" {
+		t.Errorf("the file that appeared was overwritten without --force (%v)", err)
+	}
+}
+
+// onFirstRead runs do once, before the first read, and then reads from r.
+type onFirstRead struct {
+	r    io.Reader
+	do   func()
+	done bool
+}
+
+func (o *onFirstRead) Read(p []byte) (int, error) {
+	if !o.done {
+		o.done = true
+		o.do()
+	}
+
+	return o.r.Read(p) //nolint:wrapcheck // a pass-through reader
 }
 
 // TestAbandonedSessionWritesNothing verifies the PRD's own sentence:
@@ -1074,6 +1372,37 @@ func recordFromAnotherBuild(t *testing.T) string {
 	return record
 }
 
+// TestSubcommandHelpIsAskedFor verifies each subcommand's -h and --help
+// follow the rule top-level help states: stdout, exit 0, and a pointer on
+// to `t5chargen help`, where the examples are. The flags are spelled the
+// way usage spells them.
+func TestSubcommandHelpIsAskedFor(t *testing.T) {
+	for _, sub := range []string{"new", "batch", "render", "replay"} {
+		for _, arg := range []string{"-h", "--help"} {
+			t.Run(sub+" "+arg, func(t *testing.T) {
+				var stdout, stderr bytes.Buffer
+
+				if code := run([]string{sub, arg}, noSeed(t), noInput(), &stdout, &stderr); code != exitOK {
+					t.Fatalf("exit %d, want %d (stderr: %s)", code, exitOK, stderr.String())
+				}
+
+				if stderr.Len() != 0 {
+					t.Errorf("help wrote to stderr: %s", stderr.String())
+				}
+
+				out := stdout.String()
+				if !strings.HasPrefix(out, "t5chargen "+sub) || !strings.Contains(out, "t5chargen help") {
+					t.Errorf("help does not say what %s is or where to read more:\n%s", sub, out)
+				}
+
+				if strings.Contains(out, "  -auto") || strings.Contains(out, "  -history") {
+					t.Errorf("a word flag is spelled with one dash:\n%s", out)
+				}
+			})
+		}
+	}
+}
+
 // TestHelpIsAskedForNotBlunderedInto verifies `help` and its flag forms
 // print to stdout and exit zero, while a misuse still prints the terse
 // usage to stderr. The distinction is the point: usage accompanies every
@@ -1100,7 +1429,7 @@ func TestHelpIsAskedForNotBlunderedInto(t *testing.T) {
 				"report a problem:",
 				"https://github.com/philoserf/t5chargen/issues",
 				"stability:",
-				"policy declines career changes",
+				"every automatic character is a Citizen",
 			} {
 				if !strings.Contains(stdout.String(), want) {
 					t.Errorf("help does not mention %q", want)
