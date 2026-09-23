@@ -11,7 +11,34 @@ This file starts at the first release. Everything before it is in git.
 
 ## Unreleased
 
-Nothing since `v0.1.0-alpha.2`.
+Nothing since `v0.1.0-alpha.3`.
+
+## v0.1.0-alpha.3 — 2026-09-23
+
+schema 0.33.0 · engine 0.45.0 · policy 0.25.0 — **all three unchanged.**
+
+The build handed to testers. Nothing about a generated character moved:
+a record written by an earlier release still replays under this one.
+
+- `new` checks `-o` before the first question, and a record `-o` cannot
+  take after all goes to stdout instead, so neither loses a player's
+  answers. `new -o` names one file; a directory is refused by name.
+- `batch` resolves `-o` before it generates anything and writes one
+  member at a time: `--count 20000` went from 4.6 GB of memory to 17 MB,
+  with byte-identical output. A JSONL file or a directory is still
+  written whole or not at all. JSONL on stdout now streams, so a batch
+  that fails partway has already written the members before the failure;
+  the non-zero exit status says the stream is incomplete.
+- [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md) says what the command
+  line promises a script: exit statuses, which stream carries what, the
+  rules for `-o`, and batch's file names.
+- `t5chargen help` says what `--auto` produces — every automatic
+  character is a Citizen — and how to force another career. A
+  subcommand's `--help` goes to stdout and exits 0.
+- An option number the list does not hold is refused instead of being
+  searched for, and an accidental paste no longer ends a session.
+- `nilaway` runs in the gate. Its eleven findings were guards it could
+  not see, not nils a run could reach; each is now visible to it.
 
 ## v0.1.0-alpha.2 — 2026-08-30
 
