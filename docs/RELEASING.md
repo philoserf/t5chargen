@@ -109,7 +109,19 @@ t5chargen version   # must report the tag, not (devel)
 ```
 
 Then update [RELEASE_READINESS.md](RELEASE_READINESS.md) with the tag it
-names.
+names, and add the release to the compatibility corpus — written by the
+released binary, never by the work tree:
+
+```sh
+corpus=audit/testdata/corpus
+t5chargen new --auto --seed 7 -o "$corpus/${version}_auto.json"
+t5chargen new --auto --seed 26 --career scout -o "$corpus/${version}_scout.json"
+```
+
+and name the tag in `TestTheCorpusHoldsEveryReleasedVersion`'s list. That
+list is written out rather than read from git, so nothing notices a
+release missing from it; v0.1.0-alpha.2 went five weeks without its
+records.
 
 ## What is not automated, and why
 

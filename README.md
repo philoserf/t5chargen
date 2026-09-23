@@ -54,7 +54,7 @@ Every rule carries a page citation.
 ## Install
 
 ```sh
-go install github.com/philoserf/t5chargen/cmd/t5chargen@v0.1.0-alpha.1
+go install github.com/philoserf/t5chargen/cmd/t5chargen@latest
 ```
 
 Go 1.27 or later. No other dependencies — the tool is standard library
