@@ -577,7 +577,7 @@ decision, and asking a player to confirm the only thing he may do is not a
 question.
 
 ```bash
-sed -n '62,88p' interactive/interactive.go
+sed -n '69,95p' interactive/interactive.go
 ```
 
 ```output
@@ -614,32 +614,38 @@ func (d *Decider) Choose(c chargen.Choice) (int, error) {
 Only bare digits count as an option number, because `strconv.Atoi` reads
 `"+2"` as `2` — and the benefit-DM menu lists its options as `+0`, `+1`,
 `+2`, so a player copying the option he wants would silently select the one
-above it. A signed answer falls through to the search filter instead.
+above it. A signed answer falls through to the search filter instead; a
+bare number the list does not hold is refused by name rather than searched
+for, since every UWP in the homeworld list is full of digits.
 
 ```bash
-sed -n '172,190p' interactive/interactive.go
+sed -n '202,224p' interactive/interactive.go
 ```
 
 ```output
-// parseIndex reads an answer as a 1-based option number. Only bare digits
-// count: strconv.Atoi would read "+2" as 2, and the benefit DM menu lists
-// its options as "+0", "+1", "+2", so a player copying the option he wants
-// would silently select the one above it. A signed answer falls through to
-// the filter instead, which matches it against the option text and shows
-// it under its own number.
-func parseIndex(answer string, options int) (int, bool) {
+// parseIndex reads an answer as a 1-based option number, reporting the
+// 0-based index and whether the answer was a number at all; whether the
+// list holds that option is the caller's question. Only bare digits count:
+// strconv.Atoi would read "+2" as 2, and the benefit DM menu lists its
+// options as "+0", "+1", "+2", so a player copying the option he wants
+// would silently select the one above it. A signed answer is not a number
+// here, and falls through to the filter, which matches it against the
+// option text and shows it under its own number.
+//
+// A run of digits too long for an int is still a number, and one no list
+// holds, so it comes back as -1.
+func parseIndex(answer string) (int, bool) {
 	if answer == "" || strings.TrimLeft(answer, "0123456789") != "" {
 		return 0, false
 	}
 
 	n, err := strconv.Atoi(answer)
-	if err != nil || n < 1 || n > options {
-		return 0, false
+	if err != nil {
+		return -1, true
 	}
 
 	return n - 1, true
 }
-
 ```
 
 ## 6. Careers: one loop, thirteen sets of exceptions

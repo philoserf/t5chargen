@@ -51,8 +51,12 @@ func TestAnswersByNumber(t *testing.T) {
 // hold is not taken. Returning it would reach the engine as an
 // out-of-range answer and end generation, when what happened is that
 // somebody mistyped.
+//
+// Nor is it searched for. "9" appears in "Bravery -9", and a search would
+// show that one option and say nothing, which looks like an answer taken;
+// the player is told the number is not on the list instead.
 func TestRejectsAnswersOutsideTheList(t *testing.T) {
-	index, out, err := ask(t, "0\n9\n-1\n2\n", threeWay)
+	index, out, err := ask(t, "0\n9\n99999999999999999999\n-1\n2\n", threeWay)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -61,8 +65,45 @@ func TestRejectsAnswersOutsideTheList(t *testing.T) {
 		t.Errorf("chose index %d, want the 2 that was eventually typed", index)
 	}
 
+	for _, n := range []string{"0", "9", "99999999999999999999"} {
+		if !strings.Contains(out, "there is no option "+n+"; the options are numbered 1 to 3.") {
+			t.Errorf("%s was not refused as a number the list does not hold:\n%s", n, out)
+		}
+	}
+
+	// The prompt is shown once, and once more for the search "-1" makes:
+	// no out-of-range number narrowed the list.
+	if got := strings.Count(out, threeWay.Prompt); got != 2 {
+		t.Errorf("the prompt was shown %d times, want 2 (once, and once for the -1 search):\n%s", got, out)
+	}
+
 	if !strings.Contains(out, "nothing matches") {
-		t.Error("an out-of-range number was not reported back to the player")
+		t.Error("a signed answer matching nothing was not reported back to the player")
+	}
+}
+
+// TestAnAccidentalPasteDoesNotEndTheSession verifies a line far past
+// bufio's default 64 KB limit is read as an answer, and so as a search
+// that matches nothing, rather than ending the session.
+func TestAnAccidentalPasteDoesNotEndTheSession(t *testing.T) {
+	index, out, err := ask(t, strings.Repeat("x", 100_000)+"\n2\n", threeWay)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if index != 1 || !strings.Contains(out, "nothing matches") {
+		t.Errorf("chose index %d; want the paste searched and the 2 taken:\n%.300s", index, out)
+	}
+}
+
+// TestAnAnswerPastTheLimitSaysSo verifies that a line past even the
+// raised limit is reported as an over-long answer, not as a bufio token.
+func TestAnAnswerPastTheLimitSaysSo(t *testing.T) {
+	const pastTheLimit = 1<<20 + 1 // one past the package's 1 MiB maxAnswer
+
+	_, _, err := ask(t, strings.Repeat("x", pastTheLimit)+"\n", threeWay)
+	if err == nil || !strings.Contains(err.Error(), "longer than") {
+		t.Errorf("err = %v, want one saying the answer was too long", err)
 	}
 }
 
