@@ -1420,7 +1420,8 @@ func TestHelpIsAskedForNotBlunderedInto(t *testing.T) {
 				t.Errorf("help wrote to stderr: %s", stderr.String())
 			}
 
-			// The three things §6 of docs/BETA_READINESS.md asked for,
+			// The three things the beta plan asked of help (see
+			// docs/RELEASE_READINESS.md, From alpha to beta),
 			// and the one place the --auto explanation is allowed to
 			// live: a prompt is replay-compared, help text is not.
 			for _, want := range []string{

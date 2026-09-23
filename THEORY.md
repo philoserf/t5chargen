@@ -392,34 +392,26 @@ is that a theory says which of its claims to trust.
   records. The classification is gated for consistency, but what makes an entry
   one rather than the other is a judgement the documents describe more than
   they define. A new ambiguity does not obviously sort itself.
-- `docs/BETA_READINESS.md` is the plan of record for the phase this project is
-  currently in, and it is the one document in `docs/` that has drifted: its
-  numbered sections each open with a **Done** annotation and then continue with
-  the original recommendation in unmarked present-tense imperative, so the same
-  section both reports work finished and instructs that it be done. Filed as
-  `beta-readiness-recommendations-contradict-their-own-done-annotations`.
-- Nothing enforces that a _new_ rule effect emits an event. The gates check
-  that documented rules have tests and that documented interpretations are
-  cited; the "every effect emits an event" rule lives in `CLAUDE.md` and in
-  review discipline. Replay would catch a _non-deterministic_ effect, but a
-  deterministic effect with no event replays perfectly and is simply invisible
-  in the transcript. This is the invariant with the widest gap between how
-  load-bearing it is and how much machinery protects it.
+- "Every effect emits an event" is now gated, but only as far as the record
+  folds cleanly. `audit/reconstruct_test.go` holds every fixture's and every
+  corpus record's characteristics, skills and age to its own consequence
+  events, which is where a new mechanic most often lands; credits, terms and
+  benefits are not folded, and an unlogged effect on them would still replay
+  perfectly and be invisible in the transcript.
 
 **Where I looked and found no tension**, which is worth recording so the next
 reader does not re-do it: the data/logic boundary holds (no conditionals in
 `career/data`); `engine_version` bumps are gated; the compat corpus is
 protected from `task goldens`; the rules collection `CLAUDE.md` names
-(`~/Documents/Traveller/T5/`) exists; the milestone documents are all banner-
-labelled as historical snapshots; the CLI's error paths are specific, correctly
+(`~/Documents/Traveller/T5/`) exists; the CLI's error paths are specific, correctly
 coded (2 for usage, 1 for operational), and `--career` accepts lowercase names
 despite the error message listing them capitalised. The repository is in
 markedly better shape than a first review usually finds.
 
 ## Index
 
-| #   | Severity | Issue                                                                  | Primary location                             |
-| --- | -------- | ---------------------------------------------------------------------- | -------------------------------------------- |
-| 1   | medium   | `beta-readiness-recommendations-contradict-their-own-done-annotations` | `docs/BETA_READINESS.md:56,68,76,86,103,125` |
+| #   | Severity | Issue                                                                                                                            | Primary location         |
+| --- | -------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
+| 1   | medium   | `beta-readiness-recommendations-contradict-their-own-done-annotations` (fixed; the plan closed into `docs/RELEASE_READINESS.md`) | `docs/BETA_READINESS.md` |
 
 **Total: 1 issue (0 critical, 0 high, 1 medium, 0 low)**

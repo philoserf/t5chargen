@@ -191,7 +191,7 @@ workflow's own first run is part of what was verified.
 
 ### Knowingly incomplete
 
-The beta bar in [BETA_READINESS.md](BETA_READINESS.md) is met on every
+The beta bar in the beta plan of the time (see [From alpha to beta](#from-alpha-to-beta--2026-09-23)) is met on every
 item tooling can meet. What remains is the part no tooling does: several
 independent users completing the core workflows, and their reports
 dispositioned. That is what this alpha is for.
@@ -228,3 +228,52 @@ to alpha.2's.
 Unchanged from alpha.2: the beta bar's human half — several independent
 users completing the core workflows, and their reports dispositioned.
 This is the build for that.
+
+## From alpha to beta — 2026-09-23
+
+The beta plan of record was `docs/BETA_READINESS.md`, a review written
+after the first alpha. It closes here, with its outcome folded into this
+document as its own last recommendation asked; the review itself is in
+git.
+
+It recommended six things. Five are done, each by an alpha:
+
+| Recommendation                                     | Done by                                                                                                                                                                                    |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Define record compatibility before another release | [COMPATIBILITY.md](COMPATIBILITY.md), and the corpus under `audit/testdata/corpus`: one record per released version, written by its own binary                                             |
+| Test the supported installation surface            | CI's smoke matrix over macOS and Linux, on the declared Go floor and the current release; Windows declared unsupported                                                                     |
+| Automate release artifacts                         | `.github/workflows/release.yml`: a pushed tag runs the gate, builds four binaries from the published module, and drafts the release                                                        |
+| Harden externally supplied data                    | four fuzz targets — UWP parsing, the eHex digits, `render`, `replay` — run by `task fuzz`                                                                                                  |
+| Improve beta-facing ergonomics                     | `t5chargen help`, a subcommand `--help` on stdout, README Stability and Report a problem sections, `CHANGELOG.md`, and — in alpha.3 — a CLI surface that does not waste a tester's session |
+
+The sixth is the one no tooling does, and the beta is where it happens.
+
+### What the beta asks of testers
+
+Several Traveller5 users, at least one of them a rules expert and one a
+stranger to the project, each asked to:
+
+- install without help from the maintainer;
+- generate automatic and interactive characters;
+- render and replay saved records;
+- deliberately enter invalid input;
+- compare at least one character against Book 1;
+- attach the record to every report.
+
+The issue templates under `.github/ISSUE_TEMPLATE/` ask for the version,
+the record, the expected rule with its page, and what happened instead.
+
+### Leaving the beta
+
+The beta ends when several independent users have completed those
+workflows and every rules discrepancy they report is resolved or
+documented in [ERRATA.md](ERRATA.md) or
+[KNOWN_LIMITATIONS.md](KNOWN_LIMITATIONS.md). The rest of the plan's bar
+is already met and gated: the compatibility corpus, the smoke matrix,
+fuzz coverage of external records, written promises, and a release
+reproducible from its tag.
+
+The plan's one standing piece of advice stays in force through the beta:
+no new Traveller mechanics unless testers consistently ask for the same
+one, so that stability and usability reports stay distinguishable from
+scope.

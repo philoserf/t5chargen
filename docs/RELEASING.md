@@ -140,8 +140,9 @@ gate skips wherever `T5_RULES_PDF` is unset, which on a runner is always,
 so running it there would report a pass it never performed. Run it
 locally before tagging; it is step 3 above.
 
-Prebuilt binaries and the release workflow were the alpha's deliberate
-omissions, on the reasoning that `go install` was enough and neither was
-worth the commitment yet. `docs/BETA_READINESS.md` §4 revisits that for
-beta: checksummed binaries widen the tester pool and make reports easier
-to reproduce, which is the point of the cycle.
+Prebuilt binaries and the release workflow were the first alpha's
+deliberate omissions, on the reasoning that `go install` was enough and
+neither was worth the commitment yet. The beta plan revisited that:
+checksummed binaries widen the tester pool and make reports easier to
+reproduce, which is the point of the cycle ([RELEASE_READINESS.md](RELEASE_READINESS.md),
+From alpha to beta).

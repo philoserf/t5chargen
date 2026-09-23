@@ -2,9 +2,9 @@
 
 What a released version promises about records written by another one.
 
-`docs/BETA_READINESS.md` §2 asks for this before another engine release,
-on the grounds that the project versions records carefully and then says
-nothing about what the versions entitle you to. This is that statement.
+The beta plan asked for this before another engine release, on the
+grounds that the project versions records carefully and then said nothing
+about what the versions entitle you to. This is that statement.
 
 Two promises, and the corpus that holds them: `audit/compat_test.go` over
 `audit/testdata/corpus`, one record per released version, written by that
