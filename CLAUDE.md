@@ -26,7 +26,9 @@ conventions, the auto-policy requirements, and milestones.
   consumption order, not just the generation procedure.
 - **Event log first**: every throw, choice, and consequence emits an event (see PRD FR10).
   New mechanics are not done until their events render in the history transcript and replay
-  verifies them.
+  verifies them. Replay cannot see an effect applied without an event, so
+  `audit/reconstruct_test.go` folds each record's consequences back into its characteristics,
+  skills and age and fails where the log does not account for the record.
 - **Prompts and option order are part of the record**: a choice event stores its prompt and
   its option list, and replay compares every event as JSON. Rewording a prompt, or
   reordering options, invalidates records already written — and since the recorded answer is
@@ -134,8 +136,9 @@ generation.
 documents honest — that every test docs/COVERAGE.md cites exists, that
 every docs/ERRATA.md interpretation is cited, that every choice point has a
 docs/POLICY.md rule, that no chart field is transcribed and then read by nothing, that no
-prompt shows a player an identifier where the chart prints a name, and that
-character.schema.json describes what the engine actually writes.
+prompt shows a player an identifier where the chart prints a name, that
+character.schema.json describes what the engine actually writes, and that
+every record's event log accounts for its characteristics, skills and age.
 
 Three folders, three kinds of thing. `docs` holds documents and nothing
 else: the spec, the living COVERAGE/ERRATA/POLICY, the milestone histories
