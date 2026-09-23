@@ -4,7 +4,7 @@
 package main
 
 import (
-	"bytes"
+	"bufio"
 	"crypto/rand"
 	"encoding/binary"
 	"encoding/json"
@@ -288,8 +288,14 @@ func runBatch(args []string, seedFn func() (uint64, error), stdout, stderr io.Wr
 		return exitError
 	}
 
-	characters, err := generateBatch(*count, *common.seed, common.options())
+	dest, err := resolveBatchDest(*common.out, *count, *common.seed, *common.force)
 	if err != nil {
+		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
+
+		return exitError
+	}
+
+	if err := writeBatch(dest, *count, common.options(), stdout, stderr); err != nil {
 		fmt.Fprintf(stderr, "t5chargen batch: %v\n", err)
 
 		if isUsageError(err) {
@@ -299,7 +305,7 @@ func runBatch(args []string, seedFn func() (uint64, error), stdout, stderr io.Wr
 		return exitError
 	}
 
-	return emitBatch(characters, *common.out, *common.force, stdout, stderr)
+	return exitOK
 }
 
 // checkBatchFlags validates the flags batch does not share with new;
@@ -323,161 +329,260 @@ func checkBatchFlags(count int, auto bool, stderr io.Writer) int {
 	return exitOK
 }
 
-// batchAllocHint bounds generateBatch's initial allocation. It is not a
-// limit on --count: the slice grows past it.
-const batchAllocHint = 1024
+// batchDest is where a batch goes: a directory taking one file per member,
+// a JSONL file, or — both empty — JSONL on stdout.
+type batchDest struct {
+	dir, file string
+	force     bool
+}
 
-// generateBatch derives each member's seed from the base seed plus its
-// index, so every member is independently replayable from the record it
-// lands in — the seed it was generated from is the seed it reports.
+// resolveBatchDest reads -o the way docs/PRD.md spells it, "-o
+// dir|file.jsonl", and refuses what cannot be written before the first
+// member is generated. The path itself says which was meant: an existing
+// directory is one, and so is any path written with a trailing separator —
+// "-o npcs/" declares a directory, and a declaration is honoured by
+// creating it, where "-o npcs" (nothing there) is a JSONL file.
 //
-// Nothing is written until every member has generated. A batch that fails
-// halfway is a batch that did not happen, rather than a directory holding
-// some of what was asked for.
-func generateBatch(count int, base uint64, opts chargen.Options) ([]chargen.Character, error) {
-	// The capacity hint is bounded, not --count itself: a cap on the count
-	// would be a limit docs/PRD.md does not state, and this repo does not
-	// invent those. What is bounded is the request — a mistyped
-	// --count 100000000000 asks for a 54 TB reservation, which macOS
-	// happily grants lazily and a system without overcommit refuses
-	// outright. Neither is a thing to ask for, and the slice grows to
-	// whatever a real run needs.
-	characters := make([]chargen.Character, 0, min(count, batchAllocHint))
+// Resolving only looks. The declared directory is made when the run is
+// written, so a batch refused for a bad --career leaves nothing behind.
+// Every member's path is known before any is generated — member i is
+// seed base+i — so a conflict is found here rather than after the run.
+func resolveBatchDest(out string, count int, base uint64, force bool) (batchDest, error) {
+	if out == "" {
+		return batchDest{}, nil
+	}
+
+	isDir := false
+	if info, err := os.Stat(out); err == nil {
+		isDir = info.IsDir()
+	}
+
+	if !isDir && !os.IsPathSeparator(out[len(out)-1]) {
+		if err := checkOutput(out, force); err != nil {
+			return batchDest{}, err
+		}
+
+		return batchDest{file: out, force: force}, nil
+	}
+
+	dir := filepath.Clean(out)
+	if _, err := existingAncestor(dir); err != nil {
+		return batchDest{}, err
+	}
+
+	if isDir && !force {
+		if err := memberConflict(dir, count, base); err != nil {
+			return batchDest{}, err
+		}
+	}
+
+	return batchDest{dir: dir, force: force}, nil
+}
+
+// memberConflict refuses a run with a member whose file is already in dir.
+func memberConflict(dir string, count int, base uint64) error {
+	for i := range count {
+		path := batchPath(dir, base+uint64(i))
+		if _, err := os.Lstat(path); err == nil {
+			return fmt.Errorf("%s: %w", path, errExists)
+		}
+	}
+
+	return nil
+}
+
+// existingAncestor returns the nearest directory at or above path that
+// exists. A batch directory's files are staged there, which keeps the
+// final renames on one filesystem.
+func existingAncestor(path string) (string, error) {
+	for p := path; ; p = filepath.Dir(p) {
+		info, err := os.Stat(p)
+
+		switch {
+		case err == nil && info.IsDir():
+			return p, nil
+		case err == nil:
+			return "", fmt.Errorf("%s: %w", p, errNotDirectory)
+		case !errors.Is(err, fs.ErrNotExist) || filepath.Dir(p) == p:
+			return "", fmt.Errorf("writing %s: %w", path, err)
+		}
+	}
+}
+
+// batchProgress is how often a long batch says how far it has got. A run
+// that prints nothing until it finishes looks exactly like a hang.
+const batchProgress = 1000
+
+// writeBatch generates the run and writes it member by member, so memory
+// holds one record rather than the whole run and its serialization — which
+// at --count 20000 was four gigabytes.
+//
+// A batch that fails halfway is still a batch that did not happen, where
+// that can be arranged: a JSONL file and a directory are staged, and put
+// in place only once every member has generated. stdout cannot be staged.
+// A stream that fails partway stops there, and the exit status is what
+// says it is incomplete.
+func writeBatch(dest batchDest, count int, opts chargen.Options, stdout, stderr io.Writer) error {
+	if dest.dir != "" {
+		return writeBatchDir(dest, count, opts, stderr)
+	}
+
+	return writeBatchJSONL(dest, count, opts, stdout, stderr)
+}
+
+// generateEach generates the members in order and hands each to emit. It
+// derives each member's seed from the base seed plus its index, so every
+// member is independently replayable from the record it lands in — the
+// seed it was generated from is the seed it reports.
+func generateEach(count int, opts chargen.Options, stderr io.Writer, emit func(chargen.Character) error) error {
+	base := opts.Seed
 
 	for i := range count {
 		opts.Seed = base + uint64(i)
 
 		character, err := chargen.Generate(opts)
 		if err != nil {
-			return nil, fmt.Errorf("character %d of %d (seed %d): %w", i+1, count, opts.Seed, err)
+			return fmt.Errorf("character %d of %d (seed %d): %w", i+1, count, opts.Seed, err)
 		}
 
-		characters = append(characters, character)
+		if err := emit(character); err != nil {
+			return err
+		}
+
+		if (i+1)%batchProgress == 0 {
+			fmt.Fprintf(stderr, "t5chargen batch: %d of %d\n", i+1, count)
+		}
 	}
 
-	return characters, nil
+	return nil
 }
 
-// emitBatch writes the run as JSONL, or as one file per character when -o
-// names a directory. The PRD spells the flag "-o dir|file.jsonl", so the
-// path itself says which was meant: see batchDir.
-func emitBatch(characters []chargen.Character, out string, force bool, stdout, stderr io.Writer) int {
-	dir, isDir, err := batchDir(out)
+// writeBatchJSONL writes one record per line, so the stream stays
+// greppable and a consumer can read it a character at a time.
+func writeBatchJSONL(dest batchDest, count int, opts chargen.Options, stdout, stderr io.Writer) error {
+	out := stdout
+
+	var tmp *os.File
+
+	if dest.file != "" {
+		var err error
+		if tmp, err = stageFile(dest.file); err != nil {
+			return err
+		}
+
+		defer discard(tmp)
+
+		out = tmp
+	}
+
+	// An Encoder writes what json.Marshal does, and a line break.
+	buffered := bufio.NewWriter(out)
+	encoder := json.NewEncoder(buffered)
+
+	err := generateEach(count, opts, stderr, func(character chargen.Character) error {
+		if err := encoder.Encode(character); err != nil {
+			return fmt.Errorf("encoding seed %d: %w", character.RNG.Seed, err)
+		}
+
+		return nil
+	})
+
+	// Flushed even on failure: on stdout, the members already generated
+	// are whole lines a consumer can use; in a staged file they are
+	// discarded with it.
+	if flushErr := buffered.Flush(); err == nil && flushErr != nil {
+		err = fmt.Errorf("writing: %w", flushErr)
+	}
+
+	if err != nil || dest.file == "" {
+		return err
+	}
+
+	return commitFile(tmp, dest.file, dest.force)
+}
+
+// writeBatchDir writes one indented record per member into a staging
+// directory beside the target, and moves the run into place only once
+// every member exists.
+func writeBatchDir(dest batchDest, count int, opts chargen.Options, stderr io.Writer) error {
+	root, err := existingAncestor(dest.dir)
 	if err != nil {
-		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
-
-		return exitError
+		return err
 	}
 
-	if isDir {
-		return emitBatchFiles(characters, dir, force, stderr)
+	stage, err := os.MkdirTemp(root, ".t5chargen-*")
+	if err != nil {
+		return fmt.Errorf("writing %s: %w", dest.dir, err)
 	}
 
-	var buf bytes.Buffer
+	defer os.RemoveAll(stage) //nolint:errcheck // best effort; empty once the run is committed
 
-	for _, character := range characters {
-		// One record per line, so the stream stays greppable and a
-		// consumer can read it a character at a time.
-		line, encodeErr := json.Marshal(character)
+	var names []string
+
+	err = generateEach(count, opts, stderr, func(character chargen.Character) error {
+		data, encodeErr := json.MarshalIndent(character, "", "  ")
 		if encodeErr != nil {
-			fmt.Fprintf(stderr, "t5chargen batch: encoding seed %d: %v\n", character.RNG.Seed, encodeErr)
-
-			return exitError
+			return fmt.Errorf("encoding seed %d: %w", character.RNG.Seed, encodeErr)
 		}
 
-		buf.Write(line)
-		buf.WriteByte('\n')
-	}
+		name := filepath.Base(batchPath("", character.RNG.Seed))
+		names = append(names, name)
 
-	if out == "" {
-		_, err = stdout.Write(buf.Bytes())
-	} else {
-		err = writeFile(out, buf.Bytes(), force)
-	}
-
+		//nolint:gosec // G306: a character record is not a secret; 0o644 matches writeFile.
+		return os.WriteFile(filepath.Join(stage, name), append(data, '\n'), 0o644)
+	})
 	if err != nil {
-		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
-
-		return exitError
+		return err
 	}
 
-	return exitOK
+	return commitDir(stage, dest, root, names)
 }
 
-// emitBatchFiles writes one indented record per character, named for the
-// seed that produced it so the file says how to reproduce itself.
-//
-// Every path is checked before any is written. Writing them one at a time
-// would leave a directory holding the first half of a run that failed on
-// the tenth file — the same reason generateBatch finishes before anything
-// is emitted. The check races anything else writing the directory
-// meanwhile, which is why writeFile still refuses on its own with O_EXCL;
-// this pass is so the common case fails before it has made a mess.
-func emitBatchFiles(characters []chargen.Character, dir string, force bool, stderr io.Writer) int {
-	if !force {
-		for _, character := range characters {
-			path := batchPath(dir, character)
-			if _, err := os.Stat(path); err == nil {
-				fmt.Fprintf(stderr, "t5chargen: %s: %v\n", path, errExists)
+// commitDir moves a staged run into dest.dir, creating it and any missing
+// parents. If a file cannot be placed — something else wrote one of the
+// names while the run was generating — the files this run placed and the
+// directories it made are removed again, so the run is all there or not
+// there. Under --force it cannot be: an overwritten record is gone, so
+// what was placed stays and the error says where it stopped.
+func commitDir(stage string, dest batchDest, root string, names []string) error {
+	var made []string
+	for p := dest.dir; p != root && p != filepath.Dir(p); p = filepath.Dir(p) {
+		made = append(made, p)
+	}
 
-				return exitError
+	//nolint:gosec // G301: an output directory the caller named; 0755 matches mkdir(1).
+	if err := os.MkdirAll(dest.dir, 0o755); err != nil {
+		return fmt.Errorf("creating %s: %w", dest.dir, err)
+	}
+
+	for i, name := range names {
+		err := commitPath(filepath.Join(stage, name), filepath.Join(dest.dir, name), dest.force)
+		if err == nil {
+			continue
+		}
+
+		if !dest.force {
+			for _, placed := range names[:i] {
+				os.Remove(filepath.Join(dest.dir, placed)) //nolint:errcheck,gosec // best effort unwind
+			}
+
+			// Deepest first, and os.Remove takes only an empty directory,
+			// which is exactly the rule wanted.
+			for _, dir := range made {
+				os.Remove(dir) //nolint:errcheck,gosec // best effort unwind
 			}
 		}
+
+		return err
 	}
 
-	for _, character := range characters {
-		data, err := json.MarshalIndent(character, "", "  ")
-		if err != nil {
-			fmt.Fprintf(stderr, "t5chargen batch: encoding seed %d: %v\n", character.RNG.Seed, err)
-
-			return exitError
-		}
-
-		if err := writeFile(batchPath(dir, character), append(data, '\n'), force); err != nil {
-			fmt.Fprintf(stderr, "t5chargen: %v\n", err)
-
-			return exitError
-		}
-	}
-
-	return exitOK
+	return nil
 }
 
-// batchDir decides whether -o named the "dir" or the "file.jsonl" half of
-// the PRD's "-o dir|file.jsonl", and reports the directory when it is the
-// former.
-//
-// An existing directory is one. So is any path written with a trailing
-// separator: "-o npcs/" is the caller declaring a directory, and a
-// declaration is honoured by creating it rather than refused for not
-// existing yet — otherwise the flag would only work for a directory the
-// caller had already made, and "-o npcs" (no slash, nothing there) would
-// quietly deposit the whole run in a single file named npcs.
-func batchDir(out string) (string, bool, error) {
-	if out == "" {
-		return "", false, nil
-	}
-
-	if os.IsPathSeparator(out[len(out)-1]) {
-		dir := filepath.Clean(out)
-		//nolint:gosec // G301: an output directory the caller named; 0755 matches mkdir(1).
-		if err := os.MkdirAll(dir, 0o755); err != nil {
-			return "", false, fmt.Errorf("creating %s: %w", dir, err)
-		}
-
-		return dir, true, nil
-	}
-
-	if info, err := os.Stat(out); err == nil && info.IsDir() {
-		return out, true, nil
-	}
-
-	return out, false, nil
-}
-
-// batchPath names a batch member's file for the seed that produced it.
-func batchPath(dir string, character chargen.Character) string {
-	return filepath.Join(dir, fmt.Sprintf("character-%d.json", character.RNG.Seed))
+// batchPath names a batch member's file for the seed that produced it, so
+// the file says how to reproduce itself.
+func batchPath(dir string, seed uint64) string {
+	return filepath.Join(dir, fmt.Sprintf("character-%d.json", seed))
 }
 
 // openSession puts a player behind the engine unless --auto asked for the
@@ -742,37 +847,50 @@ func canonicalCareer(name string) string {
 }
 
 // writeFile writes the record to path. "Existing files are never
-// overwritten without --force." (docs/PRD.md, CLI sketch) — creation is
-// exclusive unless force allows truncation.
+// overwritten without --force." (docs/PRD.md, CLI sketch) — the path is
+// claimed exclusively unless force allows replacing it.
 // The record is written whole or not at all: a truncating write that
 // fails partway leaves a half-written file where a valid record was, and
 // a record is the one artifact this tool exists to produce. Writing beside
 // the target and renaming over it makes the replacement atomic.
 func writeFile(path string, data []byte, force bool) error {
-	if !force {
-		if err := claimPath(path); err != nil {
-			return err
-		}
-	}
-
-	tmp, err := os.CreateTemp(filepath.Dir(path), ".t5chargen-*")
+	tmp, err := stageFile(path)
 	if err != nil {
-		return fmt.Errorf("writing %s: %w", path, err)
+		return err
 	}
 
-	defer os.Remove(tmp.Name()) //nolint:errcheck // best effort; the rename below usually beats it
+	defer discard(tmp)
 
 	if _, err := tmp.Write(data); err != nil {
-		tmp.Close() //nolint:errcheck,gosec // write error takes precedence
-
 		return fmt.Errorf("writing %s: %w", path, err)
 	}
 
+	return commitFile(tmp, path, force)
+}
+
+// stageFile creates the temporary file a record for path is written into,
+// beside it, so the rename that puts it in place stays on one filesystem.
+func stageFile(path string) (*os.File, error) {
+	tmp, err := os.CreateTemp(filepath.Dir(path), ".t5chargen-*")
+	if err != nil {
+		return nil, fmt.Errorf("writing %s: %w", path, err)
+	}
+
+	return tmp, nil
+}
+
+// discard closes and removes a staged file. After commitFile it finds
+// nothing to remove, which is why its errors are not reported.
+func discard(tmp *os.File) {
+	tmp.Close()           //nolint:errcheck,gosec // already closed on the committed path
+	os.Remove(tmp.Name()) //nolint:errcheck,gosec // already renamed on the committed path
+}
+
+// commitFile puts a staged file in place at path.
+func commitFile(tmp *os.File, path string, force bool) error {
 	// Synced before the rename: without it the rename can be durable
 	// while the bytes it points at are not.
 	if err := tmp.Sync(); err != nil {
-		tmp.Close() //nolint:errcheck,gosec // sync error takes precedence
-
 		return fmt.Errorf("writing %s: %w", path, err)
 	}
 
@@ -788,7 +906,24 @@ func writeFile(path string, data []byte, force bool) error {
 		return fmt.Errorf("writing %s: %w", path, err)
 	}
 
-	if err := os.Rename(tmp.Name(), path); err != nil {
+	return commitPath(tmp.Name(), path, force)
+}
+
+// commitPath renames a staged file onto path, claiming path first unless
+// force allows replacing what is there. A claim the rename then fails to
+// fill is removed: it is an empty file this run made.
+func commitPath(staged, path string, force bool) error {
+	if !force {
+		if err := claimPath(path); err != nil {
+			return err
+		}
+	}
+
+	if err := os.Rename(staged, path); err != nil {
+		if !force {
+			os.Remove(path) //nolint:errcheck,gosec // best effort; the claim is this run's own
+		}
+
 		// A LinkError prints both of its paths, and the first is a
 		// temporary name the reader never chose and cannot act on.
 		if linkErr, ok := errors.AsType[*os.LinkError](err); ok {
@@ -1027,6 +1162,10 @@ var errDestIsDirectory = errors.New(
 // does not create one: a directory nobody asked for, made because of a
 // typo, is a mess of its own.
 var errNoParent = errors.New("no such directory")
+
+// errNotDirectory reports a file where a batch's directory, or one of its
+// parents, would have to be.
+var errNotDirectory = errors.New("not a directory")
 
 // errNotCharacter reports JSON that parsed but is not a character record.
 var errNotCharacter = errors.New("not a t5chargen character record (no schema_version)")

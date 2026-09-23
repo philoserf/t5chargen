@@ -7,6 +7,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 	"testing"
 
@@ -617,6 +618,115 @@ func TestBatchWritesNothingOnConflict(t *testing.T) {
 
 	if data, err := os.ReadFile(blocker); err != nil || string(data) != "{}" { //nolint:gosec // a temp path the test wrote
 		t.Errorf("batch overwrote the existing file without --force")
+	}
+}
+
+// A batch whose second member fails: seed 2 is young enough for Imperial
+// year 40 and seed 3 is not, so the engine refuses member 2 of 2 for the
+// caller's --current-year.
+var failsOnTheSecondMember = []string{"batch", "--auto", "--count", "2", "--seed", "2", "--current-year", "40"}
+
+// TestABatchThatFailsHalfwayWritesNothing verifies the batch contract for
+// the destinations that can be staged: a JSONL file and a directory are
+// put in place only once every member has generated, so a run that fails
+// on its second member leaves no file, no directory, and nothing staged.
+func TestABatchThatFailsHalfwayWritesNothing(t *testing.T) {
+	for _, out := range []string{"run.jsonl", filepath.Join("deep", "npcs") + string(filepath.Separator)} {
+		t.Run(out, func(t *testing.T) {
+			root := t.TempDir()
+
+			var stdout, stderr bytes.Buffer
+
+			// Joined by hand: filepath.Join would clean away the
+			// trailing separator that makes npcs/ a directory.
+			args := append(slices.Clone(failsOnTheSecondMember), "-o", root+string(filepath.Separator)+out)
+			if code := run(args, noSeed(t), noInput(), &stdout, &stderr); code != exitUsage {
+				t.Fatalf("exit %d, want %d (stderr: %s)", code, exitUsage, stderr.String())
+			}
+
+			if !strings.Contains(stderr.String(), "character 2 of 2") {
+				t.Errorf("the failure does not name the member: %s", stderr.String())
+			}
+
+			if entries, err := os.ReadDir(root); err != nil || len(entries) != 0 {
+				t.Errorf("a failed batch left %v behind (%v)", entries, err)
+			}
+		})
+	}
+}
+
+// TestAStreamThatFailsHalfwayStops pins the one destination that cannot
+// be staged. JSONL on stdout streams — holding the run back would hold
+// all of it in memory — so the members before the failure are already
+// out, as whole lines, and the exit status is what says the stream is
+// incomplete.
+func TestAStreamThatFailsHalfwayStops(t *testing.T) {
+	var stdout, stderr bytes.Buffer
+
+	if code := run(failsOnTheSecondMember, noSeed(t), noInput(), &stdout, &stderr); code != exitUsage {
+		t.Fatalf("exit %d, want %d (stderr: %s)", code, exitUsage, stderr.String())
+	}
+
+	if members := readJSONL(t, stdout.String()); len(members) != 1 || members[0].RNG.Seed != 2 {
+		t.Errorf("stdout should hold member 1 alone, whole; got %d records", len(members))
+	}
+}
+
+// TestABatchDestinationIsCheckedFirst verifies -o is resolved before
+// anything is generated: a conflict is refused without a run, and a
+// directory that cannot exist is refused by name.
+func TestABatchDestinationIsCheckedFirst(t *testing.T) {
+	root := t.TempDir()
+
+	existing := filepath.Join(root, "run.jsonl")
+	if err := os.WriteFile(existing, []byte("{}\n"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+
+	tests := []struct {
+		name, out, want string
+	}{
+		{"an existing JSONL file", existing, "exists"},
+		{"a file where the directory would be", existing + string(filepath.Separator), "not a directory"},
+		{"a file above the directory", filepath.Join(existing, "npcs") + string(filepath.Separator), "not a directory"},
+		{"a JSONL file with no directory", filepath.Join(root, "missing", "run.jsonl"), "no such directory"},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var stdout, stderr bytes.Buffer
+
+			// --career nosuch would exit 2 if generation were reached.
+			args := []string{"batch", "--auto", "--count", "2", "--seed", "1", "--career", "nosuch", "-o", tt.out}
+			if code := run(args, noSeed(t), noInput(), &stdout, &stderr); code != exitError {
+				t.Fatalf("exit %d, want %d (stderr: %s)", code, exitError, stderr.String())
+			}
+
+			if !strings.Contains(stderr.String(), tt.want) {
+				t.Errorf("stderr does not say %q: %s", tt.want, stderr.String())
+			}
+		})
+	}
+}
+
+// TestARefusedBatchMakesNoDirectory verifies that resolving -o only looks.
+// "-o newdir/" declares a directory, but a run refused before it wrote
+// anything must not leave an empty one behind.
+func TestARefusedBatchMakesNoDirectory(t *testing.T) {
+	dir := filepath.Join(t.TempDir(), "newdir")
+
+	var stdout, stderr bytes.Buffer
+
+	args := []string{
+		"batch", "--auto", "--count", "2", "--seed", "1", "--career", "nosuch",
+		"-o", dir + string(filepath.Separator),
+	}
+	if code := run(args, noSeed(t), noInput(), &stdout, &stderr); code != exitUsage {
+		t.Fatalf("exit %d, want %d (stderr: %s)", code, exitUsage, stderr.String())
+	}
+
+	if _, err := os.Stat(dir); err == nil {
+		t.Error("a refused batch created its directory")
 	}
 }
 
