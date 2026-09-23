@@ -283,18 +283,38 @@ const (
 	remainInReserves   = "Remain in the Reserves"
 )
 
+// registeredCareer looks name up in registry and builds it. A
+// constructor that returns no mechanics and no error is the same wiring
+// fault as a missing entry, and is refused the same way rather than called.
+//
+//nolint:ireturn // The registry's function type returns the interface.
+func registeredCareer(
+	registry map[string]func() (*career.Definition, careerMechanics, error), name string,
+) (*career.Definition, careerMechanics, error) {
+	entry, ok := registry[name]
+	if !ok {
+		return nil, nil, fmt.Errorf("%w: %q", errUnregisteredCareer, name)
+	}
+
+	def, mechanics, err := entry()
+	if err != nil {
+		return nil, nil, err
+	}
+
+	if mechanics == nil {
+		return nil, nil, fmt.Errorf("%w: %q", errUnregisteredCareer, name)
+	}
+
+	return def, mechanics, nil
+}
+
 // runCareerByName resolves one career through the registry, reporting
 // whether the career began (a failed To Begin leaves a began:false record
 // and the caller offers the remaining careers, p. 65) and how it ended.
 func runCareerByName(
 	name string, entryCause int, roller *dice.Roller, log *Log, decider Decider, character *Character,
 ) (bool, termEnd, error) {
-	entry, ok := careerRegistry[name]
-	if !ok {
-		return false, termCareerEnded, fmt.Errorf("%w: %q", errUnregisteredCareer, name)
-	}
-
-	def, mechanics, err := entry()
+	def, mechanics, err := registeredCareer(careerRegistry, name)
 	if err != nil {
 		return false, termCareerEnded, err
 	}
@@ -636,8 +656,12 @@ func (r *careerRun) chooseCC() (string, error) {
 		return "", nil
 	}
 
+	// Copied into a made slice rather than through slices.Clone, which
+	// returns nil for a nil input: the length check above already rules
+	// that out, and this says so where nilaway can see it.
 	if len(r.availableCCs) == 0 {
-		r.availableCCs = slices.Clone(r.def.ControllingCharacteristics)
+		r.availableCCs = append(make([]string, 0, len(r.def.ControllingCharacteristics)),
+			r.def.ControllingCharacteristics...)
 	}
 
 	scores := make([]int, len(r.availableCCs))
@@ -1031,7 +1055,9 @@ func (r *careerRun) skillColumnOptions() []string {
 		return columns
 	}
 
-	options := slices.Clone(columns)
+	// Made rather than cloned: slices.Clone returns nil for a nil input,
+	// and a made slice is non-nil by construction.
+	options := append(make([]string, 0, len(columns)+2), columns...)
 
 	for _, name := range []string{r.major(), r.minor()} {
 		if name != "" {

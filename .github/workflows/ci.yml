@@ -53,9 +53,12 @@ jobs:
           version: latest
           install-only: true
 
+      # task and nilaway publish no action; `go install` is their supported
+      # path.
       - name: Install the rest of the toolchain
         run: |
           go install github.com/go-task/task/v3/cmd/task@latest
+          go install go.uber.org/nilaway/cmd/nilaway@latest
           npm install --global prettier
 
       - name: task

@@ -30,6 +30,24 @@ func RegistryDefinitionNames() (map[string]string, error) {
 	return names, nil
 }
 
+// ErrUnregisteredCareer exports the registry's wiring-bug sentinel.
+var ErrUnregisteredCareer = errUnregisteredCareer
+
+// RegisteredCareerFaults is a test bridge to registeredCareer over a
+// registry whose one entry builds no mechanics and no error, and over a
+// name the registry lacks: the two wiring bugs it refuses.
+// The map is keyed by the fault.
+func RegisteredCareerFaults() map[string]error {
+	registry := map[string]func() (*career.Definition, careerMechanics, error){
+		"Hollow": func() (*career.Definition, careerMechanics, error) { return &career.Definition{}, nil, nil },
+	}
+
+	_, _, errNilMechanics := registeredCareer(registry, "Hollow")
+	_, _, errMissing := registeredCareer(registry, "Absent")
+
+	return map[string]error{"an entry with no mechanics": errNilMechanics, "a name with no entry": errMissing}
+}
+
 // LoadUndercoverCareer is a test bridge to the Agent's cover-career
 // resolution, so the transcribed Undercover table can be checked against
 // the careers the engine can actually read.

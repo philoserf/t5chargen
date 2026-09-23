@@ -167,7 +167,13 @@ func (m *scholarMechanics) selectAreas(r *careerRun) error {
 		return nil
 	}
 
+	// skill.Names returns nil only when the embedded list failed to load,
+	// which Generate has already refused (skill.Err); saying so here keeps
+	// the index below visibly safe.
 	names := skill.Names()
+	if len(names) == 0 {
+		return fmt.Errorf("scholar: the skills list is unavailable: %w", skill.Err())
+	}
 
 	if r.character.currentMajor() == "" {
 		chosen, seq, err := choose(r.log, r.decider, Choice{
