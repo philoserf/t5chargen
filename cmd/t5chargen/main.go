@@ -184,39 +184,28 @@ func isUsageError(err error) bool {
 func runNew(args []string, seedFn func() (uint64, error), stdin io.Reader, stdout, stderr io.Writer) int {
 	flags := flag.NewFlagSet("new", flag.ContinueOnError)
 	flags.SetOutput(stderr)
-	seed := flags.Uint64("seed", 0, "RNG seed (default: drawn from OS entropy)")
-	name := flags.String("name", "", "character name (blank by default)")
-	careerFlag := flags.String("career", "", "force the first career")
-	homeworldFlag := flags.String("homeworld", "", homeworldUsage)
-	currentYear := flags.Int("current-year", calendar.DefaultYear,
-		"Imperial year adventuring begins in, which fixes the birth year (Book 1 p. 58)")
-	auto := flags.Bool("auto", false, "apply the fixed default policy (POLICY.md) to every choice")
-	out := flags.String("o", "", "output file (default: stdout)")
-	force := flags.Bool("force", false, "overwrite an existing output file")
+	common := registerCommon(flags,
+		"RNG seed (default: drawn from OS entropy)",
+		"apply the fixed default policy (POLICY.md) to every choice",
+		"output file (default: stdout)")
 
 	if err := flags.Parse(args); err != nil {
 		return exitUsage
 	}
 
-	if flags.NArg() != 0 {
-		fmt.Fprintf(stderr, "t5chargen new: unexpected arguments %q (use -o for an output file)\n%s", flags.Args(), usage)
-
-		return exitUsage
-	}
-
-	if code := checkFlags("new", *currentYear, *name, stderr); code != exitOK {
+	if code := common.check("new", flags, stderr); code != exitOK {
 		return code
 	}
 
-	if err := resolveSeed(flags, seed, seedFn); err != nil {
+	if err := resolveSeed(flags, common.seed, seedFn); err != nil {
 		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
 
 		return exitError
 	}
 
-	options := generateOptions(*seed, *name, *careerFlag, *homeworldFlag, *currentYear)
+	options := common.options()
 
-	player := openSession(&options, *auto, stdin, stderr)
+	player := openSession(&options, *common.auto, stdin, stderr)
 
 	character, err := chargen.Generate(options)
 	if err != nil {
@@ -238,9 +227,9 @@ func runNew(args []string, seedFn func() (uint64, error), stdin io.Reader, stdou
 		return exitError
 	}
 
-	code := emitRecord(character, *out, *force, stdout, stderr)
+	code := emitRecord(character, *common.out, *common.force, stdout, stderr)
 	if code == exitOK {
-		closeSession(player, character, *out, stderr)
+		closeSession(player, character, *common.out, stderr)
 	}
 
 	return code
@@ -254,34 +243,31 @@ func runBatch(args []string, seedFn func() (uint64, error), stdout, stderr io.Wr
 	flags := flag.NewFlagSet("batch", flag.ContinueOnError)
 	flags.SetOutput(stderr)
 	count := flags.Int("count", 0, "how many characters to generate")
-	seed := flags.Uint64("seed", 0, "base RNG seed; member i uses base+i (default: drawn from OS entropy)")
-	name := flags.String("name", "", "character name, applied to every member (blank by default)")
-	careerFlag := flags.String("career", "", "force the first career")
-	homeworldFlag := flags.String("homeworld", "", homeworldUsage)
-	currentYear := flags.Int("current-year", calendar.DefaultYear,
-		"Imperial year adventuring begins in, which fixes the birth year (Book 1 p. 58)")
-	auto := flags.Bool("auto", false, "required: batch has no interactive mode")
-	out := flags.String("o", "",
+	common := registerCommon(flags,
+		"base RNG seed; member i uses base+i (default: drawn from OS entropy)",
+		"required: batch has no interactive mode",
 		"output directory, named with a trailing / and created if missing (one file per character), "+
 			"or a .jsonl file (default: JSONL on stdout)")
-	force := flags.Bool("force", false, "overwrite existing output files")
 
 	if err := flags.Parse(args); err != nil {
 		return exitUsage
 	}
 
-	if code := checkBatchFlags(flags, *count, *auto, *currentYear, stderr); code != exitOK {
+	if code := common.check("batch", flags, stderr); code != exitOK {
 		return code
 	}
 
-	if err := resolveSeed(flags, seed, seedFn); err != nil {
+	if code := checkBatchFlags(*count, *common.auto, stderr); code != exitOK {
+		return code
+	}
+
+	if err := resolveSeed(flags, common.seed, seedFn); err != nil {
 		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
 
 		return exitError
 	}
 
-	characters, err := generateBatch(*count, *seed,
-		generateOptions(*seed, *name, *careerFlag, *homeworldFlag, *currentYear))
+	characters, err := generateBatch(*count, *common.seed, common.options())
 	if err != nil {
 		fmt.Fprintf(stderr, "t5chargen batch: %v\n", err)
 
@@ -292,17 +278,12 @@ func runBatch(args []string, seedFn func() (uint64, error), stdout, stderr io.Wr
 		return exitError
 	}
 
-	return emitBatch(characters, *out, *force, stdout, stderr)
+	return emitBatch(characters, *common.out, *common.force, stdout, stderr)
 }
 
-// checkBatchFlags validates the flags batch does not share with new.
-func checkBatchFlags(flags *flag.FlagSet, count int, auto bool, currentYear int, stderr io.Writer) int {
-	if flags.NArg() != 0 {
-		fmt.Fprintf(stderr, "t5chargen batch: unexpected arguments %q (use -o for output)\n%s", flags.Args(), usage)
-
-		return exitUsage
-	}
-
+// checkBatchFlags validates the flags batch does not share with new;
+// commonFlags.check has already validated the ones it does.
+func checkBatchFlags(count int, auto bool, stderr io.Writer) int {
 	// "batch ... requires --auto" (docs/PRD.md, CLI sketch). Unlike new,
 	// this is not a milestone deferral: a run of characters has nobody to
 	// ask, so the flag is the caller acknowledging the policy decides.
@@ -318,7 +299,7 @@ func checkBatchFlags(flags *flag.FlagSet, count int, auto bool, currentYear int,
 		return exitUsage
 	}
 
-	return checkCurrentYear("batch", currentYear, stderr)
+	return exitOK
 }
 
 // batchAllocHint bounds generateBatch's initial allocation. It is not a
@@ -540,17 +521,75 @@ func plural(n int, word string) string {
 	return word + "s"
 }
 
-// generateOptions assembles the engine options the flags describe, shared
-// by new and batch so the two cannot drift apart in how they read them.
-// batch passes the base seed and generateBatch replaces it per member.
-func generateOptions(seed uint64, name, careerFlag, homeworldFlag string, currentYear int) chargen.Options {
+// commonFlags are the flags new and batch share. They are registered once
+// and checked once: declared twice, the two subcommands' validation forked,
+// and batch stopped refusing the --name that new refuses.
+type commonFlags struct {
+	seed        *uint64
+	name        *string
+	career      *string
+	homeworld   *string
+	currentYear *int
+	auto        *bool
+	out         *string
+	force       *bool
+}
+
+// registerCommon registers the shared flags on flags. The three whose
+// meaning genuinely differs between the subcommands take their usage text
+// as arguments; the rest are described once.
+func registerCommon(flags *flag.FlagSet, seedUsage, autoUsage, outUsage string) commonFlags {
+	return commonFlags{
+		seed:      flags.Uint64("seed", 0, seedUsage),
+		name:      flags.String("name", "", "character name (blank by default)"),
+		career:    flags.String("career", "", "force the first career"),
+		homeworld: flags.String("homeworld", "", homeworldUsage),
+		currentYear: flags.Int("current-year", calendar.DefaultYear,
+			"Imperial year adventuring begins in, which fixes the birth year (Book 1 p. 58)"),
+		auto:  flags.Bool("auto", false, autoUsage),
+		out:   flags.String("o", "", outUsage),
+		force: flags.Bool("force", false, "overwrite existing output"),
+	}
+}
+
+// check validates the shared flags, and refuses stray arguments, which
+// neither subcommand takes. cmd names the subcommand that read them,
+// because the diagnostic has to say which one refused.
+//
+// --name is refused here rather than escaped at each output. The name
+// reaches a Markdown sheet, a Markdown transcript and a JSON record, so it
+// has one entry point and three exits; a line break is the character that
+// breaks all three, and no Traveller name needs one.
+func (c commonFlags) check(cmd string, flags *flag.FlagSet, stderr io.Writer) int {
+	if flags.NArg() != 0 {
+		fmt.Fprintf(stderr, "t5chargen %s: unexpected arguments %q (use -o for output)\n%s", cmd, flags.Args(), usage)
+
+		return exitUsage
+	}
+
+	if code := checkCurrentYear(cmd, *c.currentYear, stderr); code != exitOK {
+		return code
+	}
+
+	if strings.ContainsAny(*c.name, "\r\n") {
+		fmt.Fprintf(stderr, "t5chargen %s: --name may not contain a line break\n", cmd)
+
+		return exitUsage
+	}
+
+	return exitOK
+}
+
+// options assembles the engine options the flags describe. batch passes
+// the base seed and generateBatch replaces it per member.
+func (c commonFlags) options() chargen.Options {
 	return chargen.Options{
-		Seed:          seed,
-		Name:          name,
-		Career:        canonicalCareer(careerFlag),
-		Homeworld:     parseHomeworldFlag(homeworldFlag),
-		RollHomeworld: isRandomHomeworld(homeworldFlag),
-		CurrentYear:   currentYear,
+		Seed:          *c.seed,
+		Name:          *c.name,
+		Career:        canonicalCareer(*c.career),
+		Homeworld:     parseHomeworldFlag(*c.homeworld),
+		RollHomeworld: isRandomHomeworld(*c.homeworld),
+		CurrentYear:   *c.currentYear,
 		Decider:       chargen.DefaultPolicy{},
 	}
 }
@@ -630,9 +669,8 @@ func checkCurrentYear(cmd string, year int, stderr io.Writer) int {
 // (p. 56).
 const randomHomeworld = "random"
 
-// homeworldUsage documents --homeworld for both new and batch. Shared so
-// the flag cannot be described one way and accepted another: batch reads
-// it through the same generateOptions.
+// homeworldUsage documents --homeworld for both new and batch, through
+// registerCommon.
 const homeworldUsage = `homeworld as "UWP" or "UWP TC TC..." ` +
 	`(for example "A788899-C Ph Pa Ri"), or "` + randomHomeworld +
 	`" to determine it on chart B; skills come from the trade ` +
@@ -954,24 +992,4 @@ func readCharacters(path string) ([]chargen.Character, error) {
 
 		characters = append(characters, character)
 	}
-}
-
-// checkFlags validates the flags new and batch share.
-//
-// --name is refused here rather than escaped at each output. The name
-// reaches a Markdown sheet, a Markdown transcript and a JSON record, so it
-// has one entry point and three exits; a line break is the character that
-// breaks all three, and no Traveller name needs one.
-func checkFlags(cmd string, currentYear int, name string, stderr io.Writer) int {
-	if code := checkCurrentYear(cmd, currentYear, stderr); code != exitOK {
-		return code
-	}
-
-	if strings.ContainsAny(name, "\r\n") {
-		fmt.Fprintf(stderr, "t5chargen %s: --name may not contain a line break\n", cmd)
-
-		return exitUsage
-	}
-
-	return exitOK
 }

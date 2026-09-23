@@ -411,6 +411,11 @@ func errorCases(garbage, noSchema, foreign string) []errorCase {
 		{"batch unknown career", []string{"batch", "--auto", "--count", "2", "--career", "bogus"}, exitUsage},
 		{"batch career unavailable", []string{"batch", "--auto", "--count", "2", "--career", "Craftsman"}, exitUsage},
 		{"batch outlived current year", []string{"batch", "--auto", "--count", "2", "--current-year", "30"}, exitUsage},
+		// One check for the flags both subcommands share, so a name new
+		// refuses is one batch refuses too.
+		{"name with a line break", []string{"new", "--auto", "--seed", "1", "--name", "a\nb"}, exitUsage},
+		{"batch name with a line break", []string{"batch", "--auto", "--count", "1", "--name", "a\nb"}, exitUsage},
+		{"batch current year zero", []string{"batch", "--auto", "--count", "2", "--current-year", "0"}, exitUsage},
 		{"replay without file", []string{"replay"}, exitUsage},
 		{"replay stray arguments", []string{"replay", noSchema, "extra"}, exitUsage},
 		{"replay missing file", []string{"replay", "does-not-exist.json"}, exitError},
