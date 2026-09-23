@@ -101,10 +101,7 @@ func chooseNamed(c Choice) (int, bool) {
 // beside the name, so the policy matches on the whole thing rather than
 // guessing at how it is spelled.
 func defaultHomeworldNames() []string {
-	home, err := world.Default()
-	if err != nil {
-		return nil
-	}
+	home := world.Default()
 
 	return []string{home.Label()}
 }

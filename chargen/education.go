@@ -141,10 +141,7 @@ func (r *eduRun) finish() {
 // the chosen program, whether the character falls short of its
 // prerequisite, and whether he declined education altogether.
 func chooseProgram(log *Log, decider Decider, character *Character) (education.Program, bool, bool, error) {
-	programs, err := education.Programs()
-	if err != nil {
-		return education.Program{}, false, false, fmt.Errorf("education: %w", err)
-	}
+	programs := education.Programs()
 
 	offered, options, qualified := offeredPrograms(programs, character)
 	options = append(options, noEducation)
@@ -283,10 +280,7 @@ func (r *eduRun) selectMajors() error {
 		return err
 	}
 
-	majors, err := education.Majors(institution)
-	if err != nil {
-		return fmt.Errorf("education: %w", err)
-	}
+	majors := education.Majors(institution)
 
 	majorIdx, _, err := choose(r.log, r.decider, Choice{
 		ID:      ChooseMajor,
@@ -546,10 +540,7 @@ func (r *eduRun) majorRate(name string, levels int) int {
 // word keeps the award clear of the unresolved question about awarding a
 // bare container skill (p. 134).
 func (r *eduRun) awardANMKnowledge() error {
-	names, err := education.ANMKnowledges()
-	if err != nil {
-		return fmt.Errorf("education: %w", err)
-	}
+	names := education.ANMKnowledges()
 
 	chosen, seq, err := choose(r.log, r.decider, Choice{
 		ID:      ChooseSkill,
@@ -574,10 +565,7 @@ func (r *eduRun) awardANMKnowledge() error {
 // same reading interpretation I-7 gives the Apprenticeship's unqualified
 // "Skill+4", and for the same reason: the chart states no list.
 func (r *eduRun) awardCommandCollege() error {
-	names, err := education.AllSkillNames()
-	if err != nil {
-		return fmt.Errorf("education: %w", err)
-	}
+	names := education.AllSkillNames()
 
 	for range commandCollegeSkills {
 		chosen, seq, err := choose(r.log, r.decider, Choice{
@@ -607,10 +595,7 @@ const commandCollegeSkills = 2
 // ERRATA.md — the chart states no list); the award is caused by the
 // selecting choice event.
 func (r *eduRun) awardApprenticeship() error {
-	names, err := education.AllSkillNames()
-	if err != nil {
-		return fmt.Errorf("education: %w", err)
-	}
+	names := education.AllSkillNames()
 
 	chosen, seq, err := choose(r.log, r.decider, Choice{
 		ID:      ChooseSkill,

@@ -1664,10 +1664,11 @@ func (d *Definition) validateMusterOut() error {
 		return nil
 	}
 
-	benefits, err := benefit.Load()
-	if err != nil {
+	if err := benefit.Err(); err != nil {
 		return fmt.Errorf("muster out: %w", err)
 	}
+
+	benefits := benefit.Load()
 
 	for _, t := range []*MusterOut{d.MusterOut, d.MusterOutM2} {
 		if t == nil {

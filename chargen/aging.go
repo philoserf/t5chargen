@@ -45,10 +45,7 @@ const (
 // and a failed career entry costs a single year (p. 65), which would
 // otherwise knock a character permanently off the four-year grid.
 func (c *Character) ageEffects(from, to int, roller *dice.Roller, log *Log) error {
-	table, err := lifestage.Load()
-	if err != nil {
-		return fmt.Errorf("aging: %w", err)
-	}
+	table := lifestage.Load()
 
 	// A misspelled name in the table would make characteristicAdd a
 	// no-op returning zero, so every Aging Check would read as "reduced

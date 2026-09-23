@@ -10,10 +10,7 @@ import (
 // list (p. 56): thirty-six cells, the three that repeat, and the one that
 // names no world.
 func TestChartBIsWholeAndAsPrinted(t *testing.T) {
-	worlds, err := world.ChartB()
-	if err != nil {
-		t.Fatal(err)
-	}
+	worlds := world.ChartB()
 
 	if len(worlds) != 36 {
 		t.Fatalf("%d cells, want 36", len(worlds))

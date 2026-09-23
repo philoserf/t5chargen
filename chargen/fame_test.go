@@ -32,10 +32,7 @@ func fameSources(c chargen.Character) map[string]int {
 // points received", and the Flux is added to the Fame those points stack
 // to ("add Flux to Fame"), not stacked with them.
 func TestFameIsCalculatedNotAccumulated(t *testing.T) {
-	table, err := fame.Load()
-	if err != nil {
-		t.Fatal(err)
-	}
+	table := fame.Load()
 
 	for seed := uint64(1); seed <= 300; seed++ {
 		c := generate(t, chargen.Options{Seed: seed})

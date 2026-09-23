@@ -68,7 +68,27 @@ var shipsJSON []byte
 var errBadTable = errors.New("invalid ships table")
 
 // Load returns the embedded chart S.
-func Load() (*Table, error) { return table() }
+//
+// Valid once Err has reported nil. A chart S that failed to load comes back
+// empty, and its lookups assume the data validation guarantees.
+func Load() *Table {
+	t, err := table()
+	if err != nil {
+		return &Table{}
+	}
+
+	return t
+}
+
+// Err reports whether the embedded chart S failed to load. It is compiled
+// in, so a failure is a build fault rather than anything a caller did, and
+// it is checked once — chargen.Generate asks before a lifepath starts —
+// rather than returned by every lookup.
+func Err() error {
+	_, err := table()
+
+	return err
+}
 
 var table = sync.OnceValues(func() (*Table, error) {
 	var t Table

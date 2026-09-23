@@ -14,10 +14,7 @@ import (
 func load(t *testing.T) *benefit.Table {
 	t.Helper()
 
-	table, err := benefit.Load()
-	if err != nil {
-		t.Fatal(err)
-	}
+	table := benefit.Load()
 
 	return table
 }

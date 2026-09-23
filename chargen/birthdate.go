@@ -35,10 +35,7 @@ const birthdateDice = 4
 // last: "Until Character Generation is complete, Birthdate calculation may
 // be deferred".
 func (c *Character) birthdate(roller *dice.Roller, log *Log, currentYear int) error {
-	table, err := calendar.Load()
-	if err != nil {
-		return fmt.Errorf("birthdate: %w", err)
-	}
+	table := calendar.Load()
 
 	// "The default date (if this information is not otherwise provided)
 	// is 001-1105" (p. 58). Zero is "not provided" here, the same way the
@@ -69,6 +66,8 @@ func (c *Character) birthdate(roller *dice.Roller, log *Log, currentYear int) er
 	for day == calendar.Reroll {
 		roll := roller.Roll(birthdateDice)
 		cause = log.Roll(roll, "Book 1 p. 263 (Birth Date Generation; 4 consecutive dice)")
+
+		var err error
 
 		day, err = table.Day(roll.Faces[0], roll.Faces[1], roll.Faces[2], roll.Faces[3])
 		if err != nil {

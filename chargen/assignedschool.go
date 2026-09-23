@@ -101,10 +101,7 @@ func (r *careerRun) attendAssignedSchool(id string) error {
 
 // programByID finds one chart C row.
 func programByID(id string) (education.Program, error) {
-	programs, err := education.Programs()
-	if err != nil {
-		return education.Program{}, fmt.Errorf("assigned school: %w", err)
-	}
+	programs := education.Programs()
 
 	for _, p := range programs {
 		if p.ID == id {

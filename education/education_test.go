@@ -9,10 +9,7 @@ import (
 // TestPrograms verifies the chart C program rows (p. 60): count, the FR3
 // implemented set, and spot-checked fields.
 func TestPrograms(t *testing.T) {
-	programs, err := education.Programs()
-	if err != nil {
-		t.Fatal(err)
-	}
+	programs := education.Programs()
 
 	if len(programs) != 17 {
 		t.Errorf("got %d programs, want 17 chart C rows", len(programs))
@@ -87,10 +84,7 @@ func checkProgramSpots(t *testing.T) {
 // College column count and order head, dedup of the thrice-listed Grav,
 // and spot rows.
 func TestMajors(t *testing.T) {
-	college, err := education.Majors(education.InstitutionCollege)
-	if err != nil {
-		t.Fatal(err)
-	}
+	college := education.Majors(education.InstitutionCollege)
 
 	if len(college) != 40 {
 		t.Fatalf("college majors = %d, want 40", len(college))
@@ -119,10 +113,7 @@ func TestMajors(t *testing.T) {
 func checkServiceMajors(t *testing.T) {
 	t.Helper()
 
-	army, err := education.Majors(education.InstitutionArmy)
-	if err != nil {
-		t.Fatal(err)
-	}
+	army := education.Majors(education.InstitutionArmy)
 
 	// The three chart C Grav rows are distinct knowledges of distinct
 	// parent skills, stored qualified so they cannot stack into one
@@ -133,10 +124,7 @@ func checkServiceMajors(t *testing.T) {
 		}
 	}
 
-	navy, err := education.Majors(education.InstitutionNavy)
-	if err != nil {
-		t.Fatal(err)
-	}
+	navy := education.Majors(education.InstitutionNavy)
 
 	for _, name := range []string{"Astrogator", "Fleet Tactics", "Spacecraft ACS", "Bay Weapons"} {
 		if !contains(navy, name) {
@@ -148,10 +136,7 @@ func checkServiceMajors(t *testing.T) {
 // TestAllSkillNames verifies the unrestricted Apprenticeship list is the
 // deduplicated full matrix.
 func TestAllSkillNames(t *testing.T) {
-	names, err := education.AllSkillNames()
-	if err != nil {
-		t.Fatal(err)
-	}
+	names := education.AllSkillNames()
 
 	// All 121 rows are distinct names: the three Grav rows carry their
 	// parent skill (ERRATA.md I-10), so nothing collapses.
