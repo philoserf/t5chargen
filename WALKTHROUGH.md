@@ -90,7 +90,7 @@ seed, and the seed it picks is written into the record, so replay stays
 exact.
 
 ```bash
-sed -n '106,121p' cmd/t5chargen/main.go
+sed -n '108,123p' cmd/t5chargen/main.go
 ```
 
 ```output
@@ -121,7 +121,7 @@ else that is the caller's fault exits 2; an operation that ran and failed
 exits 1.
 
 ```bash
-sed -n '126,163p' cmd/t5chargen/main.go
+sed -n '128,165p' cmd/t5chargen/main.go
 ```
 
 ```output
@@ -167,8 +167,9 @@ func run(args []string, seedFn func() (uint64, error), stdin io.Reader, stdout, 
 
 ### `new`, in the middle
 
-`runNew` parses flags, validates what it can validate itself, resolves the
-seed, builds `chargen.Options`, and opens a session. `openSession` is where
+`runNew` parses flags, validates what it can validate itself — `-o`
+included, before anything is asked — resolves the seed, builds
+`chargen.Options`, and opens a session. `openSession` is where
 the two decider implementations part: `--auto` installs
 `chargen.DefaultPolicy{}`, and without it an `interactive.Decider` reading
 stdin. The engine is handed a `Decider` either way and cannot tell which.
@@ -178,12 +179,18 @@ session leaves no file behind: it reports and returns before anything is
 written.
 
 ```bash
-sed -n '196,221p' cmd/t5chargen/main.go
+sed -n '198,229p' cmd/t5chargen/main.go
 ```
 
 ```output
 	if code := common.check("new", flags, stderr); code != exitOK {
 		return code
+	}
+
+	if err := checkOutput(*common.out, *common.force); err != nil {
+		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
+
+		return exitError
 	}
 
 	if err := resolveSeed(flags, common.seed, seedFn); err != nil {
