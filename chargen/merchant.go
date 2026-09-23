@@ -42,7 +42,7 @@ type merchantMechanics struct {
 //
 //nolint:ireturn // The registry's function type returns the interface.
 func newMerchant() (*career.Definition, careerMechanics, error) {
-	def, err := career.Merchant()
+	def, err := career.ByName("Merchant")
 	if err != nil {
 		return nil, nil, fmt.Errorf("merchant career: %w", err)
 	}

@@ -42,7 +42,7 @@ func nobleRun(t *testing.T, seed uint64) (chargen.Character, chargen.CareerRecor
 // TestNobleLadder pins the chart 11 rank table, including the rungs that
 // share a Social Standing (p. 68).
 func TestNobleLadder(t *testing.T) {
-	def, err := career.Noble()
+	def, err := career.ByName("Noble")
 	if err != nil {
 		t.Fatal(err)
 	}

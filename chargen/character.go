@@ -781,7 +781,7 @@ func (c *Character) finalize(log *Log) error {
 // lesson is recorded for careers that will not load: "A definition that
 // will not load is a build fault, not an ineligible career".
 func checkSharedData() error {
-	if _, err := career.Citizen(); err != nil {
+	if _, err := career.ByName("Citizen"); err != nil {
 		return fmt.Errorf("citizen life skills: %w", err)
 	}
 

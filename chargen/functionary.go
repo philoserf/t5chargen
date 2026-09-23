@@ -47,7 +47,7 @@ type functionaryMechanics struct{ rank int }
 //
 //nolint:ireturn // The registry's function type returns the interface.
 func newFunctionary() (*career.Definition, careerMechanics, error) {
-	def, err := career.Functionary()
+	def, err := career.ByName("Functionary")
 	if err != nil {
 		return nil, nil, fmt.Errorf("functionary career: %w", err)
 	}

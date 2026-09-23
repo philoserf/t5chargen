@@ -92,7 +92,7 @@ func TestRogueRiskFailureImprisonsRatherThanInjures(t *testing.T) {
 // Prison: Prison Skills from the Rogue Skills table column 1 or 2 only.
 // Receives ONLY Prison Skills (not Term or Scheme Skills)".
 func TestRoguePrisonTermTakesOnlyPrisonSkills(t *testing.T) {
-	def, err := career.Rogue()
+	def, err := career.ByName("Rogue")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -158,7 +158,7 @@ func TestRoguePayoffFormula(t *testing.T) {
 
 // TestRogueSchemeTable pins chart 10's Rogue Schemes table.
 func TestRogueSchemeTable(t *testing.T) {
-	def, err := career.Rogue()
+	def, err := career.ByName("Rogue")
 	if err != nil {
 		t.Fatal(err)
 	}

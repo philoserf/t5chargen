@@ -49,7 +49,7 @@ func TestSoldierBeginsEnlisted(t *testing.T) {
 // TestSoldierOperationsPerTerm verifies p. 66: "Roll for Assignment four
 // times per Term (for four annual assignments)".
 func TestSoldierOperationsPerTerm(t *testing.T) {
-	def, err := career.Soldier()
+	def, err := career.ByName("Soldier")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -78,7 +78,7 @@ func TestSoldierOperationsPerTerm(t *testing.T) {
 // the Skills table corresponding to an Operations result received in the
 // Term", with "Column 1-Personal Skills may always be rolled".
 func TestSoldierTermSkillsFollowAssignments(t *testing.T) {
-	def, err := career.Soldier()
+	def, err := career.ByName("Soldier")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -519,9 +519,9 @@ func firstBranchSet(c chargen.Character) string {
 // no mechanics: it runs the shared procedure over chart 12's data, and
 // differs from its siblings only in what the chart prints.
 func TestMarineIsDataOnly(t *testing.T) {
-	marine := loadService(t, career.Marine)
-	soldier := loadService(t, career.Soldier)
-	spacer := loadService(t, career.Spacer)
+	marine := loadService(t, "Marine")
+	soldier := loadService(t, "Soldier")
+	spacer := loadService(t, "Spacer")
 
 	// Chart 12's DM By Branch differs from chart 08's: the Marine's
 	// Commando carries the +0 the Soldier's Protected does.
@@ -542,10 +542,10 @@ func TestMarineIsDataOnly(t *testing.T) {
 }
 
 // loadService loads one Armed Forces career definition.
-func loadService(t *testing.T, load func() (*career.Definition, error)) *career.Definition {
+func loadService(t *testing.T, name string) *career.Definition {
 	t.Helper()
 
-	def, err := load()
+	def, err := career.ByName(name)
 	if err != nil {
 		t.Fatal(err)
 	}

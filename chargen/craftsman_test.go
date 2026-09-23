@@ -170,7 +170,7 @@ func TestCraftsmanNewTradeCell(t *testing.T) {
 // does not qualify is never offered the career, so no auto-generated
 // character enters it at all.
 func TestCraftsmanNeedsItsPrerequisite(t *testing.T) {
-	def, err := career.Craftsman()
+	def, err := career.ByName("Craftsman")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -216,7 +216,7 @@ func assertNoAutoCraftsman(t *testing.T) {
 func TestMasterPointsTotalTheChartsSources(t *testing.T) {
 	c, _ := craftsmanRun(t)
 
-	def, err := career.Craftsman()
+	def, err := career.ByName("Craftsman")
 	if err != nil {
 		t.Fatal(err)
 	}

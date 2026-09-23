@@ -765,7 +765,7 @@ var groupCells = map[career.EntryKind]struct {
 // and Knowledges" (p. 87): every table E entry of chart 04, in chart
 // order. Chart 09's Undercover Assignment reads the same list.
 func citizenLifeSkills() []string {
-	def, err := career.Citizen()
+	def, err := career.ByName("Citizen")
 	if err != nil {
 		// Unreachable in a built binary: Generate checks the same load
 		// once before any dice are rolled, so a broken transcription is

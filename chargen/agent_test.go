@@ -56,7 +56,7 @@ func TestAgentUndercoverEveryTerm(t *testing.T) {
 // TestAgentUndercoverTableIsWhole verifies the transcription: chart 09's
 // table is 3 x 6 and every row names a career the engine can read.
 func TestAgentUndercoverTableIsWhole(t *testing.T) {
-	def, err := career.Agent()
+	def, err := career.ByName("Agent")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -256,7 +256,7 @@ func TestAgentFunctionaryRowResolves(t *testing.T) {
 // as a reference career before it was playable (I-40) and reads the same
 // skills table still.
 func TestFunctionaryIsNeverAFirstCareer(t *testing.T) {
-	def, err := career.Functionary()
+	def, err := career.ByName("Functionary")
 	if err != nil {
 		t.Fatal(err)
 	}

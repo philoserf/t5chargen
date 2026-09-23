@@ -76,7 +76,7 @@ type scholarMechanics struct {
 //
 //nolint:ireturn // The registry's function type returns the interface.
 func newScholar() (*career.Definition, careerMechanics, error) {
-	def, err := career.Scholar()
+	def, err := career.ByName("Scholar")
 	if err != nil {
 		return nil, nil, fmt.Errorf("scholar career: %w", err)
 	}

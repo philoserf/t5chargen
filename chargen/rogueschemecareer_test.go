@@ -220,7 +220,7 @@ func TestASelectedSchemeThrowsNoFlux(t *testing.T) {
 func countSchemeFlux(t *testing.T, c chargen.Character) int {
 	t.Helper()
 
-	def, err := career.Rogue()
+	def, err := career.ByName("Rogue")
 	if err != nil {
 		t.Fatalf("rogue career: %v", err)
 	}

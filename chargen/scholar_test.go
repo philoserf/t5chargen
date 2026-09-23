@@ -37,7 +37,7 @@ func scholarRun(t *testing.T, seed uint64) (chargen.Character, chargen.CareerRec
 
 // TestScholarRanks pins the chart 02 rank ladder.
 func TestScholarRanks(t *testing.T) {
-	def, err := career.Scholar()
+	def, err := career.ByName("Scholar")
 	if err != nil {
 		t.Fatal(err)
 	}

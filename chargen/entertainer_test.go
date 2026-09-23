@@ -51,7 +51,7 @@ func consequences(c chargen.Character, kind chargen.ConsequenceKind) []int {
 // per-specialty Begin checks ("Begin Actor C2 or C3 / Begin Artist C3 or
 // Int / Begin Author Int or C5 / ... / Begin Chef C2 or Int", p. 77).
 func TestEntertainerSpecialties(t *testing.T) {
-	def, err := career.Entertainer()
+	def, err := career.ByName("Entertainer")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -88,7 +88,7 @@ func TestEntertainerSpecialties(t *testing.T) {
 // "Risk & Reward Talent": the Entertainer has no series to rotate, so no
 // controlling-characteristic choice is presented and no term records one.
 func TestEntertainerRotatesNoControllingCharacteristic(t *testing.T) {
-	def, err := career.Entertainer()
+	def, err := career.ByName("Entertainer")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -288,7 +288,7 @@ func TestEntertainerContinueUsesFame(t *testing.T) {
 // TestEntertainerFameIncreaseEarnsSkills verifies chart 03 table B: "Per
 // Term 4 / If Fame Increases 2".
 func TestEntertainerFameIncreaseEarnsSkills(t *testing.T) {
-	def, err := career.Entertainer()
+	def, err := career.ByName("Entertainer")
 	if err != nil {
 		t.Fatal(err)
 	}

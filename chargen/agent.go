@@ -34,7 +34,7 @@ type agentMechanics struct{ baseMechanics }
 //
 //nolint:ireturn // The registry's function type returns the interface.
 func newAgent() (*career.Definition, careerMechanics, error) {
-	def, err := career.Agent()
+	def, err := career.ByName("Agent")
 	if err != nil {
 		return nil, nil, fmt.Errorf("agent career: %w", err)
 	}
@@ -180,30 +180,22 @@ func (*agentMechanics) undercoverSkill(r *careerRun, row career.UndercoverRow) e
 	return nil
 }
 
-// undercoverCareers maps the labels chart 09 prints to the career whose
-// skills table each refers to. Army is the Soldier chart, Navy the Spacer
-// chart, and Functionary is transcribed for this table alone.
-var undercoverCareers = map[string]func() (*career.Definition, error){
-	"Soldier":     career.Soldier,
-	"Marine":      career.Marine,
-	"Spacer":      career.Spacer,
-	"Scholar":     career.Scholar,
-	"Entertainer": career.Entertainer,
-	"Citizen":     career.Citizen,
-	"Merchant":    career.Merchant,
-	"Scout":       career.Scout,
-	"Noble":       career.Noble,
-	"Functionary": career.Functionary,
+// undercoverCareers are the careers whose skills tables chart 09's
+// Assignment table refers to, by the labels it prints. Army is the Soldier
+// chart, Navy the Spacer chart, and Functionary is transcribed for this
+// table alone.
+var undercoverCareers = []string{
+	"Soldier", "Marine", "Spacer", "Scholar", "Entertainer",
+	"Citizen", "Merchant", "Scout", "Noble", "Functionary",
 }
 
 // loadUndercoverCareer resolves one cover career's chart.
 func loadUndercoverCareer(source string) (*career.Definition, error) {
-	load, ok := undercoverCareers[source]
-	if !ok {
+	if !slices.Contains(undercoverCareers, source) {
 		return nil, fmt.Errorf("%w: undercover career %q", errNotImplemented, source)
 	}
 
-	def, err := load()
+	def, err := career.ByName(source)
 	if err != nil {
 		return nil, fmt.Errorf("undercover career %q: %w", source, err)
 	}

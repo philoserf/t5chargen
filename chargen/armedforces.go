@@ -63,24 +63,24 @@ func (m *armedForcesMechanics) branchSide(r *careerRun) (string, int) {
 //
 //nolint:ireturn // The registry's function type returns the interface.
 func newSoldier() (*career.Definition, careerMechanics, error) {
-	return newArmedForces(career.Soldier)
+	return newArmedForces("Soldier")
 }
 
 //nolint:ireturn // The registry's function type returns the interface.
 func newSpacer() (*career.Definition, careerMechanics, error) {
-	return newArmedForces(career.Spacer)
+	return newArmedForces("Spacer")
 }
 
 //nolint:ireturn // The registry's function type returns the interface.
 func newMarine() (*career.Definition, careerMechanics, error) {
-	return newArmedForces(career.Marine)
+	return newArmedForces("Marine")
 }
 
 // newArmedForces builds the shared mechanics over one service's chart.
 //
 //nolint:ireturn // The registry's function type returns the interface.
-func newArmedForces(load func() (*career.Definition, error)) (*career.Definition, careerMechanics, error) {
-	def, err := load()
+func newArmedForces(name string) (*career.Definition, careerMechanics, error) {
+	def, err := career.ByName(name)
 	if err != nil {
 		return nil, nil, fmt.Errorf("armed forces career: %w", err)
 	}

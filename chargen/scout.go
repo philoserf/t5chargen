@@ -32,7 +32,7 @@ type scoutMechanics struct{ baseMechanics }
 //
 //nolint:ireturn // Registry constructors return the careerMechanics seam by design.
 func newScout() (*career.Definition, careerMechanics, error) {
-	def, err := career.Scout()
+	def, err := career.ByName("Scout")
 	if err != nil {
 		return nil, nil, fmt.Errorf("scout career: %w", err)
 	}

@@ -10,6 +10,7 @@
 package career
 
 import (
+	"embed"
 	_ "embed"
 	"encoding/json"
 	"errors"
@@ -1446,88 +1447,35 @@ func (d *Definition) derive() {
 // errBadDefinition reports invalid career data.
 var errBadDefinition = errors.New("invalid career definition")
 
-//go:embed data/citizen.json
-var citizenJSON []byte
+// data holds one definition file per career, named for the career in
+// lower case.
+//
+//go:embed data/*.json
+var data embed.FS
 
-//go:embed data/scout.json
-var scoutJSON []byte
-
-//go:embed data/merchant.json
-var merchantJSON []byte
-
-//go:embed data/entertainer.json
-var entertainerJSON []byte
-
-//go:embed data/scholar.json
-var scholarJSON []byte
-
-//go:embed data/noble.json
-var nobleJSON []byte
-
-//go:embed data/soldier.json
-var soldierJSON []byte
-
-//go:embed data/spacer.json
-var spacerJSON []byte
-
-//go:embed data/marine.json
-var marineJSON []byte
-
-//go:embed data/agent.json
-var agentJSON []byte
-
-//go:embed data/functionary.json
-var functionaryJSON []byte
-
-//go:embed data/rogue.json
-var rogueJSON []byte
-
-//go:embed data/craftsman.json
-var craftsmanJSON []byte
-
-// The implemented careers parse and validate their embedded definitions
+// definitions parses and validates every career's embedded definition,
 // once.
-var (
-	citizen = sync.OnceValues(func() (*Definition, error) {
-		return load("citizen.json", citizenJSON)
-	})
-	scout = sync.OnceValues(func() (*Definition, error) {
-		return load("scout.json", scoutJSON)
-	})
-	merchant = sync.OnceValues(func() (*Definition, error) {
-		return load("merchant.json", merchantJSON)
-	})
-	entertainer = sync.OnceValues(func() (*Definition, error) {
-		return load("entertainer.json", entertainerJSON)
-	})
-	scholar = sync.OnceValues(func() (*Definition, error) {
-		return load("scholar.json", scholarJSON)
-	})
-	noble = sync.OnceValues(func() (*Definition, error) {
-		return load("noble.json", nobleJSON)
-	})
-	soldier = sync.OnceValues(func() (*Definition, error) {
-		return load("soldier.json", soldierJSON)
-	})
-	spacer = sync.OnceValues(func() (*Definition, error) {
-		return load("spacer.json", spacerJSON)
-	})
-	marine = sync.OnceValues(func() (*Definition, error) {
-		return load("marine.json", marineJSON)
-	})
-	agent = sync.OnceValues(func() (*Definition, error) {
-		return load("agent.json", agentJSON)
-	})
-	craftsman = sync.OnceValues(func() (*Definition, error) {
-		return load("craftsman.json", craftsmanJSON)
-	})
-	functionary = sync.OnceValues(func() (*Definition, error) {
-		return load("functionary.json", functionaryJSON)
-	})
-	rogue = sync.OnceValues(func() (*Definition, error) {
-		return load("rogue.json", rogueJSON)
-	})
-)
+var definitions = sync.OnceValues(func() (map[string]*Definition, error) {
+	defs := make(map[string]*Definition, len(Available()))
+
+	for _, name := range Available() {
+		file := strings.ToLower(name) + ".json"
+
+		raw, err := data.ReadFile("data/" + file)
+		if err != nil {
+			return nil, fmt.Errorf("career: %w", err)
+		}
+
+		def, err := load(file, raw)
+		if err != nil {
+			return nil, err
+		}
+
+		defs[name] = def
+	}
+
+	return defs, nil
+})
 
 // load parses, validates, and derives one career data file.
 func load(name string, data []byte) (*Definition, error) {
@@ -1545,74 +1493,6 @@ func load(name string, data []byte) (*Definition, error) {
 	return &d, nil
 }
 
-// Citizen returns the Citizen career definition (chart 04, p. 78).
-func Citizen() (*Definition, error) {
-	return citizen()
-}
-
-// Scout returns the Scout career definition (chart 05, p. 79).
-func Scout() (*Definition, error) {
-	return scout()
-}
-
-// Merchant returns the Merchant career definition (chart 06, p. 80).
-func Merchant() (*Definition, error) {
-	return merchant()
-}
-
-// Entertainer returns the Entertainer career definition (chart 03, p. 77).
-func Entertainer() (*Definition, error) {
-	return entertainer()
-}
-
-// Scholar returns the Scholar career definition (chart 02, p. 76).
-func Scholar() (*Definition, error) {
-	return scholar()
-}
-
-// Rogue returns the Rogue career definition (chart 10, p. 84).
-func Rogue() (*Definition, error) {
-	return rogue()
-}
-
-// Agent returns the Agent career definition (chart 09, p. 83).
-func Agent() (*Definition, error) {
-	return agent()
-}
-
-// Craftsman returns the Craftsman career definition (chart 01, p. 75).
-func Craftsman() (*Definition, error) {
-	return craftsman()
-}
-
-// Functionary returns the Functionary career definition (chart 13, p. 87).
-// Its skills table was transcribed first as a reference for chart 09's
-// Undercover Assignment (interpretation I-40); the career became playable
-// when career changes landed, chart 13 saying it "is never a first career".
-func Functionary() (*Definition, error) {
-	return functionary()
-}
-
-// Marine returns the Marine career definition (chart 12, p. 86).
-func Marine() (*Definition, error) {
-	return marine()
-}
-
-// Spacer returns the Spacer career definition (chart 07, p. 81).
-func Spacer() (*Definition, error) {
-	return spacer()
-}
-
-// Soldier returns the Soldier career definition (chart 08, p. 82).
-func Soldier() (*Definition, error) {
-	return soldier()
-}
-
-// Noble returns the Noble career definition (chart 11, p. 85).
-func Noble() (*Definition, error) {
-	return noble()
-}
-
 // Available lists the implemented careers in Book 1 chart order. The
 // default policy names its career rather than taking the first listed, so
 // this order is presentation only (POLICY.md).
@@ -1621,8 +1501,22 @@ func Noble() (*Definition, error) {
 // FirstCareers.
 func Available() []string {
 	return []string{
-		"Craftsman", "Scholar", "Entertainer", "Citizen", "Scout", "Merchant",
-		"Spacer", "Soldier", "Agent", "Rogue", "Noble", "Marine",
+		"Craftsman",   // chart 01, p. 75
+		"Scholar",     // chart 02, p. 76
+		"Entertainer", // chart 03, p. 77
+		"Citizen",     // chart 04, p. 78
+		"Scout",       // chart 05, p. 79
+		"Merchant",    // chart 06, p. 80
+		"Spacer",      // chart 07, p. 81
+		"Soldier",     // chart 08, p. 82
+		"Agent",       // chart 09, p. 83
+		"Rogue",       // chart 10, p. 84
+		"Noble",       // chart 11, p. 85
+		"Marine",      // chart 12, p. 86
+		// Chart 13, p. 87. Its skills table was transcribed first as a
+		// reference for chart 09's Undercover Assignment (interpretation
+		// I-40); the career became playable when career changes landed,
+		// chart 13 saying it "is never a first career".
 		"Functionary",
 	}
 }
@@ -1672,23 +1566,19 @@ func FirstCareers() ([]string, error) {
 	return first, nil
 }
 
-// loaders maps each Available name to its definition loader.
-var loaders = map[string]func() (*Definition, error){
-	"Scholar": Scholar, "Entertainer": Entertainer, "Citizen": Citizen,
-	"Scout": Scout, "Merchant": Merchant, "Spacer": Spacer,
-	"Soldier": Soldier, "Agent": Agent, "Rogue": Rogue,
-	"Noble": Noble, "Marine": Marine, "Functionary": Functionary,
-	"Craftsman": Craftsman,
-}
-
 // ByName loads a career definition by its Available name.
 func ByName(name string) (*Definition, error) {
-	load, ok := loaders[name]
+	defs, err := definitions()
+	if err != nil {
+		return nil, err
+	}
+
+	def, ok := defs[name]
 	if !ok {
 		return nil, fmt.Errorf("%w: %q", ErrUnknownCareer, name)
 	}
 
-	return load()
+	return def, nil
 }
 
 // ErrUnknownCareer reports a name absent from Available.
