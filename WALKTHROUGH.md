@@ -178,23 +178,23 @@ session leaves no file behind: it reports and returns before anything is
 written.
 
 ```bash
-sed -n '207,232p' cmd/t5chargen/main.go
+sed -n '196,221p' cmd/t5chargen/main.go
 ```
 
 ```output
-	if code := checkFlags("new", *currentYear, *name, stderr); code != exitOK {
+	if code := common.check("new", flags, stderr); code != exitOK {
 		return code
 	}
 
-	if err := resolveSeed(flags, seed, seedFn); err != nil {
+	if err := resolveSeed(flags, common.seed, seedFn); err != nil {
 		fmt.Fprintf(stderr, "t5chargen: %v\n", err)
 
 		return exitError
 	}
 
-	options := generateOptions(*seed, *name, *careerFlag, *homeworldFlag, *currentYear)
+	options := common.options()
 
-	player := openSession(&options, *auto, stdin, stderr)
+	player := openSession(&options, *common.auto, stdin, stderr)
 
 	character, err := chargen.Generate(options)
 	if err != nil {
