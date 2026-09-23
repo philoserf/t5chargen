@@ -6,9 +6,10 @@ This document states what v1 is, once. It carried a dozen dated
 amendments recording how each requirement reached its final reading —
 those are folded into the requirements they amended, so a reader can
 judge the tool against this page without reconstructing the order the
-decisions were made in. The history is not lost: `docs/MILESTONE-4.md`
-through `-7.md` record what each milestone turned out to be, and git
-holds the rest.
+decisions were made in. The history is not lost: git holds it, including
+the milestone records that once sat in `docs/` (`git log --
+docs/MILESTONE-4.md` and its siblings), and `CHANGELOG.md` takes over from
+the first release.
 
 ## Problem
 
@@ -124,7 +125,7 @@ The auto policy is **total** (it can decide every valid choice point: education,
 6. The rules milestone 5 left: the Rogue's previous-career Scheme (chart 10), and OTC and NOTC (p. 61).
 7. The deferrals that were still real once milestone 6 closed: resigning from the Reserves (p. 67), Flight School (pp. 60-61), the Branch changes of I-34, the Scholar's rank titles, and the Skill/Knowledge distinction, which milestone 6 had scoped out on a premise that proved wrong.
 
-_All seven are complete._ `docs/MILESTONE-6.md` and `docs/MILESTONE-7.md` record what each turned out to be, against what was planned here. Nothing this document asks for is outstanding but chart 11's `Capital***` cell, which `docs/COVERAGE.md` carries as its one accepted exception.
+_All seven are complete._ What each turned out to be, against what was planned here, is in git history. Nothing this document asks for is outstanding but chart 11's `Capital***` cell, which `docs/COVERAGE.md` carries as its one accepted exception.
 
 ## Decisions (2026-08-19)
 

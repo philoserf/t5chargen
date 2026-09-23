@@ -144,8 +144,8 @@ character.schema.json describes what the engine actually writes, and that
 every record's event log accounts for its characteristics, skills and age.
 
 Three folders, three kinds of thing. `docs` holds documents and nothing
-else: the spec, the living COVERAGE/ERRATA/POLICY, the milestone histories
-and the JSON Schema with its minimal example (the complete one is a golden
+else: the spec, the living COVERAGE/ERRATA/POLICY, the release records, and
+the JSON Schema with its minimal example (the complete one is a golden
 fixture, `chargen/testdata/career_scout.json`). `audit` holds the code that
 checks them. The root holds what convention puts there — README, LICENSE,
 this file, and the build configuration — plus the two documents about the
