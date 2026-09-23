@@ -1,6 +1,6 @@
 # t5chargen
 
-![Status: Alpha](https://img.shields.io/badge/Status-Alpha-orange.svg)
+![Status: Beta](https://img.shields.io/badge/Status-Beta-yellow.svg)
 
 Generate Traveller5 characters from the command line — the full human
 lifepath, rolled by the book, with every throw and choice recorded so the
@@ -70,8 +70,10 @@ resolving to a prerelease once a stable version exists.
 
 ## Stability
 
-Prerelease. Flags and output may still change, and
-[CHANGELOG.md](CHANGELOG.md) says what moved between releases.
+Beta. Flags may still change until 1.0, and [CHANGELOG.md](CHANGELOG.md)
+says what moved between releases. What a script may rely on meanwhile —
+exit statuses, which stream carries what, the rules for `-o` — is written
+down in [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md).
 
 The record format is the part that is held still. It is versioned, its
 schema is published (`docs/character.schema.json`), and a record written
