@@ -1052,7 +1052,7 @@ where "renders" means "can be read", not "produces identical bytes". The
 sheet's layout is explicitly outside the promise.
 
 ```bash
-sed -n '385,415p' render/render.go
+sed -n '386,416p' render/render.go
 ```
 
 ```output
@@ -1148,27 +1148,27 @@ d=$(mktemp -d) && go build -o "$d/t5chargen" ./cmd/t5chargen && cd "$d" && ./t5c
 ```
 
 ```output
-## Select Career
-
-_Book 1 p. 72 chart E1 step D_
-
-- #43 policy chose "Citizen" of [Scholar, Entertainer, Citizen, Scout, Merchant, Spacer, Soldier, Agent, Rogue, Marine]: Select career — Book 1 p. 72 chart E1 step D
-
-## Citizen: Begin (automatic)
-
-_Book 1 p. 72 chart E1 panel 04_
-
-- #45 policy chose "Serve the term in Citizen" of [Serve the term in Citizen, Trade School, Apprenticeship, College, Masters, Professors, Medical School, Law School]: Suspend the term to return to school? — Book 1 p. 59 (Later Education or Training); chart C p. 60
-
-## Citizen: Term 1
-
-_Book 1 p. 78 chart 04_
-
-- #47 policy chose "Str" of [Str, Dex, End, Int]: Select the term's controlling characteristic — Book 1 p. 65 (Risk and Reward: Select the CC)
-- #48 2D = 2+5 = 7 vs 7: success — Book 1 p. 78 chart 04 (Citizen Life vs Str, no mods per p. 65)
-- #49 1D = 4 = 4 — Book 1 p. 78 chart 04 table E (roll A reroll if >3, then B, then C)
-- #50 1D = 6 = 6 — Book 1 p. 78 chart 04 table E (roll A reroll if >3, then B, then C)
-- #51 1D = 5 = 5 — Book 1 p. 78 chart 04 table E (roll A reroll if >3, then B, then C)
+  Astrogator, Actor, Artist, Author, Chef, Dancer, Musician, Biologics,
+  Craftsman, Electronics, Fluidics, Gravitics, Magnetics, Mechanic, Photonics,
+  Polymers, Programmer, Automotive, Archeology, Biology, Chemistry, History,
+  Linguistics, Philosophy, Physics, Planetology, Psionicology, Psychohistory,
+  Psychology, Robotics, Sophontology, Aeronautics, Aquanautics]
+- #24 policy chose "Broker": Select a Minor — Book 1 p. 59 (Major and Minor; they cannot be the same)
+  of [Broker, Bureaucrat, Counsellor, Designer, Language, Teacher, Astrogator,
+  Actor, Artist, Author, Chef, Dancer, Musician, Biologics, Craftsman,
+  Electronics, Fluidics, Gravitics, Magnetics, Mechanic, Photonics, Polymers,
+  Programmer, Automotive, Archeology, Biology, Chemistry, History,
+  Linguistics, Philosophy, Physics, Planetology, Psionicology, Psychohistory,
+  Psychology, Robotics, Sophontology, Aeronautics, Aquanautics]
+- #25 policy chose "Int" of [Int, Edu]: Select the characteristic to check — Book 1 p. 59 (Check one of the stated Characteristics)
+- #26 2D = 5+3 = 8 vs 7: failure — Book 1 p. 60 chart C (University Pass/Fail Check Int)
+  - #27 (from #26) +1 years
+- #28 policy chose "Attempt waiver": Attempt an Educational Waiver? (pass/fail failed) — Book 1 p. 59 (Educational Waivers)
+  of [Attempt waiver, Accept the result]
+- #29 2D = 4+2 = 6 vs 7 (previous waivers +0): success — Book 1 p. 59 (Waiver: Check Soc, Mod minus previous waivers)
+- #30 2D = 6+6 = 12 vs 7: failure — Book 1 p. 60 chart C (University Pass/Fail Check Int)
+  - #31 (from #30) +1 years
+- #32 policy chose "Attempt waiver": Attempt an Educational Waiver? (pass/fail failed) — Book 1 p. 59 (Educational Waivers)
 ```
 
 And the record verifies against itself:
@@ -1239,13 +1239,13 @@ numbered readings taken where the printed rules are ambiguous, and
 `docs/KNOWN_LIMITATIONS.md` the honest list of what the tool does not do.
 
 Two things this trace hit that a reader should not have to rediscover were
-filed in `.issues/`; the second has since been fixed.
+filed in `.issues/`; both have since been fixed.
 
 ## Index
 
 | # | Severity | Issue | Primary location |
 | --- | --- | --- | --- |
-| 1 | low | `history-transcript-choice-lines-inline-whole-option-lists` | `render/render.go:446` |
+| 1 | low | `history-transcript-choice-lines-inline-whole-option-lists` (fixed: long lists wrap beneath the line) | `render/render.go` |
 | 2 | low | `careerrun-interleaves-the-shared-term-loop-with-chart-specific-helpers` (fixed: `chargen/awards.go`) | `chargen/careerrun.go` |
 
 **Total: 2 issues (0 critical, 0 high, 0 medium, 2 low)**

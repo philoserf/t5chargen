@@ -11,7 +11,29 @@ This file starts at the first release. Everything before it is in git.
 
 ## Unreleased
 
-Nothing since `v0.1.0-alpha.3`.
+Nothing since `v0.1.0-beta.1`.
+
+## v0.1.0-beta.1 — 2026-09-23
+
+schema 0.33.0 · engine 0.45.0 · policy 0.25.0 — **all three unchanged.**
+
+The first beta, for testers. Nothing about a generated character moved,
+and records written by every earlier release still replay under this one.
+The beta is where the project meets its users: what it asks of testers,
+and what ends it, is in
+[docs/RELEASE_READINESS.md](docs/RELEASE_READINESS.md).
+
+- The history transcript wraps a long choice's options beneath its line
+  instead of printing them inline, so chart B's worlds and Citizen's Job
+  and Hobby lists no longer make lines of over a thousand characters.
+  Every option is still shown.
+- The engine refuses a build whose embedded chart data failed to load
+  before it rolls any dice, rather than at whichever step first reads it.
+- Every record's characteristics, skills and age are now held to its own
+  event log by a test, so a rule effect that skips the log fails the gate.
+- Records are checked against the published JSON Schema by an imported
+  validator in the tests; the shipped binary is still standard library
+  only.
 
 ## v0.1.0-alpha.3 — 2026-09-23
 

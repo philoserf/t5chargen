@@ -627,3 +627,32 @@ func TestBenefitNamesPluralize(t *testing.T) {
 		}
 	}
 }
+
+// TestLongChoiceListsWrapWhole verifies the transcript keeps every option
+// of a long choice — the recorded answer is an index into them — while no
+// line runs past what a terminal or an issue body shows without scrolling.
+// Seed 7 meets chart B's thirty-four worlds and Citizen's Job and Hobby
+// lists, the choices that once made single lines of over a thousand
+// characters.
+func TestLongChoiceListsWrapWhole(t *testing.T) {
+	character := generate(t, chargen.Options{Seed: 7})
+	history := render.History(character)
+
+	for line := range strings.SplitSeq(history, "\n") {
+		if n := len([]rune(line)); n > 160 {
+			t.Errorf("a %d-character line: %.80s…", n, line)
+		}
+	}
+
+	for _, event := range character.Events {
+		if event.Choice == nil {
+			continue
+		}
+
+		for _, option := range event.Choice.Options {
+			if !strings.Contains(strings.ReplaceAll(history, "\n  ", " "), option) {
+				t.Errorf("choice %q lost option %q", event.Choice.Prompt, option)
+			}
+		}
+	}
+}
