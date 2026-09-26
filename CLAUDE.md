@@ -47,20 +47,9 @@ conventions, the auto-policy requirements, and milestones.
 
 ## Commands
 
-```sh
-task           # check + test + ratchet (the gate; also runs on pre-push via task hooks)
-task fmt       # golangci-lint fmt (gofumpt + goimports) for Go, prettier for JSON and Markdown
-task test      # go test -race with a -coverpkg coverage profile
-task ratchet:update  # record uncovered-statement counts after a deliberate coverage change
-task goldens   # rewrite the golden fixtures, then run the full gate
-task fuzz      # each fuzz target's engine, 30s each (FUZZTIME=2m to extend)
-task citations # hold docs/ERRATA.md's quotations to the pages they cite
-task hooks     # point core.hooksPath at .githooks (pre-push runs the gate)
-task deps      # install the toolchain from the Brewfile
-
-go test -run TestName ./chargen             # one test
-go test -race -run 'TestName/subtest' ./... # one subtest
-```
+Run `task --list` for the current set. `task` is the gate: CI runs it, and so
+does the pre-push hook once `task hooks` has pointed `core.hooksPath` at
+`.githooks`.
 
 `fuzz` and `citations` are deliberately outside the gate. The gate runs
 each fuzz target's seed corpus, which is what keeps a target honest as
@@ -111,12 +100,6 @@ can rewrite proves nothing about what an earlier engine wrote.
 
 ## Layout
 
-- `cmd/t5chargen` — CLI (subcommands: new, batch, render, replay, version, help).
-- `dice` — dice engine: xD, Flux, target-number throws (PRD FR9).
-- `chargen` — engine; consumes a `Decider` for all choice points.
-- `career` — data-driven career definitions.
-- `render` — character sheet and history transcript output.
-
 Careers plug into the shared term loop through the unexported
 `careerMechanics` interface and `careerRegistry` in `chargen/careerrun.go`;
 a career in `career.Available` with no registry entry is a wiring bug, not
@@ -126,17 +109,18 @@ exception scoped to tests: `audit` checks records against the JSON Schema
 with `github.com/santhosh-tekuri/jsonschema/v6`, which `depguard` admits in
 `_test.go` files only and which never reaches the binary.
 
-The rest are one embedded chart or vocabulary each, loaded through the same
+The chart packages are one embedded chart or vocabulary each, loaded through a shared
 `go:embed` plus `sync.OnceValues` pattern with load-time validation:
 `benefit` (chart M1), `calendar` (the Imperial Calendar and Birth Date
 Generation, pp. 262-263), `career` (charts 01-13), `education` (chart C),
-`ehex` (the extended hex digits), `fame` (chart F), `lifestage` (chart A's
-stages), `medal`, `ship` (chart S), `skill` (chart MS) and `world`
-(chart B). A chart that fails to load says so once, through its package's
-`Err`, which `chargen` asks before a lifepath starts; its lookups return
-values, not errors, so do not add an error return to one for a fault only
-a corrupt embed can cause. `interactive` is the line-based front end for
-interactive generation.
+`fame` (chart F), `lifestage` (chart A's stages), `medal`, `ship` (chart S),
+`skill` (chart MS) and `world` (chart B). A chart that fails to load says so
+once, through its package's `Err`, which `chargen` asks before a lifepath
+starts (`career` reports through `ByName` instead, and `medal` has no `Err`);
+its lookups return values, not errors, so do not add an error return to one
+for a fault only a corrupt embed can cause. `ehex` is the extended hex digits
+as plain code, and `interactive` is the line-based front end for interactive
+generation.
 
 `audit` is test-only and holds no rules: it is the guards that keep the
 documents honest — that every test docs/COVERAGE.md cites exists, that
