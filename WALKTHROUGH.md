@@ -1,13 +1,10 @@
 # t5chargen Walkthrough
 
-*2026-09-10T12:42:17Z by Showboat 0.6.1*
-<!-- showboat-id: 5a1d87ac-6f82-4ed9-b1e0-c4ad24d04d56 -->
-
 ## Overview
 
 `t5chargen` is a command-line character generator for **Traveller5**, the
 2013 edition of the tabletop RPG. It walks a character through the game's
-*lifepath*: roll six characteristics, settle a homeworld, optionally go to
+_lifepath_: roll six characteristics, settle a homeworld, optionally go to
 school, serve one or more four-year career terms, age, and muster out.
 
 The thing to hold in mind before reading a line of it: the product is not
@@ -43,7 +40,7 @@ require (
 
 ## Architecture
 
-Seventeen packages, and the split is by *kind of thing* rather than by
+Seventeen packages, and the split is by _kind of thing_ rather than by
 layer. `cmd/t5chargen` is the CLI. `chargen` is the engine. `dice` is the
 seeded random stream. `render` turns a record into Markdown. `interactive`
 is the line-based front end. `audit` is test-only and contains no rules at
@@ -238,7 +235,7 @@ Fame, muster out, birthdate.
 Three things to notice:
 
 - **One roller.** `dice.New(opts.Seed)` creates the single PCG stream and
-  it is threaded by pointer through everything below. The *order* in which
+  it is threaded by pointer through everything below. The _order_ in which
   that stream is consumed is part of `EngineVersion`, which is why adding a
   roll anywhere is a version bump even when no rule changed meaning.
 - **`policy_version` is decided by a type assertion.** Only
@@ -314,7 +311,7 @@ order, because the event log needs them.
 
 Read the doc comment on `New` carefully — it is where the strongest
 constraint in the repository is stated. The seed expansion, the algorithm,
-*and the face-consumption order of every roll method* are version-locked.
+_and the face-consumption order of every roll method_ are version-locked.
 A change to any of them is an engine version bump, whether or not any rule
 changed.
 
@@ -350,7 +347,7 @@ func New(seed uint64) *Roller {
 Four event kinds — `step`, `throw`, `choice`, `consequence` — and exactly
 one payload field is non-nil on each. A consequence carries the sequence
 number of the throw or choice that caused it, which is what lets the
-transcript say *why* a value moved.
+transcript say _why_ a value moved.
 
 ```bash
 sed -n '31,41p' chargen/event.go
@@ -521,7 +518,7 @@ func choose(log *Log, decider Decider, c Choice) (int, int, error) {
 
 ### Decider 1 — the auto policy
 
-`DefaultPolicy` is the fixed decision table behind `--auto`. It is *total*
+`DefaultPolicy` is the fixed decision table behind `--auto`. It is _total_
 — every choice point has a rule, and a gate in `audit/` fails the build if
 one does not — and it never refuses, so its error is always nil.
 
@@ -671,7 +668,7 @@ sets of exceptions, and the alternative to one long shared loop is thirteen
 slightly divergent copies of it. The table C award helpers the loop calls
 into live beside it in `chargen/awards.go`, so the loop reads in order.
 
-Charts 01-13 are *data* — `career/data/*.json`, 120 KB of skill tables,
+Charts 01-13 are _data_ — `career/data/*.json`, 120 KB of skill tables,
 target numbers, benefit rows and rank titles, with no conditional logic in
 it anywhere. What a chart needs that a table cannot express becomes Go,
 behind a two-method unexported interface.
@@ -731,7 +728,7 @@ var careerRegistry = map[string]func() (*career.Definition, careerMechanics, err
 ```
 
 `term` resolves one term of a career, and its structure repays reading. The
-Later Education offer comes *before* the term's own step, because "at the
+Later Education offer comes _before_ the term's own step, because "at the
 beginning of any term" is where the rule puts it and because a suspended
 term is not a term of the career — it must not open one in the transcript.
 The death check between them is not defensive padding: once `Dead` is set,
@@ -819,7 +816,7 @@ func (c *Character) advanceYears(years int, roller *dice.Roller, log *Log, cause
 ## 7. After the careers
 
 Fame, then muster out, then the birthdate — and the order is forced. Fame
-is calculated over the *finished* record rather than accumulated as the
+is calculated over the _finished_ record rather than accumulated as the
 lifepath runs, and muster out reads it ("one additional roll if Fame 19+",
 p. 68). The birthdate is settled last because p. 58 puts it last and
 because it reads an age that muster out is the final chance to change.
@@ -878,8 +875,8 @@ Every record carries five identifiers, and understanding what each entitles
 you to is most of understanding the compatibility story.
 
 - **`schema_version`** — the shape of the record.
-- **`engine_version`** — this implementation of the procedure, *including
-  the order in which the seeded stream is consumed*.
+- **`engine_version`** — this implementation of the procedure, _including
+  the order in which the seeded stream is consumed_.
 - **`policy_version`** — the auto-mode decision table, or `"none"`.
 - **`ruleset`** and **`rng.algorithm`** — pinned strings, compared on
   replay.
@@ -920,7 +917,7 @@ const (
 
 `replay` is the reason the `Decider` seam is shaped the way it is. It
 harvests every recorded choice event into a `replayDecider`, then calls
-`Generate` again — the *same* engine, with a third answering strategy.
+`Generate` again — the _same_ engine, with a third answering strategy.
 There is no separate replay code path that could drift from generation.
 
 Then it verifies in two stages. `compareEvents` reports the first
@@ -973,7 +970,7 @@ func replay(stored Character, provenanceWaived bool) (Character, error) {
 ```
 
 The `replayDecider` itself is short, and its doc comment records a
-deliberate *removal* worth knowing about: it does not check that the engine
+deliberate _removal_ worth knowing about: it does not check that the engine
 is asking the recorded question, because a record whose options no longer
 match produces a choice event that no longer matches, and `compareEvents`
 already reports that against the same sequence number. The pre-check could
@@ -1050,7 +1047,7 @@ line rather than panicking, and a lookup into an embedded table that has
 since moved omits a line rather than failing.
 
 That degradation is what makes the compatibility promise honest — a record
-written by a released version *renders* under every later released version,
+written by a released version _renders_ under every later released version,
 where "renders" means "can be read", not "produces identical bytes". The
 sheet's layout is explicitly outside the promise.
 
@@ -1189,8 +1186,8 @@ replayed character.json: 151 events reproduced from seed 7
 The most unusual thing in the repository, and the easiest to misread as
 over-engineering. The authority for this system is a printed book that
 cannot be imported, executed, or diffed, so no test can check the code
-against Book 1. What the project does instead is turn *claims about the
-book* into structured documents, and then gate the documents mechanically.
+against Book 1. What the project does instead is turn _claims about the
+book_ into structured documents, and then gate the documents mechanically.
 
 `audit` is test-only, holds no rules, and is that machinery: every test
 `COVERAGE.md` cites exists; every `ERRATA.md` interpretation is cited from
@@ -1246,9 +1243,9 @@ filed in `.issues/`; both have since been fixed.
 
 ## Index
 
-| # | Severity | Issue | Primary location |
-| --- | --- | --- | --- |
-| 1 | low | `history-transcript-choice-lines-inline-whole-option-lists` (fixed: long lists wrap beneath the line) | `render/render.go` |
-| 2 | low | `careerrun-interleaves-the-shared-term-loop-with-chart-specific-helpers` (fixed: `chargen/awards.go`) | `chargen/careerrun.go` |
+| #   | Severity | Issue                                                                                                 | Primary location       |
+| --- | -------- | ----------------------------------------------------------------------------------------------------- | ---------------------- |
+| 1   | low      | `history-transcript-choice-lines-inline-whole-option-lists` (fixed: long lists wrap beneath the line) | `render/render.go`     |
+| 2   | low      | `careerrun-interleaves-the-shared-term-loop-with-chart-specific-helpers` (fixed: `chargen/awards.go`) | `chargen/careerrun.go` |
 
 **Total: 2 issues (0 critical, 0 high, 0 medium, 2 low)**
