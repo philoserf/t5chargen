@@ -47,24 +47,22 @@ conventions, the auto-policy requirements, and milestones.
 
 ## Commands
 
-Run `task --list` for the current set. `task` is the gate: CI runs it, and so
-does the pre-push hook once `task hooks` has pointed `core.hooksPath` at
+Run `task --list` for the current set. `task` is the gate, and the pre-push hook
+runs it once `task hooks` has pointed `core.hooksPath` at
 `.githooks`.
 
 `fuzz` and `citations` are deliberately outside the gate. The gate runs
 each fuzz target's seed corpus, which is what keeps a target honest as
 the code moves; the fuzzing engine itself is a search, and a search with
 a time limit belongs to whoever chose the limit. `citations` needs the
-private Book 1 PDF (`T5_RULES_PDF`), which CI does not have and which the
-test skips rather than fails on when absent.
+private Book 1 PDF (`T5_RULES_PDF`), which the test skips rather than fails on when absent.
 
 `task check` runs `go fix ./...` and then fails if `git diff` sees any
 change to a `*.go` file. It cannot tell a modernization from work in
 progress, so stage or commit Go edits before running the gate.
 
 `main` is protected on GitHub: pushes to it are rejected, history is
-linear, force-pushes and deletion are blocked, and the CI check
-`task (check + test)` must pass before a pull request can merge. Every
+linear, and force-pushes and deletion are blocked. Every
 change lands through a pull request — branch, run the gate, push the
 branch, then `gh pr merge --squash --delete-branch`. No review approval
 is required, so this costs a solo workflow nothing beyond remembering to
@@ -72,13 +70,6 @@ branch first. The rules apply to the repository owner too, which is the
 point: they exist to catch an accidental commit on `main`, and an owner
 exemption would defeat that. Lift them deliberately (repository
 settings, or the branches protection API) if you ever genuinely need to.
-
-The required check is "strict": a branch must be up to date with `main`
-before it merges. That is what makes green mean the code as it will
-exist on `main` rather than as it existed when the branch left it, and
-the cost is updating a branch that has fallen behind. `task` and CI run
-the same thing, so a branch that passes locally and is current passes
-there.
 
 Prettier formats the embedded chart data and the documents, but never
 `chargen/testdata` or `render/testdata`: those are the engine's own output,

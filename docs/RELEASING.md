@@ -38,11 +38,10 @@ Run in this order. Each step can invalidate the one before it.
    should move before running this is how a surprise gets noticed.
 2. **`task`** — the gate: `go fix` cleanliness, `go mod tidy -diff`,
    prettier, vet, golangci-lint (formatting included), the tests under
-   `-race`, and the coverage ratchet. This is what CI runs, so green means
-   the same thing in both places.
+   `-race`, and the coverage ratchet.
 3. **`task citations`** — holds every ERRATA.md quotation to the page it
    cites, against Book 1 Print Edition 5.1. It needs the private PDF and
-   skips without it, which is why CI cannot run it and a maintainer must.
+   skips without it, so a maintainer with the PDF must run it.
 4. **The smoke test** — the five workflows, against a built binary rather
    than `go run`:
 
@@ -77,31 +76,21 @@ git tag -a "$version" -m "$version"
 git push origin "$version"
 ```
 
-Pushing the tag is now the whole of it. `.github/workflows/release.yml`
-runs the gate again on the tagged commit, waits for the module proxy to
-serve the tag, installs the four platform binaries from it, checks the
-native one reports the tag, writes `SHA256SUMS`, and opens a **draft**
-release with the artifacts attached.
+There is no release workflow (removed 2026-10-12). Pushing the tag makes
+the version installable through the module proxy; any binaries and the
+GitHub release are made by hand.
 
-Prereleases take `-alpha.N` / `-beta.N`, and the workflow marks anything
-with a hyphen in its tag as a prerelease, which keeps `@latest` resolving
+Prereleases take `-alpha.N` / `-beta.N`, which keeps `@latest` resolving
 past them once a stable version exists.
 
 ## After tagging
 
-Write the notes and publish the draft. This is the step that stays
-manual: release notes say what it is, what works, what the known
+Write the release notes. They say what it is, what works, what the known
 limitations are, and that the rules belong to Far Future Enterprises —
-which is a paragraph a person writes, and the reason the workflow drafts
-rather than publishes.
+which is a paragraph a person writes.
 
-The install check that used to live here is now the way the artifacts are
-built. It was always the point of installing rather than building: a
-`go build` in the work tree reports a VCS pseudo-version, and only a
-module install proves the tag reaches the binary. Building the release
-that way makes the proof and the artifact the same act.
-
-To check it by hand anyway:
+Check the tag reaches the binary. A `go build` in the work tree reports a
+VCS pseudo-version; only a module install proves it:
 
 ```sh
 GOPATH=$(mktemp -d) go install "github.com/philoserf/t5chargen/cmd/t5chargen@$version"
@@ -129,20 +118,12 @@ No Homebrew formula. It is a maintenance commitment better made once
 there are users asking for it, and `go install` plus the attached
 binaries covers everyone until then.
 
-The release notes are not generated. The workflow drafts the release and
-attaches the artifacts; what the release _is_ stays a paragraph a person
-writes.
+The release notes are not generated. What the release _is_ stays a paragraph a
+person writes.
 
-`task citations` does not run in either workflow. It holds ERRATA.md's
+`task citations` is outside the gate. It holds ERRATA.md's
 quotations to the pages they cite against Book 1, Print Edition 5.1 — a
-purchased artifact this repository does not redistribute and cannot. The
-gate skips wherever `T5_RULES_PDF` is unset, which on a runner is always,
-so running it there would report a pass it never performed. Run it
+purchased artifact this repository does not redistribute and cannot. It
+skips wherever `T5_RULES_PDF` is unset, so a pass without the PDF is a
+pass it never performed. Run it
 locally before tagging; it is step 3 above.
-
-Prebuilt binaries and the release workflow were the first alpha's
-deliberate omissions, on the reasoning that `go install` was enough and
-neither was worth the commitment yet. The beta plan revisited that:
-checksummed binaries widen the tester pool and make reports easier to
-reproduce, which is the point of the cycle ([RELEASE_READINESS.md](RELEASE_READINESS.md),
-From alpha to beta).
