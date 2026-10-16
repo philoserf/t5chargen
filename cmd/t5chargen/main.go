@@ -1215,7 +1215,8 @@ var errIsDirectory = errors.New("is a directory; name one of the records inside 
 // record. It is the write side of errIsDirectory, with the advice turned
 // round: new writes one file, and filling a directory is batch's job.
 var errDestIsDirectory = errors.New(
-	"names a directory; new writes one file, so name the file (batch fills a directory)")
+	"names a directory; new writes one file, so name the file (batch fills a directory)",
+)
 
 // errNoParent reports an output path whose directory does not exist. new
 // does not create one: a directory nobody asked for, made because of a
