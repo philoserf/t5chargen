@@ -176,31 +176,12 @@ func (t *Table) validate() error {
 		return fmt.Errorf("%w: non-positive noble multiplier", errBadTable)
 	}
 
-	// A multiplier missing from the data decodes as zero, which would price
-	// the accomplishment at nothing without saying so.
-	for name, n := range map[string]int{
-		"craftsman masterpieces":         t.Careers.Craftsman.Masterpieces,
-		"craftsman perfect masterpieces": t.Careers.Craftsman.PerfectMasterpieces,
-		"scout discoveries":              t.Careers.Scout.Discoveries,
-		"rogue successful schemes":       t.Careers.Rogue.SuccessfulSchemes,
-		"rogue failed schemes":           t.Careers.Rogue.FailedSchemes,
-		"noble per exile":                t.Careers.Noble.PerExile,
-	} {
-		if n < 1 {
-			return fmt.Errorf("%w: %s multiplier is %d", errBadTable, name, n)
-		}
+	if err := t.Careers.validate(); err != nil {
+		return err
 	}
 
-	if len(t.Medals) == 0 {
-		return fmt.Errorf("%w: no medals priced", errBadTable)
-	}
-
-	// Exemplary Service is listed at x0, so zero is a price; a negative
-	// is not, and would subtract Fame for holding a decoration.
-	for code, points := range t.Medals {
-		if points < 0 {
-			return fmt.Errorf("%w: medal %q is priced at %d", errBadTable, code, points)
-		}
+	if err := validateMedals(t.Medals); err != nil {
+		return err
 	}
 
 	// The descriptor list is indexed by Fame level and must at least
@@ -213,6 +194,43 @@ func (t *Table) validate() error {
 	for i, name := range t.Descriptors {
 		if name == "" {
 			return fmt.Errorf("%w: descriptor %d is empty", errBadTable, i)
+		}
+	}
+
+	return nil
+}
+
+// validate rejects a missing multiplier: one absent from the data decodes
+// as zero, which would price the accomplishment at nothing without saying
+// so.
+func (c Careers) validate() error {
+	for name, n := range map[string]int{
+		"craftsman masterpieces":         c.Craftsman.Masterpieces,
+		"craftsman perfect masterpieces": c.Craftsman.PerfectMasterpieces,
+		"scout discoveries":              c.Scout.Discoveries,
+		"rogue successful schemes":       c.Rogue.SuccessfulSchemes,
+		"rogue failed schemes":           c.Rogue.FailedSchemes,
+		"noble per exile":                c.Noble.PerExile,
+	} {
+		if n < 1 {
+			return fmt.Errorf("%w: %s multiplier is %d", errBadTable, name, n)
+		}
+	}
+
+	return nil
+}
+
+// validateMedals rejects an empty or negative price list. Exemplary Service
+// is listed at x0, so zero is a price; a negative is not, and would subtract
+// Fame for holding a decoration.
+func validateMedals(medals map[string]int) error {
+	if len(medals) == 0 {
+		return fmt.Errorf("%w: no medals priced", errBadTable)
+	}
+
+	for code, points := range medals {
+		if points < 0 {
+			return fmt.Errorf("%w: medal %q is priced at %d", errBadTable, code, points)
 		}
 	}
 
