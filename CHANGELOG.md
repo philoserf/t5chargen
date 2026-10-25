@@ -11,7 +11,8 @@ This file starts at the first release. Everything before it is in git.
 
 ## Unreleased
 
-Nothing since `v0.1.0-beta.2`.
+- The pre-push hook and `task hooks` are gone. Nothing runs `task` for
+  you now; run it before every push.
 
 ## v0.1.0-beta.2 — 2026-10-25
 

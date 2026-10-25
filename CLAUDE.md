@@ -47,9 +47,8 @@ conventions, the auto-policy requirements, and milestones.
 
 ## Commands
 
-Run `task --list` for the current set. `task` is the gate, and the pre-push hook
-runs it once `task hooks` has pointed `core.hooksPath` at
-`.githooks`.
+Run `task --list` for the current set. `task` is the gate. Nothing runs it
+for you — no hook, no CI — so run it before every push.
 
 `fuzz` and `citations` are deliberately outside the gate. The gate runs
 each fuzz target's seed corpus, which is what keeps a target honest as
