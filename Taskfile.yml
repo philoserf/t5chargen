@@ -58,7 +58,7 @@ tasks:
       - task: ratchet
 
   check:
-    desc: Modernize gate + go mod tidy + prettier + go vet + golangci-lint (formatting included) + nilaway
+    desc: Modernize gate + go mod tidy + bun fmt + go vet + golangci-lint (formatting included) + nilaway
     cmds:
       - task: modernize
       - task: tidy
@@ -89,23 +89,23 @@ tasks:
         fi
 
   fmt:check:docs:
-    desc: Check JSON and Markdown formatting with prettier
+    desc: Check JSON and Markdown formatting with bun fmt
     cmds:
       - |
-        if ! command -v prettier >/dev/null 2>&1; then
-          echo "prettier not found: install it with 'brew install prettier'." >&2
+        if ! command -v bun >/dev/null 2>&1; then
+          echo "bun not found: install it with 'brew install bun'." >&2
           exit 1
         fi
-        prettier --check . || {
-          echo "prettier formatting check failed: run 'task fmt' to fix." >&2
+        bun fmt --check . || {
+          echo "bun fmt formatting check failed: run 'task fmt' to fix." >&2
           exit 1
         }
 
   fmt:
-    desc: Format Go (gofumpt + goimports, via golangci-lint), JSON and Markdown with prettier
+    desc: Format Go (gofumpt + goimports, via golangci-lint), JSON and Markdown with bun fmt
     cmds:
       - golangci-lint fmt ./...
-      - prettier --write --log-level warn .
+      - bun fmt --log-level warn .
 
   vet:
     desc: Run go vet
