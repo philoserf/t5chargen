@@ -237,9 +237,3 @@ tasks:
     desc: Install the development toolchain from the Brewfile
     cmds:
       - brew bundle --file=Brewfile
-
-  hooks:
-    desc: Install git hooks (point core.hooksPath at the tracked .githooks/)
-    cmds:
-      - git config core.hooksPath .githooks
-      - echo "git hooks installed — pre-push runs 'task' (check + test)"

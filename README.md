@@ -205,12 +205,10 @@ The MIT licence below covers this repository's own code.
 ```sh
 task deps   # install the toolchain (Homebrew)
 task        # the gate: check + test
-task hooks  # run the gate on every push
 ```
 
-`task` is the only gate: nothing runs on the remote, so run it before
-every push (`task hooks` does that for you). Contributions should keep it
-green and leave the golden fixtures moved only deliberately —
-`task goldens` regenerates them.
+`task` is the only gate: nothing runs it for you, so run it before
+every push. Contributions should keep it green and leave the golden
+fixtures moved only deliberately — `task goldens` regenerates them.
 
 MIT licensed. See [LICENSE](LICENSE).
