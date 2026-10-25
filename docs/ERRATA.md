@@ -1743,7 +1743,7 @@ The clamp is at the chart F reading, not on chart 03's own value: the
 Entertainer's record keeps the negative level, which is his Continue
 target and the number a Comeback measures against.
 
-Implemented at `chargen/fame.go` (`singleLineFame`).
+Implemented at `chargen/fame.go` (`careerFameRules`).
 
 ### I-69: Interpretation — "Merchant =Rank" reads the printed rank number (p. 91 chart F; p. 80 chart 06)
 

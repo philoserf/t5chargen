@@ -3,6 +3,12 @@
   "stack_limit": 20,
   "no_eligibility_dice": 1,
   "noble_soc_multiplier": 1.5,
+  "careers": {
+    "craftsman": { "masterpieces": 3, "perfect_masterpieces": 5 },
+    "scout": { "discoveries": 4 },
+    "rogue": { "successful_schemes": 2, "failed_schemes": 3 },
+    "noble": { "per_exile": 1 }
+  },
   "medals": {
     "XS": 0,
     "WB": 1,

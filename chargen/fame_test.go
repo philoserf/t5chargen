@@ -1,9 +1,12 @@
 package chargen_test
 
 import (
+	"errors"
+	"slices"
 	"strings"
 	"testing"
 
+	"github.com/philoserf/t5chargen/career"
 	"github.com/philoserf/t5chargen/chargen"
 	"github.com/philoserf/t5chargen/fame"
 )
@@ -313,4 +316,20 @@ func fluxCost(t *testing.T, c chargen.Character, forced string, seed uint64) (bo
 	t.Errorf("%s seed %d: Flux %d left Fame at %d with a base of %d", forced, seed, flux, c.Fame, base)
 
 	return false, true
+}
+
+// TestFameRulesCoverAvailable holds chart F's per-career rules to the
+// career list: a career with no rule, or a rule under a misspelt name, is
+// refused rather than priced at nothing.
+func TestFameRulesCoverAvailable(t *testing.T) {
+	available := slices.Clone(career.Available())
+	slices.Sort(available)
+
+	if rules := chargen.FameRuleNames(); !slices.Equal(rules, available) {
+		t.Errorf("fame rules %v != career.Available %v", rules, available)
+	}
+
+	if err := chargen.CareerFameFault(); !errors.Is(err, chargen.ErrUnregisteredCareer) {
+		t.Errorf("an unregistered career: got %v, want %v", err, chargen.ErrUnregisteredCareer)
+	}
 }

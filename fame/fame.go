@@ -32,6 +32,10 @@ type Table struct {
 	// NobleSocMultiplier: "Imperial Noble Soc x1.5".
 	NobleSocMultiplier float64 `json:"noble_soc_multiplier"`
 
+	// Careers are the per-occurrence multipliers chart F prints beside each
+	// career's eligibilities: "xN = N Fame points per occurrence".
+	Careers Careers `json:"careers"`
+
 	// Medals are the Fame points each decoration is worth per occurrence
 	// ("xN = N Fame points per occurrence"), keyed by the chart M1 code.
 	// Exemplary Service is listed at x0: it is famous for nothing.
@@ -42,6 +46,33 @@ type Table struct {
 	// Fame-10: name recognition anywhere on the world on which he
 	// performs."
 	Descriptors []string `json:"descriptors"`
+}
+
+// Careers holds chart F's career multipliers. Which accomplishment each
+// one prices is the engine's business, in chargen/fame.go.
+type Careers struct {
+	// Craftsman: "Craftsman Masterpieces x3 / Craftsman Perfect
+	// Masterpieces x5".
+	Craftsman struct {
+		Masterpieces        int `json:"masterpieces"`
+		PerfectMasterpieces int `json:"perfect_masterpieces"`
+	} `json:"craftsman"`
+
+	// Scout: "Scout Discoveries x4".
+	Scout struct {
+		Discoveries int `json:"discoveries"`
+	} `json:"scout"`
+
+	// Rogue: "Rogue Successful Schemes x2 / Rogue Failed Schemes x3".
+	Rogue struct {
+		SuccessfulSchemes int `json:"successful_schemes"`
+		FailedSchemes     int `json:"failed_schemes"`
+	} `json:"rogue"`
+
+	// Noble: "Imperial Noble Per Exile +1".
+	Noble struct {
+		PerExile int `json:"per_exile"`
+	} `json:"noble"`
 }
 
 //go:embed data/fame.json
@@ -143,6 +174,21 @@ func (t *Table) validate() error {
 
 	if t.NobleSocMultiplier <= 0 {
 		return fmt.Errorf("%w: non-positive noble multiplier", errBadTable)
+	}
+
+	// A multiplier missing from the data decodes as zero, which would price
+	// the accomplishment at nothing without saying so.
+	for name, n := range map[string]int{
+		"craftsman masterpieces":         t.Careers.Craftsman.Masterpieces,
+		"craftsman perfect masterpieces": t.Careers.Craftsman.PerfectMasterpieces,
+		"scout discoveries":              t.Careers.Scout.Discoveries,
+		"rogue successful schemes":       t.Careers.Rogue.SuccessfulSchemes,
+		"rogue failed schemes":           t.Careers.Rogue.FailedSchemes,
+		"noble per exile":                t.Careers.Noble.PerExile,
+	} {
+		if n < 1 {
+			return fmt.Errorf("%w: %s multiplier is %d", errBadTable, name, n)
+		}
 	}
 
 	if len(t.Medals) == 0 {
