@@ -477,7 +477,9 @@ func (m *armedForcesMechanics) resolveTerm(r *careerRun, cc string) (termOutcome
 		return outcome, err
 	}
 
-	gained, err := m.advance(r)
+	gained, err := r.advance(&m.rank, func(a career.Advancement, rank career.Rank) (bool, error) {
+		return m.attempt(r, a, rank)
+	})
 	if err != nil {
 		return termOutcome{}, err
 	}
@@ -665,40 +667,6 @@ func medalMod(record *CareerRecord) int {
 	}
 
 	return total
-}
-
-// advance runs the term's commission and promotion attempts against the
-// rank class held at the start of the phase, following the chart 06
-// precedent where chart 08 is silent (interpretation I-13's rule).
-func (m *armedForcesMechanics) advance(r *careerRun) (int, error) {
-	entry, ok := r.def.RankByID(m.rank)
-	if !ok {
-		return 0, fmt.Errorf("%w: %q", errUnknownRank, m.rank)
-	}
-
-	gained := 0
-
-	for _, advancement := range r.def.Advancements {
-		current, ok := r.def.RankByID(m.rank)
-		if !ok {
-			return 0, fmt.Errorf("%w: %q", errUnknownRank, m.rank)
-		}
-
-		if !openToClass(advancement, entry) || !eligibleForAdvancement(advancement, current, r.def) {
-			continue
-		}
-
-		promoted, err := m.attempt(r, advancement, current)
-		if err != nil {
-			return 0, err
-		}
-
-		if promoted {
-			gained++
-		}
-	}
-
-	return gained, nil
 }
 
 // attempt offers and rolls one commission or promotion.
