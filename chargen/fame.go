@@ -269,11 +269,8 @@ func rogueFame(s *fameScope) {
 // armedForcesFame prices "Army / Marine / Navy: Officer Rank *" and the
 // decorations beneath it, subject to the footnote "*Armed Forces Enlisted
 // = no Fame" (interpretation I-65).
+// careerFameRules reaches it for the three Armed Forces careers only.
 func armedForcesFame(s *fameScope) {
-	if !s.def.Reserves {
-		return
-	}
-
 	rank, ok := s.def.RankByID(s.record.Rank)
 	if !ok || rank.Class != "officer" {
 		// "*Armed Forces Enlisted = no Fame."
