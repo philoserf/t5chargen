@@ -32,6 +32,10 @@ type Table struct {
 	// NobleSocMultiplier: "Imperial Noble Soc x1.5".
 	NobleSocMultiplier float64 `json:"noble_soc_multiplier"`
 
+	// Careers are the per-occurrence multipliers chart F prints beside each
+	// career's eligibilities: "xN = N Fame points per occurrence".
+	Careers Careers `json:"careers"`
+
 	// Medals are the Fame points each decoration is worth per occurrence
 	// ("xN = N Fame points per occurrence"), keyed by the chart M1 code.
 	// Exemplary Service is listed at x0: it is famous for nothing.
@@ -42,6 +46,33 @@ type Table struct {
 	// Fame-10: name recognition anywhere on the world on which he
 	// performs."
 	Descriptors []string `json:"descriptors"`
+}
+
+// Careers holds chart F's career multipliers. Which accomplishment each
+// one prices is the engine's business, in chargen/fame.go.
+type Careers struct {
+	// Craftsman: "Craftsman Masterpieces x3 / Craftsman Perfect
+	// Masterpieces x5".
+	Craftsman struct {
+		Masterpieces        int `json:"masterpieces"`
+		PerfectMasterpieces int `json:"perfect_masterpieces"`
+	} `json:"craftsman"`
+
+	// Scout: "Scout Discoveries x4".
+	Scout struct {
+		Discoveries int `json:"discoveries"`
+	} `json:"scout"`
+
+	// Rogue: "Rogue Successful Schemes x2 / Rogue Failed Schemes x3".
+	Rogue struct {
+		SuccessfulSchemes int `json:"successful_schemes"`
+		FailedSchemes     int `json:"failed_schemes"`
+	} `json:"rogue"`
+
+	// Noble: "Imperial Noble Per Exile +1".
+	Noble struct {
+		PerExile int `json:"per_exile"`
+	} `json:"noble"`
 }
 
 //go:embed data/fame.json
@@ -145,16 +176,12 @@ func (t *Table) validate() error {
 		return fmt.Errorf("%w: non-positive noble multiplier", errBadTable)
 	}
 
-	if len(t.Medals) == 0 {
-		return fmt.Errorf("%w: no medals priced", errBadTable)
+	if err := t.Careers.validate(); err != nil {
+		return err
 	}
 
-	// Exemplary Service is listed at x0, so zero is a price; a negative
-	// is not, and would subtract Fame for holding a decoration.
-	for code, points := range t.Medals {
-		if points < 0 {
-			return fmt.Errorf("%w: medal %q is priced at %d", errBadTable, code, points)
-		}
+	if err := validateMedals(t.Medals); err != nil {
+		return err
 	}
 
 	// The descriptor list is indexed by Fame level and must at least
@@ -167,6 +194,43 @@ func (t *Table) validate() error {
 	for i, name := range t.Descriptors {
 		if name == "" {
 			return fmt.Errorf("%w: descriptor %d is empty", errBadTable, i)
+		}
+	}
+
+	return nil
+}
+
+// validate rejects a missing multiplier: one absent from the data decodes
+// as zero, which would price the accomplishment at nothing without saying
+// so.
+func (c Careers) validate() error {
+	for name, n := range map[string]int{
+		"craftsman masterpieces":         c.Craftsman.Masterpieces,
+		"craftsman perfect masterpieces": c.Craftsman.PerfectMasterpieces,
+		"scout discoveries":              c.Scout.Discoveries,
+		"rogue successful schemes":       c.Rogue.SuccessfulSchemes,
+		"rogue failed schemes":           c.Rogue.FailedSchemes,
+		"noble per exile":                c.Noble.PerExile,
+	} {
+		if n < 1 {
+			return fmt.Errorf("%w: %s multiplier is %d", errBadTable, name, n)
+		}
+	}
+
+	return nil
+}
+
+// validateMedals rejects an empty or negative price list. Exemplary Service
+// is listed at x0, so zero is a price; a negative is not, and would subtract
+// Fame for holding a decoration.
+func validateMedals(medals map[string]int) error {
+	if len(medals) == 0 {
+		return fmt.Errorf("%w: no medals priced", errBadTable)
+	}
+
+	for code, points := range medals {
+		if points < 0 {
+			return fmt.Errorf("%w: medal %q is priced at %d", errBadTable, code, points)
 		}
 	}
 

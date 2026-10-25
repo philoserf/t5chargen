@@ -93,3 +93,17 @@ func AwardForTest(name string, levels int) (Character, error) {
 // counting from 0 — both give four terms — so a sweep over generated
 // characters cannot see the anchor at all.
 func TermsLivedForTest(careerStartAge int) int { return termsLived(careerStartAge) }
+
+// FameRuleNames is a test bridge to the careerFameRules key set, sorted.
+func FameRuleNames() []string {
+	return slices.Sorted(maps.Keys(careerFameRules))
+}
+
+// CareerFameFault prices a record for a career careerFameRules lacks,
+// which is the wiring bug careerFame refuses rather than pricing at
+// nothing.
+func CareerFameFault() error {
+	_, err := careerFame(nil, CareerRecord{Career: "Nonesuch"}, nil, nil)
+
+	return err
+}

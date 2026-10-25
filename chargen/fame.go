@@ -70,7 +70,12 @@ func computeFame(c *Character, roller *dice.Roller, log *Log, decider Decider) e
 			return fmt.Errorf("fame: %w", lookupErr)
 		}
 
-		earned = append(earned, careerFame(table, record, def, c)...)
+		lines, err := careerFame(table, record, def, c)
+		if err != nil {
+			return err
+		}
+
+		earned = append(earned, lines...)
 	}
 
 	// "If NO other eligibility, 1D." A character who has done nothing the
@@ -157,112 +162,122 @@ func offerFameFlux(
 	return flux.Value, seq, nil
 }
 
-// careerFame prices what one career contributed (chart F's eligibility
-// column).
-func careerFame(table *fame.Table, record CareerRecord, def *career.Definition, c *Character) []famePoints {
-	var earned []famePoints
-
-	// add records a line worth points in total, made of units of `unit`
-	// each; unit 0 means the line is a single amount.
-	add := func(source string, points, unit int) {
-		if points != 0 {
-			earned = append(earned, famePoints{
-				source: record.Career + " " + source, points: points, unit: unit,
-			})
-		}
-	}
-
-	switch record.Career {
-	case "Craftsman":
-		// "Craftsman Masterpieces x3 / Craftsman Perfect Masterpieces x5".
-		// A Perfect Masterpiece is counted in both, being a Masterpiece.
-		add("Masterpieces x3", record.Masterpieces*3, 3)
-		add("Perfect Masterpieces x5", record.PerfectMasterpieces*5, 5)
-	case "Scholar":
-		// "Scholar =Rank / Scholar =Publications".
-		add("Rank", rankNumber(record.Rank), 0)
-		add("Publications", record.Publications, 0)
-	case "Rogue":
-		rogueFame(add, record)
-	case "Noble":
-		// "Imperial Noble Soc x1.5 / Imperial Noble Per Exile +1".
-		add("Soc x1.5", nobleFame(table, c.Characteristics.Soc), 0)
-		add("per Exile", record.TimesExiled, 1)
-	default:
-		singleLineFame(add, record)
-		// Spacer, Soldier, Marine; the Functionary earns none.
-		earned = append(earned, armedForcesFame(table, record, def)...)
-	}
-
-	return earned
+// fameScope is one career record being priced: what the eligibility rules
+// read, and the lines they have earned so far.
+type fameScope struct {
+	table     *fame.Table
+	record    CareerRecord
+	def       *career.Definition
+	character *Character
+	earned    []famePoints
 }
 
-// singleLineFame prices the careers chart F gives one eligibility each,
-// and the two it gives none: "Citizen no intrinsic Fame", and the
-// Functionary, which the chart does not list at all.
-func singleLineFame(add func(string, int, int), record CareerRecord) {
-	switch record.Career {
-	case "Entertainer":
-		// "Entertainer detailed under Career" (chart 03 tracks its own).
-		// Chart 03's Fame is a Flux-driven running level that can fall
-		// below zero; a career the character ended unknown for
-		// contributes nothing rather than subtracting from the others
-		// (interpretation I-68).
-		add("Fame", max(record.Fame, 0), 0)
-	case "Scout":
-		// "Scout Discoveries x4".
-		add("Discoveries x4", record.Discoveries*4, 4)
-	case "Merchant":
-		// "Merchant =Rank". "Merchant Ship Owner = 1D" is deferred:
-		// ownership is settled at muster out (interpretation I-64).
-		add("Rank", rankNumber(record.Rank), 0)
-	case "Agent":
-		// "Agent =Number of Commendations".
-		add("Commendations", record.Commendations, 0)
+// add records a line worth points in total, made of units of `unit` each;
+// unit 0 means the line is a single amount.
+func (s *fameScope) add(source string, points, unit int) {
+	if points != 0 {
+		s.earned = append(s.earned, famePoints{
+			source: s.record.Career + " " + source, points: points, unit: unit,
+		})
 	}
+}
+
+// perOccurrence records a "xN" line: "xN = N Fame points per occurrence".
+func (s *fameScope) perOccurrence(line string, count, n int) {
+	s.add(line+" x"+strconv.Itoa(n), count*n, n)
+}
+
+// careerFameRules prices each career's eligibilities on chart F. Its key
+// set must match career.Available (tested), so a career the chart prices
+// cannot fall through to pricing nothing by a misspelt name.
+var careerFameRules = map[string]func(*fameScope){
+	// "Citizen no intrinsic Fame."
+	"Citizen": func(*fameScope) {},
+	// "Scholar =Rank / Scholar =Publications".
+	"Scholar": func(s *fameScope) {
+		s.add("Rank", rankNumber(s.record.Rank), 0)
+		s.add("Publications", s.record.Publications, 0)
+	},
+	// "Imperial Noble Soc x1.5 / Imperial Noble Per Exile +1".
+	"Noble": func(s *fameScope) {
+		s.add("Soc x1.5", nobleFame(s.table, s.character.Characteristics.Soc), 0)
+		perExile := s.table.Careers.Noble.PerExile
+		s.add("per Exile", s.record.TimesExiled*perExile, perExile)
+	},
+	// Chart F does not list the Functionary at all, and chart 13 is not an
+	// Armed Force, so it earns nothing.
+	"Functionary": func(*fameScope) {},
+	// "Craftsman Masterpieces x3 / Craftsman Perfect Masterpieces x5".
+	// A Perfect Masterpiece is counted in both, being a Masterpiece.
+	"Craftsman": func(s *fameScope) {
+		craftsman := s.table.Careers.Craftsman
+		s.perOccurrence("Masterpieces", s.record.Masterpieces, craftsman.Masterpieces)
+		s.perOccurrence("Perfect Masterpieces", s.record.PerfectMasterpieces, craftsman.PerfectMasterpieces)
+	},
+	"Soldier": armedForcesFame,
+	"Spacer":  armedForcesFame,
+	"Marine":  armedForcesFame,
+	// "Agent =Number of Commendations".
+	"Agent": func(s *fameScope) {
+		s.add("Commendations", s.record.Commendations, 0)
+	},
+	"Rogue": rogueFame,
+	// "Entertainer detailed under Career" (chart 03 tracks its own).
+	// Chart 03's Fame is a Flux-driven running level that can fall below
+	// zero; a career the character ended unknown for contributes nothing
+	// rather than subtracting from the others (interpretation I-68).
+	"Entertainer": func(s *fameScope) {
+		s.add("Fame", max(s.record.Fame, 0), 0)
+	},
+	// "Scout Discoveries x4".
+	"Scout": func(s *fameScope) {
+		s.perOccurrence("Discoveries", s.record.Discoveries, s.table.Careers.Scout.Discoveries)
+	},
+	// "Merchant =Rank". "Merchant Ship Owner = 1D" is deferred: ownership
+	// is settled at muster out (interpretation I-64).
+	"Merchant": func(s *fameScope) {
+		s.add("Rank", rankNumber(s.record.Rank), 0)
+	},
+}
+
+// careerFame prices what one career contributed (chart F's eligibility
+// column).
+func careerFame(table *fame.Table, record CareerRecord, def *career.Definition, c *Character) ([]famePoints, error) {
+	rule, ok := careerFameRules[record.Career]
+	if !ok {
+		return nil, fmt.Errorf("fame: %w: %q", errUnregisteredCareer, record.Career)
+	}
+
+	s := &fameScope{table: table, record: record, def: def, character: c}
+	rule(s)
+
+	return s.earned, nil
 }
 
 // rogueFame prices chart F's two Rogue lines and chart 10's infamy.
-func rogueFame(add func(string, int, int), record CareerRecord) {
+func rogueFame(s *fameScope) {
 	// "Rogue Successful Schemes x2 / Rogue Failed Schemes x3" (chart F).
-	add("Successful Schemes x2", record.SuccessfulSchemes*2, 2)
-	add("Failed Schemes x3", record.FailedSchemes*3, 3)
+	rogue := s.table.Careers.Rogue
+	s.perOccurrence("Successful Schemes", s.record.SuccessfulSchemes, rogue.SuccessfulSchemes)
+	s.perOccurrence("Failed Schemes", s.record.FailedSchemes, rogue.FailedSchemes)
 
 	// "Fame +1 (actually Infamy)" per imprisonment (chart 10 p. 84),
 	// which chart F does not enumerate (interpretation I-67).
-	add("Infamy", record.Fame, 1)
+	s.add("Infamy", s.record.Fame, 1)
 }
 
 // armedForcesFame prices "Army / Marine / Navy: Officer Rank *" and the
 // decorations beneath it, subject to the footnote "*Armed Forces Enlisted
 // = no Fame" (interpretation I-65).
-//
-// The Functionary reaches here too and earns nothing: chart F prices no
-// Functionary accomplishment, and chart 13 is not an Armed Force.
-func armedForcesFame(table *fame.Table, record CareerRecord, def *career.Definition) []famePoints {
-	if !def.Reserves {
-		return nil
-	}
-
-	rank, ok := def.RankByID(record.Rank)
+// careerFameRules reaches it for the three Armed Forces careers only.
+func armedForcesFame(s *fameScope) {
+	rank, ok := s.def.RankByID(s.record.Rank)
 	if !ok || rank.Class != "officer" {
 		// "*Armed Forces Enlisted = no Fame."
-		return nil
+		return
 	}
 
-	var earned []famePoints
-
-	// add records a line worth points in total, made of units of `unit`
-	// each; unit 0 means the line is a single amount.
-	add := func(source string, points, unit int) {
-		if points != 0 {
-			earned = append(earned, famePoints{
-				source: record.Career + " " + source, points: points, unit: unit,
-			})
-		}
-	}
-
-	add("Officer Rank", rankNumber(record.Rank), 0)
+	s.add("Officer Rank", rankNumber(s.record.Rank), 0)
 
 	// "Wound Badge WB x1." A Wound Badge is not a Medal — the Risk
 	// failure awards it, not the Reward success ("If the Soldier, Spacer,
@@ -270,12 +285,12 @@ func armedForcesFame(table *fame.Table, record CareerRecord, def *career.Definit
 	// Wound Badge (WB)", p. 91) — so it is counted on the record rather
 	// than listed in Medals, and priced here from the same Armed Forces
 	// block of chart F.
-	if points, priced := table.MedalPoints(woundBadgeCode); priced {
-		add(woundBadgeCode+" x"+strconv.Itoa(points), record.WoundBadges*points, points)
+	if points, priced := s.table.MedalPoints(woundBadgeCode); priced {
+		s.perOccurrence(woundBadgeCode, s.record.WoundBadges, points)
 	}
 
-	for _, award := range record.Medals {
-		points, priced := table.MedalPoints(award.Code)
+	for _, award := range s.record.Medals {
+		points, priced := s.table.MedalPoints(award.Code)
 		if !priced {
 			// A code chart F does not price is a transcription fault,
 			// not a medal worth nothing. audit's cross-check holds
@@ -290,10 +305,8 @@ func armedForcesFame(table *fame.Table, record CareerRecord, def *career.Definit
 			continue
 		}
 
-		add(award.Code+" x"+strconv.Itoa(points), award.Count*points, points)
+		s.perOccurrence(award.Code, award.Count, points)
 	}
-
-	return earned
 }
 
 // woundBadgeCode is chart F's code for the Wound Badge ("Wound Badge WB

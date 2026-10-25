@@ -335,7 +335,7 @@ func (r *musterOutRun) functionaryTerms(careerName string) int {
 	terms := 0
 
 	for _, record := range r.character.Careers {
-		if record.Career == "Functionary" && record.AssociatedCareer == careerName {
+		if record.Career == functionaryCareer && record.AssociatedCareer == careerName {
 			terms += len(record.Terms)
 		}
 	}

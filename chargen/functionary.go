@@ -40,6 +40,11 @@ const functionaryDirectorRank = "F6"
 // ordinal: "F7 Nth UnderSecretary*", "* N= 1D (ie: 3rd UnderSecretary)".
 const functionaryUnderSecretary = "F7"
 
+// functionaryCareer is the Functionary's career name. Muster out matches
+// records against it (p. 68), where a misspelt literal would count no
+// terms rather than fail.
+const functionaryCareer = "Functionary"
+
 // functionaryMechanics is the Functionary careerMechanics implementation.
 type functionaryMechanics struct{ rank int }
 
@@ -47,7 +52,7 @@ type functionaryMechanics struct{ rank int }
 //
 //nolint:ireturn // The registry's function type returns the interface.
 func newFunctionary() (*career.Definition, careerMechanics, error) {
-	def, err := career.ByName("Functionary")
+	def, err := career.ByName(functionaryCareer)
 	if err != nil {
 		return nil, nil, fmt.Errorf("functionary career: %w", err)
 	}
