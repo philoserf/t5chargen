@@ -146,7 +146,9 @@ func (m *merchantMechanics) resolveTerm(r *careerRun, cc string) (termOutcome, e
 		return outcome, err
 	}
 
-	gained, err := m.advance(r)
+	gained, err := r.advance(&m.rank, func(a career.Advancement, rank career.Rank) (bool, error) {
+		return m.attempt(r, a, rank)
+	})
 	if err != nil {
 		return termOutcome{}, err
 	}
@@ -217,7 +219,11 @@ const maxShipShareAward = 6
 
 // advance attempts each advancement row open to the rank class held at the
 // start of the term, in chart order, and reports how many ranks were
-// gained.
+// gained. rank is the career's current rank id, which attempt moves when
+// it promotes; attempt offers and rolls one row from the given rank.
+// Merchant and the armed forces share it: chart 08 is silent on the order
+// of attempts, so the armed forces follow the chart 06 precedent
+// (interpretation I-13's rule).
 //
 // Eligibility is tested against the rank held when the phase begins, not
 // the rank as it changes: chart 06 enumerates what each class may attempt
@@ -227,18 +233,18 @@ const maxShipShareAward = 6
 // the strength of the commission he just received. Each row still advances
 // from the character's current rank, so a rating promoted this term is
 // promoted from the rank he now holds.
-func (m *merchantMechanics) advance(r *careerRun) (int, error) {
-	entry, ok := r.def.RankByID(m.rank)
+func (r *careerRun) advance(rank *string, attempt func(career.Advancement, career.Rank) (bool, error)) (int, error) {
+	entry, ok := r.def.RankByID(*rank)
 	if !ok {
-		return 0, fmt.Errorf("%w: %q", errUnknownRank, m.rank)
+		return 0, fmt.Errorf("%w: %q", errUnknownRank, *rank)
 	}
 
 	gained := 0
 
 	for _, advancement := range r.def.Advancements {
-		current, ok := r.def.RankByID(m.rank)
+		current, ok := r.def.RankByID(*rank)
 		if !ok {
-			return 0, fmt.Errorf("%w: %q", errUnknownRank, m.rank)
+			return 0, fmt.Errorf("%w: %q", errUnknownRank, *rank)
 		}
 
 		// The entry class decides which rows the term offers; the current
@@ -249,7 +255,7 @@ func (m *merchantMechanics) advance(r *careerRun) (int, error) {
 			continue
 		}
 
-		promoted, err := m.attempt(r, advancement, current)
+		promoted, err := attempt(advancement, current)
 		if err != nil {
 			return 0, err
 		}
