@@ -60,10 +60,9 @@ go install github.com/philoserf/t5chargen/cmd/t5chargen@latest
 Go 1.27 or later. No other dependencies — the tool is standard library
 only.
 
-Supported on macOS and Linux, which CI builds and tests on both the Go
-version `go.mod` declares and the current release. Windows is not
-supported: the tool is pure Go and may well run there, but nothing tests
-it, and an untested platform is not a supported one.
+Supported on macOS, where the gate runs. Linux and Windows are not
+supported: the tool is pure Go and may well run on either, but nothing
+tests them, and an untested platform is not a supported one.
 
 The version is named explicitly rather than `@latest`, which stops
 resolving to a prerelease once a stable version exists.
@@ -209,8 +208,9 @@ task        # the gate: check + test
 task hooks  # run the gate on every push
 ```
 
-`task` is what CI runs, so green means the same thing on both.
-Contributions should keep it green and leave the golden fixtures moved
-only deliberately — `task goldens` regenerates them.
+`task` is the only gate: nothing runs on the remote, so run it before
+every push (`task hooks` does that for you). Contributions should keep it
+green and leave the golden fixtures moved only deliberately —
+`task goldens` regenerates them.
 
 MIT licensed. See [LICENSE](LICENSE).
