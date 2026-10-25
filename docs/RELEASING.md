@@ -37,7 +37,7 @@ Run in this order. Each step can invalidate the one before it.
    only move when a change was meant to move it, and predicting what
    should move before running this is how a surprise gets noticed.
 2. **`task`** — the gate: `go fix` cleanliness, `go mod tidy -diff`,
-   prettier, vet, golangci-lint (formatting included), the tests under
+   bun fmt, vet, golangci-lint (formatting included), the tests under
    `-race`, and the coverage ratchet.
 3. **`task citations`** — holds every ERRATA.md quotation to the page it
    cites, against Book 1 Print Edition 5.1. It needs the private PDF and

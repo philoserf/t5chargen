@@ -71,11 +71,11 @@ point: they exist to catch an accidental commit on `main`, and an owner
 exemption would defeat that. Lift them deliberately (repository
 settings, or the branches protection API) if you ever genuinely need to.
 
-Prettier formats the embedded chart data and the documents, but never
+`bun fmt` formats the embedded chart data and the documents, but never
 `chargen/testdata` or `render/testdata`: those are the engine's own output,
 compared byte for byte, and a formatter must not be the thing that decides
 what a character record looks like. Prose that quotes the printed rules
-must escape T5's literal asterisks (`"+F +F\* +F\*"`), or prettier reads
+must escape T5's literal asterisks (`"+F +F\* +F\*"`), or the formatter reads
 them as emphasis and rewrites the quote.
 
 Never edit a fixture by hand. Regenerate them with `task goldens`, which
