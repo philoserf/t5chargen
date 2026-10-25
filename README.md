@@ -60,9 +60,9 @@ go install github.com/philoserf/t5chargen/cmd/t5chargen@latest
 Go 1.27 or later. No other dependencies — the tool is standard library
 only.
 
-Supported on macOS and Linux. Windows is not supported: the tool is pure
-Go and may well run there, but nothing tests it, and an untested platform
-is not a supported one.
+Supported on macOS, where the gate runs. Linux and Windows are not
+supported: the tool is pure Go and may well run on either, but nothing
+tests them, and an untested platform is not a supported one.
 
 The version is named explicitly rather than `@latest`, which stops
 resolving to a prerelease once a stable version exists.

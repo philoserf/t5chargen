@@ -36,6 +36,10 @@ Testers lose nothing by staying on beta.1.
   and by the pre-push hook `task hooks` installs, is the only gate.
 - `golang.org/x/text`, used only by the tests' schema validator, moved to
   v0.43.0. The shipped binary is still standard library only.
+- macOS is the one supported platform. Linux was supported while CI tested
+  it there; nothing does now, so it joins Windows as untested.
+- The release carries no binaries: install with `go install`, as the
+  README shows. The workflow that built them went with CI.
 
 ## v0.1.0-beta.1 — 2026-09-23
 
