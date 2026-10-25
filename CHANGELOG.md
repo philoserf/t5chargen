@@ -11,7 +11,31 @@ This file starts at the first release. Everything before it is in git.
 
 ## Unreleased
 
-Nothing since `v0.1.0-beta.1`.
+Nothing since `v0.1.0-beta.2`.
+
+## v0.1.0-beta.2 — 2026-10-25
+
+schema 0.33.0 · engine 0.45.0 · policy 0.25.0 — **all three unchanged.**
+
+A maintenance build during the beta. Nothing about a generated character
+moved: every golden fixture is byte for byte what beta.1 wrote, and
+records written by every earlier release still replay under this one.
+Testers lose nothing by staying on beta.1.
+
+- Chart F's per-career Fame multipliers — Craftsman, Scout, Rogue and the
+  Noble's point per Exile — are embedded chart data beside the rest of
+  chart F, checked when the chart loads, instead of numbers in Go.
+- A career with no Fame rule is refused with an error instead of quietly
+  earning no Fame. No shipped career reaches that error; it guards the
+  next one added.
+- Merchant and the armed forces share one implementation of the term's
+  commission and promotion attempts.
+- The repository's JSON and Markdown are formatted with `bun fmt` instead
+  of prettier, so contributors need `bun` (`task deps` installs it).
+- CI, the release workflow and Dependabot are gone. `task`, run locally
+  and by the pre-push hook `task hooks` installs, is the only gate.
+- `golang.org/x/text`, used only by the tests' schema validator, moved to
+  v0.43.0. The shipped binary is still standard library only.
 
 ## v0.1.0-beta.1 — 2026-09-23
 
