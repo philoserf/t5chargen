@@ -311,3 +311,41 @@ v0.49.0 against v0.50.0. It is in the module graph only because the
 current `golang.org/x/text` requires it; no package here imports it,
 `go mod tidy` removes any direct bump, and it is test-only either way.
 It clears when `x/text` moves.
+
+## v0.1.0-beta.2 — 2026-10-25
+
+|                |                                                                       |
+| -------------- | --------------------------------------------------------------------- |
+| **Tag**        | `v0.1.0-beta.2`, prerelease                                           |
+| **Commit**     | `1afb1ba`                                                             |
+| **Versions**   | schema 0.33.0 · engine 0.45.0 · policy 0.25.0 — **unchanged**         |
+| **Goldens**    | `chargen/testdata` and `render/testdata` unchanged since beta.1       |
+| **Gate**       | `task` — green locally on the tagged commit; there is no CI now       |
+| **Citations**  | `task citations` — 254 quotations checked against Book 1              |
+| **Smoke test** | the five workflows against the binary `go install` built from the tag |
+
+A maintenance build during the beta: chart F's career multipliers moved
+into chart data, Merchant and the armed forces share one advancement loop,
+and the repository formats with `bun fmt`. Nothing a tester sees moved,
+and the corpus proves it: the beta.2 records, written by the released
+binary from the earlier seeds, are byte-identical to beta.1's.
+
+Two things about the release itself did change. It carries no binaries,
+because the workflow that built them was removed with CI; testers install
+with `go install`. And macOS is now the one supported platform, since
+nothing tests Linux any more.
+
+### After the tag
+
+- `go install ...@v0.1.0-beta.2` reports **`v0.1.0-beta.2`**, replays a
+  record written by `v0.1.0-beta.1` — 321 events from seed 26 — and wrote
+  this release's corpus records. The corpus gate names the tag.
+
+### Knowingly incomplete
+
+The release gate's one warning was left standing, as at beta.1:
+`golang.org/x/mod` v0.41.0 against v0.42.0 and `golang.org/x/tools`
+v0.51.0 against v0.52.0. Both are in the module graph only because
+`golang.org/x/text` v0.43.0 requires them; no package here imports
+either, `go mod tidy` removes any direct bump, and they are test-only
+either way. They clear when `x/text` moves.
