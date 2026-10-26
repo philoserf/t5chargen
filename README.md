@@ -64,8 +64,8 @@ Supported on macOS, where the gate runs. Linux and Windows are not
 supported: the tool is pure Go and may well run on either, but nothing
 tests them, and an untested platform is not a supported one.
 
-The version is named explicitly rather than `@latest`, which stops
-resolving to a prerelease once a stable version exists.
+`@latest` installs the newest prerelease while there is no stable
+version, and the newest stable version once there is one.
 
 ## Stability
 
