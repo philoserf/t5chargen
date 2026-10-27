@@ -4,6 +4,7 @@
 brew "go"             # Go compiler/toolchain (see go.mod for required version)
 brew "go-task"        # `task` runner — this project's build gate
 brew "golangci-lint"  # meta-linter; enforced via `task lint`
+brew "govulncheck"    # known-vulnerability scan; enforced via `task vuln`
 brew "bun"            # JSON and Markdown formatter (`bun fmt`); enforced via `task fmt:check:docs`
 
 # nilaway has no formula; `task nilaway` needs:

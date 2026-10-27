@@ -58,7 +58,7 @@ tasks:
       - task: ratchet
 
   check:
-    desc: Modernize gate + go mod tidy + bun fmt + go vet + golangci-lint (formatting included) + nilaway
+    desc: Modernize gate + go mod tidy + bun fmt + go vet + golangci-lint (formatting included) + nilaway + govulncheck
     cmds:
       - task: modernize
       - task: tidy
@@ -66,11 +66,17 @@ tasks:
       - task: vet
       - task: lint
       - task: nilaway
+      - task: vuln
 
   nilaway:
     desc: Flow-sensitive nil-dereference analysis with NilAway
     cmds:
       - nilaway ./...
+
+  vuln:
+    desc: Known vulnerabilities in the code this module actually calls, from govulncheck
+    cmds:
+      - govulncheck ./...
 
   # Apply Go modernizations (min/max, range over int, new(value), etc.)
   # and fail if the working tree is no longer clean against HEAD for *.go.
